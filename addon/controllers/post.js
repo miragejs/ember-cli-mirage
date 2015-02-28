@@ -1,4 +1,4 @@
-import { singularize } from '../utils/inflector';
+import { singularize, underscore } from '../utils/inflector';
 import BaseController from './base';
 
 /*
@@ -15,7 +15,7 @@ export default BaseController.extend({
   stringHandler: function(string, store, request) {
     var type = string;
     var postData = this._getJsonBodyForRequest(request);
-    var attrs = postData[type];
+    var attrs = postData[underscore(type)];
     var model = store.push(type, attrs);
 
     var response = {};

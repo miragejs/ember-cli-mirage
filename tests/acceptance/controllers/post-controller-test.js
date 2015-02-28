@@ -34,12 +34,3 @@ test("undefined shorthand works", function() {
   equal(contactsInStore.length, 1);
   deepEqual(result[2], {contact: {id: 1, name: 'Ganon'}});
 });
-
-test("works with multi-word models using a underscored URL", function() {
-  var body = '{"staff_member":{"name":"Ganon"}}';
-  var result = controller.handle('post', undefined, store, {requestBody: body, url: '/staff_members'});
-
-  var staffMembersInStore = store.findAll('staff-member');
-  equal(staffMembersInStore.length, 1);
-  deepEqual(result[2], {staff_member: {id: 1, name: 'Ganon'}});
-});

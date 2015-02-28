@@ -1,4 +1,4 @@
-import { pluralize } from './utils/inflector';
+import { pluralize, underscore } from './utils/inflector';
 
 /*
   An identity map.
@@ -116,7 +116,7 @@ export default function() {
   };
 
   this._keyForType = function(type) {
-    return pluralize(type);
+    return underscore(pluralize(type));
   };
 
   this._findDataForType = function(type) {

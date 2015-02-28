@@ -8,4 +8,11 @@ export default function() {
 
   // Friends
   this.get('/friends');
+
+  // Staff members (multi-word models)
+  this.get('/staff_members', 'staff-members');
+  this.post('/staff_members', 'staff-member');
+  this.get('/staff_members/:id', 'staff-member');
+  this.del('/staff_members/:id', 'staff-member');
+  this.put('/staff_members/:id', 'staff-member');
 }

@@ -13,7 +13,10 @@ Are you tired of
 - Wiring up tests for each of your apps manually, from scratch?
 - Changing lots of files/tests when your API changes?
 
-Ember CLI Mirage may be for you! It lets you create a client-side server using [Pretender](https://github.com/trek/pretender) to help you develop and test your app. By default, it only runs if you're not in production and if you're not proxying to an explicit API server via `ember serve --proxy`.
+Ember CLI Mirage may be for you! It lets you create a client-side
+server using [Pretender](https://github.com/trek/pretender) to help
+you develop and test your app. By default, it only runs if you're not
+in production and if you're in the tests page: `/tests`.
 
 ## Installation
 

@@ -9,7 +9,8 @@ export default {
   initialize: function(container, application) {
     var config = ENV['ember-cli-mirage'];
     var env = ENV.environment;
-    var usingInDev = env === 'development' && !config.usingProxy;
+    var isForTests =  window.location.pathname.match('^/tests');
+    var usingInDev = env === 'development' && isForTests;
     var usingInTest = env === 'test';
     var shouldUseServer = usingInDev || usingInTest || config.force;
 

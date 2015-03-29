@@ -26,6 +26,7 @@ export default {
     var data = this[controller][handlerMethod](handler, db, request, code);
 
     if (data) {
+      code = request.status !== 0 && request.status !== code ? request.status : code;
       return [code, {"Content-Type": "application/json"}, data];
     } else {
       return [code, {}, undefined];

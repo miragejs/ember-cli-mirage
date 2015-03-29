@@ -24,7 +24,7 @@ module('mirage:frontController GET', {
 // TODO: AMS-type response dependency, includes key
 // TODO: Extract to single class for data, handle response code/app elsewhere
 test("string shorthand works", function() {
-  var result = controller.handle('get', 'contacts', db);
+  var result = controller.handle('get', 'contacts', db, {});
 
   deepEqual(result[2], {contacts: contacts});
 });
@@ -39,7 +39,7 @@ test("string shorthand with id works", function() {
 
 // e.g. this.stub('get', '/', ['contacts', 'addresses']);
 test("array shorthand works", function() {
-  var result = controller.handle('get', ['contacts', 'addresses'], db);
+  var result = controller.handle('get', ['contacts', 'addresses'], db, {});
 
   deepEqual(result[2], {contacts: contacts, addresses: addresses});
 });

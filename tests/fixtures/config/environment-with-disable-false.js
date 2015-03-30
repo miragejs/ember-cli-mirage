@@ -18,7 +18,7 @@ module.exports = function(environment) {
       // when it is created
     },
     'ember-cli-mirage': {
-      disable: false
+      disable: true
     }
   };
 

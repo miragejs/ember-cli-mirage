@@ -50,6 +50,14 @@ describe('Addon', function() {
       expect(addonTree.inputTrees.length).to.be.equal(1);
     });
 
+    it('returns an empty tree when disable option is true', function() {
+      process.env.EMBER_ENV = 'production';
+      var addon = getMirageAddon({ configPath: 'tests/fixtures/config/environment-with-disable-false' });
+      var addonTree = addon.treeFor('addon');
+
+      expect(addonTree.inputTrees.length).to.be.equal(0);
+    });
+
   });
 
   describe('#postprocessTree', function() {

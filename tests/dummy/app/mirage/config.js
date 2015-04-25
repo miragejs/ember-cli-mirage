@@ -8,4 +8,10 @@ export default function() {
 
   // Friends
   this.get('/friends');
+
+  // Uploads
+  this.post('/uploads', (db, request) => {
+    this.simulateUpload(request, { interval: 60 });
+    return { filename: 'thriller.mp3' };
+  });
 }

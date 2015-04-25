@@ -122,6 +122,19 @@ export default function(options) {
     return list;
   };
 
+  this.simulateUpload = function(request, options) {
+    var interval = options.interval || (this.timing / 4);
+    var eventsCount = Math.floor(this.timing / interval);
+    var self = this;
+    /*jshint loopfunc:true */
+    for (var i = 0; i < eventsCount; i++) {
+      setTimeout(function() {
+        request.upload._progress(true, i * interval, self.timing);
+      }, i * interval);
+    }
+    /* loopfunc:false */
+  };
+
   // TODO: Better way to inject server
   if (environment === 'test') {
     window.server = this;

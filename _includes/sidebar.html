@@ -1,0 +1,35 @@
+<div class="sidebar">
+  <div class="container">
+    <div class="sidebar-about">
+      <h1 class="header-title">
+        <a href="{{ site.baseurl }}">
+          {{ site.title }}
+        </a>
+      </h1>
+      <p class="lead">{{ site.description }}</p>
+    </div>
+
+    <ul class="sidebar-nav">
+      <li>
+        <a class="sidebar-nav-item{% if page.url == '/'%} active{% endif %}" href="{{ site.baseurl }}">
+          Home
+        </a>
+      </li>
+      <li>
+        <a class="sidebar-nav-item{% if page.url contains '/getting-started' %} active{% endif %}" href="{{site.baseurl}}/getting-started">
+          Getting started
+        </a>
+      </li>
+      <li>
+        <a class="sidebar-nav-item{% if page.url contains '/api' %} active{% endif %}" href="{{site.baseurl}}/api">
+          API
+        </a>
+      </li>
+      <li class='sidebar-bottom-items'>
+        <a href="{{ site.github.repo }}">View on GitHub</a>
+        &middot;
+        <span>v{{ site.version }}</span>
+      </li>
+    </ul>
+  </div>
+</div>

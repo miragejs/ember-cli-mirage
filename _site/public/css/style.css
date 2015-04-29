@@ -1,0 +1,63 @@
+.sidebar-about {
+  background-color: white;
+  color: #ac4142;
+  margin-top: -2rem;
+  margin-left: -2rem;
+  margin-right: -2rem;
+  padding: 3rem 2rem 2rem; }
+  @media only screen and (min-width: 48em) {
+    .sidebar-about {
+      background-color: transparent;
+      margin: 0;
+      padding: 0; } }
+
+.sidebar-about h1,
+.sidebar-about a {
+  color: #3C3C3C;
+  font-size: 3.25rem;
+  line-height: 1;
+  font-family: "PT Sans", Helvetica, Arial, sans-serif;
+  margin-bottom: 0.3rem; }
+  @media only screen and (min-width: 48em) {
+    .sidebar-about h1,
+    .sidebar-about a {
+      color: #fff;
+      font-size: 1.5rem; } }
+
+.sidebar-about .lead {
+  color: #999;
+  line-height: 1.3; }
+  @media only screen and (min-width: 48em) {
+    .sidebar-about .lead {
+      font-size: 0.9rem;
+      color: rgba(255, 255, 255, 0.5); } }
+
+.sidebar-bottom-items {
+  font-size: 0.8em;
+  margin-top: 1em; }
+
+.sidebar-bottom-items a {
+  color: rgba(255, 255, 255, 0.8); }
+
+.sidebar-nav {
+  margin-top: 1.8rem;
+  margin-bottom: 0; }
+
+.sidebar-nav-item {
+  display: inline-block;
+  margin-top: 0.2em;
+  margin-bottom: 0.2em;
+  padding-left: 0.2em;
+  padding-right: 0.2em; }
+  @media only screen and (min-width: 48em) {
+    .sidebar-nav-item {
+      font-size: 0.9rem; } }
+
+.sidebar-nav-item.active {
+  background-color: white;
+  color: #ac4142;
+  border-radius: 4px; }
+
+.sidebar-nav {
+  list-style-type: none;
+  padding-left: 0; }

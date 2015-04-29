@@ -1,0 +1,21 @@
+# Dependencies
+markdown:         redcarpet
+highlighter:      pygments
+
+# Permalinks
+permalink:        pretty
+relative_permalinks: true
+
+# Setup
+title:            Ember CLI Mirage
+tagline:          'Easy API mocking for your Ember app'
+description:      'A client-side mock server to develop, test and prototype your Ember CLI app'
+url:              https://github.com/samselikoff/ember-cli-mirage
+baseurl:          /ember-cli-mirage
+
+# Custom vars
+version:          0.0.27
+
+github:
+  repo:           https://github.com/samselikoff/ember-cli-mirage
+

@@ -1,0 +1,67 @@
+.sidebar-about {
+  background-color: white;
+  color: $main-color;
+  margin-top: -2rem;
+  margin-left: -2rem;
+  margin-right: -2rem;
+  padding: 3rem 2rem 2rem;
+
+  @include above($breakpoint) {
+    background-color: transparent;
+    margin: 0;
+    padding: 0;
+  }
+}
+.sidebar-about h1,
+.sidebar-about a {
+  color: #3C3C3C;
+  font-size: 3.25rem;
+  line-height: 1;
+  font-family: "PT Sans", Helvetica, Arial, sans-serif;
+  margin-bottom: 0.3rem;
+
+  @include above($breakpoint) {
+    color: #fff;
+    font-size: 1.5rem;
+  }
+}
+.sidebar-about .lead {
+  color: #999;
+  line-height: 1.3;
+
+  @include above($breakpoint) {
+    font-size: 0.9rem;
+    color: rgba(#fff ,0.5);
+  }
+}
+.sidebar-bottom-items {
+  font-size: 0.8em;
+  margin-top: 1em;
+}
+.sidebar-bottom-items a {
+  color: rgba(255,255,255,0.8);
+}
+.sidebar-nav {
+  margin-top: 1.8rem;
+  margin-bottom: 0;
+}
+.sidebar-nav-item {
+  display: inline-block;
+  margin-top: 0.2em;
+  margin-bottom: 0.2em;
+  padding-left: 0.2em;
+  padding-right: 0.2em;
+
+  @include above($breakpoint) {
+    font-size: 0.9rem; 
+  }
+}
+.sidebar-nav-item.active {
+  background-color: white;
+  color: $main_color;
+  border-radius: 4px;
+}
+.sidebar-nav {
+  list-style-type: none; 
+  padding-left: 0;
+}

@@ -1,0 +1,7 @@
+@mixin below($point) {
+  @media only screen and (max-width: $point) { @content; }
+}
+
+@mixin above($point) {
+  @media only screen and (min-width: $point) { @content; }
+}

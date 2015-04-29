@@ -1,6 +1,6 @@
 ---
 layout: page
-title: Getting started
+title: Overview
 ---
 
 A Mirage server is split into two pieces:

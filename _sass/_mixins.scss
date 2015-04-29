@@ -5,3 +5,13 @@
 @mixin above($point) {
   @media only screen and (min-width: $point) { @content; }
 }
+
+@mixin transition($properties: all, $duration: .3s, $easing: ease-out) {
+  @if length($properties) > 1 {
+    transition-property: $properties;
+    transition-duration: $duration;
+    transition-timing-function: $easing;
+  } @else {
+    transition: $properties $duration $easing;
+  }
+}

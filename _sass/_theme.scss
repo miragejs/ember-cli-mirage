@@ -1,7 +1,27 @@
-body .sidebar {
-  background-color: $main_color;
-}
 body .content a,
 body .related-posts li a:hover {
-  color: $main_color;
+  color: $link-color;
+  border-bottom: 1px solid rgba($link-color, 0.3);
+  @include transition(all, .15s);
+
+  &:hover {
+    text-decoration: none;
+    border-bottom-color: $link-color;
+  }
+}
+code {
+  color: #333;
+  padding: 0;
+  padding-top: 0.2em;
+  padding-bottom: 0.2em;
+  margin: 0;
+  font-size: 75%;
+  background-color: rgba(0,0,0,0.04);
+  border-radius: 3px;
+
+  &::before,
+  &::after {
+    letter-spacing: -0.2em;
+    content: "\00a0";
+  }
 }

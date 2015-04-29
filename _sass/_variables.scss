@@ -1,2 +1,34 @@
-$main_color: #3E606F;
+/*
+  Breakpoints
+*/
 $breakpoint: 48em;
+
+/*
+  Colors
+*/
+// Light theme
+// $link-color: #FF522A;
+// $link-active: #FF522A; // red/orange
+// $sidebar-main: whitesmoke;
+// $sidebar-text: #333;
+// $sidebar-link: #333;
+// $sidebar-text-subtle: #666;
+// $sidebar-text-inverse: #333;
+// $sidebar-text-inverse-subtle: #666;
+
+// Dark theme
+$red: #FF522A;
+$blue: #FF522A;
+$dark-blue: #263249;
+$light-blue: #3D759D;
+$main-color: $dark-blue;
+$link-color: $light-blue;
+// $link-active: $red; // red/orange
+// $link-active: #FF9900; // orange
+$link-active: #FFCD00; // yellow
+$sidebar-text: #fff;
+$sidebar-main: $main-color;
+$sidebar-link: rgba(white, 0.9);
+$sidebar-text-subtle: #7E8AA3;
+$sidebar-text-inverse: $sidebar-text;
+$sidebar-text-inverse-subtle: rgba($sidebar-text, 0.5);

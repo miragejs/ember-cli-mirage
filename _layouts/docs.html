@@ -2,7 +2,16 @@
 layout: default
 ---
 
-{% include sidebar.html %}
+<div class="sidebar">
+  <ul class="sidebar-nav">
+    <!-- <select name="" id="">
+      <option value="">Latest</option>
+    </select> -->
+
+    {% include_relative sidebar-links.html %}
+  </ul>
+</div>
+
 
 <div class="Page content">
   {{ content }}

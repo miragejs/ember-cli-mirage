@@ -62,10 +62,13 @@
 }
 .sidebar-nav-section {
   color: $sidebar-text-subtle;
-  margin-top: 0.9em;
   margin-bottom: 0.2em;
   border-bottom: 1px solid rgba($sidebar-text-subtle, 0.2);
+  &:not(:first-child) {
+    margin-top: 0.9em;
+  }
 }
+.sidebar-nav-item,
 a.sidebar-nav-item {
   display: inline-block;
   // margin-top: 0.3em;

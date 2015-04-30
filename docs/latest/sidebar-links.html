@@ -1,6 +1,6 @@
 <li class='sidebar-nav-section'>Getting started</li>
-<li><a class="sidebar-nav-item{% if page.url contains '/overview' %} active{% endif %}" href="{{site.baseurl}}/docs/overview">Overview</a></li>
-<li><a class="sidebar-nav-item" href="#">FAQ</a></li>
+{% include sidebar-link.html path="overview" label="Overview" %}
+{% include sidebar-link.html path="faq" label="FAQ" %}
 
 <li class='sidebar-nav-section'>Writing your server</li>
 <li><a class="sidebar-nav-item" href="#">Defining routes</a></li>

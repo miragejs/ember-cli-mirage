@@ -1,0 +1,7 @@
+{% capture path %}{{ site.baseurl}}/docs/latest/{{ include.path }}{% endcapture %}
+
+<li>
+  <a class="sidebar-nav-item {% if page.url contains include.path %}active{% endif %}" href="{{ path }}">
+    {{ include.label }}
+  </a>
+</li>

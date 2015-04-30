@@ -2,9 +2,14 @@
 html {
   font-size: 18px;
   line-height: 1.4;
+  background-color: $dark-blue;
 }
 .content {
-  padding-top: 2rem;
+  padding-top: 0;
+  @include above(48em) {
+    margin-right: 0;
+    margin-left: 18rem;
+  }
 }
 .container {
   max-width: 42rem;

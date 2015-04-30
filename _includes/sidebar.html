@@ -1,53 +1,12 @@
 <div class="sidebar">
-  <div class="container">
-    <div class="sidebar-about">
-      <h1 class="header-title">
-        <a href="{{ site.baseurl }}/">
-          {{ site.title }}
-        </a>
-      </h1>
-      <p class="lead">{{ site.description }}</p>
-    </div>
+  <ul class="sidebar-nav">
 
-    <ul class="sidebar-nav">
-      <li class='sidebar-nav-section'>Getting started</li>
-      <li><a class="sidebar-nav-item{% if page.url contains '/overview' %} active{% endif %}" href="{{site.baseurl}}/docs/overview">Overview</a></li>
-      <li><a class="sidebar-nav-item" href="#">FAQ</a></li>
+    {% include latest/sidebar-nav.html %}
 
-      <li class='sidebar-nav-section'>Writing your server</li>
-      <li><a class="sidebar-nav-item" href="#">Defining routes</a></li>
-      <li><a class="sidebar-nav-item" href="#">Using shorthands</a></li>
-      <li><a class="sidebar-nav-item" href="#">Function and object handler</a></li>
-      <li><a class="sidebar-nav-item" href="#">Interacting with your Database</a></li>
-      <li><a class="sidebar-nav-item" href="#">Factories</a></li>
-      <li><a class="sidebar-nav-item" href="#">Fixtures</a></li>
-      <li><a class="sidebar-nav-item" href="#">Acceptance testing</a></li>
-
-      <li class='sidebar-nav-section'>API reference</li>
-      <li><a class="sidebar-nav-item" href="#">Server configuration</a></li>
-      <li><a class="sidebar-nav-item" href="#">Routes</a></li>
-      <li><a class="sidebar-nav-item" href="#">Database</a></li>
-      <li><a class="sidebar-nav-item" href="#">Factory</a></li>
-      <!-- <li class='sidebar-nav-section'>Routes</li>
-      <li><a class="sidebar-nav-item" href="#">Overview</a></li>
-      <li><a class="sidebar-nav-item" href="#">Shorthands</a></li>
-      <li><a class="sidebar-nav-item" href="#">Function handler</a></li>
-      <li><a class="sidebar-nav-item" href="#">Database</a></li>
-
-      <li class='sidebar-nav-section'>Populating your database</li>
-      <li><a class="sidebar-nav-item" href="#">Overview</a></li>
-      <li><a class="sidebar-nav-item" href="#">Factories</a></li>
-      <li><a class="sidebar-nav-item" href="#">Fixtures</a></li>
-
-      <li class='sidebar-nav-section'>Acceptance testing</li>
-      <li><a class="sidebar-nav-item" href="#">Overview</a></li>
-      <li><a class="sidebar-nav-item" href="#">Using your factories</a></li> -->
-
-      <li class='sidebar-bottom-items'>
-        <a href="{{ site.github.repo }}">View on GitHub</a>
-        &middot;
-        <span>v{{ site.version }}</span>
-      </li>
-    </ul>
-  </div>
+    <li class='sidebar-bottom-items'>
+      <a href="{{ site.github.repo }}">View on GitHub</a>
+      &middot;
+      <span>v{{ site.version }}</span>
+    </li>
+  </ul>
 </div>

@@ -5,9 +5,20 @@
 
   <body>
 
-    {% include sidebar.html %}
+    <header class="Header">
+      <div class="Header__inner">
+        <a class="Header__link" href="{{ site.baseurl }}/">Ember CLI Mirage</a>
+        <ul class='Header__internal-nav'>
+          <li><a href='{{ site.baseurl }}/docs' class="{% if page.url contains '/docs' %} active{% endif %}">Docs</a></li>
+          <li><a href="">Support</a></li>
+        </ul>
+        <ul class='Header__external-nav'>
+          <li><a href="">GitHub</a></li>
+        </ul>
+      </div>
+    </header>
 
-    <div class="content container">
+    <div class="Content">
       {{ content }}
     </div>
 

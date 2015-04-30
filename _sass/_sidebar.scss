@@ -1,7 +1,13 @@
 .sidebar {
   background-color: $sidebar-main;
   color: $sidebar-text;
-  border-right: 1px solid $sidebar-text-subtle;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-top: 0;
+  position: absolute;
+  // @include above(960px) {
+  //   left: calc((100vw - 960px)/2);
+  // }
 }
 .sidebar-about {
   background-color: white;
@@ -50,7 +56,6 @@
   }
 }
 .sidebar-nav {
-  margin-top: 1.8rem;
   margin-bottom: 0;
   list-style-type: none; 
   padding-left: 0;

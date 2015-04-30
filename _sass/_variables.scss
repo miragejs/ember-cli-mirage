@@ -1,6 +1,7 @@
 /*
   Breakpoints
 */
+$small-breakpoint: 568px;
 $breakpoint: 48em;
 
 /*
@@ -21,11 +22,14 @@ $red: #FF522A;
 $blue: #FF522A;
 $dark-blue: #263249;
 $light-blue: #3D759D;
+$yellow: #FFCD00;
+$orange: #FF9900;
+
 $main-color: $dark-blue;
+$highlight-color: $red;
+
 $link-color: $light-blue;
-$link-active: $red; // red/orange
-// $link-active: #FF9900; // orange
-// $link-active: #FFCD00; // yellow
+$link-active: $highlight-color;
 $sidebar-text: #fff;
 $sidebar-main: $main-color;
 $sidebar-link: rgba(white, 0.9);

@@ -1,0 +1,14 @@
+.u-hidden-sm {
+  @include below($small-breakpoint) {
+    display: none !important;
+  }
+}
+.u-inverted,
+.u-inverted h1,
+.u-inverted h2,
+.u-inverted h3,
+.u-inverted h4,
+.u-inverted h5,
+.u-inverted p {
+  color: white;
+}

@@ -5,7 +5,12 @@
 @import 'variables';
 @import 'mixins';
 
+@import 'utilities';
+
 @import 'base';
 @import 'theme';
 @import 'layout';
+@import 'header';
 @import 'sidebar';
+
+@import 'components/home-page';

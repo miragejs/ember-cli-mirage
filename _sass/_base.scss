@@ -3,6 +3,8 @@ html {
   font-size: 18px;
   line-height: 1.4;
   background-color: $dark-blue;
+  font-family: Lato, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  border-top: 5px solid $highlight-color;
 }
 .content {
   padding-top: 0;
@@ -12,7 +14,7 @@ html {
   }
 }
 .container {
-  max-width: 42rem;
+  max-width: 960px;
 }
 
 // Other

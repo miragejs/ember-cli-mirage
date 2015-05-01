@@ -1,4 +1,5 @@
 .Home-page {
+  font-weight: 300;
 
   &__tagline {
     font-size: 36px;
@@ -13,5 +14,22 @@
       line-height: 1.1;
       margin-top: 0.8em;
     }
+  }
+
+  &__features {
+    line-height: 1.5;
+    margin-top: 2em;
+    @include above($breakpoint) {
+      margin-top: 3em;
+    }
+  }
+  &__feature-heading {
+    font-size: 28px;
+    font-weight: 500;
+    opacity: 0.9;
+    margin-bottom: 20px;
+  }
+  &__feature-section {
+    font-size: 18px;
   }
 }

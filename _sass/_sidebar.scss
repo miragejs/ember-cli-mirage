@@ -47,23 +47,17 @@
     }
   }
 }
-.sidebar-bottom-items {
-  font-size: 0.8em;
-  margin-top: 1em;
-
-  a {
-    color: $sidebar-text-subtle;
-  }
-}
 .sidebar-nav {
   margin-bottom: 0;
   list-style-type: none; 
   padding-left: 0;
+  line-height: 1.5;
 }
 .sidebar-nav-section {
   color: $sidebar-text-subtle;
   margin-bottom: 0.2em;
   border-bottom: 1px solid rgba($sidebar-text-subtle, 0.2);
+  font-size: 18px;
   &:not(:first-child) {
     margin-top: 0.9em;
   }
@@ -81,7 +75,8 @@ a.sidebar-nav-item {
   // opacity: 0.7;
   @include transition(all 0.15s);
   @include above($breakpoint) {
-    font-size: 0.9rem; 
+    // font-size: 0.9rem; 
+    font-size: 16px;
   }
 
   &:hover,

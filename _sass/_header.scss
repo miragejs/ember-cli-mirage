@@ -63,7 +63,7 @@ $header-height: 70px;
     font-size: 28px;
     color: $highlight-color;
     @include above($breakpoint) {
-      font-size: 33px;
+      font-size: 30px;
     }
   }
   &__nav {

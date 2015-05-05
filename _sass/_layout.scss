@@ -4,11 +4,10 @@
   margin-right: auto;
   position: relative;
 }
-.Page {
-  background-color: white;
-  padding: 20px;
-  margin-bottom: 40px;
-  margin-right: 20px;
-  border-radius: 4px;
+// from Hyde
+.content {
   max-width: none;
+  @include below($breakpoint) {
+    margin: 0;
+  }
 }

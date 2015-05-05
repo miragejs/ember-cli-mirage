@@ -1,0 +1,19 @@
+.Docs-page {
+  background-color: white;
+  padding: 20px;
+  margin-bottom: 40px;
+  border-radius: 4px;
+  max-width: none;
+  margin-left: 10px;
+  margin-right: 10px;
+
+  @include above($breakpoint) {
+    margin-left: 0;
+    margin-right: 20px;
+  }
+
+  &__title {
+    margin-top: 0;
+    margin-bottom: 1em;
+  }
+}

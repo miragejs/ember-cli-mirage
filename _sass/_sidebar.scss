@@ -1,13 +1,15 @@
 .sidebar {
   background-color: transparent;
   color: $sidebar-text;
-  padding-left: 20px;
-  padding-right: 20px;
-  padding-top: 0;
-  position: absolute;
-  // @include above(960px) {
+  text-align: left;
+
+  @include above($breakpoint) {
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 0;
+    position: absolute;
   //   left: calc((100vw - 960px)/2);
-  // }
+  }
 }
 .sidebar-about {
   background-color: white;

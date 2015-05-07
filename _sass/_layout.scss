@@ -11,3 +11,6 @@
     margin: 0;
   }
 }
+code::after {
+  content: '';
+}

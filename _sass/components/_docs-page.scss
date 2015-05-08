@@ -12,6 +12,13 @@
     margin-right: 20px;
   }
 
+  h2 {
+    font-size: 17px;
+    margin-top: 40px;
+    margin-bottom: 20px;
+    color: #333;
+  }
+
   &__title {
     margin-top: 0;
     margin-bottom: 15px;
@@ -21,8 +28,10 @@
     float: right;
     color: #999;
     padding-top: 5px;
-    margin-left: 30px;
+    margin-left: 40px;
     font-size: 0.8em;
+    max-width: 180px;
+
     @include below($breakpoint) {
       display: none;
     }

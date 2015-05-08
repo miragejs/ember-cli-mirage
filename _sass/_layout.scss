@@ -11,6 +11,7 @@
     margin: 0;
   }
 }
-code::after {
+pre code::before,
+pre code::after {
   content: '';
 }

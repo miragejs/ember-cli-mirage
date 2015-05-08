@@ -15,4 +15,4 @@ For Ember CLI < 0.2.3,
 ember install:addon ember-cli-mirage
 ```
 
-Be sure to add `server` to your `/tests/.jshint` file.
+Be sure to add `server` to your `/tests/.jshint` file under the `predef` section.

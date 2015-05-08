@@ -1,0 +1,15 @@
+// Hyde/Poole
+tbody tr:nth-child(odd) td,
+tbody tr:nth-child(odd) th {
+  background-color: transparent;
+}
+.content {
+  max-width: none;
+  @include below($breakpoint) {
+    margin: 0;
+  }
+}
+pre code::before,
+pre code::after {
+  content: '';
+}

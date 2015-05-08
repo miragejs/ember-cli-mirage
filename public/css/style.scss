@@ -8,6 +8,7 @@
 @import 'utilities';
 @import 'components/grid';
 
+@import 'overrides';
 @import 'base';
 @import 'theme';
 @import 'layout';
@@ -16,3 +17,4 @@
 
 @import 'components/home-page';
 @import 'components/docs-page';
+@import 'components/table';

@@ -1,0 +1,19 @@
+.Table {
+  table-layout: fixed;
+  
+  &__wrapper {
+    max-width: 100%;
+    overflow: scroll;
+  }
+  &__label {
+    width: 90px;
+    font-size: 0.9em; 
+  }
+  &__code {
+    padding: 0;
+
+    .highlight {
+      margin-bottom: 0;
+    }
+  }
+}

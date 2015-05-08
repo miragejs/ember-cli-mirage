@@ -58,11 +58,9 @@ Now, Mirage will respond to this route with all the `user` records in its databa
 
 As long as all your Mirage routes read from and write to the database, interactions will persist during a single session. This lets users interact with your app as if it were wired up to a real server.
 
-## Dynamic paths and query params
+View the [full database API]() to see how your routes can interact with your data.
 
-<aside class='Docs-page__aside'>
-  <p>Mirage uses Pretender.js to intercept HTTP requests, so confer <a href='#'>its docs</a> for more details on the request object.</p>
-</aside>
+## Dynamic paths and query params
 
 A request object is also injected into each handler, as the second parameter. This object contains data associated with the request, like dynamic route segments and query params.
  
@@ -88,12 +86,34 @@ this.post('/api/users', function(db, request) {
 })
 ```
 
-View [Pretender's docs]() to see the full API for the request object. 
+Mirage uses Pretender.js to intercept HTTP requests, so confer [its docs]() to see the full API for the request object.
 
-## Dynamic responses
+## Dynamic status codes and HTTP headers
 
-By default, Mirage sets the response code of a response based on the HTTP verb being used. 
+By default, Mirage sets the response code of a response based on the HTTP verb being used:
+  
+  - `get` is 200
+  - `put` is 204
+  - `post` is 201
+  - `del` is 204
+
+Additionally, a header for `Content-type` is set to `application/json`. You can customize both the response code and headers by returning an instance of `Mirage.Response`:
+
+```js
+this.post('/api/users', function(db, request) {
+  var data = JSON.parse(request.requestBody); 
+
+  if (data.name) {
+    return db.users.insert(data);
+  } else {
+    return new Mirage.Response(400, {some: 'header'}, {message: 'name cannot be blank'});
+  }
+});
+```
+Be sure to `import Mirage from 'ember-cli-mirage';` at the top of your config file.
 
 ---
 
-That's the essentials of defining your routes. Fortunately, JSON APIs tend to follow similar conventions, which lets us dramatically simplify our server definition. Read on to learn about using *shorthands*.
+That's the essentials of defining your routes. However, don't leave just yet! Since JSON APIs are becoming more standardized, Mirage has the concept of *shorthands* to deal with common scenarios. These shorthands can actually replace most of your custom route handlers, dramatically simplifying your server definition.
+
+Read on to learn more.

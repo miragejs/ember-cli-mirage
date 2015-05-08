@@ -19,3 +19,4 @@ testem.log
 
 # gh-pages
 /_site
+/jekyll-tmp

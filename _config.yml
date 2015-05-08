@@ -12,6 +12,8 @@ tagline:          'Easy API mocking for your Ember app'
 description:      'A client-side mock server to develop, test and prototype your Ember CLI app'
 url:              https://github.com/samselikoff/ember-cli-mirage
 baseurl:          ''
+destination:      jekyll-tmp/
+
 
 # Custom vars
 version:          0.0.27

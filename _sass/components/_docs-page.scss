@@ -40,4 +40,31 @@
       margin-bottom: 0;
     }
   }
+
+  &__footer-nav {
+    text-align: center;
+  }
+  .content &__footer-nav-link,
+  &__footer-nav-link {
+    border-radius: 4px;
+    border: none;
+    font-weight: bold;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    font-size: 16px;
+    text-decoration: none;
+    background-color: $highlight-color;
+    color: white;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.5);
+    @include transition(all, 0.15s);
+
+    @include above($small-breakpoint) {
+      padding: 5px 12px;
+      width: auto;
+    }
+
+    &:hover {
+      box-shadow: inset 0 1px 3px rgba(0,0,0,0.5),0 1px 0 rgba(255,255,255,0.1);
+    }
+  }
 }

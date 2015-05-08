@@ -86,11 +86,11 @@ this.post('/api/users', function(db, request) {
 })
 ```
 
-Mirage uses Pretender.js to intercept HTTP requests, so confer [its docs]() to see the full API for the request object.
+Mirage uses Pretender.js to intercept HTTP requests, so check out [its docs]() to see the full API for the request object.
 
 ## Dynamic status codes and HTTP headers
 
-By default, Mirage sets the response code of a response based on the HTTP verb being used:
+By default, Mirage sets the HTTP code of a response based on the verb being used:
   
   - `get` is 200
   - `put` is 204
@@ -110,10 +110,10 @@ this.post('/api/users', function(db, request) {
   }
 });
 ```
-Be sure to `import Mirage from 'ember-cli-mirage';` at the top of your config file.
+Be sure to `import Mirage from 'ember-cli-mirage'` at the top of your config file.
 
 ---
 
-That's the essentials of defining your routes. However, don't leave just yet! Since JSON APIs are becoming more standardized, Mirage has the concept of *shorthands* to deal with common scenarios. These shorthands can actually replace most of your custom route handlers, dramatically simplifying your server definition.
+That's the essentials of defining your routes. But don't leave just yet! JSON APIs have become more standardized, so Mirage has the concept of *shorthands* to deal with common API scenarios. These shorthands can replace many of your custom route handlers, dramatically simplifying your server definition.
 
 Read on to learn more.

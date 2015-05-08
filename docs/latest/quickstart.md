@@ -31,7 +31,7 @@ Now whenever your Ember app makes a GET request to `/api/users`, Mirage will res
 This works, and this is traditionally how HTTP mocking is done; but hard-coding fixture data directly into your route like this makes it inflexible. What if you want to see scenarios with different users, or want more control over the response data in your tests?
 
 <aside class='Docs-page__aside'>
-  <p>View the <a href="#">database API</a>.</p>
+  <p>View the full <a href="#">database API</a>.</p>
 </aside>
 
 Instead of returning an array, let's make this route dynamic by responding with all the users in Mirage's in-memory database:

@@ -220,3 +220,6 @@ this.put('/contacts/:id', function(db, request) {
 
 {% include code-compare.html expanded=expanded shorthand=shorthand %}
 
+---
+
+Next, you'll learn how to seed your database with some starting data, both in development and testing.

@@ -56,9 +56,9 @@ this.get('/api/users', function(db) {
 
 Now, Mirage will respond to this route with all the `user` records in its database. To seed your database with data, you'll use [fixtures]() (in development) or [factories]() (in testing).
 
-As long as all your Mirage routes read from and write to the database, interactions will persist during a single session. This lets users interact with your app as if it were wired up to a real server.
+As long as all your Mirage routes read from and write to the database, user interactions will persist during a single session. This lets users interact with your app as if it were wired up to a real server.
 
-View the [full database API]() to see how your routes can interact with your data.
+View the [full database API](../database) to see how your routes can interact with your data.
 
 ## Dynamic paths and query params
 

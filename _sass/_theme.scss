@@ -1,17 +1,6 @@
 body {
   background-color: transparent;
 }
-body .content a,
-body .related-posts li a:hover {
-  color: $link-color;
-  border-bottom: 1px solid rgba($link-color, 0.3);
-  @include transition(all, .15s);
-
-  &:hover {
-    text-decoration: none;
-    border-bottom-color: $link-color;
-  }
-}
 code {
   color: #333;
   padding: 0;

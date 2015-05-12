@@ -61,7 +61,7 @@ You should define the attributes of your factory as the "base case" for your obj
 
 ## Extending factories
 
-You can extend your own factories.
+You can extend factories:
 
 ```js
 // mirage/factories/human.js

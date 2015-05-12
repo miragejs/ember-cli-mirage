@@ -1,0 +1,17 @@
+- section: Getting started
+  label: Overview
+  path: ''
+- label: Installation
+- label: Quickstart
+
+- section: Writing your server
+  label: Defining routes
+- label: Using shorthands
+- label: Seeding your database
+- label: Acceptance testing
+
+- section: API reference
+  label: Server configuration
+- label: Routes
+- label: Database
+- label: Factory

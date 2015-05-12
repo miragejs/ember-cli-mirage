@@ -1,4 +1,4 @@
-{% capture path %}{{ site.baseurl}}/docs/latest/{{ include.path }}/{% endcapture %}
+{% capture path %}{{ site.baseurl}}/docs/latest/{% if include.path %}{{ include.path }}{% else %}{{ include.label | slugify }}/{% endif %}{% endcapture %}
 
 <li>
   <a class="sidebar-nav-item {% if page.url == path %}active{% endif %}" href="{{ path }}">

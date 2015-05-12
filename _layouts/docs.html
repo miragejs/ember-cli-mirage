@@ -8,7 +8,18 @@ layout: default
       <option value="">Latest</option>
     </select> -->
 
-    {% include_relative sidebar-links.html %}
+    <!-- {% include_relative sidebar-links.html %} -->
+
+    {% for link in site.data.navs.latest %}
+      {% if link.section %}
+        <li class='sidebar-nav-section'>{{ link.section }}</li>
+      {% endif %}
+      {% if link.path %}
+        {% include sidebar-link.html path=link.path label=link.label %}
+      {% else %}
+        {% include sidebar-link.html label=link.label %}
+      {% endif %}
+    {% endfor %}
   </ul>
 </div>
 
@@ -17,10 +28,12 @@ layout: default
   <div class="Docs-page">
     <h1 class='Docs-page__title'>{{ page.title }}</h1>
 
-    {{ content }}
+    <div class='Docs-page__content'>
+      {{ content }}
+    </div>
 
-    <!-- <div class="Docs-page__footer-nav">
-      <a class="Docs-page__footer-nav-link" href="installation">Installation ></a>
-    </div> -->
+    <div class="Docs-page__footer-nav">
+      {% include footer-nav.html %}
+    </div>
   </div>
 </div>

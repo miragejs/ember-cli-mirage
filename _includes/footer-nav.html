@@ -1,0 +1,32 @@
+{% for link in site.data.navs.latest %}
+  {% if forloop.first %}{% continue %}{% endif %}
+  {% capture path %}{{ site.baseurl}}/docs/latest/{% if link.path %}{{ link.path }}{% else %}{{ link.label | slugify }}/{% endif %}{% endcapture %}
+  {% if page.url == path %}
+    {% assign prev_i = forloop.index0 | minus: 1 %}
+    {% assign prev_link = site.data.navs.latest[prev_i] %}
+    {% if prev_link %}
+      {% capture prev_path %}{{ site.baseurl}}/docs/latest/{% if prev_link.path %}{{ prev_link.path }}{% else %}{{ prev_link.label | slugify }}/{% endif %}{% endcapture %}
+
+       <a class="Docs-page__footer-nav-link" href="{{ prev_path }}">< {{ prev_link.label }}</a>
+    {% endif %}
+
+  {% endif %}
+
+{% endfor %}
+
+{% for link in site.data.navs.latest %}
+  {% if forloop.last %}{% continue %}{% endif %}
+  {% capture path %}{{ site.baseurl}}/docs/latest/{% if link.path %}{{ link.path }}{% else %}{{ link.label | slugify }}/{% endif %}{% endcapture %}
+  {% if page.url == path %}
+    {% assign next_i = forloop.index0 | plus: 1 %}
+    {% assign next_link = site.data.navs.latest[next_i] %}
+    {% if next_link %}
+      {% capture prev_path %}{{ site.baseurl}}/docs/latest/{% if next_link.path %}{{ next_link.path }}{% else %}{{ next_link.label | slugify }}/{% endif %}{% endcapture %}
+
+       <a class="Docs-page__footer-nav-link" href="{{ prev_path }}">{{ next_link.label }} ></a>
+    {% endif %}
+
+  {% endif %}
+
+{% endfor %}
+

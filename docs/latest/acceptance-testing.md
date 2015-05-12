@@ -27,9 +27,9 @@ Note that Mirage's server is restarted after each test. This means the database 
 
 ## Overriding factory attributes
 
-The purpose factories is to put code that's highly releveant to a test as close to that test as possible. In the example above, we wanted to verify that the user would see ten photos, given they existed on the server. So, the `server.createList('photo', 10)` call was directly in the test.
+The purpose factories is to put code that's highly relevant to a test as close to that test as possible. In the example above, we wanted to verify that the user would see ten photos, given they existed on the server. So, the `server.createList('photo', 10)` call was directly in the test.
 
-Say we wanted to test that when the user visited a details route for a photo titled "Sunset over Hyrule," they would see that title in an `<h1>` tag. One option is to update the photo factory itself:
+Say we wanted to test that when the user visited a details route for a photo titled "Sunset over Hyrule," they would see that title in an `<h1>` tag. One way to accomplish this is to update the photo factory itself:
 
 ```js
 // app/mirage/factories/photo.js

@@ -21,3 +21,9 @@ version:          0.0.27
 github:
   repo:           https://github.com/samselikoff/ember-cli-mirage
 
+defaults:
+  -
+    scope:
+      path: "docs"
+    values:
+      layout: "docs"

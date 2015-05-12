@@ -8,8 +8,6 @@ layout: default
       <option value="">Latest</option>
     </select> -->
 
-    <!-- {% include_relative sidebar-links.html %} -->
-
     {% for link in site.data.navs.latest %}
       {% if link.section %}
         <li class='sidebar-nav-section'>{{ link.section }}</li>
@@ -32,8 +30,6 @@ layout: default
       {{ content }}
     </div>
 
-    <div class="Docs-page__footer-nav">
-      {% include footer-nav.html %}
-    </div>
+    {% include footer-nav.html %}
   </div>
 </div>

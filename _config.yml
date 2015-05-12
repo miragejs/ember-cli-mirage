@@ -13,6 +13,10 @@ description:      'A client-side mock server to develop, test and prototype your
 url:              https://github.com/samselikoff/ember-cli-mirage
 baseurl:          ''
 destination:      jekyll-tmp/
+exclude:
+  - node_modules
+  - bower_components
+  - tmp
 
 
 # Custom vars

@@ -6,7 +6,7 @@ Acceptance testing your Ember app typically involves verifying some user behavio
 
 Many of these tests rely on a given server state. In other words, you want to test that the user can view ten photos, *given ten photos exist on the server* when the user boots the app. This is where factories come in.
 
-Factories let you define the server state your test requires, directly in the test:
+Factories let you define the initial server state directly in the test:
 
 ```js
 test("I can view the photos", function() {
@@ -26,9 +26,9 @@ Note that Mirage's server is restarted after each test. This means the database 
 
 ## Overriding factory attributes
 
-The purpose factories is to put code that's highly relevant to a test as close to that test as possible. In the example above, we wanted to verify that the user would see ten photos, given they existed on the server. So, the `server.createList('photo', 10)` call was directly in the test.
+The purpose of factories is to put code that's highly relevant to a test as close to that test as possible. In the example above, we wanted to verify that the user would see ten photos, given those photos existed on the server. So, the `server.createList('photo', 10)` call was directly in the test.
 
-Say we wanted to test that when the user visited a details route for a photo titled "Sunset over Hyrule," they would see that title in an `<h1>` tag. One way to accomplish this is to update the photo factory itself:
+Say we wanted to test that when the user visits a details route for a photo titled "Sunset over Hyrule," they would see that title in an `<h1>` tag. One way to accomplish this would be to update the photo factory itself:
 
 ```js
 // app/mirage/factories/photo.js
@@ -39,11 +39,11 @@ export default Mirage.Factory.extend({
 });
 ```
 
-The problem with this approach is that the desired change is very specific to this test. Suppose another test wanted to verify photos with different titles were displayed? Changing the factory to suit that case would break this test.
+The problem with this approach is that the desired change is very specific to this test. Suppose another test wanted to verify photos with different titles were displayed. Changing the factory to suit that case would break this test.
 
 For this reason, `create` and `createList` allow you to override specific attributes that your factory has defined. This allows us to adhere to the principle of keeping relevant code near our test.
 
-To override attributes, simply pass in an object as the last argument to `create` or `createList` with the attributes you want to overwrite. Here's what this may look like for the photos example.
+To override attributes, simply pass in an object as the last argument to `create` or `createList` with the attributes you want to override. Here's what this may look like for the photos example.
 
 First, the (more generic) factory:
 
@@ -80,13 +80,15 @@ test("I see the photo's title on a detail route", function() {
 });
 ```
 
+We override `title` in the second test since it's relevant there, but we stick with the generic factory-generated titles for the first test.
+
 ## Relationships
 
 <aside class='Docs-page__aside'>
   <p><a href="">Factory relationships</a> will simplify these scenarios.</p>
 </aside>
 
-You can use attribute overrides to set up related database records in your tests. Let's say we want to write a test given a user with 10 photos exists on the server.
+You can use attribute overrides to set up related database records in your tests. Let's say we want to write a test given that a user with 10 photos exists on the server.
 
 We could set up the relationship like this:
 

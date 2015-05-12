@@ -67,8 +67,12 @@ $header-height: 70px;
       font-size: 30px;
     }
 
-    &:hover {
-      @extend .shimmer;
+    @include above($breakpoint) {
+      position: absolute;
+
+      &:hover {
+        @include shimmer();
+      }
     }
   }
   &__nav {

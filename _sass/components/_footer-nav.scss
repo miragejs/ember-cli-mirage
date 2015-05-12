@@ -1,7 +1,7 @@
 .Footer-nav {
   margin-top: 40px;
   margin-bottom: 10px;
-  display: flex;
+  @include flexbox;
 
   &__link {
     color: $light-blue;

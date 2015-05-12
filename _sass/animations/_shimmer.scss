@@ -1,6 +1,6 @@
-.shimmer {
+@mixin shimmer() {
   padding: 0 140px 0 0;
-  color: rgba(255,255,255,0.1);
+  color: rgba(255,255,255,0.05);
   @include linear-gradient(left top, right top, $red);
   @include background-size(125px, 100%);
   @include background-clip(text);

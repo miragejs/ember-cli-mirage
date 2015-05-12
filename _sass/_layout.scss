@@ -1,6 +1,12 @@
+body {
+  @include flexbox;
+  min-height: 100vh;
+  @include flex-direction(column);
+}
 .Content {
   max-width: 960px;
   margin-left: auto;
   margin-right: auto;
   position: relative;
+  @include flex(1);
 }

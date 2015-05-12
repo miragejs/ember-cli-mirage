@@ -4,17 +4,18 @@
 
 @import 'variables';
 @import 'mixins';
+@import 'mixins/flexbox';
 
 @import 'utilities';
 @import 'components/grid';
 
 @import 'animations/shimmer';
 
+
 @import 'overrides';
 @import 'base';
 @import 'theme';
 @import 'layout';
-@import 'header';
 @import 'sidebar';
 
 @import 'components/home-page';
@@ -22,3 +23,5 @@
 @import 'components/table';
 @import 'components/footer-nav';
 @import 'components/browser';
+@import 'components/header';
+@import 'components/footer';

@@ -1,123 +1,123 @@
 // https://github.com/philipwalton/solved-by-flexbox/blob/master/assets/css/components/grid.css
 .Grid {
-  display: flex;
-  flex-wrap: wrap;
+  @include flexbox;
+  @include flex-wrap(wrap);
   list-style: none;
   margin: 0;
   padding: 0;
 }
 
 .Grid-cell {
-  flex: 1;
+  @include flex(1);
 }
 
 .Grid--flexCells > .Grid-cell {
-  display: flex;
+  @include flexbox;
 }
 
 .Grid--top {
-  align-items: flex-start;
+  @include align-items(flex-start);
 }
 
 .Grid--bottom {
-  align-items: flex-end;
+  @include align-items(flex-end);
 }
 
 .Grid--center {
-  align-items: center;
+  @include align-items(center);
 }
 
 .Grid--justifyCenter {
-  justify-content: center;
+  @include justify-content(center);
 }
 
 .Grid-cell--top {
-  align-self: flex-start;
+  @include align-self(flex-start);
 }
 
 .Grid-cell--bottom {
-  align-self: flex-end;
+  @include align-self(flex-end);
 }
 
 .Grid-cell--center {
-  align-self: center;
+  @include align-self(center);
 }
 
 .Grid-cell--autoSize {
-  flex: none;
+  @include flex(none);
 }
 
 .Grid--fit > .Grid-cell {
-  flex: 1;
+  @include flex(1);
 }
 
 .Grid--full > .Grid-cell {
-  flex: 0 0 100%;
+  @include flex(0 0 100%);
 }
 
 .Grid--1of2 > .Grid-cell {
-  flex: 0 0 50%;
+  @include flex(0 0 50%);
 }
 
 .Grid--1of3 > .Grid-cell {
-  flex: 0 0 33.3333%;
+  @include flex(0 0 33.3333%);
 }
 
 .Grid--1of4 > .Grid-cell {
-  flex: 0 0 25%;
+  @include flex(0 0 25%);
 }
 
 @include above($small-breakpoint) {
   .small-Grid--fit > .Grid-cell {
-    flex: 1;
+    @include flex(1);
   }
   .small-Grid--full > .Grid-cell {
-    flex: 0 0 100%;
+    @include flex(0 0 100%);
   }
   .small-Grid--1of2 > .Grid-cell {
-    flex: 0 0 50%;
+    @include flex(0 0 50%);
   }
   .small-Grid--1of3 > .Grid-cell {
-    flex: 0 0 33.3333%;
+    @include flex(0 0 33.3333%);
   }
   .small-Grid--1of4 > .Grid-cell {
-    flex: 0 0 25%;
+    @include flex(0 0 25%);
   }
 }
 
 @include above($breakpoint) {
   .med-Grid--fit > .Grid-cell {
-    flex: 1;
+    @include flex(1);
   }
   .med-Grid--full > .Grid-cell {
-    flex: 0 0 100%;
+    @include flex(0 0 100%);
   }
   .med-Grid--1of2 > .Grid-cell {
-    flex: 0 0 50%;
+    @include flex(0 0 50%);
   }
   .med-Grid--1of3 > .Grid-cell {
-    flex: 0 0 33.3333%;
+    @include flex(0 0 33.3333%);
   }
   .med-Grid--1of4 > .Grid-cell {
-    flex: 0 0 25%;
+    @include flex(0 0 25%);
   }
 }
 
 @include above($large-breakpoint) {
   .large-Grid--fit > .Grid-cell {
-    flex: 1;
+    @include flex(1);
   }
   .large-Grid--full > .Grid-cell {
-    flex: 0 0 100%;
+    @include flex(0 0 100%);
   }
   .large-Grid--1of2 > .Grid-cell {
-    flex: 0 0 50%;
+    @include flex(0 0 50%);
   }
   .large-Grid--1of3 > .Grid-cell {
-    flex: 0 0 33.3333%;
+    @include flex(0 0 33.3333%);
   }
   .large-Grid--1of4 > .Grid-cell {
-    flex: 0 0 25%;
+    @include flex(0 0 25%);
   }
 }
 

@@ -1,0 +1,19 @@
+.Footer {
+  background-color: #181D27;
+  padding: 1.5em 0;
+  color: #677590;
+  font-size: 14px;
+  margin-top: 4em;
+
+  @include below($small-breakpoint) {
+    text-align: center;
+  }
+
+  p {
+    margin: 0;
+  }
+
+  a {
+    color: #B4BEC7;
+  }
+}

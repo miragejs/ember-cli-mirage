@@ -5,6 +5,7 @@ tbody tr:nth-child(odd) th {
 }
 .content {
   max-width: none;
+  padding-bottom: 0;
   @include below($breakpoint) {
     margin: 0;
   }

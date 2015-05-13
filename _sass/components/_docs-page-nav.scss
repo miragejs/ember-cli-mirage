@@ -14,11 +14,6 @@
     @include transition(all, 0.15s);
     border-color: lighten($light-blue, 40%);
 
-    // @include above($small-breakpoint) {
-    //   padding: 5px 12px;
-    //   width: auto;
-    // }
-
     &:hover {
       text-decoration: none;
       // box-shadow: 0 2px 2px 2px rgba(0,0,0,0.1);

@@ -4,9 +4,8 @@
   text-align: left;
 
   @include above($breakpoint) {
+    @include flex(0 0 280px);
     padding: 0 20px;
-    position: absolute;
-    width: 18rem;
   }
 
   &__nav {

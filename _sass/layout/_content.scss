@@ -1,7 +1,14 @@
 .Content {
-  max-width: 960px;
+  width: 100%;
   margin-left: auto;
   margin-right: auto;
   position: relative;
-  @include flex(1);
+  @include flexbox;
+  @include flex-direction(column);
+  
+  @include above($breakpoint) {
+    @include flex-direction(row);
+    @include flex;
+    max-width: 960px;
+  }
 }

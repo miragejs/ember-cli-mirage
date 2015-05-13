@@ -3,18 +3,17 @@
 ---
 
 @import 'variables';
+
 @import 'mixins/flexbox';
 @import 'mixins/animations';
 @import 'mixins/others';
 
-@import 'utilities';
-@import 'components/grid';
-
 @import 'animations/shimmer';
 
-@import 'overrides';
 @import 'base';
+@import 'utilities';
 
+@import 'layout/grid';
 @import 'layout/header';
 @import 'layout/content';
 @import 'layout/side-panel';

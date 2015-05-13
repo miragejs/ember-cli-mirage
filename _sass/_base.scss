@@ -133,6 +133,11 @@ pre code {
   font-size: 100%;
   color: inherit;
   background-color: transparent;
+
+  &::before,
+  &::after {
+    content: '';
+  }
 }
 
 /* Tables */

@@ -1,8 +1,7 @@
 .Center-panel {
-  max-width: none;
+  max-width: 100%;
 
-  @media (min-width: 48em) {
-    margin-right: 0;
-    margin-left: 18rem;
+  @include above($breakpoint) {
+    @include flex;
   }
 }

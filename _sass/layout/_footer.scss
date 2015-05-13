@@ -15,5 +15,10 @@
 
   a {
     color: #B4BEC7;
+    @include transition(all, 0.15s);
+
+    &:hover {
+      color: #eee;
+    }
   }
 }

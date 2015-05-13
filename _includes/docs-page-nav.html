@@ -1,4 +1,4 @@
-<div class='Footer-nav'>
+<div class='Docs-page-nav'>
   {% for link in site.data.navs.latest %}
     {% if forloop.first %}{% continue %}{% endif %}
     {% capture path %}{{ site.baseurl}}/docs/latest/{% if link.path %}{{ link.path }}{% else %}{{ link.label | slugify }}/{% endif %}{% endcapture %}
@@ -8,7 +8,7 @@
       {% if prev_link %}
         {% capture prev_path %}{{ site.baseurl}}/docs/latest/{% if prev_link.path %}{{ prev_link.path }}{% else %}{{ prev_link.label | slugify }}/{% endif %}{% endcapture %}
   
-         <a class="Footer-nav__link u-first" href="{{ prev_path }}">< {{ prev_link.label }}</a>
+         <a class="Docs-page-nav__link u-first" href="{{ prev_path }}">< {{ prev_link.label }}</a>
       {% endif %}
   
     {% endif %}
@@ -24,7 +24,7 @@
       {% if next_link %}
         {% capture next_path %}{{ site.baseurl}}/docs/latest/{% if next_link.path %}{{ next_link.path }}{% else %}{{ next_link.label | slugify }}/{% endif %}{% endcapture %}
   
-         <a class="Footer-nav__link u-last" href="{{ next_path }}">{{ next_link.label }} ></a>
+         <a class="Docs-page-nav__link u-last" href="{{ next_path }}">{{ next_link.label }} ></a>
       {% endif %}
   
     {% endif %}

@@ -2,15 +2,15 @@
 layout: default
 ---
 
-<div class="sidebar">
-  <ul class="sidebar-nav">
+<div class="Side-panel">
+  <ul class="Side-panel__nav">
     <!-- <select name="" id="">
       <option value="">Latest</option>
     </select> -->
 
     {% for link in site.data.navs.latest %}
       {% if link.section %}
-        <li class='sidebar-nav-section'>{{ link.section }}</li>
+        <li class='Side-panel__nav-section'>{{ link.section }}</li>
       {% endif %}
       {% if link.path %}
         {% include sidebar-link.html path=link.path label=link.label %}
@@ -22,7 +22,7 @@ layout: default
 </div>
 
 
-<div class="content">
+<div class="Center-panel">
   <div class="Docs-page">
     <h1 class='Docs-page__title'>{{ page.title }}</h1>
 
@@ -30,6 +30,6 @@ layout: default
       {{ content }}
     </div>
 
-    {% include footer-nav.html %}
+    {% include docs-page-nav.html %}
   </div>
 </div>

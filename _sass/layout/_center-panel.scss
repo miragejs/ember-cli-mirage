@@ -1,0 +1,8 @@
+.Center-panel {
+  max-width: none;
+
+  @media (min-width: 48em) {
+    margin-right: 0;
+    margin-left: 18rem;
+  }
+}

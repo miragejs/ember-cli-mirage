@@ -1,26 +1,158 @@
-// Poole overrides
+* {
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
 html {
   font-size: 100%;
-  // font-size: 18px;
   line-height: 1.4;
   background-color: $dark-blue;
   font-family: Lato, 'Helvetica Neue', Helvetica, Arial, sans-serif;
   border-top: 5px solid $highlight-color;
 }
-.content {
-  padding-top: 0;
-  @include above(48em) {
-    margin-right: 0;
-    margin-left: 18rem;
-  }
-}
-.container {
-  max-width: 960px;
+
+body {
+  color: #333;
+  @include flexbox;
+  min-height: 100vh;
+  @include flex-direction(column);
 }
 
-// Other
+a {
+  text-decoration: none;
+}
+
+/* Headings */
+h1, h2, h3, h4, h5, h6 {
+  margin-bottom: .5rem;
+  font-weight: bold;
+  line-height: 1.25;
+  color: #313131;
+  text-rendering: optimizeLegibility;
+}
+h1 {
+  font-size: 2rem;
+}
+h2 {
+  margin-top: 1rem;
+  font-size: 1.5rem;
+}
+h3 {
+  margin-top: 1.5rem;
+  font-size: 1.25rem;
+}
+h4, h5, h6 {
+  margin-top: 1rem;
+  font-size: 1rem;
+}
+
+/* Body text */
+p {
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+
+strong {
+  color: #303030;
+}
+
+/* Lists */
+ul, ol, dl {
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+
+dt {
+  font-weight: bold;
+}
+dd {
+  margin-bottom: .5rem;
+}
+
+/* Misc */
+hr {
+  position: relative;
+  margin: 1.5rem 0;
+  border: 0;
+  border-top: 1px solid #eee;
+  border-bottom: 1px solid #fff;
+}
+
+abbr {
+  font-size: 85%;
+  font-weight: bold;
+  color: #555;
+  text-transform: uppercase;
+}
+abbr[title] {
+  cursor: help;
+  border-bottom: 1px dotted #e5e5e5;
+}
+
+/* Code */
+code,
 pre {
-  word-wrap: normal;
+  font-family: Menlo, Monaco, "Courier New", monospace;
+}
+code {
+  color: #333;
+  padding: 0.2em 0;
+  margin: 0;
+  font-size: 75%;
+  background-color: rgba(0,0,0,0.04);
+  border-radius: 3px;
+
+  &::before,
+  &::after {
+    letter-spacing: -0.2em;
+    content: "\00a0";
+  }
+}
+pre {
+  display: block;
+  margin-top: 0;
+  margin-bottom: 1rem;
+  padding: 1rem;
+  font-size: .8rem;
+  line-height: 1.4;
   white-space: pre;
+  word-break: break-all;
+  word-wrap: normal;
+  background-color: #f9f9f9;
   overflow-x: auto;
+}
+pre code {
+  padding: 0;
+  font-size: 100%;
+  color: inherit;
+  background-color: transparent;
+}
+
+/* Tables */
+table {
+  margin-bottom: 1rem;
+  width: 100%;
+  border: 1px solid #e5e5e5;
+  border-collapse: collapse;
+}
+td,
+th {
+  padding: .25rem .5rem;
+  border: 1px solid #e5e5e5;
+}
+
+/* Pygments via Jekyll */
+.highlight {
+  margin-bottom: 1rem;
+  border-radius: 4px;
+}
+.highlight pre {
+  margin-bottom: 0;
 }

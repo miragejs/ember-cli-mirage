@@ -46,7 +46,7 @@ The database is injected into each route handler as the first parameter:
 ```js
 this.get('/api/users', function(db) {
   return db.users.all();
-})
+});
 ```
 
 <aside class='Docs-page__aside'>
@@ -82,10 +82,49 @@ this.post('/api/users', function(db, request) {
   var attrs = JSON.parse(request.requestBody);
   var user = db.users.insert(attrs);
   return user;
-})
+});
 ```
 
 Mirage uses Pretender.js to intercept HTTP requests, so check out [its docs]() to see the full API for the request object.
+
+## Using shorthands
+
+JSON APIs have become more standardized, so Mirage has the concept of *shorthands* to deal with common API scenarios. These shorthands can replace many of your custom route handlers, dramatically simplifying your server definition.
+
+For example, a GET request to `/api/users` typically returns a list of users. Instead of writing out the mock by hand
+
+```js
+this.get('/api/users', function(db, request) {
+  return {
+    users: db.users
+  };
+});
+```
+
+we can use the shorthand form
+
+```js
+this.get('/api/users');
+```
+
+Similarly, creating a resource manually looks like this
+
+```js
+this.post('/api/users', function(db, request) {
+  var attrs = JSON.parse(request.requestBody);
+  var user = db.users.insert(attrs);
+  return user;
+});
+```
+
+but with a shorthand it looks like this:
+
+```js
+this.post('/api/users');
+```
+
+View the [shorthand reference](../shorthands) to see all available shorthands.
+
 
 ## Dynamic status codes and HTTP headers
 
@@ -113,6 +152,4 @@ Be sure to `import Mirage from 'ember-cli-mirage'` at the top of your config fil
 
 ---
 
-That's the essentials of defining your routes. But don't leave just yet! JSON APIs have become more standardized, so Mirage has the concept of *shorthands* to deal with common API scenarios. These shorthands can replace many of your custom route handlers, dramatically simplifying your server definition.
-
-Read on to learn more.
+That's the essentials of defining your routes. Next, you'll learn how to seed your database with some starting data, both in development and testing.

@@ -2,24 +2,79 @@
 title: Routes
 ---
 
-The four verb methods (`get`, `post`, `put` and `del`) are the primary way you define routes and interact with your database. There are many shorthands available to make your server definition more succinct, and ideally most of your config will use them. Check out the [shorthands guide](../using-shorthands) for more examples.
+You define route handlers using the four verb methods (`get`, `post`, `put` and `del`). You can use shorthands, return a plain object, or write custom function handlers.
 
-You can always fall back to a function and manipulate the data in the database however you need to via the [database's api](Database). Finally, you can simply return a POJO if you don't need to interact with the database.
+The status code defaults to the following, based on the verb being used for the route:
 
-Here's the full definition:
+  - GET is 200
+  - PUT is 204
+  - POST is 201
+  - DEL is 204
+
+## Shorthands
 
 ```js
-this.verb(path, handler[, responseCode]);
+this.verb(path, shorthand[, responseCode]);
 ```
-where *verb* is `get`, `put`, `post`, or `delete`, and
 
-- **path**: string. The URL you're defining, e.g. `/api/contacts` (or `/contacts` if `namespace` is defined).
-- **handler**: shorthand, function or object.
+*shorthand* can either be a string, an array, or `undefined`, depending on which shorthand you're using. View [the reference](../shorthands) for all available shorthands.
 
-    As a shorthand, either a string, an array or undefined. Consult [the shorthand docs](../using-shorthands) for the various shorthand definitions.
+Examples:
 
-    As a function, takes two parameters, *db*, your Mirage server's database, and *request*, which is the Pretender request object. Consult [the database's API]() for how to interact with the db. Return the data you want as plain JS - it will be stringified and sent as the response body to your request. You can also return an instance of `Mirage.Response` to dynamically set headers and the status code, as seen in the [routes guide](../defining-routes).
+```js
+this.get('/api/users');
+this.put('/api/users/:id');
+this.get('/posts/:id', ['post', 'comments']);
+```
 
-    As an object, the data returned from the request.
+## Object handler
 
-- **responseCode**: number. optional. The response code of the request.
+```js
+this.verb(path, object[, responseCode]);
+```
+
+*object* is a POJO that's returned for this route.
+
+Example:
+
+```js
+this.get('/api/users/current', {id: 1, name: 'Link'});
+this.get('/some/secret', {message: 'unauthorized'}, 404);
+```
+
+## Function handler
+
+Write a custom function to handle this route.
+
+```js
+this.verb(path, function(db, request) {
+  // your code
+}[, responseCode]);
+```
+
+The function handler you define takes two parameters, **db** (your Mirage server's database) and **request** (the Pretender request object). Consult [the database's API](../database) for how to interact with the db and [Pretender's docs](https://github.com/trek/pretender) for more info on the request object.
+
+Return the data you want as plain JS - it will be stringified and sent as the response body of your request. You can also return an instance of `Mirage.Response` to dynamically set headers and the status code.
+
+Examples:
+
+```js
+this.del('/api/users/:id', function(db, request) {
+  var id = request.params.id;
+  db.users.delete(id);
+  // Delete related addresses
+  db.addresses.delete({user_id: id});
+  
+  return {};
+});
+
+this.post('/api/messages', function(db, request) {
+  var params = JSON.parse(request.requestBody);
+
+  if (!params.title) {
+    return new Mirage.Response(400, {a: 'header'}, {message: 'title cannot be blank'});
+  } else {
+    return db.messages.insert(params);
+  }
+});
+```

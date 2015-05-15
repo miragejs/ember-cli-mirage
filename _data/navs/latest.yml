@@ -6,12 +6,12 @@
 
 - section: Writing your server
   label: Defining routes
-- label: Using shorthands
 - label: Seeding your database
 - label: Acceptance testing
 
 - section: API reference
   label: Server configuration
 - label: Routes
+- label: Shorthands
 - label: Database
-- label: Factory
+- label: Factories

@@ -1,5 +1,5 @@
 ---
-title: Factory
+title: Factories
 ---
 
 Factories are used in your tests. Their purpose is to make it easy to populate your Mirage server's database with data. Whenever you generate an object via a factory, it will automatically get added to the database, and thus get an autoassigned `id`.

@@ -1,30 +1,15 @@
 ---
-title: Using shorthands
+title: Shorthand reference
 ---
 
-A *shorthand* is a simple way to write a route handler for common API scenarios. For example, a GET request to `/api/users` typically returns a list of users. Instead of writing out the mock by hand
+A *shorthand* is a simple way to write a route handler for common API scenarios. Here's a reference of the shorthands, and the code they represent.
 
-```js
-this.get('/api/users', function(db, request) {
-  return {
-    users: db.users
-  };
-});
-```
+Shorthands use default status codes, based on the HTTP verb:
 
-we can use the shorthand form
-
-```js
-this.get('/api/users', 'users');
-```
-
-or more simply
-
-```js
-this.get('/api/users');
-```
-
-Find the rest of the shorthand descriptions below.
+  - GET is 200
+  - PUT is 204
+  - POST is 201
+  - DEL is 204
 
 ## GET shorthands
 
@@ -218,7 +203,3 @@ this.put('/contacts/:id', function(db, request) {
 {% endcapture %}
 
 {% include code-compare.html expanded=expanded shorthand=shorthand %}
-
----
-
-Next, you'll learn how to seed your database with some starting data, both in development and testing.

@@ -1,0 +1,5 @@
+/* For sticky footer */
+.Wrapper {
+  @include flex-direction(row);
+  @include flex;
+}

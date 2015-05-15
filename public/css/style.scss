@@ -15,6 +15,7 @@
 
 @import 'layout/grid';
 @import 'layout/header';
+@import 'layout/wrapper';
 @import 'layout/content';
 @import 'layout/side-panel';
 @import 'layout/center-panel';
@@ -27,3 +28,5 @@
 @import 'components/docs-page';
 @import 'components/docs-page-nav';
 @import 'components/github-stars';
+@import 'components/desktop-nav';
+@import 'components/mobile-nav';

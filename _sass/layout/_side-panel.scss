@@ -8,35 +8,4 @@
     padding: 0 20px;
   }
 
-  &__nav {
-    list-style-type: none; 
-    padding-left: 0;
-    line-height: 1.5;
-  }
-  &__nav-section {
-    color: $sidebar-text-subtle;
-    margin-bottom: 0.2em;
-    border-bottom: 1px solid rgba($sidebar-text-subtle, 0.2);
-    font-size: 18px;
-    &:not(:first-child) {
-      margin-top: 0.9em;
-    }
-  }
-  &__nav-item {
-    color: $sidebar-link;
-    padding-left: 0.4em;
-    padding-right: 0.4em;
-    border-radius: 4px;
-    line-height: 1;
-    @include transition(all 0.15s);
-    @include above($breakpoint) {
-      font-size: 16px;
-    }
-
-    &:hover,
-    &:focus,
-    &.active {
-      color: $link-active;
-    }
-  }
 }

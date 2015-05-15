@@ -1,0 +1,12 @@
+{% capture path %}{{ site.baseurl}}/docs/latest/{% if include.path %}{{ include.path }}{% else %}{{ include.label | slugify }}/{% endif %}{% endcapture %}
+
+{% if link.section %}
+  {% unless forloop.first %}
+    </optgroup>
+  {% endunless %}
+  <optgroup label='{{link.section}}'>
+{% endif %}
+<option value="{{path}}">{{link.label}}</option>
+{% if forloop.last %}
+  </optgroup>
+{% endif %}

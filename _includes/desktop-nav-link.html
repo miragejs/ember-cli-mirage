@@ -1,7 +1,7 @@
 {% capture path %}{{ site.baseurl}}/docs/latest/{% if include.path %}{{ include.path }}{% else %}{{ include.label | slugify }}/{% endif %}{% endcapture %}
 
 <li>
-  <a class="Side-panel__nav-item {% if page.url == path %}active{% endif %}" href="{{ path }}">
+  <a class="Desktop-nav__item {% if page.url == path %}active{% endif %}" href="{{ path }}">
     {{ include.label }}
   </a>
 </li>

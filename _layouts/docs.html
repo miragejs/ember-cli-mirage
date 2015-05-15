@@ -3,19 +3,22 @@ layout: default
 ---
 
 <div class="Side-panel">
-  <ul class="Side-panel__nav">
-    <!-- <select name="" id="">
-      <option value="">Latest</option>
-    </select> -->
+  <select class="Mobile-nav" onchange="if (this.value) window.location.href=this.value">
+    <option value="">Navigate the docs…</option>
+    {% for link in site.data.navs.latest %}
+      {% include mobile-nav-link.html path=link.path label=link.label %}
+    {% endfor %}
+  </select>
 
+  <ul class="Desktop-nav">
     {% for link in site.data.navs.latest %}
       {% if link.section %}
-        <li class='Side-panel__nav-section'>{{ link.section }}</li>
+        <li class='Desktop-nav__section'>{{ link.section }}</li>
       {% endif %}
       {% if link.path %}
-        {% include sidebar-link.html path=link.path label=link.label %}
+        {% include desktop-nav-link.html path=link.path label=link.label %}
       {% else %}
-        {% include sidebar-link.html label=link.label %}
+        {% include desktop-nav-link.html label=link.label %}
       {% endif %}
     {% endfor %}
   </ul>

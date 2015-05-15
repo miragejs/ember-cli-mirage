@@ -24,3 +24,15 @@
 .u-pull-right {
   float: right;
 }
+.u-mobile {
+  @include above($breakpoint) {
+    display: none !important;
+  }
+}
+.u-desktop {
+  display: none !important;
+
+  @include above($breakpoint) {
+    display: initial !important;
+  }
+}

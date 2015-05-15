@@ -1,3 +1,6 @@
+.u-text-center {
+  text-align: center;
+}
 .u-hidden-sm {
   @include below($small-breakpoint) {
     display: none !important;

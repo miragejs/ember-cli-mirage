@@ -32,4 +32,20 @@
   &__feature-section {
     font-size: 18px;
   }
+
+  &__button {
+    padding: 0.7em 1.6em;
+    font-size: 17px;
+    background-color: transparent;
+    color: white;
+    border: 1px solid white;
+    border-radius: 6px;
+    cursor: pointer;
+    @include transition(all, 0.1s);
+
+    &:hover {
+      background-color: white;
+      color: $dark-blue;
+    }
+  }
 }

@@ -27,7 +27,10 @@
     font-size: 28px;
     font-weight: 500;
     opacity: 0.9;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
+    @include above($breakpoint) {
+      margin-bottom: 20px;
+    }
   }
   &__feature-section {
     font-size: 18px;

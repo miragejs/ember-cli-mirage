@@ -1,0 +1,73 @@
+.Page {
+  background-color: white;
+  padding: 30px;
+  margin-bottom: 40px;
+  border-radius: 4px;
+  width: 100%;
+
+  h1 {
+    margin: 0;
+    color: #383A3D;
+    font-size: 36px;
+  }
+}
+
+.About {
+  background-color: white;
+  margin-top: 20px;
+  @include above($breakpoint) {
+    margin-top: 0;
+    background-color: transparent;
+  }
+}
+.About-block {
+  padding: 20px;
+  // @include flex-direction(column);
+  @include above($breakpoint) {
+    padding: 0;
+    padding-right: 20px;
+    margin-bottom: 20px;
+    @include flexbox;
+  //   @include flex-direction(row);
+  }
+
+  &__heading {
+    margin-top: 0;
+    font-size: 27px;
+    // color: white;
+  //   padding-left: 20px;
+  //   margin-bottom: 20px;
+    @include above($breakpoint) {
+      @include flex(0 0 280px);
+      color: white;
+      text-align: right;
+      padding-right: 20px;
+    }
+  }
+  &__content {
+  //   margin-bottom: 0;
+  //   color: white;
+  //   padding: 0 20px;
+
+    @include above($breakpoint) {
+      @include flex();
+      @include white-panel;
+    }
+  // }
+  // @include above($breakpoint) {
+  //   @include flex(0 0 280px);
+  //   padding: 0 20px;
+  }
+
+}
+
+.parent {
+  display: flex;
+  height: 300px; /* Or whatever */
+}
+
+.child {
+  width: 100px;  /* Or whatever */
+  height: 100px; /* Or whatever */
+  margin: auto;  /* Magic! */
+}

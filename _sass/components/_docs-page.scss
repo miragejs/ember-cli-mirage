@@ -1,11 +1,6 @@
 .Docs-page {
-  background-color: white;
-  padding: 20px;
+  @include white-panel;
   margin-bottom: 40px;
-  border-radius: 4px;
-  max-width: none;
-  margin-left: 10px;
-  margin-right: 10px;
 
   @include above($breakpoint) {
     margin-left: 0;

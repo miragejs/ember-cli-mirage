@@ -6,6 +6,7 @@
 
 @import 'mixins/flexbox';
 @import 'mixins/animations';
+@import 'mixins/white-panel';
 @import 'mixins/others';
 
 @import 'animations/shimmer';
@@ -23,6 +24,7 @@
 @import 'layout/footer';
 
 @import 'components/home-page';
+@import 'components/page';
 @import 'components/table';
 @import 'components/browser';
 @import 'components/docs-page';

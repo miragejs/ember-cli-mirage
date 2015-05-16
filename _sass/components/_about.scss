@@ -8,42 +8,30 @@
 
   &__section {
     padding: 20px;
-    // @include flex-direction(column);
     @include above($breakpoint) {
       padding: 0;
       padding-right: 20px;
       margin-bottom: 20px;
       @include flexbox;
-    //   @include flex-direction(row);
     }
   }
 
   &__heading {
     margin-top: 0;
     font-size: 27px;
-    // color: white;
-  //   padding-left: 20px;
-  //   margin-bottom: 20px;
     @include above($breakpoint) {
       @include flex(0 0 280px);
       color: white;
       text-align: right;
       padding-right: 20px;
+      margin-top: 15px;
     }
   }
   &__content {
-  //   margin-bottom: 0;
-  //   color: white;
-  //   padding: 0 20px;
-
     @include above($breakpoint) {
       @include flex();
       @include white-panel;
     }
-  // }
-  // @include above($breakpoint) {
-  //   @include flex(0 0 280px);
-  //   padding: 0 20px;
   }
 
 }

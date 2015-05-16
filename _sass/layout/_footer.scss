@@ -15,10 +15,12 @@
 
   a {
     color: #B4BEC7;
+    border-color: rgba(#B4BEC7, 0.3);
     @include transition(all, 0.15s);
 
     &:hover {
       color: #eee;
+      border-color: #B4BEC7;
     }
   }
 }

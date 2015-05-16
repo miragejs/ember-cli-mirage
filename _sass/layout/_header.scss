@@ -26,6 +26,7 @@ $header-height: 70px;
     text-align: center;
     margin-top: 0.5em;
     line-height: 1.1;
+    border: none;
     // display: inline-block;
     @include above($small-breakpoint) {
       line-height: 0.8;
@@ -101,6 +102,7 @@ $header-height: 70px;
   &__nav-item-link {
     display: inline-block;
     color: #eee;
+    border: none;
     border-radius: 4px;
     font-weight: bold;
     float: left;
@@ -108,7 +110,6 @@ $header-height: 70px;
     padding-top: 5px;
     padding-bottom: 5px;
     font-size: 16px;
-    @include transition(all, 0.15s);
 
     @include above($small-breakpoint) {
       padding: 3px 10px;

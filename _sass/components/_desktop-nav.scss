@@ -17,7 +17,7 @@
     color: $sidebar-link;
     padding-left: 0.4em;
     padding-right: 0.4em;
-    border-radius: 4px;
+    border: none;
     line-height: 1;
     @include transition(all 0.15s);
     @include above($breakpoint) {

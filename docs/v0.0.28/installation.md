@@ -1,6 +1,6 @@
 ---
 title: Installation
-version: latest
+version: v0.0.28
 ---
 
 For Ember CLI >= 0.2.3,

@@ -1,6 +1,6 @@
 ---
 title: Routes
-version: latest
+version: v0.0.27
 ---
 
 You define route handlers using the four verb methods (`get`, `post`, `put` and `del`). You can use shorthands, return a plain object, or write custom function handlers.
@@ -11,8 +11,6 @@ The status code defaults to the following, based on the verb being used for the 
   - PUT is 204
   - POST is 201
   - DEL is 204
-
-PUT and POST change to 200 if there is a response body.
 
 ## Shorthands
 

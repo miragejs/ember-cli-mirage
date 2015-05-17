@@ -1,6 +1,6 @@
 ---
 title: Database
-version: latest
+version: v0.0.27
 ---
 
 Your Mirage server has a database which you can interact with via the *verb methods* (`get`, `post`, `put` and `del`) in your routes. You retrieve or modify data from the database, then return what you want for that route.
@@ -42,16 +42,15 @@ var users = db.users.insert([
 users;  // [{id: 2, name: 'Zelda', age: 142}, {id: 3, name: 'Epona', age: 58}]
 ```
 
-<a name="find" href="#find">#</a> db.collection.<b>find</b>(<i>ids</i>)
+<a name="find" href="#find">#</a> db.collection.<b>find</b>(<i>id</i>)
 
-Returns a single record from the *collection* if *ids* is a single id, or an array of records if *ids* is an array of ids. Note each *id* can be an int or a string, but integer ids as strings (e.g. the string "1") will be treated as integers.
+Returns a single record from the *collection* whose id id *id*. Note *id* can be an int or a string, but integer ids as strings (e.g. the string "1") will be treated as integers.
 
 ```js
 /* 
   Given users = [{id: 1, name: 'Link'}, {id: 2, name: 'Zelda'}]
 */
 db.users.find(1); // {id: 1, name: 'Link'}
-db.users.find([1, 2]); // [{id: 1, name: 'Link'}, {id: 2, name: 'Zelda'}]
 ```
 <a name="where" href="#where">#</a> db.collection.<b>where</b>(<i>query</i>)
 

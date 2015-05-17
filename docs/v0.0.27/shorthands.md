@@ -1,6 +1,6 @@
 ---
 title: Shorthand reference
-version: latest
+version: v0.0.27
 ---
 
 A *shorthand* is a simple way to write a route handler for common API scenarios. Here's a reference of the shorthands, and the code they represent.
@@ -11,8 +11,6 @@ Shorthands use default status codes, based on the HTTP verb:
   - PUT is 204
   - POST is 201
   - DEL is 204
-
-PUT and POST change to 200 if there is a response body.
 
 ## GET shorthands
 
@@ -97,31 +95,6 @@ this.get('/contacts/:id', function(db, request) {
   return {
     contact: db.contacts.find(id),
     addresses: db.addresses.where({contact_id: id})
-  };
-});
-{% endhighlight %}
-{% endcapture %}
-
-{% include code-compare.html expanded=expanded shorthand=shorthand %}
-
-*Array of specific records*
-
-For example, `GET /contacts?ids=1,3`
-
-{% capture shorthand %}
-{% highlight js %}
-this.get('/contacts', { coalesce: true });
-this.get('/contacts', 'users', { coalesce: true });
-{% endhighlight %}
-{% endcapture %}
-
-{% capture expanded %}
-{% highlight js %}
-this.get('/contacts', function(db, request) {
-  var ids = request.queryParams.ids;
-
-  return {
-    contacts: db.contacts.find(ids) // db.users in the second case
   };
 });
 {% endhighlight %}

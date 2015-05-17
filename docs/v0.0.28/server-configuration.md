@@ -1,6 +1,6 @@
 ---
 title: Server configuration
-version: latest
+version: v0.0.28
 ---
 
 Besides defining your routes, there's some config options for your server available in `/app/mirage/config.js`. There's also some environment options, which you define in `/config/environment.js`.

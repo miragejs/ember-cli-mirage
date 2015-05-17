@@ -2,16 +2,19 @@
 layout: default
 ---
 
+{% assign links = site.data.navs[page.version] %}
+
 <div class="Side-panel">
+
   <select class="Mobile-nav" onchange="if (this.value) window.location.href=this.value">
-    <option value="">Navigate the docs…</option>
-    {% for link in site.data.navs.latest %}
+    <option value="">Navigate the docs...</option>
+    {% for link in links %}
       {% include mobile-nav-link.html path=link.path label=link.label %}
     {% endfor %}
   </select>
 
   <ul class="Desktop-nav">
-    {% for link in site.data.navs.latest %}
+    {% for link in links %}
       {% if link.section %}
         <li class='Desktop-nav__section'>{{ link.section }}</li>
       {% endif %}
@@ -27,7 +30,16 @@ layout: default
 
 <div class="Center-panel">
   <div class="Docs-page">
-    <h1 class='Docs-page__title'>{{ page.title }}</h1>
+    <div class='Docs-page__header'>
+      <div class="Docs-page__version">
+        <select onchange="if (this.value) window.location.href=this.value">
+          {% for version in site.data.navs %}
+            <option value="{{ site.baseurl}}/docs/{{ version[0] }}" {% if version[0] == page.version %}selected {% endif %}>{{version[0]}}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <h1 class='Docs-page__title'>{{ page.title }}</h1>
+    </div>
 
     <div class='Docs-page__content'>
       {{ content }}

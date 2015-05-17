@@ -30,7 +30,7 @@ Now whenever your Ember app makes a GET request to `/api/users`, Mirage will res
 This works, and this is traditionally how HTTP mocking is done; but hard-coding fixture data directly into your route like this makes it inflexible. What if you want to see scenarios with different users, or want more control over the response data in your tests?
 
 <aside class='Docs-page__aside'>
-  <p>View the full <a href="#">database API</a>.</p>
+  <p>View the full <a href="../database">database API</a>.</p>
 </aside>
 
 Instead of returning an array, let's make this route dynamic by responding with all the users in Mirage's in-memory database:
@@ -44,7 +44,7 @@ this.get('/api/users', function(db, request) {
 Now, if we want to change what data this route responds with, all we need to do is change the data in the database. There's a few ways to do this.
 
 <aside class='Docs-page__aside'>
-  <p>Learn more about <a href="#">fixtures</a>.</p>
+  <p>Learn more about <a href="../seeding-your-database">fixtures</a>.</p>
 </aside>
 
 In development, you add data to your database by creating files under the `/mirage/fixtures` directory. These files should export arrays of objects, like this:
@@ -61,7 +61,7 @@ export default [
 These objects will be added to the `users` database table, since the filename is `users.js`. Now, any route can retrieve this data via `db.users.all()`, and we have a single place to manage our mock data.
 
 <aside class='Docs-page__aside'>
-  <p>Learn more about <a href="#">factories</a>.</p>
+  <p>Learn more about <a href="../seeding-your-database">factories</a>.</p>
 </aside>
 
 In acceptance testing, you use factories to create database data. Factories give you finer control over what data you create, which is useful for setting up initial state in your tests.

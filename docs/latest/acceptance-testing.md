@@ -85,7 +85,7 @@ We override `title` in the second test since it's relevant there, but we stick w
 ## Relationships
 
 <aside class='Docs-page__aside'>
-  <p><a href="">Factory relationships</a> will simplify these scenarios.</p>
+  <p><a href="https://github.com/samselikoff/ember-cli-mirage/issues/28">Factory relationships</a> will simplify these scenarios.</p>
 </aside>
 
 You can use attribute overrides to set up related database records in your tests. Let's say we want to write a test given that a user with 10 photos exists on the server.

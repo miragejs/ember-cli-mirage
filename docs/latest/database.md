@@ -73,6 +73,8 @@ If *attrs* is the only arg present, updates all records in the collection accord
 
 If *target* is present, restricts updates to those that match *target*. If *target* is a number or string, finds a single record whose id is *target* to update. If *target* is a POJO, queries *collection* for records that match the key-value pairs in *target*, and updates their *attrs*.
 
+Returns the updated record or records.
+
 ```js
 /* 
   Given users = [

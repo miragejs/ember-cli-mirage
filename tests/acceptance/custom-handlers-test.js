@@ -15,6 +15,7 @@ module('Acceptance: Custom handlers', {
   },
   afterEach: function() {
     Ember.run(App, 'destroy');
+    server.shutdown();
   }
 });
 

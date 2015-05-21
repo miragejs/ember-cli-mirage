@@ -52,6 +52,13 @@ export default function(options) {
   this.loadConfig = function(config) {
     config.call(this);
     this.timing = environment === 'test' ? 0 : (this.timing || 0);
+
+    if (this.passthrough) {
+      this.interceptor['get'].call(this.interceptor, '/:passthrough', this.interceptor.passthrough);
+      this.interceptor['post'].call(this.interceptor, '/:passthrough', this.interceptor.passthrough);
+      this.interceptor['put'].call(this.interceptor, '/:passthrough', this.interceptor.passthrough);
+      this.interceptor['delete'].call(this.interceptor, '/:passthrough', this.interceptor.passthrough);
+    }
   };
 
   this.stub = function(verb, path, handler, code, options) {

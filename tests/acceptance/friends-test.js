@@ -11,6 +11,7 @@ module('Acceptance: Friends', {
   },
   afterEach: function() {
     Ember.run(App, 'destroy');
+    server.shutdown();
   }
 });
 

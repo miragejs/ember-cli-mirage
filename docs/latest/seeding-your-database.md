@@ -3,7 +3,7 @@ title: Seeding your database
 version: latest
 ---
 
-Once you've defined your server's routes, you'll probably want to seed your database with some starting data. In development you use fixtures, and in testing you use factories.
+Once you've defined your server's routes, you'll probably want to seed your database with some starting data. In development you use fixtures or scenarios, and in testing you use factories.
 
 ## Fixtures
 
@@ -40,6 +40,31 @@ export default [
 ```
 
 Now you can use the shorthand `this.get('/api/users/:id', ['user', 'addresses']` to return the user along with its related addresses.
+
+## Scenarios
+
+While fixtures provide an excellent way to seed your database for development,
+they can be difficult to maintain due to their static format.
+Scenarios provide a solution to this problem by allowing you to use factories
+to create seed data for development.  This provides you the efficient syntax
+of factories while making it easy to sketch out sample data to develop your
+application against.
+
+To use scenarios, create `app/mirage/scenarios/default.js` and export a
+function that takes a single argument, `server`.  This will be a server
+instance and you can use it just as you would in your acceptance-tests
+(see "Factories" below).  This function will be run in the mirage initializer.
+
+A simple scenario might look like this:
+
+```js
+// app/mirage/scenarios/default.js
+export default function(server) {
+  var contact = server.create('contact');
+  server.createList('comment', 20, {contact_id: contact.id});
+}
+
+```
 
 ## Factories
 

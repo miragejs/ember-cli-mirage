@@ -96,6 +96,10 @@ test("I can view the users", function() {
 });
 ```
 
+If you prefer to use factories to seed your database in development, you can
+do so using the Scenarios feature.  This is explained
+on the <a href="../seeding-your-database">Seeding Your Database</a> page
+
 ---
 
 <aside class='Docs-page__aside'>

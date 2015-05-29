@@ -62,22 +62,28 @@ Return the data you want as plain JS - it will be stringified and sent as the re
 Examples:
 
 ```js
-this.del('/api/users/:id', function(db, request) {
-  var id = request.params.id;
-  db.users.delete(id);
-  // Delete related addresses
-  db.addresses.delete({user_id: id});
-  
-  return {};
-});
+import Mirage from 'ember-cli-mirage';
 
-this.post('/api/messages', function(db, request) {
-  var params = JSON.parse(request.requestBody);
+export default function() {
 
-  if (!params.title) {
-    return new Mirage.Response(400, {a: 'header'}, {message: 'title cannot be blank'});
-  } else {
-    return db.messages.insert(params);
-  }
-});
+  this.del('/api/users/:id', function(db, request) {
+    var id = request.params.id;
+    db.users.delete(id);
+    // Delete related addresses
+    db.addresses.delete({user_id: id});
+
+    return {};
+  });
+
+  this.post('/api/messages', function(db, request) {
+    var params = JSON.parse(request.requestBody);
+
+    if (!params.title) {
+      return new Mirage.Response(400, {a: 'header'}, {message: 'title cannot be blank'});
+    } else {
+      return db.messages.insert(params);
+    }
+  });
+
+}
 ```

@@ -169,7 +169,7 @@ this.put('/contacts', 'user');  // optionally specify the type as second param
 {% capture expanded %}
 {% highlight js %}
 this.put('/contacts/:id', function(db, request) {
-  var id = db.params.id;
+  var id = request.params.id;
   var attrs = JSON.parse(request.requestBody)['contact'];
   var record = db.contacts.update(id, attrs);
 
@@ -196,7 +196,7 @@ this.del('/contacts/:id', 'user');  // optionally specify the type as second par
 {% capture expanded %}
 {% highlight js %}
 this.put('/contacts/:id', function(db, request) {
-  var id = db.params.id;
+  var id = request.params.id;
   db.contacts.remove(id);
 
   return {};
@@ -217,7 +217,7 @@ this.del('/contacts/:id', ['contact', 'addresses']);
 {% capture expanded %}
 {% highlight js %}
 this.put('/contacts/:id', function(db, request) {
-  var id = db.params.id;
+  var id = request.params.id;
   db.contacts.remove(id);
 
   var addresses = db.addresses.where({contact_id: id});

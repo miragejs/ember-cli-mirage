@@ -42,13 +42,13 @@ this.get('/api/users', function(db, request) {
 });
 ```
 
-Now, if we want to change what data this route responds with, all we need to do is change the data in the database. To do this, we can use either *fixtures* or *factories*.
+Now, if we want to change what data this route responds with, all we need to do is change the data in the database. There's a few ways to do this.
 
 <aside class='Docs-page__aside'>
   <p>Learn more about <a href="../seeding-your-database">fixtures</a>.</p>
 </aside>
 
-To seed your database with fixtures, create files under the `/mirage/fixtures` directory. These files should export arrays of objects, like this:
+In development, you add data to your database by creating files under the `/mirage/fixtures` directory. These files should export arrays of objects, like this:
 
 ```js
 // app/mirage/fixtures/users.js
@@ -59,15 +59,13 @@ export default [
 ];
 ```
 
-Given this file, these objects will be added to the `users` database table, since the filename is `users.js`. Now, any route can retrieve this data via `db.users.all()`, and we have a single place to manage our mock data.
-
-By default, fixtures are only loaded in development. To have Mirage load your fixture files during testing, simply delete the `/mirage/factories` directory.
+These objects will be added to the `users` database table, since the filename is `users.js`. Now, any route can retrieve this data via `db.users.all()`, and we have a single place to manage our mock data.
 
 <aside class='Docs-page__aside'>
   <p>Learn more about <a href="../seeding-your-database">factories</a>.</p>
 </aside>
 
-You can also use factories to seed your database. Factories give you fine-grained control over data creation, which is especially useful for setting up state during testing.
+In acceptance testing, you use factories to create database data. Factories give you finer control over what data you create, which is useful for setting up initial state in your tests.
 
 You create factories by adding files under `/mirage/factories/`:
 
@@ -76,25 +74,13 @@ You create factories by adding files under `/mirage/factories/`:
 import Mirage from 'ember-cli-mirage';
 
 export default Mirage.Factory.extend({
-  name: i => `Person ${i}`,
-  verified: false
+  name: i => `Person ${i}`
 });
 ```
 
-Each time you create an object from this factory, it will insert a record into your `users` table, giving that record an id, an `verified` value of `false`, and a name of `Person 1`, `Person 2`, and so on. You can define additional attributes as strings, numbers, booleans or functions.
+Each time you create an object from this factory, it will insert a record into your `users` table, giving that record an id and a name of `Person 1`, `Person 2`, and so on.
 
-To use your factories, use the `server.create` or `server.createList` methods in development
-
-```js
-// app/mirage/scenarios/default.js
-export default function(server) {
-  // seed our database for development
-  server.createList('user', 10);  
-  server.create('user', {verified: true});
-};
-```
-
-or in a test
+To use your factories, use `server.create` or `server.createList` in a test:
 
 ```js
 // tests/acceptance/users-test.js

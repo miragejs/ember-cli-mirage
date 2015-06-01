@@ -17,6 +17,25 @@ latest:
   - label: Database
   - label: Factories
 
+v0.0.29:
+  - section: Getting started
+    label: Overview
+    path: ''
+  - label: Installation
+  - label: Quickstart
+
+  - section: Writing your server
+    label: Defining routes
+  - label: Seeding your database
+  - label: Acceptance testing
+
+  - section: API reference
+    label: Server configuration
+  - label: Routes
+  - label: Shorthands
+  - label: Database
+  - label: Factories
+
 v0.0.28:
   - section: Getting started
     label: Overview

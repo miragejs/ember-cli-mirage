@@ -24,21 +24,6 @@ export default function() {
 };
 ```
 
-Note that only routes defined after `this.namespace` are affected. This is useful if you have a few one-off routes that you don't want under your namespace:
-
-```js
-// app/mirage/config.js
-export default function() {
-
-  // this route handles /auth
-  this.get('/auth', function() { /* ... */});
-  
-  this.namespace = '/api';
-  // this route will handle the URL '/api/contacts'
-  this.get('/contacts', 'contacts');
-};
-```
-
 <a name="timing" href="#timing">#</a> this.<b>timing</b>
 
 Set the timing parameter of the response. Default is a 400ms delay during development and 0 delay in testing (so your tests run fast).

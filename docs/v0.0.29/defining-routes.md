@@ -54,7 +54,7 @@ this.get('/api/users', function(db) {
   <p>Route handlers can also create, update and delete database records.</p>
 </aside>
 
-Now, Mirage will respond to this route with all the `user` records in its database. To seed your database with data, you can use [fixtures](../seeding-your-database) or [factories](../seeding-your-database).
+Now, Mirage will respond to this route with all the `user` records in its database. To seed your database with data, you'll use [fixtures]() (in development) or [factories]() (in testing).
 
 As long as all your Mirage routes read from and write to the database, user interactions will persist during a single session. This lets users interact with your app as if it were wired up to a real server.
 
@@ -124,7 +124,7 @@ but with a shorthand it looks like this:
 this.post('/api/users');
 ```
 
-View the [full reference](../shorthands) to see all available shorthands.
+View the [shorthand reference](../shorthands) to see all available shorthands.
 
 
 ## Dynamic status codes and HTTP headers
@@ -136,31 +136,20 @@ By default, Mirage sets the HTTP code of a response based on the verb being used
   - `post` is 201
   - `del` is 204
 
-
-Additionally, a header for `Content-type` is set to `application/json`.
-
-<aside class='Docs-page__aside'>
-  <p>Be sure to `import Mirage from 'ember-cli-mirage'` at the top of your config file.</p>
-</aside>
-
-You can customize both the response code and headers by returning an instance of `Mirage.Response`:
+Additionally, a header for `Content-type` is set to `application/json`. You can customize both the response code and headers by returning an instance of `Mirage.Response`:
 
 ```js
-// app/mirage/config.js
-import Mirage from 'ember-cli-mirage';
+this.post('/api/users', function(db, request) {
+  var data = JSON.parse(request.requestBody); 
 
-export default function() {
-  this.post('/api/users', function(db, request) {
-    var data = JSON.parse(request.requestBody); 
-
-    if (data.name) {
-      return db.users.insert(data);
-    } else {
-      return new Mirage.Response(400, {some: 'header'}, {message: 'name cannot be blank'});
-    }
-  });
-}
+  if (data.name) {
+    return db.users.insert(data);
+  } else {
+    return new Mirage.Response(400, {some: 'header'}, {message: 'name cannot be blank'});
+  }
+});
 ```
+Be sure to `import Mirage from 'ember-cli-mirage'` at the top of your config file.
 
 ---
 

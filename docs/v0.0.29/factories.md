@@ -3,11 +3,11 @@ title: Factories
 version: latest
 ---
 
-Factories are a useful way to seed your database, either during development or within tests. Whenever you generate an object via a factory, it will automatically get added to the database, and thus get an autoassigned `id`.
+Factories are used in your tests. Their purpose is to make it easy to populate your Mirage server's database with data. Whenever you generate an object via a factory, it will automatically get added to the database, and thus get an autoassigned `id`.
 
-You define factories by creating files under `/mirage/factories/some-factory.js`. The name of the factory is determined by the filename.
+You define factories by creating files under `/mirage/factories/some-factory.js`. The name of the factory, which you reference in your tests, is determined by the filename.
 
-Factories have attributes, and you create objects from factory definitions using the `server.create` and `server.createList` methods.
+Factories have attributes, and you create objects from factory definitions using `create` and `createList`.
 
 ## Defining factories
 
@@ -81,7 +81,7 @@ export default Human.extend({
 
 ## Creating objects
 
-Once you've defined a factory for a model, you can generate data for that model using `server.create` and `server.createList`, either from within `/app/mirage/scenarios/default.js` for development, or from within your acceptance tests.
+Once you've defined a factory for a model, you can generate data for that model using `server.create` and `server.createList` from within your acceptance tests.
 
 <a name="create" href="#create">#</a> server.<b>create</b>(<i>type</i> [, <i>attrs</i>])
 
@@ -129,8 +129,6 @@ Creates *amount* models of type *type*, optionally overriding the attributes fro
 
 Returns the array of records that were added to the database.
 
-Here's an example from a test:
-
 ```js
 test("I can view the contacts", function() {
   server.createList('contact', 5);
@@ -143,14 +141,4 @@ test("I can view the contacts", function() {
     equal( find('p').length, 10 );
   });
 });
-```
-
-And one from setting up your development database:
-
-```js
-// app/mirage/scenarios/default.js
-export default function(server) {
-  var contact = server.create('contact');
-  server.createList('address', {contact_id: contact.id});
-}
 ```

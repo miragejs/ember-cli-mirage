@@ -5,10 +5,6 @@ version: latest
 
 Acceptance testing your Ember app typically involves verifying some user behavior. For example, you may want to test that the user can view the photos on your app's index route.
 
-<aside class='Docs-page__aside'>
-  <p>Mirage recommends using factories in testing, as they make your tests more intention-revealing. If you'd like to load your fixture files during testing, simply delete your `/mirage/factories` directory.</p>
-</aside>
-
 Many of these tests rely on a given server state. In other words, you want to test that the user can view ten photos, *given ten photos exist on the server* when the user boots the app. This is where factories come in.
 
 Factories let you define the initial server state directly in the test:

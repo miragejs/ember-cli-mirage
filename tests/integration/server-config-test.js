@@ -60,3 +60,40 @@ test("if passthrough is true, unhandled requests pass through", function(assert)
     }
   });
 });
+
+test("passthrough requests use namespace", function(assert) {
+  var done = assert.async();
+  var server = this.server;
+
+  server.loadConfig(function() {
+    this.namespace = 'api';
+    this.passthrough = true;
+  });
+
+  $.ajax({
+    method: 'GET',
+    url: '/api/addresses',
+    error: function(reason) {
+      assert.equal(reason.status, 404);
+      done();
+    }
+  });
+});
+
+test("passthrough requests use glob routes", function(assert) {
+  var done = assert.async();
+  var server = this.server;
+
+  server.loadConfig(function() {
+    this.passthrough = true;
+  });
+
+  $.ajax({
+    method: 'GET',
+    url: '/addresses/1/packages',
+    error: function(reason) {
+      assert.equal(reason.status, 404);
+      done();
+    }
+  });
+});

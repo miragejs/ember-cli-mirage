@@ -54,10 +54,12 @@ export default function(options) {
     this.timing = environment === 'test' ? 0 : (this.timing || 0);
 
     if (this.passthrough) {
-      this.interceptor['get'].call(this.interceptor, '/:passthrough', this.interceptor.passthrough);
-      this.interceptor['post'].call(this.interceptor, '/:passthrough', this.interceptor.passthrough);
-      this.interceptor['put'].call(this.interceptor, '/:passthrough', this.interceptor.passthrough);
-      this.interceptor['delete'].call(this.interceptor, '/:passthrough', this.interceptor.passthrough);
+      var passthroughWithNamespace = this.namespace + '/*passthrough';
+
+      this.interceptor['get'].call(this.interceptor, passthroughWithNamespace, this.interceptor.passthrough);
+      this.interceptor['post'].call(this.interceptor, passthroughWithNamespace, this.interceptor.passthrough);
+      this.interceptor['put'].call(this.interceptor, passthroughWithNamespace, this.interceptor.passthrough);
+      this.interceptor['delete'].call(this.interceptor, passthroughWithNamespace, this.interceptor.passthrough);
     }
   };
 

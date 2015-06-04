@@ -86,7 +86,7 @@ this.post('/api/users', function(db, request) {
 });
 ```
 
-Mirage uses Pretender.js to intercept HTTP requests, so check out [its docs]() to see the full API for the request object.
+Mirage uses Pretender.js to intercept HTTP requests, so check out [its docs](https://github.com/trek/pretender) to see the full API for the request object.
 
 ## Using shorthands
 

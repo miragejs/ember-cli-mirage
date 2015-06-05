@@ -74,7 +74,7 @@ this.get('/api/users/:id', function(db, request) {
 })
 ```
 
-Query params from the request can also be accessed via `request.params.[param]`.
+Query params from the request can also be accessed via `request.queryParams.[param]`.
 
 Data that's included in the message body of the request is accessible via `request.requestBody`. For example, if your app creates a user resource via a POST request that includes some JSON data, your route handler may look like this:
 

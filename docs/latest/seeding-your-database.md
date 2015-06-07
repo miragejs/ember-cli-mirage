@@ -76,7 +76,7 @@ and so on.
 
 To actually use your factories to seed your database, use the `server.create` and `server.createList` methods. In development, create a default scenario file:
 
-```
+```js
 // app/mirage/scenarios/default.js
 export default function(server) {
   server.createList('user', 10);

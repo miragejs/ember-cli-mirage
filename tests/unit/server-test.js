@@ -203,3 +203,17 @@ test('createList respects attr overrides', function(assert) {
   assert.deepEqual(links[0], {id: 3, name: 'Link'});
   assert.deepEqual(links[1], {id: 4, name: 'Link'});
 });
+
+module('mirage:server#loadFactories', {
+  beforeEach: function() {
+    server = new Server({environment: 'test'});
+  }
+});
+
+test('loadFactories does not save event factories to server', function(assert) {
+  server.loadFactories({
+    events: {}
+  });
+
+  assert.equal(server._factoryMap['events'], null);
+});

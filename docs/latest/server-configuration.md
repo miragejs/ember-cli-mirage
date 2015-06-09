@@ -67,6 +67,24 @@ export default function() {
 
 Refer to [pretender's docs](https://github.com/trek/pretender#mutating-the-body) if you want to change this or any other options on your pretender instance.
 
+<a name="testConfig" href="#testConfig">#</a> **testConfig**
+
+Export a named `testConfig` function to define routes that only apply in your test environment:
+
+```js
+// mirage/config.js
+
+export default function() {
+  // normal config, shared across development + testing
+}
+
+export function testConfig() {
+  // test-only config, does not apply to development
+}
+```
+
+This could be useful if you'd like use Mirage in testing, but generally proxy to an actual API during development. As you develop, your frontend may be ahead of your API, in which case you'd work with the routes in the default config, and write your tests. Then, once your API implements the new endpoints, you can move the routes to your testConfig, so your tests still run, but Mirage doesn't interfere during development.
+
 ## Environment options
 
 <a name="enabled" href="#enabled">#</a> ENV['ember-cli-mirage'].<b>enabled</b>

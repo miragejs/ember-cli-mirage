@@ -172,5 +172,15 @@ export default function(options) {
   */
   this._eventQueue = new EventQueue();
 
+  this.enqueueEvent = function(eventName, params) {
+    this._eventQueue.addEvent(eventName, params);
+  };
+
+  this.enqueueEvents = function(eventName, n, params) {
+    for(var i = 0; i < n; i ++) {
+      this._eventQueue.addEvent(eventName, params);
+    }
+  };
+
   return this;
 }

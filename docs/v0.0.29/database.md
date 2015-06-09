@@ -1,6 +1,6 @@
 ---
 title: Database
-version: latest
+version: v0.0.29
 ---
 
 Your Mirage server has a database which you can interact with via the *verb methods* (`get`, `post`, `put` and `del`) in your routes. You retrieve or modify data from the database, then return what you want for that route.

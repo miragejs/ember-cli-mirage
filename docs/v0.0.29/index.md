@@ -1,6 +1,6 @@
 ---
 title: Overview
-version: latest
+version: v0.0.29
 ---
 
 Nearly all Ember apps interact with a JSON API. When you reach the point during development where you need to interact with dynamic server data, you have a few options:

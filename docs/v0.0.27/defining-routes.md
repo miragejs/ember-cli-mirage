@@ -46,7 +46,7 @@ The database is injected into each route handler as the first parameter:
 
 ```js
 this.get('/api/users', function(db) {
-  return db.users.all();
+  return db.users;
 });
 ```
 

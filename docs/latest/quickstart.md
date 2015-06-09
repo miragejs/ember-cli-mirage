@@ -38,7 +38,7 @@ Instead of returning an array, let's make this route dynamic by responding with 
 
 ```js
 this.get('/api/users', function(db, request) {
-  return db.users.all();
+  return db.users;
 });
 ```
 
@@ -59,7 +59,7 @@ export default [
 ];
 ```
 
-Given this file, these objects will be added to the `users` database table, since the filename is `users.js`. Now, any route can retrieve this data via `db.users.all()`, and we have a single place to manage our mock data.
+Given this file, these objects will be added to the `users` database table, since the filename is `users.js`. Now, any route can retrieve this data via `db.users`, and we have a single place to manage our mock data.
 
 By default, fixtures are only loaded in development. To have Mirage load your fixture files during testing, simply delete the `/mirage/factories` directory.
 
@@ -120,7 +120,7 @@ Mirage provides numerous *shorthands* to reduce the code needed for conventional
 
 ```js
 this.get('/api/users', function(db, request) {
-  return db.users.all();
+  return db.users;
 });
 ```
 

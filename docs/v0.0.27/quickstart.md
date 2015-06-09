@@ -38,7 +38,7 @@ Instead of returning an array, let's make this route dynamic by responding with 
 
 ```js
 this.get('/api/users', function(db, request) {
-  return db.users.all();
+  return db.users;
 });
 ```
 
@@ -59,7 +59,7 @@ export default [
 ];
 ```
 
-These objects will be added to the `users` database table, since the filename is `users.js`. Now, any route can retrieve this data via `db.users.all()`, and we have a single place to manage our mock data.
+These objects will be added to the `users` database table, since the filename is `users.js`. Now, any route can retrieve this data via `db.users`, and we have a single place to manage our mock data.
 
 <aside class='Docs-page__aside'>
   <p>Learn more about <a href="../seeding-your-database">factories</a>.</p>
@@ -106,7 +106,7 @@ Mirage provides numerous *shorthands* to reduce the code needed for conventional
 
 ```js
 this.get('/api/users', function(db, request) {
-  return db.users.all();
+  return db.users;
 });
 ```
 

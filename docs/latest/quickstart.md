@@ -42,62 +42,66 @@ this.get('/api/users', function(db, request) {
 });
 ```
 
-Now, if we want to change what data this route responds with, all we need to do is change the data in the database. To do this, we can use either *fixtures* or *factories*.
+Now, if we want to change what data this route responds with, all we need to do is change the data in the database.
+
+---
 
 <aside class='Docs-page__aside'>
-  <p>Learn more about <a href="../seeding-your-database">fixtures</a>.</p>
+  <p>You can also use flat fixture files to seed your database. Learn more in the <a href="../seeding-your-database">database guide</a>.</p>
 </aside>
 
-To seed your database with fixtures, create files under the `/mirage/fixtures` directory. These files should export arrays of objects, like this:
-
-```js
-// app/mirage/fixtures/users.js
-export default [
-  {id: 1, name: 'Zelda'},
-  {id: 2, name: 'Link'},
-  {id: 3, name: 'Epona'},
-];
-```
-
-Given this file, these objects will be added to the `users` database table, since the filename is `users.js`. Now, any route can retrieve this data via `db.users`, and we have a single place to manage our mock data.
-
-By default, fixtures are only loaded in development. To have Mirage load your fixture files during testing, simply delete the `/mirage/factories` directory.
-
-<aside class='Docs-page__aside'>
-  <p>Learn more about <a href="../seeding-your-database">factories</a>.</p>
-</aside>
-
-You can also use factories to seed your database. Factories give you fine-grained control over data creation, which is especially useful for setting up state during testing.
+To actually seed our database with fake data, we'll define *factories*. Factories are simply objects that dynamically generate data. They give us fine-grained control over data creation, which is especially useful for setting up state during testing.
 
 You create factories by adding files under `/mirage/factories/`:
 
 ```js
 // app/mirage/factories/user.js
-import Mirage from 'ember-cli-mirage';
+import Mirage, {faker} from 'ember-cli-mirage';
 
 export default Mirage.Factory.extend({
   name: i => `Person ${i}`,
-  verified: false
+  age: 28,
+  admin: false,
+  avatar: faker.internet.avatar
 });
 ```
 
-Each time you create an object from this factory, it will insert a record into your `users` table, giving that record an id, an `verified` value of `false`, and a name of `Person 1`, `Person 2`, and so on. You can define additional attributes as strings, numbers, booleans or functions.
+This factory will create objects like
 
-To use your factories, use the `server.create` or `server.createList` methods in development
+```
+{
+  name: 'Person 1',
+  age: 28,
+  admin: false,
+  avatar: 'https://s3.amazonaws.com/uifaces/faces/twitter/bergmartin/128.jpg'
+},
+{
+  name: 'Person 2',
+  age: 28,
+  admin: false,
+  avatar: 'https://s3.amazonaws.com/uifaces/faces/twitter/nemanjaivanovic/128.jpg'
+}
+```
+
+and so on. This data will be inserted into your `users` db table (giving each record an id), and will thus be available in your route handlers.
+
+To actually create factory data, use the `server.create` or `server.createList` methods in development
 
 ```js
 // app/mirage/scenarios/default.js
+
+// Create 10 non-admin and 1 admin users for development
 export default function(server) {
-  // seed our database for development
   server.createList('user', 10);  
-  server.create('user', {verified: true});
+  server.create('user', {admin: true});
 };
 ```
 
-or in a test
+and in your acceptance tests
 
 ```js
 // tests/acceptance/users-test.js
+
 test("I can view the users", function() {
   var users = server.createList('user', 3);
 
@@ -130,7 +134,7 @@ can be written simply as
 this.get('/api/users');
 ```
 
-Creating a resource using the request payload is just as easy:
+Creating a resource with the request data is just as easy:
 
 ```js
 this.post('/api/users');

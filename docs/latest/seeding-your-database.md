@@ -3,53 +3,15 @@ title: Seeding your database
 version: latest
 ---
 
-Once you've defined your server's routes, you'll probably want to seed your database with some starting data. You can use fixtures or factories, or both. Some people prefer the simplicity of fixture files, but these can be hard to maintain, so others prefer factories.
+Once you've defined your server's routes, you'll probably want to seed your database with some starting data. You can use factories or fixtures, or both. 
 
 In general Mirage recommends you use factories, especially for acceptance testing, as they force you to keep data creation logic close to the code that relies on that data. Also, once relationships land, it will be much simpler to create related models using factories.
 
-## Fixtures
-
-Think of your fixture files as database tables. If you want to add some data to your `users` table, create the file `/app/mirage/fixtures/users.js`:
-
-```js
-// app/mirage/fixtures/users.js
-export default [
-  {id: 1, name: 'Link'},
-  {id: 2, name: 'Zelda'},
-  {id: 3, name: 'Epona'}
-];
-```
-
-<aside class='Docs-page__aside'>
-  <p>If you want to use fixtures in testing as well, simply delete your `/mirage/factories` directory.</p>
-</aside>
-
-Fixture filenames are always plural, and export arrays of POJOs. Every time your app boots and a Mirage server is instantiated, this data will be added to its database and available in route handlers via `db.users`.
-
-If you want to work with related data, you'll need to manage the foreign keys yourself. You can use whatever convention you like, since you have full access to the db in your route handlers, but let's take a look at a popular convention.
-
-Suppose a `user` has many `addresses`. Your fixture data may look like this:
-
-```js
-// app/mirage/fixtures/users.js
-export default [
-  {id: 1, name: 'Link'},
-  {id: 2, name: 'Zelda'}
-];
-
-// app/mirage/fixtures/addresses.js
-export default [
-  {id: 1, name: '123 Hyrule Way', user_id: 1},
-  {id: 2, name: '11 Kokiri Forest St.', user_id: 1},
-  {id: 3, name: '5 Lost Woods Dr.', user_id: 2}
-];
-```
-
-Now you can use the shorthand `this.get('/api/users/:id', ['user', 'addresses']`, and Mirage will return the user whose id matches the `:id` route param, along with this user's related addresses - i.e., addresses whose `user_id` matches the param.
+Some people prefer the simplicity of fixture files, though they can get unwieldy as your app grows.
 
 ## Factories
 
-Many people prefer to use factories instead of fixtures to seed their database. If you've never used factories before, think of them as a simple way to create database records. You define factories by creating files under `/mirage/factories/factory-name.js`. The name of the factory, which you reference in your tests, is determined by the filename.
+If you've never used factories before, think of them as a simple way to create database records. You define factories by creating files under `/mirage/factories/factory-name.js`. The name of the factory, which you reference in your tests, is determined by the filename.
 
 Factories have attributes which can be strings, numbers or booleans, or functions:
 
@@ -100,3 +62,44 @@ test("I can view the users", function() {
 ```
 
 Learn more about acceptance testing in the next section.
+
+## Fixtures
+
+Think of your fixture files as database tables. If you want to add some data to your `users` table, create the file `/app/mirage/fixtures/users.js`:
+
+```js
+// app/mirage/fixtures/users.js
+export default [
+  {id: 1, name: 'Link'},
+  {id: 2, name: 'Zelda'},
+  {id: 3, name: 'Epona'}
+];
+```
+
+<aside class='Docs-page__aside'>
+  <p>If you want to use fixtures in testing as well, simply delete your `/mirage/factories` directory.</p>
+</aside>
+
+Fixture filenames are always plural, and export arrays of POJOs. Every time your app boots and a Mirage server is instantiated, this data will be added to its database and available in route handlers via `db.users`.
+
+If you want to work with related data, you'll need to manage the foreign keys yourself. You can use whatever convention you like, since you have full access to the db in your route handlers, but let's take a look at a popular convention.
+
+Suppose a `user` has many `addresses`. Your fixture data may look like this:
+
+```js
+// app/mirage/fixtures/users.js
+export default [
+  {id: 1, name: 'Link'},
+  {id: 2, name: 'Zelda'}
+];
+
+// app/mirage/fixtures/addresses.js
+export default [
+  {id: 1, name: '123 Hyrule Way', user_id: 1},
+  {id: 2, name: '11 Kokiri Forest St.', user_id: 1},
+  {id: 3, name: '5 Lost Woods Dr.', user_id: 2}
+];
+```
+
+Now you can use the shorthand `this.get('/api/users/:id', ['user', 'addresses']`, and Mirage will return the user whose id matches the `:id` route param, along with this user's related addresses - i.e., addresses whose `user_id` matches the param.
+

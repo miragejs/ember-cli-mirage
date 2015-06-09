@@ -54,7 +54,7 @@ this.get('/api/users', function(db) {
   <p>Route handlers can also create, update and delete database records.</p>
 </aside>
 
-Now, Mirage will respond to this route with all the `user` records in its database. To seed your database with data, you can use [fixtures](../seeding-your-database) or [factories](../seeding-your-database).
+Now, Mirage will respond to this route with all the `user` records in its database. To seed your database with data, you can use [factories](../seeding-your-database) or [fixtures](../seeding-your-database).
 
 As long as all your Mirage routes read from and write to the database, user interactions will persist during a single session. This lets users interact with your app as if it were wired up to a real server.
 

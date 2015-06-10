@@ -71,10 +71,6 @@ Refer to [pretender's docs](https://github.com/trek/pretender#mutating-the-body)
 
 <a name="testConfig" href="#testConfig">#</a> **testConfig**
 
-<aside class='Docs-page__aside'>
-  <p>testConfig was added in version 0.1.2.</p>
-</aside>
-
 Export a named `testConfig` function to define routes that only apply in your test environment:
 
 ```js

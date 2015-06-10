@@ -42,6 +42,10 @@ Each time this factory is used to create an object, it will have an autogenerate
 
 and so on.
 
+<aside class='Docs-page__aside'>
+  <p>View the full <a href="../factories#using-fakerjs">faker guide</a>.</p>
+</aside>
+
 Mirage also includes the Faker.js library, which pairs nicely with your factories to make your mock data more realistic:
 
 ```js
@@ -55,26 +59,34 @@ export default Mirage.Factory.extend({
 });
 ```
 
-You can find more details on how use faker [in the API reference]().
+Once you've defined your factories, you can use them to seed your database via the `server.create` and `server.createList` methods.
 
-## Using factories
+## Using factories in development
 
-Once you've defined your factories, you can use them to seed your database via the `server.create` and `server.createList` methods. These methods take a factory name and optional attribute overrides, and insert the generated data into Mirage's database.
+To seed your database in development, create the file `/app/mirage/scenarios/default.js`, and export a function that takes a single argument, `server`, your Mirage server's instance. This function will run when Mirage is initialized during development.
 
-For development, create a default scenario file, and use `create` and `createList` to set up your development data:
+A simple scenario may look like this:
 
 ```js
 // app/mirage/scenarios/default.js
 
 export default function(server) {
-  server.create('user', {name: 'Zelda'});
   server.createList('post', 10);
+
+  var user = server.create('user', {name: 'Zelda'});
+  server.createList('comment', 20, {user_id: user.id});
 }
 ```
 
-This default scenario will be loaded during development, but ignored during testing. This is so you can change your development data without affecting your tests.
+Currently, only the default scenario is supported, though there are plans to support switching between multiple scenarios in development.
 
-During acceptance testing, Mirage starts each test with a clean database. Use `create` and `createList` to define your data on a per-test basis:
+Note that this scenario will be ignored during testing. This is so you can change your development data without affecting your tests.
+
+## Using factories in testing
+
+During acceptance testing, Mirage's initializer is run when your Ember app starts up, and `server` is available in each test.
+
+Mirage starts each test with a clean database. Use `create` and `createList` to define your data on a per-test basis:
 
 ```js
 test('I can view the users', function() {

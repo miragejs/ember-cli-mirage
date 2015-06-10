@@ -5,16 +5,12 @@ version: latest
 
 Acceptance testing your Ember app typically involves verifying some user behavior. For example, you may want to test that the user can view the photos on your app's index route.
 
-<aside class='Docs-page__aside'>
-  <p>Mirage recommends using factories in testing, as they make your tests more intention-revealing. If you'd like to load your fixture files during testing, simply delete your `/mirage/factories` directory.</p>
-</aside>
+Many of these tests rely on a given server state. In other words, you want to test that the user can view ten photos, *given ten photo resources exist on the server* when the user boots the app. This is where factories come in.
 
-Many of these tests rely on a given server state. In other words, you want to test that the user can view ten photos, *given ten photos exist on the server* when the user boots the app. This is where factories come in.
-
-Factories let you define the initial server state directly in the test:
+Factories let you define the initial server state directly in your tests:
 
 ```js
-test("I can view the photos", function() {
+test('I can view the photos', function() {
   server.createList('photo', 10);
 
   visit('/');
@@ -46,11 +42,11 @@ export default Mirage.Factory.extend({
 
 The problem with this approach is that the desired change is very specific to this test. Suppose another test wanted to verify photos with different titles were displayed. Changing the factory to suit that case would break this test.
 
-For this reason, `create` and `createList` allow you to override specific attributes that your factory has defined. This allows us to adhere to the principle of keeping relevant code near our test.
+For this reason, `create` and `createList` allow you to override specific attributes that your factory has defined. This lets us keep relevant code near our tests, without making them brittle.
 
 To override attributes, simply pass in an object as the last argument to `create` or `createList` with the attributes you want to override. Here's what this may look like for the photos example.
 
-First, the (more generic) factory:
+First, let's make our factory more generic:
 
 ```js
 // app/mirage/factories/photo.js
@@ -61,7 +57,7 @@ export default Mirage.Factory.extend({
 });
 ```
 
-And now we can write our tests, overriding the factory-generated attributes where appropriate:
+Now, we can write our tests, overriding the factory-generated attributes where appropriate:
 
 ```js
 test("I can view the photos", function() {
@@ -85,7 +81,7 @@ test("I see the photo's title on a detail route", function() {
 });
 ```
 
-We override `title` in the second test since it's relevant there, but we stick with the generic factory-generated titles for the first test.
+We override `title` in the second test since it's relevant there, but we stick with the factory-generated defaults for the first test.
 
 ## Relationships
 
@@ -106,6 +102,10 @@ test("I see the photo's title on a detail route", function() {
 ```
 
 Now any route that requests this user and their photos will retrieve all the data.
+
+## Fixtures in acceptance tests
+
+Mirage recommends that you use factories in testing, as they make your tests more intention-revealing. If you'd like to load your fixture files during testing, simply delete your `/mirage/factories` directory.
 
 ---
 

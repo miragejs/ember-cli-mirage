@@ -3,7 +3,7 @@ title: Database
 version: latest
 ---
 
-Your Mirage server has a database which you can interact with via the *verb methods* (`get`, `post`, `put` and `del`) in your routes. You retrieve or modify data from the database, then return what you want for that route.
+Your Mirage server has a database which you can interact with in your route handlers. You retrieve or modify data from the database, then return what you want for that route.
 
 Here are the database methods available to you from within your route definitions.
 
@@ -19,7 +19,7 @@ For example if you had the following data file named `/app/mirage/fixtures/conta
 
 ```js
 export default [
-  {id: 1, name: 'Sam'}, {id: 2, name: 'Ryan'}
+  {id: 1, name: 'Zelda'}, {id: 2, name: 'Link'}
 ];
 ```
 

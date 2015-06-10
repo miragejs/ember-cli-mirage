@@ -54,7 +54,7 @@ this.get('/api/users', function(db) {
   <p>Route handlers can also create, update and delete database records.</p>
 </aside>
 
-Now, Mirage will respond to this route with all the `user` records in its database. To seed your database with data, you can use [factories](../seeding-your-database) or [fixtures](../seeding-your-database).
+Now, Mirage will respond to this route with all the `user` records in its database. You'll learn more about seeding your database with initial data in the next section.
 
 As long as all your Mirage routes read from and write to the database, user interactions will persist during a single session. This lets users interact with your app as if it were wired up to a real server.
 
@@ -90,12 +90,12 @@ Mirage uses Pretender.js to intercept HTTP requests, so check out [its docs](htt
 
 ## Using shorthands
 
-JSON APIs have become more standardized, so Mirage has the concept of *shorthands* to deal with common API scenarios. These shorthands can replace many of your custom route handlers, dramatically simplifying your server definition.
+JSON APIs have become more standardized, so Mirage has the concept of *shorthands* to deal with common scenarios. These shorthands can replace many of your custom route handlers, dramatically simplifying your server definition.
 
 For example, a GET request to `/api/users` typically returns a list of users. Instead of writing out the mock by hand
 
 ```js
-this.get('/api/users', function(db, request) {
+this.get('/users', function(db, request) {
   return {
     users: db.users
   };
@@ -105,13 +105,13 @@ this.get('/api/users', function(db, request) {
 we can use the shorthand form
 
 ```js
-this.get('/api/users');
+this.get('/users');
 ```
 
 Similarly, creating a resource manually looks like this
 
 ```js
-this.post('/api/users', function(db, request) {
+this.post('/users', function(db, request) {
   var attrs = JSON.parse(request.requestBody);
   var user = db.users.insert(attrs);
   return user;
@@ -121,7 +121,7 @@ this.post('/api/users', function(db, request) {
 but with a shorthand it looks like this:
 
 ```js
-this.post('/api/users');
+this.post('/users');
 ```
 
 View the [full reference](../shorthands) to see all available shorthands.
@@ -131,17 +131,11 @@ View the [full reference](../shorthands) to see all available shorthands.
 
 By default, Mirage sets the HTTP code of a response based on the verb being used:
   
-  - `get` is 200
-  - `put` is 204
+  - `get`, `put` and `del` are 200
   - `post` is 201
-  - `del` is 204
 
 
 Additionally, a header for `Content-type` is set to `application/json`.
-
-<aside class='Docs-page__aside'>
-  <p>Be sure to `import Mirage from 'ember-cli-mirage'` at the top of your config file.</p>
-</aside>
 
 You can customize both the response code and headers by returning an instance of `Mirage.Response`:
 
@@ -162,6 +156,8 @@ export default function() {
 }
 ```
 
+Be sure to `import Mirage from 'ember-cli-mirage'` at the top of your config file.
+
 ---
 
-That's the essentials of defining your routes. Next, you'll learn how to seed your database with some starting data, both in development and testing.
+That's the essentials of defining your routes. Next, you'll learn how to seed your database with some starting data, both in development and within tests.

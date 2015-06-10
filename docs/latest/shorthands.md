@@ -3,16 +3,12 @@ title: Shorthand reference
 version: latest
 ---
 
-A *shorthand* is a simple way to write a route handler for common API scenarios. Here's a reference of the shorthands, and the code they represent.
+A *shorthand* is a simple way to write a route handler for common API scenarios. Here's a reference of each shorthand, along with the raw route handler that shorthand represents.
 
 Shorthands use default status codes, based on the HTTP verb:
 
-  - GET is 200
-  - PUT is 204
+  - GET, PUT and DEL are 200
   - POST is 201
-  - DEL is 204
-
-PUT and POST change to 200 if there is a response body.
 
 ## GET shorthands
 

@@ -3,17 +3,21 @@ title: Seeding your database
 version: latest
 ---
 
-Once you've defined your server's routes, you'll probably want to seed your database with some starting data. You can use factories or fixtures, or both. 
+Once you've defined your server's routes, you'll probably want to seed your database with some initial data. You can use factories or fixtures, or both. 
 
-In general Mirage recommends you use factories, especially for acceptance testing, as they force you to keep data creation logic close to the code that relies on that data. Also, once relationships land, it will be much simpler to create related models using factories.
+In general Mirage recommends that you use factories, for a few reasons:
 
-Some people prefer the simplicity of fixture files, though they can get unwieldy as your app grows.
+  - they're versatile and give you more control over data creation
+  - they make your tests more intention-revealing
+  - they're easier to maintain and change
 
-## Factories
+First, we'll look at using factories.
 
-If you've never used factories before, think of them as a simple way to create database records. You define factories by creating files under `/mirage/factories/factory-name.js`. The name of the factory, which you reference in your tests, is determined by the filename.
+## Defining factories
 
-Factories have attributes which can be strings, numbers or booleans, or functions:
+If you've never used factories before, think of them as a way to make database records. You define factories by creating files under the `/mirage/factories` directory. The name of the factory, which you reference in your tests, is determined by the filename.
+
+Factories have attributes which can be strings, numbers, booleans or functions:
 
 ```js
 // mirage/factories/user.js
@@ -36,21 +40,42 @@ Each time this factory is used to create an object, it will have an autogenerate
 
 and so on.
 
-To actually use your factories to seed your database, use the `server.create` and `server.createList` methods. In development, create a default scenario file:
+Mirage also includes the Faker.js library, which pairs nicely with your factories to make your mock data more realistic:
+
+```js
+// mirage/factories/user.js
+import Mirage, { faker } from 'ember-cli-mirage';
+
+export default Mirage.Factory.extend({
+  firstName: faker.name.firstName,
+  lastName: faker.name.lastName,
+  age: faker.list.random(18, 20, 28, 32, 45, 60),
+});
+```
+
+You can find more details on how use faker [in the API reference]().
+
+## Using factories
+
+Once you've defined your factories, you can use them to seed your database via the `server.create` and `server.createList` methods. These methods take a factory name and optional attribute overrides, and insert the generated data into Mirage's database.
+
+For development, create a default scenario file, and use `create` and `createList` to set up your development data:
 
 ```js
 // app/mirage/scenarios/default.js
+
 export default function(server) {
-  server.createList('user', 10);
+  server.create('user', {name: 'Zelda'});
+  server.createList('post', 10);
 }
 ```
 
 This default scenario will be loaded during development, but ignored during testing. This is so you can change your development data without affecting your tests.
 
-During acceptance testing, Mirage starts each test with a clean database. Use the server methods to define your data on a per-test basis:
+During acceptance testing, Mirage starts each test with a clean database. Use `create` and `createList` to define your data on a per-test basis:
 
 ```js
-test("I can view the users", function() {
+test('I can view the users', function() {
   server.createList('user', 3);
 
   visit('/contacts');
@@ -61,11 +86,31 @@ test("I can view the users", function() {
 });
 ```
 
-Learn more about acceptance testing in the next section.
+Learn more about acceptance testing in the [next section](../acceptance-testing).
+
+## Relationships with factories
+
+You can also create related data with factories. Until [this PR](https://github.com/samselikoff/ember-cli-mirage/pull/82) lands, you'll need to manage the foreign keys yourself, which you'll do by overriding your factories' default attributes. Here's an example:
+
+```js
+var user = server.create('user');
+server.createList('post', 10, {user_id: user.id});
+```
+
+Notice that `create` and `createList` return the database records that were created by the factory, so you can use the user's `id` to relate the posts back to that user. Now that the foreign keys are set up, you can use the shorthand routes to sideload the user's related data:
+
+```js
+this.get('/users/:id', ['user', 'posts']);
+```
+
+or interact with the data directly via `db.posts.where({user_id: user.id})`, for example.
+
+---
+
 
 ## Fixtures
 
-Think of your fixture files as database tables. If you want to add some data to your `users` table, create the file `/app/mirage/fixtures/users.js`:
+You can also choose to use fixtures instead of (or in addition to) factories. If you've never used fixtures before, think of a fixture file as a database table. To add data to your `users` table, for instance, create the file `/app/mirage/fixtures/users.js`:
 
 ```js
 // app/mirage/fixtures/users.js
@@ -76,13 +121,13 @@ export default [
 ];
 ```
 
-<aside class='Docs-page__aside'>
-  <p>If you want to use fixtures in testing as well, simply delete your `/mirage/factories` directory.</p>
-</aside>
+Fixture filenames are always plural, and export arrays of POJOs. During development, this data will be added to Mirage's database and will be available in route handlers via `db.users`. Be sure to delete the `/mirage/scenarios` directory in order for your fixtures to load during development.
 
-Fixture filenames are always plural, and export arrays of POJOs. Every time your app boots and a Mirage server is instantiated, this data will be added to its database and available in route handlers via `db.users`.
+Some people use fixtures during development but choose to use factories in their tests. If you want your fixture files to also load during testing, simply delete the `/mirage/factories` directory.
 
-If you want to work with related data, you'll need to manage the foreign keys yourself. You can use whatever convention you like, since you have full access to the db in your route handlers, but let's take a look at a popular convention.
+## Relationships with fixtures
+
+To create related data, you'll need to manage the foreign keys yourself. Let's look at an example.
 
 Suppose a `user` has many `addresses`. Your fixture data may look like this:
 
@@ -101,5 +146,5 @@ export default [
 ];
 ```
 
-Now you can use the shorthand `this.get('/api/users/:id', ['user', 'addresses']`, and Mirage will return the user whose id matches the `:id` route param, along with this user's related addresses - i.e., addresses whose `user_id` matches the param.
+Now you can use the shorthand `this.get('/users/:id', ['user', 'addresses']`, and Mirage will return the user whose id matches the `:id` route param, along with this user's related addresses - i.e., addresses whose `user_id` matches the param.
 

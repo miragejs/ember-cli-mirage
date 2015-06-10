@@ -5,7 +5,7 @@ version: latest
 
 Factories are a useful way to seed your database, either during development or within tests. Whenever you generate an object via a factory, it will automatically get added to the database, and thus get an autoassigned `id`.
 
-You define factories by creating files under `/mirage/factories/some-factory.js`. The name of the factory is determined by the filename.
+You define factories by creating files under the `/mirage/factories` directory. The name of the factory is determined by the filename.
 
 Factories have attributes, and you create objects from factory definitions using the `server.create` and `server.createList` methods.
 
@@ -59,9 +59,53 @@ export default Mirage.Factory.extend({
 
 You should define the attributes of your factory as the "base case" for your objects, and override them within your tests. We'll discuss how do to this in the Creating Objects section.
 
+## Using Faker.js
+
+The [Faker.js](https://github.com/marak/Faker.js/) library is included with Mirage, and its methods work nicely with factory definitions:
+
+```js
+// app/mirage/factories/user.js
+import Mirage, {faker} from 'ember-cli-mirage';
+
+export default Mirage.Factory.extend({
+  firstName: faker.name.firstName,
+  lastName: faker.name.lastName,
+  avatar: faker.internet.avatar
+});
+```
+
+We've also added two methods on the `faker` namespace, `list.cycle` and `list.random`, which are useful if you have a set of data you want your factories to iterate through:
+
+```js
+// app/mirage/factories/subject.js
+import Mirage, {faker} from 'ember-cli-mirage';
+
+export default Mirage.Factory.extend({
+  name: faker.list.cycle('Economics', 'Philosophy', 'English', 'History', 'Mathematics'),
+  students: faker.list.random(100, 200, 300, 400, 500)
+});
+```
+
+`cycle` loops through the data in order, while `random` chooses a random element from the list each time an object is created.
+
+Note that because factory functions get `i` as the first parameter, this could influence some of the fake data that Faker generates. For example, the `faker.name.findName` method changes its generated name based on the function parameter. Passing 1, 2, etc. will make `findName` generate data that you probably didn't intend. You can avoid this by using an anonymous function and simply ignoring the sequence parameter:
+
+```js
+// app/mirage/factories/user.js
+import Mirage, {faker} from 'ember-cli-mirage';
+
+export default Mirage.Factory.extend({
+  fullName: (i) => {
+    return faker.name.findName();
+  }
+});
+```
+
+View [Faker's docs](https://github.com/marak/Faker.js/) for the full faker API.
+
 ## Extending factories
 
-You can extend factories:
+You can also extend factories:
 
 ```js
 // mirage/factories/human.js

@@ -1,6 +1,8 @@
 ---
 title: Defining routes
 version: v0.1.x
+
+redirect_from: "/docs/latest/defining-routes/"
 ---
 
 To define routes for your server, use the `get`, `post`, `put` and `del` methods. Here's an example:

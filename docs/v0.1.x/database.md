@@ -1,6 +1,8 @@
 ---
 title: Database
 version: v0.1.x
+
+redirect_from: "/docs/latest/database/"
 ---
 
 Your Mirage server has a database which you can interact with in your route handlers. You retrieve or modify data from the database, then return what you want for that route.

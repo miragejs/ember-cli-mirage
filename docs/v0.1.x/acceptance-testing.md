@@ -1,6 +1,8 @@
 ---
 title: Acceptance testing
 version: v0.1.x
+
+redirect_from: "/docs/latest/acceptance-testing/"
 ---
 
 Acceptance testing your Ember app typically involves verifying some user behavior. For example, you may want to test that the user can view the photos on your app's index route.

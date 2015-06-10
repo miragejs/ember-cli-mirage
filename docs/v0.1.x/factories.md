@@ -1,6 +1,8 @@
 ---
 title: Factories
 version: v0.1.x
+
+redirect_from: "/docs/latest/factories/"
 ---
 
 Factories are a useful way to seed your database, either during development or within tests. Whenever you generate an object via a factory, it will automatically get added to the database, and thus get an autoassigned `id`.

@@ -1,6 +1,8 @@
 ---
 title: Installation
 version: v0.1.x
+
+redirect_from: "/docs/latest/installation/"
 ---
 
 For Ember CLI >= 0.2.3,

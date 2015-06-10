@@ -3,6 +3,12 @@ layout: inverted-page
 title: Home
 ---
 
+{% for version in site.data.navs %}
+  {% if forloop.first %}
+    {% assign latest = version[0] %}
+  {% endif %}
+{% endfor %}
+
 <div class="Home-page">
   <p class="Home-page__tagline">Build, test and demo your app using a single mock server</h1>
 
@@ -31,7 +37,7 @@ title: Home
   <hr class='Subtle-hr'>
 
   <div class="u-text-center">
-    <a href='/docs/latest' class="Home-page__button">
+    <a href='/docs/{{latest}}' class="Home-page__button">
       Get started
     </a>
   </div>

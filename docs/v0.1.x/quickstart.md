@@ -1,6 +1,6 @@
 ---
 title: Quickstart
-version: latest
+version: v0.1.x
 ---
 
 Mirage is all about mocking out your API server. You define *route handlers* to respond to your Ember app's AJAX requests.

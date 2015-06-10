@@ -1,6 +1,6 @@
 ---
 title: Server configuration
-version: latest
+version: v0.1.x
 ---
 
 Besides defining your routes, there's some config options for your server available in `/app/mirage/config.js`. There's also some environment options, which you define in `/config/environment.js`.
@@ -68,6 +68,10 @@ export default function() {
 Refer to [pretender's docs](https://github.com/trek/pretender#mutating-the-body) if you want to change this or any other options on your pretender instance.
 
 <a name="testConfig" href="#testConfig">#</a> **testConfig**
+
+<aside class='Docs-page__aside'>
+  <p>testConfig was added in version 0.1.2.</p>
+</aside>
 
 Export a named `testConfig` function to define routes that only apply in your test environment:
 

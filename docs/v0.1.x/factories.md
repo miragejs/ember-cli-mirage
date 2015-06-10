@@ -1,6 +1,6 @@
 ---
 title: Factories
-version: latest
+version: v0.1.x
 ---
 
 Factories are a useful way to seed your database, either during development or within tests. Whenever you generate an object via a factory, it will automatically get added to the database, and thus get an autoassigned `id`.
@@ -60,6 +60,10 @@ export default Mirage.Factory.extend({
 You should define the attributes of your factory as the "base case" for your objects, and override them within your tests. We'll discuss how do to this in the Creating Objects section.
 
 ## Using Faker.js
+
+<aside class='Docs-page__aside'>
+  <p>Faker was added in version 0.1.3.</p>
+</aside>
 
 The [Faker.js](https://github.com/marak/Faker.js/) library is included with Mirage, and its methods work nicely with factory definitions:
 

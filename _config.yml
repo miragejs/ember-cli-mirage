@@ -19,6 +19,9 @@ exclude:
   - tmp
 
 
+gems:
+  - jekyll-redirect-from
+
 # Custom vars
 version:          0.0.27
 

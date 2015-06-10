@@ -1,6 +1,6 @@
 ---
 title: Shorthand reference
-version: latest
+version: v0.1.x
 ---
 
 A *shorthand* is a simple way to write a route handler for common API scenarios. Here's a reference of each shorthand, along with the raw route handler that shorthand represents.

@@ -1,6 +1,6 @@
 ---
 title: Seeding your database
-version: latest
+version: v0.1.x
 ---
 
 Once you've defined your server's routes, you'll probably want to seed your database with some initial data. You can use factories or fixtures, or both. 

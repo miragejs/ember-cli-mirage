@@ -3,6 +3,12 @@ layout: default
 title: About
 ---
 
+{% for version in site.data.navs %}
+  {% if forloop.first %}
+    {% assign latest = version[0] %}
+  {% endif %}
+{% endfor %}
+
 <div class="About">
   
   <div class='About__section'>
@@ -26,7 +32,7 @@ title: About
     <h1 class='About__heading'>FAQ</h1>
     <div class='About__content'>
       <p><strong>Can I share my app running on a Mirage server as a demo/prototype?</strong></p>
-      <p>Yes! This is a great use case for Mirage. Simply <a href="{{ site.baseurl }}/docs/latest/server-configuration/#enabled">enable Mirage in production</a>, and everything will work just like it does in development.</p>
+      <p>Yes! This is a great use case for Mirage. Simply <a href="{{ site.baseurl }}/docs/{{latest}}/server-configuration/#enabled">enable Mirage in production</a>, and everything will work just like it does in development.</p>
       <p><strong>Are there any known issues?</strong></p>
       <p>Mocking requests to other-origin domains is not currently supported. That means if your app makes a request to youtube.com, you won't be able to mock it out.</p>
       <p><strong>This project seems complex. Is it a good idea?</strong></p>

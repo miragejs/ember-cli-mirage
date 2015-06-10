@@ -60,6 +60,9 @@ $header-height: 70px;
 
     @include above($breakpoint) {
       position: absolute;
+      color: rgba(255,255,255,0.05);
+      background-color: $red;
+      @include background-clip(text);
 
       &:hover {
         @include shimmer();

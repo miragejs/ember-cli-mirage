@@ -14,6 +14,7 @@ module('Acceptance: Timing', {
   },
   afterEach: function() {
     Ember.run(App, 'destroy');
+    server.shutdown();
   }
 });
 

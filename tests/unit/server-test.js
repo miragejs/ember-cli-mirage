@@ -203,3 +203,45 @@ test('createList respects attr overrides', function(assert) {
   assert.deepEqual(links[0], {id: 3, name: 'Link'});
   assert.deepEqual(links[1], {id: 4, name: 'Link'});
 });
+
+module('mirage:server#loadFactories', {
+  beforeEach: function() {
+    server = new Server({environment: 'test'});
+  }
+});
+
+test('loadFactories does not save event factories to server', function(assert) {
+  server.loadFactories({
+    events: {}
+  });
+
+  assert.equal(server._factoryMap['events'], null);
+});
+
+module('mirage:server#enqueueEvent', {
+  beforeEach: function() {
+    server = new Server({environment: 'test'});
+
+    server.loadFactories({
+      events: {
+        'file-add': Factory.extend({fileName: 'ben.jpg'})
+      }
+    });
+  }
+});
+
+test('enqueueEvent queues an event', function(assert) {
+  assert.equal(server._eventQueue.length(), 0);
+  server.enqueueEvent('file-add', { fileName: 'sam.jpg' });
+  assert.equal(server._eventQueue.length(), 1);
+  assert.equal(server._eventQueue.nextEvent().name, 'file-add');
+  assert.equal(server._eventQueue.nextEvent().params.fileName, 'sam.jpg');
+});
+
+test('enqueueEvents queues many events', function(assert) {
+  assert.equal(server._eventQueue.length(), 0);
+  server.enqueueEvents('file-add', 10, { fileName: 'sam.jpg' });
+  assert.equal(server._eventQueue.length(), 10);
+  assert.equal(server._eventQueue.nextEvent().name, 'file-add');
+  assert.equal(server._eventQueue.nextEvent().params.fileName, 'sam.jpg');
+});

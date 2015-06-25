@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import { pluralize } from './utils/inflector';
+import EventQueue from './event-queue';
 import Pretender from 'pretender';
 import Db from './db';
 import controller from './controller';
@@ -120,6 +121,12 @@ export default function(options) {
     // Store a reference to the factories
     this._factoryMap = factoryMap;
 
+    // Extract the event factories
+    if (factoryMap['events']) {
+      this._eventQueue.loadFactories(factoryMap['events']);
+      delete this._factoryMap['events'];
+    }
+
     // Create a collection for each factory
     Ember.keys(factoryMap).forEach(function(type) {
       _this.db.createCollection(pluralize(type));
@@ -158,6 +165,21 @@ export default function(options) {
 
   this.shutdown = function(){
     this.pretender.shutdown();
+  };
+
+  /*
+    Event queue
+  */
+  this._eventQueue = new EventQueue();
+
+  this.enqueueEvent = function(eventName, params) {
+    this._eventQueue.addEvent(eventName, params);
+  };
+
+  this.enqueueEvents = function(eventName, n, params) {
+    for(var i = 0; i < n; i ++) {
+      this._eventQueue.addEvent(eventName, params);
+    }
   };
 
   return this;

@@ -74,7 +74,7 @@ You create factories by adding files under `/mirage/factories/`:
 import Mirage from 'ember-cli-mirage';
 
 export default Mirage.Factory.extend({
-  name: i => `Person ${i}`
+  name(i) { return `Person ${i}`; }
 });
 ```
 

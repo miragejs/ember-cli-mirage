@@ -26,7 +26,7 @@ Factories have attributes which can be strings, numbers, booleans or functions:
 import Mirage from 'ember-cli-mirage';
 
 export default Mirage.Factory.extend({
-  name: i => `User ${i}`,
+  name(i) { return `User ${i}`; },
   age: 20,
   admin: false
 });

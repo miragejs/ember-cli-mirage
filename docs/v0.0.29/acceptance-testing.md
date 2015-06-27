@@ -53,7 +53,7 @@ First, the (more generic) factory:
 import Mirage from 'ember-cli-mirage';
 
 export default Mirage.Factory.extend({
-  title: i => `Photo ${i}` // Photo 1, Photo 2 etc.
+  title(i) { return `Photo ${i}`; } // Photo 1, Photo 2 etc.
 });
 ```
 

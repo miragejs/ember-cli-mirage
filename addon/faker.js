@@ -3,7 +3,7 @@ var list = {
     var items = arguments.length > 0 ? arguments : [];
 
     return function () {
-      return faker.random.arrayElement(items);
+      return faker.random.array_element(items);
     };
   },
 

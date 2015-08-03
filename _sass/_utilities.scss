@@ -12,8 +12,10 @@
 .u-inverted h3,
 .u-inverted h4,
 .u-inverted h5,
-.u-inverted p {
+.u-inverted p,
+.u-inverted a {
   color: white;
+  border-color: white;
 }
 .u-callout {
   margin-left: 30px;

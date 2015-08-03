@@ -10,6 +10,9 @@ v0.1.x:
   - label: Seeding your database
   - label: Acceptance testing
 
+  - section: Cookbook
+    label: Working with JSON:API
+
   - section: API reference
     label: Server configuration
   - label: Routes

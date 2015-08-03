@@ -111,4 +111,4 @@ Mirage recommends that you use factories in testing, as they make your tests mor
 
 ---
 
-You should now know enough to mock out your JSON API and test your app using Mirage! Check out the next section for a detailed reference on all of Mirage's features.
+You should now know enough to mock out your JSON API and test your app using Mirage!

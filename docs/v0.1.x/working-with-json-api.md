@@ -3,7 +3,7 @@ title: Working with JSON API
 version: v0.1.x
 ---
 
-Now that the JSON:API spec has hit 1.0 and Ember Data has adopted it as a default, it's important to be able to mock it out with Mirage. We're taking this opportunity to make Mirage a bit more flexible to handle JSON:API and other backends by adding a serialier layer.
+Now that the JSON:API spec has hit 1.0 and Ember Data has adopted it as a default, it's important to be able to mock it out with Mirage. We're taking this opportunity to make Mirage a bit more flexible to handle JSON:API and other backends by adding a serializer layer.
 
 Until this layer lands, you'll have to do a bit more work in your route definitions to work with JSON:API. For a GET request to `/users/1`, JSON:API expects a response that looks something like this:
 

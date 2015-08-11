@@ -19,9 +19,8 @@ export default function setupMirage(container) {
 
 Then, add the following to any test where you want Mirage to initialize:
 
-```
+```js
 // tests/integration/components/your-test.js
-
 import mirage from '../../../helpers/setup-mirage-for-integration';
 
 moduleForComponent('your-component', 'Integration | Component | your component', {

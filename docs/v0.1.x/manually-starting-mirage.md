@@ -9,7 +9,6 @@ Eventually we'll extract Mirage's initializer, but for now you can use this work
 
 ```js
 // tests/helpers/setup-mirage-for-integration.js
-
 import mirageInitializer from '../../initializers/ember-cli-mirage';
 
 export default function setupMirage(container) {
@@ -21,12 +20,12 @@ Then, add the following to any test where you want Mirage to initialize:
 
 ```js
 // tests/integration/components/your-test.js
-import mirage from '../../../helpers/setup-mirage-for-integration';
+import startMirage from '../../../helpers/setup-mirage-for-integration';
 
 moduleForComponent('your-component', 'Integration | Component | your component', {
   integration: true,
   setup: function() {
-    mirage(this.container);
+    startMirage(this.container);
   }
 });
 ```

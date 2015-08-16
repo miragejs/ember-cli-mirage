@@ -69,7 +69,7 @@ export default class Server {
     var _this = this;
 
     var route;
-    if (/^http:\/\//.test(path)) {
+    if (/^https?:\/\//.test(path)) {
       route = path;
     } else {
       path = path[0] === '/' ? path.slice(1) : path;

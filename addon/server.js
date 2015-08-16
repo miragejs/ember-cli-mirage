@@ -41,6 +41,8 @@ export default class Server {
     });
     this.pretender = this.interceptor; // alias
 
+    this.responseQueues = {};
+
     /*
       Db instance
 
@@ -59,18 +61,39 @@ export default class Server {
     }
   }
 
+  responseQueue(verb, path) {
+    var key = [verb.toUpperCase(), this.normalizePath(path)].join('');
+    return this.responseQueues[key] || (this.responseQueues[key] = []);
+  }
+
+  nextQueuedResponse(verb, path) {
+    var queue = this.responseQueue(verb, path);
+    return queue.shift();
+  }
+
+  queueResponse(verb, path, handler) {
+    var queue = this.responseQueue(verb, path);
+    return queue.push(handler);
+  }
+
   loadConfig(config) {
     config.call(this);
     this.timing = this.environment === 'test' ? 0 : (this.timing || 0);
   }
 
+  normalizePath(path) {
+    return path[0] === '/' ? path.slice(1) : path;
+  }
+
   // TODO: Move all this logic to another object (route?)
   stub(verb, path, handler, code, options) {
     var _this = this;
-    path = path[0] === '/' ? path.slice(1) : path;
+    path = this.normalizePath(path);
 
     this.interceptor[verb].call(this.interceptor, this.namespace + '/' + path, function(request) {
-      var response = controller.handle(verb, handler, (_this.schema || _this.db), request, code, options);
+
+      var nextHandler = _this.nextQueuedResponse(verb, path) || handler;
+      var response = controller.handle(verb, nextHandler, (_this.schema || _this.db), request, code, options);
       var shouldLog = typeof _this.logging !== 'undefined' ? _this.logging : (_this.environment !== 'test');
 
       if (shouldLog) {

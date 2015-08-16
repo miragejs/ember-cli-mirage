@@ -67,9 +67,16 @@ export default class Server {
   // TODO: Move all this logic to another object (route?)
   stub(verb, path, handler, code, options) {
     var _this = this;
-    path = path[0] === '/' ? path.slice(1) : path;
 
-    this.interceptor[verb].call(this.interceptor, this.namespace + '/' + path, function(request) {
+    var route;
+    if (/^http:\/\//.test(path)) {
+      route = path;
+    } else {
+      path = path[0] === '/' ? path.slice(1) : path;
+      route = `${this.namespace}/${path}`;
+    }
+
+    this.interceptor[verb].call(this.interceptor, route, function(request) {
       var response = controller.handle(verb, handler, (_this.schema || _this.db), request, code, options);
       var shouldLog = typeof _this.logging !== 'undefined' ? _this.logging : (_this.environment !== 'test');
 

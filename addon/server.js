@@ -174,13 +174,31 @@ export default class Server {
     configured options (`urlPrefix` and `namespace`).
   */
   _getFullPath(path) {
-    var urlPrefix = this.urlPrefix,
-        namespace = this.namespace;
+    var fullPath = '',
+        urlPrefix = this.urlPrefix ? this.urlPrefix.trim() : '',
+        namespace = this.namespace ? this.namespace.trim() : '';
 
-    urlPrefix = urlPrefix[urlPrefix.length - 1] === '/' ? urlPrefix : urlPrefix + '/';
-    namespace = namespace ? namespace + '/' : namespace;
+    // check to see if path is a FQDN. if so, ignore any urlPrefix/namespace that was set
+    if (/^https?:\/\//.test(path)) {
+      fullPath += path;
+    } else {
 
-    return urlPrefix + namespace + path;
+      // otherwise, if there is a urlPrefix, use that as the beginning of the path
+      if (!!urlPrefix.length) {
+        fullPath += urlPrefix[urlPrefix.length - 1] === '/' ? urlPrefix : urlPrefix + '/';
+      }
+
+      // if a namespace has been configured, add it before the path
+      if (!!namespace.length) {
+        fullPath += namespace ? namespace + '/' : namespace;
+      }
+
+      // finally add the configured path
+      fullPath += path;
+    }
+
+    console.log(fullPath);
+    return fullPath;
   }
 
 }

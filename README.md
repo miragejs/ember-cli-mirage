@@ -37,10 +37,6 @@ Check out the [Docs](http://www.ember-cli-mirage.com/docs/latest/)!
 
 ## FAQ
 
-### Known issues
-
-- Pretender doesn't handle other-origin requests (e.g. api.twitter.com)
-
 ### Support
 
 Having trouble? Open an issue!

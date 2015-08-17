@@ -89,3 +89,31 @@ export default function() {
 
 }
 ```
+
+## External origins
+
+<aside class='Docs-page__aside'>
+  <p>Support for external domains landed in v0.1.7.</p>
+</aside>
+
+You can use Mirage to mock out other-origin requests. By default, a mock like
+
+```js
+this.get('/contacts', ...)
+```
+
+will hit the same origin that's serving your Ember app. To mock out a different origin, simply add the fully qualified domain name to your mock:
+
+```js
+this.get('http://api.twitter.com/v1', ...)
+```
+
+If your entire Ember app uses an external (other-origin) API, you can globally configure the domain via `urlPrefix`:
+
+```js
+// mirage/config.js
+this.urPrefix = 'https://my.api.com';
+
+// This mock will handle requests to https://my.api.com/contacts
+this.get('/contacts', ...)
+```

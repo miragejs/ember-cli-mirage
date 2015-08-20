@@ -69,6 +69,8 @@ export default function() {
 
 Refer to [pretender's docs](https://github.com/trek/pretender#mutating-the-body) if you want to change this or any other options on your pretender instance.
 
+Be aware that the `passthrough`-option wil currently only work with jQuery versions >= 2.x. See this [issue](https://github.com/pretenderjs/pretender/issues/85) for details.
+
 <a name="testConfig" href="#testConfig">#</a> **testConfig**
 
 Export a named `testConfig` function to define routes that only apply in your test environment:

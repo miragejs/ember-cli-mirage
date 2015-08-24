@@ -127,7 +127,7 @@ You now have a simple way to set up your mock server's initial data, both during
 Mirage provides numerous *shorthands* to reduce the code needed for conventional API routes. For example, the route
 
 ```js
-this.get('/api/users', function(db, request) {
+this.get('/users', function(db, request) {
   return db.users;
 });
 ```

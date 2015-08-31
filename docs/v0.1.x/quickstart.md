@@ -40,7 +40,9 @@ Instead of returning an array, let's make this route dynamic by responding with 
 
 ```js
 this.get('/api/users', function(db, request) {
-  return db.users;
+  return {
+    users: db.users
+  };
 });
 ```
 
@@ -128,7 +130,9 @@ Mirage provides numerous *shorthands* to reduce the code needed for conventional
 
 ```js
 this.get('/users', function(db, request) {
-  return db.users;
+  return {
+    users: db.users
+  };
 });
 ```
 

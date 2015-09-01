@@ -11,6 +11,7 @@
     "ember-load-initializers": "ember-cli/ember-load-initializers#0.1.5",
     "ember-qunit": "0.4.9",
     "ember-qunit-notifications": "0.0.7",
+    "es5-shim": "~4.1.11",
     "qunit": "~1.18.0",
     "pretender": "~0.9.0",
     "lodash": "~3.7.0",

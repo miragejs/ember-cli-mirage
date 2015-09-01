@@ -20,6 +20,9 @@ module.exports = {
       });
       app.import(app.bowerDirectory + '/lodash/lodash.js');
       app.import(app.bowerDirectory + '/Faker/build/build/faker.js');
+      if (app.env === 'test') {
+        app.import(app.bowerDirectory + '/es5-shim/es5-shim.js');
+      }
     }
   },
 

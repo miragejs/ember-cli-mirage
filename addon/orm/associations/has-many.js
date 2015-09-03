@@ -1,6 +1,6 @@
 import Association from './association';
 import Collection from '../collection';
-import { capitalize } from 'ember-cli-mirage/utils/inflector';
+import { capitalize, singularize } from 'ember-cli-mirage/utils/inflector';
 
 class HasMany extends Association {
 
@@ -22,7 +22,7 @@ class HasMany extends Association {
 
     var association = this;
     var foreignKey = this.getForeignKey();
-    var relationshipIdsKey = association.target + '_ids';
+    var relationshipIdsKey = singularize(key) + '_ids';
 
     var associationHash = {[key]: this};
     modelPrototype.hasManyAssociations = _.assign(modelPrototype.hasManyAssociations, associationHash);
@@ -74,7 +74,7 @@ class HasMany extends Association {
       }
     });
 
-    Object.defineProperty(modelPrototype, key, {
+    Object.defineProperty(modelPrototype, this._key, {
 
       /*
         object.children
@@ -114,11 +114,11 @@ class HasMany extends Association {
           schema[association.target].where(query).update(foreignKey, null);
 
           // Save any children that are new
-          models.filter(model => model.isNew())
+          models.filter(model => model['isNew'] && model.isNew())
             .forEach(model => model.save());
 
           // Associate the new children to this model
-          schema[association.target].find(models.map(m => m.id)).update(foreignKey, this.id);
+          schema[association.target].find(models.map(m => m.id || m.attrs.id)).update(foreignKey, this.id);
 
           // Clear out any old cached children
           association._cachedChildren = [];

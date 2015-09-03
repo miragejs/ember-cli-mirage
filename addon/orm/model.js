@@ -84,10 +84,12 @@ class Model {
   }
 
   isNew() {
+    if(!this.attrs) { return; }
     return this.attrs.id === undefined || this.attrs.id === null;
   }
 
   isSaved() {
+    if(!this.attrs) { return; }
     return this.attrs.id !== undefined && this.attrs.id !== null;
   }
 
@@ -152,7 +154,7 @@ class Model {
 
     // Define the getter/setter
     Object.defineProperty(this, attr, {
-      get: function () { return this.attrs[attr]; },
+      get: function () { return this.attrs ? this.attrs[attr]: null; },
       set: function (val) { this.attrs[attr] = val; return this; },
     });
   }
@@ -178,7 +180,7 @@ class Model {
     Object.keys(this.belongsToAssociations).forEach(key => {
       var association = this.belongsToAssociations[key];
       var parent = this[key];
-      if (parent.isNew()) {
+      if (parent && parent.isNew()) {
         var fk = association.getForeignKey();
         parent.save();
         this.update(fk, parent.id);

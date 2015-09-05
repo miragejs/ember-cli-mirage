@@ -80,11 +80,11 @@ export default class SerializerRegistry {
     }
   }
 
-  _serializeSideloadedModelResponse(model, topLevelIsArray = false, allAttrs = {}) {
+  _serializeSideloadedModelResponse(model, topLevelIsArray = false, allAttrs = {}, relationshipKey = null) {
     // Add this model's attrs
     this._augmentAlreadySerialized(model);
     let modelAttrs = this._attrsForModel(model, false, true);
-    let key = model.type;
+    let key = relationshipKey || model.type;
     if (topLevelIsArray) {
       key = pluralize(key);
       allAttrs[key] = allAttrs[key] || [];
@@ -96,21 +96,22 @@ export default class SerializerRegistry {
     // Traverse this model's relationships
     let serializer = this._serializerFor(model);
     serializer.relationships
-      .map(key => model[key])
-      .forEach(relationship => {
+      .filter(key => model[key])
+      .forEach(relationshipKey => {
+        let relationship = model[relationshipKey];
         if (relationship instanceof Collection) {
           relationship.forEach(relatedModel => {
-            if (this._hasBeenSerialized(relatedModel)) {
+            if (this._hasBeenSerialized(relatedModel, relationshipKey)) {
               return;
             }
-            this._serializeSideloadedModelResponse(relatedModel, true, allAttrs);
+            this._serializeSideloadedModelResponse(relatedModel, true, allAttrs, relationshipKey);
           });
         } else {
           if (this._hasBeenSerialized(relationship)) {
             return;
           }
 
-          this._serializeSideloadedModelResponse(relationship, true, allAttrs);
+          this._serializeSideloadedModelResponse(relationship, true, allAttrs, relationshipKey);
         }
       });
 
@@ -162,10 +163,11 @@ export default class SerializerRegistry {
 
     if (embedRelatedIds) {
       serializer.relationships
-        .map(key => model[key])
-        .filter(relatedCollection => relatedCollection instanceof Collection)
-        .forEach(relatedCollection => {
-          attrs[`${singularize(relatedCollection.type)}_ids`] = relatedCollection.map(obj => obj.id);
+        .forEach(key => {
+          let relatedCollection = model[key];
+          if(relatedCollection instanceof Collection) {
+            attrs[`${singularize(key)}_ids`] = relatedCollection.map(obj => obj.id);
+          }
         });
     }
 
@@ -186,10 +188,11 @@ export default class SerializerRegistry {
     }, {});
   }
 
-  _hasBeenSerialized(model) {
-    let relationshipKey = `${model.type}_ids`;
+  _hasBeenSerialized(model, relationshipKey = null) {
+    relationshipKey = relationshipKey || model.type;
+    let collectionKey = `${relationshipKey}_ids`;
 
-    return (this.alreadySerialized[relationshipKey] && this.alreadySerialized[relationshipKey].indexOf(model.id) > -1);
+    return (this.alreadySerialized[collectionKey] && this.alreadySerialized[collectionKey].indexOf(model.id) > -1);
   }
 
   _augmentAlreadySerialized(model) {

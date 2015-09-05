@@ -18,21 +18,23 @@ class BelongsTo extends Association {
     let modelPrototype = ModelClass.prototype;
     var association = this;
     var foreignKey = this.getForeignKey();
+    var relationshipIdKey = key + '_id';
 
     var associationHash = {};
     associationHash[key] = this;
     modelPrototype.belongsToAssociations = _.assign(modelPrototype.belongsToAssociations, associationHash);
     modelPrototype.associationKeys.push(key);
-    modelPrototype.associationIdKeys.push(foreignKey);
+    modelPrototype.associationIdKeys.push(relationshipIdKey);
 
-    Object.defineProperty(modelPrototype, this.getForeignKey(), {
+    Object.defineProperty(modelPrototype, relationshipIdKey, {
 
       /*
         object.parent_id
           - returns the associated parent's id
       */
       get: function() {
-        return this.attrs[foreignKey];
+        if(!this.attrs) { return; }
+        return this.attrs[relationshipIdKey];
       },
 
       /*
@@ -44,7 +46,7 @@ class BelongsTo extends Association {
           throw 'Couldn\'t find ' + association.target + ' with id = ' + id;
         }
 
-        this.attrs[foreignKey] = id;
+        this.attrs[relationshipIdKey] = id;
         return this;
       }
     });
@@ -55,7 +57,7 @@ class BelongsTo extends Association {
           - returns the associated parent
       */
       get: function() {
-        var foreignKeyId = this[foreignKey];
+        var foreignKeyId = this[relationshipIdKey];
         if (foreignKeyId) {
           association._tempParent = null;
           return schema[association.target].find(foreignKeyId);
@@ -72,15 +74,15 @@ class BelongsTo extends Association {
           - sets the associated parent (via model)
       */
       set: function(newModel) {
-        if (newModel && newModel.isNew()) {
-          this[foreignKey] = null;
+        if (newModel && newModel['isNew'] && newModel.isNew()) {
+          this[relationshipIdKey] = null;
           association._tempParent = newModel;
         } else if (newModel) {
           association._tempParent = null;
-          this[foreignKey] = newModel.id;
+          this[relationshipIdKey] = newModel.id || newModel.attrs.id;
         } else {
           association._tempParent = null;
-          this[foreignKey] = null;
+          this[relationshipIdKey] = null;
         }
       }
     });
@@ -105,7 +107,7 @@ class BelongsTo extends Association {
     modelPrototype['create' + capitalize(key)] = function(attrs) {
       var parent = schema[key].create(attrs);
 
-      this[foreignKey] = parent.id;
+      this[relationshipIdKey] = parent.id;
 
       return parent;
     };

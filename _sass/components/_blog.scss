@@ -15,15 +15,30 @@
       @include flexbox;
     }
   }
+  &__post-info {
+    @include above($breakpoint) {
+      @include flex(0 0 280px);
+      padding-right: 20px;
+      margin-top: 15px;
+      text-align: right;
+    }
+  }
   &__title {
     margin-top: 0;
     font-size: 24px;
+
     @include above($breakpoint) {
-      @include flex(0 0 280px);
       color: white;
-      text-align: right;
-      padding-right: 20px;
-      margin-top: 15px;
+      a {
+        @include transition(all 0.15s);
+
+        color: white;
+        border-bottom-color: #aaa;
+
+        &:hover {
+          border-bottom-color: white;
+        }
+      }
     }
   }
   &__byline {
@@ -32,12 +47,18 @@
     margin-top: 15px;
     margin-bottom: 7px;
     color: #777;
+    @include above($breakpoint) {
+      color: #ccc;
+    }
   }
   &__divider {
     border-top-color: #ccc;
     border-top-style: dashed;
     border-bottom: none;
     margin-top: 0;
+    @include above($breakpoint) {
+      display: none;
+    }
   }
   &__content {
     @include above($breakpoint) {

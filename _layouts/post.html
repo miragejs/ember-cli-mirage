@@ -4,9 +4,11 @@ layout: default
 
 <div class="Blog">
   <div class='Blog__post'>
-    <h1 class='Blog__title'>{{ page.title }}</h1>
-    <p class='Blog__byline'>{{ page.date | date: '%B %-d, %Y' }}</p>
-    <hr class='Blog__divider'>
+    <div class="Blog__post-info">
+      <h1 class='Blog__title'>{{ page.title }}</h1>
+      <p class='Blog__byline'>{{ page.date | date: '%B %-d, %Y' }}</p>
+      <hr class='Blog__divider'>
+    </div>
     <div class='Blog__content'>
       {{ content }}
     </div>

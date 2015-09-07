@@ -7,9 +7,11 @@ title: Blog
 
   {% for post in site.posts %}
     <div class='Blog__post'>
-      <h1 class='Blog__title'><a href="{{ post.url }}">{{ post.title }}</a></h1>
-      <p class='Blog__byline'>{{ post.date | date: '%B %-d, %Y' }}</p>
-      <hr class='Blog__divider'>
+      <div class="Blog__post-info">
+        <h1 class='Blog__title'><a href="{{ post.url }}">{{ post.title }}</a></h1>
+        <p class='Blog__byline'>{{ post.date | date: '%B %-d, %Y' }}</p>
+        <hr class='Blog__divider'>
+      </div>
       <div class='Blog__content'>
         {{ post.content }}
       </div>

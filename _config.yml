@@ -1,32 +1,28 @@
 # Dependencies
-markdown:         redcarpet
-highlighter:      pygments
+markdown: redcarpet
+highlighter: pygments
 
 # Permalinks
-permalink:        pretty
+permalink: pretty
 relative_permalinks: true
 
 # Setup
-title:            Ember CLI Mirage
-tagline:          'Easy API mocking for your Ember app'
-description:      'A client-side mock server to develop, test and prototype your Ember CLI app'
-url:              https://github.com/samselikoff/ember-cli-mirage
-baseurl:          ''
-destination:      jekyll-tmp/
+title: Ember CLI Mirage
+tagline: 'Easy API mocking for your Ember app'
+description: 'A client-side mock server to develop, test and prototype your Ember CLI app'
+url: https://github.com/samselikoff/ember-cli-mirage
+baseurl: ''
+destination: jekyll-tmp/
 exclude:
   - node_modules
   - bower_components
   - tmp
 
-
 gems:
   - jekyll-redirect-from
 
-# Custom vars
-version:          0.0.27
-
 github:
-  repo:           https://github.com/samselikoff/ember-cli-mirage
+  repo: https://github.com/samselikoff/ember-cli-mirage
 
 defaults:
   -
@@ -34,3 +30,9 @@ defaults:
       path: "docs"
     values:
       layout: "docs"
+  -
+    scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: "post"

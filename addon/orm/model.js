@@ -1,5 +1,5 @@
 import { pluralize } from '../utils/inflector';
-import extend from '../utils/extend';
+import utilsExtend from '../utils/extend';
 
 /*
   The Model class. Notes:
@@ -197,6 +197,6 @@ class Model {
   }
 }
 
-Model.extend = extend;
+Model.extend = utilsExtend;
 
 export default Model;

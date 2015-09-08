@@ -1,6 +1,6 @@
 /* global _ */
 import Model from './orm/model';
-import extend from './utils/extend';
+import utilsExtend from './utils/extend';
 
 class Serializer {
 
@@ -49,6 +49,6 @@ Serializer.prototype.relationships = [];
 Serializer.prototype.root = true;
 Serializer.prototype.embed = false;
 
-Serializer.extend = extend;
+Serializer.extend = utilsExtend;
 
 export default Serializer;

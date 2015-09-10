@@ -64,7 +64,7 @@ Returns an array of models from *collection* that match the key-value pairs in t
   Given users = [{id: 1, name: 'Link'}, {id: 2, name: 'Zelda'}]
 */
 
-db.users.where({name: 'Zelda'}); // [{id: 2, name: 'Link'}]
+db.users.where({name: 'Zelda'}); // [{id: 2, name: 'Zelda'}]
 ```
 
 <a name="update" href="#update">#</a> db.collection.<b>update</b>(<i>attrs</i>) or db.collection.<b>update</b>(<i>target</i>, <i>attrs</i>)

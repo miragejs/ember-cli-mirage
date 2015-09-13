@@ -11,7 +11,8 @@ var defaultCodes = {
   get: 200,
   put: 204,
   post: 201,
-  'delete': 204
+  'delete': 204,
+  'options': 200
 };
 
 export default class Controller {

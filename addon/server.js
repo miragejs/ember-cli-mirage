@@ -69,7 +69,7 @@ export default class Server {
   stub(verb, path, handler, code, options) {
     var _this = this;
     path = path[0] === '/' ? path.slice(1) : path;
-
+    // debugger;
     this.interceptor[verb].call(this.interceptor, this._getFullPath(path), function(request) {
       var response = _this.controller.handle(verb, handler, (_this.schema || _this.db), request, code, options);
       var shouldLog = typeof _this.logging !== 'undefined' ? _this.logging : (_this.environment !== 'test');
@@ -142,7 +142,7 @@ export default class Server {
   _setupStubAliases() {
     var _this = this;
 
-    [['get'], ['post'], ['put'], ['delete', 'del'], ['patch']].forEach(function(names) {
+    [['get'], ['post'], ['put'], ['delete', 'del'], ['patch'], ['options']].forEach(function(names) {
       var verb = names[0];
       var alias = names[1];
 

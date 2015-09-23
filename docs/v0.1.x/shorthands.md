@@ -5,7 +5,7 @@ version: v0.1.x
 redirect_from: "/docs/latest/shorthands/"
 ---
 
-A *shorthand* is a simple way to write a route handler for common API scenarios. Here's a reference of each shorthand, along with the raw route handler that shorthand represents.
+A *shorthand* is a simple way to write a route handler for common API scenarios. Here's a reference of each shorthand, along with the raw route handler that the shorthand represents.
 
 Shorthands use default status codes, based on the HTTP verb:
 

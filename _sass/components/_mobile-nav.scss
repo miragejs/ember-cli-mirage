@@ -1,5 +1,21 @@
 .Mobile-nav {
   @extend .u-mobile;
-  width: 100%;
-  font-size: 16px;
+
+  &__toc {
+    width: 100%;
+    font-size: 16px;
+  }
+
+  &__version {
+    float: right;
+  }
+  &__version-label {
+    margin-right: 7px;
+    margin-top: 4px;
+  }
+  &__version-select {
+    display: inline;
+    margin-top: 10px;
+    font-size: 16px;
+  }
 }

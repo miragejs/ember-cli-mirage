@@ -32,6 +32,22 @@
 
   &__content {
   }
+  &__improve {
+    color: #999;
+    border: none;
+
+    &:hover {
+      color: $link-color;
+      // border-color: lighten($link-color, 40%);
+    }
+  }
+  &__improve-img {
+    height: 8px;
+  }
+  &__improve-text {
+    border-bottom: 1px solid #bbb;
+    padding-bottom: 1px;
+  }
 
   &__aside {
     float: right;

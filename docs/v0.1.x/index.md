@@ -7,7 +7,7 @@ redirect_from: "/docs/latest/"
 
 Nearly all Ember apps interact with a JSON API. When you reach the point during development where you need to interact with dynamic server data, you have a few options:
 
-  1. Proxy your app's HTTP requests to a local or hosted version of your actual backend (if it exists)
+  1. Proxy your app's HTTP requests to a local or hosted version of your actual backend, if it exists
   2. Use a library like [Pretender](https://github.com/trek/pretender) or [jQuery mockjax](https://github.com/jakerella/jquery-mockjax) to write a custom script that intercepts your requests in the client
   3. Use Ember CLI's HTTP mocks
 

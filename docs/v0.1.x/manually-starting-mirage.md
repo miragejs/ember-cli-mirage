@@ -13,7 +13,7 @@ import mirageInitializer from '../../initializers/ember-cli-mirage';
 
 export default function setupMirage(container) {
   mirageInitializer.initialize(container);
-};
+}
 ```
 
 Then, add the following to any test where you want Mirage to initialize:

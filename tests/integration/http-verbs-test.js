@@ -98,3 +98,20 @@ test('mirage responds to patch', function(assert) {
     done();
   });
 });
+
+test('mirage responds to options', function(assert) {
+  assert.expect(1);
+  var done = assert.async();
+
+  this.server.options('/contacts', function() {
+    return true;
+  });
+
+  $.ajax({
+    method: 'OPTIONS',
+    url: '/contacts'
+  }).done(function(res) {
+    assert.ok(res);
+    done();
+  });
+});

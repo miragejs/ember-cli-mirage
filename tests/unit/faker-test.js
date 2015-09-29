@@ -25,10 +25,10 @@ test('#random - returns random element from a list', function (assert) {
 });
 
 test('#range - creates a random number in a range', function (assert) {
-  var low = 0;
-  var high = 10;
+  var min = 0;
+  var max = 10;
 
-  var callback = faker.random.number.range (low, high);
+  var callback = faker.random.number.range (min, max);
   assert.deepStrictEqual(callback () >= min, true, 'result is higher or equal than low value');
   assert.deepStrictEqual(callback () <= max, true, 'result is lower or equal than high value');
 });

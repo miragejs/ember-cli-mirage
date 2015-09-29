@@ -29,6 +29,6 @@ test('#range - creates a random number in a range', function (assert) {
   var max = 10;
 
   var callback = faker.random.number.range (min, max);
-  assert.deepStrictEqual(callback () >= min, true, 'result is higher or equal than low value');
-  assert.deepStrictEqual(callback () <= max, true, 'result is lower or equal than high value');
+  assert.equal(callback () >= min, true, 'result is higher or equal than low value');
+  assert.equal(callback () <= max, true, 'result is lower or equal than high value');
 });

@@ -160,6 +160,16 @@ export default function() {
 
 Be sure to `import Mirage from 'ember-cli-mirage'` at the top of your config file.
 
+
+## Fully Qualified Routes
+
+Mirage can be configured to respond to fully qualified URLs. For example:
+
+```js
+this.get('https://api.github.com/repos/samseilkoff/ember-cli-mirage/releases', function() {
+    return [];
+});
+```
 ---
 
 That's the essentials of defining your routes. Next, you'll learn how to seed your database with some starting data, both in development and within tests.

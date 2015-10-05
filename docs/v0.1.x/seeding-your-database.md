@@ -102,6 +102,14 @@ test('I can view the users', function() {
 
 Learn more about acceptance testing in the [next section](../acceptance-testing).
 
+## Using fixtures in your factory scenarios and tests
+
+<aside class='Docs-page__aside'>
+  <p>The <em>loadFixtures</em> feature was added in 0.1.9.</p>
+</aside>
+
+You can also use `server.loadFixtures` to load fixture files in your default scenario or tests, meaning you can simultaneously leverage fixtures and factories. [See the guide](../server-configuration/#loadFixtures) for more info.
+
 ## Relationships with factories
 
 You can also create related data with factories. Until [this PR](https://github.com/samselikoff/ember-cli-mirage/pull/82) lands, you'll need to manage the foreign keys yourself, which you'll do by overriding your factories' default attributes. Here's an example:

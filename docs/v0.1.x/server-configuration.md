@@ -112,7 +112,7 @@ Be aware that currently, `passthrough` only works with jQuery >= 2.x. See [this 
 
 By default, all the data files under `/fixtures` will be loaded during testing if you don't have factories defined, and during development if you don't have `/scenarios/default.js` defined. You can use `loadFixtures()` to also load fixture files in either of these environments, in addition to using factories to seed your database.
 
-`server.loadFixtures` loads all the files, and `server.loadFixtures(file1, file2...)` loads selective fixture files.
+`server.loadFixtures()` loads all the files, and `server.loadFixtures(file1, file2...)` loads selective fixture files.
 
 For example, in a test you may want to start out with all your fixture data loaded:
 

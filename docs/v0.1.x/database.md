@@ -108,3 +108,36 @@ db.users.remove(); // db.users = []
 db.users.remove(1); // db.users = [{id: 2, name: 'Zelda'}]
 db.users.remove({name: 'Zelda'}); // db.users = [{id: 1, name: 'Link'}]
 ```
+
+<a name="first-or-create" href="#first-or-create">#</a> db.collection.<b>firstOrCreate</b>(<i>query</i>, <i>attributesForCreate</i>)
+
+Finds the first record matching the provided query in *collection*, or creates a new record using a merge of the *query* and optional *attributesForCreate*. Often times you may have a pattern like the following in your API stub:
+
+```js
+/* 
+  Given users = [
+    {id: 1, name: 'Link'},
+    {id: 2, name: 'Zelda'}
+  ]
+*/
+let records = db.users.where({ name: 'Link' });
+let record;
+
+if (records.length > 0) {
+  record = records[0];
+} else {
+  record = db.users.insert({ name: 'Link' });
+}
+```
+
+You can now replace this with the following:
+
+```js
+let record = db.users.firstOrCreate({ name: 'Link' });
+```
+
+An extended example using *attributesForCreate*:
+
+```js
+let record = db.users.firstOrCreate({ name: 'Link' }, { evil: false });
+```

@@ -74,9 +74,9 @@ The [Faker.js](https://github.com/marak/Faker.js/) library is included with Mira
 import Mirage, {faker} from 'ember-cli-mirage';
 
 export default Mirage.Factory.extend({
-  firstName: faker.name.firstName,
-  lastName: faker.name.lastName,
-  avatar: faker.internet.avatar
+  firstName() { return faker.name.firstName(); },
+  lastName() { return faker.name.lastName(); },
+  avatar() { return faker.internet.avatar(); }
 });
 ```
 
@@ -87,25 +87,16 @@ We've also added two methods on the `faker` namespace, `list.cycle` and `list.ra
 import Mirage, {faker} from 'ember-cli-mirage';
 
 export default Mirage.Factory.extend({
-  name: faker.list.cycle('Economics', 'Philosophy', 'English', 'History', 'Mathematics'),
-  students: faker.list.random(100, 200, 300, 400, 500)
+  name() {
+    return faker.list.cycle('Economics', 'Philosophy', 'English', 'History', 'Mathematics');
+  },
+  students() {
+    return faker.list.random(100, 200, 300, 400, 500);
+  }
 });
 ```
 
 `cycle` loops through the data in order, while `random` chooses a random element from the list each time an object is created.
-
-Note that because factory functions get `i` as the first parameter, this could influence some of the fake data that Faker generates. For example, the `faker.name.findName` method changes its generated name based on the function parameter. Passing 1, 2, etc. will make `findName` generate data that you probably didn't intend. You can avoid this by using an anonymous function and simply ignoring the sequence parameter:
-
-```js
-// app/mirage/factories/user.js
-import Mirage, {faker} from 'ember-cli-mirage';
-
-export default Mirage.Factory.extend({
-  fullName: (i) => {
-    return faker.name.findName();
-  }
-});
-```
 
 View [Faker's docs](https://github.com/marak/Faker.js/) for the full faker API.
 

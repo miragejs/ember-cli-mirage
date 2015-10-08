@@ -9,10 +9,11 @@ Although Mirage allows setting headers in a response, the
 XMLHttpRequest spec explicitly
 [forbids access](http://www.w3.org/TR/XMLHttpRequest/#the-getresponseheader()-method)
 to `Set-Cookie` and `Set-Cookie2` headers.  As a result Mirage
-responses cannot set cookies.
+responses cannot set cookies via headers.
 
-However you can simulate receiving cookies from an ajax call by
-setting them in a route function handler as shown here:
+However, you can simulate receiving cookies from an ajax
+call at the browser level by setting them in a route
+function handler:
 
 ```javascript
 this.post('/users/login', function(db, request) {
@@ -26,5 +27,5 @@ this.post('/users/login', function(db, request) {
   });
 ```
 
-By manually setting `document.cookie` the cookie will be present for
-your Ember client code.
+Your Ember client code will now have access to any cookies set
+using `document.cookie`.

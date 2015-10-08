@@ -27,8 +27,8 @@ To mock this out in Mirage, first be sure that your factory uses hyphenated keys
 import Mirage, {faker} from 'ember-cli-mirage';
 
 export default Mirage.Factory.extend({
-  'first-name': faker.name.firstName,
-  'last-name': faker.name.lastName
+  'first-name'() { return faker.name.firstName(); },
+  'last-name'() { return faker.name.lastName(); }
 });
 ```
 

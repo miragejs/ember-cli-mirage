@@ -53,9 +53,9 @@ Mirage also includes the Faker.js library, which pairs nicely with your factorie
 import Mirage, { faker } from 'ember-cli-mirage';
 
 export default Mirage.Factory.extend({
-  firstName: faker.name.firstName,
-  lastName: faker.name.lastName,
-  age: faker.list.random(18, 20, 28, 32, 45, 60),
+  firstName() { return faker.name.firstName(); },
+  lastName() { return faker.name.lastName(); },
+  age() { return faker.list.random(18, 20, 28, 32, 45, 60); }, // .list method added by Mirage
 });
 ```
 

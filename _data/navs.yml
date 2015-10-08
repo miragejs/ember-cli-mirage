@@ -13,6 +13,7 @@ v0.1.x:
   - section: Cookbook
     label: Working with JSON:API
   - label: Manually starting Mirage
+  - label: Simulating cookie responses
 
   - section: API reference
     label: Server configuration

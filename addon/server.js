@@ -125,7 +125,7 @@ export default class Server {
 
   create(type, overrides, options) {
     var declaredType = type;
-    var options = options || {};
+    options = options || {};
 
     if (options['as']){
       type = options['as'];
@@ -146,7 +146,7 @@ export default class Server {
   }
 
   createList(type, amount, overrides, options) {
-    var options = options || {};
+    options = options || {};
     var list = [];
 
     for (var i = 0; i < amount; i++) {

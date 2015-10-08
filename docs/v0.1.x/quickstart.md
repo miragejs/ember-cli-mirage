@@ -66,7 +66,7 @@ export default Mirage.Factory.extend({
   name(i) { return `Person ${i}`; },
   age: 28,
   admin: false,
-  avatar: faker.internet.avatar
+  avatar(i) { return faker.internet.avatar(); }
 });
 ```
 

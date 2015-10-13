@@ -112,6 +112,7 @@ Mirage recommends that you use factories in testing, as they make your tests mor
 ## Asserting a server call was made in a test
 Typically you'll write tests against your application's UI, which will verify that the proper data from Mirage was returned. Sometimes, however, you'll want to write a test that verifies a certain server call was made, perhaps with a specific request body. In this case you can do something like the following:
 
+```js
 test('it works', function(assert) {
   assert.expect(1);
   let done = assert.async();
@@ -126,6 +127,7 @@ test('it works', function(assert) {
   fillIn('input', 'Peter');
   click('.Save');
 });
+```
 
 This overwrites any route handler you may defined for POST to `/contacts` in your `config.js` file, but only for this test.
 

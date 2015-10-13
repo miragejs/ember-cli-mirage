@@ -107,7 +107,7 @@ Now any route that requests this user and their photos will retrieve all the dat
 
 ## Fixtures in acceptance tests
 
-Mirage recommends that you use factories in testing, as they make your tests more intention-revealing. If you'd like to load your fixture files during testing, simply delete your `/mirage/factories` directory.
+Mirage recommends that you use factories in testing, as they make your tests more intention-revealing. If you'd like to load your fixture files during testing, use the `loadFixtures` API. To have all fixtures loaded for each test, and to not use factories at all, simply delete your `/mirage/factories` directory.
 
 ## Asserting a server call was made in a test
 Typically you'll write tests against your application's UI, which will verify that the proper data from Mirage was returned. Sometimes, however, you'll want to write a test that verifies a certain server call was made, perhaps with a specific request body. In this case you can do something like the following:

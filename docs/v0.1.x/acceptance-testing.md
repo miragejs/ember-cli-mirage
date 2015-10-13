@@ -109,6 +109,26 @@ Now any route that requests this user and their photos will retrieve all the dat
 
 Mirage recommends that you use factories in testing, as they make your tests more intention-revealing. If you'd like to load your fixture files during testing, simply delete your `/mirage/factories` directory.
 
+## Asserting a server call was made in a test
+Typically you'll write tests against your application's UI, which will verify that the proper data from Mirage was returned. Sometimes, however, you'll want to write a test that verifies a certain server call was made, perhaps with a specific request body. In this case you can do something like the following:
+
+test('it works', function(assert) {
+  assert.expect(1);
+  let done = assert.async();
+
+  server.post('/contacts', (db, request) => {
+    let params = JSON.parse(request.requestBody);
+    assert.deepEqual(params, {...});
+    done();
+  });
+
+  visit('/');
+  fillIn('input', 'Peter');
+  click('.Save');
+});
+
+This overwrites any route handler you may defined for POST to `/contacts` in your `config.js` file, but only for this test.
+
 ---
 
 You should now know enough to mock out your JSON API and test your app using Mirage!

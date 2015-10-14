@@ -112,7 +112,7 @@ If your entire Ember app uses an external (other-origin) API, you can globally c
 
 ```js
 // mirage/config.js
-this.urPrefix = 'https://my.api.com';
+this.urlPrefix = 'https://my.api.com';
 
 // This mock will handle requests to https://my.api.com/contacts
 this.get('/contacts', ...)

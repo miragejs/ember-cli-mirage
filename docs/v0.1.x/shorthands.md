@@ -159,8 +159,8 @@ this.post('/contacts', function(db, request) {
 
 {% capture shorthand %}
 {% highlight js %}
-this.put('/contacts');          // finds type by singularizing url
-this.put('/contacts', 'user');  // optionally specify the type as second param
+this.put('/contacts/:id');          // finds type by singularizing url
+this.put('/contacts/:id', 'user');  // optionally specify the type as second param
 {% endhighlight %}
 {% endcapture %}
 

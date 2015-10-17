@@ -20,7 +20,6 @@ var Factory = function() {
 Factory.extend = function(attrs) {
   // Merge the new attributes with existing ones. If conflict, new ones win.
   var newAttrs = _.assign({}, this.attrs, attrs);
-
   var Subclass = function() {
     this.attrs = newAttrs;
     Factory.call(this);

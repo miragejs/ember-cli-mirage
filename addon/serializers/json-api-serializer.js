@@ -4,6 +4,8 @@ import Model from 'ember-cli-mirage/orm/model';
 import Collection from 'ember-cli-mirage/orm/collection';
 import _assign from 'lodash/object/assign';
 
+import _assign from 'lodash/object/assign';
+
 class JsonApiSerializer {
 
   constructor(serializerMap) {

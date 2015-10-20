@@ -12,48 +12,48 @@ The docs should be landing soon. But, the code is already in master (since the e
 1. Upgrade to master ("samselikoff/ember-cli-mirage" in your package.json) 
 2. Define your models. For each model create a file under `mirage/models` that looks like the following:
 
-```js
-// mirage/models/post.js
-import { Model } from 'ember-cli-mirage';
+    ```js
+    // mirage/models/post.js
+    import { Model } from 'ember-cli-mirage';
 
-export default Model;
-```
+    export default Model;
+    ```
 
-Use the singular version of your model for the filename.
+    Use the singular version of your model for the filename.
 
 3. Define your serializer. There are two named serializers, JSON:API and ActiveModelSerializer. You can customize these as well the basic Serializer that's also included.
 
-```js
-// mirage/serializers/application.js
-import Serializer from ‘ember-cli-mirage/serializers/json-api-serializer`;
+    ```js
+    // mirage/serializers/application.js
+    import Serializer from ‘ember-cli-mirage/serializers/json-api-serializer`;
 
-export default Serializer;
-```
+    export default Serializer;
+    ```
 
 4. Once you do the above, Mirage will now be using an ORM. This means your custom route handlers will no longer have the signature
 
-```js
-function(db, request)
-```
+    ```js
+    function(db, request)
+    ```
 
-but rather
+    but rather
 
-```js
-function(schema, request)
-```
+    ```js
+    function(schema, request)
+    ```
 
-where <code>schema</code> is the ORM object. Fortunately, the <code>db</code> is available at <code>schema.db</code>. This means you can give your old route handlers access to the <code>db</code> by doing the following refactoring:
+    where <code>schema</code> is the ORM object. Fortunately, the <code>db</code> is available at <code>schema.db</code>. This means you can give your old route handlers access to the <code>db</code> by doing the following refactoring:
 
-```diff
-- this.get('/some/path', function(db, request), {
-+ this.get('/some/path', function({db}, request), {
-   // your custom route handler
-});
-```
+    ```diff
+    - this.get('/some/path', function(db, request), {
+    + this.get('/some/path', function({db}, request), {
+       // your custom route handler
+    });
+    ```
 
-Not bad, thanks to the magic of ES6 object destructuring!
+    Not bad, thanks to the magic of ES6 object destructuring!
 
-Additionally, the ORM standardizes the formatting of database attributes and collections. Previously, for example, the name of the database collection was based on the filename of your fixture or factory - so, you could have a collection called <code>db.blog_posts</code>. With the ORM, everything is camel-cased (we are writing JS, after all). So, this may necessitate some refactoring of your custom route handler code.
+    Additionally, the ORM standardizes the formatting of database attributes and collections. Previously, for example, the name of the database collection was based on the filename of your fixture or factory - so, you could have a collection called <code>db.blog_posts</code>. With the ORM, everything is camel-cased (we are writing JS, after all). So, this may necessitate some refactoring of your custom route handler code.
 
 Adding relationship support looks like this:
 

@@ -1,4 +1,4 @@
-import { pluralize } from './utils/inflector';
+import { pluralize, camelize } from './utils/inflector';
 import Pretender from 'pretender';
 import Db from './db';
 import Schema from './orm/schema';
@@ -6,10 +6,15 @@ import ActiveModelSerializer from 'ember-cli-mirage/serializers/active-model-ser
 import SerializerRegistry from './serializer-registry';
 import RouteHandler from './route-handler';
 
+import _isArray from 'lodash/lang/isArray';
+import _keys from 'lodash/object/keys';
+import _pick from 'lodash/object/pick';
+
 export default class Server {
 
   constructor(options = {}) {
     this.environment = options.environment || 'development';
+    this.options = options;
     this.timing = 400;
     this.namespace = '';
     this.urlPrefix = '';
@@ -70,7 +75,7 @@ export default class Server {
       options.scenarios.default(this);
 
     } else {
-      this.db.loadData(options.fixtures);
+      this.loadFixtures();
     }
   }
 
@@ -79,22 +84,49 @@ export default class Server {
     this.timing = this.environment === 'test' ? 0 : (this.timing || 0);
   }
 
+  passthrough(...paths) {
+    let verbs = ['get', 'post', 'put', 'delete', 'patch'];
+    let lastArg = paths[paths.length-1];
+
+    if (paths.length === 0) {
+      paths = ['/*catchall'];
+    } else if (_isArray(lastArg)) {
+      verbs = paths.pop();
+    }
+
+    verbs.forEach(verb => {
+      paths.map(path => this._getFullPath(path))
+        .forEach(path => {
+          this.pretender[verb](path, this.pretender.passthrough);
+        });
+    });
+  }
+
+  loadFixtures(...args) {
+    let fixtures = this.options.fixtures;
+    if (args.length) {
+      fixtures = _pick(fixtures, ...args);
+    }
+
+    this.db.loadData(fixtures);
+  }
+
   /*
     Factory methods
   */
   loadFactories(factoryMap) {
-    var _this = this;
     // Store a reference to the factories
     this._factoryMap = factoryMap;
 
     // Create a collection for each factory
-    _.keys(factoryMap).forEach(function(type) {
-      _this.db.createCollection(pluralize(type));
+    _keys(factoryMap).forEach(type => {
+      let collectionName = this.schema ? pluralize(camelize(type)) : pluralize(type);
+      this.db.createCollection(collectionName);
     });
   }
 
   create(type, overrides) {
-    var collection = pluralize(type);
+    var collection = this.schema ? pluralize(camelize(type)) : pluralize(type);
     var currentRecords = this.db[collection];
     var sequence = currentRecords ? currentRecords.length: 0;
     if (!this._factoryMap || !this._factoryMap[type]) {
@@ -157,7 +189,7 @@ export default class Server {
   _hasModulesOfType(modules, type) {
     let modulesOfType = modules[type] || {};
 
-    return _.keys(modulesOfType).length > 0;
+    return _keys(modulesOfType).length > 0;
   }
 
   /*

@@ -1,6 +1,6 @@
 import { singularize, capitalize, camelize } from 'ember-cli-mirage/utils/inflector';
+import _isArray from 'lodash/lang/isArray';
 
-const { isArray } = _;
 const allDigitsRegex = /^\d+$/;
 
 export default class BaseShorthandRouteHandler {
@@ -13,7 +13,7 @@ export default class BaseShorthandRouteHandler {
   }
 
   handle(request) {
-    let type = isArray(this.shorthand) ? 'array' : typeof this.shorthand;
+    let type = _isArray(this.shorthand) ? 'array' : typeof this.shorthand;
     let typeHandler = `handle${capitalize(type)}Shorthand`;
 
     return this[typeHandler](this.shorthand, this.dbOrSchema, request, this.options);
@@ -45,7 +45,7 @@ export default class BaseShorthandRouteHandler {
 
   _getTypeFromUrl(url, hasId) {
     let urlNoId = hasId ? url.substr(0, url.lastIndexOf('/')) : url;
-    let urlSplit = urlNoId.split("?");
+    let urlSplit = urlNoId.split('?');
     let urlNoIdNoQuery = urlSplit[0].slice(-1) === '/' ? urlSplit[0].slice(0, -1) : urlSplit[0];
     let type = singularize(urlNoIdNoQuery.substr(urlNoIdNoQuery.lastIndexOf('/') + 1));
 

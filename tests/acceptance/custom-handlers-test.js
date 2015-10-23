@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import {module, test} from 'qunit';
+import { module, test } from 'qunit';
 import startApp from '../helpers/start-app';
 
 var App, appStore, rex, toby, sam, andy;
@@ -14,6 +14,7 @@ module('Acceptance: Custom handlers', {
     andy = server.create('pet', { name: 'Andy', alive: true  });
   },
   afterEach: function() {
+    server.shutdown();
     Ember.run(App, 'destroy');
   }
 });

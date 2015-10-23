@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import {module/*, test*/} from 'qunit';
+import { module /*, test*/ } from 'qunit';
 import startApp from '../helpers/start-app';
 
 var App;
@@ -13,6 +13,7 @@ module('Acceptance: Timing', {
     contact = server.create('contact');
   },
   afterEach: function() {
+    server.shutdown();
     Ember.run(App, 'destroy');
   }
 });

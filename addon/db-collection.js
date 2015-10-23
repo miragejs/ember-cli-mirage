@@ -1,3 +1,11 @@
+import _assign from 'lodash/object/assign';
+import _isArray from 'lodash/lang/isArray';
+import _isEqual from 'lodash/lang/isEqual';
+
+function stringify(data) {
+  return JSON.parse(JSON.stringify(data));
+}
+
 /*
   A collection of db records i.e. a database table.
 */
@@ -16,22 +24,22 @@ class DbCollection {
     Returns a copy of the data, to prevent inadvertant data manipulation.
   */
   all() {
-    return JSON.parse(JSON.stringify(this._records));
+    return stringify(this._records);
   }
 
   insert(data) {
-    let copy = data ? JSON.parse(JSON.stringify(data)) : {};
+    let copy = data ? stringify(data) : {};
     let records = this._records;
     let returnData;
 
-    if (!_.isArray(copy)) {
+    if (!_isArray(copy)) {
       let attrs = copy;
       if (attrs.id === undefined || attrs.id === null) {
         attrs.id = records.length + 1;
       }
 
       records.push(attrs);
-      returnData = JSON.parse(JSON.stringify(attrs));
+      returnData = stringify(attrs);
 
     } else {
       returnData = [];
@@ -42,7 +50,7 @@ class DbCollection {
 
         records.push(data);
         returnData.push(data);
-        returnData = returnData.map( r => JSON.parse(JSON.stringify(r)) );
+        returnData = returnData.map( r => stringify(r) );
       });
     }
 
@@ -50,26 +58,40 @@ class DbCollection {
   }
 
   find(ids) {
-    if (_.isArray(ids)) {
+    if (_isArray(ids)) {
       let records = this._findRecords(ids)
         .filter(r => r !== undefined);
 
       // Return a copy
-      return records.map(r => JSON.parse(JSON.stringify(r)) );
+      return records.map(r => stringify(r) );
 
     } else {
       let record = this._findRecord(ids);
       if (!record) { return null; }
 
       // Return a copy
-      return JSON.parse(JSON.stringify(record));
+      return stringify(record);
     }
   }
 
   where(query) {
     let records = this._findRecordsWhere(query);
 
-    return records.map( r => JSON.parse(JSON.stringify(r)) );
+    return records.map( r => stringify(r) );
+  }
+
+  firstOrCreate(query, attributesForNew={}) {
+    let queryResult = this.where(query);
+    let record = queryResult[0];
+
+    if (record) {
+      return record;
+    } else {
+      let mergedAttributes = _assign(attributesForNew, query);
+      let createdRecord = this.insert(mergedAttributes);
+
+      return createdRecord;
+    }
   }
 
   update(target, attrs) {
@@ -79,13 +101,13 @@ class DbCollection {
       attrs = target;
       let changedRecords = [];
       this._records.forEach(function(record) {
-        let oldRecord = _.assign({}, record);
+        let oldRecord = _assign({}, record);
 
         for (let attr in attrs) {
           record[attr] = attrs[attr];
         }
 
-        if (!_.isEqual(oldRecord, record)) {
+        if (!_isEqual(oldRecord, record)) {
           changedRecords.push(record);
         }
       });
@@ -102,7 +124,7 @@ class DbCollection {
 
       return record;
 
-    } else if (_.isArray(target)) {
+    } else if (_isArray(target)) {
       let ids = target;
       records = this._findRecords(ids);
 
@@ -139,7 +161,7 @@ class DbCollection {
       let index = this._records.indexOf(record);
       this._records.splice(index, 1);
 
-    } else if (_.isArray(target)) {
+    } else if (_isArray(target)) {
       records = this._findRecords(target);
       records.forEach(record =>  {
         let index = this._records.indexOf(record);

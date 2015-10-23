@@ -158,7 +158,7 @@ export default class Server {
   }
 
   _defineRouteHandlerHelpers() {
-    [['get'], ['post'], ['put'], ['delete', 'del'], ['patch']].forEach(([verb, alias]) => {
+    [['get', 'head'], ['post'], ['put'], ['delete', 'del'], ['patch']].forEach(([verb, alias]) => {
       this[verb] = (path, ...args) => {
         this._registerRouteHandler(verb, path, args);
       };

@@ -26,15 +26,15 @@ export default function() {
 
 Now whenever your Ember app makes a GET request to `/api/authors`, Mirage will respond with this data.
 
----
+## Dynamic mocks
 
-This works, and is traditionally how HTTP mocking is done - but hard-coded responses like this have some problems:
+This works, and is traditionally how HTTP mocking is done - but hard-coded responses like this have a few problems:
 
    - *They're inflexible*. What if you want to change this route's response data in your tests?
    - *They contain formatting logic*. Logic that formats the shape of your JSON payload (e.g., including the root `authors` key) is now duplicated across all your mock routes.
    - *They're too basic.* Inevitably, when your mocks need to deal with more complex things like relationships, these simple ad hoc responses start to break down.
 
-Mirage provides some primitives that let you write more flexible, powerful mocks. Let's see how they work.
+Mirage provides some primitives that let you write more flexible, powerful mocks. Let's see how they work by replacing our basic mock above.
 
 First, let's define an `author` model:
 
@@ -45,7 +45,7 @@ import { Model } from 'ember-cli-mirage';
 export default Model;
 ```
 
-This definition will set up an `authors` table in Mirage's *in-memory database*. The database is what enables our mock routes to be dynamic, allowing us to change the data being returned without having to rewrite the mock from scratch. In this way, we can use the same mock route in both our development and testing environments.
+This definition creates an `authors` table in Mirage's *in-memory database*. The database enables our mocks to be dynamic, and lets us change the return data without rewriting the entire mock. In this way, we can share a single set of mocks in both development and in each test we write.
 
 So, let's update our route handler to be dynamic:
 
@@ -55,9 +55,9 @@ this.get('/api/authors', (schema, request) => {
 });
 ```
 
-Now this route handler responds with all the authors in Mirage's database. If we want to change what data this route responds with, all we need to do is change the data in the database.
+Now, this route will respond with all the authors in Mirage's database at the time of the request. If we want to change the data this route responds with, we simply need to change the data in the database.
 
----
+## Creating data
 
 <aside class='Docs-page__aside'>
   <p>You can also use flat fixture files to seed your database. Learn more in the <a href="../seeding-your-database">database guide</a>.</p>
@@ -69,9 +69,9 @@ You create factories by adding files under `/mirage/factories/`:
 
 ```js
 // app/mirage/factories/author.js
-import Mirage, {faker} from 'ember-cli-mirage';
+import { Factory, faker } from 'ember-cli-mirage';
 
-export default Mirage.Factory.extend({
+export default Factory.extend({
   name(i) { return `Person ${i}`; },
   age: 28,
   admin: false,
@@ -96,17 +96,17 @@ The name of your factory should match the name of your model. This factory will 
 }
 ```
 
-and so on. This data will be inserted into the `authors` database table, giving each record a unique `id`. The records will now be available to your route handlers.
+and so on.
 
-To actually create factory data, use the `server.create` or `server.createList` methods in development
+When you use a factory, the data is inserted into the corresponding database table, and each record gets a unique `id`. Your route handlers can then access and modify these records.
+
+To actually use a factory, use the `server.create` and `server.createList` methods in development
 
 ```js
 // app/mirage/scenarios/default.js
 
-// Create 10 non-admin and 1 admin authors for development
 export default function(server) {
-  server.createList('author', 10);  
-  server.create('author', {admin: true});
+  server.createList('author', 10);
 };
 ```
 
@@ -129,8 +129,57 @@ test("I can view the authors", function() {
 
 You now have a simple way to set up your mock server's initial data, both during development and on a per-test basis.
 
----
-<!--
+## Associations
+
+Dealing with associations is always tricky, and writing mocks for endpoints that deal with associations is no exception. Fortunately, Mirage ships with an ORM to help keep your mocks clean.
+
+Let's say your author has many posts. By declaring the relationship
+
+```js
+// app/mirage/models/author.js
+import { Model, hasMany } from 'ember-cli-mirage';
+
+export default Model.extend({
+  posts: hasMany()
+});
+
+// app/mirage/models/post.js
+import { Model } from 'ember-cli-mirage';
+
+export default Model;
+```
+
+you now have an author model that knows about its posts. This can be useful when writing mocks:
+
+```js
+this.post('/authors/:id/posts', (schema, request) {
+  let author = schema.author.find(request.params.id);
+
+  return author.createPost();
+})
+```
+
+or when using factories to create related data:
+
+```js
+let author = server.create('author');
+
+author.createPost({title: 'My first post'});
+author.createPost({title: 'My second post'});
+```
+
+Mirage also has a serializer layer, which is aware of your relationships. This is useful to mock endpoints that sideload related data:
+
+```js
+// mirage/serializers/author.js
+import { Serializer } from 'ember-cli-mirage';
+
+export default Serializer.extend({
+  relationships: ['comments']
+});
+```
+
+## Shorthands
 
 <aside class='Docs-page__aside'>
   <p>View more <a href="../shorthands">shorthands</a>.</p>
@@ -139,20 +188,20 @@ You now have a simple way to set up your mock server's initial data, both during
 Mirage provides numerous *shorthands* to reduce the code needed for conventional API routes. For example, the route
 
 ```js
-this.get('/authors', function(db, request) {
+this.get('/authors', function(schema, request) {
   return {
-    authors: db.authors
+    authors: schema.author.all()
   };
 });
 ```
 
-can be written simply as
+can be written as
 
 ```js
 this.get('/authors');
 ```
 
-There are also shorthands for `put`, `post` and `del` methods. Here's a full set of resourceful routes for a `author` resource:
+There are also shorthands for `put`, `post` and `del` methods. Here's a full set of resourceful routes for an `author` resource:
 
 ```js
 this.get('/authors');
@@ -167,4 +216,3 @@ Shorthands make writing your server definition concise, so you should use them w
 ---
 
 That should be enough to get you started! Keep reading to learn more.
- -->

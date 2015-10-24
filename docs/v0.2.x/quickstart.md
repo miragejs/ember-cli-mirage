@@ -36,18 +36,18 @@ This works, and is traditionally how HTTP mocking is done - but hard-coded respo
 
 Mirage provides some primitives that let you write more flexible, powerful mocks. Let's see how they work by replacing our basic mock above.
 
-First, let's define an `author` model:
+First, create an `author` model by running `ember g mirage:model author`. This generates the following file:
 
 ```js
-// app/mirage/models/author.js
+// mirage/models/author.js
 import { Model } from 'ember-cli-mirage';
 
 export default Model;
 ```
 
-This definition creates an `authors` table in Mirage's *in-memory database*. The database enables our mocks to be dynamic, and lets us change the return data without rewriting the entire mock. In this way, we can share a single set of mocks in both development and in each test we write.
+The model will create an `authors` table in Mirage's *in-memory database*. The database enables our mocks to be dynamic, and lets us change the return data without rewriting the entire mock. In this way, we can share a single set of mocks in both development and in each test we write, while still having control over the response data.
 
-So, let's update our route handler to be dynamic:
+Let's update our route handler to be dynamic:
 
 ```js 
 this.get('/api/authors', (schema, request) => {
@@ -55,7 +55,7 @@ this.get('/api/authors', (schema, request) => {
 });
 ```
 
-Now, this route will respond with all the authors in Mirage's database at the time of the request. If we want to change the data this route responds with, we simply need to change the data in the database.
+Now this route will respond with all the authors in Mirage's database at the time of the request. If we want to change the data this route responds with, we simply need to change the data in the database.
 
 ## Creating data
 
@@ -65,10 +65,10 @@ Now, this route will respond with all the authors in Mirage's database at the ti
 
 To actually seed our database with fake data, we'll use *factories*. Factories are objects that dynamically generate data - think of them as blueprints for your models.
 
-You create factories by adding files under `/mirage/factories/`:
+Let's create a factory for our author with `ember g mirage:factory author`, and add some properties to it:
 
 ```js
-// app/mirage/factories/author.js
+// mirage/factories/author.js
 import { Factory, faker } from 'ember-cli-mirage';
 
 export default Factory.extend({
@@ -79,7 +79,7 @@ export default Factory.extend({
 });
 ```
 
-The name of your factory should match the name of your model. This factory will create objects like
+This factory creates objects like
 
 ```
 {
@@ -96,17 +96,16 @@ The name of your factory should match the name of your model. This factory will 
 }
 ```
 
-and so on.
-
-When you use a factory, the data is inserted into the corresponding database table, and each record gets a unique `id`. Your route handlers can then access and modify these records.
+and so on, which will automatically be inserted into the `authors` database table. Each record gets an `id`, and now you can interact with this data in your route handlers.
 
 To actually use a factory, use the `server.create` and `server.createList` methods in development
 
 ```js
-// app/mirage/scenarios/default.js
-
+// mirage/scenarios/default.js
 export default function(server) {
+
   server.createList('author', 10);
+
 };
 ```
 
@@ -114,9 +113,8 @@ and in your acceptance tests
 
 ```js
 // tests/acceptance/authors-test.js
-
 test("I can view the authors", function() {
-  var authors = server.createList('author', 3);
+  const authors = server.createList('author', 3);
 
   visit('/authors');
 
@@ -133,23 +131,23 @@ You now have a simple way to set up your mock server's initial data, both during
 
 Dealing with associations is always tricky, and writing mocks for endpoints that deal with associations is no exception. Fortunately, Mirage ships with an ORM to help keep your mocks clean.
 
-Let's say your author has many posts. By declaring the relationship
+Let's say your author has many posts. You can declare this relationship in your model:
 
 ```js
-// app/mirage/models/author.js
+// mirage/models/author.js
 import { Model, hasMany } from 'ember-cli-mirage';
 
 export default Model.extend({
   posts: hasMany()
 });
 
-// app/mirage/models/post.js
+// mirage/models/post.js
 import { Model } from 'ember-cli-mirage';
 
 export default Model;
 ```
 
-you now have an author model that knows about its posts. This can be useful when writing mocks:
+Now, Mirage knows about the relationship between these two models, which can be useful when writing mocks:
 
 ```js
 this.post('/authors/:id/posts', (schema, request) {
@@ -168,7 +166,7 @@ author.createPost({title: 'My first post'});
 author.createPost({title: 'My second post'});
 ```
 
-Mirage also has a serializer layer, which is aware of your relationships. This is useful to mock endpoints that sideload related data:
+Mirage's serializer layer is also aware of your relationships, which makes it easy to mock endpoints that sideload related data:
 
 ```js
 // mirage/serializers/author.js
@@ -212,6 +210,28 @@ this.del('/authors/:id');
 ```
 
 Shorthands make writing your server definition concise, so you should use them whenever possible. You can always fall back to a custom function when you need more control.
+
+## Passthrough
+
+Mirage is a great tool to use even if you're working on an existing app that doesn't have any mocks. By default, Mirage throws an error if your Ember app makes a request that doesn't have a corresponding mock defined. To avoid this, tell Mirage to let unhandled requests pass through:
+
+```js
+// mirage/config.js
+this.passthrough();
+```
+
+Now you can develop as you normally would, say against an existing API. 
+
+When it comes time to build a new feature, you don't have to wait for the API to be updated. Just mock out the new route that you need
+
+```js
+// mirage/config.js
+this.get('/comments');
+
+this.passthrough();
+```
+
+and you can fully develop and test the feature. In this way you can build up your mock server piece by piece - adding some solid acceptance tests along the way!
 
 ---
 

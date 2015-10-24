@@ -8,7 +8,7 @@ Mirage is all about mocking out your API server. You define *route handlers* to 
 Here's a simple example of a handler:
 
 ```js
-// app/mirage/config.js
+// mirage/config.js
 export default function() {
 
   this.get('/api/authors', () => {

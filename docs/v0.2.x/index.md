@@ -1,9 +1,9 @@
 ---
 title: Overview
-version: v0.1.x
+version: v0.2.x
 ---
 
-Nearly all Ember apps interact with a JSON API. When you reach the point during development where you need to interact with dynamic server data, you have a few options:
+Nearly all Ember apps interact with an API. When you reach the point during development where you need to interact with dynamic server data, you have a few options:
 
   1. Proxy your app's HTTP requests to a local or hosted version of your actual backend, if it exists
   2. Use a library like [Pretender](https://github.com/trek/pretender) or [jQuery mockjax](https://github.com/jakerella/jquery-mockjax) to write a custom script that intercepts your requests in the client
@@ -16,7 +16,8 @@ Mirage was built to solve these problems. It's a mock server that runs in the cl
 Mirage borrows concepts from typical backend systems like
 
   - **routes**
-  - a **database**
-  - **factories** and **fixtures** for stubbing data
+  - a **database** and **models**, for storing data and defining relationships
+  - **factories** and **fixtures**, for stubbing data
+  - **serializers**, for formatting responses
 
 Once you define your server, developing and testing your Ember app is a breeze. Read on to learn more!

@@ -30,14 +30,14 @@
   float: right;
 }
 .u-mobile {
-  @include above($breakpoint) {
+  @include above($desktop-breakpoint) {
     display: none !important;
   }
 }
 .u-desktop {
   display: none !important;
 
-  @include above($breakpoint) {
+  @include above($desktop-breakpoint) {
     display: initial !important;
   }
 }

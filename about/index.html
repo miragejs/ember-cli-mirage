@@ -3,12 +3,6 @@ layout: default
 title: About
 ---
 
-{% for version in site.data.navs %}
-  {% if forloop.first %}
-    {% assign latest = version[0] %}
-  {% endif %}
-{% endfor %}
-
 <div class="About">
   
   <div class='About__section'>
@@ -32,7 +26,7 @@ title: About
     <h1 class='About__heading'>FAQ</h1>
     <div class='About__content'>
       <p><strong>Can I share my app running on a Mirage server as a demo/prototype?</strong></p>
-      <p>Yes! This is a great use case for Mirage. Simply <a href="{{ site.baseurl }}/docs/{{latest}}/server-configuration/#enabled">enable Mirage in production</a>, and everything will work just like it does in development.</p>
+      <p>Yes! This is a great use case for Mirage. Simply <a href="{{ site.baseurl }}/docs/{{site.default_version}}/server-configuration/#enabled">enable Mirage in production</a>, and everything will work just like it does in development.</p>
       <p><strong>This project seems complex. Is it a good idea?</strong></p>
       <p>Mirage tries to do a lot so you don't have to. Mirage server definitions end up being straightforward, which is especially important for long-lived projects with multiple developers.</p>
       <p>As long as people are mocking out JSON APIs for testing and development, we should try to build on each other's knowledge, and establish some conventions.</p>

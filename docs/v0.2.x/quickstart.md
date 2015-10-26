@@ -127,7 +127,7 @@ test("I can view the authors", function() {
 
 You now have a simple way to set up your mock server's initial data, both during development and on a per-test basis.
 
-## Associations
+## Associations and serializers
 
 Dealing with associations is always tricky, and writing mocks for endpoints that deal with associations is no exception. Fortunately, Mirage ships with an ORM to help keep your mocks clean.
 
@@ -166,15 +166,46 @@ author.createPost({title: 'My first post'});
 author.createPost({title: 'My second post'});
 ```
 
-Mirage's serializer layer is also aware of your relationships, which makes it easy to mock endpoints that sideload related data:
+Mirage's serializer layer is also aware of your relationships, which makes it easier to mock endpoints that sideload or embed related data. Models and collections that are returned from a route handler pass through the serializer layer, where you can customize which attributes and associations to include, as well as overridde other formatting options:
 
 ```js
+// mirage/serializers/application.js
+import { Serializer } from 'ember-cli-mirage';
+
+export default Serializer.extend({
+  keyForAttribute(attr) {
+    return dasherize(attr);
+  }
+});
+
 // mirage/serializers/author.js
 import { Serializer } from 'ember-cli-mirage';
 
 export default Serializer.extend({
   relationships: ['comments']
 });
+
+// mirage/config.js
+export default function() {
+  this.get('/authors/:id', (schema, request) {
+    return schema.author.find(request.params.id);
+  });
+}
+```
+
+With the above config, a GET to `/authors/1` would return something like
+
+```
+{
+  author: {
+    id: 1,
+    'first-name': 'Zelda'
+  },
+  comments: [
+    {id: 1, 'author-id': 1, text: 'Lorem ipsum'},
+    ...
+  ]
+}
 ```
 
 ## Shorthands

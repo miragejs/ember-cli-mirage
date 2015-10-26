@@ -10,17 +10,21 @@ v0.2.x:
   - label: Seeding your database
   - label: Acceptance testing
 
+  - section: API
+    label: Route handlers
+  - label: Shorthands
+  - label: Models
+  - label: Database
+  - label: Serializers
+  - label: Factories
+  - label: Fixtures
+  - label: Testing
+  - label: Configuration
+
   - section: Cookbook
     label: Working with JSON:API
   - label: Manually starting Mirage
   - label: Simulating cookie responses
-
-  - section: API reference
-    label: Server configuration
-  - label: Routes
-  - label: Shorthands
-  - label: Database
-  - label: Factories
 
 v0.1.x:
   - section: Getting started

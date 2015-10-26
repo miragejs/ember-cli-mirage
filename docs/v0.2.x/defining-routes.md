@@ -9,12 +9,12 @@ To define routes for your server, use the `get`, `post`, `put` and `del` methods
 
 ```js
 // app/mirage/config.js
-this.get('/api/users', function() {
+this.get('/api/authors', () => {
   return ['Link', 'Zelda', 'Epona'];
 })
 ```
 
-Now, when your Ember app makes a GET request to `/api/users`, it will receive this data.
+Now, when your Ember app makes a GET request to `/api/authors`, it will receive this data.
 
 Each verb method has the same signature. The first argument is the path (URL) and the second is the actual function handler that returns the response:
 
@@ -23,16 +23,16 @@ Each verb method has the same signature. The first argument is the path (URL) an
 Here's some more examples:
 
 ```js
-this.get('/users/current', function() {
+this.get('/users/current', () => {
   return {
     name: 'Zelda',
     email: 'z@hyrule.org'
   };
 });
 
-this.get('/events', function() {
-  var events = [];
-  for (var i = 1; i < 1000; i++) {
+this.get('/events', () => {
+  let events = [];
+  for (let i = 1; i < 1000; i++) {
     events.push({id: i, value: Math.random()});
   };
 
@@ -40,27 +40,79 @@ this.get('/events', function() {
 });
 ```
 
-## Dynamic data
+## Using models
 
 In the examples above, we wrote the response data directly in the route. Instead of doing this, Mirage provides a simple in-memory database you can use to make your routes more versatile.
 
-The database is injected into each route handler as the first parameter:
+In previous versions of Mirage, you interacted with the database directly in your route handlers. Models were introduced as a wrapper around the database to provide better means for working with associations and formatting responses, which we'll get to shortly. For now, it's enough to know that models are the primary way you interact with Mirage's database.
+
+So, let's first define an `author` model. We can do this from the command line using Mirage's generators:
+
+```sh
+ember g mirage:model author
+```
+
+This gives us the file
 
 ```js
-this.get('/api/users', function(db) {
-  return db.users;
+// mirage/models/author.js
+import { Model } from 'ember-cli-mirage';
+
+export default Model;
+```
+
+which sets up our database with an `authors` table. Now we can rewrite our route handler to use the model. A `schema` object is injected into each route handler as the first parameter:
+
+```js
+this.get('/api/authors', (schema) => {
+  return schema.author.all();
 });
 ```
 
 <aside class='Docs-page__aside'>
-  <p>Route handlers can also create, update and delete database records.</p>
+  <p>You'll learn how to seed your database with initial data in the next section.</p>
 </aside>
 
-Now, Mirage will respond to this route with all the `user` records in its database. You'll learn more about seeding your database with initial data in the next section.
+Now, Mirage will respond to this route with all the `author` models in its database.
+
+You can also create, update and delete models from your route handlers. A `request` object is injected as the second parameter, which contains any data that was sent along with the request.
+
+Let's say your Ember app creates an author by sending a POST request with a payload like
+
+```
+{
+  author: {
+    name: 'Link',
+    age: 123
+  }
+}
+```
+
+We can use this data to create a new `author` model:
+
+```js
+this.post('/api/authors', (schema, request) => {
+  const attrs = JSON.parse(request.requestBody).author;
+
+  return schema.author.create(attrs);
+});
+```
+
+This handler creates a new model, inserts it in the database (which assigns it an `id`), and responds with that record.
+
+<aside class='Docs-page__aside'>
+  <p>View the <a href="../models">full model API</a> to see how your routes can interact with your data.</p>
+</aside>
 
 As long as all your Mirage routes read from and write to the database, user interactions will persist during a single session. This lets users interact with your app as if it were wired up to a real server.
 
-View the [full database API](../database) to see how your routes can interact with your data.
+## Working with associations
+
+## Formatting your response with serializers
+
+## Responding with objects or arrays
+
+By default, attrs is returned
 
 ## Dynamic paths and query params
 

@@ -1,5 +1,5 @@
 ---
-title: Server configuration
+title: Configuration
 version: v0.2.x
 
 redirect_from: "/docs/latest/server-configuration/"

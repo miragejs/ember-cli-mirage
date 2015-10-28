@@ -5,13 +5,13 @@ version: v0.2.x
 redirect_from: "/docs/latest/defining-routes/"
 ---
 
-To define routes for your server, use the `get`, `post`, `put` and `del` methods. Here's an example:
+To define routes for your server, use the `get`, `post`, `put` (or `patch`) and `del` methods. Here's an example:
 
 ```js
-// app/mirage/config.js
+// mirage/config.js
 this.get('/api/authors', () => {
   return ['Link', 'Zelda', 'Epona'];
-})
+});
 ```
 
 Now, when your Ember app makes a GET request to `/api/authors`, it will receive this data.
@@ -40,11 +40,11 @@ this.get('/events', () => {
 });
 ```
 
-## Using models
+## Working with Models
 
 In the examples above, we wrote the response data directly in the route. Instead of doing this, Mirage provides a simple in-memory database you can use to make your routes more versatile.
 
-In previous versions of Mirage, you interacted with the database directly in your route handlers. Models were introduced as a wrapper around the database to provide better means for working with associations and formatting responses, which we'll get to shortly. For now, it's enough to know that models are the primary way you interact with Mirage's database.
+In previous versions of Mirage, you interacted with the database directly in your route handlers. Models were introduced as a wrapper around the database to provide better means for dealing with associations and formatting responses, which we'll get to shortly. For now, it's enough to know that models are the primary way you interact with Mirage's database.
 
 So, let's first define an `author` model. We can do this from the command line using Mirage's generators:
 
@@ -61,7 +61,7 @@ import { Model } from 'ember-cli-mirage';
 export default Model;
 ```
 
-which sets up our database with an `authors` table. Now we can rewrite our route handler to use the model. A `schema` object is injected into each route handler as the first parameter:
+which sets up our database with an `authors` table. Now we can rewrite our route handler to use the model. A `schema` object is injected into each route handler as the first parameter. Let's use it to make this route dynamic:
 
 ```js
 this.get('/api/authors', (schema) => {
@@ -98,21 +98,90 @@ this.post('/api/authors', (schema, request) => {
 });
 ```
 
-This handler creates a new model, inserts it in the database (which assigns it an `id`), and responds with that record.
+This handler creates a new author, inserts it into the database (which assigns it an `id`), and responds with that record.
 
 <aside class='Docs-page__aside'>
-  <p>View the <a href="../models">full model API</a> to see how your routes can interact with your data.</p>
+  <p>View the <a href="../models">full Model API</a> to see how your routes can interact with your data.</p>
 </aside>
 
 As long as all your Mirage routes read from and write to the database, user interactions will persist during a single session. This lets users interact with your app as if it were wired up to a real server.
 
-## Working with associations
+## Formatting your response with Serializers
 
-## Formatting your response with serializers
+When you return a model from a route handler, Mirage *serializes* it into a JSON payload, and then responds to your Ember app with that payload. It uses an object called a Serializer to do this, which you can customize. Having a single object that's responsible for this formatting logic helps keep your route handlers simple.
 
-## Responding with objects or arrays
+The default serializer takes all the attributes of your model, and returns them under a root key of the model type. Suppose you had the following author in your database:
 
-By default, attrs is returned
+```
+{
+  id: 1,
+  firstName: 'Keyser',
+  lastName: 'Soze'
+  age: 145
+}
+```
+
+and you had this route
+
+```js
+this.get('/api/authors/:id', (schema, request) => {
+  return schema.author.find(requst.params.id);
+});
+```
+
+The response would look like this:
+
+```
+GET /api/authors/1
+
+{
+  author: {
+    id: 1,
+    firstName: 'Keyser',
+    lastName: 'Soze',
+    age: 145
+  }
+}
+```
+
+Remember, your Mirage server should mimic your backend server. Let's say your backend server returns hyphenated object keys instead of camel-cased. You can customize the response by extending the base Serializer and overwriting `keyForAttribute`:
+
+```js
+// mirage/serializers/application.js
+import { Serializer, dasherize } from 'ember-cli-mirage';
+
+export default Serializer.extend({
+  
+  keyForAttribute(key) {
+    return dasherize(key);
+  }
+
+});
+```
+
+Now, with the same route handler as above, the response would look like this:
+
+```
+GET /api/authors/1
+
+{
+  author: {
+    id: 1,
+    'first-name': 'Keyser',
+    'last-name': 'Soze',
+    age: 145
+  }
+}
+```
+
+<aside class='Docs-page__aside'>
+  <p>Note that returning JavaScript objects or arrays from your route handler bypasses the serializer layer.</p>
+</aside>
+
+View the [full Serializer API](../serializer) to learn more about customizing your responses.
+
+## Associations
+
 
 ## Dynamic paths and query params
 

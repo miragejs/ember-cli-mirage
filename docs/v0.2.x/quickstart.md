@@ -150,7 +150,7 @@ export default Model;
 Now Mirage knows about the relationship between these two models, which can be useful when writing mocks:
 
 ```js
-this.post('/authors/:id/posts', (schema, request) {
+this.post('/authors/:id/posts', (schema, request) => {
   let author = schema.author.find(request.params.id);
 
   return author.createPost();
@@ -187,7 +187,7 @@ export default Serializer.extend({
 
 // mirage/config.js
 export default function() {
-  this.get('/authors/:id', (schema, request) {
+  this.get('/authors/:id', (schema, request) => {
     return schema.author.find(request.params.id);
   });
 }

@@ -41,3 +41,20 @@
     display: initial !important;
   }
 }
+.fixed-ratio {
+  position: relative;
+  padding-top: 62.25%;  // Video height / width.
+  height: 0;
+}
+.fixed-ratio-inner {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  width: 100%;
+}
+.fixed-ratio-video {
+  padding-top: 56.25%;  // Video height / width.
+}
+.fixed-ratio-slides {
+  padding-top: 72.916%;  // Video height / width.
+}

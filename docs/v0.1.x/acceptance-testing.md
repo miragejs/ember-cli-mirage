@@ -110,26 +110,49 @@ Now any route that requests this user and their photos will retrieve all the dat
 Mirage recommends that you use factories in testing, as they make your tests more intention-revealing. If you'd like to load your fixture files during testing, use the `loadFixtures` API. To have all fixtures loaded for each test, and to not use factories at all, simply delete your `/mirage/factories` directory.
 
 ## Asserting a server call was made in a test
-Typically you'll write tests against your application's UI, which will verify that the proper data from Mirage was returned. Sometimes, however, you'll want to write a test that verifies a certain server call was made, perhaps with a specific request body. In this case you can do something like the following:
+Typically you'll write tests against your application's UI, which will verify that the proper data from Mirage was returned. It also is nice to verify the data made it to the server, to give you more confidence your Ember app is making the XHR requests you expect it should be.
+
+You can easily assert against Mirage's database state in your tests
 
 ```js
-test('it works', function(assert) {
+test('I can update the contact', function(assert) {
+  server.create('contact', {name: 'Lnk'});
+
+  visit('/contacts/1');
+  click('.edit');
+  fillIn('input.name', 'Link')
+  click('.save');
+
+  andThen(() => {
+    assert.equal(server.db.contacts[0].name, 'Link');
+  });
+});
+```
+
+Some people prefer to assert against the actual request body, which is also possible if you overwrite the relevant route handler in your test:
+
+```js
+test('I can update the contact', function(assert) {
   assert.expect(1);
   let done = assert.async();
-
-  server.post('/contacts', (db, request) => {
+  server.put('/contacts', (db, request) => {
     let params = JSON.parse(request.requestBody).contact;
     assert.deepEqual(params, {...});
     done();
   });
 
-  visit('/');
-  fillIn('input', 'Peter');
-  click('.Save');
+  server.create('contact', {name: 'Lnk'});
+
+  visit('/contacts/1');
+  click('.edit');
+  fillIn('input.name', 'Link')
+  click('.save');
 });
 ```
 
-This overwrites any route handler you may defined for POST to `/contacts` in your `config.js` file, but only for this test.
+Note that this route handler is only in effect for this test.
+
+Either approach you take, you'll have more confidence that your Ember app's data calls are making it to your server as expected.
 
 ---
 

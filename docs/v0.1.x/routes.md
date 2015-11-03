@@ -78,7 +78,7 @@ export default function() {
   });
 
   this.post('/api/messages', function(db, request) {
-    var params = JSON.parse(request.requestBody);
+    var params = JSON.parse(request.requestBody).message;
 
     if (!params.title) {
       return new Mirage.Response(400, {a: 'header'}, {message: 'title cannot be blank'});

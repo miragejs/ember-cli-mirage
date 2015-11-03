@@ -118,7 +118,7 @@ test('it works', function(assert) {
   let done = assert.async();
 
   server.post('/contacts', (db, request) => {
-    let params = JSON.parse(request.requestBody);
+    let params = JSON.parse(request.requestBody).contact;
     assert.deepEqual(params, {...});
     done();
   });

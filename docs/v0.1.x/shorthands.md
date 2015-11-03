@@ -141,7 +141,7 @@ this.post('/contacts', 'user');  // optionally specify the type as second param
 {% capture expanded %}
 {% highlight js %}
 this.post('/contacts', function(db, request) {
-  var attrs = JSON.parse(request.requestBody);
+  var attrs = JSON.parse(request.requestBody).contact;
   var record = db.contacts.insert(attrs);
   
   return {
@@ -168,7 +168,7 @@ this.put('/contacts/:id', 'user');  // optionally specify the type as second par
 {% highlight js %}
 this.put('/contacts/:id', function(db, request) {
   var id = request.params.id;
-  var attrs = JSON.parse(request.requestBody)['contact'];
+  var attrs = JSON.parse(request.requestBody).contact;
   var record = db.contacts.update(id, attrs);
 
   return {

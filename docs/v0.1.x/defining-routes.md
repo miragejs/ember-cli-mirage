@@ -82,7 +82,7 @@ Data that's included in the message body of the request is accessible via `reque
 
 ```js
 this.post('/api/users', function(db, request) {
-  var attrs = JSON.parse(request.requestBody);
+  var attrs = JSON.parse(request.requestBody).user;
   var user = db.users.insert(attrs);
   return user;
 });
@@ -114,7 +114,7 @@ Similarly, creating a resource manually looks like this
 
 ```js
 this.post('/users', function(db, request) {
-  var attrs = JSON.parse(request.requestBody);
+  var attrs = JSON.parse(request.requestBody).user;
   var user = db.users.insert(attrs);
   return user;
 });
@@ -147,7 +147,7 @@ import Mirage from 'ember-cli-mirage';
 
 export default function() {
   this.post('/api/users', function(db, request) {
-    var data = JSON.parse(request.requestBody); 
+    var data = JSON.parse(request.requestBody).user;
 
     if (data.name) {
       return db.users.insert(data);

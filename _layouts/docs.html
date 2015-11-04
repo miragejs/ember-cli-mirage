@@ -52,6 +52,13 @@ layout: default
 
 
 <div class="Center-panel">
+
+  {% if page.version == 'v0.2.x' %}
+    <div class="Callout">
+      <p>v0.2.x is currently unreleased. Please help us test it out by <a href="../installation/#installing-master">installing the master branch</a> in your project!</p>
+    </div>
+  {% endif %}
+
   <div class="Docs-page">
     <div class='Docs-page__header'>
       <div class="Docs-page__version">

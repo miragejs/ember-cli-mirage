@@ -1,8 +1,6 @@
 ---
-title: Routes
+title: Route handlers
 version: v0.2.x
-
-redirect_from: "/docs/latest/routes/"
 ---
 
 You define route handlers using the four verb methods (`get`, `post`, `put` and `del`). You can use shorthands, return a plain object, or write custom function handlers.

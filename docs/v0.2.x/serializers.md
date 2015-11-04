@@ -9,6 +9,35 @@ The application serializer (`/mirage/serializers/application.js`) will apply to 
 
 Any Model or Collection returned from a route handler will pass through the serializer layer. Highest priority will be given to a model-specific serializer, then the application serializer, then the default serializer.
 
+Mirage ships with two named serializers. Use **JsonApiSerializer** to mock out JSON:API compliant servers:
+
+```js
+// mirage/serializers/application.js
+import JsonApiSerializer from 'ember-cli-mirage/serializers/json-api-serializer';
+
+export default JsonApiSerializer;
+```
+
+Use **ActiveModelSerializer** to mock out Rails backends that use AMS-style responses:
+
+```js
+// mirage/serializers/application.js
+import ActiveModelSerializer from 'ember-cli-mirage/serializers/active-model-serializer'
+
+export default ActiveModelSerializer;
+```
+
+When writing model-specific serializers, remember to extend from your application serializer:
+
+```js
+// mirage/serializers/blog-post.js
+import BaseSerializer from './application';
+
+export default BaseSerializer.extend({
+  relationships: ['comments']
+});
+```
+
 ---
 
 ## serialize(*response, request*)

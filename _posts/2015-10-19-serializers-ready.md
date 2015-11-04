@@ -25,7 +25,7 @@ The docs should be landing soon. But, the code is already in master (since the e
 
     ```js
     // mirage/serializers/application.js
-    import Serializer from ‘ember-cli-mirage/serializers/json-api-serializer`;
+    import Serializer from 'ember-cli-mirage/serializers/json-api-serializer';
 
     export default Serializer;
     ```

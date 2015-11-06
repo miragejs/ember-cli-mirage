@@ -1,4 +1,5 @@
 import _isArray from 'lodash/lang/isArray';
+import { dasherize } from '../utils/inflector';
 
 /*
   An array of models, returned from one of the schema query
@@ -8,7 +9,7 @@ var Collection = function(type, ...args) {
   if (!type || typeof type !== 'string') {
     throw 'You must pass a type into a Collection';
   }
-  this.type = type;
+  this.modelTypeKey = dasherize(type);
 
   if (_isArray(args[0])) {
     args = args[0];
@@ -16,31 +17,31 @@ var Collection = function(type, ...args) {
   this.push.apply(this, args);
 
   this.update = function(key, val) {
-    this.forEach((model) => {
+    this.forEach(model => {
       model.update(key, val);
     });
   };
 
   this.destroy = function() {
-    this.forEach((model) => {
+    this.forEach(model => {
       model.destroy();
     });
   };
 
   this.save = function() {
-    this.forEach((model) => {
+    this.forEach(model => {
       model.save();
     });
   };
 
   this.reload = function() {
-    this.forEach((model) => {
+    this.forEach(model => {
       model.reload();
     });
   };
 
   this.mergeCollection = function(collection) {
-    collection.forEach((model) => {
+    collection.forEach(model => {
       this.push(model);
     });
 

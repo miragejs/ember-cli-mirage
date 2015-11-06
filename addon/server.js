@@ -43,7 +43,6 @@ export default class Server {
     });
 
     if (this._hasModulesOfType(options, 'models')) {
-      // TODO: really should be injected into Controller, server doesn't need to know about schema
       this.schema = new Schema(this.db);
       this.schema.registerModels(options.models);
       this.serializerOrRegistry = new SerializerRegistry(this.schema, options.serializers);

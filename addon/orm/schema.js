@@ -1,4 +1,4 @@
-import { singularize, pluralize, camelize } from '../utils/inflector';
+import { singularize, pluralize, camelize, dasherize } from '../utils/inflector';
 import Association from './associations/association';
 import Collection from './collection';
 import _isArray from 'lodash/lang/isArray';
@@ -40,8 +40,8 @@ export default function(db) {
     for (var key in ModelClass.prototype) {
       if (ModelClass.prototype[key] instanceof Association) {
         var association = ModelClass.prototype[key];
-        var associatedType = association.type || singularize(key);
-        association.owner = type;
+        var associatedType = dasherize(association.modelTypeKey || singularize(key));
+        association.owner = dasherize(type);
         association.target = associatedType;
 
         // Update the registry with this association's foreign keys. This is
@@ -136,7 +136,7 @@ export default function(db) {
   };
 
   this._modelFor = function(type) {
-    return this._registry[type].class;
+    return this._registry[camelize(type)].class;
   };
 
   this._foreignKeysFor = function(type) {

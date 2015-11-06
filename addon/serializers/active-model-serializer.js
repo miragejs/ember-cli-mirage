@@ -3,20 +3,20 @@ import { underscore, pluralize, dasherize } from '../utils/inflector';
 
 export default Serializer.extend({
 
-  keyForModel(type) {
-    return underscore(type);
+  keyForModel(modelTypeKey) {
+    return underscore(modelTypeKey);
   },
 
   keyForAttribute(attr) {
     return underscore(attr);
   },
 
-  keyForRelationship(type) {
-    return pluralize(underscore(type));
+  keyForRelationship(modelTypeKey) {
+    return pluralize(underscore(modelTypeKey));
   },
 
-  keyForRelationshipIds(type) {
-    return `${underscore(type)}_ids`;
+  keyForRelationshipIds(modelTypeKey) {
+    return `${underscore(modelTypeKey)}_ids`;
   },
 
   normalize(payload) {

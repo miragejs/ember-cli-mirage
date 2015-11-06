@@ -2,7 +2,7 @@ import Model from 'ember-cli-mirage/orm/model';
 import Collection from 'ember-cli-mirage/orm/collection';
 import Serializer from 'ember-cli-mirage/serializer';
 import JsonApiSerializer from 'ember-cli-mirage/serializers/json-api-serializer';
-import { pluralize } from './utils/inflector';
+import { pluralize, camelize } from './utils/inflector';
 
 import _assign from 'lodash/object/assign';
 import _isArray from 'lodash/lang/isArray';
@@ -69,7 +69,7 @@ export default class SerializerRegistry {
         let serializer = this._serializerFor(collection);
 
         if (serializer.embed) {
-          json[pluralize(collection.type)] = this._serializeModelOrCollection(collection);
+          json[pluralize(camelize(collection.modelTypeKey))] = this._serializeModelOrCollection(collection);
         } else {
           json = _assign(json, this._serializeSideloadedModelOrCollection(collection));
         }
@@ -95,7 +95,7 @@ export default class SerializerRegistry {
 
     // We have an empty collection
     } else {
-      return {[pluralize(modelOrCollection.type)]: []};
+      return {[pluralize(camelize(modelOrCollection.modelTypeKey))]: []};
     }
   }
 
@@ -105,7 +105,7 @@ export default class SerializerRegistry {
     // Add this model's attrs
     this._augmentAlreadySerialized(model);
     let modelAttrs = this._attrsForModel(model, false, true);
-    let key = serializer.keyForModel(model.type);
+    let key = serializer.keyForModel(model.modelTypeKey);
     if (topLevelIsArray) {
       key = root ? root : pluralize(key);
       allAttrs[key] = allAttrs[key] || [];
@@ -125,7 +125,7 @@ export default class SerializerRegistry {
             return;
           }
 
-          this._serializeSideloadedModelResponse(relatedModel, true, allAttrs, serializer.keyForRelationship(relatedModel.type));
+          this._serializeSideloadedModelResponse(relatedModel, true, allAttrs, serializer.keyForRelationship(relatedModel.modelTypeKey));
         });
       });
 
@@ -134,7 +134,7 @@ export default class SerializerRegistry {
 
   _formatResponse(modelOrCollection, attrs) {
     let serializer = this._serializerFor(modelOrCollection);
-    let key = modelOrCollection.type;
+    let key = camelize(modelOrCollection.modelTypeKey);
 
     if (this._isCollection(modelOrCollection)) {
       key = pluralize(key);
@@ -180,7 +180,7 @@ export default class SerializerRegistry {
         .map(key => model[key])
         .filter(relatedCollection => this._isCollection(relatedCollection))
         .forEach(relatedCollection => {
-          attrs[serializer.keyForRelationshipIds(relatedCollection.type)] = relatedCollection.map(obj => obj.id);
+          attrs[serializer.keyForRelationshipIds(relatedCollection.modelTypeKey)] = relatedCollection.map(obj => obj.id);
         });
     }
 
@@ -202,13 +202,13 @@ export default class SerializerRegistry {
   }
 
   _hasBeenSerialized(model) {
-    let relationshipKey = `${model.type}Ids`;
+    let relationshipKey = `${camelize(model.modelTypeKey)}Ids`;
 
     return (this.alreadySerialized[relationshipKey] && this.alreadySerialized[relationshipKey].indexOf(model.id) > -1);
   }
 
   _augmentAlreadySerialized(model) {
-    let modelKey = `${model.type}Ids`;
+    let modelKey = `${camelize(model.modelTypeKey)}Ids`;
 
     this.alreadySerialized[modelKey] = this.alreadySerialized[modelKey] || [];
     this.alreadySerialized[modelKey].push(model.id);
@@ -219,8 +219,9 @@ export default class SerializerRegistry {
   }
 
   _serializerFor(modelOrCollection) {
-    let type = modelOrCollection.type;
-    let ModelSerializer = this._serializerMap && (this._serializerMap[type] || this._serializerMap['application']);
+    let modelTypeKey = modelOrCollection.modelTypeKey || modelOrCollection[0].modelTypeKey; // if we have an array of models that's not a Collection
+    let serializerClass = camelize(modelTypeKey);
+    let ModelSerializer = this._serializerMap && (this._serializerMap[serializerClass] || this._serializerMap['application']);
 
     /*
       TODO: This check should exist within the Serializer class, when the logic is moved from the registry to the

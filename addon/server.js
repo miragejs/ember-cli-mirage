@@ -138,7 +138,7 @@ export default class Server {
     var Factory = OriginalFactory.extend(overrides);
     var factory = new Factory();
 
-    var attrs = factory.build(id);
+    var attrs = factory.build(typeof id === 'string' ? sequence + 1: id);
     return this.db[collection].insert(attrs);
   }
 

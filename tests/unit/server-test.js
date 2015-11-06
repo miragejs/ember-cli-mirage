@@ -70,9 +70,7 @@ test('create exposes the new record id', function(assert) {
   });
 
   var contact = server.create('contact', {
-    dynamicAttribute(id) {
-      return id;
-    }
+    dynamicAttribute: id => id,
   });
   var contactRecord = server.db.contacts[0];
 
@@ -84,9 +82,7 @@ test('create exposes the new record id', function(assert) {
 
   var contactWithExplicitId = server.create('contact', {
     id: -100,
-    dynamicAttribute(id) {
-      return id;
-    }
+    dynamicAttribute: id => id,
   });
   var contactWithExplicitIdRecord = server.db.contacts[1];
 
@@ -94,6 +90,23 @@ test('create exposes the new record id', function(assert) {
     contactWithExplicitId.dynamicAttribute,
     contactWithExplicitIdRecord.id,
     'exposes the overridden `id` as the sequence value'
+  );
+
+  var contactWithStringId = server.create('contact', {
+    id: 'abc123',
+    dynamicAttribute: id => id,
+  });
+  var contactWithStringIdRecord = server.db.contacts[2];
+
+  assert.equal(
+    contactWithStringId.id,
+    contactWithStringIdRecord.id,
+    'accepts overriding `id`'
+  );
+  assert.equal(
+    contactWithStringId.dynamicAttribute,
+    server.db.contacts.length,
+    'sequence is always a number'
   );
 });
 

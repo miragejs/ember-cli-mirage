@@ -6,6 +6,10 @@ Changes:
   - [BREAKING CHANGE] missing routes will now throw an Error instead of logging
     to the Logger's `error` channel.
   - [BREAKING CHANGE] Move /app/mirage to /mirage
+  - [FEATURE] The `sequence` value in a dynamic attribute's callback is the same
+    value as the record's `id`. [#378]
+
+[#378]: https://github.com/samselikoff/ember-cli-mirage/pull/378
 
 ## 0.1.9
 

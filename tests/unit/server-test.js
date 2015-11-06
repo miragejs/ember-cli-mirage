@@ -64,6 +64,39 @@ test('create fails when an expected factory isn\'t registered', function(assert)
   });
 });
 
+test('create exposes the new record id', function(assert) {
+  server.loadFactories({
+    contact: Factory.extend({name: 'Sam'})
+  });
+
+  var contact = server.create('contact', {
+    dynamicAttribute(id) {
+      return id;
+    }
+  });
+  var contactRecord = server.db.contacts[0];
+
+  assert.equal(
+    contact.dynamicAttribute,
+    contactRecord.id,
+    'exposes the record `id` as the sequence value'
+  );
+
+  var contactWithExplicitId = server.create('contact', {
+    id: -100,
+    dynamicAttribute(id) {
+      return id;
+    }
+  });
+  var contactWithExplicitIdRecord = server.db.contacts[1];
+
+  assert.equal(
+    contactWithExplicitId.dynamicAttribute,
+    contactWithExplicitIdRecord.id,
+    'exposes the overridden `id` as the sequence value'
+  );
+});
+
 test('create adds the data to the db', function(assert) {
   server.loadFactories({
     contact: Factory.extend({name: 'Sam'})
@@ -179,9 +212,9 @@ test('createList respects sequences', function(assert) {
 
   var contacts = server.createList('contact', 3);
 
-  assert.deepEqual(contacts[0], {id: 1, name: 'name0'});
-  assert.deepEqual(contacts[1], {id: 2, name: 'name1'});
-  assert.deepEqual(contacts[2], {id: 3, name: 'name2'});
+  assert.deepEqual(contacts[0], {id: 1, name: 'name1'});
+  assert.deepEqual(contacts[1], {id: 2, name: 'name2'});
+  assert.deepEqual(contacts[2], {id: 3, name: 'name3'});
 });
 
 test('createList respects attr overrides', function(assert) {

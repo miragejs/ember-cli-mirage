@@ -2,7 +2,7 @@ import _assign from 'lodash/object/assign';
 import _keys from 'lodash/object/keys';
 
 var Factory = function() {
-  this.build = function(sequence) {
+  this.build = function(id) {
     var object = {};
     var attrs = this.attrs || {};
 
@@ -10,7 +10,7 @@ var Factory = function() {
       var type = typeof attrs[key];
 
       if (type === 'function') {
-        object[key] = attrs[key].call(attrs, sequence);
+        object[key] = attrs[key].call(attrs, id);
       } else {
         object[key] = attrs[key];
       }

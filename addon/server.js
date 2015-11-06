@@ -126,9 +126,11 @@ export default class Server {
   }
 
   create(type, overrides) {
+    overrides = overrides || {};
     var collection = this.schema ? pluralize(camelize(type)) : pluralize(type);
     var currentRecords = this.db[collection];
     var sequence = currentRecords ? currentRecords.length: 0;
+    var id = overrides.id || sequence + 1;
     if (!this._factoryMap || !this._factoryMap[type]) {
       throw "You're trying to create a " + type + ", but no factory for this type was found";
     }
@@ -136,7 +138,7 @@ export default class Server {
     var Factory = OriginalFactory.extend(overrides);
     var factory = new Factory();
 
-    var attrs = factory.build(sequence);
+    var attrs = factory.build(id);
     return this.db[collection].insert(attrs);
   }
 

@@ -27,16 +27,10 @@ ember generate ember-cli-mirage
 
 This ensures all of Mirage's Bower dependencies are added to your project. It's supposed to run during `ember install`, but this functionality is broken in some versions of Ember CLI.
 
-## Installing master
+## Installing beta
 
-To use #master, add the following to your `package.json`
+To use beta, run
 
 ```js
-"ember-cli-mirage": "samselikoff/ember-cli-mirage"
-```
-
-and then run
-```
-npm install
-ember g ember-cli-mirage
+ember install ember-cli-mirage@v0.2.0-beta.1
 ```

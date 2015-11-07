@@ -35,4 +35,8 @@ To use #master, add the following to your `package.json`
 "ember-cli-mirage": "samselikoff/ember-cli-mirage"
 ```
 
-and run `npm install`.
+and then run
+```
+npm install
+ember g ember-cli-mirage
+```

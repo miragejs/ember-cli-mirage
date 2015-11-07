@@ -31,6 +31,6 @@ This ensures all of Mirage's Bower dependencies are added to your project. It's 
 
 To use beta, run
 
-```js
+```sh
 ember install ember-cli-mirage@v0.2.0-beta.1
 ```

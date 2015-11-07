@@ -50,7 +50,7 @@ In previous versions of Mirage, you interacted with the database directly in you
 So, let's first define an `author` model. We can do this from the command line:
 
 ```sh
-ember g mirage:model author
+ember g mirage-model author
 ```
 
 This gives us the file

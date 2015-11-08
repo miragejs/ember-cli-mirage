@@ -36,7 +36,7 @@ This works, and is traditionally how HTTP mocking is done - but hard-coded respo
 
 Mirage provides some primitives that let you write more flexible, powerful mocks. Let's see how they work by replacing our basic mock above.
 
-First, create an `author` model by running `ember g mirage-model author`. This generates the following file:
+First, create an `author` model by running `ember g mirage:model author`. This generates the following file:
 
 ```js
 // mirage/models/author.js
@@ -65,7 +65,7 @@ Now this route will respond with all the authors in Mirage's database at the tim
 
 To actually seed our database with fake data, we'll use *factories*. Factories are objects that dynamically generate data - think of them as blueprints for your models.
 
-Let's create a factory for our author with `ember g mirage-factory author`, and add some properties to it:
+Let's create a factory for our author with `ember g mirage:factory author`, and add some properties to it:
 
 ```js
 // mirage/factories/author.js

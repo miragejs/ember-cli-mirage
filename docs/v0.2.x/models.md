@@ -19,7 +19,7 @@ Create models by adding files under `/models`. These will automatically be regis
 To define a model, use the generator:
 
 ```sh
-ember g mirage-model blog-post
+ember g mirage:model blog-post
 ```
 
 This creates a file under `/mirage/models`:

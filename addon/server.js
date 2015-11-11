@@ -1,3 +1,4 @@
+import Ember from 'ember';
 import { pluralize, camelize } from './utils/inflector';
 import Pretender from 'pretender';
 import Db from './db';
@@ -9,6 +10,15 @@ import RouteHandler from './route-handler';
 import _isArray from 'lodash/lang/isArray';
 import _keys from 'lodash/object/keys';
 import _pick from 'lodash/object/pick';
+
+function extractAfterCreate(attrs) {
+  attrs = attrs || {};
+
+  var hook = attrs.afterCreate || Ember.K;
+  delete attrs.afterCreate;
+
+  return hook;
+}
 
 export default class Server {
 
@@ -126,6 +136,8 @@ export default class Server {
   }
 
   create(type, overrides) {
+    overrides = overrides || {};
+    var afterCreates = [];
     var collection = this.schema ? pluralize(camelize(type)) : pluralize(type);
     var currentRecords = this.db[collection];
     var sequence = currentRecords ? currentRecords.length: 0;
@@ -133,11 +145,22 @@ export default class Server {
       throw "You're trying to create a " + type + ", but no factory for this type was found";
     }
     var OriginalFactory = this._factoryMap[type];
+    var originalAttrs = OriginalFactory.attrs || {};
+
+    afterCreates.push(extractAfterCreate(overrides));
+
     var Factory = OriginalFactory.extend(overrides);
     var factory = new Factory();
 
     var attrs = factory.build(sequence);
-    return this.db[collection].insert(attrs);
+
+    afterCreates.push(originalAttrs.afterCreate || Ember.K);
+
+    var record = this.db[collection].insert(attrs);
+
+    afterCreates.forEach(callback => callback(this.db));
+
+    return record;
   }
 
   createList(type, amount, overrides) {

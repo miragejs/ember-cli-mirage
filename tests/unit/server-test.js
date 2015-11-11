@@ -197,3 +197,36 @@ test('createList respects attr overrides', function(assert) {
   assert.deepEqual(links[0], {id: 3, name: 'Link'});
   assert.deepEqual(links[1], {id: 4, name: 'Link'});
 });
+
+test('invokes `afterCreate` hooks', function(assert) {
+  var afterCreateInvocations = 0;
+  var invocationArguments = [];
+  server.loadFactories({
+    post: Factory.extend({
+      title: 'the-title',
+
+      afterCreate(db) {
+        invocationArguments.push(db);
+        afterCreateInvocations++;
+      }
+    }),
+  });
+
+  server.create('post', {
+    afterCreate(db) {
+      invocationArguments.push(db);
+      afterCreateInvocations++;
+    },
+  });
+
+  assert.equal(
+    afterCreateInvocations,
+    2,
+    'calls `afterCreate`s defined in both the factory and the test'
+  );
+  assert.deepEqual(
+    invocationArguments,
+    [server.db, server.db],
+    'invoked with `db` as argument'
+  );
+});

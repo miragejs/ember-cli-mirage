@@ -11,15 +11,6 @@ import _isArray from 'lodash/lang/isArray';
 import _keys from 'lodash/object/keys';
 import _pick from 'lodash/object/pick';
 
-function extractAfterCreate(attrs) {
-  attrs = attrs || {};
-
-  var hook = attrs.afterCreate || Ember.K;
-  delete attrs.afterCreate;
-
-  return hook;
-}
-
 export default class Server {
 
   constructor(options = {}) {
@@ -147,7 +138,8 @@ export default class Server {
     var OriginalFactory = this._factoryMap[type];
     var originalAttrs = OriginalFactory.attrs || {};
 
-    afterCreates.push(extractAfterCreate(overrides));
+    afterCreates.push(overrides.afterCreate || Ember.K);
+    delete overrides.afterCreate;
 
     var Factory = OriginalFactory.extend(overrides);
     var factory = new Factory();

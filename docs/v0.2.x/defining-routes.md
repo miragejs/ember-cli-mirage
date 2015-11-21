@@ -62,7 +62,7 @@ import { Model } from 'ember-cli-mirage';
 export default Model;
 ```
 
-which sets up our database with an `authors` table. Now we can rewrite our route handler to use the model.
+which sets up our database (at run-time) with an `authors` table. Now we can rewrite our route handler to use the model.
 
 A `schema` object is injected into each route handler as the first parameter, which is how we access our models. Let's use it to make this route dynamic:
 
@@ -319,7 +319,11 @@ GET /authors/1
 }
 ```
 
-Mirage's database uses camelcase for foreign keys (e.g. `authorId` in the example above), but you can customize the format that gets sent in the response by overwriting your serializer's `keyForRelatedCollection`. See [the serializer guide](../serializers) for more details.
+<aside class='Docs-page__aside'>
+  <p>camelCased attributes let you stick to conventional JavaScript when working with models in your route handler code.</p>
+</aside>
+
+Mirage's database uses camelcase for all model attributes, including foreign keys (e.g. `authorId` in the example above), but you can customize the format that gets sent in the response by overwriting your serializer's `keyForRelatedCollection`. See [the serializer guide](../serializers) for more details.
 
 
 ## Dynamic status codes and HTTP headers

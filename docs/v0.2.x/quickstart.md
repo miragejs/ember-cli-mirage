@@ -98,7 +98,7 @@ This factory creates objects like
 
 and so on, which will automatically be inserted into the `authors` database table. Each record gets an `id`, and now you can interact with this data in your route handlers.
 
-To actually use a factory, use the `server.create` and `server.createList` methods in development
+To actually use a factory, use the `server.create` and `server.createList` methods in development:
 
 ```js
 // mirage/scenarios/default.js
@@ -109,7 +109,7 @@ export default function(server) {
 };
 ```
 
-and in your acceptance tests
+and in your acceptance tests:
 
 ```js
 // tests/acceptance/authors-test.js
@@ -129,7 +129,7 @@ You now have a simple way to set up your mock server's initial data, both during
 
 ## Associations and serializers
 
-Dealing with associations is always tricky, and writing mocks for endpoints that deal with associations is no exception. Fortunately, Mirage ships with an ORM to help keep your mocks clean.
+Dealing with associations is always tricky, and mocking endpoints that deal with associations is no exception. Fortunately, Mirage ships with an ORM to help keep your mocks clean.
 
 Let's say your author has many posts. You can declare this relationship in your model:
 
@@ -214,7 +214,7 @@ With the above config, a GET to `/authors/1` would return something like
   <p>View more <a href="../shorthands">shorthands</a>.</p>
 </aside>
 
-Mirage provides numerous *shorthands* to reduce the code needed for conventional API routes. For example, the route
+Mirage has *shorthands* to reduce the code needed for conventional API routes. For example, the route handler
 
 ```js
 this.get('/authors', function(schema, request) {
@@ -251,7 +251,7 @@ Mirage is a great tool to use even if you're working on an existing app that doe
 this.passthrough();
 ```
 
-Now you can develop as you normally would, say against an existing API. 
+Now you can develop as you normally would, for example against an existing API. 
 
 When it comes time to build a new feature, you don't have to wait for the API to be updated. Just mock out the new route that you need
 
@@ -262,7 +262,7 @@ this.get('/comments');
 this.passthrough();
 ```
 
-and you can fully develop and test the feature. In this way you can build up your mock server piece by piece - adding some solid acceptance tests along the way!
+and you can fully develop and test the feature. In this way you can build up your mock server piece by piece - adding some solid acceptance tests along the way.
 
 ---
 

@@ -2,7 +2,7 @@ v0.2.x:
   - section: Getting started
     label: Overview
     path: ''
-  - label: Installation
+  - label: Installing and Updating
   - label: Quickstart
 
   - section: Writing your server

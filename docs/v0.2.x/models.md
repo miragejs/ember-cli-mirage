@@ -7,10 +7,10 @@ version: v0.2.x
 Models wrap your database and allow you to define relationships.
 
 <aside class='Docs-page__aside'>
-  <p>As a clarifying point, Mirage models know nothing about your Ember application, including any Ember Data models you have have defined.</p>
+  <p>As a clarifying point, Mirage models know nothing about your Ember application, including any Ember Data models you may have defined.</p>
 </aside>
 
-Create models by adding files under `/models`. These will automatically be registered with `schema`, which is how you'll access your model classes in your route handlers.
+Define models by adding files under `/models`. These are automatically registered with `schema`, which is how you'll access your model classes in your route handlers.
 
 ---
 
@@ -33,22 +33,31 @@ export default Model;
 
 ## Class methods
 
-Access a model class using the `schema` object injected into your route handlers. For example, given the `blog-post` file above, you'd access the `BlogPost` class via `schama.blogPost`:
+Access a model class using the `schema` object injected into your route handlers. For example, given the `blog-post` file above, you'd access the `BlogPost` class via `schema.blogPost`:
 
 ```js
-this.get('/blog_posts', ({blogPost}, request) => {
-  schema.blogPost.all();
+this.get('/blog_posts', (schema, request) => {
+  return schema.blogPost.all();
 });
 ```
 
 You can then invoke the model's class methods.
+
+Use ES6 destructuring to add some sugar:
+
+```js
+this.get('/blog_posts', ({blogPost}, request) => {
+  return blogPost.all();
+});
+```
 
 ### new(*attrs*)
 
 Create a new unsaved model instance with attributes *attrs*.
 
 ```js
-let post = schema.blogPost.new({title: 'Lorem ipsum'});
+let post = blogPost.new({title: 'Lorem ipsum'});
+post.title;   // Lorem ipsum
 post.id;      // null
 post.isNew(); // true
 ```
@@ -58,7 +67,8 @@ post.isNew(); // true
 Create a new model instance with attributes *attrs*, and insert it into the database.
 
 ```js
-let post = schema.blogPost.create({title: 'Lorem ipsum'});
+let post = blogPost.create({title: 'Lorem ipsum'});
+post.title;   // Lorem ipsum
 post.id;      // 1
 post.isNew(); // false
 ```
@@ -68,7 +78,7 @@ post.isNew(); // false
 Return all models in the database.
 
 ```js
-let posts = schema.blogPost.all();
+let posts = blogPost.all();
 // [post:1, post:2, ...]
 ```
 
@@ -77,8 +87,8 @@ let posts = schema.blogPost.all();
 Return one or many models in the database by id.
 
 ```js
-let post = schema.blogPost.find(1);
-let posts = schema.blogPost.find([1, 3, 4]);
+let post = blogPost.find(1);
+let posts = blogPost.find([1, 3, 4]);
 ```
 
 ### where(*query*)
@@ -86,7 +96,7 @@ let posts = schema.blogPost.find([1, 3, 4]);
 Return an array of models in the database matching the key-value pairs in *query*.
 
 ```js
-let posts = schema.blogPost.where({published: true});
+let posts = blogPost.where({published: true});
 ```
 
 ## Instance methods
@@ -98,7 +108,7 @@ These methods are available on your model instances.
 Returns the attributes of your model.
 
 ```js
-let post = schema.blogPost.find(1);
+let post = blogPost.find(1);
 post.attrs; // {id: 1, title: 'Lorem Ipsum', publishedAt: '2012-01-01 10:00:00'}
 ```
 
@@ -107,14 +117,14 @@ post.attrs; // {id: 1, title: 'Lorem Ipsum', publishedAt: '2012-01-01 10:00:00'}
 Create or saves the model.
 
 ```js
-let post = schema.blogPost.new({title: 'Lorem ipsum'});
+let post = blogPost.new({title: 'Lorem ipsum'});
 post.id; // null
 
 post.save();
 post.id; // 1
 
 post.title = 'Hipster ipsum'; // db has not been updated
-post.save();                  // now the db is updated
+post.save();                  // ...now the db is updated
 ```
 
 ### update(key, val)
@@ -122,7 +132,7 @@ post.save();                  // now the db is updated
 Updates the record in the db.
 
 ```js
-let post = schema.blogPost.find(1);
+let post = blogPost.find(1);
 post.update('title', 'Hipster ipsum'); // the db was updated
 ```
 
@@ -131,7 +141,7 @@ post.update('title', 'Hipster ipsum'); // the db was updated
 Destroys the db record.
 
 ```js
-let post = schema.blogPost.find(1);
+let post = blogPost.find(1);
 post.destroy(); // removed from the db
 ```
 
@@ -140,7 +150,7 @@ post.destroy(); // removed from the db
 Boolean, true if the model has been persisted to the db.
 
 ```js
-let post = schema.blogPost.new({title: 'Lorem ipsum'});
+let post = blogPost.new({title: 'Lorem ipsum'});
 post.isNew(); // true
 post.id;      // null
 
@@ -158,7 +168,7 @@ Boolean, opposite of `isNew`.
 Reload a model's data from the database.
 
 ```js
-let post = schema.blogPost.find(1);
+let post = blogPost.find(1);
 post.attrs;     // {id: 1, title: 'Lorem ipsum'}
 
 post.title = 'Hipster ipsum';
@@ -173,7 +183,7 @@ post.title;     // 'Lorem ipsum'
 Simple string representation of the model and id.
 
 ```js
-let post = schema.blogPost.find(1);
+let post = blogPost.find(1);
 post.toString(); // "model:blogPost:1"
 ```
 

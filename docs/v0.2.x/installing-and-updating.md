@@ -1,9 +1,11 @@
 ---
-title: Installation
+title: Installing and Updating
 version: v0.2.x
 
 redirect_from: "/docs/latest/installation/"
 ---
+
+## Installing
 
 For Ember CLI >= 0.2.3,
 
@@ -17,12 +19,21 @@ For Ember CLI < 0.2.3,
 ember install:addon ember-cli-mirage
 ```
 
-## Bower
+## Updating
 
-If something seems wrong after you've installed Mirage, try running
+Update the `package.json` entry to the version you want, then run
 
+```sh
+npm install
+ember g ember-cli-mirage
 ```
-ember generate ember-cli-mirage
+
+## Troubleshooting
+
+Problems with installing or updating Mirage are usually solved by running
+
+```sh
+ember g ember-cli-mirage
 ```
 
 This ensures all of Mirage's Bower dependencies are added to your project. It's supposed to run during `ember install`, but this functionality is broken in some versions of Ember CLI.

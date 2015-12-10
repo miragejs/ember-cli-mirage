@@ -70,3 +70,22 @@ test('it can use sequences', function(assert) {
   assert.deepEqual(post1, {likes: 5});
   assert.deepEqual(post2, {likes: 10});
 });
+
+test('it skips invoking `afterCreate`', function(assert) {
+  var skipped = true;
+  var PostFactory = Mirage.Factory.extend({
+    afterCreate() {
+      skipped = false;
+    }
+  });
+
+  var factory = new PostFactory();
+  var post = factory.build(0);
+
+  assert.ok(skipped, 'skips invoking `afterCreate`');
+  assert.equal(
+    typeof post.afterCreate,
+    'undefined',
+    'does not build `afterCreate` attribute'
+  );
+});

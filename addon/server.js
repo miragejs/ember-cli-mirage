@@ -1,3 +1,4 @@
+import Ember from 'ember';
 import { pluralize, camelize } from './utils/inflector';
 import Pretender from 'pretender';
 import Db from './db';
@@ -126,6 +127,8 @@ export default class Server {
   }
 
   create(type, overrides) {
+    overrides = overrides || {};
+    var afterCreates = [];
     var collection = this.schema ? pluralize(camelize(type)) : pluralize(type);
     var currentRecords = this.db[collection];
     var sequence = currentRecords ? currentRecords.length: 0;
@@ -133,11 +136,23 @@ export default class Server {
       throw "You're trying to create a " + type + ", but no factory for this type was found";
     }
     var OriginalFactory = this._factoryMap[type];
+    var originalAttrs = OriginalFactory.attrs || {};
+
+    afterCreates.push(overrides.afterCreate || Ember.K);
+    delete overrides.afterCreate;
+
     var Factory = OriginalFactory.extend(overrides);
     var factory = new Factory();
 
     var attrs = factory.build(sequence);
-    return this.db[collection].insert(attrs);
+
+    afterCreates.push(originalAttrs.afterCreate || Ember.K);
+
+    var record = this.db[collection].insert(attrs);
+
+    afterCreates.forEach(callback => callback(this.db));
+
+    return record;
   }
 
   createList(type, amount, overrides) {

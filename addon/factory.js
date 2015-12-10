@@ -9,7 +9,9 @@ var Factory = function() {
     _keys(attrs).forEach(function(key) {
       var type = typeof attrs[key];
 
-      if (type === 'function') {
+      if (key === 'afterCreate') {
+        // no op
+      } else if (type === 'function') {
         object[key] = attrs[key].call(attrs, sequence);
       } else {
         object[key] = attrs[key];

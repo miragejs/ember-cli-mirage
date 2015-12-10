@@ -41,13 +41,17 @@ class BelongsTo extends Association {
           - sets the associated parent (via id)
       */
       set: function(id) {
+        if (association.polymorphic) {
+          association.target = this.resourceType;
+        }
+
         if (id && !schema[association.target].find(id)) {
           throw 'Couldn\'t find ' + association.target + ' with id = ' + id;
         }
 
         this.attrs[foreignKey] = id;
         return this;
-      }
+      },
     });
 
     Object.defineProperty(modelPrototype, key, {
@@ -83,7 +87,7 @@ class BelongsTo extends Association {
           association._tempParent = null;
           this[foreignKey] = null;
         }
-      }
+      },
     });
 
     /*

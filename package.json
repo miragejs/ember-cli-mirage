@@ -1,7 +1,7 @@
 {
-  "name": "ember-cli-mirage",
-  "version": "0.2.0-beta.1",
-  "description": "A client-side mock HTTP server to develop, test and demo your Ember app",
+  "name": "exelord-mirage",
+  "version": "0.2.0-beta.1-0.21",
+  "description": "Fork of ember-cli-mirage with polymorphic relations",
   "license": "MIT",
   "directories": {
     "doc": "doc",
@@ -23,7 +23,7 @@
   "engines": {
     "node": ">= 0.10.0"
   },
-  "author": "Sam Selikoff",
+  "author": "Maciej Kwaśniak",
   "devDependencies": {
     "active-model-adapter": "1.13.6",
     "broccoli-asset-rev": "^2.1.2",

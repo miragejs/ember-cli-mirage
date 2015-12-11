@@ -195,3 +195,17 @@ if (environment === 'development') {
   }
 }
 ```
+
+<a name="directory" href="#directory">#</a> ENV['ember-cli-mirage'].<b>directory</b>
+
+Configure which directory contains your Mirage server definition. The default directory is `/mirage` (from the root of your project).
+
+For example, to have your server definition under `/app/mirage`,
+
+```js
+// config/environment.js
+...
+ENV['ember-cli-mirage'] = {
+  directory: 'app/mirage'
+}
+```

@@ -1,6 +1,6 @@
 class Association {
 
-  constructor(type, polymorphic = false) {
+  constructor(type, options = {}) {
     this.type = type;
 
     // The model type that owns this association
@@ -9,7 +9,7 @@ class Association {
     // The model type this association refers to
     this.target = '';
 
-    this.polymorphic = polymorphic;
+    this.options = options;
   }
 
 }

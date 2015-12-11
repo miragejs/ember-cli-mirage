@@ -41,7 +41,7 @@ class BelongsTo extends Association {
           - sets the associated parent (via id)
       */
       set: function(id) {
-        if (association.polymorphic) {
+        if (association.options.polymorphic) {
           association.target = this.resourceType;
         }
 

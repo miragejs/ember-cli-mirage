@@ -11,7 +11,7 @@ Eventually we'll extract Mirage's initializer, but for now you can use this work
 // tests/helpers/setup-mirage-for-integration.js
 import mirageInitializer from '../../initializers/ember-cli-mirage';
 
-export default function setupMirage(container) {
+export default function startMirage(container) {
   mirageInitializer.initialize(container);
 }
 ```

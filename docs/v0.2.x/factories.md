@@ -34,7 +34,7 @@ import Mirage from 'ember-cli-mirage';
 
 export default Mirage.Factory.extend({
   name: function(i) {
-    return 'User' + i
+    return 'User ' + i
   }
 });
 ```
@@ -42,7 +42,7 @@ export default Mirage.Factory.extend({
 The first user generated (per test) would have a name of `User 1`, the second a name of `User 2`, and so on.
 
 <aside class='Docs-page__aside'>
-  <p>Currently, you cannot reference dynamic attributes, although this is [in the works](https://github.com/samselikoff/ember-cli-mirage/issues/27).</p>
+  <p>Currently, you cannot reference dynamic attributes, although this is <a href='https://github.com/samselikoff/ember-cli-mirage/issues/27'>in the works</a></p>
 </aside>
 
 Finally, you can also reference static attributes (numbers, strings or booleans) within your dynamic attributes via `this`:

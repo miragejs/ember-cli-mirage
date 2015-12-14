@@ -143,7 +143,7 @@ export default function(server) {
 
 <a name="pretender" href="#pretender">#</a> this.**pretender**
 
-Mirage uses [pretender.js](https://github.com/trek/pretender) as its xhttp interceptor. in your mirage config, `this.pretender` refers to the actual pretender instance, so any config options that work there will work here as well. by default, content returned is json stringified, so you can just return js objects. 
+Mirage uses [pretender.js](https://github.com/trek/pretender) as its xhttp interceptor. In your Mirage config, `this.pretender` refers to the actual pretender instance, so any config options that work there will work here as well. By default, content returned is json stringified, so you can just return js objects.
 
 Refer to [pretender's docs](https://github.com/trek/pretender#mutating-the-body) if you want to change this or any other options on your pretender instance.
 

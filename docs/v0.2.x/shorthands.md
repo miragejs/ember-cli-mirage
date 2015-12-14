@@ -193,7 +193,7 @@ this.del('/contacts/:id', 'user');  // optionally specify the type as second par
 
 {% capture expanded %}
 {% highlight js %}
-this.put('/contacts/:id', function(db, request) {
+this.del('/contacts/:id', function(db, request) {
   var id = request.params.id;
   db.contacts.remove(id);
 
@@ -214,7 +214,7 @@ this.del('/contacts/:id', ['contact', 'addresses']);
 
 {% capture expanded %}
 {% highlight js %}
-this.put('/contacts/:id', function(db, request) {
+this.del('/contacts/:id', function(db, request) {
   var id = request.params.id;
   db.contacts.remove(id);
 

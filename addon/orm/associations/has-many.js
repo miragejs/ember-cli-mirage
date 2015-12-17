@@ -9,12 +9,15 @@ class HasMany extends Association {
   /*
     The hasMany association adds a fk to the target of the association
   */
+
   getForeignKeyArray() {
-    return [this.target, `${this.owner}Id`];
+    let key = this.options.klass || this.owner;
+    return [this.target, `${key}Id`];
   }
 
   getForeignKey() {
-    return `${this.owner}Id`;
+    let key = this.options.klass || this.owner;
+    return `${key}Id`;
   }
 
   addMethodsToModelClass(ModelClass, key, schema) {
@@ -26,7 +29,7 @@ class HasMany extends Association {
     var foreignKey = this.getForeignKey();
     var relationshipIdsKey = association.target + 'Ids';
 
-    var associationHash = {[key]: this};
+    var associationHash = { [key]: this };
     modelPrototype.hasManyAssociations = _assign(modelPrototype.hasManyAssociations, associationHash);
     modelPrototype.associationKeys.push(key);
     modelPrototype.associationIdKeys.push(relationshipIdsKey);
@@ -41,7 +44,7 @@ class HasMany extends Association {
         var models = association._cachedChildren || [];
 
         if (!this.isNew()) {
-          var query = {[foreignKey]: this.id};
+          var query = { [foreignKey]: this.id };
           var savedModels = schema[association.target].where(query);
 
           models = savedModels.mergeCollection(models);
@@ -62,7 +65,7 @@ class HasMany extends Association {
 
         } else {
           // Set current children's fk to null
-          var query = {[foreignKey]: this.id};
+          var query = { [foreignKey]: this.id };
           schema[association.target].where(query).update(foreignKey, null);
 
           // Associate the new childrens to this model
@@ -73,7 +76,7 @@ class HasMany extends Association {
         }
 
         return this;
-      }
+      },
     });
 
     Object.defineProperty(modelPrototype, key, {
@@ -112,7 +115,7 @@ class HasMany extends Association {
         } else {
 
           // Set current children's fk to null
-          var query = {[foreignKey]: this.id};
+          var query = { [foreignKey]: this.id };
           schema[association.target].where(query).update(foreignKey, null);
 
           // Save any children that are new
@@ -125,7 +128,7 @@ class HasMany extends Association {
           // Clear out any old cached children
           association._cachedChildren = [];
         }
-      }
+      },
     });
 
     /*

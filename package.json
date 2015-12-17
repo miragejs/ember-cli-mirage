@@ -1,6 +1,6 @@
 {
   "name": "exelord-mirage",
-  "version": "0.2.0-beta.1-0.24",
+  "version": "0.2.0-beta.1-0.3",
   "description": "Fork of ember-cli-mirage with polymorphic relations",
   "license": "MIT",
   "directories": {

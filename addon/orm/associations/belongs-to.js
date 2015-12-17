@@ -8,11 +8,13 @@ class BelongsTo extends Association {
     The belongsTo association adds a fk to the owner of the association
   */
   getForeignKeyArray() {
-    return [this.owner, `${this.target}Id`];
+    let key = this.options.klass || this.target;
+    return [this.owner, `${key}Id`];
   }
 
   getForeignKey() {
-    return `${this.target}Id`;
+    let key = this.options.klass || this.target;
+    return `${key}Id`;
   }
 
   addMethodsToModelClass(ModelClass, key, schema) {

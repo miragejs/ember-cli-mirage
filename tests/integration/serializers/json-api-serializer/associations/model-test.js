@@ -33,7 +33,7 @@ test(`it can include a has many relationship`, function(assert) {
 
   assert.deepEqual(result, {
     data: {
-      type: 'wordSmiths',
+      type: 'word-smiths',
       id: 1,
       attributes: {
         'first-name': 'Link',
@@ -41,22 +41,22 @@ test(`it can include a has many relationship`, function(assert) {
       relationships: {
         blogPosts: {
           data: [
-            {type: 'blogPosts', id: 1},
-            {type: 'blogPosts', id: 2},
+            {type: 'blog-posts', id: 1},
+            {type: 'blog-posts', id: 2},
           ]
         }
       }
     },
     included: [
       {
-        type: 'blogPosts',
+        type: 'blog-posts',
         id: 1,
         attributes: {
           title: 'Lorem'
         }
       },
       {
-        type: 'blogPosts',
+        type: 'blog-posts',
         id: 2,
         attributes: {
           title: 'Ipsum'
@@ -82,7 +82,7 @@ test(`it can include a chain of has-many relationships`, function(assert) {
 
   assert.deepEqual(result, {
     data: {
-      type: 'wordSmiths',
+      type: 'word-smiths',
       id: 1,
       attributes: {
         'first-name': 'Link',
@@ -90,15 +90,15 @@ test(`it can include a chain of has-many relationships`, function(assert) {
       relationships: {
         blogPosts: {
           data: [
-            {type: 'blogPosts', id: 1},
-            {type: 'blogPosts', id: 2},
+            {type: 'blog-posts', id: 1},
+            {type: 'blog-posts', id: 2},
           ]
         }
       }
     },
     included: [
       {
-        type: 'blogPosts',
+        type: 'blog-posts',
         id: 1,
         attributes: {
           title: 'Lorem'
@@ -106,20 +106,20 @@ test(`it can include a chain of has-many relationships`, function(assert) {
         relationships: {
           fineComments: {
             data: [
-              {type: 'fineComments', id: 1},
+              {type: 'fine-comments', id: 1},
             ]
           }
         }
       },
       {
-        type: 'fineComments',
+        type: 'fine-comments',
         id: 1,
         attributes: {
           text: 'pwned'
         }
       },
       {
-        type: 'blogPosts',
+        type: 'blog-posts',
         id: 2,
         attributes: {
           title: 'Ipsum'
@@ -147,7 +147,7 @@ test(`it can embed a belongs-to relationship`, function(assert) {
 
   assert.deepEqual(result, {
     data: {
-      type: 'blogPosts',
+      type: 'blog-posts',
       id: 1,
       attributes: {
         title: 'Lorem'
@@ -187,7 +187,7 @@ test(`it gracefully handles null belongs-to relationship`, function(assert) {
 
   assert.deepEqual(result, {
     data: {
-      type: 'blogPosts',
+      type: 'blog-posts',
       id: 3,
       attributes: {
         title: 'Lorem3'
@@ -212,7 +212,7 @@ test(`it can serialize a chain of belongs-to relationships`, function(assert) {
 
   assert.deepEqual(result, {
     data: {
-      type: 'fineComments',
+      type: 'fine-comments',
       id: 1,
       attributes: {
         text: 'pwned'
@@ -228,7 +228,7 @@ test(`it can serialize a chain of belongs-to relationships`, function(assert) {
     },
     "included": [
       {
-        type: 'blogPosts',
+        type: 'blog-posts',
         id: 1,
         attributes: {
           title: 'Lorem'
@@ -236,7 +236,7 @@ test(`it can serialize a chain of belongs-to relationships`, function(assert) {
         relationships: {
           wordSmith: {
             data: {
-              type: 'wordSmiths',
+              type: 'word-smiths',
               id: 1
             }
           }
@@ -276,8 +276,8 @@ test(`it ignores relationships that refer to serialized ancestor resources`, fun
       relationships: {
         blogPosts: {
           data: [
-            {type: 'blogPosts', id: 1},
-            {type: 'blogPosts', id: 2},
+            {type: 'blog-posts', id: 1},
+            {type: 'blog-posts', id: 2},
           ]
         }
       },
@@ -291,7 +291,7 @@ test(`it ignores relationships that refer to serialized ancestor resources`, fun
         id: 1,
         relationships: {
           wordSmith: {
-            data: {type: 'wordSmiths', id: 1}
+            data: {type: 'word-smiths', id: 1}
           }
         },
         type: "blogPosts"
@@ -304,7 +304,7 @@ test(`it ignores relationships that refer to serialized ancestor resources`, fun
         },
         relationships: {
           wordSmith: {
-            data: {type: 'wordSmiths', id: 1}
+            data: {type: 'word-smiths', id: 1}
           }
         },
       }
@@ -338,8 +338,8 @@ test(`it ignores relationships that refer to serialized ancestor resources, mult
       relationships: {
         blogPosts: {
           data: [
-            {type: 'blogPosts', id: 1},
-            {type: 'blogPosts', id: 2},
+            {type: 'blog-posts', id: 1},
+            {type: 'blog-posts', id: 2},
           ]
         }
       },
@@ -354,11 +354,11 @@ test(`it ignores relationships that refer to serialized ancestor resources, mult
         },
         relationships: {
           wordSmith: {
-            data: {type: 'wordSmiths', id: 1}
+            data: {type: 'word-smiths', id: 1}
           },
           fineComments: {
             data: [
-              {type: 'fineComments', id: 1}
+              {type: 'fine-comments', id: 1}
             ]
           }
         },
@@ -371,7 +371,7 @@ test(`it ignores relationships that refer to serialized ancestor resources, mult
         },
         relationships: {
           blogPost: {
-            data: {type: 'blogPosts', id: 1}
+            data: {type: 'blog-posts', id: 1}
           }
         },
       },
@@ -383,7 +383,7 @@ test(`it ignores relationships that refer to serialized ancestor resources, mult
         },
         relationships: {
           wordSmith: {
-            data: {type: 'wordSmiths', id: 1}
+            data: {type: 'word-smiths', id: 1}
           },
           fineComments: {
             data: []

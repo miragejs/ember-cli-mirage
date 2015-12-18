@@ -6,33 +6,39 @@ import {module, test} from 'qunit';
 
 // Model classes are defined statically, just like in a typical app
 var User = Model.extend({
-  address: Mirage.hasMany()
+  localAddresses: Mirage.hasMany()
 });
 var Address = Model.extend();
 
-module('Integration | Schema | reinitialize associations', {
+module('Integration | Schema | Misc', {
   beforeEach: function() {
     this.db = new Db({
-      users: [],
-      addresses: []
+      registeredUsers: [],
+      localAddresses: []
     });
     this.schema = new Schema(this.db);
 
     this.schema.registerModels({
-      address: Address,
-      user: User
+      registeredUser: User,
+      localAddress: Address
     });
 
-    this.schema.user.create({ id: 1, name: 'Link' });
-    this.schema.address.create({ id: 1, country: 'Hyrule', userId: 1 });
+    this.schema.registeredUser.create({ id: 1, name: 'Link' });
+    this.schema.localAddress.create({ id: 1, country: 'Hyrule', registeredUserId: 1 });
   }
 });
 
 // By running two tests, we force the statically-defined classes to be
 // registered twice.
 test('safely initializes associations', function(assert) {
-  assert.equal(this.schema.user.find(1).address[0].country, 'Hyrule');
+  assert.equal(this.schema.registeredUser.find(1).localAddresses[0].country, 'Hyrule');
 });
 test('safely initializes associations again', function(assert) {
-  assert.equal(this.schema.user.find(1).address[0].country, 'Hyrule');
+  assert.equal(this.schema.registeredUser.find(1).localAddresses[0].country, 'Hyrule');
+});
+
+test('model.modelTypeKey returns a dasherizes string', function(assert) {
+  let user = this.schema.registeredUser.find(1);
+
+  assert.equal(user.modelTypeKey, 'registered-user');
 });

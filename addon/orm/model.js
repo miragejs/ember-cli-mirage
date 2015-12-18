@@ -1,4 +1,4 @@
-import { pluralize } from '../utils/inflector';
+import { pluralize, dasherize, camelize } from '../utils/inflector';
 import extend from '../utils/extend';
 
 /*
@@ -19,7 +19,7 @@ class Model {
     if (!type) { throw 'Mirage: A model requires a type'; }
 
     this._schema = schema;
-    this.type = type;
+    this.modelTypeKey = dasherize(type);
     this.fks = fks || [];
     attrs = attrs || {};
 
@@ -33,7 +33,7 @@ class Model {
     Create or save the model
   */
   save() {
-    var collection = pluralize(this.type);
+    let collection = this._dbCollection();
 
     if (this.isNew()) {
       // Update the attrs with the db response
@@ -79,7 +79,7 @@ class Model {
     Destroy the db record
   */
   destroy() {
-    var collection = pluralize(this.type);
+    let collection = this._dbCollection();
     this._schema.db[collection].remove(this.attrs.id);
   }
 
@@ -95,19 +95,23 @@ class Model {
     Reload data from the db
   */
   reload() {
-    var _this = this;
-    var collection = pluralize(this.type);
-    var attrs = this._schema.db[collection].find(this.id);
+    let collection = this._dbCollection();
+    let attrs = this._schema.db[collection].find(this.id);
 
     Object.keys(attrs)
-      .filter(function(attr) { return attr !== 'id'; })
-      .forEach(function(attr) {
-        _this[attr] = attrs[attr];
+      .filter(attr => { return attr !== 'id'; })
+      .forEach(attr => {
+        this[attr] = attrs[attr];
       });
   }
 
 
   // Private
+
+  _dbCollection() {
+    return camelize(pluralize(this.modelTypeKey));
+  }
+
   /*
     model.attrs represents the persistable attributes, i.e. your db
     table fields.
@@ -193,7 +197,7 @@ class Model {
   }
 
   toString() {
-    return `model:${this.type}(${this.id})`;
+    return `model:${this.modelTypeKey}(${this.id})`;
   }
 }
 

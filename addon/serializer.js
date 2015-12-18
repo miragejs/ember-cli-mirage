@@ -1,7 +1,7 @@
 import Model from './orm/model';
 import _assign from 'lodash/object/assign';
 import extend from './utils/extend';
-import { singularize, pluralize } from './utils/inflector';
+import { singularize, pluralize, camelize } from './utils/inflector';
 
 class Serializer {
 
@@ -17,15 +17,15 @@ class Serializer {
   /*
     Used to format the key of a primary model.
   */
-  keyForModel(type) {
-    return type;
+  keyForModel(modelTypeKey) {
+    return camelize(modelTypeKey);
   }
 
   /*
     Used to format the key of a primary collection.
   */
-  keyForCollection(type) {
-    return pluralize(this.keyForModel(type));
+  keyForCollection(modelTypeKey) {
+    return pluralize(this.keyForModel(modelTypeKey));
   }
 
   /*
@@ -53,8 +53,8 @@ class Serializer {
       'blog-posts': [...]
     }
   */
-  keyForRelationship(type) {
-    return pluralize(type);
+  keyForRelationship(modelTypeKey) {
+    return pluralize(camelize(modelTypeKey));
   }
 
   /*
@@ -78,8 +78,8 @@ class Serializer {
       'blog-posts': [...]
     }
   */
-  keyForRelationshipIds(type) {
-    return `${singularize(type)}Ids`;
+  keyForRelationshipIds(modelTypeKey) {
+    return `${singularize(camelize(modelTypeKey))}Ids`;
   }
 
   /*

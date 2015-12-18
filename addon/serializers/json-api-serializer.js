@@ -1,5 +1,5 @@
 import extend from '../utils/extend';
-import { dasherize, pluralize } from '../utils/inflector';
+import { dasherize, pluralize, camelize } from '../utils/inflector';
 import Model from 'ember-cli-mirage/orm/model';
 import Collection from 'ember-cli-mirage/orm/collection';
 import _assign from 'lodash/object/assign';
@@ -124,7 +124,7 @@ class JsonApiSerializer {
   }
 
   typeKeyForModel(model) {
-    return pluralize(model.type);
+    return pluralize(model.modelTypeKey);
   }
 
   normalize(json) {
@@ -164,8 +164,8 @@ class JsonApiSerializer {
   }
 
   _serializerFor(modelOrCollection) {
-    let type = modelOrCollection.type;
-    let ModelSerializer = this._serializerMap && (this._serializerMap[type] || this._serializerMap['application']);
+    let serializerClass = camelize(modelOrCollection.modelTypeKey);
+    let ModelSerializer = this._serializerMap && (this._serializerMap[serializerClass] || this._serializerMap['application']);
 
     /*
       TODO: This check should exist within the Serializer class, when the logic is moved from the registry to the
@@ -187,13 +187,13 @@ class JsonApiSerializer {
   }
 
   _hasBeenSerialized(model) {
-    let relationshipKey = `${model.type}Ids`;
+    let relationshipKey = `${camelize(model.modelTypeKey)}Ids`;
 
     return (this.alreadySerialized[relationshipKey] && this.alreadySerialized[relationshipKey].indexOf(model.id) > -1);
   }
 
   _augmentAlreadySerialized(model) {
-    let modelKey = `${model.type}Ids`;
+    let modelKey = `${camelize(model.modelTypeKey)}Ids`;
 
     this.alreadySerialized[modelKey] = this.alreadySerialized[modelKey] || [];
     this.alreadySerialized[modelKey].push(model.id);

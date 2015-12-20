@@ -36,7 +36,13 @@ This works, and is traditionally how HTTP mocking is done - but hard-coded respo
 
 Mirage provides some primitives that let you write more flexible, powerful mocks. Let's see how they work by replacing our basic mock above.
 
-First, create an `author` model by running `ember g mirage-model author`. This generates the following file:
+First, create an `author` model by running the following in your terminal:
+
+```bash
+$ ember g mirage-model author
+```
+
+This generates the following file:
 
 ```js
 // mirage/models/author.js
@@ -45,7 +51,7 @@ import { Model } from 'ember-cli-mirage';
 export default Model;
 ```
 
-The model will create an `authors` table in Mirage's *in-memory database*. The database enables our mocks to be dynamic, and lets us change the return data without rewriting the entire mock. In this way, we can share a single set of mocks in both development and in each test we write, while still having control over the response data.
+The model will create an `authors` table in Mirage's *in-memory database*. The database enables our mocks to be dynamic, and lets us change the return data without rewriting the entire mock. In this way, we can share a single set of mock routes in both development and testing, while still having control over the response data.
 
 Let's update our route handler to be dynamic:
 
@@ -65,7 +71,13 @@ Now this route will respond with all the authors in Mirage's database at the tim
 
 To actually seed our database with fake data, we'll use *factories*. Factories are objects that dynamically generate data - think of them as blueprints for your models.
 
-Let's create a factory for our author with `ember g mirage-factory author`, and add some properties to it:
+Let's create a factory for our author with
+
+```sh
+$ ember g mirage-factory author
+```
+
+and add some properties to it:
 
 ```js
 // mirage/factories/author.js
@@ -96,9 +108,9 @@ This factory creates objects like
 }
 ```
 
-and so on, which will automatically be inserted into the `authors` database table. Each record gets an `id`, and now you can interact with this data in your route handlers.
+and so on, which will automatically be inserted into the `authors` database table. The database will assign each record an `id`, and now we can interact with this data in our route handlers.
 
-To actually use a factory, use the `server.create` and `server.createList` methods in development:
+To invoke our new factory definition, we can use the `server.create` and `server.createList` methods in development:
 
 ```js
 // mirage/scenarios/default.js
@@ -109,7 +121,7 @@ export default function(server) {
 };
 ```
 
-and in your acceptance tests:
+and in acceptance tests:
 
 ```js
 // tests/acceptance/authors-test.js
@@ -131,17 +143,17 @@ You now have a simple way to set up your mock server's initial data, both during
 
 Dealing with associations is always tricky, and mocking endpoints that deal with associations is no exception. Fortunately, Mirage ships with an ORM to help keep your mocks clean.
 
-Let's say your author has many posts. You can declare this relationship in your model:
+Let's say your author has many blog-posts. You can declare this relationship in your model:
 
 ```js
 // mirage/models/author.js
 import { Model, hasMany } from 'ember-cli-mirage';
 
 export default Model.extend({
-  posts: hasMany()
+  blogPosts: hasMany()
 });
 
-// mirage/models/post.js
+// mirage/models/blog-post.js
 import { Model } from 'ember-cli-mirage';
 
 export default Model;
@@ -150,10 +162,10 @@ export default Model;
 Now Mirage knows about the relationship between these two models, which can be useful when writing mocks:
 
 ```js
-this.post('/authors/:id/posts', (schema, request) => {
+this.post('/authors/:id/blog-posts', (schema, request) => {
   let author = schema.author.find(request.params.id);
 
-  return author.createPost();
+  return author.createBlogPost();
 });
 ```
 
@@ -162,8 +174,8 @@ or when using factories to create related data:
 ```js
 let author = server.create('author');
 
-author.createPost({title: 'My first post'});
-author.createPost({title: 'My second post'});
+author.createBlogPost({title: 'My first post'});
+author.createBlogPost({title: 'My second post'});
 ```
 
 Mirage's serializer layer is also aware of your relationships, which helps when mocking endpoints that sideload or embed related data. Models and collections that are returned from a route handler pass through the serializer layer, where you can customize which attributes and associations to include, as well as override other formatting options:
@@ -175,14 +187,18 @@ import { Serializer } from 'ember-cli-mirage';
 export default Serializer.extend({
   keyForAttribute(attr) {
     return dasherize(attr);
-  }
+  },
+
+  keyForRelationship(attr) {
+    return dasherize(attr);
+  },
 });
 
 // mirage/serializers/author.js
 import { Serializer } from 'ember-cli-mirage';
 
 export default Serializer.extend({
-  relationships: ['comments']
+  include: ['blogPosts']
 });
 
 // mirage/config.js
@@ -201,12 +217,14 @@ With the above config, a GET to `/authors/1` would return something like
     id: 1,
     'first-name': 'Zelda'
   },
-  comments: [
-    {id: 1, 'author-id': 1, text: 'Lorem ipsum'},
+  'blog-posts': [
+    {id: 1, 'author-id': 1, title: 'Lorem ipsum'},
     ...
   ]
 }
 ```
+
+Mirage ships with two named serializers, JSONAPISerializer and ActiveModelSerializer, to save you the trouble of writing this custom code yourself. See the [serializer guide](../serializers) to learn more.
 
 ## Shorthands
 

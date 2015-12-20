@@ -3,7 +3,7 @@ title: Overview
 version: v0.2.x
 ---
 
-Nearly all Ember apps interact with an API. When you reach the point during development where you need to interact with dynamic server data, you have a few options:
+Nearly all Ember apps interact with an API. When you reach the point during development where you need to work with dynamic server data, you have a few options:
 
   1. Proxy your app's HTTP requests to a local or hosted version of your actual backend, if it exists
   2. Use a library like [Pretender](https://github.com/trek/pretender) or [jQuery mockjax](https://github.com/jakerella/jquery-mockjax) to write a custom script that intercepts your requests in the client

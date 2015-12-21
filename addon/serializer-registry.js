@@ -104,7 +104,7 @@ export default class SerializerRegistry {
 
     // Add this model's attrs
     this._augmentAlreadySerialized(model);
-    let modelAttrs = this._attrsForModel(model, false, true);
+    let modelAttrs = this._attrsForModel(model, false, false);
     let key = serializer.keyForModel(model.type);
     if (topLevelIsArray) {
       key = root ? root : pluralize(key);

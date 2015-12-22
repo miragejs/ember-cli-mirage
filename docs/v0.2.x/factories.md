@@ -87,12 +87,8 @@ We've also added two methods on the `faker` namespace, `list.cycle` and `list.ra
 import Mirage, {faker} from 'ember-cli-mirage';
 
 export default Mirage.Factory.extend({
-  name() {
-    return faker.list.cycle('Economics', 'Philosophy', 'English', 'History', 'Mathematics');
-  },
-  students() {
-    return faker.list.random(100, 200, 300, 400, 500);
-  }
+  name: faker.list.cycle('Economics', 'Philosophy', 'English', 'History', 'Mathematics'),
+  students: faker.list.random(100, 200, 300, 400, 500)
 });
 ```
 

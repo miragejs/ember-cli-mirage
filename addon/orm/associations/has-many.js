@@ -17,13 +17,32 @@ class HasMany extends Association {
     return `${this.owner}Id`;
   }
 
+  getPolymorphicKeyFor(model) {
+    if (model) {
+      return model.prototype.polymorphicIdKeys[this.key];
+    } else {
+      return null;
+    }
+  }
+
+  getInversedKey() {
+    if (this.options.inverse) {
+      return `${this.options.inverse}Id`;
+    } else {
+      return null;
+    }
+  }
+
   addMethodsToModelClass(ModelClass, key, schema) {
     let modelPrototype = ModelClass.prototype;
     this._model = modelPrototype;
     this._key = key;
 
     var association = this;
-    var foreignKey = this.getForeignKey();
+
+    var keyModel = schema._modelFor(this.key);
+    var foreignKey = this.getPolymorphicKeyFor(keyModel) || this.getInversedKey() || this.getForeignKey();
+
     var relationshipIdsKey = association.target + 'Ids';
 
     var associationHash = {[key]: this};
@@ -63,7 +82,10 @@ class HasMany extends Association {
         } else {
           // Set current children's fk to null
           var query = {[foreignKey]: this.id};
-          schema[association.target].where(query).update(foreignKey, null);
+
+          if (schema[association.target].where(query).length > 0) {
+            schema[association.target].where(query).update(foreignKey, null);
+          }
 
           // Associate the new childrens to this model
           schema[association.target].find(ids).update(foreignKey, this.id);
@@ -73,7 +95,7 @@ class HasMany extends Association {
         }
 
         return this;
-      }
+      },
     });
 
     Object.defineProperty(modelPrototype, key, {
@@ -125,7 +147,7 @@ class HasMany extends Association {
           // Clear out any old cached children
           association._cachedChildren = [];
         }
-      }
+      },
     });
 
     /*

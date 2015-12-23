@@ -8,11 +8,13 @@ var Collection = function(type, ...args) {
   if (!type || typeof type !== 'string') {
     throw 'You must pass a type into a Collection';
   }
+
   this.type = type;
 
   if (_isArray(args[0])) {
     args = args[0];
   }
+
   this.push.apply(this, args);
 
   this.update = function(key, val) {

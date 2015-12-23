@@ -16,6 +16,7 @@ class Model {
 
   constructor(schema, type, attrs, fks) {
     if (!schema) { throw 'Mirage: A model requires a schema'; }
+
     if (!type) { throw 'Mirage: A model requires a type'; }
 
     this._schema = schema;
@@ -108,7 +109,6 @@ class Model {
     return this;
   }
 
-
   // Private
   /*
     model.attrs represents the persistable attributes, i.e. your db
@@ -154,8 +154,11 @@ class Model {
 
     // Define the getter/setter
     Object.defineProperty(this, attr, {
-      get: function () { return this.attrs[attr]; },
-      set: function (val) { this.attrs[attr] = val; return this; },
+      get: function() { return this.attrs[attr]; },
+
+      set: function(val) {
+        this.attrs[attr] = val; return this;
+      },
     });
   }
 

@@ -22,3 +22,4 @@ jekyll-tmp
 # IDE
 /.idea/
 /*.iml
+.DS_Store

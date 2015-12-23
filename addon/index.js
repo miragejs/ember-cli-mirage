@@ -6,11 +6,12 @@ import Serializer from './serializer';
 import HasMany from './orm/associations/has-many';
 import BelongsTo from './orm/associations/belongs-to';
 
-function hasMany(type) {
-  return new HasMany(type);
+function hasMany(type, options) {
+  return new HasMany(type, options);
 }
-function belongsTo(type) {
-  return new BelongsTo(type);
+
+function belongsTo(type, options) {
+  return new BelongsTo(type, options);
 }
 
 export {
@@ -27,5 +28,5 @@ export default {
   Factory,
   Response,
   hasMany,
-  belongsTo
+  belongsTo,
 };

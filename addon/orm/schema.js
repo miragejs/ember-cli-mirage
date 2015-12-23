@@ -36,19 +36,27 @@ export default function(db) {
     ModelClass.prototype.belongsToAssociations = {}; // a registry of the model's belongsTo associations. Key is key from model definition, value is association instance itself
     ModelClass.prototype.associationKeys = [];       // ex: address.user, user.addresses
     ModelClass.prototype.associationIdKeys = [];     // ex: address.user_id, user.address_ids. may or may not be a fk.
+    ModelClass.prototype.polymorphicIdKeys = {};
 
     for (var key in ModelClass.prototype) {
       if (ModelClass.prototype[key] instanceof Association) {
+        var singularKey = singularize(key);
         var association = ModelClass.prototype[key];
-        var associatedType = association.type || singularize(key);
+        var associatedType = association.type || singularKey;
         association.owner = type;
         association.target = associatedType;
+        association.key = singularKey;
 
         // Update the registry with this association's foreign keys. This is
         // essentially our "db migration", since we must know about the fks.
         var result = association.getForeignKeyArray();
         var fkHolder = result[0];
         var fk = result[1];
+
+        if (association.options.polymorphic) {
+          ModelClass.prototype.polymorphicIdKeys[fkHolder] = fk;
+        }
+
         _this._addForeignKeyToRegistry(fkHolder, fk);
 
         // Augment the Model's class with any methods added by this association
@@ -68,7 +76,7 @@ export default function(db) {
       create: (attrs) => this.create(type, attrs),
       all: (attrs) => this.all(type, attrs),
       find: (attrs) => this.find(type, attrs),
-      where: (attrs) => this.where(type, attrs)
+      where: (attrs) => this.where(type, attrs),
     };
 
     return this;

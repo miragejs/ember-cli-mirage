@@ -8,17 +8,22 @@ class BelongsTo extends Association {
     The belongsTo association adds a fk to the owner of the association
   */
   getForeignKeyArray() {
-    return [this.owner, `${this.target}Id`];
+    return [this.owner, `${this.key}Id`];
   }
 
   getForeignKey() {
-    return `${this.target}Id`;
+    return `${this.key}Id`;
+  }
+
+  getPolymorphicType() {
+    return `${this.key}Type`;
   }
 
   addMethodsToModelClass(ModelClass, key, schema) {
     let modelPrototype = ModelClass.prototype;
     var association = this;
     var foreignKey = this.getForeignKey();
+    var polymorphicType = this.getPolymorphicType();
 
     var associationHash = {};
     associationHash[key] = this;
@@ -41,13 +46,17 @@ class BelongsTo extends Association {
           - sets the associated parent (via id)
       */
       set: function(id) {
+        if (association.options.polymorphic) {
+          association.target = this[polymorphicType];
+        }
+
         if (id && !schema[association.target].find(id)) {
           throw 'Couldn\'t find ' + association.target + ' with id = ' + id;
         }
 
         this.attrs[foreignKey] = id;
         return this;
-      }
+      },
     });
 
     Object.defineProperty(modelPrototype, key, {
@@ -58,6 +67,10 @@ class BelongsTo extends Association {
       get: function() {
         var foreignKeyId = this[foreignKey];
         if (foreignKeyId) {
+          if (association.options.polymorphic) {
+            association.target = this[polymorphicType];
+          }
+
           association._tempParent = null;
           return schema[association.target].find(foreignKeyId);
 
@@ -83,7 +96,7 @@ class BelongsTo extends Association {
           association._tempParent = null;
           this[foreignKey] = null;
         }
-      }
+      },
     });
 
     /*

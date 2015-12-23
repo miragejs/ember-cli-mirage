@@ -8,11 +8,13 @@ class BelongsTo extends Association {
     The belongsTo association adds a fk to the owner of the association
   */
   getForeignKeyArray() {
-    return [this.owner, `${this.target}Id`];
+    let key = this.options.klass || this.target;
+    return [this.owner, `${key}Id`];
   }
 
   getForeignKey() {
-    return `${this.target}Id`;
+    let key = this.options.klass || this.target;
+    return `${key}Id`;
   }
 
   addMethodsToModelClass(ModelClass, key, schema) {
@@ -41,13 +43,17 @@ class BelongsTo extends Association {
           - sets the associated parent (via id)
       */
       set: function(id) {
+        if (association.options.polymorphic) {
+          association.target = this.resourceType;
+        }
+
         if (id && !schema[association.target].find(id)) {
           throw 'Couldn\'t find ' + association.target + ' with id = ' + id;
         }
 
         this.attrs[foreignKey] = id;
         return this;
-      }
+      },
     });
 
     Object.defineProperty(modelPrototype, key, {
@@ -83,7 +89,7 @@ class BelongsTo extends Association {
           association._tempParent = null;
           this[foreignKey] = null;
         }
-      }
+      },
     });
 
     /*

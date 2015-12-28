@@ -210,8 +210,13 @@ blogPost.authorId = 2;            // updates the relationship
 blogPost.author;                  // Author instance
 blogPost.author = anotherAuthor; 
 blogPost.newAuthor(attrs);        // new unsaved author
-blogPost.createAuthor(attrs);     // new saved author (updates blogPost.authorId)
+blogPost.createAuthor(attrs);     // new saved author (updates blogPost.authorId in memory only)
 ```
+Note that when a child calls `child.createParent`, the new parent is immediately saved to the `db`, but the child's foreign key is updated *on this instance only*, and is not immediately persisted to the database.
+
+In other words, `blogPost.createAuthor` will create a new `author` record, insert it into the `db`, and update the `blogPost.authorId` in memory, but if you were to fetch the `blogPost` from the `db` again, the relationship would not be persisted.
+
+To persist the new foreign key, you would call `blogPost.save()` after creating the new author.
 
 *hasMany*
 

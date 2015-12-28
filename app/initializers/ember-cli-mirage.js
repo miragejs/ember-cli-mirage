@@ -13,7 +13,7 @@ export default {
     }
     let environment = ENV.environment;
 
-    if (_shouldUseMirage(environment, ENV['ember-cli-mirage'])) {
+    if (_shouldUseMirage(environment, ENV['ember-cli-mirage']) && !_isMirageServerRunning(environment)) {
       let modules = readModules(ENV.modulePrefix);
       let options = _assign(modules, {environment, baseConfig, testConfig})
 
@@ -21,6 +21,14 @@ export default {
     }
   }
 };
+
+/*
+ Returns a Boolean specifying if a mirage server is already 
+ configured and running
+*/
+function _isMirageServerRunning(env) {
+  return env === 'test' && window.server;
+}
 
 function _shouldUseMirage(env, addonConfig) {
   let userDeclaredEnabled = typeof addonConfig.enabled !== 'undefined';

@@ -156,4 +156,4 @@ Either approach you take, you'll have more confidence that your Ember app's data
 
 ---
 
-You should now know enough to mock out your JSON API and test your app using Mirage!
+You should now know enough to mock out your API and test your app using Mirage!

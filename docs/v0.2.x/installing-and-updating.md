@@ -45,3 +45,12 @@ To use beta, run
 ```sh
 ember install ember-cli-mirage@v0.2.0-beta.1
 ```
+
+### Updating to beta
+
+If your app uses `0.1.x` and you want to upgrade to `0.2.x`, run
+
+```sh
+rm -fr mirage
+mv app/mirage mirage
+```

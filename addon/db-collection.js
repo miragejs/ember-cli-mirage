@@ -169,7 +169,13 @@ class DbCollection {
   _findRecord(id) {
     id = id.toString();
 
-    let record = this._records.filter(obj => obj.id === id)[0];
+    let record = this._records.filter(obj => {
+      let recordId = obj.id;
+      if(typeof recordId === 'string' && allDigitsRegex.test(recordId)) {
+        recordId = parseInt(recordId, 10);
+      }
+      return recordId === id;
+    })[0];
 
     return record;
   }

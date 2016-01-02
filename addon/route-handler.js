@@ -42,7 +42,7 @@ export default class RouteHandler {
     } else if (type === 'object') {
       handler = new ObjectHandler(this.dbOrSchema, this.serializerOrRegistry, this.rawHandler);
 
-    } else if (this.verb === 'get') {
+    } else if (this.verb === 'get' || this.verb === "head") {
       handler = new GetShorthandHandler(this.dbOrSchema, this.serializerOrRegistry, this.rawHandler, this.options);
 
     } else if (this.verb === 'post') {

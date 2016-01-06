@@ -46,11 +46,11 @@ To use beta, run
 ember install ember-cli-mirage@v0.2.0-beta.1
 ```
 
-### Updating to beta
+If you're upgrading to beta from `0.1.x`, the `/mirage` directory has moved from `/app/mirage` to `/mirage`. After installing, a new `/mirage` directory will be generated. Delete it, and move your old directory to the new location.
 
-If your app uses `0.1.x` and you want to upgrade to `0.2.x`, run
+From the root of your project,
 
 ```sh
-rm -fr mirage
+rm -rf mirage
 mv app/mirage mirage
 ```

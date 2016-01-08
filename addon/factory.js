@@ -4,29 +4,21 @@ import _isFunction from 'lodash/lang/isFunction';
 import _isPlainObject from 'lodash/lang/isPlainObject';
 import _mapValues from 'lodash/object/mapValues';
 
+function buildValue(value, parentAttrs, sequence) {
+  if (_isArray(value)) {
+    return value.map((val) => buildValue(val, value, sequence));
+  } else if (_isPlainObject(value)) {
+    return _mapValues(value, (val) => buildValue(val, value, sequence));
+  } else if (_isFunction(value)) {
+    return value.call(parentAttrs, sequence);
+  } else {
+    return value;
+  }
+}
+
 var Factory = function() {
   this.build = function(sequence) {
-    const topLevelAttrs = this.attrs || {};
-    let buildAttrs;
-    let buildSingleValue;
-
-    buildAttrs = function(attrs) {
-      return _mapValues(attrs, buildSingleValue);
-    };
-
-    buildSingleValue = function(value) {
-      if (_isArray(value)) {
-        return value.map(buildSingleValue);
-      } else if (_isPlainObject(value)) {
-        return buildAttrs(value);
-      } else if (_isFunction(value)) {
-        return value.call(topLevelAttrs, sequence);
-      } else {
-        return value;
-      }
-    };
-
-    return buildAttrs(topLevelAttrs);
+    return this.attrs ? buildValue(this.attrs, null, sequence) : {};
   };
 };
 

@@ -174,9 +174,11 @@ View the [full reference](../shorthands) to see all available shorthands.
 
 ## Formatting your response with Serializers
 
-When you return a model from a route handler, Mirage *serializes* it into a JSON payload, and then responds to your Ember app with that payload. It uses an object called a Serializer to do this, which you can customize. Having a single object that's responsible for this formatting logic helps keep your route handlers simple. In particular, a bit of customization in the serializer layer often lets you use shorthands when you otherwise might not be able to.
+When you return a model or a collection from a route handler, Mirage *serializes* it into a JSON payload, and then responds to your Ember app with that payload. It uses an object called a Serializer to do this, which you can customize. Having a single object that's responsible for this formatting logic helps keep your route handlers simple. In particular, a bit of customization in the serializer layer often lets you use shorthands when you otherwise wouldn't be able to.
 
-The default serializer takes all the attributes of your model, and returns them under a root key of the model type. Suppose you had the following author in your database:
+Mirage ships with two named serializers, JsonApiSerializer (used to mock servers implementing [JSON:API](http://jsonapi.org/)) and ActiveModelSerializer (used to mock Rails servers using ActiveModel::Serializers). You should use these if your app's backend will be built to conform to either standard.
+
+Additionally, there's a basic Serializer class that you can use and customize. By default, it takes all the attributes of your model, and returns them under a root key of the model type. Suppose you had the following author in your database:
 
 ```
 {
@@ -207,10 +209,6 @@ GET /authors/1
   }
 }
 ```
-
-<aside class='Docs-page__aside'>
-  <p>Mirage ships with a JSON:API serializer and AMS serializer, so be sure to use those if your server is based on either format.</p>
-</aside>
 
 Remember, your Mirage server should mimic your backend server. Let's say your backend server returns dasherized object keys instead of camel cased. You can customize the response by extending the base Serializer and overwriting `keyForAttribute`:
 
@@ -258,7 +256,7 @@ export default ApplicationSerializer.extend({
 });
 ```
 
-View the [full Serializer API](../serializer) to learn more about customizing your responses.
+View the [full Serializer API](../serializers) to learn more about customizing your responses.
 
 
 ## Associations
@@ -276,7 +274,7 @@ export default Model.extend({
 });
 ```
 
-`hasMany` tells Mirage that it can find posts associated with this author by looking for posts with an `authorId` that points to this author. Now, our route handler for deleting an author looks like this:
+`hasMany` tells Mirage that it can find this author's posts using the `authorId` field. Now, our route handler for deleting an author looks like this:
 
 ```js
 this.del('/authors/:id', (schema, request) {
@@ -287,7 +285,9 @@ this.del('/authors/:id', (schema, request) {
 });
 ```
 
-Associations are also useful for returning related data in response to a GET request. With the relationship defined above on our author model, we can use a shorthand and a custom serializer to sideload a author's related posts:
+A response with DELETE's default status code of 200 would then be returned.
+
+Associations are also useful in combination with serializers. With the relationship defined above on our `author` model, we can use a shorthand and a custom serializer to sideload an author's related posts:
 
 ```js
 // mirage/config.js
@@ -301,7 +301,7 @@ export default Serializer.extend({
 });
 ```
 
-Now a request for an author responds with something like the following:
+Now a request for an author responds with the following:
 
 ```
 GET /authors/1
@@ -320,7 +320,7 @@ GET /authors/1
 ```
 
 <aside class='Docs-page__aside'>
-  <p>camelCased attributes let you stick to conventional JavaScript when working with models in your route handler code.</p>
+  <p>camelCased attributes let you stick to conventional JavaScript when working with models in your route handler and scenario code.</p>
 </aside>
 
 Mirage's database uses camelcase for all model attributes, including foreign keys (e.g. `authorId` in the example above), but you can customize the format that gets sent in the response by overwriting your serializer's `keyForRelatedCollection`. See [the serializer guide](../serializers) for more details.

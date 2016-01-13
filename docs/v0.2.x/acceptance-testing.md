@@ -139,6 +139,26 @@ test("I can change the lesson's title", function(assert) {
 
 Note that here, we're overwriting any route handler you may defined for PUT to `/lessons/:id` in your `config.js` file, but only for this test. After this test, your Mirage server will be reset, and all the routes from `config.js` will be used.
 
+## Testing errors
+
+To test how your Ember app responds to a server error, overwrite a route handler within a test:
+
+```js
+test('the user sees an error if the save attempt fails', function(assert) {
+   server.post('/questions', {errors: ['There was an error']}, 500);
+
+   visit('/');
+   click('.new');
+   fillIn('input', 'New question');
+   click('.save');
+
+   andThen(() => {
+     assert.equals(find('p:contains(There was an error)').length, 1);
+   });
+});
+
+This route handler definition is only in effect for the duration of this test, so as soon as it's over any handler you have defined for POST to `/questions` in your `config.js` file will be used again.
+
 ---
 
 You should now know enough to mock out your API and test your app using Mirage!

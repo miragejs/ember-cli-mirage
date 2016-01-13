@@ -5,23 +5,24 @@ version: v0.2.x
 redirect_from: "/docs/latest/database/"
 ---
 
-Your Mirage server has a database which you can interact with in your route handlers. You retrieve or modify data from the database, then return what you want for that route.
+Your Mirage server has a database which you can interact with in your route handlers. You'll typically use [models](./models) to interact with your database data, but you can always reach into the db directly in the event you want more control.
 
-Here are the database methods available to you from within your route definitions.
+Access the db from your route handlers via `schema.db`.
 
 <a name="createCollection" href="#createCollection">#</a> db.<b>createCollection</b>(<i>name</i>)
 
-Add an empty collection named *name* to your database. Typically you won't need to do this yourself, since collections are automatically created for any factories and fixtures you've defined.
+Add an empty collection named *name* to your database. Typically you won't need to do this yourself, since collections are automatically created for any models you have defined.
 
 <a name="collection" href="#collection">#</a> db.<b>collection</b>
 
 Returns the *collection* attached to the database object.
 
-For example if you had the following data file named `/app/mirage/fixtures/contacts.js`
+For example if you had the following data file named `mirage/fixtures/contacts.js`
 
 ```js
 export default [
-  {id: 1, name: 'Zelda'}, {id: 2, name: 'Link'}
+  {id: 1, name: 'Zelda'},
+  {id: 2, name: 'Link'}
 ];
 ```
 
@@ -33,14 +34,16 @@ Inserts *data* into the collection. *data* can be a single object or an array of
 
 ```js
 // Insert a single record
-var link = db.users.insert({name: 'Link', age: 173});
+let link = db.users.insert({name: 'Link', age: 173});
+
 link;  // {id: 1, name: 'Link', age: 137}
 
 // Insert an array
-var users = db.users.insert([
+let users = db.users.insert([
   {name: 'Zelda', age: 142},
   {name: 'Epona', age: 58},
 ]);
+
 users;  // [{id: 2, name: 'Zelda', age: 142}, {id: 3, name: 'Epona', age: 58}]
 ```
 
@@ -52,7 +55,7 @@ Returns a single record from the *collection* if *ids* is a single id, or an arr
 /* 
   Given users = [{id: 1, name: 'Link'}, {id: 2, name: 'Zelda'}]
 */
-db.users.find(1); // {id: 1, name: 'Link'}
+db.users.find(1);      // {id: 1, name: 'Link'}
 db.users.find([1, 2]); // [{id: 1, name: 'Link'}, {id: 2, name: 'Zelda'}]
 ```
 <a name="where" href="#where">#</a> db.collection.<b>where</b>(<i>query</i>)

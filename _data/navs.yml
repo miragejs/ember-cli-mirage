@@ -20,7 +20,6 @@ v0.2.x:
   - label: Schema
   - label: Serializers
   - label: Shorthands
-  - label: Testing
 
   - section: Cookbook
     label: Manually starting Mirage

@@ -156,6 +156,7 @@ test('the user sees an error if the save attempt fails', function(assert) {
      assert.equals(find('p:contains(There was an error)').length, 1);
    });
 });
+```
 
 This route handler definition is only in effect for the duration of this test, so as soon as it's over any handler you have defined for POST to `/questions` in your `config.js` file will be used again.
 

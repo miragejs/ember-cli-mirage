@@ -28,7 +28,7 @@ ember g mirage-factory author
 This creates a factory file for us. Let's add some attributes:
 
 ```js
-// mirage/factories/user.js
+// mirage/factories/author.js
 import { Factory } from 'ember-cli-mirage';
 
 export default Factory.extend({
@@ -57,7 +57,7 @@ and so on.
 Mirage also includes the Faker.js library, which pairs nicely with your factories to make your mock data more realistic:
 
 ```js
-// mirage/factories/user.js
+// mirage/factories/author.js
 import { Factory, faker } from 'ember-cli-mirage';
 
 export default Factory.extend({
@@ -83,10 +83,10 @@ To seed your database in development, use the `mirage/scenarios/default.js` file
 ```js
 // mirage/scenarios/default.js
 export default function(server) {
-  server.createList('post', 10);
+  server.createList('blog-post', 10);
 
-  var user = server.create('user', {name: 'Zelda'});
-  server.createList('comment', 20, {userId: user.id});
+  let author = server.create('author', {name: 'Zelda'});
+  server.createList('blog-post', 20, {authorId: author.id});
 }
 ```
 
@@ -97,8 +97,8 @@ Note that this scenario will be ignored during testing. This is so you can chang
 During acceptance testing, Mirage's initializer is run when your Ember app starts up, and you'll have access to a `server` variable within each test. Each test will start with a clean database, so you can use `create` and `createList` to define your data on a per-test basis:
 
 ```js
-test('I can view the users', function() {
-  server.createList('user', 3);
+test('I can view the authors', function() {
+  server.createList('author', 3);
 
   visit('/contacts');
 
@@ -115,13 +115,54 @@ Learn more about acceptance testing in the [next section](../acceptance-testing)
 You can also create related data with factories. You'll need to manage the foreign keys yourself, which you'll do by overriding your factories' default attributes. Here's an example:
 
 ```js
-var user = server.create('user');
-server.createList('post', 10, {userId: user.id});
+let author = server.create('author');
+server.createList('post', 10, {authorId: author.id});
 ```
 
-Notice that `create` and `createList` return the database records that were created by the factory, so you can use the user's `id` to relate the posts back to that user.
+Notice that `create` and `createList` return the database records that were created by the factory, so you can use the author's `id` to relate the posts back to that author.
 
 Now that the foreign keys are set up, your models, shorthand routes and serializers will work as expected.
+
+## Overriding factory attributes
+
+`create` and `createList` use the attributes you've defined on your factory to create the model; however, it's often convenient to override these attributes at the time of creation.
+
+To override attributes, pass in an object as the last argument to `create` or `createList` with the attributes you want to override. For instance, if we had the following factory definition
+
+```js
+// mirage/factories/author.js
+import { Factory } from 'ember-cli-mirage';
+
+export default Factory.extend({
+  age: 20,
+  admin: false
+});
+```
+
+then by default authors created from this factory would have an `admin` attribute of `false` and an `age` of 20:
+
+```js
+let author = server.create('author');
+author.admin // false
+author.age   // 20
+```
+
+If we wanted to make an admin, we could do the following:
+
+```js
+let author = server.create('author', {admin: true});
+author.admin // true
+author.age   // 20
+```
+
+We can also override multiple attributes:
+
+```js
+let author = server.create('author', {admin: true, age: 30});
+author.admin // true
+author.age   // 30
+```
+
 
 ---
 
@@ -158,9 +199,9 @@ export default [
 
 // /mirage/fixtures/blog-posts.js
 export default [
-  {id: 1, title: 'Lorem', userId: 1},
-  {id: 2, title: 'Ipsum', userId: 1},
-  {id: 3, title: 'Dolor', userId: 2}
+  {id: 1, title: 'Lorem', authorId: 1},
+  {id: 2, title: 'Ipsum', authorId: 1},
+  {id: 3, title: 'Dolor', authorId: 2}
 ];
 ```
 

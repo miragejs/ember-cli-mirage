@@ -27,6 +27,15 @@ import ActiveModelSerializer from 'ember-cli-mirage/serializers/active-model-ser
 export default ActiveModelSerializer;
 ```
 
+Additionally, Mirage has a basic Serializer class which you can customize using the hooks documented below:
+
+```js
+// mirage/serializers/application.js
+import { Serializer } from 'ember-cli-mirage';
+
+export default Serializer;
+```
+
 When writing model-specific serializers, remember to extend from your application serializer:
 
 ```js

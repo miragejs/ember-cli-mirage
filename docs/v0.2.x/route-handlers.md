@@ -25,9 +25,9 @@ this.verb(path, shorthand[, responseCode]);
 Examples:
 
 ```js
-this.get('/api/users');
-this.put('/api/users/:id');
-this.get('/posts/:id', ['post', 'comments']);
+this.get('/api/authors');
+this.put('/api/authors/:id');
+this.del('/posts/:id');
 ```
 
 ## Object handler
@@ -41,7 +41,7 @@ this.verb(path, object[, responseCode]);
 Example:
 
 ```js
-this.get('/api/users/current', {id: 1, name: 'Link'});
+this.get('/api/authors/current', {id: 1, name: 'Link'});
 this.get('/some/secret', {message: 'unauthorized'}, 404);
 ```
 
@@ -50,49 +50,47 @@ this.get('/some/secret', {message: 'unauthorized'}, 404);
 Write a custom function to handle this route.
 
 ```js
-this.verb(path, function(db, request) {
+this.verb(path, (schema, request) => {
   // your code
 }[, responseCode]);
 ```
 
-The function handler you define takes two parameters, **db** (your Mirage server's database) and **request** (the Pretender request object). Consult [the database's API](../database) for how to interact with the db and [Pretender's docs](https://github.com/trek/pretender) for more info on the request object.
+The function handler you define takes two parameters, **schema** (your Mirage server's ORM) and **request** (the Pretender request object). Consult [the schema's API](../schema) for how to interact with your models (or the database directly) and [Pretender's docs](https://github.com/trek/pretender) for more info on the request object.
 
-Return the data you want as plain JS - it will be stringified and sent as the response body of your request. You can also return an instance of `Mirage.Response` to dynamically set headers and the status code.
-
-Examples:
+If the data returned from your handler is a JavaScript object or array, it will be stringified and sent as the response body of your request:
 
 ```js
-import Mirage from 'ember-cli-mirage';
+this.get('/api/events', () => {
+  let events = [];
 
-export default function() {
+  for (var i = 0; i < 100; i++) {
+    events.push({
+      id: i,
+      value: Math.random() * 100
+    });
+  };
 
-  this.del('/api/users/:id', function(db, request) {
-    var id = request.params.id;
-    db.users.delete(id);
-    // Delete related addresses
-    db.addresses.delete({user_id: id});
-
-    return {};
-  });
-
-  this.post('/api/messages', function(db, request) {
-    var params = JSON.parse(request.requestBody);
-
-    if (!params.title) {
-      return new Mirage.Response(400, {a: 'header'}, {message: 'title cannot be blank'});
-    } else {
-      return db.messages.insert(params);
-    }
-  });
-
-}
+  return events; // will be JSON.stringified by Mirage
+});
 ```
 
-## External origins
+You can also return an instance of `Mirage.Response` to dynamically set headers and the status code:
 
-<aside class='Docs-page__aside'>
-  <p>Support for external domains landed in v0.1.7.</p>
-</aside>
+```js
+this.post('/api/messages', ({message}, request) {
+  var params = JSON.parse(request.requestBody);
+
+  if (!params.title) {
+    return new Mirage.Response(422, {some: 'header'}, {errors: {title: ['cannot be blank']}});
+  } else {
+    return message.create(params);
+  }
+});
+```
+
+If you return a string, it will not be `JSON.stringified`, so you can mock out responses other than JSON.
+
+## External origins
 
 You can use Mirage to mock out other-origin requests. By default, a mock like
 
@@ -100,7 +98,7 @@ You can use Mirage to mock out other-origin requests. By default, a mock like
 this.get('/contacts', ...)
 ```
 
-will hit the same origin that's serving your Ember app. To mock out a different origin, simply add the fully qualified domain name to your mock:
+will hit the same origin that's serving your Ember app. To mock out a different origin, add the fully qualified domain name to your mock:
 
 ```js
 this.get('http://api.twitter.com/v1', ...)

@@ -11,15 +11,16 @@ v0.2.x:
   - label: Acceptance testing
 
   - section: API
-    label: Route handlers
-  - label: Shorthands
-  - label: Models
+    label: Configuration
+  - label: Route handlers
   - label: Database
-  - label: Serializers
   - label: Factories
   - label: Fixtures
+  - label: Models
+  - label: Schema
+  - label: Serializers
+  - label: Shorthands
   - label: Testing
-  - label: Configuration
 
   - section: Cookbook
     label: Manually starting Mirage

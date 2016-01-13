@@ -5,7 +5,7 @@ version: v0.2.x
 redirect_from: "/docs/latest/server-configuration/"
 ---
 
-Besides defining your routes, there's some config options for your server available in `/app/mirage/config.js`. There's also some environment options, which you define in `/config/environment.js`.
+Besides defining your routes, there's some config options for your server available in `mirage/config.js`. There's also some environment options, which you define in `/config/environment.js`.
 
 ## Server config
 
@@ -56,10 +56,6 @@ export default function() {
 
 <a name="passthrough" href="#passthrough">#</a> this.**passthrough**(*path1*, *path2*..., *options*)
 
-<aside class='Docs-page__aside'>
-  <p><em>passthrough</em> was added in 0.1.9.</p>
-</aside>
-
 By default, if your Ember app maks a request that is not defined in your server config, Mirage will throw an error. You can use `passthrough` to whitelist requests, and allow them to pass through your Mirage server to the actual network layer.
 
 <aside class='Docs-page__aside'>
@@ -102,13 +98,9 @@ this.passthrough('http://api.foo.bar/**');
 this.passthrough('http://api.twitter.com/v1/cards/**');
 ```
 
-Be aware that currently, `passthrough` only works with jQuery >= 2.x. See [this issue](https://github.com/pretenderjs/pretender/issues/85) for details.
+In versions of Pretender prior to 0.12, `passthrough` only worked with jQuery >= 2.x. As long as you're on Pretender@0.12 or higher, you should be all set.
 
 <a name="loadFixtures" href="#loadFixtures">#</a> this.**loadFixtures**(*file1*, *file2*...)
-
-<aside class='Docs-page__aside'>
-  <p><em>loadFixtures</em> was added in 0.1.9.</p>
-</aside>
 
 By default, all the data files under `/fixtures` will be loaded during testing if you don't have factories defined, and during development if you don't have `/scenarios/default.js` defined. You can use `loadFixtures()` to also load fixture files in either of these environments, in addition to using factories to seed your database.
 
@@ -123,7 +115,7 @@ test('I can view the photos', function() {
 
   visit('/');
 
-  andThen(function() {
+  andThen(() => {
     equal( find('img').length, 10 );
   });
 });

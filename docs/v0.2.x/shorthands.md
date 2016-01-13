@@ -7,6 +7,8 @@ redirect_from: "/docs/latest/shorthands/"
 
 A *shorthand* is a simple way to define a route handler for common API scenarios. Here's a reference of each shorthand, along with the raw route handler that the shorthand represents.
 
+In Mirage 0.1, shorthands responded with objects and arrays directly from the database. In 0.2, shorthands return Models and Collections, meaning you can customize the format of the response in the [serializer layer](../serializers).
+
 Shorthands use default status codes, based on the HTTP verb:
 
   - GET, PUT and DEL are 200
@@ -14,7 +16,7 @@ Shorthands use default status codes, based on the HTTP verb:
 
 ## GET shorthands
 
-*Single collection*
+*Collection*
 
 {% capture shorthand %}
 {% highlight js %}
@@ -25,38 +27,15 @@ this.get('/contacts', 'users'); // optionally specify the collection as second p
 
 {% capture expanded %}
 {% highlight js %}
-this.get('/contacts', function(db, request) {
-  return {
-    contacts: db.contacts // db.users in the second case
-  };
+this.get('/contacts', ({ contact }) => {
+  return contact.all(); // schema.user in the second case
 });
 {% endhighlight %}
 {% endcapture %}
 
 {% include code-compare.html expanded=expanded shorthand=shorthand %}
 
-*Multiple collections*
-
-{% capture shorthand %}
-{% highlight js %}
-this.get('/', ['photos', 'articles']);
-{% endhighlight %}
-{% endcapture %}
-
-{% capture expanded %}
-{% highlight js %}
-this.get('/', function(db, request) {
-  return {
-    photos: db.photos,
-    articles: db.articles
-  };
-});
-{% endhighlight %}
-{% endcapture %}
-
-{% include code-compare.html expanded=expanded shorthand=shorthand %}
-
-*Single record*
+*Object*
 
 {% capture shorthand %}
 {% highlight js %}
@@ -67,42 +46,17 @@ this.get('/contacts/:id', 'user'); // optionally specify the type as second para
 
 {% capture expanded %}
 {% highlight js %}
-this.get('/contacts/:id', function(db, request) {
-  var id = request.params.id;
+this.get('/contacts/:id', ({ contact }, request) {
+  let id = request.params.id;
 
-  return {
-    contact: db.contacts.find(id)
-  };
+  return contact.find(id); // schema.user in the second case
 });
 {% endhighlight %}
 {% endcapture %}
 
 {% include code-compare.html expanded=expanded shorthand=shorthand %}
 
-*Single record with related records*
-
-{% capture shorthand %}
-{% highlight js %}
-this.get('/contacts/:id', ['contact', 'addresses']); // put the owning (singular) model first
-{% endhighlight %}
-{% endcapture %}
-
-{% capture expanded %}
-{% highlight js %}
-this.get('/contacts/:id', function(db, request) {
-  var id = request.params.id;
-
-  return {
-    contact: db.contacts.find(id),
-    addresses: db.addresses.where({contact_id: id})
-  };
-});
-{% endhighlight %}
-{% endcapture %}
-
-{% include code-compare.html expanded=expanded shorthand=shorthand %}
-
-*Array of specific records*
+*Array of Objects*
 
 For example, `GET /contacts?ids=1,3`
 
@@ -115,21 +69,23 @@ this.get('/contacts', 'users', { coalesce: true });
 
 {% capture expanded %}
 {% highlight js %}
-this.get('/contacts', function(db, request) {
+this.get('/contacts', ({ contact }, request) {
   var ids = request.queryParams.ids;
 
-  return {
-    contacts: db.contacts.find(ids) // db.users in the second case
-  };
+  return contact.find(ids); // schema.user in the second case
 });
 {% endhighlight %}
 {% endcapture %}
 
 {% include code-compare.html expanded=expanded shorthand=shorthand %}
 
+---
+
+*Note: there used to be a* Single record with related records *shorthand. You should now use serializers and relationships to solve this problem.*
+
 ## POST shorthands
 
-*Create a resource*
+*Creating a resource*
 
 {% capture shorthand %}
 {% highlight js %}
@@ -140,18 +96,18 @@ this.post('/contacts', 'user');  // optionally specify the type as second param
 
 {% capture expanded %}
 {% highlight js %}
-this.post('/contacts', function(db, request) {
-  var attrs = JSON.parse(request.requestBody);
-  var record = db.contacts.insert(attrs);
-  
-  return {
-    contact: record
-  };
+this.post('/contacts', ({ contact }, request) {
+  let json = JSON.parse(request.requestBody);
+  let attrs = [getAttrsFromRequest](request);
+
+  return contact.create(attrs);
 });
 {% endhighlight %}
 {% endcapture %}
 
 {% include code-compare.html expanded=expanded shorthand=shorthand %}
+
+For this POST shorthand to work, Mirage needs to know the format of the JSON payload your Ember app sends along with the request, so that it can insert the appropriate data into the database. See [the note on normalize](http://localhost:4000/docs/v0.2.x/serializers/#normalizejson) in the Serializer docs for more information.
 
 ## PUT shorthands
 
@@ -166,19 +122,18 @@ this.put('/contacts/:id', 'user');  // optionally specify the type as second par
 
 {% capture expanded %}
 {% highlight js %}
-this.put('/contacts/:id', function(db, request) {
-  var id = request.params.id;
-  var attrs = JSON.parse(request.requestBody)['contact'];
-  var record = db.contacts.update(id, attrs);
+this.put('/contacts/:id', ({ contact }, request) {
+  let id = request.params.id;
+  let attrs = [getAttrsFromRequest](request);
 
-  return {
-    contact: record
-  };
+  return contact.find(id).update(attrs);
 });
 {% endhighlight %}
 {% endcapture %}
 
 {% include code-compare.html expanded=expanded shorthand=shorthand %}
+
+For this PUT shorthand to work, Mirage needs to know the format of the JSON payload your Ember app sends along with the request, so that it can insert the appropriate data into the database. See [the note on normalize](http://localhost:4000/docs/v0.2.x/serializers/#normalizejson) in the Serializer docs for more information.
 
 ## DELETE shorthands
 
@@ -193,11 +148,10 @@ this.del('/contacts/:id', 'user');  // optionally specify the type as second par
 
 {% capture expanded %}
 {% highlight js %}
-this.del('/contacts/:id', function(db, request) {
-  var id = request.params.id;
-  db.contacts.remove(id);
+this.del('/contacts/:id', ({ contact }, request) => {
+  let id = request.params.id;
 
-  return {};
+  contact.find(id).destroy();
 });
 {% endhighlight %}
 {% endcapture %}
@@ -205,6 +159,8 @@ this.del('/contacts/:id', function(db, request) {
 {% include code-compare.html expanded=expanded shorthand=shorthand %}
 
 *Remove a resource and related models*
+
+To use this shorthand, make sure you have the appropriate `hasMany`/`belongsTo` relationships defined on your models.
 
 {% capture shorthand %}
 {% highlight js %}
@@ -214,16 +170,12 @@ this.del('/contacts/:id', ['contact', 'addresses']);
 
 {% capture expanded %}
 {% highlight js %}
-this.del('/contacts/:id', function(db, request) {
-  var id = request.params.id;
-  db.contacts.remove(id);
+this.del('/contacts/:id', ({ contact, address }, request) {
+  let id = request.params.id;
+  let contact = contact.find(id);
 
-  var addresses = db.addresses.where({contact_id: id});
-  addresses.forEach(function(address) {
-    db.addresses.remove(address.id);
-  });
-
-  return {};
+  contact.addresses.destroy();
+  contact.destroy();
 });
 {% endhighlight %}
 {% endcapture %}

@@ -5,7 +5,7 @@ version: v0.2.0-beta.1
 redirect_from: "/docs/latest/database/"
 ---
 
-Your Mirage server has a database which you can interact with in your route handlers. You'll typically use [models](./models) to interact with your database data, but you can always reach into the db directly in the event you want more control.
+Your Mirage server has a database which you can interact with in your route handlers. You'll typically use [models](../models) to interact with your database data, but you can always reach into the db directly in the event you want more control.
 
 Access the db from your route handlers via `schema.db`.
 

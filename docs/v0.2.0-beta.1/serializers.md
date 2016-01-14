@@ -1,6 +1,6 @@
 ---
 title: Serializers
-version: v0.2.x
+version: v0.2.0-beta.1
 ---
 
 Serializers are responsible for formatting your route handler's response.

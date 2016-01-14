@@ -1,6 +1,6 @@
 ---
 title: Shorthand reference
-version: v0.2.x
+version: v0.2.0-beta.1
 
 redirect_from: "/docs/latest/shorthands/"
 ---
@@ -107,7 +107,7 @@ this.post('/contacts', ({ contact }, request) {
 
 {% include code-compare.html expanded=expanded shorthand=shorthand %}
 
-For this POST shorthand to work, Mirage needs to know the format of the JSON payload your Ember app sends along with the request, so that it can insert the appropriate data into the database. See [the note on normalize](http://localhost:4000/docs/v0.2.x/serializers/#normalizejson) in the Serializer docs for more information.
+For this POST shorthand to work, Mirage needs to know the format of the JSON payload your Ember app sends along with the request, so that it can insert the appropriate data into the database. See [the note on normalize](../serializers/#normalizejson) in the Serializer docs for more information.
 
 ## PUT shorthands
 
@@ -133,7 +133,7 @@ this.put('/contacts/:id', ({ contact }, request) {
 
 {% include code-compare.html expanded=expanded shorthand=shorthand %}
 
-For this PUT shorthand to work, Mirage needs to know the format of the JSON payload your Ember app sends along with the request, so that it can insert the appropriate data into the database. See [the note on normalize](http://localhost:4000/docs/v0.2.x/serializers/#normalizejson) in the Serializer docs for more information.
+For this PUT shorthand to work, Mirage needs to know the format of the JSON payload your Ember app sends along with the request, so that it can insert the appropriate data into the database. See [the note on normalize](../serializers/#normalizejson) in the Serializer docs for more information.
 
 ## DELETE shorthands
 

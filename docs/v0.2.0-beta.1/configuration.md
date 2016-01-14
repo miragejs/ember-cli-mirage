@@ -1,6 +1,6 @@
 ---
 title: Configuration
-version: v0.2.x
+version: v0.2.0-beta.1
 
 redirect_from: "/docs/latest/server-configuration/"
 ---

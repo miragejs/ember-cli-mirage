@@ -1,6 +1,6 @@
 ---
 title: Route handlers
-version: v0.2.x
+version: v0.2.0-beta.1
 ---
 
 You define route handlers using the four verb methods (`get`, `post`, `put` and `del`). You can use shorthands, return a plain object, or write custom function handlers.

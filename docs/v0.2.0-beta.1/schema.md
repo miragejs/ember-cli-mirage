@@ -1,6 +1,6 @@
 ---
 title: Schema
-version: v0.2.x
+version: v0.2.0-beta.1
 ---
 
 Mirage has an ORM which is managed through its Schema object. Assuming you've defined models for your server resources, `schema` will be passed into your route handlers as the first parameter:

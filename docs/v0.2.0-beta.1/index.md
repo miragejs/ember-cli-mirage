@@ -1,6 +1,6 @@
 ---
 title: Overview
-version: v0.2.x
+version: v0.2.0-beta.1
 ---
 
 Nearly all Ember apps interact with an API. When you reach the point during development where you need to work with dynamic server data, you have a few options:

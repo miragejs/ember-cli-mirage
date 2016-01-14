@@ -1,6 +1,6 @@
 ---
 title: Fixtures
-version: v0.2.x
+version: v0.2.0-beta.1
 ---
 
 Fixtures are data files that can be used to seed your database, either during development or within tests. In general Mirage recommends using factories over fixtures, though there are times where fixtures are suitable.
@@ -44,5 +44,5 @@ test('I can see the countries', function() {
 });
 ```
 
-See the [`server.loadFixtures`](http://localhost:4000/docs/v0.2.x/configuration/#loadFixtures) docs for more information.
+See the [`server.loadFixtures`](../configuration/#loadFixtures) docs for more information.
 

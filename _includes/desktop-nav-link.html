@@ -1,7 +1,7 @@
-{% capture path %}{{ site.baseurl}}/docs/{{ page.version }}/{% if include.path %}{{ include.path }}{% else %}{{ include.label | slugify }}/{% endif %}{% endcapture %}
+{% capture path %}{{ site.baseurl}}/docs/{{ page.version }}/{% if include.link.path %}{{ include.link.path }}{% else %}{{ include.link.label | slugify }}/{% endif %}{% endcapture %}
 
 <li>
   <a class="Desktop-nav__item {% if page.url == path %}active{% endif %}" href="{{ path }}">
-    {{ include.label }}
+    {{ include.link.label }}
   </a>
 </li>

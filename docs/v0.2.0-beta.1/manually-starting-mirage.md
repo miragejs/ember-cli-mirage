@@ -1,6 +1,6 @@
 ---
 title: Manually starting Mirage
-version: v0.2.x
+version: v0.2.0-beta.1
 ---
 
 Currently, Mirage's server boots up in an Ember initializer. This means it will not automatically start in unit or integration tests, since there's no Ember app running.

@@ -1,9 +1,9 @@
 ---
 title: Collections
-version: v0.2.x
+version: v0.2.0-beta.1
 ---
 
-Collections are essentially arrays of [models](../Models). They are returned by a `hasMany` [association](http://localhost:4000/docs/v0.2.x/models/#associations), or by one of the [ModelClass](http://localhost:4000/docs/v0.2.x/models/#class-methods) query methods:
+Collections are essentially arrays of [models](../Models). They are returned by a `hasMany` [association](../models/#associations), or by one of the [ModelClass](../models/#class-methods) query methods:
 
 ```js
 let posts = author.blogPosts;

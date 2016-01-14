@@ -12,6 +12,7 @@ v0.2.x:
 
   - section: API
     label: Configuration
+  - label: Collections
   - label: Route handlers
   - label: Database
   - label: Factories

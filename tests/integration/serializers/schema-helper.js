@@ -36,7 +36,8 @@ export default {
       zomg: Model.extend({
         lol: Mirage.belongsTo()
       }),
-      lol: Model
+      lol: Model,
+      roflCopter: Model
     });
 
     return this.schema;

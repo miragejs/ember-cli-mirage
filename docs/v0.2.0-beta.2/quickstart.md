@@ -1,6 +1,6 @@
 ---
 title: Quickstart
-version: v0.2.0-beta.1
+version: v0.2.0-beta.2
 ---
 
 Mirage is all about mocking out your API server. You define *route handlers* to respond to your Ember app's AJAX requests.
@@ -198,7 +198,7 @@ export default Serializer.extend({
 import { Serializer } from 'ember-cli-mirage';
 
 export default Serializer.extend({
-  relationships: ['blogPosts']
+  include: ['blogPosts']
 });
 
 // mirage/config.js

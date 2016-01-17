@@ -12,7 +12,7 @@ test('it can read inverse one-to-one relationships', function(assert) {
       {id: 1, name: 'Link', addressId: 1}
     ],
     addresses: [
-      {id: 1, userId: 1}
+      {id: 1}
     ]
   });
 
@@ -30,14 +30,16 @@ test('it can read inverse one-to-one relationships', function(assert) {
     address: Address
   });
 
+  var user = schema.user.find(1);
+  assert.ok(user.address);
   var address = schema.address.find(1);
-  assert.ok(address);
+  assert.ok(address.user);
 });
 
 test('it can read inverse one-to-many relationships', function(assert) {
   var db = new Db({
     users: [
-      {id: 1, name: 'Link', projectIds: [1,2]}
+      {id: 1, name: 'Link'}
     ],
     projects: [
       {id: 1, userId: 1},
@@ -59,6 +61,8 @@ test('it can read inverse one-to-many relationships', function(assert) {
     project: Project
   });
 
+  var user = schema.user.find(1);
+  assert.equal(user.projects.length, 2);
   var project = schema.project.find(1);
-  assert.ok(project);
+  assert.ok(project.user);
 });

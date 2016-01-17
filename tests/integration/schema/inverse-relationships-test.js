@@ -6,13 +6,13 @@ import {module, test} from 'qunit';
 
 module('Integration | Schema | Inverse relationships');
 
-test('it can read inverse relationships', function(assert) {
+test('it can read inverse one-to-one relationships', function(assert) {
   var db = new Db({
     users: [
       {id: 1, name: 'Link', addressId: 1}
     ],
     addresses: [
-      {id: 1, name: 'my address', userId: 1}
+      {id: 1, userId: 1}
     ]
   });
 
@@ -32,4 +32,33 @@ test('it can read inverse relationships', function(assert) {
 
   var address = schema.address.find(1);
   assert.ok(address);
+});
+
+test('it can read inverse one-to-many relationships', function(assert) {
+  var db = new Db({
+    users: [
+      {id: 1, name: 'Link', projectIds: [1,2]}
+    ],
+    projects: [
+      {id: 1, userId: 1},
+      {id: 2, userId: 1}
+    ]
+  });
+
+  var User = Model.extend({
+    projects: Mirage.hasMany()
+  });
+
+  var Project = Model.extend({
+    user: Mirage.belongsTo()
+  });
+
+  var schema = new Schema(db);
+  schema.registerModels({
+    user: User,
+    project: Project
+  });
+
+  var project = schema.project.find(1);
+  assert.ok(project);
 });

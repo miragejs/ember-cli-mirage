@@ -47,6 +47,12 @@ function createPretender(server) {
   });
 }
 
+function hasPassthrough(pretender, path, verb) {
+  let recognized = pretender.hosts.forURL()[verb.toUpperCase()].recognize(path);
+  let match = recognized && recognized[0];
+  return match && match.handler === pretender.passthrough;
+}
+
 const defaultRouteOptions = {
   coalesce: false,
   timing: undefined
@@ -252,8 +258,11 @@ export default class Server {
   _defineRouteHandlerHelpers() {
     [['get'], ['post'], ['put'], ['delete', 'del'], ['patch']].forEach(([verb, alias]) => {
       this[verb] = (path, ...args) => {
-        let [ rawHandler, customizedCode, options ] = extractRouteArguments(args);
-        this._registerRouteHandler(verb, path, rawHandler, customizedCode, options);
+        let fullPath = this._getFullPath(path);
+        if (!hasPassthrough(this.pretender, fullPath, verb)) {
+          let [ rawHandler, customizedCode, options ] = extractRouteArguments(args);
+          this._registerRouteHandler(verb, fullPath, rawHandler, customizedCode, options);
+        }
       };
 
       if (alias) { this[alias] = this[verb]; }
@@ -268,7 +277,7 @@ export default class Server {
     }
   }
 
-  _registerRouteHandler(verb, path, rawHandler, customizedCode, options) {
+  _registerRouteHandler(verb, fullPath, rawHandler, customizedCode, options) {
 
     let routeHandler = new RouteHandler({
       schema: this.schema,
@@ -276,7 +285,6 @@ export default class Server {
       serializerOrRegistry: this.serializerOrRegistry
     });
 
-    let fullPath = this._getFullPath(path);
     let timing = options.timing !== undefined ? options.timing : (() => this.timing);
 
     this.pretender[verb](

@@ -202,3 +202,45 @@ test('it can passthrough other-origin hosts', function(assert) {
   });
 });
 
+
+test('passthrough requests follow normal precedence rules 1', function(assert) {
+  assert.expect(1);
+  var done1 = assert.async();
+  var server = this.server;
+
+  server.loadConfig(function() {
+    this.urlPrefix = '/vet/123';
+    this.passthrough('/pets');
+    this.get('/pets', function() { return 123; });
+  });
+
+  $.ajax({
+    method: "GET",
+    url: "/vet/123/pets",
+    error: function() {
+      assert.ok(true);
+      done1();
+    }
+  });
+});
+
+test('passthrough requests follow normal precedence rules 2', function(assert) {
+  assert.expect(1);
+  var done1 = assert.async();
+  var server = this.server;
+
+  server.loadConfig(function() {
+    this.urlPrefix = '/vet/123';
+    this.get('/pets', function() { return 123; });
+    this.passthrough('/pets');
+  });
+
+  $.ajax({
+    method: "GET",
+    url: "/vet/123/pets",
+    error: function() {
+      assert.ok(true);
+      done1();
+    }
+  });
+});

@@ -112,7 +112,7 @@ export default function(db) {
     Private methods
   */
   this._collectionForType = function(type) {
-    var collection = pluralize(type);
+    var collection = pluralize(camelize(type));
     if (!this.db[collection]) {
       throw 'Mirage: You\'re trying to find model(s) of type ' + type + ' but this collection doesn\'t exist in the database.';
     }

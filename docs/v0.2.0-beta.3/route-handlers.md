@@ -3,9 +3,15 @@ title: Route handlers
 version: v0.2.0-beta.3
 ---
 
-You define route handlers using the four verb methods (`get`, `post`, `put` and `del`). You can use shorthands, return a plain object, or write custom function handlers.
+You define route handlers using the four verb methods (`get`, `post`, `put` and `del`). All handlers have the following signature:
 
-The status code defaults to the following, based on the verb being used for the route:
+```js
+this.verb(path, handler[, responseCode, options={}]);
+```
+
+There are three types of route handlers: [shorthand](#shorthands), [object](#object-handler), and [function](#function-handler).
+
+The status code for all three types defaults to the following, based on the verb being used for the route:
 
   - GET is 200
   - PUT is 204
@@ -13,6 +19,29 @@ The status code defaults to the following, based on the verb being used for the 
   - DEL is 204
 
 PUT and POST change to 200 if there is a response body.
+
+The optional `options` hash passed as the last parameter has `timing` and `coalesce` options.
+
+<a name="timing" href="#timing">#</a> options.<b>timing</b>
+
+Set the timing parameter of the response for this particular route. Default is a 400ms delay during development and 0 delay in testing (so your tests run fast).
+
+Note you can set a [global timing parameter](../configuration/#timing) for all routes. Individual timing parameters override the global setting.
+
+Example:
+
+```js
+this.post('/users', { timing: 1500 });
+
+this.get('/complex_query', () => {
+  return [1, 2, 3, 4, 5];
+}, { timing: 3000 });
+```
+
+<a name="coalesce" href="#coalesce">#</a> options.<b>coalesce</b>
+
+This option only affects the [*Array of Objects* version of the GET shorthand](../shorthands/#get-shorthands). It is ignored by all other route handlers.
+
 
 ## Shorthands
 

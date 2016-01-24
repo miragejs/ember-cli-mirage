@@ -54,6 +54,8 @@ export default function() {
 };
 ```
 
+Note that this is a global parameter which affects all routes. You can override the timing for individual routes by using the [route handler's timing parameter](../route-handlers#timing).
+
 <a name="passthrough" href="#passthrough">#</a> this.**passthrough**(*path1*, *path2*..., *options*)
 
 By default, if your Ember app maks a request that is not defined in your server config, Mirage will throw an error. You can use `passthrough` to whitelist requests, and allow them to pass through your Mirage server to the actual network layer.

@@ -431,8 +431,8 @@ Overwrite `keyForRelationshipIds` to format this key:
 const { underscore } = Ember.String;
 
 export default Serializer.extend({
-  keyForRelationshipIds(relatinonship) {
-    return underscore(relatinonship) + '_ids';
+  keyForRelationshipIds(relationship) {
+    return underscore(relationship) + '_ids';
   }
 });
 ```

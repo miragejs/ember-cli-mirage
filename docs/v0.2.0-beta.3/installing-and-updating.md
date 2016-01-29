@@ -40,10 +40,10 @@ This ensures all of Mirage's Bower dependencies are added to your project. It's 
 
 ## Installing beta
 
-To use beta, run
+To install the latest beta, run
 
 ```sh
-ember install ember-cli-mirage@v0.2.0-beta.3
+ember install ember-cli-mirage@beta
 ```
 
 If you're upgrading to beta from `0.1.x`, the `/mirage` directory has moved from `/app/mirage` to `/mirage`. After installing, a new `/mirage` directory will be generated. Delete it, and move your old directory to the new location.

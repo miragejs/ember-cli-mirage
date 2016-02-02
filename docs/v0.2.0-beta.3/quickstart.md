@@ -159,23 +159,15 @@ import { Model } from 'ember-cli-mirage';
 export default Model;
 ```
 
-Now Mirage knows about the relationship between these two models, which can be useful when writing mocks:
+Now Mirage knows about the relationship between these two models, which can be useful when writing route handlers:
 
 ```js
 this.post('/authors/:id/blog-posts', (schema, request) => {
   let author = schema.author.find(request.params.id);
+  let attrs = JSON.parse(request.requestBody);
 
-  return author.createBlogPost();
+  return author.createBlogPost(attrs);
 });
-```
-
-or when using factories to create related data:
-
-```js
-let author = server.create('author');
-
-author.createBlogPost({title: 'My first post'});
-author.createBlogPost({title: 'My second post'});
 ```
 
 Mirage's serializer layer is also aware of your relationships, which helps when mocking endpoints that sideload or embed related data. Models and collections that are returned from a route handler pass through the serializer layer, where you can customize which attributes and associations to include, as well as override other formatting options:

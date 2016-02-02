@@ -239,3 +239,19 @@ blogPost.comments = [comment1, comment2]; // updates the relationship
 blogPost.newComment(attrs);               // new unsaved comment
 blogPost.createComment(attrs);            // new saved comment (comment.blogPostId is set)
 ```
+
+### Association options
+
+If your associations model has a different name than the association itself, you can specify the model name on the association:
+
+```js
+// mirage/models/blog-post.js
+import { Model, belongsTo, hasMany } from 'ember-cli-mirage';
+
+export default Model.extend({
+  author: belongsTo("user"),
+  comments: hasMany("annotation")
+});
+```
+
+would add all the `author` and `comment` methods as listed above, but utilize a `user` instance and `annotation` instances.

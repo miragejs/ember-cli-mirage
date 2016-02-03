@@ -77,7 +77,7 @@ this.get('/api/events', () => {
 You can also return an instance of `Mirage.Response` to dynamically set headers and the status code:
 
 ```js
-this.post('/api/messages', ({message}, request) {
+this.post('/api/messages', ({message}, request) => {
   var params = JSON.parse(request.requestBody);
 
   if (!params.title) {

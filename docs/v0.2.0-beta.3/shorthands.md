@@ -46,7 +46,7 @@ this.get('/contacts/:id', 'user'); // optionally specify the type as second para
 
 {% capture expanded %}
 {% highlight js %}
-this.get('/contacts/:id', ({ contact }, request) {
+this.get('/contacts/:id', ({ contact }, request) => {
   let id = request.params.id;
 
   return contact.find(id); // schema.user in the second case
@@ -69,7 +69,7 @@ this.get('/contacts', 'users', { coalesce: true });
 
 {% capture expanded %}
 {% highlight js %}
-this.get('/contacts', ({ contact }, request) {
+this.get('/contacts', ({ contact }, request) => {
   var ids = request.queryParams.ids;
 
   return contact.find(ids); // schema.user in the second case
@@ -96,7 +96,7 @@ this.post('/contacts', 'user');  // optionally specify the type as second param
 
 {% capture expanded %}
 {% highlight js %}
-this.post('/contacts', ({ contact }, request) {
+this.post('/contacts', ({ contact }, request) => {
   let json = JSON.parse(request.requestBody);
   let attrs = [getAttrsFromRequest](request);
 
@@ -122,7 +122,7 @@ this.put('/contacts/:id', 'user');  // optionally specify the type as second par
 
 {% capture expanded %}
 {% highlight js %}
-this.put('/contacts/:id', ({ contact }, request) {
+this.put('/contacts/:id', ({ contact }, request) => {
   let id = request.params.id;
   let attrs = [getAttrsFromRequest](request);
 
@@ -170,7 +170,7 @@ this.del('/contacts/:id', ['contact', 'addresses']);
 
 {% capture expanded %}
 {% highlight js %}
-this.del('/contacts/:id', ({ contact, address }, request) {
+this.del('/contacts/:id', ({ contact, address }, request) => {
   let id = request.params.id;
   let contact = contact.find(id);
 

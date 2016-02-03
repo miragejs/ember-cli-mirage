@@ -277,7 +277,7 @@ export default Model.extend({
 `hasMany` tells Mirage that it can find this author's posts using the `authorId` field. Now, our route handler for deleting an author looks like this:
 
 ```js
-this.del('/authors/:id', (schema, request) {
+this.del('/authors/:id', (schema, request) => {
   let author = schema.author.find(request.params.id);
 
   author.posts.delete();

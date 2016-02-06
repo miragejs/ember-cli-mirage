@@ -3,5 +3,6 @@
 
   @include above($breakpoint) {
     @include flex;
+    min-width: 0;
   }
 }

@@ -1,9 +1,11 @@
-# Dependencies
-markdown: redcarpet
-highlighter: pygments
-
 # Permalinks
 permalink: pretty
+
+markdown: kramdown
+
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
 
 # Setup
 title: Ember CLI Mirage

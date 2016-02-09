@@ -66,7 +66,7 @@ serialize(object, request) {
 
   return json;
 }
----
+```
 
 ## normalize(json)
 

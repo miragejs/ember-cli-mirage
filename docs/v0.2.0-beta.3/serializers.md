@@ -55,6 +55,17 @@ Override this method to implement your own custom serialize function. *response*
 
 Returns a plain JavaScript object or array, which Mirage uses as the response data to your Ember app's XHR request.
 
+You can also override this method, call super, and manipulate the data before Mirage responds with it. This is a great place to add metadata, or for one-off operations that don't fit neatly into any of Mirage's other abstractions:
+
+```js
+serialize(object, request) {
+  // This is how to call super, as Mirage borrows [Backbone's implementation of extend](http://backbonejs.org/#Model-extend)
+  let json = Serializer.prototype.serialize.apply(this, arguments);
+
+  // Add metadata, sort parts of the response, etc.
+
+  return json;
+}
 ---
 
 ## normalize(json)

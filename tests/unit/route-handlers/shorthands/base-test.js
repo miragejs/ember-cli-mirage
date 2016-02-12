@@ -47,3 +47,11 @@ test('it can read the id from the request body', function(assert) {
   let jsonApiDoc = { data: { id: 'jsonapi-id' } };
   assert.equal(this.handler._getIdForRequest(request, jsonApiDoc), 'jsonapi-id', 'it returns id from json api data.');
 });
+
+test('it accepts JSON:API requests which contain no attributes (regression, samselikoff/ember-cli-mirage#534)', function(assert) {
+  let serializerOrRegistry = { normalize: function() { return { data: { } }; } };
+  let handler = new BaseShorthandRouteHandler(null, serializerOrRegistry);
+  let request = { requestBody: '{}' };
+
+  assert.ok(handler._getAttrsForRequest(request, 'orphan'), 'it does not throw an exception');
+});

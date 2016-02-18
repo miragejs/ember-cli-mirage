@@ -16,7 +16,7 @@ test("I can view the photos", function() {
   visit('/');
 
   andThen(function() {
-    equal( find('img').length, 10 );
+    assert.equal( find('img').length, 10 );
   });
 });
 ```
@@ -66,7 +66,7 @@ test("I can view the photos", function() {
   visit('/');
 
   andThen(function() {
-    equal( find('img').length, 10 );
+    assert.equal( find('img').length, 10 );
   });
 });
 
@@ -76,7 +76,7 @@ test("I see the photo's title on a detail route", function() {
   visit('/' + photo.id);
 
   andThen(function() {
-    equal( find('h1:contains(Sunset over Hyrule').length, 1 );
+    assert.equal( find('h1:contains(Sunset over Hyrule').length, 1 );
   });
 });
 ```

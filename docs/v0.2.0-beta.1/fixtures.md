@@ -10,9 +10,9 @@ To add data to a database table `countries`, for instance, first create the file
 ```js
 // mirage/fixtures/countries.js
 export default [
-  {id: 1, name: 'United States'},
-  {id: 2, name: 'Canada'},
-  {id: 3, name: 'Mexido'},
+  { id: 1, name: 'United States' },
+  { id: 2, name: 'Canada' },
+  { id: 3, name: 'Mexico' },
   ...
 ];
 ```

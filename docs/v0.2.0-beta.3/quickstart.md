@@ -14,9 +14,9 @@ export default function() {
   this.get('/api/authors', () => {
     return {
       authors: [
-        {id: 1, name: 'Zelda'},
-        {id: 2, name: 'Link'},
-        {id: 3, name: 'Epona'},
+        { id: 1, name: 'Zelda' },
+        { id: 2, name: 'Link' },
+        { id: 3, name: 'Epona' },
       ]
     };
   });
@@ -210,7 +210,7 @@ With the above config, a GET to `/authors/1` would return something like
     'first-name': 'Zelda'
   },
   'blog-posts': [
-    {id: 1, 'author-id': 1, title: 'Lorem ipsum'},
+    { id: 1, 'author-id': 1, title: 'Lorem Ipsum' },
     ...
   ]
 }

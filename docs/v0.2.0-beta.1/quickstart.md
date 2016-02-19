@@ -14,9 +14,9 @@ export default function() {
   this.get('/api/authors', () => {
     return {
       authors: [
-        {id: 1, name: 'Zelda'},
-        {id: 2, name: 'Link'},
-        {id: 3, name: 'Epona'},
+        { id: 1, name: 'Zelda' },
+        { id: 2, name: 'Link' },
+        { id: 3, name: 'Epona' },
       ]
     };
   });
@@ -55,7 +55,7 @@ The model will create an `authors` table in Mirage's *in-memory database*. The d
 
 Let's update our route handler to be dynamic:
 
-```js 
+```js
 this.get('/api/authors', (schema, request) => {
   return schema.author.all();
 });
@@ -174,8 +174,8 @@ or when using factories to create related data:
 ```js
 let author = server.create('author');
 
-author.createBlogPost({title: 'My first post'});
-author.createBlogPost({title: 'My second post'});
+author.createBlogPost({ title: 'My first post' });
+author.createBlogPost({ title: 'My second post' });
 ```
 
 Mirage's serializer layer is also aware of your relationships, which helps when mocking endpoints that sideload or embed related data. Models and collections that are returned from a route handler pass through the serializer layer, where you can customize which attributes and associations to include, as well as override other formatting options:
@@ -218,7 +218,7 @@ With the above config, a GET to `/authors/1` would return something like
     'first-name': 'Zelda'
   },
   'blog-posts': [
-    {id: 1, 'author-id': 1, title: 'Lorem ipsum'},
+    { id: 1, 'author-id': 1, title: 'Lorem Ipsum' },
     ...
   ]
 }
@@ -269,7 +269,7 @@ Mirage is a great tool to use even if you're working on an existing app that doe
 this.passthrough();
 ```
 
-Now you can develop as you normally would, for example against an existing API. 
+Now you can develop as you normally would, for example against an existing API.
 
 When it comes time to build a new feature, you don't have to wait for the API to be updated. Just mock out the new route that you need
 

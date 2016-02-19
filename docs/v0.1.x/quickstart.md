@@ -16,9 +16,9 @@ export default function() {
   this.get('/api/users', function() {
     return {
       users: [
-        {id: 1, name: 'Zelda'},
-        {id: 2, name: 'Link'},
-        {id: 3, name: 'Epona'},
+        { id: 1, name: 'Zelda' },
+        { id: 2, name: 'Link' },
+        { id: 3, name: 'Epona' },
       ]
     }
   });
@@ -60,7 +60,7 @@ You create factories by adding files under `/mirage/factories/`:
 
 ```js
 // app/mirage/factories/user.js
-import Mirage, {faker} from 'ember-cli-mirage';
+import Mirage, { faker } from 'ember-cli-mirage';
 
 export default Mirage.Factory.extend({
   name(i) { return `Person ${i}`; },
@@ -97,7 +97,7 @@ To actually create factory data, use the `server.create` or `server.createList` 
 // Create 10 non-admin and 1 admin users for development
 export default function(server) {
   server.createList('user', 10);  
-  server.create('user', {admin: true});
+  server.create('user', { admin: true });
 };
 ```
 

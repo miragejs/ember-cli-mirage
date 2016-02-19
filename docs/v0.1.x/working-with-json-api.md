@@ -24,7 +24,7 @@ To mock this out in Mirage, first be sure that your factory uses hyphenated keys
 
 ```js
 //mirage/factories/user.js
-import Mirage, {faker} from 'ember-cli-mirage';
+import Mirage, { faker } from 'ember-cli-mirage';
 
 export default Mirage.Factory.extend({
   'first-name'() { return faker.name.firstName(); },
@@ -54,7 +54,7 @@ A response for a collection (GET `/users`) may look like this:
 this.get('/users', function(db, request) {
   return {
     data: db.users.map(attrs => (
-      {type: 'users', id: attrs.id, attributes: attrs }
+      { type: 'users', id: attrs.id, attributes: attrs }
     ))
   };
 })

@@ -94,7 +94,7 @@ this.get('/contacts/:id', function(db, request) {
 
   return {
     contact: db.contacts.find(id),
-    addresses: db.addresses.where({contact_id: id})
+    addresses: db.addresses.where({ contact_id: id })
   };
 });
 {% endhighlight %}
@@ -193,7 +193,7 @@ this.put('/contacts/:id', function(db, request) {
   var id = db.params.id;
   db.contacts.remove(id);
 
-  var addresses = db.addresses.where({contact_id: id});
+  var addresses = db.addresses.where({ contact_id: id });
   addresses.forEach(function(address) {
     db.addresses.remove(address.id);
   });

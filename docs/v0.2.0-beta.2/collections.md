@@ -10,7 +10,7 @@ let posts = author.blogPosts;
 
 let posts = schema.blogPost.all();
 let posts = schema.blogPost.find([1, 2, 4]);
-let posts = schema.blogPost.where({published: true});
+let posts = schema.blogPost.where({ published: true });
 ```
 
 ## Instance methods

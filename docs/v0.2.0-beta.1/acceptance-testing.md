@@ -76,7 +76,7 @@ test("I can view the photos", assert => {
 });
 
 test("I see the photo's title on a detail route", assert => {
-  let photo = server.create('photo', {title: 'Sunset over Hyrule'});
+  let photo = server.create('photo', { title: 'Sunset over Hyrule' });
 
   visit('/' + photo.id);
 
@@ -96,7 +96,7 @@ There are two general approaches to this. First, you can assert directly against
 
 ```js
 test("I can change the lesson's title", assert => {
-  server.create('lesson', {title: 'My First Lesson'})
+  server.create('lesson', { title: 'My First Lesson' })
 
   visit('/');
   click('.Edit')
@@ -120,7 +120,7 @@ test("I can change the lesson's title", function(assert) {
   assert.expect(1);
   let done = assert.async();
 
-  server.create('lesson', {title: 'My First Lesson'})
+  server.create('lesson', { title: 'My First Lesson' })
 
   server.put('/lessons/:id', (schema, request) => {
     let params = JSON.parse(request.requestBody);
@@ -145,7 +145,7 @@ To test how your Ember app responds to a server error, overwrite a route handler
 
 ```js
 test('the user sees an error if the save attempt fails', function(assert) {
-   server.post('/questions', {errors: ['There was an error']}, 500);
+   server.post('/questions', { errors: ['There was an error']}, 500);
 
    visit('/');
    click('.new');

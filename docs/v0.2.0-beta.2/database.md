@@ -21,8 +21,8 @@ For example if you had the following data file named `mirage/fixtures/contacts.j
 
 ```js
 export default [
-  {id: 1, name: 'Zelda'},
-  {id: 2, name: 'Link'}
+  { id: 1, name: 'Zelda' },
+  { id: 2, name: 'Link' }
 ];
 ```
 
@@ -34,17 +34,17 @@ Inserts *data* into the collection. *data* can be a single object or an array of
 
 ```js
 // Insert a single record
-let link = db.users.insert({name: 'Link', age: 173});
+let link = db.users.insert({ name: 'Link', age: 173 });
 
-link;  // {id: 1, name: 'Link', age: 137}
+link;  // { id: 1, name: 'Link', age: 137 }
 
 // Insert an array
 let users = db.users.insert([
-  {name: 'Zelda', age: 142},
-  {name: 'Epona', age: 58},
+  { name: 'Zelda', age: 142 },
+  { name: 'Epona', age: 58 },
 ]);
 
-users;  // [{id: 2, name: 'Zelda', age: 142}, {id: 3, name: 'Epona', age: 58}]
+users;  // [{ id: 2, name: 'Zelda', age: 142 }, { id: 3, name: 'Epona', age: 58 }]
 ```
 
 <a name="find" href="#find">#</a> db.collection.<b>find</b>(<i>ids</i>)
@@ -53,10 +53,10 @@ Returns a single record from the *collection* if *ids* is a single id, or an arr
 
 ```js
 /* 
-  Given users = [{id: 1, name: 'Link'}, {id: 2, name: 'Zelda'}]
+  Given users = [{ id: 1, name: 'Link' }, { id: 2, name: 'Zelda' }]
 */
-db.users.find(1);      // {id: 1, name: 'Link'}
-db.users.find([1, 2]); // [{id: 1, name: 'Link'}, {id: 2, name: 'Zelda'}]
+db.users.find(1);      // { id: 1, name: 'Link' }
+db.users.find([1, 2]); // [{ id: 1, name: 'Link' }, { id: 2, name: 'Zelda' }]
 ```
 <a name="where" href="#where">#</a> db.collection.<b>where</b>(<i>query</i>)
 
@@ -64,10 +64,10 @@ Returns an array of models from *collection* that match the key-value pairs in t
 
 ```js
 /* 
-  Given users = [{id: 1, name: 'Link'}, {id: 2, name: 'Zelda'}]
+  Given users = [{ id: 1, name: 'Link' }, { id: 2, name: 'Zelda' }]
 */
 
-db.users.where({name: 'Zelda'}); // [{id: 2, name: 'Zelda'}]
+db.users.where({ name: 'Zelda' }); // [{ id: 2, name: 'Zelda' }]
 ```
 
 <a name="update" href="#update">#</a> db.collection.<b>update</b>(<i>attrs</i>) or db.collection.<b>update</b>(<i>target</i>, <i>attrs</i>)
@@ -83,14 +83,14 @@ Returns the updated record or records.
 ```js
 /* 
   Given users = [
-    {id: 1, name: 'Link'},
-    {id: 2, name: 'Zelda'}
+    { id: 1, name: 'Link' },
+    { id: 2, name: 'Zelda' }
   ]
 */
 
-db.users.update({name: 'Ganon'}); // db.users = [{id: 1, name: 'Ganon'}, {id: 2, name: 'Ganon'}]
-db.users.update(1, {name: 'Young Link'}); // db.users = [{id: 1, name: 'Young Link'}, {id: 2, name: 'Zelda'}]
-db.users.update({name: 'Link'}, {name: 'Epona'}); // db.users = [{id: 1, name: 'Epona'}, {id: 2, name: 'Zelda'}]
+db.users.update({ name: 'Ganon' }); // db.users = [{ id: 1, name: 'Ganon' }, { id: 2, name: 'Ganon' }]
+db.users.update(1, { name: 'Young Link' }); // db.users = [{ id: 1, name: 'Young Link' }, { id: 2, name: 'Zelda' }]
+db.users.update({ name: 'Link' }, { name: 'Epona' }); // db.users = [{ id: 1, name: 'Epona' }, { id: 2, name: 'Zelda' }]
 ```
 
 <a name="remove" href="#remove">#</a> db.collection.<b>remove</b>(<i>target</i>)
@@ -102,14 +102,14 @@ If *target* is undefined, removes all records. If *target* is a number or string
 ```js
 /* 
   Given users = [
-    {id: 1, name: 'Link'},
-    {id: 2, name: 'Zelda'}
+    { id: 1, name: 'Link' },
+    { id: 2, name: 'Zelda' }
   ]
 */
 
 db.users.remove(); // db.users = []
-db.users.remove(1); // db.users = [{id: 2, name: 'Zelda'}]
-db.users.remove({name: 'Zelda'}); // db.users = [{id: 1, name: 'Link'}]
+db.users.remove(1); // db.users = [{ id: 2, name: 'Zelda' }]
+db.users.remove({ name: 'Zelda' }); // db.users = [{ id: 1, name: 'Link' }]
 ```
 
 <a name="first-or-create" href="#first-or-create">#</a> db.collection.<b>firstOrCreate</b>(<i>query</i>, <i>attributesForCreate</i>)
@@ -119,8 +119,8 @@ Finds the first record matching the provided query in *collection*, or creates a
 ```js
 /* 
   Given users = [
-    {id: 1, name: 'Link'},
-    {id: 2, name: 'Zelda'}
+    { id: 1, name: 'Link' },
+    { id: 2, name: 'Zelda' }
   ]
 */
 let records = db.users.where({ name: 'Link' });

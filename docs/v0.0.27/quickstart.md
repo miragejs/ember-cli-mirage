@@ -14,9 +14,9 @@ export default function() {
   this.get('/api/users', function() {
     return {
       users: [
-        {id: 1, name: 'Zelda'},
-        {id: 2, name: 'Link'},
-        {id: 3, name: 'Epona'},
+        { id: 1, name: 'Zelda' },
+        { id: 2, name: 'Link' },
+        { id: 3, name: 'Epona' },
       ]
     }
   });
@@ -53,9 +53,9 @@ In development, you add data to your database by creating files under the `/mira
 ```js
 // app/mirage/fixtures/users.js
 export default [
-  {id: 1, name: 'Zelda'},
-  {id: 2, name: 'Link'},
-  {id: 3, name: 'Epona'},
+  { id: 1, name: 'Zelda' },
+  { id: 2, name: 'Link' },
+  { id: 3, name: 'Epona' },
 ];
 ```
 

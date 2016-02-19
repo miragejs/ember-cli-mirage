@@ -113,7 +113,7 @@ we could override the name like this:
 
 ```js
 test("I can view the contacts", function() {
-  server.create('contact', {name: 'Zelda'});
+  server.create('contact', { name: 'Zelda' });
 
   visit('/');
 
@@ -132,7 +132,7 @@ Returns the array of records that were added to the database.
 ```js
 test("I can view the contacts", function() {
   server.createList('contact', 5);
-  var youngContacts = server.createList('contact', 5, {age: 15});
+  var youngContacts = server.createList('contact', 5, { age: 15 });
 
   visit('/');
 

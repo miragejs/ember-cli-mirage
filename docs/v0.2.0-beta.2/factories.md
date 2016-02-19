@@ -156,7 +156,7 @@ we could override the name like this:
 
 ```js
 test("I can view the contacts", function() {
-  server.create('contact', {name: 'Zelda'});
+  server.create('contact', { name: 'Zelda' });
 
   visit('/');
 
@@ -177,7 +177,7 @@ Here's an example from a test:
 ```js
 test("I can view the contacts", function() {
   server.createList('contact', 5);
-  var youngContacts = server.createList('contact', 5, {age: 15});
+  var youngContacts = server.createList('contact', 5, { age: 15 });
 
   visit('/');
 
@@ -194,6 +194,6 @@ And one from setting up your development database:
 // mirage/scenarios/default.js
 export default function(server) {
   var contact = server.create('contact');
-  server.createList('address', {contact_id: contact.id});
+  server.createList('address', { contact_id: contact.id });
 }
 ```

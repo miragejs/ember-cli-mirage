@@ -16,7 +16,7 @@ call at the browser level by setting them in a route
 function handler:
 
 ```javascript
-this.post('/users/login', ({user}) => {
+this.post('/users/login', ({ user }) => {
   // log in for 24 hours
   let now = new Date();
   let cookieExpiration = new Date(now.getTime() + (24 * 3600 * 1000));

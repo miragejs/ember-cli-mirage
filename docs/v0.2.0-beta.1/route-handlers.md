@@ -41,8 +41,8 @@ this.verb(path, object[, responseCode]);
 Example:
 
 ```js
-this.get('/api/authors/current', {id: 1, name: 'Link'});
-this.get('/some/secret', {message: 'unauthorized'}, 404);
+this.get('/api/authors/current', { id: 1, name: 'Link' });
+this.get('/some/secret', { message: 'unauthorized' }, 404);
 ```
 
 ## Function handler
@@ -81,7 +81,7 @@ this.post('/api/messages', ({message}, request) => {
   var params = JSON.parse(request.requestBody);
 
   if (!params.title) {
-    return new Mirage.Response(422, {some: 'header'}, {errors: {title: ['cannot be blank']}});
+    return new Mirage.Response(422, { some: 'header' }, { errors: { title: ['cannot be blank']}});
   } else {
     return message.create(params);
   }

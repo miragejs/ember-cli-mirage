@@ -31,7 +31,7 @@ this.get('/users/current', function() {
 this.get('/events', function() {
   var events = [];
   for (var i = 1; i < 1000; i++) {
-    events.push({id: i, value: Math.random()});
+    events.push({ id: i, value: Math.random()});
   };
 
   return events;
@@ -63,7 +63,7 @@ View the [full database API](../database) to see how your routes can interact wi
 ## Dynamic paths and query params
 
 A request object is also injected into each handler, as the second parameter. This object contains data associated with the request, like dynamic route segments and query params.
- 
+
 To define a route that has a dynamic segment, use colon syntax (`:segment`) in your path. The dynamic piece will be available via `request.params.[segment]`:
 
 ```js
@@ -130,7 +130,7 @@ View the [shorthand reference](../shorthands) to see all available shorthands.
 ## Dynamic status codes and HTTP headers
 
 By default, Mirage sets the HTTP code of a response based on the verb being used:
-  
+
   - `get` is 200
   - `put` is 204
   - `post` is 201
@@ -140,12 +140,12 @@ Additionally, a header for `Content-type` is set to `application/json`. You can 
 
 ```js
 this.post('/api/users', function(db, request) {
-  var data = JSON.parse(request.requestBody); 
+  var data = JSON.parse(request.requestBody);
 
   if (data.name) {
     return db.users.insert(data);
   } else {
-    return new Mirage.Response(400, {some: 'header'}, {message: 'name cannot be blank'});
+    return new Mirage.Response(400, { some: 'header' }, { message: 'name cannot be blank' });
   }
 });
 ```

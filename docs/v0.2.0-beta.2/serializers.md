@@ -137,8 +137,8 @@ GET /authors/1
     blogPostIds: [1, 2]
   },
   blogPosts: [
-    {id: 1, authorId: 1, title: 'Lorem'},
-    {id: 2, authorId: 1, title: 'Ipsum'}
+    { id: 1, authorId: 1, title: 'Lorem' },
+    { id: 2, authorId: 1, title: 'Ipsum' }
   ]
 }
 ```
@@ -202,8 +202,8 @@ GET /authors/1
     blogPostIds: [1, 2]
   },
   blogPosts: [
-    {id: 1, authorId: 1, title: 'Lorem'},
-    {id: 2, authorId: 1, title: 'Ipsum'}
+    { id: 1, authorId: 1, title: 'Lorem' },
+    { id: 2, authorId: 1, title: 'Ipsum' }
   ]
 }
 ```
@@ -227,8 +227,8 @@ GET /authors/1
     id: 1,
     name: 'Link',
     blogPosts: [
-      {id: 1, authorId: 1, title: 'Lorem'},
-      {id: 2, authorId: 1, title: 'Ipsum'}
+      { id: 1, authorId: 1, title: 'Lorem' },
+      { id: 2, authorId: 1, title: 'Ipsum' }
     ]
   ]
 }

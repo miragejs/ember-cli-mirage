@@ -41,8 +41,8 @@ this.verb(path, object[, responseCode]);
 Example:
 
 ```js
-this.get('/api/users/current', {id: 1, name: 'Link'});
-this.get('/some/secret', {message: 'unauthorized'}, 404);
+this.get('/api/users/current', { id: 1, name: 'Link' });
+this.get('/some/secret', { message: 'unauthorized' }, 404);
 ```
 
 ## Function handler
@@ -70,7 +70,7 @@ export default function() {
     var id = request.params.id;
     db.users.delete(id);
     // Delete related addresses
-    db.addresses.delete({user_id: id});
+    db.addresses.delete({ user_id: id });
 
     return {};
   });
@@ -79,7 +79,7 @@ export default function() {
     var params = JSON.parse(request.requestBody);
 
     if (!params.title) {
-      return new Mirage.Response(400, {a: 'header'}, {message: 'title cannot be blank'});
+      return new Mirage.Response(400, { a: 'header' }, { message: 'title cannot be blank' });
     } else {
       return db.messages.insert(params);
     }

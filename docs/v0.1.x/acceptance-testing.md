@@ -73,7 +73,7 @@ test("I can view the photos", function() {
 });
 
 test("I see the photo's title on a detail route", function() {
-  var photo = server.create('photo', {title: 'Sunset over Hyrule'});
+  var photo = server.create('photo', { title: 'Sunset over Hyrule' });
 
   visit('/' + photo.id);
 
@@ -98,7 +98,7 @@ We could set up the relationship like this:
 ```js
 test("I see the photo's title on a detail route", function() {
   var user = server.create('user');
-  server.createList('photo', 10, {user_id: user.id});
+  server.createList('photo', 10, { user_id: user.id });
 
   // write your test
 ```
@@ -116,7 +116,7 @@ You can easily assert against Mirage's database state in your tests
 
 ```js
 test('I can update the contact', function(assert) {
-  server.create('contact', {name: 'Lnk'});
+  server.create('contact', { name: 'Lnk' });
 
   visit('/contacts/1');
   click('.edit');
@@ -141,7 +141,7 @@ test('I can update the contact', function(assert) {
     done();
   });
 
-  server.create('contact', {name: 'Lnk'});
+  server.create('contact', { name: 'Lnk' });
 
   visit('/contacts/1');
   click('.edit');

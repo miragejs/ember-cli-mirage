@@ -34,7 +34,7 @@ export default function() {
 
   // this route handles /auth
   this.get('/auth', function() { /* ... */});
-  
+
   this.namespace = '/api';
   // this route will handle the URL '/api/contacts'
   this.get('/contacts', 'contacts');
@@ -91,7 +91,7 @@ If you want all requests on the current domain to pass through, simply invoke th
 this.passthrough();
 ```
 
-Note again that the current namespace (i.e. any `namespace` property defined above this call) will be applied. 
+Note again that the current namespace (i.e. any `namespace` property defined above this call) will be applied.
 
 You can also allow other-origin hosts to passthrough. If you use a fully-qualified domain name, the `namespace` property will be ignored. Use two * wildcards to match all requests under a path:
 
@@ -131,7 +131,7 @@ export default function(server) {
   server.loadFixtures('countries', 'states');
 
   let author = server.create('author');
-  server.createList('post', 10, {author_id: author.id});
+  server.createList('post', 10, { author_id: author.id });
 }
 ```
 

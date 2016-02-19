@@ -56,7 +56,7 @@ this.get('/blog_posts', ({blogPost}, request) => {
 Create a new unsaved model instance with attributes *attrs*.
 
 ```js
-let post = blogPost.new({title: 'Lorem ipsum'});
+let post = blogPost.new({ title: 'Lorem Ipsum' });
 post.title;   // Lorem ipsum
 post.id;      // null
 post.isNew(); // true
@@ -67,7 +67,7 @@ post.isNew(); // true
 Create a new model instance with attributes *attrs*, and insert it into the database.
 
 ```js
-let post = blogPost.create({title: 'Lorem ipsum'});
+let post = blogPost.create({ title: 'Lorem Ipsum' });
 post.title;   // Lorem ipsum
 post.id;      // 1
 post.isNew(); // false
@@ -96,7 +96,7 @@ let posts = blogPost.find([1, 3, 4]);
 Return an array of models in the database matching the key-value pairs in *query*.
 
 ```js
-let posts = blogPost.where({published: true});
+let posts = blogPost.where({ published: true });
 ```
 
 ## Instance methods
@@ -109,7 +109,7 @@ Returns the attributes of your model.
 
 ```js
 let post = blogPost.find(1);
-post.attrs; // {id: 1, title: 'Lorem Ipsum', publishedAt: '2012-01-01 10:00:00'}
+post.attrs; // { id: 1, title: 'Lorem Ipsum', publishedAt: '2012-01-01 10:00:00' }
 ```
 
 ### save()
@@ -117,7 +117,7 @@ post.attrs; // {id: 1, title: 'Lorem Ipsum', publishedAt: '2012-01-01 10:00:00'}
 Create or saves the model.
 
 ```js
-let post = blogPost.new({title: 'Lorem ipsum'});
+let post = blogPost.new({ title: 'Lorem Ipsum' });
 post.id; // null
 
 post.save();
@@ -150,7 +150,7 @@ post.destroy(); // removed from the db
 Boolean, true if the model has been persisted to the db.
 
 ```js
-let post = blogPost.new({title: 'Lorem ipsum'});
+let post = blogPost.new({ title: 'Lorem Ipsum' });
 post.isNew(); // true
 post.id;      // null
 
@@ -169,7 +169,7 @@ Reload a model's data from the database.
 
 ```js
 let post = blogPost.find(1);
-post.attrs;     // {id: 1, title: 'Lorem ipsum'}
+post.attrs;     // { id: 1, title: 'Lorem Ipsum' }
 
 post.title = 'Hipster ipsum';
 post.title;     // 'Hipster ipsum';
@@ -208,7 +208,7 @@ This adds an `authorId` property to your `blogPost` model, as well as some metho
 blogPost.authorId;                // 1
 blogPost.authorId = 2;            // updates the relationship
 blogPost.author;                  // Author instance
-blogPost.author = anotherAuthor; 
+blogPost.author = anotherAuthor;
 blogPost.newAuthor(attrs);        // new unsaved author
 blogPost.createAuthor(attrs);     // new saved author (updates blogPost.authorId in memory only)
 ```

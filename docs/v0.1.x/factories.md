@@ -71,7 +71,7 @@ The [Faker.js](https://github.com/marak/Faker.js/) library is included with Mira
 
 ```js
 // app/mirage/factories/user.js
-import Mirage, {faker} from 'ember-cli-mirage';
+import Mirage, { faker } from 'ember-cli-mirage';
 
 export default Mirage.Factory.extend({
   firstName() { return faker.name.firstName(); },
@@ -84,7 +84,7 @@ We've also added two methods on the `faker` namespace, `list.cycle` and `list.ra
 
 ```js
 // app/mirage/factories/subject.js
-import Mirage, {faker} from 'ember-cli-mirage';
+import Mirage, { faker } from 'ember-cli-mirage';
 
 export default Mirage.Factory.extend({
   name(i) {
@@ -154,7 +154,7 @@ we could override the name like this:
 
 ```js
 test("I can view the contacts", function() {
-  server.create('contact', {name: 'Zelda'});
+  server.create('contact', { name: 'Zelda' });
 
   visit('/');
 
@@ -175,7 +175,7 @@ Here's an example from a test:
 ```js
 test("I can view the contacts", function() {
   server.createList('contact', 5);
-  var youngContacts = server.createList('contact', 5, {age: 15});
+  var youngContacts = server.createList('contact', 5, { age: 15 });
 
   visit('/');
 
@@ -192,6 +192,6 @@ And one from setting up your development database:
 // app/mirage/scenarios/default.js
 export default function(server) {
   var contact = server.create('contact');
-  server.createList('address', {contact_id: contact.id});
+  server.createList('address', { contact_id: contact.id });
 }
 ```

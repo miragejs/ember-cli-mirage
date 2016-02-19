@@ -33,7 +33,7 @@ this.get('/users/current', () => {
 this.get('/events', () => {
   let events = [];
   for (let i = 1; i < 1000; i++) {
-    events.push({id: i, value: Math.random()});
+    events.push({ id: i, value: Math.random()});
   };
 
   return events;
@@ -312,9 +312,9 @@ GET /authors/1
     name: 'Link' 
   },
   posts: [
-    {id: 1, authorId: 1, title: "The Beauty of Hyrule"},
-    {id: 2, authorId: 1, title: "Really, I'm an Elf!"},
-    {id: 3, authorId: 1, title: "Ganondorf is my Father"}
+    { id: 1, authorId: 1, title: "The Beauty of Hyrule"},
+    { id: 2, authorId: 1, title: "Really, I'm an Elf!"},
+    { id: 3, authorId: 1, title: "Ganondorf is my Father"}
   ]
 }
 ```
@@ -349,7 +349,7 @@ export default function() {
     if (attrs.name) {
       return schema.author.create(attrs);
     } else {
-      return new Response(400, {some: 'header'}, {errors: ['name cannot be blank']});
+      return new Response(400, { some: 'header' }, { errors: ['name cannot be blank']});
     }
   });
 }

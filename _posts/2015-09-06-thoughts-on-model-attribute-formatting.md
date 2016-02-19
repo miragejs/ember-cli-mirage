@@ -8,7 +8,7 @@ I ran into an interesting problem while working on the serializer layer. I was j
 Currently, Mirage's database simply takes whatever POJO of attrs you give it, and sticks that in its db. So if you write
 
 ```js
-db.users.create({first_name: 'Link'})
+db.users.create({ first_name: 'Link' })
 ```
 
 then you'll end up with that POJO in the db, but if you use `first-name`, you'll get that instead. This was originally done to make things as simple as possible - your db fields matched your API responses, so fixtures would "just work", and accessing the data is as you'd expect based on your API.

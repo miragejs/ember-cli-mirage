@@ -33,7 +33,7 @@ this.get('/users/current', function() {
 this.get('/events', function() {
   var events = [];
   for (var i = 1; i < 1000; i++) {
-    events.push({id: i, value: Math.random()});
+    events.push({ id: i, value: Math.random()});
   };
 
   return events;
@@ -152,7 +152,7 @@ export default function() {
     if (data.name) {
       return db.users.insert(data);
     } else {
-      return new Mirage.Response(400, {some: 'header'}, {message: 'name cannot be blank'});
+      return new Mirage.Response(400, { some: 'header' }, { message: 'name cannot be blank' });
     }
   });
 }

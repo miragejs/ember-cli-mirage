@@ -114,7 +114,7 @@ and the payload would look like
 
 ---
 
-## relationships
+## include
 
 Use this property on a model serializer to specify related models you'd like to include in your JSON payload.
 
@@ -127,7 +127,7 @@ export default Model.extend({
 });
 ```
 
-and you wanted to sideload these, specify so in the `relationships` key:
+and you wanted to sideload these, specify so in the `include` key:
 
 ```js
 // mirage/serializers/authors.j

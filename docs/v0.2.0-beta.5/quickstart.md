@@ -93,8 +93,8 @@ export default Factory.extend({
 
 This factory creates objects like
 
-```
-{
+```javascript
+[{
   name: 'Person 1',
   age: 28,
   admin: false,
@@ -105,12 +105,12 @@ This factory creates objects like
   age: 28,
   admin: false,
   avatar: 'https://s3.amazonaws.com/uifaces/faces/twitter/nemanjaivanovic/128.jpg'
-}
+}]
 ```
 
 and so on, which will automatically be inserted into the `authors` database table. The database will assign each record an `id`, and now we can interact with this data in our route handlers.
 
-To invoke our new factory definition, we can use the `server.create` and `server.createList` methods in development:
+To use our new factory, we can call the `server.create` and `server.createList` methods in development:
 
 ```js
 // mirage/scenarios/default.js
@@ -130,7 +130,7 @@ test("I can view the authors", function() {
 
   visit('/authors');
 
-  andThen(function() {
+  andThen(() => {
     equal( find('li').length, 3 );
     equal( find('li:first').text(), authors[0].name );
   });
@@ -162,11 +162,10 @@ export default Model;
 Now Mirage knows about the relationship between these two models, which can be useful when writing route handlers:
 
 ```js
-this.post('/authors/:id/blog-posts', (schema, request) => {
+this.get('/authors/:id/blog-posts', (schema, request) => {
   let author = schema.author.find(request.params.id);
-  let attrs = JSON.parse(request.requestBody);
 
-  return author.createBlogPost(attrs);
+  return author.blogPosts;
 });
 ```
 
@@ -204,6 +203,7 @@ export default function() {
 With the above config, a GET to `/authors/1` would return something like
 
 ```
+/*
 {
   author: {
     id: 1,
@@ -214,6 +214,7 @@ With the above config, a GET to `/authors/1` would return something like
     ...
   ]
 }
+*/
 ```
 
 Mirage ships with two named serializers, JSONAPISerializer and ActiveModelSerializer, to save you the trouble of writing this custom code yourself. See the [serializer guide](../serializers) to learn more.
@@ -227,10 +228,8 @@ Mirage ships with two named serializers, JSONAPISerializer and ActiveModelSerial
 Mirage has *shorthands* to reduce the code needed for conventional API routes. For example, the route handler
 
 ```js
-this.get('/authors', function(schema, request) {
-  return {
-    authors: schema.author.all()
-  };
+this.get('/authors', (schema, request) => {
+  return schema.author.all();
 });
 ```
 

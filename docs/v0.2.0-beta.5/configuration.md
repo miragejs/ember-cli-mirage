@@ -170,7 +170,7 @@ Set these options via the `ENV['ember-cli-mirage']` variable in your `config/env
 if (environment === 'production') {
   ENV['ember-cli-mirage'] = {
     enabled: true
-  }
+  };
 }
 ```
 
@@ -186,7 +186,7 @@ For example, to enable in production (e.g. to share a working prototype before y
 if (environment === 'production') {
   ENV['ember-cli-mirage'] = {
     enabled: true
-  }
+  };
 }
 ```
 
@@ -198,7 +198,7 @@ To disable in development,
 if (environment === 'development') {
   ENV['ember-cli-mirage'] = {
     enabled: false
-  }
+  };
 }
 ```
 
@@ -231,5 +231,5 @@ For example, to have your server definition under `/app/mirage`,
 ...
 ENV['ember-cli-mirage'] = {
   directory: 'app/mirage'
-}
+};
 ```

@@ -3,7 +3,7 @@ title: Route handlers
 version: v0.2.0-beta.5
 ---
 
-You define route handlers using the four verb methods (`get`, `post`, `put` and `del`). All handlers have the following signature:
+You define route handlers using the verb methods (`get`, `post`, `put`/`patch`, and `del`). All handlers have the following signature:
 
 ```js
 this.verb(path, handler[, responseCode, options={}]);
@@ -14,11 +14,11 @@ There are three types of route handlers: [shorthand](#shorthands), [object](#obj
 The status code for all three types defaults to the following, based on the verb being used for the route:
 
   - GET is 200
-  - PUT is 204
+  - PUT/PATCH is 204
   - POST is 201
   - DEL is 204
 
-PUT and POST change to 200 if there is a response body.
+PUT/PATCH and POST change to 200 if there is a response body.
 
 The optional `options` hash passed as the last parameter has `timing` and `coalesce` options.
 

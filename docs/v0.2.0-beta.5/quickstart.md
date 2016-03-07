@@ -239,13 +239,13 @@ can be written as
 this.get('/authors');
 ```
 
-There are also shorthands for `put`, `post` and `del` methods. Here's a full set of resourceful routes for an `author` resource:
+There are also shorthands for `put` (or `patch`), `post` and `del` methods. Here's a full set of resourceful routes for an `author` resource:
 
 ```js
 this.get('/authors');
 this.get('/authors/:id');
 this.post('/authors');
-this.put('/authors/:id');
+this.put('/authors/:id'); // or this.patch
 this.del('/authors/:id');
 ```
 

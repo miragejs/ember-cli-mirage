@@ -16,7 +16,7 @@ export default function startMirage(container) {
 }
 ```
 
-Then, add the following to any test where you want Mirage to initialize:
+Then, add the following to any test where you want Mirage to initialize. Note that you should manually shutdown the Mirage server as well:
 
 ```js
 // tests/integration/components/your-test.js
@@ -24,8 +24,11 @@ import startMirage from '../../helpers/setup-mirage-for-integration';
 
 moduleForComponent('your-component', 'Integration | Component | your component', {
   integration: true,
-  setup: function() {
+  beforeEach() {
     startMirage(this.container);
+  },
+  afterEach() {
+    window.server.shutdown();
   }
 });
 ```

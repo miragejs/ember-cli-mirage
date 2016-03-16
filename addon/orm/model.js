@@ -88,7 +88,7 @@ class Model {
   }
 
   isSaved() {
-    return this.attrs.id !== undefined && this.attrs.id !== null;
+    return !this.isNew();
   }
 
   /*
@@ -170,19 +170,29 @@ class Model {
   }
 
   _saveAssociations() {
+    Object.keys(this.hasOneAssociations).forEach(key => {
+      let association = this.hasOneAssociations[key];
+      let child = this[key];
+      if (child && child.isNew()) {
+        let fk = association.getForeignKey();
+        child[fk] = this.id;
+        child.save();
+      }
+    });
+
     Object.keys(this.belongsToAssociations).forEach(key => {
-      var association = this.belongsToAssociations[key];
-      var parent = this[key];
+      let association = this.belongsToAssociations[key];
+      let parent = this[key];
       if (parent && parent.isNew()) {
-        var fk = association.getForeignKey();
+        let fk = association.getForeignKey();
         parent.save();
         this.update(fk, parent.id);
       }
     });
 
     Object.keys(this.hasManyAssociations).forEach(key => {
-      var association = this.hasManyAssociations[key];
-      var children = this[key];
+      let association = this.hasManyAssociations[key];
+      let children = this[key];
       children.update(association.getForeignKey(), this.id);
     });
   }

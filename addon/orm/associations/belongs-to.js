@@ -74,13 +74,13 @@ class BelongsTo extends Association {
         object.parent = (parentModel)
           - sets the associated parent (via model)
       */
-      set(newModel) {
-        if (newModel && newModel.isNew()) {
+      set(model) {
+        if (model && model.isNew()) {
           this[foreignKey] = null;
-          association._tempParent = newModel;
-        } else if (newModel) {
+          association._tempParent = model;
+        } else if (model) {
           association._tempParent = null;
-          this[foreignKey] = newModel.id;
+          this[foreignKey] = model.id;
         } else {
           association._tempParent = null;
           this[foreignKey] = null;

@@ -22,4 +22,4 @@ To install the latest beta, run
 ember install ember-cli-mirage@beta
 ```
 
-Check out the [upgrade guide](../0-2-0-upgrade-guide) if you're coming from Mirage 0.1.x.
+Check out the [upgrade guide](../upgrading/#x--02-upgrade-guide) if you're coming from Mirage 0.1.x.

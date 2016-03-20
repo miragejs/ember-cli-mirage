@@ -67,6 +67,7 @@ which sets up our database (at run-time) with an `authors` table. Now we can rew
 A `schema` object is injected into each route handler as the first parameter, which is how we access our models. Let's use it to make this route dynamic:
 
 ```js
+// mirage/config.js
 this.get('/authors', (schema) => {
   return schema.author.all();
 });
@@ -117,7 +118,7 @@ The request object that's injected into your route handlers contains any dynamic
 To define a route that has a dynamic segment, use colon syntax (`:segment`) in your path. The dynamic piece will be available via `request.params.[segment]`:
 
 ```js
-this.get('/authors/:id', function(schema, request) {
+this.get('/authors/:id', (schema, request) => {
   var id = request.params.id;
 
   return schema.author.find(id);

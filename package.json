@@ -9,7 +9,7 @@
   "scripts": {
     "build": "ember build",
     "start": "ember server",
-    "test": "ember try:testall && mocha tests/**/*-test-node.js"
+    "test": "ember try:testall && node node_modules/.bin/mocha tests/**/*-test-node.js"
   },
   "repository": {
     "type": "git",

@@ -58,7 +58,7 @@ Note that this is a global parameter which affects all routes. You can override 
 
 <a name="passthrough" href="#passthrough">#</a> this.**passthrough**(*path1*, *path2*..., *options*)
 
-By default, if your Ember app maks a request that is not defined in your server config, Mirage will throw an error. You can use `passthrough` to whitelist requests, and allow them to pass through your Mirage server to the actual network layer.
+By default, if your Ember app makes a request that is not defined in your server config, Mirage will throw an error. You can use `passthrough` to whitelist requests, and allow them to pass through your Mirage server to the actual network layer.
 
 <aside class='Docs-page__aside'>
   <p>Put all passthrough config at the bottom of your <code>config.js</code> file, to give your route handlers precedence.</p>
@@ -137,9 +137,9 @@ export default function(server) {
 
 <a name="pretender" href="#pretender">#</a> this.**pretender**
 
-Mirage uses [pretender.js](https://github.com/trek/pretender) as its xhttp interceptor. In your Mirage config, `this.pretender` refers to the actual pretender instance, so any config options that work there will work here as well. By default, content returned is json stringified, so you can just return js objects.
+Mirage uses [pretender.js](https://github.com/trek/pretender) as its xhttp interceptor. In your Mirage config, `this.pretender` refers to the actual Pretender instance, so any config options that work there will work here as well. By default, content returned is json stringified, so you can just return js objects.
 
-Refer to [pretender's docs](https://github.com/trek/pretender#mutating-the-body) if you want to change this or any other options on your pretender instance.
+Refer to [Pretender's docs](https://github.com/trek/pretender#mutating-the-body) if you want to change this or any other options on your Pretender instance.
 
 
 <a name="testConfig" href="#testConfig">#</a> **testConfig**
@@ -158,7 +158,7 @@ export function testConfig() {
 }
 ```
 
-This could be useful if you'd like use Mirage in testing, but generally proxy to an actual API during development. As you develop, your frontend may be ahead of your API, in which case you'd work with the routes in the default config, and write your tests. Then, once your API implements the new endpoints, you can move the routes to your testConfig, so your tests still run, but Mirage doesn't interfere during development.
+This could be useful if you'd like to use Mirage in testing, but generally proxy to an actual API during development. As you develop, your frontend may be ahead of your API, in which case you'd work with the routes in the default config, and write your tests. Then, once your API implements the new endpoints, you can move the routes to your testConfig, so your tests still run, but Mirage doesn't interfere during development.
 
 ## Environment options
 

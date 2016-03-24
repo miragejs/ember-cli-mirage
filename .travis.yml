@@ -1,7 +1,7 @@
 ---
 language: node_js
 node_js:
-  - "0.12"
+  - "4"
 
 sudo: false
 
@@ -35,4 +35,4 @@ install:
   - export PATH=$PWD/travis-phantomjs:$PATH
 
 script:
-  - ember try $EMBER_TRY_SCENARIO test && mocha tests/**/*-test-node.js
+  - ember try $EMBER_TRY_SCENARIO test && node node_modules/.bin/mocha tests/**/*-test-node.js

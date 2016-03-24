@@ -9,7 +9,7 @@
   "scripts": {
     "build": "ember build",
     "start": "ember server",
-    "test": "ember try:testall && mocha tests/**/*-test-node.js"
+    "test": "ember try:testall && node node_modules/.bin/mocha tests/**/*-test-node.js"
   },
   "repository": {
     "type": "git",
@@ -49,7 +49,7 @@
     "ember-sinon": "0.3.0",
     "ember-try": "~0.0.8",
     "loader.js": "^4.0.0",
-    "mocha": "^2.1.0"
+    "mocha": "2.4.5"
   },
   "keywords": [
     "ember-addon",

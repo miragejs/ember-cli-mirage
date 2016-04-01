@@ -155,7 +155,7 @@ post.destroy(); // removed from the db
 
 ### isNew()
 
-Boolean, true if the model has been persisted to the db.
+Boolean, true if the model has not been persisted yet to the db.
 
 ```js
 let post = blogPost.new({title: 'Lorem ipsum'});

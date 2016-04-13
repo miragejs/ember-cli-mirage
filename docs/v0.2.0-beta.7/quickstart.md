@@ -3,7 +3,7 @@ title: Quickstart
 version: v0.2.0-beta.7
 ---
 
-Mirage is all about mocking out your API server. You define *route handlers* to respond to your Ember app's AJAX requests.
+Mirage is all about faking your API server. You define *route handlers* to respond to your Ember app's AJAX requests.
 
 Here's a simple example of a handler:
 
@@ -26,15 +26,15 @@ export default function() {
 
 Now whenever your Ember app makes a GET request to `/api/authors`, Mirage will respond with this data.
 
-## Dynamic mocks
+## Dynamic data
 
-This works, and is traditionally how HTTP mocking is done - but hard-coded responses like this have a few problems:
+This works, and is a common way to isolate tests from a real HTTP server - but hard-coded responses like this have a few problems:
 
    - *They're inflexible*. What if you want to change this route's response data in your tests?
-   - *They contain formatting logic*. Logic that formats the shape of your JSON payload (e.g., including the root `authors` key) is now duplicated across all your mock routes.
-   - *They're too basic.* Inevitably, when your mocks need to deal with more complex things like relationships, these simple ad hoc responses start to break down.
+   - *They contain formatting logic*. Logic that formats the shape of your JSON payload (e.g., including the root `authors` key) is now duplicated across all your route handlers.
+   - *They're too basic.* Inevitably, when your fake server needs to deal with more complex things like relationships, these simple ad hoc responses start to break down.
 
-Mirage provides some primitives that let you write more flexible, powerful mocks. Let's see how they work by replacing our basic mock above.
+Mirage provides primitives that let you write a more flexible server implementation. Let's see how they work by replacing our basic stub data above.
 
 First, create an `author` model by running the following in your terminal:
 
@@ -51,11 +51,11 @@ import { Model } from 'ember-cli-mirage';
 export default Model;
 ```
 
-The model will create an `authors` table in Mirage's *in-memory database*. The database enables our mocks to be dynamic, and lets us change the return data without rewriting the entire mock. In this way, we can share a single set of mock routes in both development and testing, while still having control over the response data.
+The model will create an `authors` table in Mirage's *in-memory database*. The database makes our route handlers dynamic&mdash;we can change the returned data without rewriting the handler. In this way, we can share a single implementation for a route in both development and testing, while still having control over the response data.
 
 Let's update our route handler to be dynamic:
 
-```js 
+```js
 this.get('/api/authors', (schema, request) => {
   return schema.author.all();
 });
@@ -137,11 +137,11 @@ test("I can view the authors", function() {
 });
 ```
 
-You now have a simple way to set up your mock server's initial data, both during development and on a per-test basis.
+You now have a simple way to set up your fake server's initial data, both during development and on a per-test basis.
 
 ## Associations and serializers
 
-Dealing with associations is always tricky, and mocking endpoints that deal with associations is no exception. Fortunately, Mirage ships with an ORM to help keep your mocks clean.
+Dealing with associations is always tricky, and faking endpoints that deal with associations is no exception. Fortunately, Mirage ships with an ORM to help keep your routes clean.
 
 Let's say your author has many blog-posts. You can declare this relationship in your model:
 
@@ -169,7 +169,7 @@ this.get('/authors/:id/blog-posts', (schema, request) => {
 });
 ```
 
-Mirage's serializer layer is also aware of your relationships, which helps when mocking endpoints that sideload or embed related data. Models and collections that are returned from a route handler pass through the serializer layer, where you can customize which attributes and associations to include, as well as override other formatting options:
+Mirage's serializer layer is also aware of your relationships, which helps when faking endpoints that sideload or embed related data. Models and collections that are returned from a route handler pass through the serializer layer, where you can customize which attributes and associations to include, as well as override other formatting options:
 
 ```js
 // mirage/serializers/application.js
@@ -253,16 +253,16 @@ Shorthands make writing your server definition concise, so you should use them w
 
 ## Passthrough
 
-Mirage is a great tool to use even if you're working on an existing app that doesn't have any mocks. By default, Mirage throws an error if your Ember app makes a request that doesn't have a corresponding mock defined. To avoid this, tell Mirage to let unhandled requests pass through:
+Mirage is a great tool to use even if you don't want to fake your entire API. By default, Mirage throws an error if your Ember app makes a request that doesn't have a corresponding route handler defined. To avoid this, tell Mirage to let unhandled requests pass through:
 
 ```js
 // mirage/config.js
 this.passthrough();
 ```
 
-Now you can develop as you normally would, for example against an existing API. 
+Now you can develop as you normally would, for example against an existing API.
 
-When it comes time to build a new feature, you don't have to wait for the API to be updated. Just mock out the new route that you need
+When it comes time to build a new feature, you don't have to wait for the API to be updated. Just define the new route that you need
 
 ```js
 // mirage/config.js
@@ -271,7 +271,7 @@ this.get('/comments');
 this.passthrough();
 ```
 
-and you can fully develop and test the feature. In this way you can build up your mock server piece by piece - adding some solid acceptance tests along the way.
+and you can fully develop and test the feature. In this way you can build up your fake server piece by piece - adding some solid acceptance tests along the way.
 
 ---
 

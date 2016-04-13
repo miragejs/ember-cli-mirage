@@ -9,7 +9,7 @@ The application serializer (`/mirage/serializers/application.js`) will apply to 
 
 Any Model or Collection returned from a route handler will pass through the serializer layer. Highest priority will be given to a model-specific serializer, then the application serializer, then the default serializer.
 
-Mirage ships with two named serializers. Use **JsonApiSerializer** to mock out JSON:API compliant servers:
+Mirage ships with two named serializers. Use **JsonApiSerializer** to simulate JSON:API compliant servers:
 
 ```js
 // mirage/serializers/application.js
@@ -18,7 +18,7 @@ import JsonApiSerializer from 'ember-cli-mirage/serializers/json-api-serializer'
 export default JsonApiSerializer;
 ```
 
-Use **ActiveModelSerializer** to mock out Rails backends that use AMS-style responses:
+Use **ActiveModelSerializer** to fake Rails backends that use AMS-style responses:
 
 ```js
 // mirage/serializers/application.js
@@ -179,7 +179,7 @@ Setting `root` to false disables this:
 ```js
 // mirage/serializers/application.js
 export default Serializer.extend({
-  root: false 
+  root: false
 });
 ```
 
@@ -224,7 +224,7 @@ Setting `embed` to true will embed related records:
 ```js
 // mirage/serializers/application.js
 export default Serializer.extend({
-  embed: true 
+  embed: true
 });
 ```
 

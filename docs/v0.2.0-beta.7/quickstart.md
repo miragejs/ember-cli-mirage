@@ -3,7 +3,7 @@ title: Quickstart
 version: v0.2.0-beta.7
 ---
 
-Mirage is all about faking your API server. You define *route handlers* to respond to your Ember app's AJAX requests.
+Mirage is all about simulating your API server. You define *route handlers* to respond to your Ember app's AJAX requests.
 
 Here's a simple example of a handler:
 
@@ -28,7 +28,7 @@ Now whenever your Ember app makes a GET request to `/api/authors`, Mirage will r
 
 ## Dynamic data
 
-This works, and is a common way to isolate tests from a real HTTP server - but hard-coded responses like this have a few problems:
+This works, and is a common way to simulate HTTP responses - but hard-coded responses like this have a few problems:
 
    - *They're inflexible*. What if you want to change this route's response data in your tests?
    - *They contain formatting logic*. Logic that formats the shape of your JSON payload (e.g., including the root `authors` key) is now duplicated across all your route handlers.
@@ -51,7 +51,7 @@ import { Model } from 'ember-cli-mirage';
 export default Model;
 ```
 
-The model will create an `authors` table in Mirage's *in-memory database*. The database makes our route handlers dynamic&mdash;we can change the returned data without rewriting the handler. In this way, we can share a single implementation for a route in both development and testing, while still having control over the response data.
+The model will create an `authors` table in Mirage's *in-memory database*. The database makes our route handlers dynamic&mdash;we can change the returned data without rewriting the handler. In this way, we can share the same route definitions in both development and testing, while still having control over their response data.
 
 Let's update our route handler to be dynamic:
 
@@ -253,7 +253,7 @@ Shorthands make writing your server definition concise, so you should use them w
 
 ## Passthrough
 
-Mirage is a great tool to use even if you don't want to fake your entire API. By default, Mirage throws an error if your Ember app makes a request that doesn't have a corresponding route handler defined. To avoid this, tell Mirage to let unhandled requests pass through:
+Mirage is a great tool to use even if you're working on an existing app, or if you don't want to fake your entire API. By default, Mirage throws an error if your Ember app makes a request that doesn't have a corresponding route handler defined. To avoid this, tell Mirage to let unhandled requests pass through:
 
 ```js
 // mirage/config.js

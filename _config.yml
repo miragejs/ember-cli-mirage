@@ -9,8 +9,8 @@ kramdown:
 
 # Setup
 title: Ember CLI Mirage
-tagline: 'Easy API mocking for your Ember app'
-description: 'A client-side mock server to develop, test and prototype your Ember CLI app'
+tagline: 'Develop and test your Ember app against a client-side server'
+description: 'A client-side server to develop, test and prototype your Ember CLI app'
 url: https://github.com/samselikoff/ember-cli-mirage
 baseurl: ''
 destination: jekyll-tmp/

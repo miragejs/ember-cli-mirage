@@ -117,17 +117,17 @@ this.post('/api/messages', ({message}, request) => {
 });
 ```
 
-If you return a string, it will not be `JSON.stringified`, so you can mock out responses other than JSON.
+If you return a string, it will not be `JSON.stringified`, so you can return responses other than JSON.
 
 ## External origins
 
-You can use Mirage to mock out other-origin requests. By default, a mock like
+You can use Mirage to simulate other-origin requests. By default, a route like
 
 ```js
 this.get('/contacts', ...)
 ```
 
-will hit the same origin that's serving your Ember app. To mock out a different origin, add the fully qualified domain name to your mock:
+will hit the same origin that's serving your Ember app. To handle a different origin, use the fully qualified domain name:
 
 ```js
 this.get('http://api.twitter.com/v1', ...)
@@ -139,6 +139,6 @@ If your entire Ember app uses an external (other-origin) API, you can globally c
 // mirage/config.js
 this.urlPrefix = 'https://my.api.com';
 
-// This mock will handle requests to https://my.api.com/contacts
+// This route will handle requests to https://my.api.com/contacts
 this.get('/contacts', ...)
 ```

@@ -114,7 +114,7 @@ As long as all your Mirage routes read from and write to the database, user inte
 ## Dynamic paths and query params
 
 The request object that's injected into your route handlers contains any dynamic route segments and query params.
- 
+
 To define a route that has a dynamic segment, use colon syntax (`:segment`) in your path. The dynamic piece will be available via `request.params.[segment]`:
 
 ```js
@@ -154,7 +154,7 @@ which infers the collection name from the last part of the URL. Returning a sing
 this.get('/authors/:id');
 ```
 
-Similarly, we wrote a mock by hand to deal with creating an author
+Similarly, we wrote a route handler by hand to deal with creating an author
 
 ```js
 this.post('/authors', (schema, request) => {
@@ -177,7 +177,7 @@ View the [full reference](../shorthands) to see all available shorthands.
 
 When you return a model or a collection from a route handler, Mirage *serializes* it into a JSON payload, and then responds to your Ember app with that payload. It uses an object called a Serializer to do this, which you can customize. Having a single object that's responsible for this formatting logic helps keep your route handlers simple. In particular, a bit of customization in the serializer layer often lets you use shorthands when you otherwise wouldn't be able to.
 
-Mirage ships with two named serializers, JsonApiSerializer (used to mock servers implementing [JSON:API](http://jsonapi.org/)) and ActiveModelSerializer (used to mock Rails servers using ActiveModel::Serializers). You should use these if your app's backend will be built to conform to either standard.
+Mirage ships with two named serializers, JsonApiSerializer (used to implement [JSON:API](http://jsonapi.org/)) and ActiveModelSerializer (used to simulate Rails servers using ActiveModel::Serializers). You should use these if your app's backend will be built to conform to either standard.
 
 Additionally, there's a basic Serializer class that you can use and customize. By default, it takes all the attributes of your model, and returns them under a root key of the model type. Suppose you had the following author in your database:
 
@@ -221,7 +221,7 @@ import Ember from 'ember';
 const { dasherize } = Ember.String;
 
 export default Serializer.extend({
-  
+
   keyForAttribute(key) {
     return dasherize(key);
   }
@@ -251,8 +251,8 @@ Just like in Ember, the `application/serializer.js` file will apply to all your 
 import ApplicationSerializer from './application';
 
 export default ApplicationSerializer.extend({
-  
-  attributes: ['firstName'] 
+
+  attributes: ['firstName']
 
 });
 ```
@@ -310,7 +310,7 @@ GET /authors/1
 {
   author: {
     id: 1,
-    name: 'Link' 
+    name: 'Link'
   },
   posts: [
     {id: 1, authorId: 1, title: "The Beauty of Hyrule"},
@@ -330,7 +330,7 @@ Mirage's database uses camelcase for all model attributes, including foreign key
 ## Dynamic status codes and HTTP headers
 
 By default, Mirage sets the HTTP code of a response based on the verb being used:
-  
+
   - `get`, `put` and `del` are 200
   - `post` is 201
 
@@ -359,7 +359,7 @@ export default function() {
 
 ## Fully qualified URLs
 
-Route handlers for paths without a domain (e.g. `this.get('/authors')`) work for requests that target the current domain. To mock out other-origin requests, specify the fully qualified URL for your route handler:
+Route handlers for paths without a domain (e.g. `this.get('/authors')`) work for requests that target the current domain. To simulate other-origin requests, specify the fully qualified URL for your route handler:
 
 ```js
 this.get('https://api.github.com/users/samselikoff/events', () => {

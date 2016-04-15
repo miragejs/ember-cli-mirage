@@ -90,7 +90,7 @@ We override `title` in the second test since it's relevant there, but we stick w
 
 ## Asserting a server call was made in a test
 
-Often you'll write tests against your application's UI, which will verify that the proper data from Mirage was returned. However, because Mirage gives you a full mock server, you can gain more confidence from your tests by asserting against Mirage's server state, in addition to testing your Ember app's UI.
+Often you'll write tests against your application's UI, which will verify that the proper data from Mirage was returned. However, because Mirage gives you a full client-side server, you can gain more confidence from your tests by asserting against Mirage's server state, in addition to testing your Ember app's UI.
 
 There are two general approaches to this. First, you can assert directly against Mirage's database:
 
@@ -162,4 +162,4 @@ This route handler definition is only in effect for the duration of this test, s
 
 ---
 
-You should now know enough to mock out your API and test your app using Mirage!
+You should now know enough to fake your production API and test your app using Mirage!

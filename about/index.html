@@ -4,13 +4,13 @@ title: About
 ---
 
 <div class="About">
-  
+
   <div class='About__section'>
     <h1 class='About__heading'>About Mirage</h1>
     <div class='About__content'>
-      <p>Mirage was created to let you easily mock out your JSON API. It's built on existing libraries, but brings along conventions to make setting up your mock server quick and painless.</p>
-      <p>One primary goal of the project is maintainability. New developers should be able to jump into an existing Ember project that uses Mirage and understand the API endpoints the app expects, be able to create mock data for tests, add new routes, and more, without having to understand a custom mocking setup.</p>
-      <p>Additionally, an Ember test suite that uses Mirage can run anywhere a normal test suite can, since Mirage runs completely in the client. Many existing mocking solutions rely on a node server, which can make CI integration cumbersome.</p>
+      <p>Mirage was created to let you easily fake your JSON API. It's built on existing libraries, but brings along conventions to make setting up your fake server quick and painless.</p>
+      <p>One primary goal of the project is maintainability. New developers should be able to jump into an existing Ember project that uses Mirage and understand the API endpoints the app expects, be able to create data for tests, add new routes, and more, without having to understand a custom setup.</p>
+      <p>Additionally, an Ember test suite that uses Mirage can run anywhere a normal test suite can, since Mirage runs completely in the client. Many existing solutions rely on a node server, which can make CI integration cumbersome.</p>
     </div>
   </div>
 
@@ -29,12 +29,12 @@ title: About
       <p>Yes! This is a great use case for Mirage. Simply <a href="{{ site.baseurl }}/docs/{{site.default_version}}/server-configuration/#enabled">enable Mirage in production</a>, and everything will work just like it does in development.</p>
       <p><strong>This project seems complex. Is it a good idea?</strong></p>
       <p>Mirage tries to do a lot so you don't have to. Mirage server definitions end up being straightforward, which is especially important for long-lived projects with multiple developers.</p>
-      <p>As long as people are mocking out JSON APIs for testing and development, we should try to build on each other's knowledge, and establish some conventions.</p>
+      <p>As long as people are faking JSON APIs for testing and development, we should try to build on each other's knowledge, and establish some conventions.</p>
       <p><strong>What's on the roadmap?</strong></p>
       <p>Several things:</p>
       <ul>
         <li><a href="https://github.com/samselikoff/ember-cli-mirage/issues/69">An ORM</a>, to simplify CRUD operations on associations</li>
-        <li><a href="https://github.com/samselikoff/ember-cli-mirage/issues/24">Websocket mocking</a></li>
+        <li><a href="https://github.com/samselikoff/ember-cli-mirage/issues/24">Simulating websockets</a></li>
         <li><a href="https://github.com/samselikoff/ember-cli-mirage/issues/28">Factory relationships</a></li>
         <li><a href="https://github.com/samselikoff/ember-cli-mirage/issues/2">Serializers</a></li>
       </ul>

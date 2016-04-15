@@ -5,7 +5,7 @@ version: v0.2.0-beta.7
 redirect_from: "/docs/latest/seeding-your-database/"
 ---
 
-Once you've defined your server's routes, you'll probably want to seed your database with some initial data. You can use factories or fixtures, or both. 
+Once you've defined your server's routes, you'll probably want to seed your database with some initial data. You can use factories or fixtures, or both.
 
 In general Mirage recommends that you use factories, for a few reasons:
 
@@ -54,7 +54,7 @@ and so on.
   <p>View the full <a href="../factories#using-fakerjs">faker guide</a>.</p>
 </aside>
 
-Mirage also includes the Faker.js library, which pairs nicely with your factories to make your mock data more realistic:
+Mirage also includes the Faker.js library, which pairs nicely with your factories to make your data more realistic:
 
 ```js
 // mirage/factories/author.js
@@ -207,4 +207,4 @@ export default [
 
 ---
 
-You should now know how to seed your database with data, both during development and testing! Let's wrap up with a look at how to use your shiny new mock server to write some acceptance tests for your Ember app.
+You should now know how to seed your database with data, both during development and testing! Let's wrap up with a look at how to use your shiny new client-side server to write some acceptance tests for your Ember app.

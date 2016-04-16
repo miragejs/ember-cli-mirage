@@ -4,35 +4,27 @@ import Model from 'ember-cli-mirage/orm/model';
 import Db from 'ember-cli-mirage/db';
 import {module, test} from 'qunit';
 
-var schema;
-module('Integration | Schema | Creating an Unregistered Model', {
+var db, schema, User;
+module('Integration | ORM | create', {
   beforeEach() {
-    schema = new Schema(new Db());
+    User = Model.extend();
+    db = new Db();
+    schema = new Schema(db, {
+      user: User
+    });
   }
 });
 
 test('it cannot make new models that havent been registered', function(assert) {
   assert.throws(function() {
-    schema.user.new({ name: 'Link' });
+    schema.author.new({ name: 'Link' });
   });
 });
 
 test('it cannot create models that havent been registered', function(assert) {
   assert.throws(function() {
-    schema.user.create({ name: 'Link' });
+    schema.author.create({ name: 'Link' });
   });
-});
-
-var db, schema, User;
-module('Integration | Schema | Creating a Model', {
-  beforeEach() {
-    db = new Db();
-
-    User = Model.extend();
-    schema = new Schema(db, {
-      user: User
-    });
-  }
 });
 
 test('it can make new models and then save them', function(assert) {

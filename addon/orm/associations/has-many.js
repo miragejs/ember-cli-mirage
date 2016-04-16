@@ -27,8 +27,8 @@ class HasMany extends Association {
     let association = this;
     let foreignKey = this.getForeignKey();
     let relationshipIdsKey = `${camelize(singularize(association.key))}Ids`;
-
     let associationHash = { [key]: this };
+
     modelPrototype.hasManyAssociations = _assign(modelPrototype.hasManyAssociations, associationHash);
     modelPrototype.associationKeys.push(key);
     modelPrototype.associationIdKeys.push(relationshipIdsKey);
@@ -40,16 +40,16 @@ class HasMany extends Association {
           - returns an array of the associated children's ids
       */
       get() {
-        let models = association._cachedChildren || [];
+        let children = association._cachedChildren || new Collection(association.modelName);
 
         if (!this.isNew()) {
           let query = { [foreignKey]: this.id };
-          let savedModels = schema[camelize(association.modelName)].where(query);
+          let savedChildren = schema[camelize(association.modelName)].where(query);
 
-          models = savedModels.mergeCollection(models);
+          children.mergeCollection(savedChildren);
         }
 
-        return models.map(model => model.id);
+        return children.models.map(model => model.id);
       },
 
       /*
@@ -71,7 +71,7 @@ class HasMany extends Association {
           schema[camelize(association.modelName)].find(ids).update(foreignKey, this.id);
 
           // Clear out any old cached children
-          association._cachedChildren = [];
+          association._cachedChildren = new Collection(association.modelName);
         }
 
         return this;
@@ -85,17 +85,16 @@ class HasMany extends Association {
           - returns an array of associated children
       */
       get() {
-        let tempModels = association._cachedChildren || [];
+        let temporaryChildren = association._cachedChildren || new Collection(association.modelName);
 
         if (this.isNew()) {
-          return tempModels;
+          return temporaryChildren;
 
         } else {
-          let query = {};
-          query[foreignKey] = this.id;
-          let savedModels = schema[camelize(association.modelName)].where(query);
+          let query = { [foreignKey]: this.id };
+          let savedChildren = schema[camelize(association.modelName)].where(query);
 
-          return savedModels.mergeCollection(tempModels);
+          return savedChildren.mergeCollection(temporaryChildren);
         }
       },
 
@@ -125,7 +124,7 @@ class HasMany extends Association {
           schema[camelize(association.modelName)].find(models.map(m => m.id)).update(foreignKey, this.id);
 
           // Clear out any old cached children
-          association._cachedChildren = [];
+          association._cachedChildren = new Collection(association.modelName);
         }
       }
     });
@@ -142,7 +141,7 @@ class HasMany extends Association {
       let child = schema[camelize(association.modelName)].new(attrs);
 
       association._cachedChildren = association._cachedChildren || new Collection(association.modelName);
-      association._cachedChildren.push(child);
+      association._cachedChildren.models.push(child);
 
       return child;
     };

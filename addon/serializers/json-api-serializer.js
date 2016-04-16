@@ -54,10 +54,10 @@ class JsonApiSerializer {
 
   _serializePrimaryCollection(collection, request) {
     let response = {
-      data: collection.map(model => this._resourceObjectFor(model, request))
+      data: collection.models.map(model => this._resourceObjectFor(model, request))
     };
 
-    collection.forEach(model => {
+    collection.models.forEach(model => {
       this._serializeRelationshipsFor(model, request);
     });
 
@@ -114,7 +114,7 @@ class JsonApiSerializer {
         }
 
         obj.relationships[relationshipKey] = {
-          data: relationship.map(model => {
+          data: relationship.models.map(model => {
             return {
               type: this.typeKeyForModel(model),
               id: model.id
@@ -275,7 +275,7 @@ class JsonApiSerializer {
       .reduce((related, relationshipName) => {
         return _(related)
           .map(r => r.reload()[camelize(relationshipName)])
-          .map(r => isCollection(r) ? r.toArray() : r) // Turning Collections into Arrays for lodash to recognize
+          .map(r => isCollection(r) ? r.models : r) // Turning Collections into Arrays for lodash to recognize
           .flatten()
           .filter()
           .value();

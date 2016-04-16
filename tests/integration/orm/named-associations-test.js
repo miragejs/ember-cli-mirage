@@ -4,7 +4,7 @@ import Model from 'ember-cli-mirage/orm/model';
 import Db from 'ember-cli-mirage/db';
 import { hasMany, belongsTo } from 'ember-cli-mirage';
 
-module('Integration | Schema | Named associations test');
+module('Integration | ORM | Named associations test');
 
 test('schemas with a single hasMany have correct foreign keys', function(assert) {
   let schema = new Schema(new Db(), {

@@ -55,7 +55,7 @@ export default class SerializerRegistry {
         if (isModel(response)) {
           json = this._serializeModel(response, request);
         } else {
-          json = response.reduce((allAttrs, model) => {
+          json = response.models.reduce((allAttrs, model) => {
             allAttrs.push(this._serializeModel(model));
             this._resetAlreadySerialized();
 
@@ -96,9 +96,9 @@ export default class SerializerRegistry {
   _serializeSideloadedModelOrCollection(modelOrCollection, request) {
     if (isModel(modelOrCollection)) {
       return this._serializeSideloadedModelResponse(modelOrCollection, request);
-    } else if (modelOrCollection.length) {
+    } else if (modelOrCollection.models && modelOrCollection.models.length) {
 
-      return modelOrCollection.reduce((allAttrs, model) => {
+      return modelOrCollection.models.reduce((allAttrs, model) => {
         this._augmentAlreadySerialized(model);
         return this._serializeSideloadedModelResponse(model, request, true, allAttrs);
       }, {});
@@ -130,7 +130,7 @@ export default class SerializerRegistry {
       .map(key => model[camelize(key)])
       .filter(Boolean)
       .forEach(relationship => {
-        let relatedModels = isModel(relationship) ? [relationship] : relationship;
+        let relatedModels = isModel(relationship) ? [relationship] : relationship.models;
 
         relatedModels.forEach(relatedModel => {
           if (this._hasBeenSerialized(relatedModel)) {
@@ -155,8 +155,9 @@ export default class SerializerRegistry {
     if (isModel(modelOrCollection)) {
       return this._serializeModel(modelOrCollection, request, removeForeignKeys, serializeRelationships);
     } else {
-      return modelOrCollection
-        .map(model => this._serializeModel(model, request, removeForeignKeys, serializeRelationships));
+      return modelOrCollection.models.map(model => {
+        return this._serializeModel(model, request, removeForeignKeys, serializeRelationships);
+      });
     }
   }
 
@@ -188,7 +189,7 @@ export default class SerializerRegistry {
         .map(key => model[camelize(key)])
         .filter(isCollection)
         .forEach(relatedCollection => {
-          attrs[serializer.keyForRelationshipIds(relatedCollection.modelName)] = relatedCollection.map(obj => obj.id);
+          attrs[serializer.keyForRelationshipIds(relatedCollection.modelName)] = relatedCollection.models.map(model => model.id);
         });
     }
 

@@ -7,18 +7,13 @@ import {module, test} from 'qunit';
 
 // Model classes are defined statically, just like in a typical app
 var User = Model.extend({
-  address: Mirage.hasMany()
+  addresses: Mirage.hasMany()
 });
 var Address = Model.extend();
 
-module('Integration | Schema | reinitialize associations', {
+module('Integration | ORM | reinitialize associations', {
   beforeEach() {
-    this.db = new Db({
-      users: [],
-      addresses: []
-    });
-
-    this.schema = new Schema(this.db, {
+    this.schema = new Schema(new Db(), {
       address: Address,
       user: User
     });
@@ -31,8 +26,8 @@ module('Integration | Schema | reinitialize associations', {
 // By running two tests, we force the statically-defined classes to be
 // registered twice.
 test('safely initializes associations', function(assert) {
-  assert.equal(this.schema.user.find(1).address[0].country, 'Hyrule');
+  assert.equal(this.schema.user.find(1).addresses.models[0].country, 'Hyrule');
 });
 test('safely initializes associations again', function(assert) {
-  assert.equal(this.schema.user.find(1).address[0].country, 'Hyrule');
+  assert.equal(this.schema.user.find(1).addresses.models[0].country, 'Hyrule');
 });

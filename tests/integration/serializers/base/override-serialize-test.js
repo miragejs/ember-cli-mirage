@@ -21,7 +21,7 @@ test(`it can use a completely custom serialize function`, function(assert) {
     })
   });
 
-  let wordSmith = this.schema.wordSmith.create({
+  let wordSmith = this.schema.wordSmiths.create({
     id: 1,
     title: 'Link'
   });
@@ -42,7 +42,7 @@ test(`it can access the request in a custom serialize function`, function(assert
     })
   });
 
-  let wordSmith = this.schema.wordSmith.create({
+  let wordSmith = this.schema.wordSmiths.create({
     id: 1,
     title: 'Link'
   });

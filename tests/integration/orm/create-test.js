@@ -17,18 +17,18 @@ module('Integration | ORM | create', {
 
 test('it cannot make new models that havent been registered', function(assert) {
   assert.throws(function() {
-    schema.author.new({ name: 'Link' });
+    schema.authors.new({ name: 'Link' });
   });
 });
 
 test('it cannot create models that havent been registered', function(assert) {
   assert.throws(function() {
-    schema.author.create({ name: 'Link' });
+    schema.authors.create({ name: 'Link' });
   });
 });
 
 test('it can make new models and then save them', function(assert) {
-  let user = schema.user.new({ name: 'Link' });
+  let user = schema.users.new({ name: 'Link' });
 
   assert.ok(user instanceof User);
   assert.deepEqual(user.attrs, { name: 'Link' });
@@ -42,7 +42,7 @@ test('it can make new models and then save them', function(assert) {
 });
 
 test('it can create new models, saved directly to the db', function(assert) {
-  let user = schema.user.create({ name: 'Link' });
+  let user = schema.users.create({ name: 'Link' });
 
   assert.ok(user instanceof Model);
   assert.ok(user instanceof User);

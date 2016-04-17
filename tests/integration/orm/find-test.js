@@ -21,20 +21,20 @@ module('Integration | ORM | #find', {
 });
 
 test('it can find a model by id', function(assert) {
-  let zelda = schema.user.find(2);
+  let zelda = schema.users.find(2);
 
   assert.ok(zelda instanceof User);
   assert.deepEqual(zelda.attrs, { id: '2', name: 'Zelda' });
 });
 
 test('it returns null if no model is found for an id', function(assert) {
-  let user = schema.user.find(4);
+  let user = schema.users.find(4);
 
   assert.equal(user, null);
 });
 
 test('it can find multiple models by ids', function(assert) {
-  let users = schema.user.find([1, 2]);
+  let users = schema.users.find([1, 2]);
 
   assert.ok(users instanceof Collection, 'it returns a collection');
   assert.ok(users.models[0] instanceof User);
@@ -44,6 +44,6 @@ test('it can find multiple models by ids', function(assert) {
 
 test('it errors if incorrect number of models are found for an array of ids', function(assert) {
   assert.throws(function() {
-    schema.user.find([1, 6]);
+    schema.users.find([1, 6]);
   }, /Couldn't find all users/);
 });

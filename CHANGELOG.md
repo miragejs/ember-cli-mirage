@@ -5,6 +5,22 @@ In general, it's good to run `ember g ember-cli-mirage` after upgrading.
 ## master
 
 Update notes:
+  - schema model classes are pluralized. So
+
+  ```js
+  schema.user.all()
+  schema.user.find(1)
+  ```
+
+  is now
+
+  ```js
+  schema.users.all()
+  schema.users.find(1)
+  ```
+
+  and so on. The upgrade is static so should be a relatively straightforward findAndReplace.
+
   - Breaking changes on ORM/Collection:
 
     - Added .models property to Collection
@@ -14,7 +30,7 @@ Update notes:
     So, you can no longer use the array accessor on a collection, meaning the following won't work:
 
     ```js
-    let authors = schema.author.all();
+    let authors = schema.authors.all();
 
     // The following no longer work
     authors[1];

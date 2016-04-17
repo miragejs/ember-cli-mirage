@@ -22,7 +22,7 @@ module('Integration | ORM | #where', {
 });
 
 test('it returns models that match a query with where', function(assert) {
-  let users = schema.user.where({ good: false });
+  let users = schema.users.where({ good: false });
 
   assert.ok(users instanceof Collection, 'it returns a collection');
   assert.equal(users.models.length, 1);
@@ -31,7 +31,7 @@ test('it returns models that match a query with where', function(assert) {
 });
 
 test('it returns models that match using a query function', function(assert) {
-  let users = schema.user.where(function(rec) {
+  let users = schema.users.where(function(rec) {
     return !rec.good;
   });
 
@@ -42,7 +42,7 @@ test('it returns models that match using a query function', function(assert) {
 });
 
 test('it returns an empty collection if no models match a query', function(assert) {
-  let users = schema.user.where({ name: 'Link', good: false });
+  let users = schema.users.where({ name: 'Link', good: false });
 
   assert.ok(users instanceof Collection, 'it returns a collection');
   assert.equal(users.models.length, 0);

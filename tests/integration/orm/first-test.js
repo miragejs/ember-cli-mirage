@@ -18,7 +18,7 @@ module('Integration | ORM | #first', {
 });
 
 test('it can find the first model', function(assert) {
-  let user = schema.user.first();
+  let user = schema.users.first();
 
   assert.ok(user instanceof User);
   assert.deepEqual(user.attrs, { id: '1', name: 'Link' });

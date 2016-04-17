@@ -19,13 +19,13 @@ module('Integration | ORM | attrs', {
 });
 
 test('attrs returns the models attributes', function(assert) {
-  let user = schema.user.find(1);
+  let user = schema.users.find(1);
 
   assert.deepEqual(user.attrs, { id: '1', name: 'Link', evil: false });
 });
 
 test('attributes can be read via plain property access', function(assert) {
-  let user = schema.user.find(1);
+  let user = schema.users.find(1);
 
   assert.equal(user.name, 'Link');
 });

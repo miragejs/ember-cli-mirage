@@ -24,7 +24,7 @@ module('Integration | ORM | destroy', {
 test('destroying a model removes the associated record from the db', function(assert) {
   assert.deepEqual(db.users.length, 3);
 
-  let link = this.schema.user.find(1);
+  let link = this.schema.users.find(1);
   link.destroy();
 
   assert.deepEqual(db.users.find(1), null);
@@ -34,7 +34,7 @@ test('destroying a model removes the associated record from the db', function(as
 test('destroying a collection removes the associated records from the db', function(assert) {
   assert.deepEqual(db.users.length, 3);
 
-  let users = this.schema.user.all();
+  let users = this.schema.users.all();
   users.destroy();
 
   assert.deepEqual(db.users, []);

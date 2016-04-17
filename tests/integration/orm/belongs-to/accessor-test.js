@@ -48,6 +48,6 @@ test('belongsTo accessors works when foreign key is present but falsy', function
 
   db.users.insert({ id: 0, name: 'some user' });
   let insertedAddress = db.addresses.insert({ name: 'foo', userId: 0 });
-  let relatedUser = schema.address.find(insertedAddress.id).user;
+  let relatedUser = schema.addresses.find(insertedAddress.id).user;
   assert.equal('some user', relatedUser ? relatedUser.name : undefined);
 });

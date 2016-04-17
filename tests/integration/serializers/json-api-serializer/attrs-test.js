@@ -18,7 +18,7 @@ test(`it returns only the whitelisted attrs when serializing a model`, function(
       attrs: ['id', 'firstName']
     })
   });
-  let user = this.schema.wordSmith.create({
+  let user = this.schema.wordSmiths.create({
     id: 1,
     firstName: 'Link',
     age: 123
@@ -48,10 +48,10 @@ test(`it returns only the whitelisted attrs when serializing a collection`, func
     })
   });
   let { schema } = this;
-  schema.wordSmith.create({ id: 1, firstName: 'Link', age: 123 });
-  schema.wordSmith.create({ id: 2, firstName: 'Zelda', age: 456 });
+  schema.wordSmiths.create({ id: 1, firstName: 'Link', age: 123 });
+  schema.wordSmiths.create({ id: 2, firstName: 'Zelda', age: 456 });
 
-  let collection = this.schema.wordSmith.all();
+  let collection = this.schema.wordSmiths.all();
   let result = this.registry.serialize(collection);
 
   assert.deepEqual(result, {
@@ -92,10 +92,10 @@ test(`it can use different attr whitelists for different serializers`, function(
     })
   });
   let { schema } = this;
-  let link = schema.wordSmith.create({ id: 1, firstName: 'Link', age: 123 });
+  let link = schema.wordSmiths.create({ id: 1, firstName: 'Link', age: 123 });
   link.createBlogPost({ title: 'A whole new world' });
 
-  let collection = this.schema.wordSmith.all();
+  let collection = this.schema.wordSmiths.all();
   let result = this.registry.serialize(collection);
 
   assert.deepEqual(result, {

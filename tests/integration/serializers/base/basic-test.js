@@ -26,7 +26,7 @@ test('it returns arrays unaffected', function(assert) {
 });
 
 test(`it serializes a model by returning its attrs under a root`, function(assert) {
-  let wordSmith = this.schema.wordSmith.create({
+  let wordSmith = this.schema.wordSmiths.create({
     id: 1,
     name: 'Link'
   });
@@ -41,10 +41,10 @@ test(`it serializes a model by returning its attrs under a root`, function(asser
 });
 
 test(`it serializes a collection of models by returning an array of their attrs under a puralized root`, function(assert) {
-  this.schema.wordSmith.create({ id: 1, name: 'Link' });
-  this.schema.wordSmith.create({ id: 2, name: 'Zelda' });
+  this.schema.wordSmiths.create({ id: 1, name: 'Link' });
+  this.schema.wordSmiths.create({ id: 2, name: 'Zelda' });
 
-  let wordSmiths = this.schema.wordSmith.all();
+  let wordSmiths = this.schema.wordSmiths.all();
 
   let result = this.registry.serialize(wordSmiths);
 
@@ -57,7 +57,7 @@ test(`it serializes a collection of models by returning an array of their attrs 
 });
 
 test(`it can serialize an empty collection`, function(assert) {
-  let wordSmiths = this.schema.wordSmith.all();
+  let wordSmiths = this.schema.wordSmiths.all();
   let result = this.registry.serialize(wordSmiths);
 
   assert.deepEqual(result, {

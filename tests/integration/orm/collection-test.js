@@ -21,7 +21,7 @@ module('Integration | ORM | collection', {
 });
 
 test('a collection can save its models', function(assert) {
-  let collection = this.schema.user.all();
+  let collection = this.schema.users.all();
   collection.models[0].name = 'Sam';
   collection.save();
 
@@ -29,7 +29,7 @@ test('a collection can save its models', function(assert) {
 });
 
 test('a collection can reload its models', function(assert) {
-  let collection = this.schema.user.all();
+  let collection = this.schema.users.all();
   assert.equal(collection.models[0].name, 'Link');
 
   collection.models[0].name = 'Sam';
@@ -40,7 +40,7 @@ test('a collection can reload its models', function(assert) {
 });
 
 test('a collection can filter its models', function(assert) {
-  let collection = this.schema.user.all();
+  let collection = this.schema.users.all();
   assert.equal(collection.models.length, 3);
 
   let newCollection = collection.filter(author => author.good);
@@ -51,8 +51,8 @@ test('a collection can filter its models', function(assert) {
 });
 
 test('a collection can merge with another collection', function(assert) {
-  let goodGuys = this.schema.user.where(user => user.good);
-  let badGuys = this.schema.user.where(user => !user.good);
+  let goodGuys = this.schema.users.where(user => user.good);
+  let badGuys = this.schema.users.where(user => !user.good);
 
   assert.equal(goodGuys.models.length, 2);
   assert.equal(badGuys.models.length, 1);

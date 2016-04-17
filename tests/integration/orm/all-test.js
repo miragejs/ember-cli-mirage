@@ -19,7 +19,7 @@ test('it can return all models', function(assert) {
     user: User
   });
 
-  let users = schema.user.all();
+  let users = schema.users.all();
   assert.ok(users instanceof Collection, 'it returns a collection');
   assert.ok(users.models[0] instanceof User, 'each member of the collection is a model');
   assert.equal(users.models.length, 2);
@@ -34,7 +34,7 @@ test('it returns an empty array when no models exist', function(assert) {
     user: User
   });
 
-  let users = schema.user.all();
+  let users = schema.users.all();
 
   assert.ok(users instanceof Collection, 'it returns a collection');
   assert.equal(users.modelName, 'user', 'the collection knows its type');

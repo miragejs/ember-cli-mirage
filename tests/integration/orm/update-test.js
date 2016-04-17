@@ -20,7 +20,7 @@ module('Integration | ORM | update', {
 });
 
 test('a collection can update its models with a key and value', function(assert) {
-  let collection = this.schema.user.all();
+  let collection = this.schema.users.all();
   collection.update('evil', true);
 
   assert.deepEqual(this.db.users, [
@@ -31,7 +31,7 @@ test('a collection can update its models with a key and value', function(assert)
 });
 
 test('it can update its models with a hash of attrs', function(assert) {
-  let collection = this.schema.user.all();
+  let collection = this.schema.users.all();
   collection.update({ location: 'The water temple', evil: true });
 
   assert.deepEqual(this.db.users, [
@@ -43,7 +43,7 @@ test('it can update its models with a hash of attrs', function(assert) {
 });
 
 test('it can set an attribute and then save the model', function(assert) {
-  let user = this.schema.user.find(1);
+  let user = this.schema.users.find(1);
 
   user.name = 'Young link';
 
@@ -57,7 +57,7 @@ test('it can set an attribute and then save the model', function(assert) {
 });
 
 test('it can update and immediately persist a single attribute', function(assert) {
-  let link = this.schema.user.find(1);
+  let link = this.schema.users.find(1);
   link.update('evil', true);
 
   assert.deepEqual(link.attrs, { id: '1', name: 'Link', location: 'Hyrule', evil: true });
@@ -65,7 +65,7 @@ test('it can update and immediately persist a single attribute', function(assert
 });
 
 test('it can update a hash of attrs immediately', function(assert) {
-  var link = this.schema.user.find(1);
+  var link = this.schema.users.find(1);
   link.update({ name: 'Evil link', evil: true });
 
   assert.deepEqual(link.attrs, { id: '1', name: 'Evil link', location: 'Hyrule', evil: true });

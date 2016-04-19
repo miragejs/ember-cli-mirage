@@ -82,7 +82,7 @@ test(`it returns only the whitelisted attrs when serializing a collection`, func
 });
 
 test(`it can use different attr whitelists for different serializers`, function(assert) {
-  this.registry = new SerializerRegistry(this.schema, {
+  let registry = new SerializerRegistry(this.schema, {
     wordSmith: JsonApiSerializer.extend({
       attrs: ['id', 'firstName'],
       include: ['blogPosts']
@@ -91,12 +91,10 @@ test(`it can use different attr whitelists for different serializers`, function(
       attrs: ['id', 'title']
     })
   });
-  let { schema } = this;
-  let link = schema.wordSmiths.create({ id: 1, firstName: 'Link', age: 123 });
+  let link = this.schema.wordSmiths.create({ id: 1, firstName: 'Link', age: 123 });
   link.createBlogPost({ title: 'A whole new world' });
 
-  let collection = this.schema.wordSmiths.all();
-  let result = this.registry.serialize(collection);
+  let result = registry.serialize(this.schema.wordSmiths.all());
 
   assert.deepEqual(result, {
     data: [{

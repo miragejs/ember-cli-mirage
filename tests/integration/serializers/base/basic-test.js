@@ -30,8 +30,8 @@ test(`it serializes a model by returning its attrs under a root`, function(asser
     id: 1,
     name: 'Link'
   });
-
   let result = this.registry.serialize(wordSmith);
+
   assert.deepEqual(result, {
     wordSmith: {
       id: '1',
@@ -40,7 +40,7 @@ test(`it serializes a model by returning its attrs under a root`, function(asser
   });
 });
 
-test(`it serializes a collection of models by returning an array of their attrs under a puralized root`, function(assert) {
+test(`it serializes a collection of models by returning an array of their attrs under a pluralized root`, function(assert) {
   this.schema.wordSmiths.create({ id: 1, name: 'Link' });
   this.schema.wordSmiths.create({ id: 2, name: 'Zelda' });
 

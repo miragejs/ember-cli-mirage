@@ -28,9 +28,7 @@ test(`it can use a completely custom serialize function`, function(assert) {
 
   let result = this.registry.serialize(wordSmith);
 
-  assert.deepEqual(result, {
-    wordSmith: 'blah'
-  });
+  assert.deepEqual(result, 'blah');
 });
 
 test(`it can access the request in a custom serialize function`, function(assert) {
@@ -50,7 +48,5 @@ test(`it can access the request in a custom serialize function`, function(assert
   let request = { url: '/word-smiths/1?foo=bar', params: { id: '1' }, queryParams: { foo: 'bar' } };
   let result = this.registry.serialize(wordSmith, request);
 
-  assert.deepEqual(result, {
-    wordSmith: 'bar'
-  });
+  assert.deepEqual(result, 'bar');
 });

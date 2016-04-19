@@ -115,7 +115,7 @@ If you're upgrading your Mirage server from v0.1.x to v0.2 (currently in Beta), 
     ```js
     import { Model } from 'ember-cli-mirage';
 
-    export default Model.etend({
+    export default Model.extend({
 
     });
     ```

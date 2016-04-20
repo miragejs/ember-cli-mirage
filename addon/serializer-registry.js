@@ -5,9 +5,10 @@ import Serializer from 'ember-cli-mirage/serializer';
 import JsonApiSerializer from 'ember-cli-mirage/serializers/json-api-serializer';
 import { pluralize, camelize } from './utils/inflector';
 import assert from './assert';
-import _assign from 'lodash/object/assign';
 
+import _assign from 'lodash/object/assign';
 import _isArray from 'lodash/lang/isArray';
+import _every from 'lodash/collection/every';
 
 export default class SerializerRegistry {
 
@@ -21,11 +22,13 @@ export default class SerializerRegistry {
   }
 
   serialize(response, request) {
-    if (this.isModelOrCollection(response)) {
+    response = this._possiblyTransformArrayIntoCollection(response);
+
+    if (this._isModelOrCollection(response)) {
       let serializer = this.serializerFor(response.modelName);
 
       return serializer.serialize(response, request);
-    } else if (_isArray(response) && response.filter(this.isCollection).length) {
+    } else if (_isArray(response) && response.filter(this._isCollection).length) {
       return response.reduce((json, collection) => {
         let serializer = this.serializerFor(collection.modelName);
 
@@ -51,10 +54,6 @@ export default class SerializerRegistry {
     } else {
       SerializerForResponse = SerializerForResponse || this._serializerMap.application || Serializer;
 
-      /*
-      TODO: This check should exist within the Serializer class, when the logic is moved from the registry to the
-      individual serializers (see TODO above).
-      */
       assert(
         !SerializerForResponse ||
         (SerializerForResponse.prototype.embed) ||
@@ -67,16 +66,24 @@ export default class SerializerRegistry {
     return new SerializerForResponse(this, type, included, alreadySerialized);
   }
 
-  isModel(object) {
+  _isModel(object) {
     return object instanceof Model;
   }
 
-  isCollection(object) {
+  _isCollection(object) {
     return object instanceof Collection;
   }
 
-  isModelOrCollection(object) {
-    return this.isModel(object) || this.isCollection(object);
+  _isModelOrCollection(object) {
+    return this._isModel(object) || this._isCollection(object);
+  }
+
+  _possiblyTransformArrayIntoCollection(response) {
+    if (response && response.length > 0 && _every(response, m => m instanceof Model)) {
+      response = new Collection(response[0].modelName, response);
+    }
+
+    return response;
   }
 
 }

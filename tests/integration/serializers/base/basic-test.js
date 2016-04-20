@@ -2,6 +2,8 @@ import SerializerRegistry from 'ember-cli-mirage/serializer-registry';
 import schemaHelper from '../schema-helper';
 import { module, test } from 'qunit';
 
+import _uniq from 'lodash/array/uniq';
+
 module('Integration | Serializers | Base | Basic', {
   beforeEach() {
     this.schema = schemaHelper.setup();
@@ -64,3 +66,33 @@ test(`it can serialize an empty collection`, function(assert) {
     wordSmiths: []
   });
 });
+
+test(`it can serialize a homogenous array of models`, function(assert) {
+  let wordSmiths = this.schema.wordSmiths.all();
+  let result = this.registry.serialize(wordSmiths);
+
+  assert.deepEqual(result, {
+    wordSmiths: []
+  });
+});
+
+test('it can serialize a homogenous JS array of models', function(assert) {
+  this.schema.wordSmiths.create({ name: 'Sam' });
+  this.schema.wordSmiths.create({ name: 'Sam' });
+  this.schema.wordSmiths.create({ name: 'Ganondorf' });
+
+  let wordSmiths = this.schema.wordSmiths.all().models;
+  let uniqueNames = _uniq(wordSmiths, u => u.name);
+  let result = this.registry.serialize(uniqueNames);
+
+  assert.deepEqual(result, {
+    wordSmiths: [
+      { id: '1', name: 'Sam' },
+      { id: '3', name: 'Ganondorf' }
+    ]
+  });
+});
+
+// What should the behavior here be???
+// test('#serialize throws an error on an empty JS array', function(assert) {
+// });

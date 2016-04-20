@@ -1,5 +1,5 @@
-// import _isArray from 'lodash/lang/isArray';
-// import Collection from '../orm/collection';
+import _isArray from 'lodash/lang/isArray';
+import Collection from '../orm/collection';
 
 export default class FunctionRouteHandler {
 
@@ -17,11 +17,11 @@ export default class FunctionRouteHandler {
     this.request = request;
   }
 
-  serialize(response, serializerType) {
-    // if (serializerType && _isArray(response)) {
-    //   response = new Collection(serializerType, response);
-    // }
-    //
+  serialize(response, serializerType, { modelName } = {}) {
+    if (_isArray(response) && modelName) {
+      response = new Collection(modelName, response);
+    }
+
     let serializer;
     if (serializerType) {
       serializer = this.serializerOrRegistry.serializerFor(serializerType, { explicit: true });

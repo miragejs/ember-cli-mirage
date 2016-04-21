@@ -142,6 +142,10 @@ Updates the record in the db.
 ```js
 let post = blogPost.find(1);
 post.update('title', 'Hipster ipsum'); // the db was updated
+post.update({
+  title: 'Lorem ipsum',
+  created_at: 'before it was cool'
+});
 ```
 
 ### destroy()

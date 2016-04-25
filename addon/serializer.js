@@ -10,6 +10,13 @@ import _every from 'lodash/collection/every';
 
 class Serializer {
 
+  constructor(registry, type, included=[], alreadySerialized={}) {
+    this.registry = registry;
+    this.type = type;
+    this.included = included;
+    this.alreadySerialized = alreadySerialized;
+  }
+
   /**
    * Override this method to implement your own custom
    * serialize function. response is whatever was returned
@@ -26,7 +33,31 @@ class Serializer {
    * @param request
    * @public
    */
-  serialize(response /*, request */) {
+  serialize(response, request={}) {
+    response = this._possiblyTransformArrayIntoCollection(response);
+
+    if (this.embed) {
+      let json;
+
+      if (this.isModel(response)) {
+        json = this._serializeModel(response, request);
+      } else {
+        json = response.models.reduce((allAttrs, model) => {
+          allAttrs.push(this._serializeModel(model));
+          this._resetAlreadySerialized();
+
+          return allAttrs;
+        }, []);
+      }
+
+      return this._formatResponse(response, json);
+
+    } else {
+      return this._serializeSideloadedModelOrCollection(response, request);
+    }
+  }
+
+  oldSerialize(response, request) {
     if (response instanceof Model) {
       return this._oldAttrsForModel(response);
     } else {
@@ -164,6 +195,7 @@ class Serializer {
    * @method isModelOrCollection
    * @param object
    * @return {Boolean}
+   * @public
    */
   isModelOrCollection(object) {
     return this.isModel(object) || this.isCollection(object);
@@ -182,15 +214,36 @@ class Serializer {
   }
 
   /*
-    Private methods
-  */
+     Private methods
+   */
 
   /**
-   * @method _attrsForModel
+   * @method _serializerModel
+   * @param model
+   * @param request
+   * @param removeForeignKeys
+   * @param serializeRelationships
+   * @private
+   */
+  _serializeModel(model, request, removeForeignKeys = true, serializeRelationships = true) {
+    if (this._hasBeenSerialized(model)) {
+      return;
+    }
+
+    let attrs = this._attrsForModel(model, request, removeForeignKeys);
+
+    this._augmentAlreadySerialized(model);
+    let relatedAttrs = serializeRelationships ? this._attrsForRelationships(model, request) : {};
+
+    return _assign(attrs, relatedAttrs);
+  }
+
+  /**
+   * @method _oldAttrsForModel
    * @param model
    * @private
    */
-  _attrsForModel(model) {
+  _oldAttrsForModel(model) {
     let attrs = {};
 
     if (this.attrs) {
@@ -245,7 +298,7 @@ class Serializer {
         return this._serializeSideloadedModelResponse(model, request, true, allAttrs);
       }, {});
 
-    // We have an empty collection
+      // We have an empty collection
     } else {
       return { [this._keyForModelOrCollection(modelOrCollection)]: [] };
     }
@@ -255,9 +308,9 @@ class Serializer {
    * @method _serializeSideloadedModelResponse
    * @param model
    * @param request
-   * @param topLevelIsArray
+   * @param [topLevelIsArray=false]
    * @param allAttrs
-   * @param root
+   * @param [root=null]
    * @private
    */
   _serializeSideloadedModelResponse(model, request, topLevelIsArray = false, allAttrs = {}, root = null) {
@@ -280,16 +333,16 @@ class Serializer {
 
     // Traverse this model's relationships
     this._valueForInclude(this, request)
-      .map(key => model[camelize(key)])
-      .filter(Boolean)
-      .forEach(relationship => {
-        let relatedModels = this.isModel(relationship) ? [relationship] : relationship.models;
+    .map(key => model[camelize(key)])
+    .filter(Boolean)
+    .forEach(relationship => {
+      let relatedModels = this.isModel(relationship) ? [relationship] : relationship.models;
 
-        relatedModels.forEach(relatedModel => {
-          let serializer = this.serializerFor(relatedModel.modelName);
-          serializer._serializeSideloadedModelResponse(relatedModel, request, true, allAttrs, serializer.keyForRelationship(relatedModel.modelName));
-        });
+      relatedModels.forEach(relatedModel => {
+        let serializer = this.serializerFor(relatedModel.modelName);
+        serializer._serializeSideloadedModelResponse(relatedModel, request, true, allAttrs, serializer.keyForRelationship(relatedModel.modelName));
       });
+    });
 
     return allAttrs;
   }
@@ -344,11 +397,11 @@ class Serializer {
 
     if (embedRelatedIds) {
       this._valueForInclude(this, request)
-        .map(key => model[camelize(key)])
-        .filter(this.isCollection)
-        .forEach(relatedCollection => {
-          attrs[this.keyForRelationshipIds(relatedCollection.modelName)] = relatedCollection.models.map(model => model.id);
-        });
+      .map(key => model[camelize(key)])
+      .filter(this.isCollection)
+      .forEach(relatedCollection => {
+        attrs[this.keyForRelationshipIds(relatedCollection.modelName)] = relatedCollection.models.map(model => model.id);
+      });
     }
 
     return attrs;
@@ -362,17 +415,17 @@ class Serializer {
    */
   _attrsForRelationships(model, request) {
     return this._valueForInclude(this, request)
-      .reduce((attrs, key) => {
-        let modelOrCollection = model[camelize(key)];
-        let serializer = this.serializerFor(modelOrCollection.modelName);
-        let relatedAttrs = serializer._serializeModelOrCollection(modelOrCollection, request);
+    .reduce((attrs, key) => {
+      let modelOrCollection = model[camelize(key)];
+      let serializer = this.serializerFor(modelOrCollection.modelName);
+      let relatedAttrs = serializer._serializeModelOrCollection(modelOrCollection, request);
 
-        if (relatedAttrs) {
-          attrs[camelize(key)] = relatedAttrs;
-        }
+      if (relatedAttrs) {
+        attrs[camelize(key)] = relatedAttrs;
+      }
 
-        return attrs;
-      }, {});
+      return attrs;
+    }, {});
   }
 
   /**

@@ -433,3 +433,326 @@ test(`dot-paths in include query params include query param`, function(assert) {
     ]
   });
 });
+
+test(`serializer include dot-paths listing only the deepest model should include the intermediary models, but do not`, function(assert) {
+  const registry = new SerializerRegistry(this.schema, {
+    application: JsonApiSerializer,
+    foo: JsonApiSerializer.extend({
+      include: ['bar.baz.quuxes.zomgs.lol']
+    })
+  });
+
+  const foo = this.schema.foo.find(1);
+  const request = { queryParams: {} };
+  const result = registry.serialize(foo, request);
+
+  assert.propEqual(result, {
+    data: {
+      type: 'foos',
+      id: '1',
+      attributes: {},
+      relationships: {
+        'bar': {
+          data: { type: 'bars', id: '1' }
+        }
+      }
+    },
+    included: [
+      {
+        type: 'lols',
+        id: '1',
+        attributes: {}
+      },
+      {
+        type: 'lols',
+        id: '2',
+        attributes: {}
+      },
+      {
+        type: 'lols',
+        id: '3',
+        attributes: {}
+      },
+      {
+        type: 'lols',
+        id: '4',
+        attributes: {}
+      }
+    ]
+  });
+});
+
+
+test(`serializer include dot-paths listing all intermediary models include all`, function(assert) {
+  const registry = new SerializerRegistry(this.schema, {
+    application: JsonApiSerializer,
+    foo: JsonApiSerializer.extend({
+      include: ['bar', 'bar.baz', 'bar.baz.quuxes', 'bar.baz.quuxes.zomgs', 'bar.baz.quuxes.zomgs.lol']
+    })
+  });
+
+  const foo = this.schema.foo.find(1);
+  const request = { queryParams: {} };
+  const result = registry.serialize(foo, request);
+
+  assert.propEqual(result, {
+    data: {
+      type: 'foos',
+      id: '1',
+      attributes: {},
+      relationships: {
+        'bar': {
+          data: { type: 'bars', id: '1' }
+        }
+      }
+    },
+    included: [
+      {
+        type: 'bars',
+        id: '1',
+        attributes: {},
+        relationships: {
+          'baz': {
+            data: { type: 'bazs', id: '1' }
+          }
+        }
+      },
+      {
+        type: 'bazs',
+        id: '1',
+        attributes: {},
+        relationships: {
+          'quuxes': {
+            data: [
+              { type: 'quuxes', id: '1' },
+              { type: 'quuxes', id: '2' }
+            ]
+          }
+        }
+      },
+      {
+        type: 'quuxes',
+        id: '1',
+        attributes: {},
+        relationships: {
+          'zomgs': {
+            data: [
+              { type: 'zomgs', id: '1' },
+              { type: 'zomgs', id: '2' }
+            ]
+          }
+        }
+      },
+      {
+        type: 'quuxes',
+        id: '2',
+        attributes: {},
+        relationships: {
+          'zomgs': {
+            data: [
+              { type: 'zomgs', id: '3' },
+              { type: 'zomgs', id: '4' }
+            ]
+          }
+        }
+      },
+      {
+        type: 'zomgs',
+        id: '1',
+        attributes: {},
+        relationships: {
+          'lol': {
+            data: { type: 'lols', id: '1' }
+          }
+        }
+      },
+      {
+        type: 'zomgs',
+        id: '2',
+        attributes: {},
+        relationships: {
+          'lol': {
+            data: { type: 'lols', id: '2' }
+          }
+        }
+      },
+      {
+        type: 'zomgs',
+        id: '3',
+        attributes: {},
+        relationships: {
+          'lol': {
+            data: { type: 'lols', id: '3' }
+          }
+        }
+      },
+      {
+        type: 'zomgs',
+        id: '4',
+        attributes: {},
+        relationships: {
+          'lol': {
+            data: { type: 'lols', id: '4' }
+          }
+        }
+      },
+      {
+        type: 'lols',
+        id: '1',
+        attributes: {}
+      },
+      {
+        type: 'lols',
+        id: '2',
+        attributes: {}
+      },
+      {
+        type: 'lols',
+        id: '3',
+        attributes: {}
+      },
+      {
+        type: 'lols',
+        id: '4',
+        attributes: {}
+      }
+    ]
+  });
+});
+
+test(`serializer include dot-paths should include all intermediary models`, function(assert) {
+  const registry = new SerializerRegistry(this.schema, {
+    application: JsonApiSerializer,
+    foo: JsonApiSerializer.extend({
+      include: ['bar.baz.quuxes.zomgs.lol']
+    })
+  });
+
+  const foo = this.schema.foo.find(1);
+  const request = { queryParams: {} };
+  const result = registry.serialize(foo, request);
+
+  assert.propEqual(result, {
+    data: {
+      type: 'foos',
+      id: '1',
+      attributes: {},
+      relationships: {
+        'bar': {
+          data: { type: 'bars', id: '1' }
+        }
+      }
+    },
+    included: [
+      {
+        type: 'bars',
+        id: '1',
+        attributes: {},
+        relationships: {
+          'baz': {
+            data: { type: 'bazs', id: '1' }
+          }
+        }
+      },
+      {
+        type: 'bazs',
+        id: '1',
+        attributes: {},
+        relationships: {
+          'quuxes': {
+            data: [
+              { type: 'quuxes', id: '1' },
+              { type: 'quuxes', id: '2' }
+            ]
+          }
+        }
+      },
+      {
+        type: 'quuxes',
+        id: '1',
+        attributes: {},
+        relationships: {
+          'zomgs': {
+            data: [
+              { type: 'zomgs', id: '1' },
+              { type: 'zomgs', id: '2' }
+            ]
+          }
+        }
+      },
+      {
+        type: 'quuxes',
+        id: '2',
+        attributes: {},
+        relationships: {
+          'zomgs': {
+            data: [
+              { type: 'zomgs', id: '3' },
+              { type: 'zomgs', id: '4' }
+            ]
+          }
+        }
+      },
+      {
+        type: 'zomgs',
+        id: '1',
+        attributes: {},
+        relationships: {
+          'lol': {
+            data: { type: 'lols', id: '1' }
+          }
+        }
+      },
+      {
+        type: 'zomgs',
+        id: '2',
+        attributes: {},
+        relationships: {
+          'lol': {
+            data: { type: 'lols', id: '2' }
+          }
+        }
+      },
+      {
+        type: 'zomgs',
+        id: '3',
+        attributes: {},
+        relationships: {
+          'lol': {
+            data: { type: 'lols', id: '3' }
+          }
+        }
+      },
+      {
+        type: 'zomgs',
+        id: '4',
+        attributes: {},
+        relationships: {
+          'lol': {
+            data: { type: 'lols', id: '4' }
+          }
+        }
+      },
+      {
+        type: 'lols',
+        id: '1',
+        attributes: {}
+      },
+      {
+        type: 'lols',
+        id: '2',
+        attributes: {}
+      },
+      {
+        type: 'lols',
+        id: '3',
+        attributes: {}
+      },
+      {
+        type: 'lols',
+        id: '4',
+        attributes: {}
+      }
+    ]
+  });
+});

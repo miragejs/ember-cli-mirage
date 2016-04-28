@@ -35,7 +35,7 @@ Mirage ships with three named serializers:
   // mirage/serializers/application.js
   import { RestSerializer } from 'ember-cli-mirage'
 
-  export default ActiveModelSerializer;
+  export default RestSerializer;
   ```
 
 Additionally, Mirage has a basic Serializer class which you can customize using the hooks documented below:

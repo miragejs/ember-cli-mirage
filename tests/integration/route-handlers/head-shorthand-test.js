@@ -1,8 +1,6 @@
 import { module, test } from 'qunit';
 import {
   Model,
-  hasMany,
-  belongsTo,
   JSONAPISerializer,
   Response
 } from 'ember-cli-mirage';

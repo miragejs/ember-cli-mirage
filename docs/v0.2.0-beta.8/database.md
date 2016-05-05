@@ -60,7 +60,7 @@ db.users.find([1, 2]); // [{id: 1, name: 'Link'}, {id: 2, name: 'Zelda'}]
 ```
 <a name="where" href="#where">#</a> db.collection.<b>where</b>(<i>query</i>)
 
-Returns an array of models from *collection* that match the key-value pairs in the *query* object. Note that a string comparison is used. *query* is a POJO.
+Returns an array of models from *collection* that match the key-value pairs in the *query* object. Note that a string comparison is used. *query* is normally a POJO but can also be a function (see [PR #379 for details](https://github.com/samselikoff/ember-cli-mirage/pull/379)
 
 ```js
 /* 

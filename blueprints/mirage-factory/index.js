@@ -13,9 +13,9 @@ module.exports = {
         if (!!self.project.config()['ember-cli-mirage'] && !!self.project.config()['ember-cli-mirage'].directory) {
           return self.project.config()['ember-cli-mirage'].directory;
         } else if (options.inAddon) {
-          return path.join('tests', 'dummy');
+          return path.join('tests', 'dummy', 'mirage');
         } else {
-          return '/';
+          return '/mirage';
         }
       }
     };

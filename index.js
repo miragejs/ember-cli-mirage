@@ -27,7 +27,7 @@ module.exports = {
     } else if (app.project.pkg['ember-addon'] && !app.project.pkg['ember-addon'].paths) {
       this.mirageDirectory = path.resolve(app.project.root, path.join('tests', 'dummy', 'mirage'));
     } else {
-      this.mirageDirectory = path.join(this.app.project.root, '/app/mirage');
+      this.mirageDirectory = path.join(this.app.project.root, '/mirage');
     }
 
     if (this._shouldIncludeFiles()) {

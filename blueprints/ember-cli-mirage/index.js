@@ -17,9 +17,9 @@ module.exports = {
   fileMapTokens: function() {
     return {
       __root__: function(options) {
-        if (options.inAddon) {
-          return path.join('tests', 'dummy');
-        }
+        // if (options.inAddon) {
+        //   return path.join('tests', 'dummy');
+        // }
 
         return '/';
       }

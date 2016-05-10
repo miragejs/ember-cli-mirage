@@ -13,7 +13,7 @@ module.exports = {
         //   return path.join('tests', 'dummy');
         // }
 
-        return '/';
+        return '/app/';
       }
     };
   }

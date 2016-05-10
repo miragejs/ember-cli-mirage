@@ -15,13 +15,16 @@ module.exports = {
   },
 
   fileMapTokens: function() {
+    var self = this;
     return {
       __root__: function(options) {
-        // if (options.inAddon) {
-        //   return path.join('tests', 'dummy');
-        // }
-
-        return '/app/';
+        if (!!self.project.config()['ember-cli-mirage'] && !!self.project.config()['ember-cli-mirage'].directory) {
+          return self.project.config()['ember-cli-mirage'].directory;
+        } else if (options.inAddon) {
+          return path.join('tests', 'dummy');
+        } else {
+          return '/';
+        }
       }
     };
   },

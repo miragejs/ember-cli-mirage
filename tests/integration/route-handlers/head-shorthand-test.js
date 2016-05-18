@@ -122,14 +122,3 @@ test('string shorthand string (no id) shorthand returns a 204 (regardless of the
   assert.ok(response instanceof Response);
   assert.equal(response.code, 204);
 });
-
-test('array shorthand will return a 204 response', function(assert) {
-  let url = '/home';
-  let request = { url };
-  let handler = new HeadShorthandRouteHandler(this.schema, this.serializer, ['authors', 'photos'], url);
-
-  let response = handler.handle(request);
-
-  assert.ok(response instanceof Response);
-  assert.equal(response.code, 204);
-});

@@ -17,7 +17,7 @@ Mirage ships with three named serializers:
   // mirage/serializers/application.js
   import JSONAPISerializer from 'ember-cli-mirage';
 
-  export default JsonApiSerializer;
+  export default JSONAPISerializer;
   ```
 
 - **ActiveModelSerializer**, to fake Rails backends that use AMS-style responses:

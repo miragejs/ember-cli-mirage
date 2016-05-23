@@ -244,7 +244,7 @@ GET /authors/1
 }
 ```
 
-Just like in Ember, the `application/serializer.js` file will apply to all your responses. You can also create per-model serializers, for example to include only some attributes:
+Just like in Ember, the `serializers/application.js` file will apply to all your responses. You can also create per-model serializers, for example to include only some attributes:
 
 ```js
 // mirage/serializers/author.js

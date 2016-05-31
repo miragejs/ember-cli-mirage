@@ -3,7 +3,7 @@ title: Collections
 version: v0.2.x
 ---
 
-Collections represent arrays of [models](../Models). They are returned by a `hasMany` [association](../models/#associations), or by one of the [ModelClass](../models/#class-methods) query methods:
+Collections represent arrays of [models](../models). They are returned by a `hasMany` [association](../models/#associations), or by one of the [ModelClass](../models/#class-methods) query methods:
 
 ```js
 let posts = schema.blogPosts.all();

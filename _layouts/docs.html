@@ -25,6 +25,15 @@ layout: default
   </div>
 
   <div class="Desktop-nav">
+    <div class="Desktop-nav__version">
+      <span class="Desktop-nav__version-label">Version: </span>
+      <select class='Desktop-nav__version-select' onchange="if (this.value) window.location.href=this.value">
+        {% for version in site.data.navs %}
+        <option value="{{ site.baseurl}}/docs/{{ version[0] }}" {% if version[0] == page.version %}selected {% endif %}>{{version[0]}}</option>
+        {% endfor %}
+      </select>
+    </div>
+
     <ul class="Desktop-nav__toc">
       {% for link in links %}
         {% if link.section %}
@@ -34,16 +43,6 @@ layout: default
         {% include desktop-nav-link.html link=link %}
       {% endfor %}
     </ul>
-
-
-    <div class="Desktop-nav__version">
-      <span class="Desktop-nav__version-label">Version: </span>
-      <select class='Desktop-nav__version-select' onchange="if (this.value) window.location.href=this.value">
-        {% for version in site.data.navs %}
-          <option value="{{ site.baseurl}}/docs/{{ version[0] }}" {% if version[0] == page.version %}selected {% endif %}>{{version[0]}}</option>
-        {% endfor %}
-      </select>
-    </div>
   </div>
 </div>
 
@@ -52,7 +51,7 @@ layout: default
 
   {% if page.version contains 'v0.2.0-beta' %}
     <div class="Callout">
-      <p>v0.2.x is currently unreleased. Please help us test it out by <a href="/docs/v0.2.0-beta.9/installation/#beta">installing the latest beta</a> in your project!</p>
+      <p>v0.2.0 has been released. Please look through the breaking changes in the <a href="https://github.com/samselikoff/ember-cli-mirage/blob/master/CHANGELOG.md">changelog</a> and upgrade your project.</p>
     </div>
   {% endif %}
 

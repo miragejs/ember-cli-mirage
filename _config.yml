@@ -25,7 +25,7 @@ gems:
 github:
   repo: https://github.com/samselikoff/ember-cli-mirage
 
-default_version: v0.1.x
+default_version: v0.2.x
 
 defaults:
   -

@@ -1,3 +1,32 @@
+v0.2.x:
+  - section: Getting started
+    label: Overview
+    path: ''
+  - label: Installation
+  - label: Quickstart
+  - label: Upgrading
+
+  - section: Writing your server
+    label: Defining routes
+  - label: Seeding your database
+  - label: Acceptance testing
+
+  - section: API
+    label: Configuration
+  - label: Collections
+  - label: Route handlers
+  - label: Database
+  - label: Factories
+  - label: Fixtures
+  - label: Models
+  - label: Schema
+  - label: Serializers
+  - label: Shorthands
+
+  - section: Cookbook
+    label: Manually starting Mirage
+  - label: Simulating cookie responses
+
 v0.2.0-beta.9:
   - section: Getting started
     label: Overview

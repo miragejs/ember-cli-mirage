@@ -1,6 +1,6 @@
 .Table {
   table-layout: fixed;
-  
+
   &__wrapper {
     margin-left: 1em;
     max-width: 100%;
@@ -8,13 +8,13 @@
   }
   &__label {
     width: 90px;
-    font-size: 0.9em; 
+    font-size: 0.9em;
   }
   &__code {
     padding: 0;
 
     .highlight {
-      margin-bottom: 0;
+      margin: 0;
     }
   }
 }

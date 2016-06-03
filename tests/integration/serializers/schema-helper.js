@@ -36,7 +36,19 @@ export default {
       zomg: Model.extend({
         lol: Mirage.belongsTo()
       }),
-      lol: Model
+      lol: Model,
+      contact: Model.extend({
+        addresses: Mirage.hasMany(),
+        contactAddresses: Mirage.hasMany()
+      }),
+      address: Model.extend({
+        contacts: Mirage.hasMany(),
+        contactAddresses: Mirage.hasMany()
+      }),
+      contactAddress: Model.extend({
+        contact: Mirage.belongsTo(),
+        address: Mirage.belongsTo()
+      })
     });
 
     return this.schema;

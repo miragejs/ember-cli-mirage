@@ -5,5 +5,6 @@ export default DS.Model.extend({
   age: DS.attr('number'),
   email: DS.attr('string'),
 
-  address: DS.belongsTo('address')
+  address: DS.belongsTo('address', { inverse: 'contact' }),
+  addresses: DS.hasMany('address', { inverse: 'contacts' })
 });

@@ -1,4 +1,5 @@
-import Mirage from 'ember-cli-mirage';
+import { Factory, faker } from 'ember-cli-mirage';
 
-export default Mirage.Factory.extend({
+export default Factory.extend({
+  street: faker.address.streetAddress
 });

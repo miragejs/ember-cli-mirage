@@ -11,3 +11,9 @@
 <div>
   <button {{action 'deleteContact' model}}>Delete this contact</button>
 </div>
+
+{{#each model.addresses as |address|}}
+  <div class="address">{{address.street}}</div>
+{{else}}
+  There are no addresses for this contact
+{{/each}}

@@ -321,7 +321,7 @@ class Serializer {
     let relationshipNames = this._getRelationshipNames(request);
 
     relationshipNames
-    .map((relationshipName) => this._getRelatedWithPath(model, relationshipName))
+    .map((relationshipName) => this._getRelated(model, relationshipName))
     .filter(Boolean)
     .forEach(relationship => {
       let relatedModels = this.isModel(relationship) ? [relationship] : relationship;
@@ -416,7 +416,7 @@ class Serializer {
 
     if (embedRelatedIds) {
       this._getRelationshipNames(request)
-      .map(key => model[camelize(key)])
+      .map((key) => this._getRelatedValue(model, key))
       .filter(this.isCollection)
       .forEach(relatedCollection => {
         attrs[this.keyForRelationshipIds(relatedCollection.modelName)] = relatedCollection.models.map(model => model.id);
@@ -505,9 +505,18 @@ class Serializer {
     }
   }
 
-  _getRelatedWithPath(parentModel, path) {
-    let related =  parentModel[camelize(path)];
+  _getRelated(parentModel, key) {
+    let related =  this._getRelatedValue(parentModel, key);
     return this.isCollection(related) ? related.models : related;
+  }
+
+  _getRelatedValue(model, key) {
+    let camelizedKey = camelize(key);
+    if (_isFunction(this[camelizedKey])) {
+      return this[camelizedKey](model);
+    } else {
+      return model[camelizedKey];
+    }
   }
 }
 

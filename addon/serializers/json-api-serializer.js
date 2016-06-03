@@ -1,6 +1,6 @@
 // jscs:disable requireParenthesesAroundArrowParam
 import Serializer from '../serializer';
-import { dasherize, pluralize, camelize, singularize } from '../utils/inflector';
+import { dasherize, pluralize, singularize } from '../utils/inflector';
 import extend from './../utils/extend';
 
 import _flatten from 'lodash/array/flatten';
@@ -85,7 +85,7 @@ class JsonApiSerializer extends Serializer {
     return dasherize(key);
   }
 
-  _resourceObjectFor(model/*, request*/) {
+  _resourceObjectFor(model, _request) {
     let attrs = this._attrsForModel(model, _request, true, false);
 
     let obj = {
@@ -97,7 +97,7 @@ class JsonApiSerializer extends Serializer {
     let linkData = this._linkDataFor(model);
 
     model.associationKeys.forEach(camelizedType => {
-      let relationship = model[camelizedType];
+      let relationship = this._getRelatedValue(model, camelizedType);
       let relationshipKey = this.keyForRelationship(camelizedType);
 
       if (this.isCollection(relationship)) {
@@ -187,10 +187,10 @@ class JsonApiSerializer extends Serializer {
     return [];
   }
 
-  _getRelatedWithPath(parentModel, path) {
+  _getRelated(parentModel, path) {
     return path.split('.').reduce((related, relationshipName) => {
       return _(related)
-        .map(r => r.reload()[camelize(relationshipName)])
+        .map(r => this._getRelatedValue(r.reload(), relationshipName))
         .map(r => this.isCollection(r) ? r.models : r) // Turning Collections into Arrays for lodash to recognize
         .flatten()
         .filter()

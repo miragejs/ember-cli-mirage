@@ -6,6 +6,7 @@ import extend from './utils/extend';
 import { singularize, pluralize, camelize } from './utils/inflector';
 
 import _isFunction from 'lodash/lang/isFunction';
+import _ from 'lodash';
 
 class Serializer {
 
@@ -505,9 +506,15 @@ class Serializer {
     }
   }
 
-  _getRelated(parentModel, key) {
-    let related =  this._getRelatedValue(parentModel, key);
-    return this.isCollection(related) ? related.models : related;
+  _getRelated(parentModel, path) {
+    return path.split('.').reduce((related, relationshipName) => {
+      return _(related)
+        .map(r => this._getRelatedValue(r.reload(), relationshipName))
+        .map(r => this.isCollection(r) ? r.models : r) // Turning Collections into Arrays for lodash to recognize
+        .flatten()
+        .filter()
+        .value();
+    }, [parentModel]);
   }
 
   _getRelatedValue(model, key) {

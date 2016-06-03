@@ -7,7 +7,6 @@ import _flatten from 'lodash/array/flatten';
 import _get from 'lodash/object/get';
 import _trim from 'lodash/string/trim';
 import _isString from 'lodash/lang/isString';
-import _ from 'lodash';
 
 class JsonApiSerializer extends Serializer {
 
@@ -185,17 +184,6 @@ class JsonApiSerializer extends Serializer {
       return _flatten(expandedRelationships);
     }
     return [];
-  }
-
-  _getRelated(parentModel, path) {
-    return path.split('.').reduce((related, relationshipName) => {
-      return _(related)
-        .map(r => this._getRelatedValue(r.reload(), relationshipName))
-        .map(r => this.isCollection(r) ? r.models : r) // Turning Collections into Arrays for lodash to recognize
-        .flatten()
-        .filter()
-        .value();
-    }, [parentModel]);
   }
 }
 

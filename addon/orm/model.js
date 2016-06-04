@@ -255,6 +255,16 @@ class Model {
    * @private
    */
   _saveAssociations() {
+    Object.keys(this.hasOneAssociations).forEach(key => {
+      let association = this.hasOneAssociations[key];
+      let child = this[key];
+      if (child && child.isNew()) {
+        let fk = association.getForeignKey();
+        child[fk] = this.id;
+        child.save();
+      }
+    });
+
     Object.keys(this.belongsToAssociations).forEach(key => {
       let association = this.belongsToAssociations[key];
       let parent = this[key];

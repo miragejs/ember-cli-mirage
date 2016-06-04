@@ -16,8 +16,8 @@ test('I can use fixtures', function(assert) {
     let wordSmithsInStore = this.store.peekAll('word-smith');
     let blogPostsInStore = this.store.peekAll('blog-post');
 
-    assert.equal(wordSmithsInStore.get('length'), 1);
-    assert.equal(blogPostsInStore.get('length'), 3);
+    assert.equal(wordSmithsInStore.get('length'), 1, `There's one word-smith in the store`);
+    assert.equal(blogPostsInStore.get('length'), 3, `There are three blog-posts in the store`);
   });
 });
 

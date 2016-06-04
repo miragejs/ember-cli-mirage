@@ -50,6 +50,7 @@ export default class Schema {
 
     // Set up associations
     ModelClass.prototype.hasManyAssociations = {};   // a registry of the model's hasMany associations. Key is key from model definition, value is association instance itself
+    ModelClass.prototype.hasOneAssociations = {};   // a registry of the model's hasOne associations. Key is key from model definition, value is association instance itself
     ModelClass.prototype.belongsToAssociations = {}; // a registry of the model's belongsTo associations. Key is key from model definition, value is association instance itself
     ModelClass.prototype.associationKeys = [];       // ex: address.user, user.addresses
     ModelClass.prototype.associationIdKeys = [];     // ex: address.user_id, user.address_ids. may or may not be a fk.

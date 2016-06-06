@@ -165,6 +165,102 @@ GET /authors/1
 }
 ```
 
+## include query param
+
+The JSONAPISerializer supports the use of `include` query parameter to return compound documents.
+Prior to Ember Data 2.5, you will need to add `'ds-finder-include': true` to your app FEATURE object:
+
+```js
+// config/environment.js
+var ENV = {
+  EmberENV: {
+    FEATURES: {
+      'ds-finder-include': true
+    }
+  }
+};
+
+To tell Mirage to sideload blogPosts when we find find all authors we can do something like the following:
+
+```js
+// routes/authors.js
+export default Ember.Route.extend({
+  model() {
+    return this.store.findAll('author', {include: 'blogPosts'});
+  }
+}
+```
+
+The above will make a GET request to `/api/authors?include=blogPosts` which will return something similar to the following:
+
+```js
+{
+  data: [{
+    id: "1",
+    type: "authors",
+    attributes: {name: "Zelda"},
+    relationships: {
+      blogPosts: {
+        data: [
+          {type: "blog-posts", id: 1},
+          {type: "blog-posts", id: 2}
+        ]
+  }}}, {
+    type: "authors",
+    id: "2",
+    attributes: {name: "Link"},
+    relationships: {
+      blogPosts: {
+        data: [
+          {type: "blog-posts", id: 3},
+          {type: "blog-posts", id: 4}
+        ]
+  }}}, {
+    type: "authors",
+    id: "3",
+    attributes: {name: "Epona"},
+    relationships: {
+      blogPosts: {
+        data: [
+          {type: "blog-posts", id: 5}
+        ]
+  }}}],
+  included: [{
+    id: "1",
+    type: "blog-posts",
+    attributes: {title: "Lorem Ipsum"},
+    relationships: {
+      author: {data: [{type: "authors", id: 1}]},
+  }}, {
+    id: "2",
+    type: "blog-posts",
+    attributes: {title: "Dolor Sit Amet"},
+    relationships: {
+      author: {data: [{type: "authors", id: 1}]},
+  }}, {
+    id: "3",
+    type: "blog-posts",
+    attributes: {title: "Consectetur Adipiscing"},
+    relationships: {
+      author: {data: [{type: "authors", id: 2}]},
+  }}, {
+    id: "4",
+    type: "blog-posts",
+    attributes: {title: "Integer Vel Erat"},
+    relationships: {
+      author: {data: [{type: "authors", id: 2}]},
+  }}, {
+    id: "5",
+    type: "blog-posts",
+    attributes: {title: "Leo Accumsan Ultrices"},
+    relationships: {
+      author: {data: [{type: "authors", id: 3}]}
+  }}]
+}
+```
+
+*Note: This is only available when using the JSONAPISerializer.*
+
 ---
 
 ## root

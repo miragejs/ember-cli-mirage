@@ -1,43 +1,66 @@
-import JsonApiSerializer from 'ember-cli-mirage/serializers/json-api-serializer';
-import SerializerRegistry from 'ember-cli-mirage/serializer-registry';
-import Collection from 'ember-cli-mirage/orm/collection';
-import schemaHelper from '../../schema-helper';
 import { module, test } from 'qunit';
+import { Collection, Model, hasMany, belongsTo, JSONAPISerializer } from 'ember-cli-mirage';
+import Server from 'ember-cli-mirage/server';
+import SerializerRegistry from 'ember-cli-mirage/serializer-registry';
 
 module('Integration | Serializers | JSON API Serializer | Associations | Many To Many', {
   beforeEach() {
-    this.schema = schemaHelper.setup();
+    let server = new Server({
+      environment: 'test',
+      models: {
+        contact: Model.extend({
+          addresses: hasMany(),
+          contactAddresses: hasMany()
+        }),
+        address: Model.extend({
+          contacts: hasMany(),
+          contactAddresses: hasMany()
+        }),
+        contactAddress: Model.extend({
+          contact: belongsTo(),
+          address: belongsTo()
+        })
+      }
+    });
 
-    let mario = this.schema.contacts.create({ name: 'Mario' });
-    let newYork = this.schema.addresses.create({ street: 'Some New York Street' });
-    let mushroomKingdom = this.schema.addresses.create({ street: 'Some Mushroom Kingdom Street' });
+    server.timing = 0;
+    server.logging = false;
 
-    this.schema.contactAddresses.create({ contact: mario, address: newYork });
-    this.schema.contactAddresses.create({ contact: mario, address: mushroomKingdom });
+    let { schema } = server;
 
-    this.BaseSerializer = JsonApiSerializer;
+    let mario = schema.contacts.create({ name: 'Mario' });
+    let newYork = schema.addresses.create({ street: 'Some New York Street' });
+    let mushroomKingdom = schema.addresses.create({ street: 'Some Mushroom Kingdom Street' });
+
+    schema.contactAddresses.create({ contact: mario, address: newYork });
+    schema.contactAddresses.create({ contact: mario, address: mushroomKingdom });
+
+    this.server = server;
+    this.schema = schema;
   },
-
   afterEach() {
-    this.schema.db.emptyData();
+    this.server.shutdown();
   }
 });
 
 test(`it serializes manyToMany if properly configured to passthrough `, function(assert) {
+  let contactSerializer = JSONAPISerializer.extend({
+    addresses(model) {
+      let models = model.contactAddresses.models.map(ca => ca.address);
+      return new Collection('address', models);
+    }
+  });
+
+  let addressSerializer = JSONAPISerializer.extend({
+    contacts(model) {
+      let models = model.contactAddresses.models.map(ca => ca.contact);
+      return new Collection('contact', models);
+    }
+  });
+
   let registry = new SerializerRegistry(this.schema, {
-    application: this.BaseSerializer,
-    contact: this.BaseSerializer.extend({
-      addresses(model) {
-        let models = model.contactAddresses.models.map(ca => ca.address);
-        return new Collection('address', models);
-      }
-    }),
-    address: this.BaseSerializer.extend({
-      contacts(model) {
-        let models = model.contactAddresses.models.map(ca => ca.contact);
-        return new Collection('contact', models);
-      }
-    })
+    address: addressSerializer,
+    contact: contactSerializer
   });
 
   let link = this.schema.contacts.find(1);
@@ -69,22 +92,25 @@ test(`it serializes manyToMany if properly configured to passthrough `, function
 });
 
 test(`it sideloads manyToMany if properly configured to passthrough and include`, function(assert) {
+  let contactSerializer = JSONAPISerializer.extend({
+    include: ['addresses'],
+    addresses(model) {
+      let models = model.contactAddresses.models.map(ca => ca.address);
+      return new Collection('address', models);
+    }
+  });
+
+  let addressSerializer = JSONAPISerializer.extend({
+    include: ['contacts'],
+    contacts(model) {
+      let models = model.contactAddresses.models.map(ca => ca.contact);
+      return new Collection('contact', models);
+    }
+  });
+
   let registry = new SerializerRegistry(this.schema, {
-    application: this.BaseSerializer,
-    contact: this.BaseSerializer.extend({
-      include: ['addresses'],
-      addresses(model) {
-        let models = model.contactAddresses.models.map(ca => ca.address);
-        return new Collection('address', models);
-      }
-    }),
-    address: this.BaseSerializer.extend({
-      include: ['contacts'],
-      contacts(model) {
-        let models = model.contactAddresses.models.map(ca => ca.contact);
-        return new Collection('contact', models);
-      }
-    })
+    address: addressSerializer,
+    contact: contactSerializer
   });
 
   let link = this.schema.contacts.find(1);

@@ -3,6 +3,5 @@ import DS from 'ember-data';
 export default DS.Model.extend({
   street: DS.attr('string'),
 
-  contact: DS.belongsTo('contact', { inverse: 'address' }),
-  contacts: DS.hasMany('contact', { inverse: 'addresses' })
+  contact: DS.belongsTo('contact', { inverse: 'address' })
 });

@@ -1,32 +1,27 @@
 import { module, test } from 'qunit';
 import { Collection, Model, hasMany, belongsTo, JSONAPISerializer } from 'ember-cli-mirage';
-import Server from 'ember-cli-mirage/server';
+import Db from 'ember-cli-mirage/db';
+import Schema from 'ember-cli-mirage/orm/schema';
 import SerializerRegistry from 'ember-cli-mirage/serializer-registry';
 
 module('Integration | Serializers | JSON API Serializer | Associations | Many To Many', {
   beforeEach() {
-    let server = new Server({
-      environment: 'test',
-      models: {
-        contact: Model.extend({
-          addresses: hasMany(),
-          contactAddresses: hasMany()
-        }),
-        address: Model.extend({
-          contacts: hasMany(),
-          contactAddresses: hasMany()
-        }),
-        contactAddress: Model.extend({
-          contact: belongsTo(),
-          address: belongsTo()
-        })
-      }
+    let db = new Db();
+
+    let schema = new Schema(db, {
+      contact: Model.extend({
+        addresses: hasMany(),
+        contactAddresses: hasMany()
+      }),
+      address: Model.extend({
+        contacts: hasMany(),
+        contactAddresses: hasMany()
+      }),
+      contactAddress: Model.extend({
+        contact: belongsTo(),
+        address: belongsTo()
+      })
     });
-
-    server.timing = 0;
-    server.logging = false;
-
-    let { schema } = server;
 
     let mario = schema.contacts.create({ name: 'Mario' });
     let newYork = schema.addresses.create({ street: 'Some New York Street' });
@@ -35,11 +30,7 @@ module('Integration | Serializers | JSON API Serializer | Associations | Many To
     schema.contactAddresses.create({ contact: mario, address: newYork });
     schema.contactAddresses.create({ contact: mario, address: mushroomKingdom });
 
-    this.server = server;
     this.schema = schema;
-  },
-  afterEach() {
-    this.server.shutdown();
   }
 });
 
@@ -63,8 +54,8 @@ test(`it serializes manyToMany if properly configured to passthrough `, function
     contact: contactSerializer
   });
 
-  let link = this.schema.contacts.find(1);
-  let result = registry.serialize(link);
+  let contact = this.schema.contacts.find(1);
+  let result = registry.serialize(contact);
 
   assert.deepEqual(result, {
     data: {
@@ -113,8 +104,8 @@ test(`it sideloads manyToMany if properly configured to passthrough and include`
     contact: contactSerializer
   });
 
-  let link = this.schema.contacts.find(1);
-  let result = registry.serialize(link);
+  let contact = this.schema.contacts.find(1);
+  let result = registry.serialize(contact);
 
   let { data, included } = result;
 

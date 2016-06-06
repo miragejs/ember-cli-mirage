@@ -1,48 +1,44 @@
 import { module, test } from 'qunit';
 import { Collection, Model, hasMany, belongsTo, Serializer } from 'ember-cli-mirage';
-import Server from 'ember-cli-mirage/server';
+import Db from 'ember-cli-mirage/db';
+import Schema from 'ember-cli-mirage/orm/schema';
+import SerializerRegistry from 'ember-cli-mirage/serializer-registry';
 
 module('Integration | Serializers | Base | Associations | Many To Many', {
   beforeEach() {
-    let server = new Server({
-      environment: 'test',
-      models: {
-        contact: Model.extend({
-          addresses: hasMany(),
-          contactAddresses: hasMany()
-        }),
-        address: Model.extend({
-          contacts: hasMany(),
-          contactAddresses: hasMany()
-        }),
-        contactAddress: Model.extend({
-          contact: belongsTo(),
-          address: belongsTo()
-        })
-      },
-      serializers: {
-        application: Serializer,
-        contact: Serializer.extend({
-          include: ['addresses'],
-          addresses(model) {
-            let models = model.contactAddresses.models.map(ca => ca.address);
-            return new Collection('address', models);
-          }
-        }),
-        address: Serializer.extend({
-          include: ['contacts'],
-          contacts(model) {
-            let models = model.contactAddresses.models.map(ca => ca.contact);
-            return new Collection('contact', models);
-          }
-        })
-      }
+    let db = new Db();
+
+    let schema = new Schema(db, {
+      contact: Model.extend({
+        addresses: hasMany(),
+        contactAddresses: hasMany()
+      }),
+      address: Model.extend({
+        contacts: hasMany(),
+        contactAddresses: hasMany()
+      }),
+      contactAddress: Model.extend({
+        contact: belongsTo(),
+        address: belongsTo()
+      })
     });
 
-    server.timing = 0;
-    server.logging = false;
-
-    let { schema } = server;
+    let registry = new SerializerRegistry(schema, {
+      contact: Serializer.extend({
+        include: ['addresses'],
+        addresses(model) {
+          let models = model.contactAddresses.models.map(ca => ca.address);
+          return new Collection('address', models);
+        }
+      }),
+      address: Serializer.extend({
+        include: ['contacts'],
+        contacts(model) {
+          let models = model.contactAddresses.models.map(ca => ca.contact);
+          return new Collection('contact', models);
+        }
+      })
+    });
 
     let mario = schema.contacts.create({ name: 'Mario' });
     let newYork = schema.addresses.create({ street: 'Some New York Street' });
@@ -51,17 +47,14 @@ module('Integration | Serializers | Base | Associations | Many To Many', {
     schema.contactAddresses.create({ contact: mario, address: newYork });
     schema.contactAddresses.create({ contact: mario, address: mushroomKingdom });
 
-    this.server = server;
     this.schema = schema;
-  },
-  afterEach() {
-    this.server.shutdown();
+    this.registry = registry;
   }
 });
 
 test(`it serializes manyToMany if properly configured to passthrough`, function(assert) {
-  let link = this.schema.contacts.find(1);
-  let result = this.server.serializerOrRegistry.serialize(link);
+  let contact = this.schema.contacts.find(1);
+  let result = this.registry.serialize(contact);
 
   assert.deepEqual(result, {
     addresses: [{

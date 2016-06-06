@@ -5,5 +5,5 @@ export default DS.Model.extend({
   age: DS.attr('number'),
   email: DS.attr('string'),
 
-  address: DS.belongsTo('address', { inverse: 'contact' })
+  address: DS.belongsTo('address')
 });

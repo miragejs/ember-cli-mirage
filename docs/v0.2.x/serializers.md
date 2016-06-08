@@ -165,6 +165,40 @@ GET /authors/1
 }
 ```
 
+## include query param
+
+*Note: This is only available when using the JSONAPISerializer.*
+
+The JSONAPISerializer supports the use of `include` query parameter to return compound documents.
+Prior to Ember Data 2.5, you will need to add `'ds-finder-include': true` to your app FEATURES object:
+
+```js
+// config/environment.js
+var ENV = {
+  EmberENV: {
+    FEATURES: {
+      'ds-finder-include': true
+    }
+  }
+};
+```
+
+To tell Mirage to sideload blogPosts when we find find all authors we can do something like the following:
+
+```js
+// routes/authors.js
+export default Ember.Route.extend({
+  model() {
+    return this.store.findAll('author', {include: 'blogPosts'});
+  }
+}
+```
+
+The above will make a GET request to `/api/authors?include=blogPosts`, and then the appropriate Mirage route handler will be invoked. When it comes time to serialize the response, the JSONAPISerializer will inspect the query params of the request, see that the blogPosts relationship is present, and then proceed as if this relationship was specified directly in the include: [] array on the serializer itself.
+
+Note that, in accordance with the spec, Mirage gives precedence to an ?include query param over a default include: [] array that you might have specified directly on the serializer. Default includes will still be in effect, however, if a request does not have an ?include query param.
+
+
 ---
 
 ## root

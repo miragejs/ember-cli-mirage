@@ -56,7 +56,7 @@ The model will create an `authors` table in Mirage's *in-memory database*. The d
 Let's update our route handler to be dynamic:
 
 ```js
-this.get('/api/authors', (schema, request) => {
+this.get('/authors', (schema, request) => {
   return schema.authors.all();
 });
 ```

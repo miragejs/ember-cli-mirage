@@ -170,3 +170,7 @@ th {
 .highlight pre {
   margin-bottom: 0;
 }
+/* Rouge doesn't like newer ES2016 syntax */
+.highlight .err {
+  color: inherit; background-color: transparent;
+}

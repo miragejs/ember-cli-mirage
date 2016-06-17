@@ -145,6 +145,8 @@ If you're upgrading your Mirage server from v0.1.x to v0.2.x, here's what you ne
   ```
 
   and then start opting-in to the ORM (and using `schema`) one route handler at a time.
+  
+- **Specify a Serializer.** If you're using shorthands, you'll need to pick a serializer in `/mirage/serializers/application.js`. See the [serializers guide](../serializers) for details.
 
 ---
 

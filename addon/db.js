@@ -22,6 +22,7 @@ class Db {
    * @public
    */
   loadData(data) {
+    console.log(data);
     for (let key in data) {
       this.createCollection(key, data[key]);
     }

@@ -67,7 +67,7 @@ import { Factory } from 'ember-cli-mirage';
 export default Factory.extend({
 
   email(i) {
-    return `email${i}@acme.com`;  
+    return `email${i}@acme.com`;
   },
 
   isAdmin(i) {
@@ -79,9 +79,55 @@ export default Factory.extend({
 
 You'll get an error if you create an invalid cycle of dynamic attributes.
 
+You can also customize the objects created by your factory using the
+`afterCreate()` hook. This hook fires after the object is built (so all the
+attributes you've defined will be populated) but before that object is returned.
+
+
+The `afterCreate()` method is given two arguments: the newly created object, and
+a reference to the server. This makes it useful if you want your factory-created
+objects to be aware of the rest of the state of your Mirage database, or build
+relationships (as we'll see in a moment):
+
+```
+// mirage/factories/contact.js
+import { Factory, faker } from 'ember-cli-mirage';
+
+export default Factory.extend({
+
+  isAdmin: faker.random.boolean,
+
+  afterCreate(contact, server) {
+    // Only allow a max of 5 admins to be created
+    if (server.contacts.where({ isAdmin: true }).length >= 5) {
+      contact.isAdmin = false;
+    }
+  }
+
+});
+```
+
 ---
 
 You should define the attributes of your factory as the "base case" for your objects, and override them within your tests. We'll discuss how do to this in the Creating Objects section.
+
+## Factories and relationships
+
+When building objects using factories, you may want to create related objects automatically. To build related objects, use the `afterCreate()` hook:
+
+```
+// mirage/factories/author.js
+import { Factory } from 'ember-cli-mirage';
+
+export default Factory.extend({
+  firstName: faker.name.firstName,
+  afterCreate(author, server) {
+    server.create('post', { author });
+  }
+});
+```
+
+Because the `afterCreate()` hook is called with the newly created object a reference to the server, you can construct complex object graphs to associate with your newly created object.
 
 ## Using Faker.js
 

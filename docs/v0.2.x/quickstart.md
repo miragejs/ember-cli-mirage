@@ -10,8 +10,9 @@ Here's a simple example of a handler:
 ```js
 // mirage/config.js
 export default function() {
-
-  this.get('/api/authors', () => {
+  this.namespace = 'api'
+  
+  this.get('/authors', () => {
     return {
       authors: [
         {id: 1, name: 'Zelda'},
@@ -56,7 +57,9 @@ The model will create an `authors` table in Mirage's *in-memory database*. The d
 Let's update our route handler to be dynamic:
 
 ```js
-this.get('/api/authors', (schema, request) => {
+this.namespace = 'api';
+
+this.get('/authors', (schema, request) => {
   return schema.authors.all();
 });
 ```

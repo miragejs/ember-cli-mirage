@@ -138,7 +138,7 @@ The following helpers are available in your function handlers.
 This helper returns the serialized JSON for the given *modelOrCollection*. It's useful if you want to do some final munging on the serialized JSON before returning it.
 
 ```js
-this.get('/api/authors', ({ authors }) => {
+this.get('/api/authors', function({ authors }) {
   let json = this.serialize(authors.all());
 
   json.meta = { page: 1 };
@@ -150,7 +150,7 @@ this.get('/api/authors', ({ authors }) => {
 By default this method uses the named serializer for the given Model or Collection. You can pass in a specific serializer via `serializerName`:
 
 ```js
-this.get('/api/authors', ({ authors }) => {
+this.get('/api/authors', function({ authors }) {
   let json = this.serialize(authors.all(), 'sparse-author');
 
   json.meta = { page: 1 };

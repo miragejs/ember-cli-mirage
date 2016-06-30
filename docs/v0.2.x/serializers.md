@@ -165,6 +165,21 @@ GET /authors/1
 }
 ```
 
+You can also define `include` as a function so it can be determined dynamically:
+
+```js
+// mirage/serializers/author.js
+export default Serializer.extend({
+  include: function(request) {
+    if (request.queryParams.posts) {
+      return ['blogPosts'];
+    } else {
+      return [];
+    }
+  }
+});
+```
+
 ## include query param
 
 *Note: This is only available when using the JSONAPISerializer.*

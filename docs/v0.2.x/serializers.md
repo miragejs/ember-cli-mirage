@@ -141,7 +141,7 @@ export default Model.extend({
 and you wanted to sideload these, specify so in the `include` key:
 
 ```js
-// mirage/serializers/authors.j
+// mirage/serializers/author.js
 export default Serializer.extend({
   include: ['blogPosts']
 });

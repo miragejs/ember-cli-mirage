@@ -288,3 +288,7 @@ export default Model.extend({
   talks: hasMany('talk', { inverse: 'primaryEvent' }),
 });
 ```
+
+### Building associations
+
+To create objects via factories that come with relationships (and related models) already built, you can use the `afterCreate()` hook when defining your factory. For details, check out the [factories documentation](../factories/#factories-and-relationships).

@@ -141,7 +141,7 @@ export default Model.extend({
 and you wanted to sideload these, specify so in the `include` key:
 
 ```js
-// mirage/serializers/authors.j
+// mirage/serializers/author.js
 export default Serializer.extend({
   include: ['blogPosts']
 });
@@ -163,6 +163,21 @@ GET /authors/1
     {id: 2, authorId: 1, title: 'Ipsum'}
   ]
 }
+```
+
+You can also define `include` as a function so it can be determined dynamically:
+
+```js
+// mirage/serializers/author.js
+export default Serializer.extend({
+  include: function(request) {
+    if (request.queryParams.posts) {
+      return ['blogPosts'];
+    } else {
+      return [];
+    }
+  }
+});
 ```
 
 ## include query param

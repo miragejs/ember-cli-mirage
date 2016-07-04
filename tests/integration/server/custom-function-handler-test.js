@@ -43,7 +43,7 @@ test(`a POJA of models defaults to responding with an array of each model's attr
   });
 });
 
-test(`#normalizedRequestAttrs returns the an object with the primary resource's attrs and belongsTo keys camelized`, function(assert) {
+test(`#normalizedRequestAttrs returns an object with the primary resource's attrs and belongsTo keys camelized`, function(assert) {
   assert.expect(1);
   let done = assert.async();
   let { server } = this;
@@ -70,6 +70,32 @@ test(`#normalizedRequestAttrs returns the an object with the primary resource's 
         team_id: 1
       }
     })
+  }).done(() => {
+    done();
+  });
+});
+
+test(`#normalizedFormData parses a x-www-form-urlencoded request and returns a POJO`, function(assert) {
+  assert.expect(1);
+  let done = assert.async();
+  let { server } = this;
+
+  server.post('/form-test', function() {
+    let attrs = this.normalizedFormData();
+
+    assert.deepEqual(attrs, {
+      firstName: 'Sam',
+      lastName: 'Selikoff',
+      teamId: '1'
+    });
+
+    return {};
+  });
+
+  $.ajax({
+    method: 'POST',
+    url: '/form-test',
+    data: 'firstName=Sam&lastName=Selikoff&teamId=1'
   }).done(() => {
     done();
   });

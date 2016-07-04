@@ -35,4 +35,8 @@ export default class FunctionRouteHandler extends BaseRouteHandler {
     return this._getAttrsForRequest(this.request, modelName);
   }
 
+  normalizedFormData() {
+    return this._getAttrsForFormRequest(this.request);
+  }
+
 }

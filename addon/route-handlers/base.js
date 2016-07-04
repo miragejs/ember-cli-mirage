@@ -73,15 +73,18 @@ export default class BaseRouteHandler {
 
   _getAttrsForFormRequest({ requestBody }) {
     let attrs;
+    let urlEncodedParts = [];
 
     assert(
       requestBody && typeof requestBody === 'string',
       `You're using the helper method #normalizedFormData, but the request body is empty or not a valid url encoded string.`
     );
 
-    attrs = requestBody.split('&').reduce((a, b) => {
-      let [ key, value ] = b.split('=');
-      a[key] = value;
+    urlEncodedParts = requestBody.split('&');
+
+    attrs = urlEncodedParts.reduce((a, urlEncodedPart) => {
+      let [key, value] = urlEncodedPart.split('=');
+      a[key] = decodeURIComponent(value.replace(/\+/g,  ' '));
       return a;
     }, {});
 

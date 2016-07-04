@@ -84,9 +84,9 @@ test(`#normalizedFormData parses a x-www-form-urlencoded request and returns a P
     let attrs = this.normalizedFormData();
 
     assert.deepEqual(attrs, {
-      firstName: 'Sam',
-      lastName: 'Selikoff',
-      teamId: '1'
+      name: 'Sam Selikoff',
+      company: 'TED',
+      email: 'sam.selikoff@gmail.com'
     });
 
     return {};
@@ -95,7 +95,7 @@ test(`#normalizedFormData parses a x-www-form-urlencoded request and returns a P
   $.ajax({
     method: 'POST',
     url: '/form-test',
-    data: 'firstName=Sam&lastName=Selikoff&teamId=1'
+    data: 'name=Sam+Selikoff&company=TED&email=sam.selikoff@gmail.com'
   }).done(() => {
     done();
   });

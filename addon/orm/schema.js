@@ -85,6 +85,7 @@ export default class Schema {
       create: (attrs) => this.create(camelizedModelName, attrs),
       all: (attrs) => this.all(camelizedModelName, attrs),
       find: (attrs) => this.find(camelizedModelName, attrs),
+      findBy: (attrs) => this.findBy(camelizedModelName, attrs),
       where: (attrs) => this.where(camelizedModelName, attrs),
       first: (attrs) => this.first(camelizedModelName, attrs)
     };
@@ -141,6 +142,23 @@ export default class Schema {
     }
 
     return this._hydrate(records, dasherize(type));
+  }
+
+  /**
+   * @method findBy
+   * @param type
+   * @param attributeName
+   * @public
+   */
+  findBy(type, query) {
+    let collection = this._collectionForType(type);
+    let records = collection.where(query);
+
+    if (records.length === 0) {
+      return this._hydrate(records, dasherize(type));
+    }
+
+    return this._hydrate(records[0], dasherize(type));
   }
 
   /**

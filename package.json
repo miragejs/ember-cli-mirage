@@ -71,6 +71,7 @@
     "ember-cli-babel": "^5.1.5",
     "ember-inflector": "^1.9.2",
     "ember-lodash": "0.0.9",
-    "exists-sync": "0.0.3"
+    "exists-sync": "0.0.3",
+    "ms": "^0.7.1"
   }
 }

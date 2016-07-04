@@ -152,13 +152,9 @@ export default class Schema {
    */
   findBy(type, query) {
     let collection = this._collectionForType(type);
-    let records = collection.where(query);
+    let records = collection.findBy(query);
 
-    if (records.length === 0) {
-      return this._hydrate(records, dasherize(type));
-    }
-
-    return this._hydrate(records[0], dasherize(type));
+    return this._hydrate(records, dasherize(type));
   }
 
   /**

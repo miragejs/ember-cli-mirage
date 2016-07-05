@@ -76,6 +76,24 @@ test(`a string value that doesn't parse as an int passed into set doesn't affect
   assert.equal(manager.fetch(), 2);
 });
 
+test(`deletes id from the manager`, function(assert) {
+  let manager = new IdentityManager();
+
+  assert.equal(manager.fetch(), 1);
+  assert.equal(manager.fetch(), 2);
+  assert.deepEqual(manager._ids, {
+    1: true,
+    2: true
+  });
+
+  manager.delete(1);
+
+  assert.deepEqual(manager._ids, {
+    1: false,
+    2: true
+  });
+});
+
 test(`reset clears the managers memory`, function(assert) {
   let manager = new IdentityManager();
   manager.set('abc');

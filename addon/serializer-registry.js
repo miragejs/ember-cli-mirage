@@ -24,7 +24,7 @@ export default class SerializerRegistry {
     if (this._isModelOrCollection(response)) {
       let serializer = this.serializerFor(response.modelName);
 
-      return serializer.serialize(response, request);
+      return serializer.serialize(response, request, this.schema);
     } else if (_isArray(response) && response.filter(this._isCollection).length) {
       return response.reduce((json, collection) => {
         let serializer = this.serializerFor(collection.modelName);

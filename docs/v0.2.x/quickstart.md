@@ -157,9 +157,11 @@ export default Model.extend({
 });
 
 // mirage/models/blog-post.js
-import { Model } from 'ember-cli-mirage';
+import { Model, belongsTo } from 'ember-cli-mirage';
 
-export default Model;
+export default Model.extend({
+  author: belongsTo()
+});
 ```
 
 Now Mirage knows about the relationship between these two models, which can be useful when writing route handlers:

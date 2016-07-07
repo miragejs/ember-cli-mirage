@@ -533,7 +533,7 @@ export default JsonApiSerializer.extend({
   links(author) {
     return {
       'posts': {
-        related: `/api/authors/${model.id}/posts`
+        related: `/api/authors/${author.id}/posts`
       }
     };
   }

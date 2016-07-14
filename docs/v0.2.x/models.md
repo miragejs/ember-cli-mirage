@@ -241,7 +241,7 @@ export default Model.extend({
 });
 ```
 
-This adds an `authorId` property to the `comment` model, as well as some methods for working with the associated `comments` collection:
+This adds a `commentIds` property to the `blogPost` model, as well as some methods for working with the associated `comments` collection:
 
 ```js
 blogPost.commentIds;                      // [1, 2, 3]

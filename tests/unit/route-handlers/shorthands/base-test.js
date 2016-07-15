@@ -73,6 +73,18 @@ test('_getAttrsForRequest works with attributes and relationships', function(ass
         },
         'many-things': {
           'data': []
+        },
+        'articles': {
+          'data': [
+            {
+              'id': '10',
+              'type': 'articles'
+            },
+            {
+              'id': '20',
+              'type': 'articles'
+            }
+          ]
         }
       },
       'type': 'github-account'
@@ -92,7 +104,9 @@ test('_getAttrsForRequest works with attributes and relationships', function(ass
       doesMirage: true,
       companyId: '1',
       githubAccountId: '1',
-      somethingId: null
+      somethingId: null,
+      manyThingIds: [],
+      articleIds: ['10', '20']
     },
     'it normalizes data correctly.'
   );

@@ -60,7 +60,7 @@ export default function() {
   <p><em>passthrough</em> was added in 0.1.9.</p>
 </aside>
 
-By default, if your Ember app maks a request that is not defined in your server config, Mirage will throw an error. You can use `passthrough` to whitelist requests, and allow them to pass through your Mirage server to the actual network layer.
+By default, if your Ember app makes a request that is not defined in your server config, Mirage will throw an error. You can use `passthrough` to whitelist requests, and allow them to pass through your Mirage server to the actual network layer.
 
 <aside class='Docs-page__aside'>
   <p>Put all passthrough config at the bottom of your <code>config.js</code> file, to give your route handlers precedence.</p>

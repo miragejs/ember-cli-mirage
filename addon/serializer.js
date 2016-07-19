@@ -1,9 +1,9 @@
 import Model from './orm/model';
 import Collection from './orm/collection';
 import _assign from 'lodash/object/assign';
-import _compose from 'lodash/function/compose';
 import extend from './utils/extend';
-import { singularize, pluralize, camelize } from './utils/inflector';
+import { singularize, camelize } from './utils/inflector';
+import { toDbCollectionName } from 'ember-cli-mirage/utils/normalize-name';
 
 import _isFunction from 'lodash/lang/isFunction';
 
@@ -82,7 +82,7 @@ class Serializer {
    * @public
    */
   keyForCollection(modelName) {
-    return pluralize(this.keyForModel(modelName));
+    return toDbCollectionName(modelName);
   }
 
   /**
@@ -118,7 +118,7 @@ class Serializer {
    * @public
    */
   keyForRelationship(modelName) {
-    return _compose(camelize, pluralize)(modelName);
+    return toDbCollectionName(modelName);
   }
 
   /**
@@ -321,7 +321,8 @@ class Serializer {
     let key = this._keyForModelOrCollection(model);
 
     if (topLevelIsArray) {
-      key = root ? root : pluralize(key);
+      let serializer = this.serializerFor(model.modelName);
+      key = root ? root : serializer.keyForRelationship(key);
       allAttrs[key] = allAttrs[key] || [];
       allAttrs[key].push(modelAttrs);
     } else {

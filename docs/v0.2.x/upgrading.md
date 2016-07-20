@@ -33,7 +33,7 @@ If you're upgrading your Mirage server from v0.1.x to v0.2.x, here's what you ne
     mv app/mirage mirage
     ```
 
-    from the root of your project. Mirage's directory is also [customizable](http://localhost:4000/docs/v0.2.x/configuration/#directory), so you can also set an option and leave it under `/app`, if you'd like.
+    from the root of your project. Mirage's directory is also [customizable](../configuration/#directory), so you can also set an option and leave it under `/app`, if you'd like.
 
   - **All multiword filenames are dasherized.** In Mirage 0.1.x, database collection names were taken from filenames. The idea was, if your API returned snake_case collection keys (e.g. `blog_posts: []`), just name your file `fixtures/blog_posts.js`. This approach turned out to be insufficiently flexib-- what am I saying, it was just a bad idea :P.
 

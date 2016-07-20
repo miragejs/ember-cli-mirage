@@ -294,6 +294,15 @@ export default class Server {
     }
   }
 
+  resource(resourcePath) {
+    this.get(resourcePath);
+    this.get(`${resourcePath}/:id`);
+    this.post(resourcePath);
+    this.put(`${resourcePath}/:id`);
+    this.patch(`${resourcePath}/:id`);
+    this.del(`${resourcePath}/:id`);
+  }
+
   _defineRouteHandlerHelpers() {
     [['get'], ['post'], ['put'], ['delete', 'del'], ['patch'], ['head']].forEach(([verb, alias]) => {
       this[verb] = (path, ...args) => {

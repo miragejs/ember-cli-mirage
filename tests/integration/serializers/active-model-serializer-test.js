@@ -23,6 +23,12 @@ module('Integration | Serializer | ActiveModelSerializer', {
       }),
       contactInfo: Model.extend({
         user: belongsTo()
+      }),
+      game: Model.extend({
+        players: hasMany()
+      }),
+      player: Model.extend({
+        game: belongsTo()
       })
     });
 
@@ -48,6 +54,9 @@ module('Integration | Serializer | ActiveModelSerializer', {
         attrs: ['id', 'name'],
         include: ['ContactInfos'],
         embed: true
+      }),
+      game: ActiveModelSerializer.extend({
+        attrs: ['id', 'name']
       })
     });
   },
@@ -140,6 +149,26 @@ test('it embeds associations and snake-cases relationships and attributes correc
         id: '2',
         name: 'Pine Apple',
         contact_infos: []
+      }
+    ]
+  });
+});
+
+test('it snake-cases relationship for a collection', function(assert) {
+  let game = this.schema.games.create({ name: 'Legend of Zelda' });
+
+  this.schema.players.create({ game });
+  this.schema.players.create({ game });
+
+  let games = this.schema.games.all();
+  let result = this.registry.serialize(games);
+
+  assert.deepEqual(result, {
+    games: [
+      {
+        id: '1',
+        name: 'Legend of Zelda',
+        player_ids: [1, 2]
       }
     ]
   });

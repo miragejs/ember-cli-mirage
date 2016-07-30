@@ -177,7 +177,7 @@ View the [full reference](../shorthands) to see all available shorthands.
 
 When you return a model or a collection from a route handler, Mirage *serializes* it into a JSON payload, and then responds to your Ember app with that payload. It uses an object called a Serializer to do this, which you can customize. Having a single object that's responsible for this formatting logic helps keep your route handlers simple. In particular, a bit of customization in the serializer layer often lets you use shorthands when you otherwise wouldn't be able to.
 
-Mirage ships with two named serializers, JsonApiSerializer (used to implement [JSON:API](http://jsonapi.org/)) and ActiveModelSerializer (used to simulate Rails servers using ActiveModel::Serializers). You should use these if your app's backend will be built to conform to either standard.
+Mirage ships with three named serializers, JsonApiSerializer (used to implement [JSON:API](http://jsonapi.org/)), ActiveModelSerializer (used to simulate Rails servers using ActiveModel::Serializers) and RestSerializer (use to match Ember Data’s RestSerializer expected response format). You should use these if your app's backend will be built to conform to either standard.
 
 Additionally, there's a basic Serializer class that you can use and customize. By default, it takes all the attributes of your model, and returns them under a root key of the model type. Suppose you had the following author in your database:
 

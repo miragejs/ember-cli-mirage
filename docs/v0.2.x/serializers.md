@@ -520,11 +520,17 @@ Now the response will look like:
 }
 ```
 
+## typeKeyForModel(*model*)
+
+This hook is only available on the JSONAPISerializer. 
+
+Use this hook to override the generated `type` for the JSON:API resource object. By default, `type` will be the plural and dasherized form of the model name.
+
 ## links(*model*)
 
 This hook is only available on the JSONAPISerializer.
 
-Use this hook to add top-level `links` data to json:api resource objects. The argument is the model being serialized.
+Use this hook to add top-level `links` data to JSON:API resource objects. The argument is the model being serialized.
 
 ```js
 // serializers/author.js

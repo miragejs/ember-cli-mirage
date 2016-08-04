@@ -20,7 +20,7 @@ function isNotBlankResponse(response) {
     (_isArray(response) || !isBlank(response));
 }
 
-const DEFAULT_CODES = { get: 200, put: 204, post: 201, 'delete': 204 };
+const DEFAULT_CODES = { get: 200, put: 204, post: 201, 'delete': 204, 'options': 200};
 
 function createHandler({ verb, schema, serializerOrRegistry, path, rawHandler, options }) {
   let handler;

@@ -122,6 +122,7 @@ this.put('/contacts/:id', 'user');  // optionally specify the type as second par
 {% capture expanded %}
 {% highlight js %}
 this.put('/contacts/:id', ({ contacts }, request) => {
+  let id = request.params.id;
   let attrs = this.normalizedRequestAttrs();
 
   return contacts.find(id).update(attrs);

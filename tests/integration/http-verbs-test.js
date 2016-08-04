@@ -65,6 +65,23 @@ test('mirage responds to put', function(assert) {
   });
 });
 
+test('mirage responds to options', function(assert) {
+  assert.expect(1);
+  let done = assert.async();
+
+  this.server.options('/contacts', function() {
+    return true;
+  });
+
+  $.ajax({
+    method: 'OPTIONS',
+    url: '/contacts'
+  }).done(function(res) {
+    assert.equal(res, true);
+    done();
+  });
+});
+
 test('mirage responds to delete', function(assert) {
   assert.expect(1);
   let done = assert.async();

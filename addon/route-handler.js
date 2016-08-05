@@ -41,6 +41,8 @@ function createHandler({ verb, schema, serializerOrRegistry, path, rawHandler, o
     handler = new DeleteShorthandHandler(...args);
   } else if (verb === 'head') {
     handler = new HeadShorthandHandler(...args);
+  } else if (verb === 'options') {
+    handler = new GetShorthandHandler(...args);
   }
   return handler;
 }

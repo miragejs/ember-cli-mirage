@@ -15,7 +15,9 @@ import { pluralize } from 'ember-cli-mirage/utils/inflector';
   a hash containing the names of the files as keys and the data as values.
 */
 export default function(prefix) {
-  let modules = ['factories', 'fixtures', 'scenarios', 'models', 'serializers'];
+  // As we can have many different fixtures present we will load them on demand,
+  // they are no longer loaded on boot.
+  let modules = ['factories', 'scenarios', 'models', 'serializers'];
   let mirageModuleRegExp = new RegExp(`^${prefix}/mirage/(${modules.join('|')})`);
   let modulesMap = modules.reduce((memo, name) => {
     memo[name] = {};

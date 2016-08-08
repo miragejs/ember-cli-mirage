@@ -10,8 +10,8 @@ import SerializerRegistry from './serializer-registry';
 import RouteHandler from './route-handler';
 
 import _isArray from 'lodash/lang/isArray';
-import _pick from 'lodash/object/pick';
 import _keys from 'lodash/object/keys';
+import _pick from 'lodash/object/pick';
 import _assign from 'lodash/object/assign';
 
 function createPretender(server) {
@@ -210,6 +210,10 @@ export default class Server {
    */
   loadFixtures(...args) {
     if (this.options.hasOwnProperty('fixtures')) {
+      // Even though we removed the automathic loading of all available
+      // fixtures, we need to keep the old functionality as is, just in case
+      // someone has already code where they manually specified the fixtures
+      // on the server constructor.
       let { fixtures } = this.options;
       if (args.length) {
         let camelizedArgs = args.map(camelize);
@@ -217,6 +221,8 @@ export default class Server {
       }
       this.db.loadData(fixtures);
     } else {
+      // New functionality:
+      //
       // Array of fixtures we are going to load.
       let fixtureNames = [];
       // As the fixtures are all stored inside the standard directory we add

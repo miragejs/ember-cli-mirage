@@ -2,9 +2,7 @@ import Model from './orm/model';
 import Collection from './orm/collection';
 import _assign from 'lodash/object/assign';
 import extend from './utils/extend';
-import { singularize, camelize } from './utils/inflector';
-import { toDbCollectionName } from 'ember-cli-mirage/utils/normalize-name';
-
+import { singularize, pluralize, camelize } from './utils/inflector';
 import _isFunction from 'lodash/lang/isFunction';
 
 class Serializer {
@@ -82,7 +80,7 @@ class Serializer {
    * @public
    */
   keyForCollection(modelName) {
-    return toDbCollectionName(modelName);
+    return pluralize(this.keyForModel(modelName));
   }
 
   /**
@@ -118,7 +116,7 @@ class Serializer {
    * @public
    */
   keyForRelationship(modelName) {
-    return toDbCollectionName(modelName);
+    return camelize(pluralize(modelName));
   }
 
   /**

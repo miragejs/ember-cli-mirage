@@ -5,7 +5,7 @@ import {
   dasherize
 } from 'ember-cli-mirage/utils/inflector';
 
-export function toDbCollectionName(type) {
+export function toCollectionName(type) {
   let modelName = dasherize(type);
   return camelize(pluralize(modelName));
 }

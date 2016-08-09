@@ -1,5 +1,5 @@
 import { pluralize, camelize, dasherize } from '../utils/inflector';
-import { toDbCollectionName, toModelName } from 'ember-cli-mirage/utils/normalize-name';
+import { toCollectionName, toModelName } from 'ember-cli-mirage/utils/normalize-name';
 import Association from './associations/association';
 import Collection from './collection';
 import _isArray from 'lodash/lang/isArray';
@@ -75,7 +75,7 @@ export default class Schema {
     }
 
     // Create a db collection for this model, if doesn't exist
-    let collection = toDbCollectionName(modelName);
+    let collection = toCollectionName(modelName);
     if (!this.db[collection]) {
       this.db.createCollection(collection);
     }
@@ -194,7 +194,7 @@ export default class Schema {
    * @private
    */
   _collectionForType(type) {
-    let collection = toDbCollectionName(type);
+    let collection = toCollectionName(type);
     assert(
       this.db[collection],
       `You\'re trying to find model(s) of type ${type} but this collection doesn\'t exist in the database.`

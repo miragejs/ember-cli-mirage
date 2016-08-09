@@ -1,6 +1,5 @@
 import ActiveModelSerializer from './active-model-serializer';
-import { camelize } from '../utils/inflector';
-import { toDbCollectionName } from 'ember-cli-mirage/utils/normalize-name';
+import { camelize, pluralize } from '../utils/inflector';
 
 export default ActiveModelSerializer.extend({
 
@@ -13,7 +12,7 @@ export default ActiveModelSerializer.extend({
   },
 
   keyForRelationship(type) {
-    return toDbCollectionName(type);
+    return camelize(pluralize(type));
   },
 
   keyForRelationshipIds(type) {

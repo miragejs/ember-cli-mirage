@@ -89,7 +89,7 @@ a reference to the server. This makes it useful if you want your factory-created
 objects to be aware of the rest of the state of your Mirage database, or build
 relationships (as we'll see in a moment):
 
-```
+```js
 // mirage/factories/contact.js
 import { Factory, faker } from 'ember-cli-mirage';
 
@@ -115,7 +115,7 @@ You should define the attributes of your factory as the "base case" for your obj
 
 When building objects using factories, you may want to create related objects automatically. To build related objects, use the `afterCreate()` hook:
 
-```
+```js
 // mirage/factories/author.js
 import { Factory } from 'ember-cli-mirage';
 

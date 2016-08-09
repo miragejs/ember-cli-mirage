@@ -294,13 +294,13 @@ export default class Server {
     }
   }
 
-  resource(resourcePath) {
-    this.get(resourcePath);
-    this.get(`${resourcePath}/:id`);
-    this.post(resourcePath);
-    this.put(`${resourcePath}/:id`);
-    this.patch(`${resourcePath}/:id`);
-    this.del(`${resourcePath}/:id`);
+  resource(resourceName) {
+    this.get(`/${resourceName}`);
+    this.get(`/${resourceName}/:id`);
+    this.post(`/${resourceName}`);
+    this.put(`/${resourceName}/:id`);
+    this.patch(`/${resourceName}/:id`);
+    this.del(`/${resourceName}/:id`);
   }
 
   _defineRouteHandlerHelpers() {

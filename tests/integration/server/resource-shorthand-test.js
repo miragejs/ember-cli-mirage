@@ -32,7 +32,7 @@ test('resource generates get shorthand for index action', function(assert) {
     ]
   });
 
-  this.server.resource('/contacts');
+  this.server.resource('contacts');
 
   $.ajax({
     method: 'GET',
@@ -55,7 +55,7 @@ test('resource generates get shorthand for show action', function(assert) {
     ]
   });
 
-  this.server.resource('/contacts');
+  this.server.resource('contacts');
 
   $.ajax({
     method: 'GET',
@@ -72,7 +72,7 @@ test('resource generates post shorthand', function(assert) {
   assert.expect(2);
   let done = assert.async();
 
-  server.resource('/contacts');
+  server.resource('contacts');
 
   $.ajax({
     method: 'POST',
@@ -100,7 +100,7 @@ test('resource generates put shorthand', function(assert) {
     ]
   });
 
-  server.resource('/contacts');
+  server.resource('contacts');
 
   $.ajax({
     method: 'PUT',
@@ -128,7 +128,7 @@ test('resource generates patch shorthand', function(assert) {
     ]
   });
 
-  server.resource('/contacts');
+  server.resource('contacts');
 
   $.ajax({
     method: 'PATCH',
@@ -156,7 +156,7 @@ test('resource generates delete shorthand works', function(assert) {
     ]
   });
 
-  server.resource('/contacts');
+  server.resource('contacts');
 
   $.ajax({
     method: 'DELETE',

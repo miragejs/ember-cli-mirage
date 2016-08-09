@@ -107,7 +107,7 @@ test('mirage responds to resource', function(assert) {
   assert.expect(0);
   let done = assert.async();
 
-  this.server.resource('/contacts');
+  this.server.resource('contacts');
 
   $.ajax({
     method: 'GET',

@@ -10,7 +10,7 @@ Here's a simple example of a handler:
 ```js
 // mirage/config.js
 export default function() {
-  this.namespace = 'api'
+  this.namespace = 'api';
   
   this.get('/authors', () => {
     return {
@@ -49,7 +49,8 @@ This generates the following file:
 // mirage/models/author.js
 import { Model } from 'ember-cli-mirage';
 
-export default Model;
+export default Model.extend({
+});
 ```
 
 The model will create an `authors` table in Mirage's *in-memory database*. The database makes our route handlers dynamic&mdash;we can change the returned data without rewriting the handler. In this way, we can share the same route definitions in both development and testing, while still having control over their response data.
@@ -57,6 +58,7 @@ The model will create an `authors` table in Mirage's *in-memory database*. The d
 Let's update our route handler to be dynamic:
 
 ```js
+// mirage/config.js
 this.namespace = 'api';
 
 this.get('/authors', (schema, request) => {

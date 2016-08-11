@@ -167,3 +167,213 @@ test('resource generates delete shorthand works', function(assert) {
     done();
   });
 });
+
+test('resource does not accept both :all and :except options', function(assert) {
+  let { server } = this;
+
+  assert.throws(() => {
+    server.resource('contacts', { only: ['index'], except: ['create'] });
+  }, 'cannot use both :only and :except options');
+});
+
+test('resource generates shorthands which are whitelisted by :only option', function(assert) {
+  let { server } = this;
+  assert.expect(1);
+  let done = assert.async();
+
+  server.db.loadData({
+    contacts: [
+      { id: 1, name: 'Link' },
+      { id: 2, name: 'Zelda' }
+    ]
+  });
+
+  server.resource('contacts', { only: ['index'] });
+
+  $.ajax({
+    method: 'GET',
+    url: '/contacts'
+  }).done((res, status, xhr) => {
+    assert.equal(xhr.status, 200);
+    done();
+  });
+});
+
+test('resource does not generate shorthands which are not whitelisted with :only option', function(assert) {
+  let { server } = this;
+  assert.expect(5);
+
+  server.db.loadData({
+    contacts: [
+      { id: 1, name: 'Link' }
+    ]
+  });
+
+  server.resource('contacts', { only: ['index'] });
+
+  let doneForShow = assert.async();
+
+  $.ajax({
+    method: 'GET',
+    url: '/contacts/1'
+  }).fail((xhr, textStatus, error) => {
+    assert.ok(error.message.includes("Mirage: Your Ember app tried to GET '/contacts/1'"));
+    doneForShow();
+  });
+
+  let doneForCreate = assert.async();
+
+  $.ajax({
+    method: 'POST',
+    url: '/contacts',
+    data: JSON.stringify({
+      contact: {
+        name: 'Zelda'
+      }
+    })
+  }).fail((xhr, textStatus, error) => {
+    assert.ok(error.message.includes("Mirage: Your Ember app tried to POST '/contacts'"));
+    doneForCreate();
+  });
+
+  let doneForPut = assert.async();
+
+  $.ajax({
+    method: 'PUT',
+    url: '/contacts/1',
+    data: JSON.stringify({
+      contact: {
+        name: 'Zelda'
+      }
+    })
+  }).fail((xhr, textStatus, error) => {
+    assert.ok(error.message.includes("Mirage: Your Ember app tried to PUT '/contacts/1'"));
+    doneForPut();
+  });
+
+  let doneForPatch = assert.async();
+
+  $.ajax({
+    method: 'PATCH',
+    url: '/contacts/1',
+    data: JSON.stringify({
+      contact: {
+        name: 'Zelda'
+      }
+    })
+  }).fail((xhr, textStatus, error) => {
+    assert.ok(error.message.includes("Mirage: Your Ember app tried to PATCH '/contacts/1'"));
+    doneForPatch();
+  });
+
+  let doneForDelete = assert.async();
+
+  $.ajax({
+    method: 'DELETE',
+    url: '/contacts/1'
+  }).fail((xhr, textStatus, error) => {
+    assert.ok(error.message.includes("Mirage: Your Ember app tried to DELETE '/contacts/1'"));
+    doneForDelete();
+  });
+});
+
+test('resource generates shorthands which are not blacklisted by :except option', function(assert) {
+  let { server } = this;
+  assert.expect(2);
+
+  server.db.loadData({
+    contacts: [
+      { id: 1, name: 'Link' }
+    ]
+  });
+
+  server.resource('contacts', { except: ['create', 'update', 'delete'] });
+
+  let doneForIndex = assert.async();
+
+  $.ajax({
+    method: 'GET',
+    url: '/contacts'
+  }).done((res, status, xhr) => {
+    assert.equal(xhr.status, 200);
+    doneForIndex();
+  });
+
+  let doneForShow = assert.async();
+
+  $.ajax({
+    method: 'GET',
+    url: '/contacts'
+  }).done((res, status, xhr) => {
+    assert.equal(xhr.status, 200);
+    doneForShow();
+  });
+});
+
+test('resource does not generate shorthands which are blacklisted by :except option', function(assert) {
+  let { server } = this;
+  assert.expect(4);
+
+  server.db.loadData({
+    contacts: [
+      { id: 1, name: 'Link' }
+    ]
+  });
+
+  server.resource('contacts', { except: ['create', 'update', 'delete'] });
+
+  let doneForCreate = assert.async();
+
+  $.ajax({
+    method: 'POST',
+    url: '/contacts',
+    data: JSON.stringify({
+      contact: {
+        name: 'Zelda'
+      }
+    })
+  }).fail((xhr, textStatus, error) => {
+    assert.ok(error.message.includes("Mirage: Your Ember app tried to POST '/contacts'"));
+    doneForCreate();
+  });
+
+  let doneForPut = assert.async();
+
+  $.ajax({
+    method: 'PUT',
+    url: '/contacts/1',
+    data: JSON.stringify({
+      contact: {
+        name: 'Zelda'
+      }
+    })
+  }).fail((xhr, textStatus, error) => {
+    assert.ok(error.message.includes("Mirage: Your Ember app tried to PUT '/contacts/1'"));
+    doneForPut();
+  });
+
+  let doneForPatch = assert.async();
+
+  $.ajax({
+    method: 'PATCH',
+    url: '/contacts/1',
+    data: JSON.stringify({
+      contact: {
+        name: 'Zelda'
+      }
+    })
+  }).fail((xhr, textStatus, error) => {
+    assert.ok(error.message.includes("Mirage: Your Ember app tried to PATCH '/contacts/1'"));
+    doneForPatch();
+  });
+
+  let doneForDelete = assert.async();
+
+  $.ajax({
+    method: 'DELETE',
+    url: '/contacts/1'
+  }).fail((xhr, textStatus, error) => {
+    assert.ok(error.message.includes("Mirage: Your Ember app tried to DELETE '/contacts/1'"));
+    doneForDelete();
+  });
+});

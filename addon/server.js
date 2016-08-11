@@ -294,13 +294,32 @@ export default class Server {
     }
   }
 
-  resource(resourceName) {
-    this.get(`/${resourceName}`);
-    this.get(`/${resourceName}/:id`);
-    this.post(`/${resourceName}`);
-    this.put(`/${resourceName}/:id`);
-    this.patch(`/${resourceName}/:id`);
-    this.del(`/${resourceName}/:id`);
+  resource(resourceName, { only, except } = {}) {
+    only = only || [];
+    except = except || [];
+
+    if (only.length > 0 && except.length > 0) {
+      throw 'cannot use both :only and :except options';
+    }
+
+    let actionsMethodsAndsPathsMappings = {
+      index: { methods: ['get'], path: `/${resourceName}` },
+      show: { methods: ['get'], path: `/${resourceName}/:id` },
+      create: { methods: ['post'], path: `/${resourceName}` },
+      update: { methods: ['put', 'patch'], path: `/${resourceName}/:id` },
+      delete: { methods: ['del'], path: `/${resourceName}/:id` }
+    };
+
+    let allActions = Object.keys(actionsMethodsAndsPathsMappings);
+    let actions = only.length > 0 && only ||
+                  except.length > 0 && allActions.filter(action => !except.includes(action)) ||
+                  allActions;
+
+    actions.forEach((action) => {
+      let methodsWithPath = actionsMethodsAndsPathsMappings[action];
+
+      methodsWithPath.methods.forEach(method => this[method](methodsWithPath.path));
+    });
   }
 
   _defineRouteHandlerHelpers() {

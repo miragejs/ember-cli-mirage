@@ -76,6 +76,20 @@ test('I can view all users', function() {
 });
 ```
 
+You can also write a custom log message, using the [Pretender server's](#pretender) `handledRequest` hook. See [Mirage's default implementation](https://github.com/samselikoff/ember-cli-mirage/blob/2c31ad15a46e90b357a83b6896c6774fa42c6488/addon/server.js#L25) for an example.
+
+To override,
+
+```js
+// mirage/config.js
+export default function() {
+  this.pretender.handledRequest = function(verb, path, request) {
+    let { responseText } = request;
+    // log request and response data
+  }
+}
+```
+
 <a name="passthrough" href="#passthrough">#</a> this.**passthrough**(*path1*, *path2*..., *options*)
 
 By default, if your Ember app makes a request that is not defined in your server config, Mirage will throw an error. You can use `passthrough` to whitelist requests, and allow them to pass through your Mirage server to the actual network layer.

@@ -9,6 +9,8 @@ Besides defining your routes, there's some config options for your server availa
 
 ## Server config
 
+Note that `this` within your config function in `mirage/config.js` refers to the server instance, which is the same instance that `server` refers to in your tests.
+
 <a name="namespace" href="#namespace">#</a> this.<b>namespace</b>
 
 Set the base namespace used for all routes defined with `get`, `post`, `put` or `del`.

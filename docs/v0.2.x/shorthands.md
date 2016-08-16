@@ -96,7 +96,7 @@ this.post('/contacts', 'user');  // optionally specify the type as second param
 
 {% capture expanded %}
 {% highlight js %}
-this.post('/contacts', ({ contacts }, request) => {
+this.post('/contacts', function({ contacts }, request) {
   let attrs = this.normalizedRequestAttrs();
 
   return contacts.create(attrs);
@@ -121,7 +121,7 @@ this.put('/contacts/:id', 'user');  // optionally specify the type as second par
 
 {% capture expanded %}
 {% highlight js %}
-this.put('/contacts/:id', ({ contacts }, request) => {
+this.put('/contacts/:id', function({ contacts }, request) {
   let id = request.params.id;
   let attrs = this.normalizedRequestAttrs();
 

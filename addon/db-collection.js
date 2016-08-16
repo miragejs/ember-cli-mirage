@@ -225,12 +225,13 @@ class DbCollection {
       let record = this._findRecord(target);
       let index = this._records.indexOf(record);
       this._records.splice(index, 1);
-
+      this.identityManager.delete(record.id);
     } else if (_isArray(target)) {
       records = this._findRecords(target);
       records.forEach((record) =>  {
         let index = this._records.indexOf(record);
         this._records.splice(index, 1);
+        this.identityManager.delete(record.id);
       });
 
     } else if (typeof target === 'object') {
@@ -238,6 +239,7 @@ class DbCollection {
       records.forEach((record) =>  {
         let index = this._records.indexOf(record);
         this._records.splice(index, 1);
+        this.identityManager.delete(record.id);
       });
     }
   }
@@ -384,6 +386,12 @@ class IdentityManager {
     this.inc();
 
     return id.toString();
+  }
+
+  delete(id) {
+    if (id && this._ids[id]) {
+      this._ids[id] = false;
+    }
   }
 
   reset() {

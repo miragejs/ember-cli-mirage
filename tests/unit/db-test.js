@@ -2,7 +2,7 @@ import Db from 'ember-cli-mirage/db';
 
 import {module, test} from 'qunit';
 
-let db;
+let db, collection, identityManager;
 module('Unit | Db');
 
 test('it can be instantiated', function(assert) {
@@ -501,6 +501,8 @@ module('Unit | Db #remove', {
       { name: 'Ganon', evil: true },
       { id: '123-abc', name: 'Epona', evil: false }
     ]);
+    collection = db._collections[0];
+    identityManager = collection.identityManager;
   },
 
   afterEach() {
@@ -522,6 +524,13 @@ test('it can remove a single record by id', function(assert) {
     { id: '2', name: 'Zelda', evil: false },
     { id: '3', name: 'Ganon', evil: true }
   ]);
+
+  assert.deepEqual(identityManager._ids, {
+    '1': false,
+    '2': true,
+    '3': true,
+    '123-abc': true
+  });
 });
 
 test('it can remove a single record when the id is a string', function(assert) {
@@ -532,6 +541,13 @@ test('it can remove a single record when the id is a string', function(assert) {
     { id: '2', name: 'Zelda', evil: false },
     { id: '3', name: 'Ganon', evil: true }
   ]);
+
+  assert.deepEqual(identityManager._ids, {
+    '1': true,
+    '2': true,
+    '3': true,
+    '123-abc': false
+  });
 });
 
 test('it can remove multiple records by ids', function(assert) {
@@ -541,6 +557,13 @@ test('it can remove multiple records by ids', function(assert) {
     { id: '123-abc', name: 'Epona', evil: false },
     { id: '3', name: 'Ganon', evil: true }
   ]);
+
+  assert.deepEqual(identityManager._ids, {
+    '1': false,
+    '2': false,
+    '3': true,
+    '123-abc': true
+  });
 });
 
 test('it can remove multiple records by query', function(assert) {
@@ -549,6 +572,13 @@ test('it can remove multiple records by query', function(assert) {
   assert.deepEqual(db.contacts, [
     { id: '3', name: 'Ganon', evil: true }
   ]);
+
+  assert.deepEqual(identityManager._ids, {
+    '1': false,
+    '2': false,
+    '3': true,
+    '123-abc': false
+  });
 });
 
 test('it can add a record after removing all records', function(assert) {
@@ -559,6 +589,43 @@ test('it can add a record after removing all records', function(assert) {
   assert.deepEqual(db.contacts, [
     { id: '1', name: 'Foo' }
   ]);
+
+  assert.deepEqual(identityManager._ids, {
+    '1': true
+  });
+});
+
+test('it can remove a record and then re-create with same id', function(assert) {
+  db.contacts.remove(1);
+
+  assert.deepEqual(db.contacts, [
+    { id: '123-abc', name: 'Epona', evil: false },
+    { id: '2', name: 'Zelda', evil: false },
+    { id: '3', name: 'Ganon', evil: true }
+  ]);
+
+  assert.deepEqual(identityManager._ids, {
+    '1': false,
+    '2': true,
+    '3': true,
+    '123-abc': true
+  });
+
+  db.contacts.insert({ id: 1, name: 'Link', evil: false });
+
+  assert.deepEqual(db.contacts, [
+    { id: '123-abc', name: 'Epona', evil: false },
+    { id: '2', name: 'Zelda', evil: false },
+    { id: '3', name: 'Ganon', evil: true },
+    { id: '1', name: 'Link', evil: false }
+  ]);
+
+  assert.deepEqual(identityManager._ids, {
+    '1': true,
+    '2': true,
+    '3': true,
+    '123-abc': true
+  });
 });
 
 module('Unit | Db #firstOrCreate', {

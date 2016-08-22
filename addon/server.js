@@ -312,7 +312,7 @@ export default class Server {
 
     let allActions = Object.keys(actionsMethodsAndsPathsMappings);
     let actions = only.length > 0 && only ||
-                  except.length > 0 && allActions.filter(action => !except.includes(action)) ||
+                  except.length > 0 && allActions.filter(action => (except.indexOf(action) === -1)) ||
                   allActions;
 
     actions.forEach((action) => {

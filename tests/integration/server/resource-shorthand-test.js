@@ -217,7 +217,7 @@ test('resource does not generate shorthands which are not whitelisted with :only
     method: 'GET',
     url: '/contacts/1'
   }).fail((xhr, textStatus, error) => {
-    assert.ok(error.message.includes("Mirage: Your Ember app tried to GET '/contacts/1'"));
+    assert.ok(error.message.indexOf("Mirage: Your Ember app tried to GET '/contacts/1'") !== -1);
     doneForShow();
   });
 
@@ -232,7 +232,7 @@ test('resource does not generate shorthands which are not whitelisted with :only
       }
     })
   }).fail((xhr, textStatus, error) => {
-    assert.ok(error.message.includes("Mirage: Your Ember app tried to POST '/contacts'"));
+    assert.ok(error.message.indexOf("Mirage: Your Ember app tried to POST '/contacts'") !== -1);
     doneForCreate();
   });
 
@@ -247,7 +247,7 @@ test('resource does not generate shorthands which are not whitelisted with :only
       }
     })
   }).fail((xhr, textStatus, error) => {
-    assert.ok(error.message.includes("Mirage: Your Ember app tried to PUT '/contacts/1'"));
+    assert.ok(error.message.indexOf("Mirage: Your Ember app tried to PUT '/contacts/1'") !== -1);
     doneForPut();
   });
 
@@ -262,7 +262,7 @@ test('resource does not generate shorthands which are not whitelisted with :only
       }
     })
   }).fail((xhr, textStatus, error) => {
-    assert.ok(error.message.includes("Mirage: Your Ember app tried to PATCH '/contacts/1'"));
+    assert.ok(error.message.indexOf("Mirage: Your Ember app tried to PATCH '/contacts/1'") !== -1);
     doneForPatch();
   });
 
@@ -272,7 +272,7 @@ test('resource does not generate shorthands which are not whitelisted with :only
     method: 'DELETE',
     url: '/contacts/1'
   }).fail((xhr, textStatus, error) => {
-    assert.ok(error.message.includes("Mirage: Your Ember app tried to DELETE '/contacts/1'"));
+    assert.ok(error.message.indexOf("Mirage: Your Ember app tried to DELETE '/contacts/1'") !== -1);
     doneForDelete();
   });
 });
@@ -333,7 +333,7 @@ test('resource does not generate shorthands which are blacklisted by :except opt
       }
     })
   }).fail((xhr, textStatus, error) => {
-    assert.ok(error.message.includes("Mirage: Your Ember app tried to POST '/contacts'"));
+    assert.ok(error.message.indexOf("Mirage: Your Ember app tried to POST '/contacts'") !== -1);
     doneForCreate();
   });
 
@@ -348,7 +348,7 @@ test('resource does not generate shorthands which are blacklisted by :except opt
       }
     })
   }).fail((xhr, textStatus, error) => {
-    assert.ok(error.message.includes("Mirage: Your Ember app tried to PUT '/contacts/1'"));
+    assert.ok(error.message.indexOf("Mirage: Your Ember app tried to PUT '/contacts/1'") !== -1);
     doneForPut();
   });
 
@@ -363,7 +363,7 @@ test('resource does not generate shorthands which are blacklisted by :except opt
       }
     })
   }).fail((xhr, textStatus, error) => {
-    assert.ok(error.message.includes("Mirage: Your Ember app tried to PATCH '/contacts/1'"));
+    assert.ok(error.message.indexOf("Mirage: Your Ember app tried to PATCH '/contacts/1'") !== -1);
     doneForPatch();
   });
 
@@ -373,7 +373,7 @@ test('resource does not generate shorthands which are blacklisted by :except opt
     method: 'DELETE',
     url: '/contacts/1'
   }).fail((xhr, textStatus, error) => {
-    assert.ok(error.message.includes("Mirage: Your Ember app tried to DELETE '/contacts/1'"));
+    assert.ok(error.message.indexOf("Mirage: Your Ember app tried to DELETE '/contacts/1'") !== -1);
     doneForDelete();
   });
 });

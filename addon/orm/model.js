@@ -25,9 +25,9 @@ class Model {
     this.modelName = modelName;
     this.fks = fks || [];
     attrs = attrs || {};
-    attrs.childrenAssociations = attrs.childrenAssociations || [];
     this._setupAttrs(attrs);
     this._setupRelationships(attrs);
+    this.childrenAssociations = this.childrenAssociations || [];
     // the associations in this list will be destroyed in beforeDestroy
     // TODO: define cleaner hasOne / belongsToMany relationships
 
@@ -109,11 +109,8 @@ class Model {
     * @public
     */
    _beforeDestroy() {
-     console.log('beforeDestroy', this.modelName, this.associationKeys);
      this.associationKeys.forEach((relName) => {
-       console.log('beforeDestroy 2', this.modelName, this.childrenAssociations, relName);
-       if (this.childrenAssociations.contains(relName)) {
-         console.log('hasNo beforeDestroy', this.modelName, relName);
+       if (this.childrenAssociations.indexOf(relName) > -1) {
          this.hasNo(relName);
        }
      });
@@ -126,7 +123,6 @@ class Model {
   */
 
   destroy() {
-    console.log('destroy', this.modelName);
     this._beforeDestroy();
     let collection = toCollectionName(this.modelName);
     this._schema.db[collection].remove(this.attrs.id);

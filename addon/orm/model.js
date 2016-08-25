@@ -210,13 +210,14 @@ class Model {
    * @private
    */
   _definePlainAttribute(attr) {
-    if (this[attr] !== undefined) {
+    let descriptor = Object.getOwnPropertyDescriptor(this, attr);
+    if (descriptor != null) {
       return;
     }
 
     // Ensure the attribute is on the attrs hash
     if (!this.attrs.hasOwnProperty(attr)) {
-      this.attrs[attr] = null;
+      this.attrs[attr] = this[attr] || null;
     }
 
     // Define the getter/setter

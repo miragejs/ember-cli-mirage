@@ -292,3 +292,10 @@ export default Model.extend({
 ### Building associations
 
 To create objects via factories that come with relationships (and related models) already built, you can use the `afterCreate()` hook when defining your factory. For details, check out the [factories documentation](../factories/#factories-and-relationships).
+
+### Limitations
+
+Mirage's ORM should currently be considered somewhat half-finished. The simple case of one-to-many relationships is supported (even chained). However, one-to-one, many-to-many, polymorphic and reflexive relationships are not yet first-class citizens in the ORM/serializer layer. There are a few ways to get around this for now, which all involve you manually solving this in some way:
+
+- in some cases [overwriting #serialize](../serializers/#serializeresponse-request) will be sufficient to support your use case
+- otherwise, it might be easiest to [call this.serialize in your route handler](../route-handlers/#serialize), using the currently supported ORM/serializer layer to get you partially there, then do final data munging to add additional data

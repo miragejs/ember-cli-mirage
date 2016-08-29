@@ -79,7 +79,9 @@ class Model {
     }
 
     Object.keys(attrs).forEach(function(attr) {
-      this.attrs[attr] = this[attr] = attrs[attr];
+      this.attrs[attr] = attrs[attr];
+      this._definePlainAttribute(attr);
+      this[attr] = attrs[attr];
     }, this);
 
     this.save();

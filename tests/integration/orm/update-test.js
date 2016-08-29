@@ -79,3 +79,11 @@ test('it can update a non-existing attribute', function(assert) {
   assert.deepEqual(link.attrs, { id: '1', name: 'Evil link', location: 'Hyrule', evil: true, reallyEvil: 'absolutely evil' });
   assert.deepEqual(this.db.users.find(1), { id: '1', name: 'Evil link', location: 'Hyrule', evil: true, reallyEvil: 'absolutely evil' });
 });
+
+test('it can override an existing attribute', function(assert) {
+  var link = this.schema.users.find(1);
+  link.update({ name: undefined, evil: true });
+  link.update({ name: 'Evil link', evil: true });
+  assert.deepEqual(link.attrs, { id: '1', name: 'Evil link', location: 'Hyrule', evil: true });
+  assert.deepEqual(this.db.users.find(1), { id: '1', name: 'Evil link', location: 'Hyrule', evil: true });
+});

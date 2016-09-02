@@ -80,10 +80,10 @@ test('it can update a non-existing attribute', function(assert) {
   assert.deepEqual(this.db.users.find(1), { id: '1', name: 'Evil link', location: 'Hyrule', evil: true, reallyEvil: 'absolutely evil' });
 });
 
-test('it can override an existing attribute', function(assert) {
+test('if users sets incorrectly an attribute without using update, it will still work', function(assert) {
   var link = this.schema.users.find(1);
-  link.update({ name: undefined, evil: true });
-  link.update({ name: 'Evil link', evil: true });
-  assert.deepEqual(link.attrs, { id: '1', name: 'Evil link', location: 'Hyrule', evil: true });
-  assert.deepEqual(this.db.users.find(1), { id: '1', name: 'Evil link', location: 'Hyrule', evil: true });
+  link.reallyEvil = 'absolutely evil';
+  link.update({ reallyEvil: 'a little flower', evil: true });
+  assert.deepEqual(link.attrs, { id: '1', reallyEvil: 'a little flower', evil: true, location: 'Hyrule', name: 'Link' });
+  assert.deepEqual(this.db.users.find(1), { id: '1', reallyEvil: 'a little flower', evil: true, location: 'Hyrule', name: 'Link' });
 });

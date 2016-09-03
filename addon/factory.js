@@ -11,6 +11,12 @@ let Factory = function() {
     let object = {};
     let topLevelAttrs = _assign({}, this.attrs);
     delete topLevelAttrs.afterCreate;
+    Object.keys(topLevelAttrs).forEach((attr) => {
+      let value = topLevelAttrs[attr];
+      if (value && value.constructor === Object && value.__isTrait__ === true) {
+        delete topLevelAttrs[attr];
+      }
+    });
     let keys = sortAttrs(topLevelAttrs, sequence);
 
     keys.forEach(function(key) {

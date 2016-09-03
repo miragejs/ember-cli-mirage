@@ -13,6 +13,7 @@ import _isArray from 'lodash/lang/isArray';
 import _keys from 'lodash/object/keys';
 import _pick from 'lodash/object/pick';
 import _assign from 'lodash/object/assign';
+import _find from 'lodash/collection/find';
 
 function createPretender(server) {
   return new Pretender(function() {
@@ -213,7 +214,9 @@ export default class Server {
     }
   }
 
-  build(type, overrides) {
+  build(type, ...traitsAndOverrides) {
+    let traits = traitsAndOverrides.filter((arg) => arg && typeof arg === 'string');
+    let overrides = _find(traitsAndOverrides, (arg) => arg && arg.constructor === Object);
     let camelizedType = camelize(type);
 
     // Store sequence for factory type as instance variable
@@ -222,7 +225,24 @@ export default class Server {
 
     let OriginalFactory = this.factoryFor(type);
     if (OriginalFactory) {
-      let Factory = OriginalFactory.extend(overrides);
+      let { attrs } = OriginalFactory;
+
+      traits.forEach((traitName) => {
+        if (!(attrs[traitName] && attrs[traitName].constructor === Object && attrs[traitName].__isTrait__ === true)) {
+          throw new Error(`'${traitName}' trait is not registered in '${type}' factory`);
+        }
+      });
+
+      let allExtensions = traits.map((traitName) => {
+        // throw error if not registered
+        return attrs[traitName].extension;
+      });
+      allExtensions.push(overrides || {});
+      let mergedExtensions = allExtensions.reduce((accum, extension) => {
+        return _assign(accum, extension);
+      }, {});
+
+      let Factory = OriginalFactory.extend(mergedExtensions);
       let factory = new Factory();
 
       let sequence = this.factorySequences[camelizedType];
@@ -232,11 +252,11 @@ export default class Server {
     }
   }
 
-  buildList(type, amount, overrides) {
+  buildList(type, amount, ...traitsAndOverrides) {
     let list = [];
 
     for (let i = 0; i < amount; i++) {
-      list.push(this.build(type, overrides));
+      list.push(this.build(type, ...traitsAndOverrides));
     }
 
     return list;
@@ -244,8 +264,12 @@ export default class Server {
 
   // When there is a Model defined, we should return an instance
   // of it instead of returning the bare attributes.
-  create(type, overrides, collectionFromCreateList) {
-    let attrs = this.build(type, overrides);
+  create(type, ...options) {
+    let traits = options.filter((arg) => arg && typeof arg === 'string');
+    let overrides = _find(options, (arg) => arg && arg.constructor === Object);
+    let collectionFromCreateList = _find(options, (arg) => arg && Array.isArray(arg));
+
+    let attrs = this.build(type, ...traits, overrides);
     let modelOrRecord;
 
     if (this.schema && this.schema[toCollectionName(type)]) {
@@ -268,6 +292,14 @@ export default class Server {
     }
 
     let OriginalFactory = this.factoryFor(type);
+
+    traits.filter((traitName) => {
+      // throw error if not registered
+      let { attrs } = OriginalFactory;
+      return attrs[traitName] && attrs[traitName].extension && attrs[traitName].extension.afterCreate;
+    }).forEach((traitName) => {
+      OriginalFactory.attrs[traitName].extension.afterCreate(modelOrRecord, this);
+    });
     if (OriginalFactory && OriginalFactory.attrs && OriginalFactory.attrs.afterCreate) {
       OriginalFactory.attrs.afterCreate(modelOrRecord, this);
     }
@@ -275,13 +307,13 @@ export default class Server {
     return modelOrRecord;
   }
 
-  createList(type, amount, overrides) {
+  createList(type, amount, ...traitsAndOverrides) {
     let list = [];
     let collectionName = this.schema ? toCollectionName(type) : pluralize(type);
     let collection = this.db[collectionName];
 
     for (let i = 0; i < amount; i++) {
-      list.push(this.create(type, overrides, collection));
+      list.push(this.create(type, ...traitsAndOverrides, collection));
     }
 
     return list;

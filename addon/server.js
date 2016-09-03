@@ -14,6 +14,7 @@ import _keys from 'lodash/object/keys';
 import _pick from 'lodash/object/pick';
 import _assign from 'lodash/object/assign';
 import _find from 'lodash/collection/find';
+import _isPlainObject from 'lodash/lang/isPlainObject';
 
 function createPretender(server) {
   return new Pretender(function() {
@@ -216,7 +217,7 @@ export default class Server {
 
   build(type, ...traitsAndOverrides) {
     let traits = traitsAndOverrides.filter((arg) => arg && typeof arg === 'string');
-    let overrides = _find(traitsAndOverrides, (arg) => arg && arg.constructor === Object);
+    let overrides = _find(traitsAndOverrides, (arg) => _isPlainObject(arg));
     let camelizedType = camelize(type);
 
     // Store sequence for factory type as instance variable
@@ -228,7 +229,7 @@ export default class Server {
       let { attrs } = OriginalFactory;
 
       traits.forEach((traitName) => {
-        if (!(attrs[traitName] && attrs[traitName].constructor === Object && attrs[traitName].__isTrait__ === true)) {
+        if (!OriginalFactory.isTrait(traitName)) {
           throw new Error(`'${traitName}' trait is not registered in '${type}' factory`);
         }
       });
@@ -266,7 +267,7 @@ export default class Server {
   // of it instead of returning the bare attributes.
   create(type, ...options) {
     let traits = options.filter((arg) => arg && typeof arg === 'string');
-    let overrides = _find(options, (arg) => arg && arg.constructor === Object);
+    let overrides = _find(options, (arg) => _isPlainObject(arg));
     let collectionFromCreateList = _find(options, (arg) => arg && Array.isArray(arg));
 
     let attrs = this.build(type, ...traits, overrides);
@@ -292,16 +293,10 @@ export default class Server {
     }
 
     let OriginalFactory = this.factoryFor(type);
-
-    traits.filter((traitName) => {
-      // throw error if not registered
-      let { attrs } = OriginalFactory;
-      return attrs[traitName] && attrs[traitName].extension && attrs[traitName].extension.afterCreate;
-    }).forEach((traitName) => {
-      OriginalFactory.attrs[traitName].extension.afterCreate(modelOrRecord, this);
-    });
-    if (OriginalFactory && OriginalFactory.attrs && OriginalFactory.attrs.afterCreate) {
-      OriginalFactory.attrs.afterCreate(modelOrRecord, this);
+    if (OriginalFactory) {
+      OriginalFactory.extractAfterCreateCallbacks({ traits }).forEach((afterCreate) => {
+        afterCreate(modelOrRecord, this);
+      });
     }
 
     return modelOrRecord;

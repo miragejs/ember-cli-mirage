@@ -311,6 +311,34 @@ test('create allows to extend factory with traits containing afterCreate callbac
   assert.equal(server.db.comments.length, 3);
 });
 
+test('create does not execute afterCreate callbacks from traits that are not applied', function(assert) {
+  let CommentFactory = Factory.extend({
+    content: 'content'
+  });
+  let ArticleFactory = Factory.extend({
+    title: 'Lorem ipsum',
+
+    withComments: trait({
+      afterCreate(article, server) {
+        server.createList('comment', 3, { article });
+      }
+    })
+  });
+
+  let server = new Server({
+    environment: 'test',
+    factories: {
+      article: ArticleFactory,
+      comment: CommentFactory
+    }
+  });
+
+  let articleWithComments = server.create('article');
+
+  assert.deepEqual(articleWithComments, { id: '1', title: 'Lorem ipsum' });
+  assert.equal(server.db.comments.length, 0);
+});
+
 test('create allows to extend with multiple traits and to apply attr overrides', function(assert) {
   let ArticleFactory = Factory.extend({
     title: 'Lorem ipsum',

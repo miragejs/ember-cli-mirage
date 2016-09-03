@@ -1,4 +1,3 @@
-/* global server: true */
 import Server from 'ember-cli-mirage/server';
 import {module, test} from 'qunit';
 import Factory from 'ember-cli-mirage/factory';
@@ -41,58 +40,58 @@ test('its db is isolated across instances', function(assert) {
 });
 
 
-var server;
+var aServer;
 module('Unit | Server #create', {
   beforeEach: function() {
-    server = new Server({environment: 'test'});
+    aServer = new Server({environment: 'test'});
   }
 });
 
 test('create fails when no factories are regisered', function(assert) {
   assert.throws(function() {
-    server.create('contact');
+    aServer.create('contact');
   });
 });
 
 test('create fails when an expected factory isn\'t registered', function(assert) {
-  server.loadFactories({
+  aServer.loadFactories({
     address: Factory.extend()
   });
 
   assert.throws(function() {
-    server.create('contact');
+    aServer.create('contact');
   });
 });
 
 test('create adds the data to the db', function(assert) {
-  server.loadFactories({
+  aServer.loadFactories({
     contact: Factory.extend({name: 'Sam'})
   });
 
-  server.create('contact');
-  var contactsInDb = server.db.contacts;
+  aServer.create('contact');
+  var contactsInDb = aServer.db.contacts;
 
   assert.equal(contactsInDb.length, 1);
   assert.deepEqual(contactsInDb[0], {id: 1, name: 'Sam'});
 });
 
 test('create returns the new data in the db', function(assert) {
-  server.loadFactories({
+  aServer.loadFactories({
     contact: Factory.extend({name: 'Sam'})
   });
 
-  var contact = server.create('contact');
+  var contact = aServer.create('contact');
 
   assert.deepEqual(contact, {id: 1, name: 'Sam'});
 });
 
 test('create allows for attr overrides', function(assert) {
-  server.loadFactories({
+  aServer.loadFactories({
     contact: Factory.extend({name: 'Sam'})
   });
 
-  var sam = server.create('contact');
-  var link = server.create('contact', {name: 'Link'});
+  var sam = aServer.create('contact');
+  var link = aServer.create('contact', {name: 'Link'});
 
   assert.deepEqual(sam, {id: 1, name: 'Sam'});
   assert.deepEqual(link, {id: 2, name: 'Link'});
@@ -108,26 +107,26 @@ test('create allows for attr overrides with extended factories', function(assert
       return this.age < 18;
     }
   });
-  server.loadFactories({
+  aServer.loadFactories({
     contact: ContactFactory,
     friend: FriendFactory
   });
 
-  var link = server.create('friend');
-  var youngLink = server.create('friend', {age: 10});
+  var link = aServer.create('friend');
+  var youngLink = aServer.create('friend', {age: 10});
 
   assert.deepEqual(link, {id: 1, name: 'Link', age: 500, is_young: false});
   assert.deepEqual(youngLink, {id: 2, name: 'Link', age: 10, is_young: true});
 });
 
 test('create allows for attr overrides with arrays', function(assert) {
-  server.loadFactories({
+  aServer.loadFactories({
     contact: Factory.extend({name: ['Sam', 'Carl']})
   });
 
-  var sam = server.create('contact');
-  var link = server.create('contact', {name: ['Link']});
-  var noname = server.create('contact', {name: []});
+  var sam = aServer.create('contact');
+  var link = aServer.create('contact', {name: ['Link']});
+  var noname = aServer.create('contact', {name: []});
 
   assert.deepEqual(sam, {id: 1, name: ['Sam', 'Carl']});
   assert.deepEqual(link, {id: 2, name: ['Link']});
@@ -136,17 +135,17 @@ test('create allows for attr overrides with arrays', function(assert) {
 
 module('Unit | Server #createList', {
   beforeEach: function() {
-    server = new Server({environment: 'test'});
+    aServer = new Server({environment: 'test'});
   }
 });
 
 test('createList adds the given number of elements to the db', function(assert) {
-  server.loadFactories({
+  aServer.loadFactories({
     contact: Factory.extend({name: 'Sam'})
   });
 
-  server.createList('contact', 3);
-  var contactsInDb = server.db.contacts;
+  aServer.createList('contact', 3);
+  var contactsInDb = aServer.db.contacts;
 
   assert.equal(contactsInDb.length, 3);
   assert.deepEqual(contactsInDb[0], {id: 1, name: 'Sam'});
@@ -155,12 +154,12 @@ test('createList adds the given number of elements to the db', function(assert) 
 });
 
 test('createList returns the created elements', function(assert) {
-  server.loadFactories({
+  aServer.loadFactories({
     contact: Factory.extend({name: 'Sam'})
   });
 
-  server.create('contact');
-  var contacts = server.createList('contact', 3);
+  aServer.create('contact');
+  var contacts = aServer.createList('contact', 3);
 
   assert.equal(contacts.length, 3);
   assert.deepEqual(contacts[0], {id: 2, name: 'Sam'});
@@ -169,7 +168,7 @@ test('createList returns the created elements', function(assert) {
 });
 
 test('createList respects sequences', function(assert) {
-  server.loadFactories({
+  aServer.loadFactories({
     contact: Factory.extend({
       name: function(i) {
         return 'name' + i;
@@ -177,7 +176,7 @@ test('createList respects sequences', function(assert) {
     })
   });
 
-  var contacts = server.createList('contact', 3);
+  var contacts = aServer.createList('contact', 3);
 
   assert.deepEqual(contacts[0], {id: 1, name: 'name0'});
   assert.deepEqual(contacts[1], {id: 2, name: 'name1'});
@@ -185,12 +184,12 @@ test('createList respects sequences', function(assert) {
 });
 
 test('createList respects attr overrides', function(assert) {
-  server.loadFactories({
+  aServer.loadFactories({
     contact: Factory.extend({name: 'Sam'})
   });
 
-  var sams = server.createList('contact', 2);
-  var links = server.createList('contact', 2, {name: 'Link'});
+  var sams = aServer.createList('contact', 2);
+  var links = aServer.createList('contact', 2, {name: 'Link'});
 
   assert.deepEqual(sams[0], {id: 1, name: 'Sam'});
   assert.deepEqual(sams[1], {id: 2, name: 'Sam'});

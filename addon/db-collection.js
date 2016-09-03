@@ -202,10 +202,11 @@ class DbCollection {
 
   _findRecordsWhere(query) {
     let records = this._records;
-
+    /*jshint loopfunc: true */
     for (let queryKey in query) {
       records = records.filter( r => String(r[queryKey]) === String(query[queryKey]) );
     }
+    /*jshint loopfunc: false */
 
     return records;
   }

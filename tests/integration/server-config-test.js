@@ -201,3 +201,29 @@ test('namespace of / works', function(assert) {
     done();
   });
 });
+
+test('redefining options using the config method works', function(assert) {
+  assert.expect(2);
+  let done = assert.async();
+  let { server } = this;
+
+  let contacts = [
+    { id: '1', name: 'Link' },
+    { id: '2', name: 'Zelda' }
+  ];
+  server.config({
+    namespace: 'api',
+    urlPrefix: 'http://localhost:3000',
+    timing: 1000
+  });
+  server.db.loadData({
+    contacts
+  });
+  server.get('contacts');
+
+  assert.equal(server.timing, 1000);
+  $.getJSON('http://localhost:3000/api/contacts', function(data) {
+    assert.deepEqual(data, { contacts });
+    done();
+  });
+});

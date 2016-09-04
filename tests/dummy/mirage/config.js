@@ -5,7 +5,7 @@ import comments from './routes/comments';
 
 export default function() {
   this.use = (root, router) => {
-    var methods = {};
+    let methods = {};
 
     ['get', 'put', 'post', 'delete', 'patch'].forEach(verb => {
       methods[verb] = (path, fn) => {

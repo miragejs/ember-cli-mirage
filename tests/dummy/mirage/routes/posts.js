@@ -1,6 +1,6 @@
-export default function () {
+export default function() {
 
-  this.post('/', function ({posts}) {
+  this.post('/', function({ posts }) {
     let postJSON = this.normalizedRequestAttrs();
     let post = posts.create(postJSON);
     let serialized = this.serialize(post);

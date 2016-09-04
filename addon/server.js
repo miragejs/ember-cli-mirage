@@ -131,8 +131,9 @@ export default class Server {
       if (options.testConfig) {
         this.loadConfig(options.testConfig);
       }
-
-      window.server = this; // TODO: Better way to inject server into test env
+      window.server = this;
+    } else if (!this.isTest() && hasDefaultScenario) {
+      window.server = this; // TODO: Better way to inject server into env
     }
 
     if (this.isTest() && hasFactories) {
@@ -151,6 +152,11 @@ export default class Server {
 
   isTest() {
     return this.environment === 'test';
+  }
+
+  isTestOrDev() {
+    return this.environment === 'test' ||
+    this.environment === 'development';
   }
 
   shouldLog() {

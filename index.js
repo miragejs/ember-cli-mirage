@@ -7,7 +7,9 @@ var unwatchedTree = require('broccoli-unwatched-tree');
 
 module.exports = {
   name: 'ember-cli-mirage',
-
+  isDevelopingAddon: function () {
+    return true;
+  },
   options: {
     nodeAssets: {
       'route-recognizer': npmAsset({

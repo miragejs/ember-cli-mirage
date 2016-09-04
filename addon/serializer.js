@@ -31,6 +31,7 @@ class Serializer {
    * @public
    */
   serialize(response, request={}) {
+    // console.log('serialize mirage', this, this.embed);
     if (this.embed) {
       let json;
 
@@ -53,6 +54,7 @@ class Serializer {
   }
 
   oldSerialize(response, request) {
+    // console.log('oldSerialize', response, response instanceof Model);
     if (response instanceof Model) {
       return this._oldAttrsForModel(response);
     } else {
@@ -285,6 +287,7 @@ class Serializer {
    * @private
    */
   _serializeSideloadedModelOrCollection(modelOrCollection, request) {
+    // console.log('_serializeSideloadedModelOrCollection');
     if (this.isModel(modelOrCollection)) {
       return this._serializeSideloadedModelResponse(modelOrCollection, request);
     } else if (modelOrCollection.models && modelOrCollection.models.length) {
@@ -309,6 +312,7 @@ class Serializer {
    * @private
    */
   _serializeSideloadedModelResponse(model, request, topLevelIsArray = false, allAttrs = {}, root = null) {
+    // console.log('_serializeSideloadedModelResponse', model, this, this._hasBeenSerialized(model));
     if (this._hasBeenSerialized(model)) {
       return allAttrs;
     }

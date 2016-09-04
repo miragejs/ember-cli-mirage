@@ -3,7 +3,8 @@
     "document",
     "window",
     "-Promise",
-    "faker"
+    "faker",
+    "server"
   ],
   "browser": true,
   "boss": true,

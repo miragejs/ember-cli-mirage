@@ -3,6 +3,7 @@ import _assign from 'lodash/object/assign';
 import { capitalize, camelize } from 'ember-cli-mirage/utils/inflector';
 import { toCollectionName } from 'ember-cli-mirage/utils/normalize-name';
 import assert from 'ember-cli-mirage/assert';
+import Ember from 'ember';
 
 /**
  * @class BelongsTo
@@ -104,13 +105,20 @@ class BelongsTo extends Association {
           - sets the associated parent (via model)
       */
       set(newModel) {
-        if (newModel && newModel.isNew()) {
+        if (!Ember.isEmpty(newModel) && typeof newModel === 'object' && typeof newModel.isNew === 'function' && newModel.isNew()) {
+          // newModel is a model
           this[foreignKey] = null;
           association._tempParent = newModel;
-        } else if (newModel) {
+        } else if (!Ember.isEmpty(newModel) && typeof newModel === 'object' && !Ember.isEmpty(newModel.id)) {
+          // newModel is a simple object with id property
           association._tempParent = null;
           this[foreignKey] = newModel.id;
+        } else if (!Ember.isEmpty(newModel)) {
+          // newModel is an id
+          association._tempParent = null;
+          this[foreignKey] = newModel;
         } else {
+          // newModel is not present
           association._tempParent = null;
           this[foreignKey] = null;
         }

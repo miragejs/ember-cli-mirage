@@ -25,13 +25,29 @@ class Model {
     this.modelName = modelName;
     this.fks = fks || [];
     attrs = attrs || {};
-
     this._setupAttrs(attrs);
     this._setupRelationships(attrs);
+    this.childrenAssociations = this.childrenAssociations || [];
+    // the associations in this list will be destroyed in beforeDestroy
+    // TODO: define cleaner hasOne / belongsToMany relationships
 
     return this;
   }
 
+  default() {
+    // override in model to setup when instantiated
+  }
+
+  typeOf(relName) {
+    let relNames = relName.pluralize();
+    return this[relNames] ? 'hasMany' : 'belongsTo';
+  }
+
+  updateAttrs(hash) {
+    this.update(hash);
+    // https://github.com/samselikoff/ember-cli-mirage/issues/719
+    return this;
+  }
   /**
    * Creates or saves the model.
    * @method save
@@ -40,13 +56,13 @@ class Model {
    */
   save() {
     let collection = toCollectionName(this.modelName);
-
     if (this.isNew()) {
       // Update the attrs with the db response
       this.attrs = this._schema.db[collection].insert(this.attrs);
 
       // Ensure the id getter/setter is set
       this._definePlainAttribute('id');
+      this.default();
 
     } else {
       this._schema.db[collection].update(this.attrs.id, this.attrs);
@@ -66,33 +82,48 @@ class Model {
    * @return this
    * @public
    */
-  update(key, val) {
-    let attrs;
-    if (key == null) {
-      return this;
-    }
+  update(key, val) { // https://github.com/samselikoff/ember-cli-mirage/pull/846
+     let attrs;
+     if (key == null) {
+       return this;
+     }
 
-    if (typeof key === 'object') {
-      attrs = key;
-    } else {
-      (attrs = {})[key] = val;
-    }
+     if (typeof key === 'object') {
+       attrs = key;
+     } else {
+       (attrs = {})[key] = val;
+     }
 
-    Object.keys(attrs).forEach(function(attr) {
-      this[attr] = attrs[attr];
-    }, this);
+     Object.keys(attrs).forEach(function(attr) {
+       this.attrs[attr] = this[attr] = attrs[attr];
+     }, this);
 
-    this.save();
+     this.save();
 
-    return this;
-  }
+     return this;
+   }
 
-  /**
-   * Destroys the db record
-   * @method destroy
-   * @public
-   */
+   /**
+    * Destroys the children associations before destroying the model
+    * @method destroy
+    * @public
+    */
+   _beforeDestroy() {
+     this.associationKeys.forEach((relName) => {
+       if (this.childrenAssociations.indexOf(relName) > -1) {
+         this.hasNo(relName);
+       }
+     });
+   }
+
+ /**
+  * Destroys the db record
+  * @method destroy
+  * @public
+  */
+
   destroy() {
+    this._beforeDestroy();
     let collection = toCollectionName(this.modelName);
     this._schema.db[collection].remove(this.attrs.id);
   }
@@ -280,6 +311,96 @@ class Model {
    */
   toString() {
     return `model:${this.modelName}(${this.id})`;
+  }
+
+  hasNo(relName) {
+    relName = relName.singularize();
+    return this.typeOf(relName) === 'hasMany' ?
+    this.hasNoOfMany(relName) :
+    this.hasNoOfOne(relName);
+  }
+  hasNoOfOne(relName) {
+    relName = relName.singularize();
+    let rel = this[relName];
+    if (rel) {
+      rel.destroy();
+    }
+    this[relName] = null;
+    return this;
+  }
+  hasNoOfMany(relName) {
+    relName = relName.singularize();
+    // TODO: create a general deleteXX method for hasMany
+    let rels = this[`${relName}s`].models;
+    this[`${relName}s`] = [];
+    rels.forEach((rel) => {
+      rel.destroy();
+    });
+    return this;
+  }
+
+  hasMulti(relName) { // exactly two
+    relName = relName.singularize();
+    let rels = this[`${relName}s`].models;
+    let initialNumber = rels.length;
+    for (let i = initialNumber; i < 2; i++) {
+      // let rel = this[`create${relName.capitalize()}`]();
+      let assoc = this.hasManyAssociations[relName.pluralize()];
+      let { modelName } = assoc;
+      let inverseRelName = assoc.opts.inverse || this.modelName;
+      let hash = {};
+      hash[`${inverseRelName.camelize()}Id`] = this.id;
+      server.create(modelName, hash);
+    }
+    return this[`${relName}s`].models;
+  }
+
+  hasOne(relName, attrs) { // exactly one
+    relName = relName.singularize();
+    let model = this.typeOf(relName) === 'hasMany' ?
+    this.hasOneOfMany(relName) :
+    this.hasOneOfOne(relName);
+    if (attrs) {
+      return model.updateAttrs(attrs);
+    } else {
+      return model;
+    }
+  }
+  hasOneOfMany(relName) {
+    relName = relName.singularize();
+    // TODO: create a general deleteXX method for hasMany
+    let rels = this[`${relName}s`].models;
+    let rel;
+    let { length } = rels;
+    if (length) {
+      rel = rels[0];
+      for (let i = 1; i < length; i++) {
+        rels[i].destroy();
+      }
+      if (length > 1) {
+        this[`${relName}s`] = [rel];
+      }
+    } else {
+      let assoc = this.hasManyAssociations[relName.pluralize()];
+      let { modelName } = assoc;
+      let inverseRelName = assoc.opts.inverse || this.modelName;
+      let hash = {};
+      hash[`${inverseRelName.camelize()}Id`] = this.id;
+      rel = server.create(modelName, hash);
+    }
+    return rel;
+  }
+  hasOneOfOne(relName) {
+    relName = relName.singularize();
+    let rel = this[relName];
+    if (!rel) {
+      let hash = {};
+      hash[`${this.modelName.camelize()}Id`] = this.id;
+      let { modelName } = this.belongsToAssociations[relName];
+      rel = server.create(modelName, hash);
+      this.update(`${relName}Id`, rel.id);
+    }
+    return rel;
   }
 }
 

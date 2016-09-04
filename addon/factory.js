@@ -1,6 +1,4 @@
-import _keys from 'lodash/object/keys';
 import _assign from 'lodash/object/assign';
-import _isArray from 'lodash/lang/isArray';
 import _isFunction from 'lodash/lang/isFunction';
 import _mapValues from 'lodash/object/mapValues';
 import referenceSort from './utils/reference-sort';
@@ -22,7 +20,7 @@ let Factory = function() {
       };
 
       buildSingleValue = (value) => {
-        if (_isArray(value)) {
+        if (Array.isArray(value)) {
           return value.map(buildSingleValue);
         } else if (_isPlainObject(value)) {
           return buildAttrs(value);
@@ -70,7 +68,7 @@ function sortAttrs(attrs, sequence) {
   let refs = [];
   let property;
 
-  _keys(attrs).forEach(function(key) {
+  Object.keys(attrs).forEach(function(key) {
     Object.defineProperty(obj.constructor.prototype, key, {
       get() {
         refs.push([property, key]);
@@ -80,7 +78,7 @@ function sortAttrs(attrs, sequence) {
     });
   });
 
-  _keys(attrs).forEach(function(key) {
+  Object.keys(attrs).forEach(function(key) {
     let value = attrs[key];
     property = key;
 

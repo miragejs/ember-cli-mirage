@@ -126,8 +126,7 @@ export default class Server {
     this.db = this.db || new Db();
     if (this.schema) {
       this.schema.registerModels(config.models);
-      this.serializerOrRegistry.schema = this.schema;
-      this.serializerOrRegistry._serializerMap = config.serializers || {};
+      this.serializerOrRegistry.registerSerializers(config.serializers || {});
     } else {
       this.schema = new Schema(this.db, config.models);
       this.serializerOrRegistry = new SerializerRegistry(this.schema, config.serializers);
@@ -211,8 +210,8 @@ export default class Server {
   */
   loadFactories(factoryMap) {
     // Store a reference to the factories
-    this._factoryMap = this._factoryMap || {};
-    this._factoryMap = Object.assign(this._factoryMap, factoryMap);
+    let currentFactoryMap = this._factoryMap || {};
+    this._factoryMap = _assign(currentFactoryMap, factoryMap);
 
     // Create a collection for each factory
     _keys(factoryMap).forEach(type => {

@@ -1,13 +1,19 @@
 import {module, test} from 'qunit';
 import { Model } from 'ember-cli-mirage';
 import Server from 'ember-cli-mirage/server';
+import ActiveModelSerializer from 'ember-cli-mirage/serializers/active-model-serializer';
+import RestSerializer from 'ember-cli-mirage/serializers/rest-serializer';
 
 module('Integration | Server Config', {
   beforeEach() {
     this.server = new Server({
       environment: 'development',
       models: {
-        contact: Model
+        contact: Model,
+        post: Model
+      },
+      serializers: {
+        contact: ActiveModelSerializer
       }
     });
     this.server.timing = 0;
@@ -203,7 +209,7 @@ test('namespace of / works', function(assert) {
 });
 
 test('redefining options using the config method works', function(assert) {
-  assert.expect(2);
+  assert.expect(5);
   let done = assert.async();
   let { server } = this;
 
@@ -214,7 +220,10 @@ test('redefining options using the config method works', function(assert) {
   server.config({
     namespace: 'api',
     urlPrefix: 'http://localhost:3000',
-    timing: 1000
+    timing: 1000,
+    serializers: {
+      post: RestSerializer
+    }
   });
   server.db.loadData({
     contacts
@@ -226,4 +235,8 @@ test('redefining options using the config method works', function(assert) {
     assert.deepEqual(data, { contacts });
     done();
   });
+  let serializerMap = server.serializerOrRegistry._serializerMap;
+  assert.equal(Object.keys(serializerMap).length, 2);
+  assert.equal(serializerMap.contact, ActiveModelSerializer);
+  assert.equal(serializerMap.post, RestSerializer);
 });

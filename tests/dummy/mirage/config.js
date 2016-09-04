@@ -1,8 +1,21 @@
 import Mirage from 'ember-cli-mirage';
 import Ember from 'ember';
+import posts from './routes/posts';
+import comments from './routes/comments';
 
 export default function() {
-  // Contacts
+  this.use = (root, router) => {
+    var methods = {};
+
+    ['get', 'put', 'post', 'delete', 'patch'].forEach(verb => {
+      methods[verb] = (path, fn) => {
+        return this[verb](root + path, fn);
+      };
+    });
+
+    router.call(methods);
+  };
+
   this.get('/contacts');
   // this.get('/contacts', ['contacts', 'addresses']);
   this.get('/contacts/:id');
@@ -38,6 +51,8 @@ export default function() {
 
   this.get('/word-smiths/:id');
 
+  this.use('/posts', posts);
+  this.use('/comments', comments);
 }
 
 export function testConfig() {

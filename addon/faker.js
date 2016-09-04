@@ -1,3 +1,5 @@
+/*globals faker */
+
 let list = {
   random() {
     let items = arguments.length > 0 ? arguments : [];

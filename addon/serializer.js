@@ -52,7 +52,7 @@ class Serializer {
     }
   }
 
-  oldSerialize(response, request) {
+  oldSerialize(response/*, request*/) {
     if (response instanceof Model) {
       return this._oldAttrsForModel(response);
     } else {

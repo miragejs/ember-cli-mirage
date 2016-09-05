@@ -20,8 +20,9 @@ export default {
 
 export function startMirage(env = ENV) {
   let environment = env.environment;
+  let modulePrefix = env.modulePrefix;
   let modules = readModules(env.modulePrefix);
-  let options = _assign(modules, {environment, baseConfig, testConfig});
+  let options = _assign(modules, {environment, modulePrefix, baseConfig, testConfig});
 
   return new Server(options);
 }

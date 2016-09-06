@@ -212,9 +212,7 @@ class Model {
    */
   _definePlainAttribute(attr) {
 
-    // Ensure the property hasn't already been defined
-    let existingProperty = Object.getOwnPropertyDescriptor(this, attr);
-    if (existingProperty && existingProperty.get) {
+    if (this[attr] !== undefined) {
       return;
     }
 
@@ -262,7 +260,7 @@ class Model {
     Object.keys(this.belongsToAssociations).forEach(key => {
       let association = this.belongsToAssociations[key];
       let parent = this[key];
-      if (parent && parent.isNew()) {
+      if (parent && parent.isNew && parent.isNew()) {
         let fk = association.getForeignKey();
         parent.save();
         this.update(fk, parent.id);

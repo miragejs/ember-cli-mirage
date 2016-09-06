@@ -24,7 +24,7 @@ function createPretender(server) {
 
     this.handledRequest = function(verb, path, request) {
       if (server.shouldLog()) {
-        console.log(`Successful request: ${verb.toUpperCase()} ${request.url}`);
+        console.log(`Mirage: [${request.status}] ${verb.toUpperCase()} ${request.url}`);
         let { responseText } = request;
         let loggedResponse;
 
@@ -292,6 +292,34 @@ export default class Server {
     if (this.environment === 'test') {
       window.server = undefined;
     }
+  }
+
+  resource(resourceName, { only, except } = {}) {
+    only = only || [];
+    except = except || [];
+
+    if (only.length > 0 && except.length > 0) {
+      throw 'cannot use both :only and :except options';
+    }
+
+    let actionsMethodsAndsPathsMappings = {
+      index: { methods: ['get'], path: `/${resourceName}` },
+      show: { methods: ['get'], path: `/${resourceName}/:id` },
+      create: { methods: ['post'], path: `/${resourceName}` },
+      update: { methods: ['put', 'patch'], path: `/${resourceName}/:id` },
+      delete: { methods: ['del'], path: `/${resourceName}/:id` }
+    };
+
+    let allActions = Object.keys(actionsMethodsAndsPathsMappings);
+    let actions = only.length > 0 && only ||
+                  except.length > 0 && allActions.filter(action => (except.indexOf(action) === -1)) ||
+                  allActions;
+
+    actions.forEach((action) => {
+      let methodsWithPath = actionsMethodsAndsPathsMappings[action];
+
+      methodsWithPath.methods.forEach(method => this[method](methodsWithPath.path));
+    });
   }
 
   _defineRouteHandlerHelpers() {

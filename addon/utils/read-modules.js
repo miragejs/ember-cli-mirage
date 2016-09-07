@@ -6,8 +6,7 @@
 
 import Ember from 'ember';
 import _keys from 'lodash/object/keys';
-import _camelCase from 'lodash/string/camelCase';
-import { pluralize } from 'ember-cli-mirage/utils/inflector';
+import { camelize, pluralize } from 'ember-cli-mirage/utils/inflector';
 
 /*
   This function looks through all files that have been loaded by Ember CLI and
@@ -29,10 +28,8 @@ export default function(prefix) {
       return;
     }
     let moduleParts = moduleName.split('/');
-    let moduleType = moduleParts[moduleParts.length - 2];
-    let moduleKey = moduleParts[moduleParts.length - 1];
-    Ember.assert(`Subdirectories under i${moduleType} are not supported`,
-                 moduleParts[moduleParts.length - 3] === 'mirage');
+    let [, , moduleType, ...moduleKeyParts] = moduleParts;
+    let moduleKey = moduleKeyParts.join('/');
 
     if (moduleType === 'scenario') {
       Ember.assert('Only scenario/default.js is supported at this time.',
@@ -53,7 +50,7 @@ export default function(prefix) {
 
     let data = module['default'];
 
-    modulesMap[moduleType][_camelCase(moduleKey)] = data;
+    modulesMap[moduleType][camelize(moduleKey)] = data;
   });
 
   return modulesMap;

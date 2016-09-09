@@ -28,7 +28,6 @@ export default function(prefix) {
     }
     let moduleParts = moduleName.split('/');
     let [, , moduleType, ...moduleKeyParts] = moduleParts;
-    console.log('moduleParts', moduleParts);
     let moduleKey = moduleKeyParts.join('/');
 
     if (moduleType === 'scenario') {

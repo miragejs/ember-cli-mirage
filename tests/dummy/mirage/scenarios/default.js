@@ -14,4 +14,6 @@ export default function(server) {
   server.create('pet', { name: 'Brownie', alive: true });
 
   server.create('pet', { name: 'Cactus', alive: false });
+
+  server.create('pet/dog', { name: 'Thor', age: 4 });
 }

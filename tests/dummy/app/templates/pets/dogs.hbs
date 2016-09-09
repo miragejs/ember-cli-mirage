@@ -1,0 +1,9 @@
+{{#if error}}
+  <p class='error'>There was an error: <span>{{error}}</span></p>
+{{else}}
+  <ul>
+    {{#each model as |dog|}}
+      <li><span class='name'>{{dog.name}}</span> / age: <span class='age'>{{dog.age}}</span></li>
+    {{/each}}
+  </ul>
+{{/if}}

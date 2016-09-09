@@ -180,3 +180,112 @@ this.del('/contacts/:id', ({ contacts }, request) => {
 {% endcapture %}
 
 {% include code-compare.html expanded=expanded shorthand=shorthand %}
+
+## Resource helper
+
+For handling generic CRUD, you can use *resource* helper which will take care of defining all shorthands. The following examples are equivalent:
+
+{% capture resource %}
+{% highlight js %}
+this.resource('contacts');
+{% endhighlight %}
+{% endcapture %}
+
+{% capture equivalent %}
+{% highlight js %}
+this.get('/contacts');
+this.get('/contacts/:id');
+this.post('/contacts');
+this.put('/contacts/:id');
+this.patch('/contacts/:id');
+this.del('/contacts/:id');
+{% endhighlight %}
+{% endcapture %}
+
+{% include resource-shorthands-code-compare.html resource=resource equivalent=equivalent %}
+
+You can also whitelist which route handlers will be defined using *only* option:
+
+{% capture resource %}
+{% highlight js %}
+this.resource('contacts', { only: ['index', 'show'] });
+{% endhighlight %}
+{% endcapture %}
+
+{% capture equivalent %}
+{% highlight js %}
+this.get('/contacts');
+this.get('/contacts/:id');
+{% endhighlight %}
+{% endcapture %}
+
+{% include resource-shorthands-code-compare.html resource=resource equivalent=equivalent %}
+
+or which route handlers shouldn't be defined using *except* option:
+
+{% capture resource %}
+{% highlight js %}
+this.resource('contacts', { except: ['update'] });
+{% endhighlight %}
+{% endcapture %}
+
+{% capture equivalent %}
+{% highlight js %}
+this.get('/contacts');
+this.get('/contacts/:id');
+this.post('/contacts');
+this.del('/contacts/:id');
+{% endhighlight %}
+{% endcapture %}
+
+{% include resource-shorthands-code-compare.html resource=resource equivalent=equivalent %}
+
+Here is the full reference of actions' names you can pass to *only* / *except* options and the shorthands they stand for:
+
+<div class='Table__wrapper'>
+  <table>
+    <tbody>
+      <tr>
+        <td class='Table__label'>index</td>
+        <td class='Table__code'>
+{% highlight js %}
+  this.get('/contacts');
+{% endhighlight %}
+        </td>
+      </tr>
+      <tr>
+        <td class='Table__label'>show</td>
+        <td class='Table__code'>
+{% highlight js %}
+  this.get('/contacts/:id');
+{% endhighlight %}
+        </td>
+      </tr>
+      <tr>
+        <td class='Table__label'>create</td>
+        <td class='Table__code'>
+{% highlight js %}
+  this.post('/contacts');
+{% endhighlight %}
+        </td>
+      </tr>
+      <tr>
+        <td class='Table__label'>update</td>
+        <td class='Table__code'>
+{% highlight js %}
+  this.put('/contacts/:id');
+  this.patch('/contacts/:id');
+{% endhighlight %}
+        </td>
+      </tr>
+      <tr>
+        <td class='Table__label'>delete</td>
+        <td class='Table__code'>
+{% highlight js %}
+  this.del('/contacts/:id');
+{% endhighlight %}
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

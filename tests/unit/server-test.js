@@ -1,7 +1,7 @@
 // jscs:disable requireCamelCaseOrUpperCaseIdentifiers, disallowMultipleVarDecl
 import Server, { defaultPassthroughs } from 'ember-cli-mirage/server';
 import {module, test} from 'qunit';
-import { Model, Factory, trait } from 'ember-cli-mirage';
+import { Model, Factory, trait, association } from 'ember-cli-mirage';
 
 module('Unit | Server');
 
@@ -465,6 +465,77 @@ test('create throws errors when using trait that is not defined and distinquishe
   server.shutdown();
 });
 
+test('create allows to create objects with associations', function(assert) {
+  let AuthorFactory = Factory.extend({
+    name: 'Sam'
+  });
+  let CategoryFactory = Factory.extend({
+    name: 'splendid software'
+  });
+  let ArticleFactory = Factory.extend({
+    title: 'Lorem ipsum',
+
+    withCategory: trait({
+      awesomeCategory: association('category')
+    }),
+
+    someOtherTrait: trait({
+      user: association()
+    }),
+
+    author: association()
+  });
+
+  let server = new Server({
+    environment: 'test',
+    factories: {
+      article: ArticleFactory,
+      author: AuthorFactory,
+      category: CategoryFactory
+    }
+  });
+
+  let article = server.create('article', 'withCategory');
+
+  assert.deepEqual(article, { title: 'Lorem ipsum', id: '1', authorId: '1', awesomeCategoryId: '1' });
+  assert.equal(server.db.authors.length, 1);
+  assert.equal(server.db.categories.length, 1);
+});
+
+test('create allows to create objects with associations with traits and overrides for associations', function(assert) {
+  let CategoryFactory = Factory.extend({
+    name: 'splendid software',
+
+    published: trait({
+      isPublished: true,
+      publishedAt: '2014-01-01 10:00:00'
+    })
+  });
+  let ArticleFactory = Factory.extend({
+    title: 'Lorem ipsum',
+
+    withCategory: trait({
+      category: association('category', 'published', { publishedAt: '2016-01-01 12:00:00' })
+    })
+  });
+
+  let server = new Server({
+    environment: 'test',
+    factories: {
+      article: ArticleFactory,
+      category: CategoryFactory
+    }
+  });
+
+  let article = server.create('article', 'withCategory');
+  assert.deepEqual(article, { title: 'Lorem ipsum', id: '1', categoryId: '1' });
+  assert.equal(server.db.categories.length, 1);
+  assert.deepEqual(
+    server.db.categories[0],
+    { name: 'splendid software', id: '1', isPublished: true, publishedAt: '2016-01-01 12:00:00' }
+  );
+});
+
 module('Unit | Server #createList', {
   beforeEach() {
     this.server = new Server({ environment: 'test' });
@@ -800,6 +871,74 @@ test('build allows to extend with multiple traits and to apply attr overrides', 
 
   assert.deepEqual(publishedArticleWithContent, { title: 'Lorem ipsum', isPublished: true,
     publishedAt: '2012-01-01 10:00:00', content: 'content' });
+});
+
+test('build allows to build objects with associations', function(assert) {
+  let AuthorFactory = Factory.extend({
+    name: 'Yehuda'
+  });
+  let CategoryFactory = Factory.extend({
+    name: 'splendid software'
+  });
+  let ArticleFactory = Factory.extend({
+    title: 'Lorem ipsum',
+
+    withCategory: trait({
+      awesomeCategory: association('category')
+    }),
+
+    someOtherTrait: trait({
+      user: association()
+    }),
+
+    author: association()
+  });
+
+  this.server.loadFactories({
+    article: ArticleFactory,
+    author: AuthorFactory,
+    category: CategoryFactory
+  });
+
+  let article = this.server.build('article', 'withCategory');
+
+  assert.deepEqual(article, { title: 'Lorem ipsum', authorId: '1', awesomeCategoryId: '1' });
+  assert.equal(server.db.authors.length, 1);
+  assert.equal(server.db.categories.length, 1);
+});
+
+test('build allows to build objects with associations with traits and overrides for associations', function(assert) {
+  let CategoryFactory = Factory.extend({
+    name: 'splendid software',
+
+    published: trait({
+      isPublished: true,
+      publishedAt: '2014-01-01 10:00:00'
+    })
+  });
+  let ArticleFactory = Factory.extend({
+    title: 'Lorem ipsum',
+
+    withCategory: trait({
+      category: association('category', 'published', { publishedAt: '2016-01-01 12:00:00' })
+    })
+  });
+
+  let server = new Server({
+    environment: 'test',
+    factories: {
+      article: ArticleFactory,
+      category: CategoryFactory
+    }
+  });
+
+  let article = server.build('article', 'withCategory');
+  assert.deepEqual(article, { title: 'Lorem ipsum', categoryId: '1' });
+  assert.equal(server.db.categories.length, 1);
+  assert.deepEqual(
+    server.db.categories[0],
+    { name: 'splendid software', id: '1', isPublished: true, publishedAt: '2016-01-01 12:00:00' }
+  );
 });
 
 test('build throws errors when using trait that is not defined and distinquishes between traits and non-traits', function(assert) {

@@ -8,6 +8,7 @@ import Schema from './orm/schema';
 import assert from './assert';
 import SerializerRegistry from './serializer-registry';
 import RouteHandler from './route-handler';
+import RequestAssertion from './request-assertion';
 
 import _pick from 'lodash/object/pick';
 import _assign from 'lodash/object/assign';
@@ -104,7 +105,6 @@ function extractRouteArguments(args) {
 }
 
 export default class Server {
-
   constructor(options = {}) {
     this.config(options);
   }
@@ -116,6 +116,8 @@ export default class Server {
     this.environment = config.environment || 'development';
 
     this.options = config;
+
+    this._requests = [];
 
     this.timing = this.timing || config.timing || 400;
     this.namespace = this.namespace || config.namespace || '';
@@ -362,6 +364,19 @@ export default class Server {
     });
   }
 
+  get received() {
+    return new RequestAssertion(this._requests).received;
+  }
+
+  get didNotReceive() {
+    return new RequestAssertion(this._requests).didNotReceive;
+  }
+
+  get lastRequest() {
+    let requests = this._requests;
+    return requests[requests.length - 1];
+  }
+
   _defineRouteHandlerHelpers() {
     [['get'], ['post'], ['put'], ['delete', 'del'], ['patch'], ['head']].forEach(([verb, alias]) => {
       this[verb] = (path, ...args) => {
@@ -397,6 +412,7 @@ export default class Server {
     this.pretender[verb](
       fullPath,
       (request) => {
+        this._requests.push(request);
         let [ code, headers, response ] = routeHandler.handle(request);
         return [ code, headers, this._serialize(response) ];
       },

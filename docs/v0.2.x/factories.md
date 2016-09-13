@@ -129,6 +129,63 @@ export default Factory.extend({
 
 Because the `afterCreate()` hook is called with the newly created object a reference to the server, you can construct complex object graphs to associate with your newly created object.
 
+## Traits
+
+You can have different "versions" of factory by grouping attributes with `traits`:
+
+``` js
+// mirage/factories/post.js
+import { Factory, trait } from 'ember-cli-mirage';
+
+export default Factory.extend({
+  title: 'Lorem ipsum',
+
+  published: trait({
+    isPublished: true,
+    publishedAt: '2010-01-01 10:00:00'
+  })
+});
+```
+
+Traits can be also combined with `afterCreate()` hook:
+
+``` js
+// mirage/factories/post.js
+import { Factory, trait } from 'ember-cli-mirage';
+
+export default Factory.extend({
+  title: 'Lorem ipsum',
+
+  published: trait({
+    isPublished: true,
+    publishedAt: '2010-01-01 10:00:00'
+  }),
+
+  withComments: trait({
+    afterCreate(post, server) {
+      server.createList('comment', 3, { post });
+    }
+  })
+});
+```
+
+To apply particular traits when building / creating new objects, pass the list of their names:
+
+``` js
+let defaultPost = server.create('post');
+let publishedPost = server.build('post', 'published');
+let postWithComments = server.create('post', 'withComments');
+let publishedPostsWithComments = server.buildList('post', 2, 'published', 'withComments');
+let postsWithComments = server.createList('post', 2, 'withComments')
+```
+
+You can also pass overrides as the last argument:
+
+``` js
+let publishedPost = server.create('post', 'published', { title: 'Rails is omakase' });
+```
+
+
 ## Using Faker.js
 
 The [Faker.js](https://github.com/marak/Faker.js/) library is included with Mirage, and its methods work nicely with factory definitions:

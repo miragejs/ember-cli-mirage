@@ -12,6 +12,8 @@
  *
  */
 import _isPlainObject from 'lodash/lang/isPlainObject';
+import _isMatch from 'lodash/lang/isMatch';
+import _isNumber from 'lodash/lang/isNumber';
 
 function requestMatches(request, verb, url, params) {
   return verbMatches(request, verb) &&
@@ -37,14 +39,22 @@ function requestMatches(request, verb, url, params) {
       return true;
     }
 
+    let comparingQueryParams = false;
     let actualParams;
     try {
-      actualParams = JSON.parse(request.requestBody || NaN); // || NaN makes parse throw if requestBody is null
+      actualParams = JSON.parse(request.requestBody || undefined); // throw if requestBody is null
     } catch (e) {
+      comparingQueryParams = true;
       actualParams = request.queryParams;
     }
 
-    return Object.keys(expectedParams).every(k => String(actualParams[k]) === String(expectedParams[k]));
+    return _isMatch(actualParams, expectedParams, looseCompareIfQueryParams);
+
+    function looseCompareIfQueryParams(actualValue, expectedValue) {
+      if (comparingQueryParams && _isNumber(expectedValue)) {
+        return String(expectedValue) === actualValue;
+      }
+    }
   }
 }
 

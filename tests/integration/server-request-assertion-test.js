@@ -70,10 +70,17 @@ test('matches post params', function(assert) {
   $.ajax({
     method: 'POST',
     url: '/contacts',
-    data: JSON.stringify({ name: 'Bilbo', age: 111 })
+    data: JSON.stringify({
+      name: 'Bilbo',
+      age: 111,
+      address: {
+        city: 'Hobbitton',
+        zip: 'none'
+      }
+    })
   }).done(() => {
     assert.ok(this.server.received.post.to('/contacts', { name: 'Bilbo', age: 111 }));
-    assert.ok(this.server.received.post.with({ name: 'Bilbo' }));
+    assert.ok(this.server.received.post.with({ name: 'Bilbo', address: { zip: 'none' } }));
     assert.notOk(this.server.received.post.to('/contacts', { name: 'Frodo' }));
     assert.notOk(this.server.received.post.with({ name: 'Frodo' }));
     done();

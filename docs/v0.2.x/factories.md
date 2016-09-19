@@ -170,7 +170,7 @@ export default Factory.extend({
   }),
   
   official: trait({
-    isOffial: true
+    isOfficial: true
   })
 });
 

@@ -210,8 +210,7 @@ export default Factory.extend({
 server.createList('post', 10, 'withComments');
 ```
 
-Traits improve your test suite by pulling unnecessary knowledge about data setup out of your tests. If you're writing a test module to verify the behavior a comment box on a blog post page, each test will need a post to exist as setup. If a post requires a user, and that user requires a session and perhaps a subscription, you don't want to repeat this knowledge in each of your comment tests. Instead, create a trait that has meaning within your domain, to simplify the data setup needed to write your comment tests.
-
+Traits improve your test suite by pulling unnecessary knowledge about data setup out of your tests. If you're writing a test module to verify the behavior of a comment box on a blog post page, each test will need a post to exist as part of its setup. If a post requires a user, and that user requires a session and perhaps a subscription, you don't want to repeat this knowledge in each of your comment tests. Instead, create a trait that has meaning within your domain - say, a published post - to simplify the data setup needed to write each of your comment tests. This leads to a more concise, expressive test suite, which will help future developers who come into your codebase better understand the expected behavior of your application.
 
 ## Using Faker.js
 

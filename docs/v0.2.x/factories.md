@@ -131,9 +131,9 @@ Because the `afterCreate()` hook is called with the newly created object a refer
 
 ## Traits
 
-You can have different "versions" of factory by grouping attributes with `traits`:
+Factory traits make it easy to group related attributes:
 
-``` js
+```js
 // mirage/factories/post.js
 import { Factory, trait } from 'ember-cli-mirage';
 
@@ -147,7 +147,45 @@ export default Factory.extend({
 });
 ```
 
-Traits can be also combined with `afterCreate()` hook:
+You can pass anything into `trait` that you can into the base factory.
+
+To use a trait, pass the trait name in as string argument to `server.create`:
+
+``` js
+server.create('post', 'published');
+```
+
+Traits are composable, so you can define and use many of them together:
+
+```js
+// mirage/factories/post.js
+import { Factory, trait } from 'ember-cli-mirage';
+
+export default Factory.extend({
+  title: 'Lorem ipsum',
+
+  published: trait({
+    isPublished: true,
+    publishedAt: '2010-01-01 10:00:00'
+  }),
+  
+  official: trait({
+    isOffial: true
+  })
+});
+
+// Use
+let officialPost = server.create('post', 'official');
+let officialPublishedPost = server.create('post', 'official', 'published');
+```
+
+You can still pass in an `attrs` hash as the last argument for attribute overrides:
+
+```js
+server.create('post', 'published', { title: 'My first post' });
+```
+
+When combine with the `afterCreate()` hook, traits simplify the process of setting up related object graphs. Here we create 10 posts each having 3 associated comments:
 
 ``` js
 // mirage/factories/post.js
@@ -167,23 +205,12 @@ export default Factory.extend({
     }
   })
 });
+
+// Use
+server.createList('post', 10, 'withComments');
 ```
 
-To apply particular traits when building / creating new objects, pass the list of their names:
-
-``` js
-let defaultPost = server.create('post');
-let publishedPost = server.build('post', 'published');
-let postWithComments = server.create('post', 'withComments');
-let publishedPostsWithComments = server.buildList('post', 2, 'published', 'withComments');
-let postsWithComments = server.createList('post', 2, 'withComments')
-```
-
-You can also pass overrides as the last argument:
-
-``` js
-let publishedPost = server.create('post', 'published', { title: 'Rails is omakase' });
-```
+Traits improve your test suite by pulling unnecessary knowledge about data setup out of your tests. If you're writing a test module to verify the behavior a comment box on a blog post page, each test will need a post to exist as setup. If a post requires a user, and that user requires a session and perhaps a subscription, you don't want to repeat this knowledge in each of your comment tests. Instead, create a trait that has meaning within your domain, to simplify the data setup needed to write your comment tests.
 
 
 ## Using Faker.js

@@ -24,7 +24,7 @@ Mirage ships with three named serializers:
 
   ```js
   // mirage/serializers/application.js
-  import { ActiveModelSerializer } from 'ember-cli-mirage'
+  import { ActiveModelSerializer } from 'ember-cli-mirage';
 
   export default ActiveModelSerializer;
   ```
@@ -33,7 +33,7 @@ Mirage ships with three named serializers:
 
   ```js
   // mirage/serializers/application.js
-  import { RestSerializer } from 'ember-cli-mirage'
+  import { RestSerializer } from 'ember-cli-mirage';
 
   export default RestSerializer;
   ```

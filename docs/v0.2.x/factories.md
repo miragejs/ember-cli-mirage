@@ -185,7 +185,7 @@ You can still pass in an `attrs` hash as the last argument for attribute overrid
 server.create('post', 'published', { title: 'My first post' });
 ```
 
-When combine with the `afterCreate()` hook, traits simplify the process of setting up related object graphs. Here we create 10 posts each having 3 associated comments:
+When combined with the `afterCreate()` hook, traits simplify the process of setting up related object graphs. Here we create 10 posts each having 3 associated comments:
 
 ``` js
 // mirage/factories/post.js

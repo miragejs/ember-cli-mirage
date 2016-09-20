@@ -155,7 +155,7 @@ To use a trait, pass the trait name in as string argument to `server.create`:
 server.create('post', 'published');
 ```
 
-Traits are composable, so you can define and use many of them together:
+You can also compose multiple traits together:
 
 ```js
 // mirage/factories/post.js
@@ -179,7 +179,7 @@ let officialPost = server.create('post', 'official');
 let officialPublishedPost = server.create('post', 'official', 'published');
 ```
 
-You can still pass in an `attrs` hash as the last argument for attribute overrides:
+As always, you can pass in an `attrs` hash as the last argument for attribute overrides:
 
 ```js
 server.create('post', 'published', { title: 'My first post' });

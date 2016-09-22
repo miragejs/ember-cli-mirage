@@ -24,7 +24,7 @@ import startMirage from '../../../helpers/setup-mirage-for-integration';
 
 moduleForComponent('your-component', 'Integration | Component | your component', {
   integration: true,
-  setup: function() {
+  setup() {
     startMirage(this.container);
   }
 });

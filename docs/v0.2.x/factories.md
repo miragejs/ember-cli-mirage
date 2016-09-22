@@ -117,7 +117,7 @@ When building objects using factories, you may want to create related objects au
 
 ```js
 // mirage/factories/author.js
-import { Factory } from 'ember-cli-mirage';
+import { Factory, faker } from 'ember-cli-mirage';
 
 export default Factory.extend({
   firstName: faker.name.firstName,

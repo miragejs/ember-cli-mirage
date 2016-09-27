@@ -209,7 +209,7 @@ Note that attribute keys were camelCased, and the `team` foreign key was extract
 
 Note that this helper method leverages your serializer's `normalize` function. In the example above, it's assumed that the app was using the `JSONAPISerializer`, which comes with the `#normalize` method already written. If you're not using one of the bundled serializers, you'll need to implement `#normalize` and have it return a JSON:API document to take advantage of this method.
 
-Additionally, you'll need to use a full `function` here, as opposed to an ES6 arrow function (e.g `() => { ... }`). This is because `normalizeRequestAttrs` requires the `this` context from the function handler, and an arrow function does not bind `this`. 
+Additionally, you'll need to use a full `function` here, as opposed to an ES6 arrow function (e.g `() => { ... }`). This is because `normalizeRequestAttrs` requires the `this` context from the function handler, and an arrow function would bind this from the outer scope.
 
 ## External origins
 

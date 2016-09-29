@@ -8,7 +8,6 @@
 .editorconfig
 .ember-cli
 .gitignore
-.jshintrc
 .watchmanconfig
 .travis.yml
 bower.json

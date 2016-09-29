@@ -79,7 +79,7 @@ test('it returns POJAs of models unaffected', function(assert) {
   this.schema.wordSmiths.create({ name: 'Ganondorf' });
 
   let wordSmiths = this.schema.wordSmiths.all().models;
-  let uniqueNames = _uniq(wordSmiths, u => u.name);
+  let uniqueNames = _uniq(wordSmiths, (u) => u.name);
   let result = this.registry.serialize(uniqueNames);
 
   assert.deepEqual(result, uniqueNames);

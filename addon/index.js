@@ -1,4 +1,3 @@
-// jscs:disable
 import Factory from './factory';
 import trait from './trait';
 import Response from './response';

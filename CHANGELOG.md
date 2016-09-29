@@ -78,7 +78,7 @@ Update notes:
 
     ```js
     let usersCollection = schema.users.all();
-    let uniqueUsers = _.uniq(usersCollection.models, u => u.firstName);
+    let uniqueUsers = _.uniq(usersCollection.models, (u) => u.firstName);
     ```
 
     - Collection no longer attempts to mimic an array. This turned out to be confusing, since you can't really subclass arrays in JavaScript, and it would sometimes be compatible with functions that operate on arrays, but sometimes not.
@@ -104,7 +104,7 @@ Update notes:
     import { Collection } from 'ember-cli-mirage';
 
     let authors = schema.authors.all().models;
-    let topPosts = authors.map(a => a.topPost);
+    let topPosts = authors.map((a) => a.topPost);
 
     return new Collection('post', topPosts);
     ```
@@ -197,7 +197,7 @@ Update notes:
 
     In Mirage 0.2, all filenames should be dasherized, following the conventions of Ember CLI. If you ever encounter a situation where this doesn't work, please file an issue, as this is a bug.
 
-Changes:  
+Changes:
 
   - [ENHANCEMENT] Better blueprints
   - [BUGFIX] Ensure multiword dasherized serializers work #333

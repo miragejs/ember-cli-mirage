@@ -35,7 +35,7 @@ class Serializer {
    * @param request
    * @public
    */
-  serialize(primaryResource, request) {
+  serialize(primaryResource /*, request */) {
     return this.buildPayload(primaryResource);
   }
 

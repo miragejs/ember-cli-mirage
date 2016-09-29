@@ -36,7 +36,7 @@ export default function() {
     return pet;
   });
 
-  this.delete('/pets/:id', function({ db }, req) { }, 200);
+  this.delete('/pets/:id', function() { }, 200);
 
   this.get('/word-smiths/:id');
 

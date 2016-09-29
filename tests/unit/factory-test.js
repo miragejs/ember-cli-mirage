@@ -207,7 +207,7 @@ test('throws meaningfull exception on circular reference', function(assert) {
       return this.foo;
     },
 
-    foo(i) {
+    foo() {
       return this.bar;
     }
   });

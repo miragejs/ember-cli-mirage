@@ -1,3 +1,4 @@
+// jscs:disable
 import Ember from 'ember';
 import { MirageError } from 'ember-cli-mirage/assert';
 import Response from './response';

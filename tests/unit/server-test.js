@@ -16,7 +16,7 @@ test('it runs the default scenario in non-test environments', function(assert) {
   new Server({
     environment: 'development',
     scenarios: {
-      default(server) {
+      default() {
         assert.ok(true);
       }
     }

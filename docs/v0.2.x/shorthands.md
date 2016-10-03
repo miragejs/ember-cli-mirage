@@ -183,7 +183,7 @@ this.del('/contacts/:id', ({ contacts }, request) => {
 
 ## Resource helper
 
-For handling generic CRUD, you can use *resource* helper which will take care of defining all shorthands. The following examples are equivalent:
+For handling generic CRUD, you can use *resource* helper since mirage 0.2.2 which will take care of defining all shorthands. The following examples are equivalent:
 
 {% capture resource %}
 {% highlight js %}

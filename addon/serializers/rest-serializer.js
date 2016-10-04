@@ -1,5 +1,5 @@
 import ActiveModelSerializer from './active-model-serializer';
-import { camelize, pluralize } from '../utils/inflector';
+import { camelize, singularize, pluralize } from '../utils/inflector';
 
 export default ActiveModelSerializer.extend({
 
@@ -12,10 +12,10 @@ export default ActiveModelSerializer.extend({
   },
 
   keyForRelationship(type) {
-    return pluralize(camelize(type));
+    return camelize(pluralize(type));
   },
 
   keyForRelationshipIds(type) {
-    return `${camelize(type)}Ids`;
+    return `${camelize(singularize(type))}Ids`;
   }
 });

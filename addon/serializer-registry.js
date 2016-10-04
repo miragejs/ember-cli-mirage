@@ -7,7 +7,6 @@ import { pluralize, camelize } from './utils/inflector';
 import assert from './assert';
 
 import _assign from 'lodash/object/assign';
-import _isArray from 'lodash/lang/isArray';
 
 export default class SerializerRegistry {
 
@@ -21,18 +20,20 @@ export default class SerializerRegistry {
   }
 
   serialize(response, request) {
+    this.request = request;
+
     if (this._isModelOrCollection(response)) {
       let serializer = this.serializerFor(response.modelName);
 
       return serializer.serialize(response, request);
-    } else if (_isArray(response) && response.filter(this._isCollection).length) {
+    } else if (Array.isArray(response) && response.filter(this._isCollection).length) {
       return response.reduce((json, collection) => {
         let serializer = this.serializerFor(collection.modelName);
 
         if (serializer.embed) {
-          json[pluralize(collection.modelName)] = serializer._serializeModelOrCollection(collection, request);
+          json[pluralize(collection.modelName)] = serializer.serialize(collection, request);
         } else {
-          json = _assign(json, serializer._serializeSideloadedModelOrCollection(collection, request));
+          json = _assign(json, serializer.serialize(collection, request));
         }
 
         return json;
@@ -43,7 +44,7 @@ export default class SerializerRegistry {
     }
   }
 
-  serializerFor(type, { explicit = false, included = [], alreadySerialized = {} } = {}) {
+  serializerFor(type, { explicit = false } = {}) {
     let SerializerForResponse = this._serializerMap && (this._serializerMap[camelize(type)]);
 
     if (explicit) {
@@ -60,7 +61,7 @@ export default class SerializerRegistry {
       );
     }
 
-    return new SerializerForResponse(this, type, included, alreadySerialized);
+    return new SerializerForResponse(this, type, this.request);
   }
 
   _isModel(object) {
@@ -73,6 +74,14 @@ export default class SerializerRegistry {
 
   _isModelOrCollection(object) {
     return this._isModel(object) || this._isCollection(object);
+  }
+
+  registerSerializers(newSerializerMaps) {
+    let currentSerializerMap = this._serializerMap || {};
+    this._serializerMap = _assign(
+      currentSerializerMap,
+      newSerializerMaps
+    );
   }
 
 }

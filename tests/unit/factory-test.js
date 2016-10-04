@@ -1,4 +1,5 @@
 import Mirage from 'ember-cli-mirage';
+import { trait } from 'ember-cli-mirage';
 
 import {module, test} from 'qunit';
 
@@ -236,4 +237,95 @@ test('#build skips invoking `afterCreate`', function(assert) {
     'undefined',
     'does not build `afterCreate` attribute'
   );
+});
+
+test('extractAfterCreateCallbacks returns all afterCreate callbacks from factory with the base one being first', function(assert) {
+  let PostFactory = Mirage.Factory.extend({
+    published: trait({
+      afterCreate() {
+        return 'from published';
+      }
+    }),
+
+    withComments: trait({
+      afterCreate() {
+        return 'from withComments';
+      }
+    }),
+
+    otherTrait: trait({}),
+
+    afterCreate() {
+      return 'from base';
+    }
+  });
+
+  let callbacks = PostFactory.extractAfterCreateCallbacks();
+  assert.equal(callbacks.length, 3);
+  assert.deepEqual(callbacks.map((cb) => cb()), ['from base','from published', 'from withComments']);
+});
+
+test('extractAfterCreateCallbacks filters traits from which the afterCreate callbacks will be extracted from', function(assert) {
+  let PostFactory = Mirage.Factory.extend({
+    published: trait({
+      afterCreate() {
+        return 'from published';
+      }
+    }),
+
+    withComments: trait({
+      afterCreate() {
+        return 'from withComments';
+      }
+    }),
+
+    otherTrait: trait({}),
+
+    afterCreate() {
+      return 'from base';
+    }
+  });
+
+  assert.equal(PostFactory.extractAfterCreateCallbacks({ traits: [] }).length, 1);
+  assert.deepEqual(
+    PostFactory.extractAfterCreateCallbacks({ traits: [] }).map((cb) => cb()),
+    ['from base']
+  );
+
+  assert.equal(PostFactory.extractAfterCreateCallbacks({ traits: ['withComments'] }).length, 2);
+  assert.deepEqual(
+    PostFactory.extractAfterCreateCallbacks({ traits: ['withComments'] }).map((cb) => cb()),
+    ['from base', 'from withComments']
+  );
+
+  assert.equal(PostFactory.extractAfterCreateCallbacks({ traits: ['withComments', 'published'] }).length, 3);
+  assert.deepEqual(
+    PostFactory.extractAfterCreateCallbacks({ traits: ['withComments', 'published'] }).map((cb) => cb()),
+    ['from base', 'from withComments', 'from published']
+  );
+
+  assert.equal(PostFactory.extractAfterCreateCallbacks({ traits: ['withComments', 'otherTrait'] }).length, 2);
+  assert.deepEqual(
+    PostFactory.extractAfterCreateCallbacks({ traits: ['withComments', 'otherTrait'] }).map((cb) => cb()),
+    ['from base', 'from withComments']
+  );
+});
+
+test('isTrait returns true if there is a trait with given name', function(assert) {
+  let PostFactory = Mirage.Factory.extend({
+    title: 'Lorem ipsum',
+
+    published: trait({
+      isPublished: true
+    }),
+
+    someNestedObject: {
+      value: 'nested'
+    }
+  });
+
+  assert.ok(!PostFactory.isTrait('title'));
+  assert.ok(PostFactory.isTrait('published'));
+  assert.ok(!PostFactory.isTrait('someNestedObject'));
+  assert.ok(!PostFactory.isTrait('notdefined'));
 });

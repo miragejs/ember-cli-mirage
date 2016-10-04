@@ -1,5 +1,5 @@
 // jscs:disable requireParenthesesAroundArrowParam
-import { pluralize, camelize } from '../utils/inflector';
+import { toCollectionName } from 'ember-cli-mirage/utils/normalize-name';
 import extend from '../utils/extend';
 import assert from '../assert';
 import Collection from './collection';
@@ -39,7 +39,7 @@ class Model {
    * @public
    */
   save() {
-    let collection = pluralize(camelize(this.modelName));
+    let collection = toCollectionName(this.modelName);
 
     if (this.isNew()) {
       // Update the attrs with the db response
@@ -79,6 +79,7 @@ class Model {
     }
 
     Object.keys(attrs).forEach(function(attr) {
+      this._definePlainAttribute(attr);
       this[attr] = attrs[attr];
     }, this);
 
@@ -93,7 +94,7 @@ class Model {
    * @public
    */
   destroy() {
-    let collection = pluralize(camelize(this.modelName));
+    let collection = toCollectionName(this.modelName);
     this._schema.db[collection].remove(this.attrs.id);
   }
 
@@ -113,7 +114,7 @@ class Model {
     let hasId = this.attrs.id !== undefined && this.attrs.id !== null;
 
     if (hasId) {
-      let collectionName = pluralize(camelize(this.modelName));
+      let collectionName = toCollectionName(this.modelName);
       let record = this._schema.db[collectionName].find(this.attrs.id);
       if (record) {
         hasDbRecord = true;
@@ -140,7 +141,7 @@ class Model {
    * @public
    */
   reload() {
-    let collection = pluralize(camelize(this.modelName));
+    let collection = toCollectionName(this.modelName);
     let attrs = this._schema.db[collection].find(this.id);
 
     Object.keys(attrs)
@@ -210,7 +211,10 @@ class Model {
    * @private
    */
   _definePlainAttribute(attr) {
-    if (this[attr] !== undefined) {
+
+    // Ensure the property hasn't already been defined
+    let existingProperty = Object.getOwnPropertyDescriptor(this, attr);
+    if (existingProperty && existingProperty.get) {
       return;
     }
 

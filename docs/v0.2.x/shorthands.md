@@ -187,7 +187,7 @@ For handling generic CRUD, you can use *resource* helper which will take care of
 
 {% capture resource %}
 {% highlight js %}
-this.resource('contacts');
+this.resource('contacts'); // available in 0.2.2+
 {% endhighlight %}
 {% endcapture %}
 

@@ -117,7 +117,13 @@ export default class Server {
 
     this.options = config;
 
-    this._requests = [];
+    let requests = [];
+    Object.defineProperty(requests, 'last', {
+      get() {
+        return requests[requests.length - 1];
+      }
+    });
+    this.requests = requests;
 
     this.timing = this.timing || config.timing || 400;
     this.namespace = this.namespace || config.namespace || '';
@@ -365,16 +371,11 @@ export default class Server {
   }
 
   get received() {
-    return new RequestAssertion(this._requests).received;
+    return new RequestAssertion(this.requests).received;
   }
 
   get didNotReceive() {
-    return new RequestAssertion(this._requests).didNotReceive;
-  }
-
-  get lastRequest() {
-    let requests = this._requests;
-    return requests[requests.length - 1];
+    return new RequestAssertion(this.requests).didNotReceive;
   }
 
   _defineRouteHandlerHelpers() {
@@ -412,7 +413,7 @@ export default class Server {
     this.pretender[verb](
       fullPath,
       (request) => {
-        this._requests.push(request);
+        this.requests.push(request);
         let [ code, headers, response ] = routeHandler.handle(request);
         return [ code, headers, this._serialize(response) ];
       },

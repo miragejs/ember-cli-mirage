@@ -21,7 +21,7 @@ test('server reports no requests', function(assert) {
 });
 
 ['get', 'post', 'put', 'delete', 'head'].forEach(verb => {
-  test(`reports ${verb} to '/contacts'`, function(assert) {
+  test(`it reports ${verb} to '/contacts'`, function(assert) {
     assert.expect(4);
     let done = assert.async();
 
@@ -40,7 +40,7 @@ test('server reports no requests', function(assert) {
   });
 });
 
-test('matches query params', function(assert) {
+test('it matches query params', function(assert) {
   assert.expect(6);
   let done = assert.async();
 
@@ -61,7 +61,7 @@ test('matches query params', function(assert) {
   });
 });
 
-test('matches post params', function(assert) {
+test('it matches post params', function(assert) {
   assert.expect(4);
   let done = assert.async();
 
@@ -87,7 +87,7 @@ test('matches post params', function(assert) {
   });
 });
 
-test('to accepts RegExps', function(assert) {
+test('"to" accepts RegExps', function(assert) {
   assert.expect(2);
   let done = assert.async();
 
@@ -103,7 +103,7 @@ test('to accepts RegExps', function(assert) {
   });
 });
 
-test('lastRequest returns the last request that was made', function(assert) {
+test('server.requests.last returns the last request that was made', function(assert) {
   assert.expect(1);
   let done = assert.async();
 
@@ -112,7 +112,7 @@ test('lastRequest returns the last request that was made', function(assert) {
 
   $.ajax({ url: '/contacts' }).done(() => {
     $.ajax('/posts').done(() => {
-      assert.equal(this.server.lastRequest.url, '/posts');
+      assert.equal(this.server.requests.last.url, '/posts');
       done();
     });
   });

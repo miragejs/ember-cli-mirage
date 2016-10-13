@@ -7,6 +7,8 @@
 import Ember from 'ember';
 import { camelize, pluralize } from 'ember-cli-mirage/utils/inflector';
 
+const { assert } = Ember;
+
 /*
   This function looks through all files that have been loaded by Ember CLI and
   finds the ones under /mirage/[factories, fixtures, scenarios, models]/, and exports
@@ -31,7 +33,7 @@ export default function(prefix) {
     let moduleKey = moduleKeyParts.join('/');
 
     if (moduleType === 'scenario') {
-      Ember.assert('Only scenario/default.js is supported at this time.',
+      assert('Only scenario/default.js is supported at this time.',
                    moduleKey !== 'default');
     }
 

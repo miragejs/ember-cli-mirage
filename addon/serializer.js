@@ -45,6 +45,9 @@ class Serializer {
 
     } else if (primaryResource) {
       let [ resourceHash, newIncludes ] = this.getHashForPrimaryResource(primaryResource);
+      if (primaryResource.meta) {
+        resourceHash.meta = primaryResource.meta;
+      }
       let newDidSerialize = (this.isCollection(primaryResource) ? primaryResource.models : [ primaryResource ]);
 
       return this.buildPayload(undefined, newIncludes, newDidSerialize, resourceHash);
@@ -432,6 +435,13 @@ class Serializer {
     }
 
     return formattedAttrs;
+  }
+
+  serializeMetaForPagination(totalPages, totalRecords) {
+    return {
+      'total-pages': totalPages,
+      'total-records': totalRecords
+    };
   }
 }
 

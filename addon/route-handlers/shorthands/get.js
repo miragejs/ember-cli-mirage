@@ -30,9 +30,11 @@ export default class GetShorthandRouteHandler extends BaseShorthandRouteHandler 
         return model;
       }
     } else if (this.options.coalesce && request.queryParams && request.queryParams.ids) {
-      return modelClass.find(request.queryParams.ids);
+      let collection = modelClass.find(request.queryParams.ids);
+      return this.paginator.paginate(request, collection);
     } else {
-      return modelClass.all();
+      let collection = modelClass.all();
+      return this.paginator.paginate(request, collection);
     }
   }
 
@@ -64,5 +66,4 @@ export default class GetShorthandRouteHandler extends BaseShorthandRouteHandler 
 
     return modelClasses.map((modelClass) => modelClass.all());
   }
-
 }

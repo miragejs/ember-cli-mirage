@@ -1,5 +1,6 @@
 import { toCollectionName } from 'ember-cli-mirage/utils/normalize-name';
 import BaseRouteHandler from '../base';
+import PagedPaginator from 'ember-cli-mirage/utils/paged-paginator';
 
 export default class BaseShorthandRouteHandler extends BaseRouteHandler {
 
@@ -10,6 +11,7 @@ export default class BaseShorthandRouteHandler extends BaseRouteHandler {
     this.serializerOrRegistry = serializerOrRegistry;
     this.shorthand = shorthand;
     this.options = options;
+    this.paginator = options.paginator || new PagedPaginator(serializerOrRegistry);
 
     let type = Array.isArray(shorthand) ? 'array' : typeof shorthand;
     if (type === 'string') {

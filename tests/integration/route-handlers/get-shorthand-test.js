@@ -217,3 +217,37 @@ test('if a shorthand tries to access an unknown type it throws an error', functi
     handler.handle(request);
   }, /model doesn't exist/);
 });
+
+test('get shorthand handles pagination with page[number] and page[size] params', function(assert) {
+  let request = {
+    url: '/authors?page%5Bsize%5D=2&page%5Bnumber%5D=1',
+    queryParams: { 'page[number]': '1', 'page[size]': '2' }
+  };
+
+  let handler = new GetShorthandRouteHandler(this.schema, this.serializer, undefined, '/authors');
+  let authors = handler.handle(request);
+
+  assert.equal(authors.models.length, 2);
+  assert.ok(authors.models[0] instanceof Model);
+
+  request = {
+    url: '/authors?page%5Bsize%5D=2&page%5Bnumber%5D=1',
+    queryParams: { 'page[number]': '2', 'page[size]': '2' }
+  };
+
+  handler = new GetShorthandRouteHandler(this.schema, this.serializer, undefined, '/authors');
+  authors = handler.handle(request);
+
+  assert.equal(authors.models.length, 1);
+  assert.ok(authors.models[0] instanceof Model);
+
+  request = {
+    url: '/authors?page%5Bsize%5D=2&page%5Bnumber%5D=1',
+    queryParams: { 'page[number]': '3', 'page[size]': '2' }
+  };
+
+  handler = new GetShorthandRouteHandler(this.schema, this.serializer, undefined, '/authors');
+  authors = handler.handle(request);
+
+  assert.equal(authors.models.length, 0);
+});

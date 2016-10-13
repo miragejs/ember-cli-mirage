@@ -84,3 +84,25 @@ test('it returns POJAs of models unaffected', function(assert) {
 
   assert.deepEqual(result, uniqueNames);
 });
+
+test('it attaches meta data if present', function(assert) {
+  this.schema.wordSmiths.create({ id: 1, name: 'Link' });
+  this.schema.wordSmiths.create({ id: 2, name: 'Zelda' });
+
+  let wordSmiths = this.schema.wordSmiths.all();
+  wordSmiths.meta = {
+    'total-records': 3
+  };
+
+  let result = this.registry.serialize(wordSmiths);
+
+  assert.deepEqual(result, {
+    wordSmiths: [
+      { id: '1', name: 'Link' },
+      { id: '2', name: 'Zelda' }
+    ],
+    meta: {
+      'total-records': 3
+    }
+  });
+});

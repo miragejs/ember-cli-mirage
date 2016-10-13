@@ -84,4 +84,8 @@ export default class SerializerRegistry {
     );
   }
 
+  serializeMetaForPagination(totalPages, totalRecords, response) {
+    let serializer = this.serializerFor(response.modelName);
+    return serializer.serializeMetaForPagination(totalPages, totalRecords);
+  }
 }

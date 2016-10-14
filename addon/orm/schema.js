@@ -120,6 +120,15 @@ export default class Schema {
    * @public
    */
   new(type, attrs) {
+
+      // let fk = foreignKeysHash[attr];
+      // debugger;
+      // assert(
+      //   !fk || this.schema.db[toCollectionName(association.modelName)].find(fk),
+      //   `Couldn\'t find ${association.modelName} with id = ${fk}`
+      // );
+
+      // this[attr] = fk;
     return this._instantiateModel(dasherize(type), attrs);
   }
 
@@ -270,6 +279,7 @@ export default class Schema {
   /**
    * Takes a record and returns a model, or an array of records
    * and returns a collection.
+   *
    * @method _hydrate
    * @param records
    * @param modelName

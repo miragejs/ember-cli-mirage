@@ -20,7 +20,7 @@ test('the child accepts a saved parent id', function(assert) {
 test('the child errors if the parent id doesnt exist', function(assert) {
   assert.throws(function() {
     this.schema.posts.new({ authorId: 2 });
-  }, /Couldn't find user/);
+  }, /You're instantiating a post that has a authorId of 2, but that record doesn't exist in the database/);
 });
 
 test('the child accepts a null parent id', function(assert) {
@@ -37,7 +37,6 @@ test('the child accepts a saved parent model', function(assert) {
 
   assert.equal(post.authorId, 1);
   assert.deepEqual(post.author, author);
-  assert.deepEqual(post.attrs, { authorId: '1' });
 });
 
 test('the child accepts a new parent model', function(assert) {

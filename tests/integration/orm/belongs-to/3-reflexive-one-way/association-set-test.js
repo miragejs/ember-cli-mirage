@@ -1,7 +1,7 @@
 import Helper, { states } from './_helper';
 import { module, test } from 'qunit';
 
-module('Integration | ORM | Belongs To | Named | association #setId', {
+module('Integration | ORM | Belongs To | Reflexive, one-way | association #set', {
   beforeEach() {
     this.helper = new Helper();
   }
@@ -13,32 +13,32 @@ module('Integration | ORM | Belongs To | Named | association #setId', {
 states.forEach((state) => {
 
   test(`a ${state} can update its association to a saved parent`, function(assert) {
-    let [ post ] = this.helper[state]();
-    let savedAuthor = this.helper.savedParent();
+    let [ child ] = this.helper[state]();
+    let savedParent = this.helper.savedParent();
 
-    post.author = savedAuthor;
+    child.parent = savedParent;
 
-    assert.equal(post.authorId, savedAuthor.id);
-    assert.deepEqual(post.author, savedAuthor);
+    assert.equal(child.parentId, savedParent.id);
+    assert.deepEqual(child.parent.attrs, savedParent.attrs);
   });
 
   test(`a ${state} can update its association to a new parent`, function(assert) {
-    let [ post ] = this.helper[state]();
-    let newAuthor = this.helper.newParent();
+    let [ child ] = this.helper[state]();
+    let newParent = this.helper.newParent();
 
-    post.author = newAuthor;
+    child.parent = newParent;
 
-    assert.equal(post.authorId, null);
-    assert.deepEqual(post.author, newAuthor);
+    assert.equal(child.parentId, null);
+    assert.deepEqual(child.parent, newParent);
   });
 
   test(`a ${state} can update its association to a null parent`, function(assert) {
-    let [ post ] = this.helper[state]();
+    let [ child ] = this.helper[state]();
 
-    post.author = null;
+    child.parent = null;
 
-    assert.equal(post.authorId, null);
-    assert.deepEqual(post.author, null);
+    assert.equal(child.parentId, null);
+    assert.deepEqual(child.parent, null);
   });
 
 });

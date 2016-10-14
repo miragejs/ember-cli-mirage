@@ -15,8 +15,14 @@ states.forEach((state) => {
   test(`the references of a ${state} are correct`, function(assert) {
     let [ user, parent ] = this.helper[state]();
 
-    assert.deepEqual(user.parent, parent ? parent : null, 'the model reference is correct');
-    assert.equal(user.parentId, parent ? parent.id : null, 'the modelId reference is correct');
+    // We use .attrs here to avoid infinite recursion
+    if (parent) {
+      assert.deepEqual(user.parent.attrs, parent.attrs, 'the model reference is correct');
+      assert.equal(user.parentId, parent.id, 'the modelId reference is correct');
+    } else {
+      assert.deepEqual(user.parent, null, 'the model reference is correct');
+      assert.equal(user.parentId, null, 'the modelId reference is correct');
+    }
   });
 
 });

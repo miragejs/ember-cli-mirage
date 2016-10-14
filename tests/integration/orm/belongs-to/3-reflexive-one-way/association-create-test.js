@@ -18,7 +18,7 @@ states.forEach((state) => {
     let ganon = child.createParent({ name: 'Ganon' });
 
     assert.ok(ganon.id, 'the parent was persisted');
-    assert.deepEqual(child.parent, ganon);
+    assert.deepEqual(child.parent.attrs, ganon.attrs);
     assert.equal(child.parentId, ganon.id);
     assert.equal(this.helper.schema.users.find(child.id).parentId, ganon.id, 'the child was persisted');
   });

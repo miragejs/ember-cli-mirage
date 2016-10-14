@@ -13,14 +13,14 @@ test('the child accepts a saved parent id', function(assert) {
   let child = this.schema.users.new({ parentId: parent.id });
 
   assert.equal(child.parentId, parent.id);
-  assert.deepEqual(child.parent, parent);
+  assert.deepEqual(child.parent.attrs, parent.attrs);
   assert.deepEqual(child.attrs, { parentId: parent.id });
 });
 
 test('the child errors if the parent id doesnt exist', function(assert) {
   assert.throws(function() {
     this.schema.users.new({ parentId: 2 });
-  }, /Couldn't find user/);
+  }, /You're instantiating a user that has a parentId of 2, but that record doesn't exist in the database/);
 });
 
 test('the child accepts a null parent id', function(assert) {
@@ -36,8 +36,7 @@ test('the child accepts a saved parent model', function(assert) {
   let child = this.schema.users.new({ parent });
 
   assert.equal(child.parentId, 1);
-  assert.deepEqual(child.parent, parent);
-  assert.deepEqual(child.attrs, { parentId: '1' });
+  assert.deepEqual(child.parent.attrs, parent.attrs);
 });
 
 test('the child accepts a new parent model', function(assert) {
@@ -62,7 +61,7 @@ test('the child accepts a parent model and id', function(assert) {
   let child = this.schema.users.new({ parent: parent, parentId: parent.id });
 
   assert.equal(child.parentId, '1');
-  assert.deepEqual(child.parent, parent);
+  assert.deepEqual(child.parent.attrs, parent.attrs);
   assert.deepEqual(child.attrs, { parentId: parent.id });
 });
 

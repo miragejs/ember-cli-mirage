@@ -3,23 +3,25 @@ import Schema from 'ember-cli-mirage/orm/schema';
 import Db from 'ember-cli-mirage/db';
 import { module, test } from 'qunit';
 
-module('Integration | ORM | Belongs To | One Way | regressions');
+module('Integration | ORM | Belongs To | Basic | regressions');
 
 test('belongsTo accessors works when foreign key is present but falsy', function(assert) {
   let db = new Db({
-    posts: [],
-    authors: []
+    posts: [
+      { id: 1, authorId: 0, name: 'some post' }
+    ],
+    authors: [
+      { id: 0, name: 'Foo' }
+    ]
   });
 
   let schema = new Schema(db, {
-    post: Model.extend(),
-    author: Model.extend({
-      post: belongsTo()
+    author: Model.extend(),
+    post: Model.extend({
+      author: belongsTo()
     })
   });
 
-  db.posts.insert({ id: 0, name: 'some post' });
-  let insertedAuthor = db.authors.insert({ name: 'foo', postId: 0 });
-  let relatedPost = schema.authors.find(insertedAuthor.id).post;
-  assert.equal('some post', relatedPost ? relatedPost.name : undefined);
+  let post = schema.posts.find(1);
+  assert.equal(post.author.name, 'Foo');
 });

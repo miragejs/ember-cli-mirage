@@ -52,7 +52,6 @@ class Model {
       this._schema.db[collection].update(this.attrs.id, this.attrs);
     }
 
-    // Update associated children
     this._saveAssociations();
 
     return this;
@@ -191,7 +190,7 @@ class Model {
 
     // Ensure fks are there
     this.fks.map(function(fk) {
-      hash[fk] = attrs[fk] || null;
+      hash[fk] = attrs[fk] !== undefined ? attrs[fk] : null;
     });
 
     this.attrs = hash;
@@ -235,38 +234,100 @@ class Model {
   }
 
   /**
+   * Foreign keys get set on attrs directly (to avoid potential recursion), but
+   * model references use the setter.
+   *
+   * We validate foreign keys during instantiation.
+   *
    * @method _setupRelationships
    * @param attrs
    * @private
    */
   _setupRelationships(attrs) {
-    // Only want association keys and fks
-    let hash = Object.keys(attrs).reduce((memo, attr) => {
-      if (this.associationKeys.indexOf(attr) > -1 || this.associationIdKeys.indexOf(attr) > -1 || this.fks.indexOf(attr) > -1) {
+    let foreignKeysHash = Object.keys(attrs).reduce((memo, attr) => {
+      if (this.associationIdKeys.indexOf(attr) > -1 || this.fks.indexOf(attr) > -1) {
         memo[attr] = attrs[attr];
       }
       return memo;
     }, {});
 
-    Object.keys(hash).forEach(function(attr) {
-      this[attr] = hash[attr];
+    Object.keys(foreignKeysHash).forEach(function(attr) {
+      let fk = foreignKeysHash[attr];
+      if (fk !== undefined && fk !== null) {
+        this._validateForeignKeyExistsInDatabase(attr, fk);
+      }
+
+      this.attrs[attr] = fk;
+    }, this);
+
+    let associationKeysHash = Object.keys(attrs).reduce((memo, attr) => {
+      if (this.associationKeys.indexOf(attr) > -1) {
+        memo[attr] = attrs[attr];
+      }
+      return memo;
+    }, {});
+    Object.keys(associationKeysHash).forEach(function(attr) {
+      this[attr] = associationKeysHash[attr];
     }, this);
   }
 
   /**
+   * Originally we validated this via association.setId method, but it triggered
+   * recursion. That method is designed for updating an existing model's ID so
+   * this method is needed during instantiation.
+   */
+  _validateForeignKeyExistsInDatabase(foreignKeyName, id) {
+    let associationModelName = Object.keys(this.belongsToAssociations)
+      .map(key => this.belongsToAssociations[key])
+      .find(association => association.getForeignKey() === foreignKeyName)
+      .modelName;
+
+    let found = this._schema.db[toCollectionName(associationModelName)].find(id);
+    assert(found, `You're instantiating a ${this.modelName} that has a ${foreignKeyName} of ${id}, but that record doesn't exist in the database.`);
+  }
+
+  /**
    * Update associated children when saving a collection
+   *
    * @method _saveAssociations
    * @private
    */
   _saveAssociations() {
+    // Need to save parent once more the case of a reflexive one-to-one, since
+    // updating our reference also updated theirs.
+    // debugger;
+    // if (parent && association.isReflexiveOneToOne()) {
+    //   parent.save();
+    // }
+    // if (this._tempParents) {
+    //   Object.keys(this._tempParents).forEach(key => {
+    //     let tempParent = this._tempParents[key];
+    //     delete this._tempParents[key];
+    //     tempParent.save();
+    //     debugger;
+    //   });
+    // }
+
     Object.keys(this.belongsToAssociations).forEach(key => {
       let association = this.belongsToAssociations[key];
-      let parent = this[key];
-      if (parent && parent.isNew()) {
-        let fk = association.getForeignKey();
-        parent.save();
-        this.update(fk, parent.id);
+      let tempParent = this._tempParents && this._tempParents[key];
+      let fk = association.getForeignKey();
+
+      if (tempParent !== undefined) {
+        delete this._tempParents[key];
+        if (tempParent === null) {
+          this.update(fk, null);
+        } else {
+          tempParent.save();
+          this.update(fk, tempParent.id);
+        }
       }
+
+      // if (parent && parent.isNew()) {
+      //   let fk = association.getForeignKey();
+      //   parent.save();
+      //   this.update(fk, parent.id);
+      // }
     });
 
     Object.keys(this.hasManyAssociations).forEach(key => {

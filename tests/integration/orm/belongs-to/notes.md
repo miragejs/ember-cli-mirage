@@ -16,7 +16,7 @@ author: belongsTo()
 ## named
 writer: belongsTo('author')
 
-## reflexive
+## reflexive, one-way
 post: belongsTo()
 
 ## named reflexive

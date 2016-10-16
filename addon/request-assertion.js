@@ -1,83 +1,91 @@
 /* * RequestAssertion implements a simple DSL for asserting that specific requests were made.
  * ```
- *   let it = new RequestAssertion(requests);
+ *   let requests = [ <Two GET requests, both made to '/posts'> ];
  *
- *   it.received.delete.to('/posts');
- *   it.didNotReceive.request.to('/contacts');
- *   it.received.get.to(/\/contacts\/\d+\/);
- *   it.received.put.to('/posts/5', { title: 'The Title' });
- *   it.received.post.with('/listing', { price: 5000 });
- *   it.didNotReceive.post.to('any');
+ *   let it = new RequestAssertion(requests);
+ *   it.received.delete.to('/posts'); // => 0
+ *   it.didNotReceive.request.to('/contacts'); // => true
+ *   it.received.get.to(/\/contacts\/\d+\/); // => 0
+ *   it.received.put.to('/posts/5', { requestBody: { title: 'The Title' } }); // => 0
+ *   it.received.get.to('/posts'); // => 2
  * ```
  *
  */
+import Ember from 'ember';
 import _isPlainObject from 'lodash/lang/isPlainObject';
 import _isMatch from 'lodash/lang/isMatch';
 import _isNumber from 'lodash/lang/isNumber';
 
-function requestMatches(request, verb, url, params) {
-  return verbMatches(request, verb) &&
-     urlMatches(request, url) &&
-     paramsMatch(request, params);
+const { merge } = Ember;
 
-  function verbMatches(request, expectedVerb) {
-    return expectedVerb === 'request' || // 'request' matches all HTTP verbs
-      request.method.toUpperCase() === expectedVerb.toUpperCase();
-  }
+// Functions keyed by FakeXHR attribute keys which are used to compare actual vs expected values
+// If comparing a key which does not having a corresponding comparator, then `_isMatch` is used (see `requestsMatch`)
+const comparators = {
+  method(actual, expected) {
+    return expected === 'request' || // 'request' matches all HTTP verbs
+      actual.toUpperCase() === expected.toUpperCase();
+  },
 
-  function urlMatches(request, expectedUrl) {
-    let url = request.url.replace(/\?.*$/, ''); // remove query params
-    return !expectedUrl || // if no url is passed, then we don't care -- so consider it a match
-      expectedUrl === 'any' || // 'any' matches all urls
-      expectedUrl instanceof RegExp && expectedUrl.test(url) ||
-      expectedUrl === url;
-  }
+  queryParams(actual, expected) {
+    return _isMatch(actual, expected, castExpectedNumbersToStrings);
 
-  function paramsMatch(request, expectedParams) {
-    // if no params are passed, consider it a match
-    if (!_isPlainObject(expectedParams)) {
-      return true;
-    }
-
-    let comparingQueryParams = false;
-    let actualParams;
-    try {
-      actualParams = JSON.parse(request.requestBody || undefined); // throw if requestBody is null
-    } catch (e) {
-      comparingQueryParams = true;
-      actualParams = request.queryParams;
-    }
-
-    return _isMatch(actualParams, expectedParams, looseCompareIfQueryParams);
-
-    function looseCompareIfQueryParams(actualValue, expectedValue) {
-      if (comparingQueryParams && _isNumber(expectedValue)) {
+    function castExpectedNumbersToStrings(actualValue, expectedValue) {
+      if (_isNumber(expectedValue)) {
         return String(expectedValue) === actualValue;
       }
     }
+  },
+
+  requestBody(actual, expected) {
+    let actualParsed;
+    try {
+      actualParsed = JSON.parse(actual || undefined); // throw if requestBody is null
+    } catch (e) {}
+    return _isMatch(actualParsed, expected);
+  },
+
+  url(actual, expected) {
+    let actualSansQPs = actual.replace(/\?.*$/, ''); // remove query params
+    return !expected || // if no url is passed, then we don't care -- so consider it a match
+      expected instanceof RegExp && expected.test(actualSansQPs) ||
+      expected === actualSansQPs;
   }
+};
+
+function requestMatches(actualRequest, expectedRequest) {
+  return Object.keys(expectedRequest).every(key => {
+    if (comparators[key]) {
+      return comparators[key](actualRequest[key], expectedRequest[key]);
+    } else {
+      return _isMatch(actualRequest[key], expectedRequest[key]);
+    }
+  });
 }
 
-function to(requests, expectMatch, verb, ...toParams) {
+function to(requests, expectToFindMatch, method, ...toParams) {
   if (requests.length === 0) {
-    return expectMatch === false;
+    return !expectToFindMatch;
   }
 
   let url = (typeof toParams[0] === 'string' || toParams[0] instanceof RegExp) && toParams[0] || null;
   let requestParams = _isPlainObject(toParams[0]) && toParams[0] || _isPlainObject(toParams[1]) && toParams[1];
 
-  let foundMatch = requests.some(request => requestMatches(request, verb, url, requestParams));
+  let expectedRequest = merge({ method, url }, requestParams || {});
+  let foundMatches = requests.filter(actualRequest => requestMatches(actualRequest, expectedRequest));
 
-  return foundMatch === expectMatch;
+  if (expectToFindMatch) {
+    return foundMatches.length;
+  } else {
+    return !foundMatches.length;
+  }
 }
 
-class Verb {
-  constructor(requests, received) {
-    ['get', 'post', 'put', 'delete', 'head', 'request'].forEach(verb => {
-      Object.defineProperty(this, verb, {
+class Method {
+  constructor(requests, expectToFindMatch) {
+    ['get', 'post', 'put', 'delete', 'head', 'request'].forEach(method => {
+      Object.defineProperty(this, method, {
         get() {
-          let f = to.bind(null, requests, received, verb);
-          return { to: f, with: f };
+          return { to: to.bind(this, requests, expectToFindMatch, method) };
         }
       });
     });
@@ -90,11 +98,11 @@ export default class RequestAssertion {
   }
 
   get received() {
-    return new Verb(this._requests, true);
+    return new Method(this._requests, true);
   }
 
   get didNotReceive() {
-    return new Verb(this._requests, false);
+    return new Method(this._requests, false);
   }
 }
 

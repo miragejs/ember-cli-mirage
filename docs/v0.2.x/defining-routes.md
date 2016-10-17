@@ -335,7 +335,7 @@ By default, Mirage sets the HTTP code of a response based on the verb being used
   - `post` is 201
 
 
-Additionally, a header for `Content-type` is set to `application/json`.
+Additionally, a header for `Content-Type` is set to `application/json`.
 
 You can customize both the response code and headers by returning a `Response` in your route handler:
 

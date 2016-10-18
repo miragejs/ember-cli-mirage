@@ -129,6 +129,17 @@ this.post('/api/messages', (schema, request) => {
 
 If you return a string, it will not be `JSON.stringified`, so you can return responses other than JSON.
 
+You may optionally return a promise resolving to any of the above, e.g.:
+
+```js
+this.get('/users', () => {
+  return new Promise(resolve => {
+    resolve(new Response(200, { 'Content-Type': 'text/csv' }, 'firstname,lastname\nbob,dylan'));
+  });
+});
+```
+
+
 ### Helpers
 
 The following helpers are available in your function handlers.

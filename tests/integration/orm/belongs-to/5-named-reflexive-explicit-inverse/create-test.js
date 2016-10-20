@@ -16,10 +16,12 @@ test('it sets up associations correctly when passing in the foreign key', functi
     bestFriendId: friend.id
   });
 
+  friend.reload();
+
   assert.equal(user.bestFriendId, friend.id);
   assert.deepEqual(user.bestFriend.attrs, friend.attrs);
   assert.equal(schema.db.users.length, 2);
-  assert.deepEqual(schema.db.users[0], { id: '1', bestFriendId: null });
+  assert.deepEqual(schema.db.users[0], { id: '1', bestFriendId: '2' });
   assert.deepEqual(schema.db.users[1], { id: '2', bestFriendId: '1' });
 });
 

@@ -19,7 +19,7 @@ states.forEach((state) => {
     post.authorId = savedAuthor.id;
 
     assert.equal(post.authorId, savedAuthor.id);
-    assert.deepEqual(post.author, savedAuthor);
+    assert.deepEqual(post.author.attrs, savedAuthor.attrs);
   });
 
 });

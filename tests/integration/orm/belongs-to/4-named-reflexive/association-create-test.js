@@ -1,7 +1,7 @@
 import Helper, { states } from './_helper';
 import { module, test } from 'qunit';
 
-module('Integration | ORM | Belongs To | Named Reflexive Explicit Inverse | association #create', {
+module('Integration | ORM | Belongs To | Named Reflexive | association #create', {
   beforeEach() {
     this.helper = new Helper();
   }

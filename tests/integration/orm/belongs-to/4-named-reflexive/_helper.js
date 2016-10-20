@@ -20,7 +20,7 @@ export default class BelongsToHelper {
 
     this.schema = new Schema(this.db, {
       user: Model.extend({
-        user: belongsTo() // implicit inverse
+        bestFriend: belongsTo('user', { inverse: 'bestFriend' }) // implicit inverse
       })
     });
   }
@@ -35,15 +35,15 @@ export default class BelongsToHelper {
     let user = this.schema.users.create({ name: 'Link' });
     let friend = this.schema.users.new({ name: 'Bob' });
 
-    user.user = friend;
+    user.bestFriend = friend;
 
     return [ user, friend ];
   }
 
   savedChildSavedParent() {
     let insertedFriend = this.db.users.insert({ name: 'Bob' });
-    let insertedUser = this.db.users.insert({ name: 'Link', userId: insertedFriend.id });
-    this.db.users.update(insertedFriend.id, { userId: insertedUser.id });
+    let insertedUser = this.db.users.insert({ name: 'Link', bestFriendId: insertedFriend.id });
+    this.db.users.update(insertedFriend.id, { bestFriendId: insertedUser.id });
     let user = this.schema.users.find(insertedUser.id);
     let friend = this.schema.users.find(insertedFriend.id);
 
@@ -57,7 +57,7 @@ export default class BelongsToHelper {
   newChildNewParent() {
     let friend = this.schema.users.new({ name: 'Link' });
     let user = this.schema.users.new({ name: 'Bob' });
-    user.user = friend;
+    user.bestFriend = friend;
 
     return [ user, friend ];
   }
@@ -67,7 +67,7 @@ export default class BelongsToHelper {
     let user = this.schema.users.new({ name: 'Link' });
     let savedFriend = this.schema.users.find(insertedFriend.id);
 
-    user.user = savedFriend;
+    user.bestFriend = savedFriend;
 
     return [ user, savedFriend ];
   }

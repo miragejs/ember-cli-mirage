@@ -2,7 +2,7 @@ import Helper from './_helper';
 import { Model } from 'ember-cli-mirage';
 import { module, test } from 'qunit';
 
-module('Integration | ORM | Belongs To | Reflexive, one-to-one | create', {
+module('Integration | ORM | Belongs To | Reflexive | create', {
   beforeEach() {
     this.helper = new Helper();
     this.helper.schema.registerModel('foo', Model);
@@ -13,28 +13,28 @@ test('it sets up associations correctly when passing in the foreign key', functi
   let schema = this.helper.schema;
   let friend = schema.create('user');
   let user = schema.create('user', {
-    bestFriendId: friend.id
+    userId: friend.id
   });
 
-  assert.equal(user.bestFriendId, friend.id);
-  assert.deepEqual(user.bestFriend.attrs, friend.attrs);
+  assert.equal(user.userId, friend.id);
+  assert.deepEqual(user.user.attrs, friend.attrs);
   assert.equal(schema.db.users.length, 2);
-  assert.deepEqual(schema.db.users[0], { id: '1', bestFriendId: null });
-  assert.deepEqual(schema.db.users[1], { id: '2', bestFriendId: '1' });
+  assert.deepEqual(schema.db.users[0], { id: '1', userId: null });
+  assert.deepEqual(schema.db.users[1], { id: '2', userId: '1' });
 });
 
 test('it sets up associations correctly when passing in the association itself', function(assert) {
   let schema = this.helper.schema;
   let friend = schema.create('user');
   let user = schema.create('user', {
-    bestFriend: friend
+    user: friend
   });
 
-  assert.equal(user.bestFriendId, friend.id);
-  assert.deepEqual(user.bestFriend.attrs, friend.attrs);
+  assert.equal(user.userId, friend.id);
+  assert.deepEqual(user.user.attrs, friend.attrs);
   assert.equal(schema.db.users.length, 2);
-  assert.deepEqual(schema.db.users[0], { id: '1', bestFriendId: '2' });
-  assert.deepEqual(schema.db.users[1], { id: '2', bestFriendId: '1' });
+  assert.deepEqual(schema.db.users[0], { id: '1', userId: '2' });
+  assert.deepEqual(schema.db.users[1], { id: '2', userId: '1' });
 });
 
 test('it throws an error if a model is passed in without a defined relationship', function(assert) {

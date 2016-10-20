@@ -1,7 +1,7 @@
 import Helper, { states } from './_helper';
 import { module, test } from 'qunit';
 
-module('Integration | ORM | Belongs To | Reflexive, one-to-one | association #create', {
+module('Integration | ORM | Belongs To | Reflexive | association #create', {
   beforeEach() {
     this.helper = new Helper();
   }
@@ -15,12 +15,12 @@ states.forEach((state) => {
   test(`a ${state} can create an associated parent`, function(assert) {
     let [ user ] = this.helper[state]();
 
-    let ganon = user.createBestFriend({ name: 'Ganon' });
+    let ganon = user.createUser({ name: 'Ganon' });
 
     assert.ok(ganon.id, 'the parent was persisted');
-    assert.deepEqual(user.bestFriend.attrs, ganon.attrs);
-    assert.equal(user.bestFriendId, ganon.id);
-    assert.equal(this.helper.schema.users.find(user.id).bestFriendId, ganon.id, 'the user was persisted');
+    assert.deepEqual(user.user.attrs, ganon.attrs);
+    assert.equal(user.userId, ganon.id);
+    assert.equal(this.helper.schema.users.find(user.id).userId, ganon.id, 'the user was persisted');
   });
 
 });

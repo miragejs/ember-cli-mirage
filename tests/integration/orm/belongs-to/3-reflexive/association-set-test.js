@@ -1,7 +1,7 @@
 import Helper, { states } from './_helper';
 import { module, test } from 'qunit';
 
-module('Integration | ORM | Belongs To | Reflexive, one-to-one | association #set', {
+module('Integration | ORM | Belongs To | Reflexive | association #set', {
   beforeEach() {
     this.helper = new Helper();
   }
@@ -16,29 +16,29 @@ states.forEach((state) => {
     let [ user ] = this.helper[state]();
     let friend = this.helper.savedParent();
 
-    user.bestFriend = friend;
+    user.user = friend;
 
-    assert.equal(user.bestFriendId, friend.id);
-    assert.deepEqual(user.bestFriend.attrs, friend.attrs);
+    assert.equal(user.userId, friend.id);
+    assert.deepEqual(user.user.attrs, friend.attrs);
   });
 
   test(`a ${state} can update its association to a new parent`, function(assert) {
     let [ user ] = this.helper[state]();
     let friend = this.helper.newParent();
 
-    user.bestFriend = friend;
+    user.user = friend;
 
-    assert.equal(user.bestFriendId, null);
-    assert.deepEqual(user.bestFriend.attrs, friend.attrs);
+    assert.equal(user.userId, null);
+    assert.deepEqual(user.user.attrs, friend.attrs);
   });
 
   test(`a ${state} can update its association to a null parent`, function(assert) {
     let [ user ] = this.helper[state]();
 
-    user.bestFriend = null;
+    user.user = null;
 
-    assert.equal(user.bestFriendId, null);
-    assert.deepEqual(user.bestFriend, null);
+    assert.equal(user.userId, null);
+    assert.deepEqual(user.user, null);
   });
 
 });

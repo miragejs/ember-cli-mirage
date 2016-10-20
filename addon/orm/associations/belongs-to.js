@@ -134,7 +134,7 @@ export default class extends Association {
         // But only if it doesn't already equal it... (recursion).
         if (
           model &&
-          association.isReflexiveOneToOne() &&
+          association.isReflexive() &&
           !association._modelsMatch(model[key], this)
         )  {
           model[key] = this;
@@ -168,8 +168,11 @@ export default class extends Association {
     };
   }
 
-  isReflexiveOneToOne() {
-    return !!(this.modelName === this.ownerModelName && this.opts.inverse);
+  isReflexive() {
+    let isExplicitReflexive = !!(this.modelName === this.ownerModelName && this.opts.inverse);
+    let isImplicitReflexive = !!(this.opts.inverse === undefined && this.key === this.modelName);
+
+    return isExplicitReflexive || isImplicitReflexive;
   }
 
   /**

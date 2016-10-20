@@ -1,7 +1,7 @@
 import Helper, { states } from './_helper';
 import { module, test } from 'qunit';
 
-module('Integration | ORM | Belongs To | Reflexive, one-to-one | accessor', {
+module('Integration | ORM | Belongs To | Reflexive | accessor', {
   beforeEach() {
     this.helper = new Helper();
   }
@@ -17,17 +17,17 @@ states.forEach((state) => {
 
     // We use .attrs here because otherwise deepEqual goes on infinite recursive comparison
     if (friend) {
-      assert.deepEqual(user.bestFriend.attrs, friend.attrs, 'the model reference is correct');
-      assert.equal(user.bestFriendId, friend.id, 'the modelId reference is correct');
+      assert.deepEqual(user.user.attrs, friend.attrs, 'the model reference is correct');
+      assert.equal(user.userId, friend.id, 'the modelId reference is correct');
     } else {
-      assert.deepEqual(user.bestFriend, null, 'the model reference is correct');
-      assert.equal(user.bestFriendId, null, 'the modelId reference is correct');
+      assert.deepEqual(user.user, null, 'the model reference is correct');
+      assert.equal(user.userId, null, 'the modelId reference is correct');
     }
 
     // If there's a friend in this state, make sure the inverse association is correct
     if (friend) {
-      assert.deepEqual(friend.bestFriend.attrs, user.attrs, 'the inverse model reference is correct');
-      assert.equal(friend.bestFriendId, user.id, 'the inverse modelId reference is correct');
+      assert.deepEqual(friend.user.attrs, user.attrs, 'the inverse model reference is correct');
+      assert.equal(friend.userId, user.id, 'the inverse modelId reference is correct');
     }
   });
 

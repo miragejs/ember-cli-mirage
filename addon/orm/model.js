@@ -148,7 +148,7 @@ class Model {
         return attr !== 'id';
       })
       .forEach(function(attr) {
-        this[attr] = attrs[attr];
+        this.attrs[attr] = attrs[attr];
       }, this);
 
     return this;
@@ -321,6 +321,17 @@ class Model {
           tempParent.save();
           this.update(fk, tempParent.id);
         }
+      }
+
+      // Save inverse
+      if (this[fk] && association._hasInverse(this)) {
+        let inverseFk = association
+          .getInverseAssociation(this)
+          .getForeignKey();
+
+        this._schema.db[toCollectionName(association.modelName)]
+          .update(this[fk], { [inverseFk]: this.id });
+        // this.reload();
       }
 
       // if (parent && parent.isNew()) {

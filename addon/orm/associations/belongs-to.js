@@ -129,14 +129,14 @@ export default class extends Association {
 
         this._tempParents[key] = model;
 
-        // If we have a reflexive one-to-one relationship, set the inverse,
-        // but only if it doesn't already equal it (to avoid recursion).
+        // We check for an existing match to avoid recursion.
         if (
-          model &&
-          association.isReflexive() &&
-          !association._modelsMatch(model[key], this)
+          association._hasInverse(model) &&
+          !association._inversesMatch(model, this)
+          // !association._modelsMatch(model[inverseKey], this)
         )  {
-          model[key] = this;
+          let inverseKey = association.getKeyOfInverse(model);
+          model[inverseKey] = this;
         }
       }
     });
@@ -167,6 +167,68 @@ export default class extends Association {
     };
   }
 
+  getInverseAssociation(model) {
+    if (!model) {
+      return false;
+    }
+
+    if (this.opts.inverse === null) {
+      return false;
+    }
+
+    let inverseModelName = this.modelName;
+    let associations = model._schema._registry[inverseModelName].class.prototype.belongsToAssociations;
+    let matches = Object.keys(associations)
+      .map(key => associations[key])
+      .filter(association => association.modelName === this.ownerModelName);
+
+    if (matches.length === 1) {
+      return matches[0];
+    }
+  }
+
+  // TODO: also should be model
+  _hasInverse(model) {
+    if (!model) {
+      return false;
+    }
+
+    if (this.opts.inverse === null) {
+      return false;
+    }
+
+    let inverseModelName = this.modelName;
+    let associations = model._schema._registry[inverseModelName].class.prototype.belongsToAssociations;
+    let matches = Object.keys(associations)
+      .map(key => associations[key])
+      .filter(association => association.modelName === this.ownerModelName);
+    let found = matches.length === 1;
+
+    return found || this.isReflexive();
+  }
+
+  // TODO: this should be a method on the model. model.inverseOf(key), return association
+  getKeyOfInverse(model) {
+    let key;
+
+    if (this.isReflexive()) {
+      key = this.key;
+
+    } else {
+      let inverseModelName = this.modelName;
+      let associations = model._schema._registry[inverseModelName].class.prototype.belongsToAssociations;
+      let matches = Object.keys(associations)
+        .map(key => associations[key])
+        .filter(association => association.modelName === this.ownerModelName);
+
+      assert((matches.length === 1), 'This association has multiple inverses, please specify one.');
+
+      key = matches[0].key;
+    }
+
+    return key;
+  }
+
   isReflexive() {
     let isExplicitReflexive = !!(this.modelName === this.ownerModelName && this.opts.inverse);
     let isImplicitReflexive = !!(this.opts.inverse === undefined && this.ownerModelName === this.modelName);
@@ -183,12 +245,16 @@ export default class extends Association {
    *
    * @private
   */
-  _modelsMatch(modelA, modelB) {
-    if (modelA && modelB) {
-      if (modelA.isSaved() && modelB.isSaved()) {
-        return modelA.toString() === modelB.toString();
+  _inversesMatch(inverse, owner) {
+    let inverseKey = this.getKeyOfInverse(inverse);
+    let modelOnInverse = inverse[inverseKey];
+  // !association._modelsMatch(model[inverseKey], this)
+
+    if (modelOnInverse && owner) {
+      if (modelOnInverse.isSaved() && owner.isSaved()) {
+        return modelOnInverse.toString() === owner.toString();
       } else {
-        return modelA === modelB;
+        return modelOnInverse === owner;
       }
     }
   }

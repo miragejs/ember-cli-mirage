@@ -20,7 +20,7 @@ export default class BelongsToHelper {
 
     this.schema = new Schema(this.db, {
       user: Model.extend({
-        bestFriend: belongsTo('user', { inverse: 'bestFriend' }) // implicit inverse
+        bestFriend: belongsTo('user') // implicit inverse
       })
     });
   }

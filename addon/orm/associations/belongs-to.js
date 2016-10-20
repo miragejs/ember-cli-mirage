@@ -5,6 +5,8 @@ import { toCollectionName } from 'ember-cli-mirage/utils/normalize-name';
 import assert from 'ember-cli-mirage/assert';
 
 /**
+ * The belongsTo association adds a fk to the owner of the association
+ *
  * @class BelongsTo
  * @extends Association
  * @constructor
@@ -12,9 +14,6 @@ import assert from 'ember-cli-mirage/assert';
  */
 export default class extends Association {
 
-  /*
-    The belongsTo association adds a fk to the owner of the association
-  */
   /**
    * @method getForeignKeyArray
    * @return {Array} Array of camelized name of the model owning the association
@@ -130,8 +129,8 @@ export default class extends Association {
 
         this._tempParents[key] = model;
 
-        // If we have a reflexive one-to-one relationship, set the inverse.
-        // But only if it doesn't already equal it... (recursion).
+        // If we have a reflexive one-to-one relationship, set the inverse,
+        // but only if it doesn't already equal it (to avoid recursion).
         if (
           model &&
           association.isReflexive() &&
@@ -170,7 +169,7 @@ export default class extends Association {
 
   isReflexive() {
     let isExplicitReflexive = !!(this.modelName === this.ownerModelName && this.opts.inverse);
-    let isImplicitReflexive = !!(this.opts.inverse === undefined && this.key === this.modelName);
+    let isImplicitReflexive = !!(this.opts.inverse === undefined && this.ownerModelName === this.modelName);
 
     return isExplicitReflexive || isImplicitReflexive;
   }

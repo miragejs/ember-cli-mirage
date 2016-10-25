@@ -307,6 +307,19 @@ GET /authors/1
 
 ---
 
+## serializeIds
+
+> Note: this feature was added in 0.2.2.
+
+Use this to define how your serializer handles serializing relationship keys. It can take one of three values:
+
+- `included`, which is the default, will serialize the ids of a relationship if that relationship is included (sideloaded) along with the model or collection in the response
+- `always` will always serialize the ids of all relationships for the model or collection in the response
+- `never` will never serialize the ids of relationships for the model or collection in the response
+
+
+---
+
 ## keyForModel(*modelName*)
 
 Used to define a custom key when serializing a primary model of modelName *modelName*. For example, the default Serializer will return something like the following:

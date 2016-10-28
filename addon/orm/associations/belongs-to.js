@@ -248,7 +248,6 @@ export default class extends Association {
   _inversesMatch(inverse, owner) {
     let inverseKey = this.getKeyOfInverse(inverse);
     let modelOnInverse = inverse[inverseKey];
-  // !association._modelsMatch(model[inverseKey], this)
 
     if (modelOnInverse && owner) {
       if (modelOnInverse.isSaved() && owner.isSaved()) {

@@ -158,6 +158,14 @@ class Model {
     return this.attrs;
   }
 
+  inverseOf() {
+
+  }
+
+  getInverseAssociation() {
+
+  }
+
   // Private
 
   /**

@@ -42,24 +42,24 @@ test('it sets up associations correctly when passing in the association itself',
   assert.deepEqual(schema.db.profiles[0], { id: '1', userId: '1' });
 });
 
-// test('it throws an error if a model is passed in without a defined relationship', function(assert) {
-//   let schema = this.helper.schema;
-//
-//   assert.throws(function() {
-//     schema.create('user', {
-//       foo: schema.create('foo')
-//     });
-//   }, /you haven't defined that key as an association on your model/);
-// });
-//
-// test('it throws an error if a collection is passed in without a defined relationship', function(assert) {
-//   let schema = this.helper.schema;
-//   schema.create('foo');
-//   schema.create('foo');
-//
-//   assert.throws(function() {
-//     schema.create('user', {
-//       foos: schema.foos.all()
-//     });
-//   }, /you haven't defined that key as an association on your model/);
-// });
+test('it throws an error if a model is passed in without a defined relationship', function(assert) {
+  let schema = this.helper.schema;
+
+  assert.throws(function() {
+    schema.create('user', {
+      foo: schema.create('foo')
+    });
+  }, /you haven't defined that key as an association on your model/);
+});
+
+test('it throws an error if a collection is passed in without a defined relationship', function(assert) {
+  let schema = this.helper.schema;
+  schema.create('foo');
+  schema.create('foo');
+
+  assert.throws(function() {
+    schema.create('user', {
+      foos: schema.foos.all()
+    });
+  }, /you haven't defined that key as an association on your model/);
+});

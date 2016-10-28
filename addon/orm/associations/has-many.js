@@ -13,7 +13,7 @@ import assert from 'ember-cli-mirage/assert';
  * @constructor
  * @public
  */
-class HasMany extends Association {
+export default class extends Association {
 
   /**
    * @method getForeignKeyArray
@@ -22,7 +22,7 @@ class HasMany extends Association {
    * @public
    */
   getForeignKeyArray() {
-    return [camelize(this.modelName), this.getForeignKey()];
+    return [camelize(this.ownerModelName), this.getForeignKey()];
   }
 
   /**
@@ -31,7 +31,7 @@ class HasMany extends Association {
    * @public
    */
   getForeignKey() {
-    return `${this.opts.inverse || camelize(this.ownerModelName)}Id`;
+    return `${singularize(camelize(this.key))}Ids`;
   }
 
   /**
@@ -42,65 +42,84 @@ class HasMany extends Association {
    * @method addMethodsToModelClass
    * @param {Function} ModelClass
    * @param {String} key
-   * @param {Schema} schema
    * @public
    */
-  addMethodsToModelClass(ModelClass, key, schema) {
+  addMethodsToModelClass(ModelClass, key) {
     let modelPrototype = ModelClass.prototype;
     this._model = modelPrototype;
     this._key = key;
 
     let association = this;
     let foreignKey = this.getForeignKey();
-    let relationshipIdsKey = `${camelize(singularize(association.key))}Ids`;
     let associationHash = { [key]: this };
 
     modelPrototype.hasManyAssociations = _assign(modelPrototype.hasManyAssociations, associationHash);
     modelPrototype.associationKeys.push(key);
-    modelPrototype.associationIdKeys.push(relationshipIdsKey);
+    modelPrototype.associationIdKeys.push(foreignKey);
 
-    Object.defineProperty(modelPrototype, relationshipIdsKey, {
+    Object.defineProperty(modelPrototype, foreignKey, {
 
       /*
         object.childrenIds
           - returns an array of the associated children's ids
       */
       get() {
-        let children = association._cachedChildren || new Collection(association.modelName);
+        this._tempAssociations = this._tempAssociations || {};
+        let tempChildren = this._tempAssociations[key];
+        let ids = [];
 
-        if (!this.isNew()) {
-          let query = { [foreignKey]: this.id };
-          let savedChildren = schema[toCollectionName(association.modelName)].where(query);
-
-          children.mergeCollection(savedChildren);
+        if (tempChildren) {
+          ids = tempChildren.models.map(model => model.id);
+        } else {
+          ids = this.attrs[foreignKey] || [];
         }
 
-        return children.models.map(model => model.id);
+        return ids;
+        // let children = association._cachedChildren || new Collection(association.modelName);
+        //
+        // if (!this.isNew()) {
+        //   let query = { [foreignKey]: this.id };
+        //   let savedChildren = association.schema[toCollectionName(association.modelName)].where(query);
+        //
+        //   children.mergeCollection(savedChildren);
+        // }
+        //
+        // return children.models.map(model => model.id);
       },
 
       /*
         object.childrenIds = ([childrenIds...])
-          - sets the associated parent (via id)
+          - sets the associated children (via id)
       */
       set(ids) {
-        ids = ids || [];
+        let tempChildren;
 
-        if (this.isNew()) {
-          association._cachedChildren = schema[toCollectionName(association.modelName)].find(ids);
-
-        } else {
-          // Set current children's fk to null
-          let query = { [foreignKey]: this.id };
-          schema[toCollectionName(association.modelName)].where(query).update(foreignKey, null);
-
-          // Associate the new childrens to this model
-          schema[toCollectionName(association.modelName)].find(ids).update(foreignKey, this.id);
-
-          // Clear out any old cached children
-          association._cachedChildren = new Collection(association.modelName);
+        if (ids === null) {
+          tempChildren = [];
+        } else if (ids !== undefined) {
+          assert(Array.isArray(ids), `You must pass an array in when seting ${foreignKey} on ${this}`);
+          tempChildren = association.schema[toCollectionName(association.modelName)].find(ids);
         }
 
-        return this;
+        this[key] = tempChildren;
+        // ids = ids || [];
+        //
+        // if (this.isNew()) {
+        //   association._cachedChildren = association.schema[toCollectionName(association.modelName)].find(ids);
+        //
+        // } else {
+        //   // Set current children's fk to null
+        //   let query = { [foreignKey]: this.id };
+        //   association.schema[toCollectionName(association.modelName)].where(query).update(foreignKey, null);
+        //
+        //   // Associate the new childrens to this model
+        //   association.schema[toCollectionName(association.modelName)].find(ids).update(foreignKey, this.id);
+        //
+        //   // Clear out any old cached children
+        //   association._cachedChildren = new Collection(association.modelName);
+        // }
+        //
+        // return this;
       }
     });
 
@@ -111,47 +130,71 @@ class HasMany extends Association {
           - returns an array of associated children
       */
       get() {
-        let temporaryChildren = association._cachedChildren || new Collection(association.modelName);
+        this._tempAssociations = this._tempAssociations || {};
 
-        if (this.isNew()) {
-          return temporaryChildren;
+        let collection = null;
+        let tempChildren = this._tempAssociations[key];
+        let foreignKeyIds = this[foreignKey];
 
+        if (tempChildren) {
+          collection = tempChildren;
+        // } else if (foreignKeyId !== null) {
+        //   collection = association.schema[toCollectionName(association.modelName)].find(foreignKeyId);
         } else {
-          let query = { [foreignKey]: this.id };
-          let savedChildren = schema[toCollectionName(association.modelName)].where(query);
-
-          return savedChildren.mergeCollection(temporaryChildren);
+          if (foreignKeyIds) {
+            collection = association.schema[toCollectionName(association.modelName)].find(foreignKeyIds);
+          } else {
+            collection = new Collection(association.modelName);
+          }
         }
+
+        return collection;
+        // let temporaryChildren = association._cachedChildren || new Collection(association.modelName);
+        //
+        // if (this.isNew()) {
+        //   return temporaryChildren;
+        //
+        // } else {
+        //   let query = { [foreignKey]: this.id };
+        //   let savedChildren = association.schema[toCollectionName(association.modelName)].where(query);
+        //
+        //   return savedChildren.mergeCollection(temporaryChildren);
+        // }
       },
 
       /*
         object.children = [model1, model2, ...]
-          - sets the associated children (via array of models)
-          - note: this method will persist unsaved chidren
-            + (why? because rails does)
+          - sets the associated children (via array of models or Collection)
       */
       set(models) {
-        models = models ? _compact(models) : [];
-
-        if (this.isNew()) {
-          association._cachedChildren = models instanceof Collection ? models : new Collection(association.modelName, models);
-
-        } else {
-
-          // Set current children's fk to null
-          let query = { [foreignKey]: this.id };
-          schema[toCollectionName(association.modelName)].where(query).update(foreignKey, null);
-
-          // Save any children that are new
-          models.filter(model => model.isNew())
-            .forEach(model => model.save());
-
-          // Associate the new children to this model
-          schema[toCollectionName(association.modelName)].find(models.map(m => m.id)).update(foreignKey, this.id);
-
-          // Clear out any old cached children
-          association._cachedChildren = new Collection(association.modelName);
+        if (models instanceof Collection) {
+          models = models.models;
         }
+
+        models = models ? _compact(models) : [];
+        this._tempAssociations = this._tempAssociations || {};
+
+        this._tempAssociations[key] = new Collection(association.modelName, models);
+
+        // if (this.isNew()) {
+        //   association._cachedChildren = models instanceof Collection ? models : new Collection(association.modelName, models);
+        //
+        // } else {
+        //
+        //   // Set current children's fk to null
+        //   let query = { [foreignKey]: this.id };
+        //   association.schema[toCollectionName(association.modelName)].where(query).update(foreignKey, null);
+        //
+        //   // Save any children that are new
+        //   models.filter(model => model.isNew())
+        //     .forEach(model => model.save());
+        //
+        //   // Associate the new children to this model
+        //   association.schema[toCollectionName(association.modelName)].find(models.map(m => m.id)).update(foreignKey, this.id);
+        //
+        //   // Clear out any old cached children
+        //   association._cachedChildren = new Collection(association.modelName);
+        // }
       }
     });
 
@@ -160,33 +203,29 @@ class HasMany extends Association {
         - creates a new unsaved associated child
     */
     modelPrototype[`new${capitalize(camelize(singularize(association.key)))}`] = function(attrs = {}) {
-      if (!this.isNew()) {
-        attrs = _assign(attrs, { [foreignKey]: this.id });
-      }
+      let child = association.schema[toCollectionName(association.modelName)].new(attrs);
 
-      let child = schema[toCollectionName(association.modelName)].new(attrs);
-
-      association._cachedChildren = association._cachedChildren || new Collection(association.modelName);
-      association._cachedChildren.models.push(child);
+      let children = this[key].models;
+      children.push(child);
+      this[key] = children;
 
       return child;
     };
 
     /*
       object.createChild
-        - creates an associated child, persists directly to db, and
-          updates the association's foreign key
-        - parent must be saved
+        - creates a new saved associated child, and immediately persists both models
     */
     modelPrototype[`create${capitalize(camelize(singularize(association.key)))}`] = function(attrs = {}) {
-      assert(!this.isNew(), 'You cannot call create unless the parent is saved');
+      let child = association.schema[toCollectionName(association.modelName)].create(attrs);
 
-      let augmentedAttrs = _assign(attrs, { [foreignKey]: this.id });
-      let child = schema[toCollectionName(association.modelName)].create(augmentedAttrs);
+      let children = this[key].models;
+      children.push(child);
+      this[key] = children;
+
+      this.save();
 
       return child;
     };
   }
 }
-
-export default HasMany;

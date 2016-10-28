@@ -19,8 +19,7 @@ export default class Association {
   }
 
   /**
-   * We don't know the schema at constuction time, so this method
-   * lets you set a reference to it.
+   * A setter for schema, since we don't have a reference at constuction time.
    *
    * @method setSchema
    * @public
@@ -60,7 +59,7 @@ export default class Association {
   }
 
   /**
-   * Returns true if the association is reflexive, false otherwise
+   * Returns true if the association is reflexive.
    *
    * @method isReflexive
    * @return {Boolean}

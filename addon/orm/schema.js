@@ -62,6 +62,7 @@ export default class Schema {
         association.key = associationProperty;
         association.modelName = association.modelName || toModelName(associationProperty);
         association.ownerModelName = modelName;
+        association.setSchema(this);
 
         // Update the registry with this association's foreign keys. This is
         // essentially our "db migration", since we must know about the fks.
@@ -79,7 +80,7 @@ export default class Schema {
         this._addForeignKeyToRegistry(fkHolder, fk);
 
         // Augment the Model's class with any methods added by this association
-        association.addMethodsToModelClass(ModelClass, associationProperty, this);
+        association.addMethodsToModelClass(ModelClass, associationProperty);
       }
     }
 
@@ -209,6 +210,10 @@ export default class Schema {
     let [ record ] = collection;
 
     return this._hydrate(record, dasherize(type));
+  }
+
+  associationsFor(modelName) {
+    return this._registry[modelName].class.prototype.belongsToAssociations;
   }
 
   /*

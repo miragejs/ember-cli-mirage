@@ -59,7 +59,7 @@ export default class extends Association {
     modelPrototype.associationKeys.push(key);
     modelPrototype.associationIdKeys.push(foreignKey);
 
-    Object.defineProperty(modelPrototype, this.getForeignKey(), {
+    Object.defineProperty(modelPrototype, foreignKey, {
 
       /*
         object.parentId
@@ -106,6 +106,7 @@ export default class extends Association {
       */
       get() {
         this._tempParents = this._tempParents || {};
+
         let tempParent = this._tempParents[key];
         let foreignKeyId = this[foreignKey];
         let model = null;
@@ -125,14 +126,12 @@ export default class extends Association {
       */
       set(model) {
         this._tempParents = this._tempParents || {};
-
         this._tempParents[key] = model;
 
-        // We check for an existing match to avoid recursion.
         if (
           model &&
           association.inverse() &&
-          !association.inversesMatch(model, this)
+          !association.inversesMatch(model, this) // check for an existing match, to avoid recursion
         )  {
           let inverseKey = association.inverse().key;
           model[inverseKey] = this;

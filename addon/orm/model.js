@@ -194,7 +194,10 @@ class Model {
     Object.keys(attrs)
       .filter(key => {
         let value = attrs[key];
-        return (value instanceof Model || value instanceof Collection);
+        let isModelOrCollection = (value instanceof Model || value instanceof Collection);
+        let isArrayOfModels = Array.isArray(value) && value.every(item => item instanceof Model);
+
+        return isModelOrCollection || isArrayOfModels;
       })
       .forEach(key => {
         let modelOrCollection = attrs[key];
@@ -298,14 +301,25 @@ class Model {
    * recursion. That method is designed for updating an existing model's ID so
    * this method is needed during instantiation.
    */
-  _validateForeignKeyExistsInDatabase(foreignKeyName, id) {
-    let associationModelName = Object.keys(this.belongsToAssociations)
-      .map(key => this.belongsToAssociations[key])
-      .find(association => association.getForeignKey() === foreignKeyName)
-      .modelName;
+  _validateForeignKeyExistsInDatabase(foreignKeyName, foreignKeys) {
+    if (Array.isArray(foreignKeys)) {
+      let associationModelName = Object.keys(this.hasManyAssociations)
+        .map(key => this.hasManyAssociations[key])
+        .find(association => association.getForeignKey() === foreignKeyName)
+        .modelName;
 
-    let found = this._schema.db[toCollectionName(associationModelName)].find(id);
-    assert(found, `You're instantiating a ${this.modelName} that has a ${foreignKeyName} of ${id}, but that record doesn't exist in the database.`);
+      let found = this._schema.db[toCollectionName(associationModelName)].find(foreignKeys);
+      assert(found.length === foreignKeys.length, `You're instantiating a ${this.modelName} that has a ${foreignKeyName} of ${foreignKeys}, but some of those records don't exist in the database.`);
+
+    } else {
+      let associationModelName = Object.keys(this.belongsToAssociations)
+        .map(key => this.belongsToAssociations[key])
+        .find(association => association.getForeignKey() === foreignKeyName)
+        .modelName;
+
+      let found = this._schema.db[toCollectionName(associationModelName)].find(foreignKeys);
+      assert(found, `You're instantiating a ${this.modelName} that has a ${foreignKeyName} of ${foreignKeys}, but that record doesn't exist in the database.`);
+    }
   }
 
   /**
@@ -358,9 +372,24 @@ class Model {
 
     Object.keys(this.hasManyAssociations).forEach(key => {
       let association = this.hasManyAssociations[key];
-      let children = this[key];
-      children.update(association.getForeignKey(), this.id);
+      let tempChildren = this._tempAssociations && this._tempAssociations[key];
+      let fk = association.getForeignKey();
+
+      if (tempChildren !== undefined) {
+        delete this._tempAssociations[key];
+        tempChildren.models.forEach(child => {
+          child.save();
+        });
+
+        this.update(fk, tempChildren.models.map(child => child.id));
+      }
     });
+    //
+    // Object.keys(this.hasManyAssociations).forEach(key => {
+    //   let association = this.hasManyAssociations[key];
+    //   let children = this[key];
+    //   children.update(association.getForeignKey(), this.id);
+    // });
   }
 
   /**

@@ -255,3 +255,14 @@ test('reflexive association with one explicit inverse sets up the correct foreig
 
   assert.deepEqual(schema._registry.user.foreignKeys, ['bossId']);
 });
+
+test('reflexive association with no explicit inverse thow an error', function(assert) {
+  assert.throws(() => {
+    new Schema(new Db(), {
+      user: Model.extend({
+        boss: belongsTo('user'),
+        employees: hasMany('user')
+      })
+    });
+  }, /without an inverse/);
+});

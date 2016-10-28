@@ -158,12 +158,26 @@ class Model {
     return this.attrs;
   }
 
-  inverseOf() {
-
+  /**
+   * Returns the association for the given key
+   *
+   * @method associationFor
+   * @param key
+   * @public
+   */
+  associationFor(key) {
+    return this._schema.associationsFor(this.modelName)[key];
   }
 
-  getInverseAssociation() {
-
+  /**
+   * Returns the inverse association, if it exists
+   *
+   * @method inverseAssociationFor
+   * @param key
+   * @public
+   */
+  inverseAssociationFor(key) {
+    return this.associationFor(key).inverse();
   }
 
   // Private
@@ -332,21 +346,14 @@ class Model {
       }
 
       // Save inverse
-      if (this[fk] && association._hasInverse(this)) {
+      if (this[fk] && association.inverse()) {
         let inverseFk = association
-          .getInverseAssociation(this)
+          .inverse()
           .getForeignKey();
 
         this._schema.db[toCollectionName(association.modelName)]
           .update(this[fk], { [inverseFk]: this.id });
-        // this.reload();
       }
-
-      // if (parent && parent.isNew()) {
-      //   let fk = association.getForeignKey();
-      //   parent.save();
-      //   this.update(fk, parent.id);
-      // }
     });
 
     Object.keys(this.hasManyAssociations).forEach(key => {

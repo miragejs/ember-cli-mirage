@@ -3,6 +3,8 @@ import { toCollectionName } from 'ember-cli-mirage/utils/normalize-name';
 import extend from '../utils/extend';
 import assert from '../assert';
 import Collection from './collection';
+import HasMany from './associations/has-many';
+import BelongsTo from './associations/belongs-to';
 
 /*
   The Model class. Notes:
@@ -17,6 +19,7 @@ import Collection from './collection';
 */
 class Model {
 
+  // TODO: schema and modelName now set statically at registration, need to remove
   constructor(schema, modelName, attrs, fks) {
     assert(schema, 'A model requires a schema');
     assert(modelName, 'A model requires a modelName');
@@ -151,6 +154,9 @@ class Model {
         this.attrs[attr] = attrs[attr];
       }, this);
 
+    // Clear temp associations
+    this._tempAssociations = {};
+
     return this;
   }
 
@@ -178,6 +184,18 @@ class Model {
    */
   inverseAssociationFor(key) {
     return this.associationFor(key).inverse();
+  }
+
+  associateModelWithKey(model, key) {
+    let association = this.associationFor(key);
+
+    if (association instanceof HasMany) {
+      let currentModels = this[key].models;
+      if (currentModels.indexOf(model) === -1) {
+        this[key].add(model);
+      }
+    }
+
   }
 
   // Private

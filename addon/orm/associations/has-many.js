@@ -146,6 +146,8 @@ export default class extends Association {
           } else {
             collection = new Collection(association.modelName);
           }
+
+          this._tempAssociations[key] = collection;
         }
 
         return collection;
@@ -175,6 +177,14 @@ export default class extends Association {
         this._tempAssociations = this._tempAssociations || {};
 
         this._tempAssociations[key] = new Collection(association.modelName, models);
+
+        if (association.inverse())  {
+          models.forEach(model => {
+            let inverseKey = association.inverse().key;
+
+            model.associateModelWithKey(this, inverseKey);
+          });
+        }
 
         // if (this.isNew()) {
         //   association._cachedChildren = models instanceof Collection ? models : new Collection(association.modelName, models);

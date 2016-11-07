@@ -49,6 +49,9 @@ export default class Schema {
     this._registry[camelizedModelName] = this._registry[camelizedModelName] || { class: null, foreignKeys: [] }; // we may have created this key before, if another model added fks to it
     this._registry[camelizedModelName].class = ModelClass;
 
+    // TODO: set here, remove from model#constructor
+    ModelClass.prototype._schema = this;
+    ModelClass.prototype.modelName = modelName;
     // Set up associations
     ModelClass.prototype.hasManyAssociations = {};   // a registry of the model's hasMany associations. Key is key from model definition, value is association instance itself
     ModelClass.prototype.belongsToAssociations = {}; // a registry of the model's belongsTo associations. Key is key from model definition, value is association instance itself
@@ -212,8 +215,14 @@ export default class Schema {
     return this._hydrate(record, dasherize(type));
   }
 
+  modelClassFor(modelName) {
+    return this._registry[camelize(modelName)].class.prototype;
+  }
+
   associationsFor(modelName) {
-    return this._registry[modelName].class.prototype.belongsToAssociations;
+    let modelClass = this.modelClassFor(modelName);
+
+    return Object.assign({}, modelClass.belongsToAssociations, modelClass.hasManyAssociations);
   }
 
   /*

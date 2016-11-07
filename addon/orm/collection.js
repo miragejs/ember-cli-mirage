@@ -81,6 +81,19 @@ export default class Collection {
   }
 
   /**
+   * Adds a model to this collection
+   *
+   * @method add
+   * @return this
+   * @public
+   */
+  add(model) {
+    this.models.push(model);
+
+    return this;
+  }
+
+  /**
    * @method filter
    * @param f
    * @return {Collection}

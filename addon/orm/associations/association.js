@@ -52,6 +52,8 @@ export default class Association {
 
       if (matches.length === 1) {
         inverse = matches[0];
+      } else {
+        inverse = null;
       }
     }
 

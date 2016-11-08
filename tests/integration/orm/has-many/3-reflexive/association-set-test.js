@@ -1,7 +1,7 @@
 import Helper, { states } from './_helper';
 import { module, test } from 'qunit';
 
-module('Integration | ORM | Has Many | Named | association #set', {
+module('Integration | ORM | Has Many | Reflexive | association #set', {
   beforeEach() {
     this.helper = new Helper();
   }
@@ -13,41 +13,69 @@ module('Integration | ORM | Has Many | Named | association #set', {
 states.forEach((state) => {
 
   test(`a ${state} can update its association to a list of saved children`, function(assert) {
-    let [ user ] = this.helper[state]();
-    let savedPost = this.helper.savedChild();
+    let [ tag, originalTags ] = this.helper[state]();
+    let savedTag = this.helper.savedChild();
 
-    user.blogPosts = [ savedPost ];
+    tag.tags = [ savedTag ];
 
-    assert.ok(user.blogPosts.models.indexOf(savedPost) > -1);
-    assert.ok(user.blogPostIds.indexOf(savedPost.id) > -1);
+    assert.ok(tag.tags.includes(savedTag));
+    assert.equal(tag.tagIds[0], savedTag.id);
+    assert.ok(savedTag.tags.includes(tag), 'the inverse was set');
+
+    tag.save();
+
+    originalTags.forEach(originalTag => {
+      originalTag.reload();
+      assert.notOk(originalTag.tags.includes(tag), 'old inverses were cleared');
+    });
   });
 
   test(`a ${state} can update its association to a new parent`, function(assert) {
-    let [ user ] = this.helper[state]();
-    let newPost = this.helper.newChild();
+    let [ tag, originalTags ] = this.helper[state]();
+    let newTag = this.helper.newChild();
 
-    user.blogPosts = [ newPost ];
+    tag.tags = [ newTag ];
 
-    assert.deepEqual(user.blogPostIds, [ undefined ]);
-    assert.deepEqual(user.blogPosts.models[0], newPost);
+    assert.ok(tag.tags.includes(newTag));
+    assert.equal(tag.tagIds[0], undefined);
+    assert.ok(newTag.tags.includes(tag), 'the inverse was set');
+
+    tag.save();
+
+    originalTags.forEach(originalTag => {
+      originalTag.reload();
+      assert.notOk(originalTag.tags.includes(tag), 'old inverses were cleared');
+    });
   });
 
   test(`a ${state} can clear its association via an empty list`, function(assert) {
-    let [ user ] = this.helper[state]();
+    let [ tag, originalTags ] = this.helper[state]();
 
-    user.blogPosts = [ ];
+    tag.tags = [ ];
 
-    assert.deepEqual(user.blogPostIds, [ ]);
-    assert.equal(user.blogPosts.models.length, 0);
+    assert.deepEqual(tag.tagIds, [ ]);
+    assert.equal(tag.tags.models.length, 0);
+
+    tag.save();
+    originalTags.forEach(originalTag => {
+      originalTag.reload();
+      assert.notOk(originalTag.tags.includes(tag), 'old inverses were cleared');
+    });
   });
 
   test(`a ${state} can clear its association via an empty list`, function(assert) {
-    let [ user ] = this.helper[state]();
+    let [ tag, originalTags ] = this.helper[state]();
 
-    user.blogPosts = null;
+    tag.tags = null;
 
-    assert.deepEqual(user.blogPostIds, [ ]);
-    assert.equal(user.blogPosts.models.length, 0);
+    assert.deepEqual(tag.tagIds, [ ]);
+    assert.equal(tag.tags.models.length, 0);
+
+    tag.save();
+    originalTags.forEach(originalTag => {
+      originalTag.reload();
+      assert.notOk(originalTag.tags.includes(tag), 'old inverses were cleared');
+    });
   });
 
 });

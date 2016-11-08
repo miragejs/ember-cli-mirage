@@ -42,23 +42,28 @@ export default class Helper {
   }
 
   savedParentSavedChildren() {
-    let tag = this.schema.tags.create({ name: 'Red' });
-    let tag1 = this.schema.tags.create({ name: 'Blue' });
-    let tag2 = this.schema.tags.create({ name: 'Green' });
+    let schema = this.schema;
+    schema.db.tags.insert([
+      { id: 1, name: 'Red', tagIds: [2, 3] },
+      { id: 2, name: 'Blue', tagIds: [1] },
+      { id: 3, name: 'Green', tagIds: [1] },
+    ]);
 
-    tag.tags = [ tag1, tag2 ];
-
-    return [ tag, [ tag1, tag2 ] ];
+    return [ schema.tags.find(1), [ schema.tags.find(2), schema.tags.find(3) ] ];
   }
 
   savedParentMixedChildren() {
-    let tag = this.schema.tags.create({ name: 'Red' });
-    let tag1 = this.schema.tags.create({ name: 'Blue' });
-    let tag2 = this.schema.tags.new({ name: 'Green' });
+    this.schema.db.tags.insert([
+      { id: 1, name: 'Red', tagIds: [2] },
+      { id: 2, name: 'Blue', tagIds: [1] }
+    ]);
+    let tag = this.schema.tags.find(1);
+    let blueTag = this.schema.tags.find(2);
+    let greenTag = this.schema.tags.new({ name: 'Green' });
 
-    tag.tags = [ tag1, tag2 ];
+    tag.tags = [ blueTag, greenTag ];
 
-    return [ tag, [ tag1, tag2 ] ];
+    return [ tag, [ blueTag, greenTag ] ];
   }
 
   newParentNoChildren() {

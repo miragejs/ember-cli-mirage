@@ -5,6 +5,7 @@ import assert from '../assert';
 import Collection from './collection';
 import HasMany from './associations/has-many';
 import BelongsTo from './associations/belongs-to';
+import _isEqual from 'lodash/lang/isEqual';
 
 /*
   The Model class. Notes:
@@ -143,16 +144,18 @@ class Model {
    * @public
    */
   reload() {
-    let collection = toCollectionName(this.modelName);
-    let attrs = this._schema.db[collection].find(this.id);
+    if (this.id) {
+      let collection = toCollectionName(this.modelName);
+      let attrs = this._schema.db[collection].find(this.id);
 
-    Object.keys(attrs)
-      .filter(function(attr) {
-        return attr !== 'id';
-      })
-      .forEach(function(attr) {
-        this.attrs[attr] = attrs[attr];
-      }, this);
+      Object.keys(attrs)
+        .filter(function(attr) {
+          return attr !== 'id';
+        })
+        .forEach(function(attr) {
+          this.attrs[attr] = attrs[attr];
+        }, this);
+    }
 
     // Clear temp associations
     this._tempAssociations = {};
@@ -195,7 +198,18 @@ class Model {
         this[key].add(model);
       }
     }
+  }
 
+  disassociateModelWithKey(model, key) {
+    let association = this.associationFor(key);
+
+    if (association instanceof HasMany) {
+      let fk = association.getForeignKey();
+      let i = this[fk].map(key => key.toString()).indexOf(model.id.toString());
+      if (i > -1) {
+        this.attrs[fk].splice(i, 1);
+      }
+    }
   }
 
   // Private
@@ -395,6 +409,20 @@ class Model {
 
       if (tempChildren !== undefined) {
         delete this._tempAssociations[key];
+
+        // If inverse, disassociate old children
+        let inverse = association.inverse();
+        if (inverse) {
+          this._schema[toCollectionName(association.modelName)]
+            .find(this[fk])
+            .models
+            .forEach(model => {
+              model.disassociateModelWithKey(this, inverse.key);
+              model.save();
+            });
+        }
+
+        // Save new children
         tempChildren.models.forEach(child => {
           child.save();
         });

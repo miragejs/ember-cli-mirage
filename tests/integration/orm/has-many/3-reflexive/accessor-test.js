@@ -23,7 +23,7 @@ states.forEach((state) => {
       }
 
       // Check the inverse
-      assert.ok(t.tags.models.indexOf(tag) > -1);
+      assert.ok(t.tags.includes(tag));
     });
   });
 

@@ -368,15 +368,19 @@ export default class Server {
 
   _resetHasManyAssociations() {
     Object.keys(this.schema._registry).forEach((modelKey)=> {
-      if (this.schema._registry[modelKey].class) {
-        this._removeCachedChildren(this.schema._registry[modelKey].class.prototype.hasManyAssociations);
+      let modelClass = this.schema._registry[modelKey].class;
+      if (Ember.isPresent(modelClass)) {
+        this._removeCachedChildren(modelClass.prototype.hasManyAssociations);
       }
     });
   }
 
   _removeCachedChildren(hasManyAssociations) {
     Object.keys(hasManyAssociations).forEach((hasMany)=> {
-      hasManyAssociations[hasMany]._cachedChildren = null;
+      if (Ember.get(hasManyAssociations[hasMany], '_cachedChildren.models')) {
+        hasManyAssociations[hasMany]._cachedChildren.models = [];
+      }
+    });
   }
 
   _defineRouteHandlerHelpers() {

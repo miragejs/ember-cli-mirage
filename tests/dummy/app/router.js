@@ -16,6 +16,8 @@ Router.map(function() {
   this.route('pets');
 
   this.route('word-smith', { path: '/word-smiths/:word_smith_id' });
+
+  this.route('blog-post', { path: '/blog-posts/:blog_post_id' });
 });
 
 export default Router;

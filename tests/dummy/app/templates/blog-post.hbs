@@ -1,0 +1,17 @@
+<h1>{{model.title}}</h1>
+
+<ul>
+{{#each model.parentComments as |parentComment|}}
+  <li class="blog-parentComment">
+    {{parentComment.content}}
+
+    {{#if parentComment.childComments}}
+      <ul class="blog-childComments">
+        {{#each parentComment.childComments as |childComment|}}
+          <li>{{childComment.content}}</li>
+        {{/each}}
+      </ul>
+    {{/if}}
+  </li>
+{{/each}}
+</ul>

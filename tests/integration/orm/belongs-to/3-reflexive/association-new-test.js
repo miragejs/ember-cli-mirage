@@ -21,6 +21,7 @@ states.forEach((state) => {
     assert.ok(!ganon.id, 'the parent was not persisted');
     assert.deepEqual(user.user, ganon);
     assert.equal(user.userId, null);
+    assert.deepEqual(ganon.user, user, 'the inverse was set');
 
     user.save();
 

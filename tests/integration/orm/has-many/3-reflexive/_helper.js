@@ -44,9 +44,9 @@ export default class Helper {
   savedParentSavedChildren() {
     let schema = this.schema;
     schema.db.tags.insert([
-      { id: 1, name: 'Red', tagIds: [2, 3] },
-      { id: 2, name: 'Blue', tagIds: [1] },
-      { id: 3, name: 'Green', tagIds: [1] },
+      { id: '1', name: 'Red', tagIds: ['2', '3'] },
+      { id: '2', name: 'Blue', tagIds: ['1'] },
+      { id: '3', name: 'Green', tagIds: ['1'] },
     ]);
 
     return [ schema.tags.find(1), [ schema.tags.find(2), schema.tags.find(3) ] ];
@@ -54,8 +54,8 @@ export default class Helper {
 
   savedParentMixedChildren() {
     this.schema.db.tags.insert([
-      { id: 1, name: 'Red', tagIds: [2] },
-      { id: 2, name: 'Blue', tagIds: [1] }
+      { id: '1', name: 'Red', tagIds: ['2'] },
+      { id: '2', name: 'Blue', tagIds: ['1'] }
     ]);
     let tag = this.schema.tags.find(1);
     let blueTag = this.schema.tags.find(2);

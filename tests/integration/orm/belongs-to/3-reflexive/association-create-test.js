@@ -19,7 +19,9 @@ states.forEach((state) => {
 
     assert.ok(ganon.id, 'the parent was persisted');
     assert.deepEqual(user.user.attrs, ganon.attrs);
+    assert.deepEqual(ganon.user.attrs, user.attrs, 'the inverse was set');
     assert.equal(user.userId, ganon.id);
+    assert.equal(ganon.userId, user.id, 'the inverse was set');
     assert.equal(this.helper.schema.users.find(user.id).userId, ganon.id, 'the user was persisted');
   });
 

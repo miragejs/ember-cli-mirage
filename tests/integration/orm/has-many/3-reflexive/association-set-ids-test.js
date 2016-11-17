@@ -18,13 +18,16 @@ states.forEach((state) => {
     assert.deepEqual(tag.tags.models[0].attrs, savedTag.attrs);
     assert.deepEqual(tag.tagIds, [ savedTag.id ]);
 
+    debugger;
     tag.save();
     savedTag.reload();
 
     assert.deepEqual(savedTag.tags.models[0].attrs, tag.attrs, 'the inverse was set');
     originalTags.forEach(originalTag => {
-      originalTag.reload();
-      assert.notOk(originalTag.tags.includes(tag), 'old inverses were cleared');
+      if (originalTag.isSaved()) {
+        originalTag.reload();
+        assert.notOk(originalTag.tags.includes(tag), 'old inverses were cleared');
+      }
     });
   });
 

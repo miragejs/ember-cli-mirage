@@ -131,22 +131,23 @@ export default class extends Association {
       */
       get() {
         this._tempAssociations = this._tempAssociations || {};
-
+        this._cachedAssociations = this._cachedAssociations || {};
         let collection = null;
-        let tempChildren = this._tempAssociations[key];
-        let foreignKeyIds = this[foreignKey];
 
-        if (tempChildren) {
-          collection = tempChildren;
+        if (this._tempAssociations[key]) {
+          collection = this._tempAssociations[key];
         // } else if (foreignKeyId !== null) {
         //   collection = association.schema[toCollectionName(association.modelName)].find(foreignKeyId);
+        // } else if (this._cachedAssociations[key]) {
+        //   collection = this._cachedAssociations[key];
         } else {
-          if (foreignKeyIds) {
-            collection = association.schema[toCollectionName(association.modelName)].find(foreignKeyIds);
+          if (this[foreignKey]) {
+            collection = association.schema[toCollectionName(association.modelName)].find(this[foreignKey]);
           } else {
             collection = new Collection(association.modelName);
           }
 
+          // this._cachedAssociations[key] = collection;
           this._tempAssociations[key] = collection;
         }
 
@@ -229,13 +230,14 @@ export default class extends Association {
     modelPrototype[`create${capitalize(camelize(singularize(association.key)))}`] = function(attrs = {}) {
       let child = association.schema[toCollectionName(association.modelName)].create(attrs);
 
+      // this[key].add(child);
       let children = this[key].models;
       children.push(child);
       this[key] = children;
 
       this.save();
 
-      return child;
+      return child.reload();
     };
   }
 }

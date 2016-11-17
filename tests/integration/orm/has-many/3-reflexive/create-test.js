@@ -2,7 +2,7 @@ import Helper from './_helper';
 import { Model } from 'ember-cli-mirage';
 import { module, test } from 'qunit';
 
-module('Integration | ORM | Has Many | Named | create', {
+module('Integration | ORM | Has Many | Reflexive | create', {
   beforeEach() {
     this.helper = new Helper();
     this.helper.schema.registerModel('foo', Model);
@@ -10,55 +10,62 @@ module('Integration | ORM | Has Many | Named | create', {
 });
 
 test('it sets up associations correctly when passing in the foreign key', function(assert) {
-  let post = this.helper.schema.create('post');
-  let user = this.helper.schema.create('user', {
-    blogPostIds: [ post.id ]
+  let schema = this.helper.schema;
+  let tagA = schema.tags.create();
+  let tagB = schema.tags.create({
+    tagIds: [ tagA.id ]
   });
 
-  assert.deepEqual(user.blogPostIds, [ post.id ]);
-  assert.deepEqual(user.attrs.blogPostIds, [ post.id ], 'the ids were persisted');
-  assert.deepEqual(user.blogPosts.models[0].attrs, post.attrs);
-  assert.equal(this.helper.db.posts.length, 1);
-  assert.deepEqual(this.helper.db.posts[0], { id: '1' });
-  assert.equal(this.helper.db.users.length, 1);
-  assert.deepEqual(this.helper.db.users[0], { id: '1', blogPostIds: [ '1' ] });
+  tagA.reload();
+
+  assert.deepEqual(tagA.tagIds, [ tagB.id ]);
+  assert.deepEqual(tagB.tagIds, [ tagA.id ], 'the inverse was set');
+  assert.deepEqual(tagA.attrs.tagIds, [ tagB.id ], 'the ids were persisted');
+  assert.deepEqual(tagB.attrs.tagIds, [ tagA.id ], 'the inverse ids were persisted');
+  assert.deepEqual(tagA.tags.models[0].attrs, tagB.attrs);
+  assert.deepEqual(tagB.tags.models[0].attrs, tagA.attrs, 'the inverse was set');
+  assert.equal(this.helper.db.tags.length, 2);
+  assert.deepEqual(this.helper.db.tags[0], { id: '1', tagIds: [ '2' ] });
+  assert.deepEqual(this.helper.db.tags[1], { id: '2', tagIds: [ '1' ] });
 });
 
 test('it sets up associations correctly when passing in an array of models', function(assert) {
-  let post = this.helper.schema.create('post');
-  let user = this.helper.schema.create('user', {
-    blogPosts: [ post ]
+  let schema = this.helper.schema;
+  let tagA = schema.tags.create();
+  let tagB = schema.tags.create({
+    tags: [ tagA ]
   });
 
-  assert.deepEqual(user.blogPostIds, [ post.id ]);
-  assert.deepEqual(user.attrs.blogPostIds, [ post.id ], 'the ids were persisted');
-  assert.deepEqual(user.blogPosts.models[0].attrs, post.attrs);
-  assert.equal(this.helper.db.posts.length, 1);
-  assert.deepEqual(this.helper.db.posts[0], { id: '1' });
-  assert.equal(this.helper.db.users.length, 1);
-  assert.deepEqual(this.helper.db.users[0], { id: '1', blogPostIds: [ '1' ] });
+  tagA.reload();
+
+  assert.deepEqual(tagB.tagIds, [ tagA.id ]);
+  assert.deepEqual(tagA.tagIds, [ tagB.id ], 'the inverse was set');
+  assert.deepEqual(tagA.attrs.tagIds, [ tagB.id ], 'the ids were persisted');
+  assert.deepEqual(tagB.attrs.tagIds, [ tagA.id ], 'the inverse was set');
+  assert.equal(this.helper.db.tags.length, 2);
 });
 
 test('it sets up associations correctly when passing in a collection', function(assert) {
-  let post = this.helper.schema.create('post');
-  let user = this.helper.schema.create('user', {
-    blogPosts: this.helper.schema.posts.all()
+  let schema = this.helper.schema;
+  let tagA = schema.tags.create();
+  let tagB = schema.tags.create({
+    tags: schema.tags.all()
   });
 
-  assert.deepEqual(user.blogPostIds, [ post.id ]);
-  assert.deepEqual(user.attrs.blogPostIds, [ post.id ], 'the ids were persisted');
-  assert.deepEqual(user.blogPosts.models[0].attrs, post.attrs);
-  assert.equal(this.helper.db.posts.length, 1);
-  assert.deepEqual(this.helper.db.posts[0], { id: '1' });
-  assert.equal(this.helper.db.users.length, 1);
-  assert.deepEqual(this.helper.db.users[0], { id: '1', blogPostIds: [ '1' ] });
+  tagA.reload();
+
+  assert.deepEqual(tagB.tagIds, [ tagA.id ]);
+  assert.deepEqual(tagA.tagIds, [ tagB.id ], 'the inverse was set');
+  assert.deepEqual(tagB.attrs.tagIds, [ tagA.id ]);
+  assert.deepEqual(tagA.attrs.tagIds, [ tagB.id ], 'the inverse was set');
+  assert.equal(this.helper.db.tags.length, 2);
 });
 
 test('it throws an error if a model is passed in without a defined relationship', function(assert) {
   let schema = this.helper.schema;
 
   assert.throws(function() {
-    schema.create('user', {
+    schema.tags.create({
       foo: schema.create('foo')
     });
   }, /you haven't defined that key as an association on your model/);
@@ -68,7 +75,7 @@ test('it throws an error if an array of models is passed in without a defined re
   let schema = this.helper.schema;
 
   assert.throws(function() {
-    schema.create('user', {
+    schema.tags.create({
       foos: [ schema.create('foo') ]
     });
   }, /you haven't defined that key as an association on your model/);
@@ -76,11 +83,11 @@ test('it throws an error if an array of models is passed in without a defined re
 
 test('it throws an error if a collection is passed in without a defined relationship', function(assert) {
   let schema = this.helper.schema;
-  schema.create('foo');
-  schema.create('foo');
+  schema.foos.create();
+  schema.foos.create();
 
   assert.throws(function() {
-    schema.create('post', {
+    schema.tags.create({
       foos: schema.foos.all()
     });
   }, /you haven't defined that key as an association on your model/);

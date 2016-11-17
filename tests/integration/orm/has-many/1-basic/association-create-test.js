@@ -20,7 +20,7 @@ states.forEach((state) => {
 
     assert.ok(post.id, 'the child was persisted');
     assert.equal(user.posts.models.length, initialCount + 1, 'the collection size was increased');
-    assert.deepEqual(user.posts.models.filter((a) => a.id === post.id)[0], post, 'the model was added to user.posts');
+    assert.ok(user.posts.includes(post), 'the model was added to user.posts');
     assert.ok(user.postIds.indexOf(post.id) > -1, 'the id was added to the fks array');
     assert.ok(user.attrs.postIds.indexOf(post.id) > -1, 'fks were persisted');
   });

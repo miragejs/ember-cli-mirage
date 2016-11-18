@@ -212,7 +212,7 @@ this.post('/users', function(schema, request) {
       teamId: '1'
     }
   */
-  return schema.user.create(attrs);
+  return schema.users.create(attrs);
 });
 ```
 

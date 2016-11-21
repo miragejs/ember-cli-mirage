@@ -68,13 +68,17 @@ export default class Schema {
         let [ fkHolder, fk ] = association.getForeignKeyArray();
 
         fksAddedFromThisModel[fkHolder] = fksAddedFromThisModel[fkHolder] || [];
-        assert(
-          !_includes(fksAddedFromThisModel[fkHolder], fk),
-          `Your '${type}' model definition has multiple possible inverse relationships of type '${fkHolder}'.
 
-          Please read the associations guide and specify explicit inverses: http://www.ember-cli-mirage.com/docs/v0.2.x/models/#associations`
-        );
-        fksAddedFromThisModel[fkHolder].push(fk);
+        // For model association with its own model with a custom foreignKey
+        if (fk !== association.opts.foreignKey) {
+          assert(
+            !_includes(fksAddedFromThisModel[fkHolder], fk),
+            `Your '${type}' model definition has multiple possible inverse relationships of type '${fkHolder}'.
+
+            Please read the associations guide and specify explicit inverses: http://www.ember-cli-mirage.com/docs/v0.2.x/models/#associations`
+          );
+          fksAddedFromThisModel[fkHolder].push(fk);
+        }
 
         this._addForeignKeyToRegistry(fkHolder, fk);
 

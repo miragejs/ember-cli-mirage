@@ -1,5 +1,5 @@
-import { JSONAPISerializer } from 'ember-cli-mirage';
+import Serializer from './application';
 
-export default JSONAPISerializer.extend({
+export default Serializer.extend({
+  include: ['comments']
 });
-

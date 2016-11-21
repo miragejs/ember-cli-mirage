@@ -4,7 +4,7 @@ import SerializerRegistry from 'ember-cli-mirage/serializer-registry';
 import { JSONAPISerializer, Model, hasMany, belongsTo } from 'ember-cli-mirage';
 import { module, test } from 'qunit';
 
-module('Integration | Serializers | JSON API Serializer | Associations | Query param includes', {
+module('Integration | Serializers | JSON API Serializer | Associations | Includes', {
   beforeEach() {
     this.schema = new Schema(new Db(), {
       wordSmith: Model.extend({

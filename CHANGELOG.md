@@ -111,7 +111,7 @@ Update notes:
 
     ```js
     let usersCollection = schema.users.all();
-    let uniqueUsers = _.uniq(usersCollection.models, u => u.firstName);
+    let uniqueUsers = _.uniq(usersCollection.models, (u) => u.firstName);
     ```
 
     - Collection no longer attempts to mimic an array. This turned out to be confusing, since you can't really subclass arrays in JavaScript, and it would sometimes be compatible with functions that operate on arrays, but sometimes not.
@@ -137,7 +137,7 @@ Update notes:
     import { Collection } from 'ember-cli-mirage';
 
     let authors = schema.authors.all().models;
-    let topPosts = authors.map(a => a.topPost);
+    let topPosts = authors.map((a) => a.topPost);
 
     return new Collection('post', topPosts);
     ```

@@ -139,7 +139,7 @@ test('#serialize noops on plain JS arrays', function(assert) {
   this.server.schema.users.create({ name: 'Ganondorf' });
 
   let users = this.schema.users.all().models;
-  let uniqueNames = _uniq(users, u => u.name);
+  let uniqueNames = _uniq(users, (u) => u.name);
   let serializedResponse = this.functionHandler.serialize(uniqueNames);
 
   assert.deepEqual(serializedResponse, uniqueNames);
@@ -151,7 +151,7 @@ test('#serialize on a Collection takes an optional serializer type', function(as
   this.server.schema.users.create({ name: 'Ganondorf', tall: true, evil: true });
 
   let users = this.schema.users.all().models;
-  let uniqueNames = _uniq(users, u => u.name);
+  let uniqueNames = _uniq(users, (u) => u.name);
   let collection = new Collection('user', uniqueNames);
   let json = this.functionHandler.serialize(collection, 'sparse-user');
 

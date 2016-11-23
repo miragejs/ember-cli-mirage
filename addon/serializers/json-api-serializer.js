@@ -111,7 +111,7 @@ export default Serializer.extend({
     return includes;
   },
 
-  _getModelsToAdd (key, resource) {
+  _getModelsToAdd(key, resource) {
     if (this.isModel(resource)) {
       return [{ key, resource }];
     } else if (this.isCollection(resource)) {

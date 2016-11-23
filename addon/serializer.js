@@ -110,12 +110,18 @@ class Serializer {
         .reduce((acc, key)=> {
           if (this.isCollection(resource)) {
             let { models } = resource;
-            let resources = models.filter(m => !m[key]).map(r => ({ key, r: resource }));
+            let resources = models.filter(m => m[key]).map(r => ({
+              key: this.keyForCollection(key),
+              resource: r[key]
+            }));
 
             return [...acc, ...resources];
           }
 
-          return [...acc, { key, resource: resource[key] }];
+          return [
+            ...acc,
+            { key: this.keyForModel(key), resource: resource[key] }
+          ];
         }, []))
         .uniq(({ resource }) => resource.toString())
         .value();

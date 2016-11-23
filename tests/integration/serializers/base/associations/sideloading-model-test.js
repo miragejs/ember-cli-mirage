@@ -91,7 +91,7 @@ test(`it can sideload a named has-many association`, function(assert) {
       name: 'Link',
       postIds: ['1']
     },
-    blogPosts: [
+    posts: [
       { id: '1', title: 'Lorem', wordSmithId: '1' }
     ]
   });
@@ -197,7 +197,7 @@ test(`it can sideload a model with a named belongs-to relationship`, function(as
     blogPost: {
       id: '1', title: 'Lorem', authorId: '1'
     },
-    wordSmiths: [
+    authors: [
       { id: '1', name: 'Link' }
     ]
   });

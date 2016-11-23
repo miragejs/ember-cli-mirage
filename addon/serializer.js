@@ -118,10 +118,14 @@ class Serializer {
             return [...acc, ...resources];
           }
 
-          return [
-            ...acc,
-            { key: this.keyForModel(key), resource: resource[key] }
-          ];
+          if (resource[key]) {
+            return [
+              ...acc,
+              { key: this.keyForModel(key), resource: resource[key] }
+            ];
+          }
+
+          return acc;
         }, []))
         .uniq(({ resource }) => resource.toString())
         .value();

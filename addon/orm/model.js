@@ -213,23 +213,6 @@ class Model {
   }
 
   // Private
-
-  // _updateInDb(key, val) {
-  //   let attrs;
-  //   if (key == null) {
-  //     return this;
-  //   }
-  //
-  //   if (typeof key === 'object') {
-  //     attrs = key;
-  //   } else {
-  //     (attrs = {})[key] = val;
-  //   }
-  //
-  //   debugger;
-  //   this._schema.db[toCollectionName(this.modelName)].update(this.id, attrs);
-  // }
-
   /**
    * model.attrs represents the persistable attributes, i.e. your db
    * table fields.
@@ -377,40 +360,18 @@ class Model {
    * @private
    */
   _saveAssociations() {
-    // Need to save parent once more the case of a reflexive one-to-one, since
-    // updating our reference also updated theirs.
-    // debugger;
-    // if (parent && association.isReflexiveOneToOne()) {
-    //   parent.save();
-    // }
-    // if (this._tempParents) {
-    //   Object.keys(this._tempParents).forEach(key => {
-    //     let tempParent = this._tempParents[key];
-    //     delete this._tempParents[key];
-    //     tempParent.save();
-    //     debugger;
-    //   });
-    // }
     this._saveBelongsToAssociations();
-
     this._saveHasManyAssociations();
-
-    //
-    // Object.keys(this.hasManyAssociations).forEach(key => {
-    //   let association = this.hasManyAssociations[key];
-    //   let children = this[key];
-    //   children.update(association.getForeignKey(), this.id);
-    // });
   }
 
   _saveBelongsToAssociations() {
     Object.keys(this.belongsToAssociations).forEach(key => {
       let association = this.belongsToAssociations[key];
-      let tempParent = this._tempParents && this._tempParents[key];
+      let tempParent = this._tempAssociations && this._tempAssociations[key];
       let fk = association.getForeignKey();
 
       if (tempParent !== undefined) {
-        delete this._tempParents[key];
+        delete this._tempAssociations[key];
         if (tempParent === null) {
           this.update(fk, null);
         } else {
@@ -435,18 +396,11 @@ class Model {
     Object.keys(this.hasManyAssociations).forEach(key => {
       let association = this.hasManyAssociations[key];
       let inverse = association.inverse();
+      let foo = 'hi';
 
-      if (inverse) {
-        this._disassociateFromOldInverses(association);
-      }
-
+      this._disassociateFromOldInverses(association);
       this._saveNewChildren(association);
-
       this._associateWithNewInverses(association);
-
-      // if (this._cachedAssociations && this._cachedAssociations[key]) {
-      //   delete this._cachedAssociations[key];
-      // }
     });
   }
 
@@ -456,7 +410,7 @@ class Model {
     let inverse = association.inverse();
     let tempChildren = this._tempAssociations && this._tempAssociations[key];
 
-    if (tempChildren) {
+    if (inverse && tempChildren) {
       // Disassociate currently persisted models that are no longer associated
       this._schema[toCollectionName(association.modelName)]
         .find(this.attrs[fk] || []) // TODO: prob should initialize hasMany fks with []
@@ -482,7 +436,6 @@ class Model {
         child.save();
       });
 
-      // this.update(fk, tempChildren.models.map(child => child.id));
       this._updateInDb({ [fk]: tempChildren.models.map(child => child.id) });
       this.__isSavingNewChildren = false;
     }
@@ -509,9 +462,6 @@ class Model {
           }
 
           inverseCollection.update(model.id, { [inverseFk]: newIdsForInverse });
-          // debugger;
-          // model.associateModelWithKey(this, inverse.key);
-          // model.save();
         });
 
     }

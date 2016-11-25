@@ -66,8 +66,8 @@ export default class extends Association {
           - returns the associated parent's id
       */
       get() {
-        this._tempParents = this._tempParents || {};
-        let tempParent = this._tempParents[key];
+        this._tempAssociations = this._tempAssociations || {};
+        let tempParent = this._tempAssociations[key];
         let id;
 
         if (tempParent === null) {
@@ -105,9 +105,9 @@ export default class extends Association {
           - returns the associated parent
       */
       get() {
-        this._tempParents = this._tempParents || {};
+        this._tempAssociations = this._tempAssociations || {};
 
-        let tempParent = this._tempParents[key];
+        let tempParent = this._tempAssociations[key];
         let foreignKeyId = this[foreignKey];
         let model = null;
 
@@ -125,8 +125,8 @@ export default class extends Association {
           - sets the associated parent via model
       */
       set(model) {
-        this._tempParents = this._tempParents || {};
-        this._tempParents[key] = model;
+        this._tempAssociations = this._tempAssociations || {};
+        this._tempAssociations[key] = model;
 
         if (
           model &&

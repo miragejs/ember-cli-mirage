@@ -75,16 +75,6 @@ export default class extends Association {
         }
 
         return ids;
-        // let children = association._cachedChildren || new Collection(association.modelName);
-        //
-        // if (!this.isNew()) {
-        //   let query = { [foreignKey]: this.id };
-        //   let savedChildren = association.schema[toCollectionName(association.modelName)].where(query);
-        //
-        //   children.mergeCollection(savedChildren);
-        // }
-        //
-        // return children.models.map(model => model.id);
       },
 
       /*
@@ -102,24 +92,6 @@ export default class extends Association {
         }
 
         this[key] = tempChildren;
-        // ids = ids || [];
-        //
-        // if (this.isNew()) {
-        //   association._cachedChildren = association.schema[toCollectionName(association.modelName)].find(ids);
-        //
-        // } else {
-        //   // Set current children's fk to null
-        //   let query = { [foreignKey]: this.id };
-        //   association.schema[toCollectionName(association.modelName)].where(query).update(foreignKey, null);
-        //
-        //   // Associate the new childrens to this model
-        //   association.schema[toCollectionName(association.modelName)].find(ids).update(foreignKey, this.id);
-        //
-        //   // Clear out any old cached children
-        //   association._cachedChildren = new Collection(association.modelName);
-        // }
-        //
-        // return this;
       }
     });
 
@@ -131,15 +103,10 @@ export default class extends Association {
       */
       get() {
         this._tempAssociations = this._tempAssociations || {};
-        this._cachedAssociations = this._cachedAssociations || {};
         let collection = null;
 
         if (this._tempAssociations[key]) {
           collection = this._tempAssociations[key];
-        // } else if (foreignKeyId !== null) {
-        //   collection = association.schema[toCollectionName(association.modelName)].find(foreignKeyId);
-        // } else if (this._cachedAssociations[key]) {
-        //   collection = this._cachedAssociations[key];
         } else {
           if (this[foreignKey]) {
             collection = association.schema[toCollectionName(association.modelName)].find(this[foreignKey]);
@@ -147,22 +114,10 @@ export default class extends Association {
             collection = new Collection(association.modelName);
           }
 
-          // this._cachedAssociations[key] = collection;
           this._tempAssociations[key] = collection;
         }
 
         return collection;
-        // let temporaryChildren = association._cachedChildren || new Collection(association.modelName);
-        //
-        // if (this.isNew()) {
-        //   return temporaryChildren;
-        //
-        // } else {
-        //   let query = { [foreignKey]: this.id };
-        //   let savedChildren = association.schema[toCollectionName(association.modelName)].where(query);
-        //
-        //   return savedChildren.mergeCollection(temporaryChildren);
-        // }
       },
 
       /*
@@ -186,26 +141,6 @@ export default class extends Association {
             model.associateModelWithKey(this, inverseKey);
           });
         }
-
-        // if (this.isNew()) {
-        //   association._cachedChildren = models instanceof Collection ? models : new Collection(association.modelName, models);
-        //
-        // } else {
-        //
-        //   // Set current children's fk to null
-        //   let query = { [foreignKey]: this.id };
-        //   association.schema[toCollectionName(association.modelName)].where(query).update(foreignKey, null);
-        //
-        //   // Save any children that are new
-        //   models.filter(model => model.isNew())
-        //     .forEach(model => model.save());
-        //
-        //   // Associate the new children to this model
-        //   association.schema[toCollectionName(association.modelName)].find(models.map(m => m.id)).update(foreignKey, this.id);
-        //
-        //   // Clear out any old cached children
-        //   association._cachedChildren = new Collection(association.modelName);
-        // }
       }
     });
 

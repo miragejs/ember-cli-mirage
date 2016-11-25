@@ -234,7 +234,7 @@ class Serializer {
    * @param model
    * @private
    */
-  _attrsForModel(model, removeForeignKeys=false) {
+  _attrsForModel(model) {
     let attrs = {};
 
     if (this.attrs) {
@@ -246,9 +246,8 @@ class Serializer {
       attrs = _assign(attrs, model.attrs);
     }
 
-    if (removeForeignKeys) {
-      model.fks.forEach(key => delete attrs[key]);
-    }
+    // Remove fks
+    model.fks.forEach(key => delete attrs[key]);
 
     return this._formatAttributeKeys(attrs);
   }

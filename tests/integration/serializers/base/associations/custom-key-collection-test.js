@@ -17,7 +17,7 @@ module('Integration | Serializers | Base | Associations | Custom Key', {
       }),
       blogPost: Model.extend({
         wordSmithee: belongsTo('wordSmith')
-      }),
+      })
     });
 
     let link = this.schema.wordSmiths.create({ name: 'Link', age: 123 });
@@ -32,7 +32,7 @@ module('Integration | Serializers | Base | Associations | Custom Key', {
   }
 });
 
-test(`it can embed a model with a belongs-to relationship with a custom key`, function (assert) {
+test(`it can embed a model with a belongs-to relationship with a custom key`, function(assert) {
   let BaseSerializer = Serializer.extend({ embed: true });
 
   let registry = new SerializerRegistry(this.schema, {
@@ -94,7 +94,7 @@ test('it can embed a collection with a has-many relationship with a custom key',
     wordSmith: BaseSerializer.extend({
       attrs: ['id', 'name'],
       include: ['draftBlogPosts']
-    }),
+    })
   });
 
   let link = this.schema.wordSmiths.find(1);
@@ -104,16 +104,16 @@ test('it can embed a collection with a has-many relationship with a custom key',
     wordSmith: {
       draftBlogPosts: [
         {
-          id: "1",
-          title: "Lorem"
+          id: '1',
+          title: 'Lorem'
         },
         {
-          id: "2",
-          title: "Ipsum"
+          id: '2',
+          title: 'Ipsum'
         }
       ],
-      id: "1",
-      name: "Link"
+      id: '1',
+      name: 'Link'
     }
   });
 });
@@ -126,7 +126,7 @@ test('it can sideload a collection with a has-many relationship with a custom ke
     wordSmith: BaseSerializer.extend({
       attrs: ['id', 'name'],
       include: ['draftBlogPosts']
-    }),
+    })
   });
 
   let link = this.schema.wordSmiths.find(1);
@@ -135,23 +135,23 @@ test('it can sideload a collection with a has-many relationship with a custom ke
   assert.deepEqual(result, {
     draftBlogPosts: [
       {
-        id: "1",
-        title: "Lorem",
-        wordSmitheeId: "1"
+        id: '1',
+        title: 'Lorem',
+        wordSmitheeId: '1'
       },
       {
-        id: "2",
-        title: "Ipsum",
-        wordSmitheeId: "1"
+        id: '2',
+        title: 'Ipsum',
+        wordSmitheeId: '1'
       }
     ],
     wordSmith: {
       draftBlogPostIds: [
-        "1",
-        "2"
+        '1',
+        '2'
       ],
-      id: "1",
-      name: "Link"
+      id: '1',
+      name: 'Link'
     }
   });
 });

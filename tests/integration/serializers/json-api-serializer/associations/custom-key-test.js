@@ -28,7 +28,7 @@ module('Integration | Serializers | JSON API Serializer | Associations | Custom 
   }
 });
 
-test(`it can serialize the relationship  for a model with a belongs-to relationship with a custom key`, function (assert) {
+test(`it can serialize the relationship  for a model with a belongs-to relationship with a custom key`, function(assert) {
   let registry = new SerializerRegistry(this.schema, {
     application: JSONAPISerializer
   });
@@ -37,25 +37,25 @@ test(`it can serialize the relationship  for a model with a belongs-to relations
   let result = registry.serialize(blogPost);
 
   assert.deepEqual(result, {
-    "data": {
-      "attributes": {
-        "title": "Lorem"
+    'data': {
+      'attributes': {
+        'title': 'Lorem'
       },
-      "id": "1",
-      "relationships": {
-        "word-smithee": {
-          "data": {
-            "id": "1",
-            "type": "word-smiths"
+      'id': '1',
+      'relationships': {
+        'word-smithee': {
+          'data': {
+            'id': '1',
+            'type': 'word-smiths'
           }
         }
       },
-      "type": "blog-posts"
+      'type': 'blog-posts'
     }
   });
 });
 
-test(`it include the relationship for a model with a belongs-to relationship with a custom key`, function (assert) {
+test(`it include the relationship for a model with a belongs-to relationship with a custom key`, function(assert) {
   let registry = new SerializerRegistry(this.schema, {
     application: JSONAPISerializer
   });
@@ -69,37 +69,37 @@ test(`it include the relationship for a model with a belongs-to relationship wit
   let result = registry.serialize(blogPost, request);
 
   assert.deepEqual(result, {
-    "data": {
-      "attributes": {
-        "title": "Lorem"
+    'data': {
+      'attributes': {
+        'title': 'Lorem'
       },
-      "id": "1",
-      "relationships": {
-        "word-smithee": {
-          "data": {
-            "id": "1",
-            "type": "word-smiths"
+      'id': '1',
+      'relationships': {
+        'word-smithee': {
+          'data': {
+            'id': '1',
+            'type': 'word-smiths'
           }
         }
       },
-      "type": "blog-posts"
+      'type': 'blog-posts'
     },
-    "included": [
+    'included': [
       {
-        "attributes": {
-          "age": 123,
-          "name": "Link"
+        'attributes': {
+          'age': 123,
+          'name': 'Link'
         },
-        "id": "1",
-        "relationships": {
-          "draft-blog-posts": {
-            "data": [
-              { "type": "blog-posts", id: "1" },
-              { "type": "blog-posts", id: "2" }
+        'id': '1',
+        'relationships': {
+          'draft-blog-posts': {
+            'data': [
+              { 'type': 'blog-posts', id: '1' },
+              { 'type': 'blog-posts', id: '2' }
             ]
           }
         },
-        "type": "word-smiths"
+        'type': 'word-smiths'
       }
     ]
   });

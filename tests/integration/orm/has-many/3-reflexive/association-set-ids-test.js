@@ -18,7 +18,6 @@ states.forEach((state) => {
     assert.deepEqual(tag.tags.models[0].attrs, savedTag.attrs);
     assert.deepEqual(tag.tagIds, [ savedTag.id ]);
 
-    debugger;
     tag.save();
     savedTag.reload();
 

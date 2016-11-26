@@ -5,7 +5,7 @@ import assert from '../assert';
 import Collection from './collection';
 import HasMany from './associations/has-many';
 import BelongsTo from './associations/belongs-to';
-import _isEqual from 'lodash/lang/isEqual';
+import _values from 'lodash/object/values';
 
 /*
   The Model class. Notes:
@@ -202,13 +202,15 @@ class Model {
 
   disassociateModelWithKey(model, key) {
     let association = this.associationFor(key);
+    let fk = association.getForeignKey();
 
     if (association instanceof HasMany) {
-      let fk = association.getForeignKey();
       let i = this[fk].map(key => key.toString()).indexOf(model.id.toString());
       if (i > -1) {
         this.attrs[fk].splice(i, 1);
       }
+    } else {
+      this.attrs[fk] = null;
     }
   }
 
@@ -331,6 +333,9 @@ class Model {
    * Originally we validated this via association.setId method, but it triggered
    * recursion. That method is designed for updating an existing model's ID so
    * this method is needed during instantiation.
+   *
+   * @method _validateForeignKeyExistsInDatabase
+   * @private
    */
   _validateForeignKeyExistsInDatabase(foreignKeyName, foreignKeys) {
     if (Array.isArray(foreignKeys)) {
@@ -367,21 +372,25 @@ class Model {
   _saveBelongsToAssociations() {
     Object.keys(this.belongsToAssociations).forEach(key => {
       let association = this.belongsToAssociations[key];
-      let tempParent = this._tempAssociations && this._tempAssociations[key];
+      let tempAssociation = this._tempAssociations && this._tempAssociations[key];
       let fk = association.getForeignKey();
 
-      if (tempParent !== undefined) {
+      this._disassociateFromOldInverses(association);
+
+      if (tempAssociation !== undefined) {
+        this.__isSavingNewChildren = true;
         delete this._tempAssociations[key];
-        if (tempParent === null) {
-          this.update(fk, null);
+        if (tempAssociation === null) {
+          this._updateInDb({ [fk]: null });
         } else {
-          tempParent.save();
-          this.update(fk, tempParent.id);
+          tempAssociation.save();
+          this._updateInDb({ [fk]: tempAssociation.id });
         }
+        this.__isSavingNewChildren = false;
       }
 
       // Save inverse
-      if (this[fk] && association.inverse()) {
+      if (this[fk] && association.inverse() && !this.__isSavingNewChildren) {
         let inverseFk = association
           .inverse()
           .getForeignKey();
@@ -393,11 +402,7 @@ class Model {
   }
 
   _saveHasManyAssociations() {
-    Object.keys(this.hasManyAssociations).forEach(key => {
-      let association = this.hasManyAssociations[key];
-      let inverse = association.inverse();
-      let foo = 'hi';
-
+    _values(this.hasManyAssociations).forEach(association => {
       this._disassociateFromOldInverses(association);
       this._saveNewChildren(association);
       this._associateWithNewInverses(association);
@@ -405,17 +410,26 @@ class Model {
   }
 
   _disassociateFromOldInverses(association) {
-    let key = association.key;
+    if (association instanceof HasMany) {
+      this._disassociateFromHasManyInverses(association);
+    } else if (association instanceof BelongsTo) {
+      this._disassociateFromBelongsToInverse(association);
+    }
+  }
+
+  _disassociateFromHasManyInverses(association) {
+    let { key } = association;
     let fk = association.getForeignKey();
     let inverse = association.inverse();
-    let tempChildren = this._tempAssociations && this._tempAssociations[key];
+    let tempAssociation = this._tempAssociations && this._tempAssociations[key];
+    let oldInversesExist = this.attrs[fk];
 
-    if (inverse && tempChildren) {
+    if (inverse && tempAssociation && oldInversesExist) {
       // Disassociate currently persisted models that are no longer associated
       this._schema[toCollectionName(association.modelName)]
         .find(this.attrs[fk] || []) // TODO: prob should initialize hasMany fks with []
         .models
-        .filter(model => !tempChildren.includes(model)) // filter out models that will still be associated
+        .filter(model => !tempAssociation.includes(model)) // filter out models that will still be associated
         .forEach(model => {
           model.disassociateModelWithKey(this, inverse.key);
           model.save();
@@ -423,8 +437,25 @@ class Model {
     }
   }
 
+  _disassociateFromBelongsToInverse(association) {
+    let { key } = association;
+    let fk = association.getForeignKey();
+    let inverse = association.inverse();
+    let tempAssociation = this._tempAssociations && this._tempAssociations[key];
+    let oldInversesExist = this.attrs[fk];
+
+    if (inverse && tempAssociation && oldInversesExist) {
+      // Disassociate currently persisted models that are no longer associated
+      let model = this._schema[toCollectionName(association.modelName)]
+        .find(this.attrs[fk]);
+
+      model.disassociateModelWithKey(this, inverse.key);
+      model._updateInDb(model.attrs);
+    }
+  }
+
   _saveNewChildren(association) {
-    let key = association.key;
+    let { key } = association;
     let fk = association.getForeignKey();
     let tempChildren = this._tempAssociations && this._tempAssociations[key];
 

@@ -13,7 +13,7 @@ module('Integration | ORM | Belongs To | Reflexive | association #create', {
 states.forEach((state) => {
 
   test(`a ${state} can create an associated parent`, function(assert) {
-    let [ user ] = this.helper[state]();
+    let [ user, originalUser ] = this.helper[state]();
 
     let ganon = user.createUser({ name: 'Ganon' });
 
@@ -23,6 +23,11 @@ states.forEach((state) => {
     assert.equal(user.userId, ganon.id);
     assert.equal(ganon.userId, user.id, 'the inverse was set');
     assert.equal(this.helper.schema.users.find(user.id).userId, ganon.id, 'the user was persisted');
+
+    if (originalUser) {
+      originalUser.reload();
+      assert.equal(originalUser.userId, null, 'old inverses were cleared out');
+    }
   });
 
 });

@@ -90,5 +90,4 @@ export default class BaseRouteHandler {
 
     return attrs;
   }
-
 }

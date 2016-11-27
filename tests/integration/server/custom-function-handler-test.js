@@ -63,6 +63,7 @@ test(`#normalizedRequestAttrs returns an object with the primary resource's attr
   $.ajax({
     method: 'POST',
     url: '/contacts',
+    contentType: 'application/json',
     data: JSON.stringify({
       contact: {
         first_name: 'Sam',
@@ -75,19 +76,19 @@ test(`#normalizedRequestAttrs returns an object with the primary resource's attr
   });
 });
 
-test(`#normalizedFormData parses a x-www-form-urlencoded request and returns a POJO`, function(assert) {
+test(`#normalizedRequestAttrs parses a x-www-form-urlencoded request and returns a POJO`, function(assert) {
   assert.expect(1);
   let done = assert.async();
   let { server } = this;
 
   server.post('/form-test', function() {
-    let attrs = this.normalizedFormData();
+    let attrs = this.normalizedRequestAttrs();
 
     assert.deepEqual(attrs, {
       name: 'Sam Selikoff',
       company: 'TED',
       email: 'sam.selikoff@gmail.com'
-    });
+    }, '#normalizedRequestAttrs successfully returned the parsed x-www-form-urlencoded request body');
 
     return {};
   });

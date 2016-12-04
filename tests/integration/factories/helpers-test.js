@@ -31,7 +31,7 @@ module('Integration | Server | Factories | helpers', {
           author: association(),
 
           withCategory: trait({
-            kind: association('category')
+            kind: association()
           })
         })
       }

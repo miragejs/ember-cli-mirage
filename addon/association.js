@@ -1,7 +1,6 @@
-let association = function(nameOverride, ...traitsAndOverrides) {
+let association = function(...traitsAndOverrides) {
   let __isAssociation__ = true;
   return {
-    nameOverride,
     __isAssociation__,
     traitsAndOverrides
   };

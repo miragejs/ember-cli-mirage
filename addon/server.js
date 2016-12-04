@@ -2,11 +2,8 @@
 
 import { pluralize, camelize } from './utils/inflector';
 import { toCollectionName } from 'ember-cli-mirage/utils/normalize-name';
-<<<<<<< HEAD
 import Ember from 'ember';
-=======
 import isAssociation from 'ember-cli-mirage/utils/is-association';
->>>>>>> implement association helper
 import Pretender from 'pretender';
 import Db from './db';
 import Schema from './orm/schema';
@@ -249,8 +246,8 @@ export default class Server {
       let attrs = OriginalFactory.attrs || {};
       this._validateTraits(traits, OriginalFactory, type);
       let mergedExtensions = this._mergeExtensions(attrs, traits, overrides);
-      this._mapAssociationsFromAttributes(attrs);
-      this._mapAssociationsFromAttributes(mergedExtensions);
+      this._mapAssociationsFromAttributes(type, attrs);
+      this._mapAssociationsFromAttributes(type, mergedExtensions);
 
       let Factory = OriginalFactory.extend(mergedExtensions);
       let factory = new Factory();
@@ -468,15 +465,28 @@ export default class Server {
     }, {});
   }
 
-  _mapAssociationsFromAttributes(attributes) {
-    Object.keys(attributes).filter((attr) => {
+  _mapAssociationsFromAttributes(modelType, attributes) {
+    Object.keys(attributes || {}).filter((attr) => {
       return isAssociation(attributes[attr]);
     }).forEach((attr) => {
       let association = attributes[attr];
-      let associationName = association.nameOverride || camelize(attr);
+      let associationName = this._fetchAssociationNameFromModel(modelType, attr);
       let foreignKey = `${camelize(attr)}Id`;
       attributes[foreignKey] = this.create(associationName, ...association.traitsAndOverrides).id;
       delete attributes[attr];
     });
+  }
+
+  _fetchAssociationNameFromModel(modelType, associationAttribute) {
+    let model = this.schema.modelFor(modelType);
+    if (!model) {
+      throw new Error(`Model not registered: ${modelType}`);
+    }
+
+    let association = model.class.findBelongsToAssociation(associationAttribute);
+    if (!association) {
+      throw new Error(`Association ${associationAttribute} not defined in model: ${modelType}`);
+    }
+    return camelize(association.modelName);
   }
 }

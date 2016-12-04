@@ -1,7 +1,7 @@
 // jscs:disable requireCamelCaseOrUpperCaseIdentifiers, disallowMultipleVarDecl
 import Server, { defaultPassthroughs } from 'ember-cli-mirage/server';
 import {module, test} from 'qunit';
-import { Model, Factory, trait, association } from 'ember-cli-mirage';
+import { Model, Factory, belongsTo, hasMany, trait, association } from 'ember-cli-mirage';
 
 module('Unit | Server');
 
@@ -476,11 +476,7 @@ test('create allows to create objects with associations', function(assert) {
     title: 'Lorem ipsum',
 
     withCategory: trait({
-      awesomeCategory: association('category')
-    }),
-
-    someOtherTrait: trait({
-      user: association()
+      awesomeCategory: association()
     }),
 
     author: association()
@@ -488,6 +484,17 @@ test('create allows to create objects with associations', function(assert) {
 
   let server = new Server({
     environment: 'test',
+    models: {
+      author: Model.extend({
+        articles: hasMany()
+      }),
+      category: Model.extend({
+      }),
+      article: Model.extend({
+        author: belongsTo(),
+        awesomeCategory: belongsTo('category')
+      })
+    },
     factories: {
       article: ArticleFactory,
       author: AuthorFactory,
@@ -497,7 +504,7 @@ test('create allows to create objects with associations', function(assert) {
 
   let article = server.create('article', 'withCategory');
 
-  assert.deepEqual(article, { title: 'Lorem ipsum', id: '1', authorId: '1', awesomeCategoryId: '1' });
+  assert.deepEqual(article.attrs, { title: 'Lorem ipsum', id: '1', authorId: '1', awesomeCategoryId: '1' });
   assert.equal(server.db.authors.length, 1);
   assert.equal(server.db.categories.length, 1);
 });
@@ -515,7 +522,7 @@ test('create allows to create objects with associations with traits and override
     title: 'Lorem ipsum',
 
     withCategory: trait({
-      category: association('category', 'published', { publishedAt: '2016-01-01 12:00:00' })
+      category: association('published', { publishedAt: '2016-01-01 12:00:00' })
     })
   });
 
@@ -524,11 +531,19 @@ test('create allows to create objects with associations with traits and override
     factories: {
       article: ArticleFactory,
       category: CategoryFactory
+    },
+    models: {
+      category: Model.extend({
+      }),
+      article: Model.extend({
+        category: belongsTo('category')
+      })
     }
   });
 
   let article = server.create('article', 'withCategory');
-  assert.deepEqual(article, { title: 'Lorem ipsum', id: '1', categoryId: '1' });
+
+  assert.deepEqual(article.attrs, { title: 'Lorem ipsum', id: '1', categoryId: '1' });
   assert.equal(server.db.categories.length, 1);
   assert.deepEqual(
     server.db.categories[0],
@@ -884,7 +899,7 @@ test('build allows to build objects with associations', function(assert) {
     title: 'Lorem ipsum',
 
     withCategory: trait({
-      awesomeCategory: association('category')
+      awesomeCategory: association()
     }),
 
     someOtherTrait: trait({
@@ -898,6 +913,17 @@ test('build allows to build objects with associations', function(assert) {
     article: ArticleFactory,
     author: AuthorFactory,
     category: CategoryFactory
+  });
+  this.server.schema.registerModels({
+    author: Model.extend({
+      articles: hasMany()
+    }),
+    category: Model.extend({
+    }),
+    article: Model.extend({
+      author: belongsTo(),
+      awesomeCategory: belongsTo('category')
+    })
   });
 
   let article = this.server.build('article', 'withCategory');
@@ -920,7 +946,7 @@ test('build allows to build objects with associations with traits and overrides 
     title: 'Lorem ipsum',
 
     withCategory: trait({
-      category: association('category', 'published', { publishedAt: '2016-01-01 12:00:00' })
+      category: association('published', { publishedAt: '2016-01-01 12:00:00' })
     })
   });
 
@@ -929,10 +955,18 @@ test('build allows to build objects with associations with traits and overrides 
     factories: {
       article: ArticleFactory,
       category: CategoryFactory
+    },
+    models: {
+      category: Model.extend({
+      }),
+      article: Model.extend({
+        category: belongsTo()
+      })
     }
   });
 
   let article = server.build('article', 'withCategory');
+
   assert.deepEqual(article, { title: 'Lorem ipsum', categoryId: '1' });
   assert.equal(server.db.categories.length, 1);
   assert.deepEqual(
@@ -962,6 +996,75 @@ test('build throws errors when using trait that is not defined and distinquishes
   assert.throws(() => {
     this.server.build('article', 'private');
   }, /'private' trait is not registered in 'article' factory/);
+});
+
+test('build does not build objects and throws error if model is not registered and association helper is used', function(assert) {
+  let CategoryFactory = Factory.extend({
+    name: 'splendid software',
+
+    published: trait({
+      isPublished: true,
+      publishedAt: '2014-01-01 10:00:00'
+    })
+  });
+  let ArticleFactory = Factory.extend({
+    title: 'Lorem ipsum',
+
+    withCategory: trait({
+      category: association('published', { publishedAt: '2016-01-01 12:00:00' })
+    })
+  });
+
+  let server = new Server({
+    environment: 'test',
+    factories: {
+      article: ArticleFactory,
+      category: CategoryFactory
+    },
+    models: {
+      category: Model.extend({
+      })
+    }
+  });
+
+  assert.throws(() => {
+    server.build('article', 'withCategory');
+  }, 'Model not registered: article');
+});
+
+test('build does not build objects and throws error if model for given association is not registered', function(assert) {
+  let CategoryFactory = Factory.extend({
+    name: 'splendid software',
+
+    published: trait({
+      isPublished: true,
+      publishedAt: '2014-01-01 10:00:00'
+    })
+  });
+  let ArticleFactory = Factory.extend({
+    title: 'Lorem ipsum',
+
+    withCategory: trait({
+      category: association('published', { publishedAt: '2016-01-01 12:00:00' })
+    })
+  });
+
+  let server = new Server({
+    environment: 'test',
+    factories: {
+      article: ArticleFactory,
+      category: CategoryFactory
+    },
+    models: {
+      article: Model.extend({
+        category: belongsTo('association')
+      })
+    }
+  });
+
+  assert.throws(() => {
+    server.build('article', 'withCategory');
+  }, 'Association category not defined in model: article');
 });
 
 module('Unit | Server #buildList', {

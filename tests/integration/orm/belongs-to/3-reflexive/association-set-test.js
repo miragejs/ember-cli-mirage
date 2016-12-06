@@ -13,32 +13,50 @@ module('Integration | ORM | Belongs To | Reflexive | association #set', {
 states.forEach((state) => {
 
   test(`a ${state} can update its association to a saved parent`, function(assert) {
-    let [ user ] = this.helper[state]();
+    let [ user, originalUser ] = this.helper[state]();
     let friend = this.helper.savedParent();
 
     user.user = friend;
 
     assert.equal(user.userId, friend.id);
     assert.deepEqual(user.user.attrs, friend.attrs);
+
+    user.save();
+    if (originalUser) {
+      originalUser.reload();
+      assert.equal(originalUser.userId, null, 'old inverses were cleared out');
+    }
   });
 
   test(`a ${state} can update its association to a new parent`, function(assert) {
-    let [ user ] = this.helper[state]();
+    let [ user, originalUser ] = this.helper[state]();
     let friend = this.helper.newParent();
 
     user.user = friend;
 
     assert.equal(user.userId, null);
     assert.deepEqual(user.user.attrs, friend.attrs);
+
+    user.save();
+    if (originalUser) {
+      originalUser.reload();
+      assert.equal(originalUser.userId, null, 'old inverses were cleared out');
+    }
   });
 
   test(`a ${state} can update its association to a null parent`, function(assert) {
-    let [ user ] = this.helper[state]();
+    let [ user, originalUser ] = this.helper[state]();
 
     user.user = null;
 
     assert.equal(user.userId, null);
     assert.deepEqual(user.user, null);
+
+    user.save();
+    if (originalUser) {
+      originalUser.reload();
+      assert.equal(originalUser.userId, null, 'old inverses were cleared out');
+    }
   });
 
 });

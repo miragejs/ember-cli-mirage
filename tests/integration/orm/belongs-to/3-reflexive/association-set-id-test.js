@@ -13,13 +13,19 @@ module('Integration | ORM | Belongs To | Reflexive | association #setId', {
 states.forEach((state) => {
 
   test(`a ${state} can update its association to a saved parent via parentId`, function(assert) {
-    let [ user ] = this.helper[state]();
+    let [ user, originalUser ] = this.helper[state]();
     let friend = this.helper.savedParent();
 
     user.userId = friend.id;
 
     assert.equal(user.userId, friend.id);
     assert.deepEqual(user.user.attrs, friend.attrs);
+
+    user.save();
+    if (originalUser) {
+      originalUser.reload();
+      assert.equal(originalUser.userId, null, 'old inverses were cleared out');
+    }
   });
 
 });
@@ -30,12 +36,18 @@ states.forEach((state) => {
 ].forEach((state) => {
 
   test(`a ${state} can clear its association via a null parentId`, function(assert) {
-    let [ user ] = this.helper[state]();
+    let [ user, originalUser ] = this.helper[state]();
 
     user.userId = null;
 
     assert.equal(user.userId, null);
     assert.equal(user.user, null);
+
+    user.save();
+    if (originalUser) {
+      originalUser.reload();
+      assert.equal(originalUser.userId, null, 'old inverses were cleared out');
+    }
   });
 
 });

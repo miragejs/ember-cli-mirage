@@ -14,7 +14,7 @@ module('Integration | ORM | Belongs To | Reflexive | association #new', {
 states.forEach((state) => {
 
   test(`a ${state} can build a new associated parent`, function(assert) {
-    let [ user ] = this.helper[state]();
+    let [ user, originalUser ] = this.helper[state]();
 
     let ganon = user.newUser({ name: 'Ganon' });
 
@@ -27,6 +27,11 @@ states.forEach((state) => {
 
     assert.ok(ganon.id, 'saving the child persists the parent');
     assert.equal(user.userId, ganon.id, 'the childs fk was updated');
+
+    if (originalUser) {
+      originalUser.reload();
+      assert.equal(originalUser.userId, null, 'old inverses were cleared out');
+    }
   });
 
 });

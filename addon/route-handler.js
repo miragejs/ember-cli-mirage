@@ -39,7 +39,7 @@ function createHandler({ verb, schema, serializerOrRegistry, path, rawHandler, o
   } else if (verb === 'head') {
     handler = new HeadShorthandHandler(...args);
   } else if (verb === 'options') {
-    handler = new GetShorthandHandler(...args);
+    handler = new FunctionHandler(...args);
   }
   return handler;
 }

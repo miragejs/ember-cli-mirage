@@ -370,41 +370,17 @@ class Model {
   }
 
   _saveBelongsToAssociations() {
-    Object.keys(this.belongsToAssociations).forEach(key => {
-      let association = this.belongsToAssociations[key];
-      let tempAssociation = this._tempAssociations && this._tempAssociations[key];
-      let fk = association.getForeignKey();
-
+    _values(this.belongsToAssociations).forEach(association => {
       this._disassociateFromOldInverses(association);
-
-      if (tempAssociation !== undefined) {
-        this.__isSavingNewChildren = true;
-        delete this._tempAssociations[key];
-        if (tempAssociation === null) {
-          this._updateInDb({ [fk]: null });
-        } else {
-          tempAssociation.save();
-          this._updateInDb({ [fk]: tempAssociation.id });
-        }
-        this.__isSavingNewChildren = false;
-      }
-
-      // Save inverse
-      if (this[fk] && association.inverse() && !this.__isSavingNewChildren) {
-        let inverseFk = association
-          .inverse()
-          .getForeignKey();
-
-        this._schema.db[toCollectionName(association.modelName)]
-          .update(this[fk], { [inverseFk]: this.id });
-      }
+      this._saveNewAssociates(association);
+      this._associateWithNewInverse(association);
     });
   }
 
   _saveHasManyAssociations() {
     _values(this.hasManyAssociations).forEach(association => {
       this._disassociateFromOldInverses(association);
-      this._saveNewChildren(association);
+      this._saveNewAssociates(association);
       this._associateWithNewInverses(association);
     });
   }
@@ -454,21 +430,45 @@ class Model {
     }
   }
 
-  _saveNewChildren(association) {
+  _saveNewAssociates(association) {
     let { key } = association;
     let fk = association.getForeignKey();
-    let tempChildren = this._tempAssociations && this._tempAssociations[key];
+    let tempAssociate = this._tempAssociations && this._tempAssociations[key];
 
-    if (tempChildren !== undefined) {
+    if (tempAssociate !== undefined) {
       this.__isSavingNewChildren = true;
       delete this._tempAssociations[key];
 
-      tempChildren.models.forEach(child => {
-        child.save();
-      });
+      if (tempAssociate instanceof Collection) {
+        tempAssociate.models.forEach(child => {
+          child.save();
+        });
 
-      this._updateInDb({ [fk]: tempChildren.models.map(child => child.id) });
+        this._updateInDb({ [fk]: tempAssociate.models.map(child => child.id) });
+      } else {
+
+        if (tempAssociate === null) {
+          this._updateInDb({ [fk]: null });
+        } else {
+          tempAssociate.save();
+          this._updateInDb({ [fk]: tempAssociate.id });
+        }
+      }
+
       this.__isSavingNewChildren = false;
+    }
+  }
+
+  _associateWithNewInverse(association) {
+    let fk = association.getForeignKey();
+
+    if (this[fk] && association.inverse() && !this.__isSavingNewChildren) {
+      let inverseFk = association
+        .inverse()
+        .getForeignKey();
+
+      this._schema.db[toCollectionName(association.modelName)]
+        .update(this[fk], { [inverseFk]: this.id });
     }
   }
 
@@ -498,8 +498,8 @@ class Model {
     }
   }
 
-  // Used to update data directly, since #update retriggers a save which could
-  // cause cycles with associations.
+  // Used to update data directly, since #save and #update can retrigger saves,
+  // which can cause cycles with associations.
   _updateInDb(attrs) {
     this.attrs = this._schema.db[toCollectionName(this.modelName)].update(this.attrs.id, attrs);
   }

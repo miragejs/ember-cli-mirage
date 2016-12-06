@@ -444,7 +444,7 @@ class Model {
     let tempAssociation = this._tempAssociations && this._tempAssociations[key];
     let oldInversesExist = this.attrs[fk];
 
-    if (inverse && tempAssociation && oldInversesExist) {
+    if (inverse && (tempAssociation !== undefined) && oldInversesExist) {
       // Disassociate currently persisted models that are no longer associated
       let model = this._schema[toCollectionName(association.modelName)]
         .find(this.attrs[fk]);

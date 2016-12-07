@@ -9,7 +9,7 @@ import Schema from './orm/schema';
 import assert from './assert';
 import SerializerRegistry from './serializer-registry';
 import RouteHandler from './route-handler';
-import RequestAssertion from './request-assertion';
+import requestAssertionDsl from './request-assertion-dsl';
 
 import _pick from 'lodash/object/pick';
 import _assign from 'lodash/object/assign';
@@ -374,11 +374,11 @@ export default class Server {
   }
 
   get received() {
-    return new RequestAssertion(this.requests).received;
+    return requestAssertionDsl(this.requests).received;
   }
 
   get didNotReceive() {
-    return new RequestAssertion(this.requests).didNotReceive;
+    return requestAssertionDsl(this.requests).didNotReceive;
   }
 
   _defineRouteHandlerHelpers() {

@@ -338,6 +338,7 @@ class Model {
    * @private
    */
   _validateForeignKeyExistsInDatabase(foreignKeyName, foreignKeys) {
+    debugger;
     if (Array.isArray(foreignKeys)) {
       let associationModelName = Object.keys(this.hasManyAssociations)
         .map(key => this.hasManyAssociations[key])

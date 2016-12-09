@@ -21,3 +21,5 @@ moduleForComponent('your-component', 'Integration | Component | your component',
   }
 });
 ```
+
+If you are using Mirage in an Ember addon, you'll need to change the import path to `dummy/initializers/ember-cli-mirage`.

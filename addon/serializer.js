@@ -50,15 +50,15 @@ class Serializer {
       return this.buildPayload(undefined, newIncludes, newDidSerialize, resourceHash);
 
     } else {
-      let nextIncludedResource = toInclude.shift();
-      let [ resourceHash, newIncludes ] = this.getHashForIncludedResource(nextIncludedResource);
+      let { key, resource } = toInclude.shift();
+      let [ resourceHash, newIncludes ] = this.getHashForIncludedResource(key, resource);
 
       let newToInclude = newIncludes
-        .filter(resource => {
+        .filter(({ resource }) => {
           return !_includes(didSerialize.map(m => m.toString()), resource.toString());
         })
         .concat(toInclude);
-      let newDidSerialize = (this.isCollection(nextIncludedResource) ? nextIncludedResource.models : [ nextIncludedResource ])
+      let newDidSerialize = (this.isCollection(resource) ? resource.models : [ resource ])
         .concat(didSerialize);
       let newJson = this.mergePayloads(json, resourceHash);
 
@@ -72,7 +72,7 @@ class Serializer {
 
     if (this.root) {
       let serializer = this.serializerFor(resource.modelName);
-      let rootKey = serializer.keyForResource(resource);
+      let rootKey = serializer.keyForResource(resource.modelName, resource);
       hashWithRoot = { [rootKey]: hash };
     } else {
       hashWithRoot = hash;
@@ -81,13 +81,13 @@ class Serializer {
     return [ hashWithRoot, addToIncludes ];
   }
 
-  getHashForIncludedResource(resource) {
+  getHashForIncludedResource(key, resource) {
+    let pluralKey = pluralize(key);
     let serializer = this.serializerFor(resource.modelName);
     let [ hash, addToIncludes ] = serializer.getHashForResource(resource);
 
     // Included resources always have a root, and are always pushed to an array.
-    let rootKey = serializer.keyForRelationship(resource.modelName);
-    let hashWithRoot = _isArray(hash) ? { [rootKey]: hash } : { [rootKey]: [ hash ] };
+    let hashWithRoot = _isArray(hash) ? { [pluralKey]: hash } : { [pluralKey]: [ hash ] };
 
     return [ hashWithRoot, addToIncludes ];
   }
@@ -106,17 +106,28 @@ class Serializer {
       return [ hash ];
 
     } else {
-      let addToIncludes = _(serializer.getKeysForIncluded())
-        .map(key => {
+      let addToIncludes = _(serializer.getKeysForIncluded()
+        .reduce((acc, key)=> {
           if (this.isCollection(resource)) {
-            return resource.models.map(m => m[key]);
-          } else {
-            return resource[key];
+            let { models } = resource;
+            let resources = models.filter(m => m[key]).map(r => ({
+              key: this.keyForCollection(key),
+              resource: r[key]
+            }));
+
+            return [...acc, ...resources];
           }
-        })
-        .flatten()
-        .compact()
-        .uniq(m => m.toString())
+
+          if (resource[key]) {
+            return [
+              ...acc,
+              { key: this.keyForModel(key), resource: resource[key] }
+            ];
+          }
+
+          return acc;
+        }, []))
+        .uniq(({ resource }) => resource.toString())
         .value();
 
       return [ hash, addToIncludes ];
@@ -167,9 +178,8 @@ class Serializer {
     return newJson;
   }
 
-  keyForResource(resource) {
-    let { modelName } = resource;
-    return this.isModel(resource) ? this.keyForModel(modelName) : this.keyForCollection(modelName);
+  keyForResource(key, resource) {
+    return this.isModel(resource) ? this.keyForModel(key) : this.keyForCollection(key);
   }
 
   /**
@@ -213,11 +223,12 @@ class Serializer {
         let associatedResource = model[key];
         if (!_get(newDidSerialize, `${associatedResource.modelName}.${associatedResource.id}`)) {
           let [ associatedResourceHash ] = this.getHashForResource(associatedResource, true, newDidSerialize, true);
-          let formattedKey = this.keyForResource(associatedResource);
+          let formattedKey = this.keyForResource(key, associatedResource);
+
           attrs[formattedKey] = associatedResourceHash;
 
           if (this.isModel(associatedResource)) {
-            let fk = `${camelize(associatedResource.modelName)}Id`;
+            let fk = `${camelize(key)}Id`;
             delete attrs[fk];
           }
         }

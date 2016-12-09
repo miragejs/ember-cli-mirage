@@ -1,3 +1,5 @@
+import Model from '../model';
+
 export default class Association {
 
   constructor(modelName, opts) {
@@ -80,15 +82,20 @@ export default class Association {
    *
    * @public
   */
-  inversesMatch(inverse, owner) {
+  // TODO: rename to inversesAlreadyAssociated
+  inversesAlreadyAssociated(inverse, owner) {
     let inverseKey = this.inverse().key;
-    let modelOnInverse = inverse[inverseKey];
+    let inverseAssociation = inverse[inverseKey];
 
-    if (modelOnInverse && owner) {
-      if (modelOnInverse.isSaved() && owner.isSaved()) {
-        return modelOnInverse.toString() === owner.toString();
+    if (inverseAssociation && owner) {
+      if (inverseAssociation instanceof Model) {
+        if (inverseAssociation.isSaved() && owner.isSaved()) {
+          return inverseAssociation.toString() === owner.toString();
+        } else {
+          return inverseAssociation === owner;
+        }
       } else {
-        return modelOnInverse === owner;
+        return inverseAssociation.includes(owner);
       }
     }
   }

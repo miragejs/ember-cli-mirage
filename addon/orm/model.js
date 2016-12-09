@@ -197,6 +197,8 @@ class Model {
       if (currentModels.indexOf(model) === -1) {
         this[key].add(model);
       }
+    } else {
+      this[key] = model;
     }
   }
 
@@ -338,7 +340,6 @@ class Model {
    * @private
    */
   _validateForeignKeyExistsInDatabase(foreignKeyName, foreignKeys) {
-    debugger;
     if (Array.isArray(foreignKeys)) {
       let associationModelName = Object.keys(this.hasManyAssociations)
         .map(key => this.hasManyAssociations[key])
@@ -462,14 +463,15 @@ class Model {
 
   _associateWithNewInverse(association) {
     let fk = association.getForeignKey();
+    let inverse = association.inverse();
 
-    if (this[fk] && association.inverse() && !this.__isSavingNewChildren) {
-      let inverseFk = association
-        .inverse()
-        .getForeignKey();
+    if (this[fk] && inverse && (inverse instanceof BelongsTo) && !this.__isSavingNewChildren) {
+      let inverseFk = inverse.getForeignKey();
 
       this._schema.db[toCollectionName(association.modelName)]
         .update(this[fk], { [inverseFk]: this.id });
+
+    } else if (this[fk] && inverse && (inverse instanceof HasMany) && !this.__isSavingNewChildren) {
     }
   }
 
@@ -478,7 +480,7 @@ class Model {
     let inverse = association.inverse();
 
     // Associate new models
-    if (inverse && !this.__isSavingNewChildren) {
+    if (inverse && (inverse instanceof HasMany) && !this.__isSavingNewChildren) {
       this._schema[toCollectionName(association.modelName)]
         .find(this[fk])
         .models
@@ -495,7 +497,17 @@ class Model {
 
           inverseCollection.update(model.id, { [inverseFk]: newIdsForInverse });
         });
+    } else if (inverse && (inverse instanceof BelongsTo) && !this.__isSavingNewChildren) {
+      this._schema[toCollectionName(association.modelName)]
+        .find(this[fk])
+        .models
+        .forEach(model => {
+          let inverseFk = inverse.getForeignKey();
+          let ownerId = this.id;
+          let inverseCollection = this._schema.db[toCollectionName(model.modelName)];
 
+          inverseCollection.update(model.id, { [inverseFk]: ownerId });
+        });
     }
   }
 

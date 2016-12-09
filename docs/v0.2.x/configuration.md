@@ -43,6 +43,10 @@ export default function() {
 };
 ```
 
+If your Ember app is loaded from the filesystem vs. a server (e.g. via Cordova or Electron vs. `ember s` or `https://yourhost.com/`), you will need to explicitly define a namespace. Likely values are `/` (if requests are made with relative paths) or `https://yourhost.com/api/...` (if requests are made to a defined server).
+
+For a sample implementation leveraging a configured API host & namespace, check out [this issue comment](https://github.com/samselikoff/ember-cli-mirage/issues/497#issuecomment-183458721)
+
 <a name="timing" href="#timing">#</a> this.<b>timing</b>
 
 Set the timing parameter of the response. Default is a 400ms delay during development and 0 delay in testing (so your tests run fast).

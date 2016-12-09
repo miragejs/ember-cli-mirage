@@ -99,8 +99,8 @@ export default Factory.extend({
 
   afterCreate(contact, server) {
     // Only allow a max of 5 admins to be created
-    if (server.contacts.where({ isAdmin: true }).length >= 5) {
-      contact.isAdmin = false;
+    if (server.schema.contacts.where({ isAdmin: true }).models.length >= 5) {
+      contact.update({ isAdmin: false });
     }
   }
 

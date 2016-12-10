@@ -1,4 +1,5 @@
 import Model from '../model';
+import { dasherize } from 'ember-cli-mirage/utils/inflector';
 
 export default class Association {
 
@@ -9,7 +10,7 @@ export default class Association {
       this.opts = modelName;
     } else {
       // The modelName of the association
-      this.modelName = modelName;
+      this.modelName = dasherize(modelName);
       this.opts = opts || {};
     }
 

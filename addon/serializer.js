@@ -267,6 +267,9 @@ class Serializer {
         if (this.isCollection(association)) {
           let formattedKey = this.keyForRelationshipIds(key);
           newHash[formattedKey] = model[key].models.map(m => m.id);
+        } else if (association) {
+          let formattedKey = this.keyForForeignKey(key);
+          newHash[formattedKey] = model[key].id;
         }
       });
     } else if (this.serializeIds === 'included') {
@@ -275,6 +278,9 @@ class Serializer {
         if (this.isCollection(association)) {
           let formattedKey = this.keyForRelationshipIds(key);
           newHash[formattedKey] = model[key].models.map(m => m.id);
+        } else if (association) {
+          let formattedKey = this.keyForForeignKey(key);
+          newHash[formattedKey] = model[key].id;
         }
       });
     }
@@ -353,6 +359,10 @@ class Serializer {
    */
   keyForRelationshipIds(relationshipName) {
     return `${singularize(camelize(relationshipName))}Ids`;
+  }
+
+  keyForForeignKey(relationshipName) {
+    return `${camelize(relationshipName)}Id`;
   }
 
   /**

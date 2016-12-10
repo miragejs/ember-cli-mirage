@@ -50,15 +50,15 @@ class Serializer {
       return this.buildPayload(undefined, newIncludes, newDidSerialize, resourceHash);
 
     } else {
-      let { key, resource } = toInclude.shift();
-      let [ resourceHash, newIncludes ] = this.getHashForIncludedResource(key, resource);
+      let nextIncludedResource = toInclude.shift();
+      let [ resourceHash, newIncludes ] = this.getHashForIncludedResource(nextIncludedResource);
 
       let newToInclude = newIncludes
-        .filter(({ resource }) => {
+        .filter(resource => {
           return !_includes(didSerialize.map(m => m.toString()), resource.toString());
         })
         .concat(toInclude);
-      let newDidSerialize = (this.isCollection(resource) ? resource.models : [ resource ])
+      let newDidSerialize = (this.isCollection(nextIncludedResource) ? nextIncludedResource.models : [ nextIncludedResource ])
         .concat(didSerialize);
       let newJson = this.mergePayloads(json, resourceHash);
 
@@ -72,7 +72,7 @@ class Serializer {
 
     if (this.root) {
       let serializer = this.serializerFor(resource.modelName);
-      let rootKey = serializer.keyForResource(resource.modelName, resource);
+      let rootKey = serializer.keyForResource(resource);
       hashWithRoot = { [rootKey]: hash };
     } else {
       hashWithRoot = hash;
@@ -81,13 +81,13 @@ class Serializer {
     return [ hashWithRoot, addToIncludes ];
   }
 
-  getHashForIncludedResource(key, resource) {
-    let pluralKey = pluralize(key);
+  getHashForIncludedResource(resource) {
     let serializer = this.serializerFor(resource.modelName);
     let [ hash, addToIncludes ] = serializer.getHashForResource(resource);
 
     // Included resources always have a root, and are always pushed to an array.
-    let hashWithRoot = _isArray(hash) ? { [pluralKey]: hash } : { [pluralKey]: [ hash ] };
+    let rootKey = serializer.keyForRelationship(resource.modelName);
+    let hashWithRoot = _isArray(hash) ? { [rootKey]: hash } : { [rootKey]: [ hash ] };
 
     return [ hashWithRoot, addToIncludes ];
   }
@@ -106,28 +106,17 @@ class Serializer {
       return [ hash ];
 
     } else {
-      let addToIncludes = _(serializer.getKeysForIncluded()
-        .reduce((acc, key)=> {
+      let addToIncludes = _(serializer.getKeysForIncluded())
+        .map(key => {
           if (this.isCollection(resource)) {
-            let { models } = resource;
-            let resources = models.filter(m => m[key]).map(r => ({
-              key: this.keyForCollection(key),
-              resource: r[key]
-            }));
-
-            return [...acc, ...resources];
+            return resource.models.map(m => m[key]);
+          } else {
+            return resource[key];
           }
-
-          if (resource[key]) {
-            return [
-              ...acc,
-              { key: this.keyForModel(key), resource: resource[key] }
-            ];
-          }
-
-          return acc;
-        }, []))
-        .uniq(({ resource }) => resource.toString())
+        })
+        .flatten()
+        .compact()
+        .uniq(m => m.toString())
         .value();
 
       return [ hash, addToIncludes ];
@@ -178,8 +167,9 @@ class Serializer {
     return newJson;
   }
 
-  keyForResource(key, resource) {
-    return this.isModel(resource) ? this.keyForModel(key) : this.keyForCollection(key);
+  keyForResource(resource) {
+    let { modelName } = resource;
+    return this.isModel(resource) ? this.keyForModel(modelName) : this.keyForCollection(modelName);
   }
 
   /**
@@ -223,8 +213,7 @@ class Serializer {
         let associatedResource = model[key];
         if (!_get(newDidSerialize, `${associatedResource.modelName}.${associatedResource.id}`)) {
           let [ associatedResourceHash ] = this.getHashForResource(associatedResource, true, newDidSerialize, true);
-          let formattedKey = this.keyForResource(key, associatedResource);
-
+          let formattedKey = this.keyForEmbeddedRelationship(key);
           attrs[formattedKey] = associatedResourceHash;
 
           if (this.isModel(associatedResource)) {
@@ -328,6 +317,15 @@ class Serializer {
    */
   keyForRelationship(modelName) {
     return camelize(pluralize(modelName));
+  }
+
+  /**
+   * @method keyForEmbeddedRelationship
+   * @param attributeName
+   * @public
+   */
+  keyForEmbeddedRelationship(attributeName) {
+    return camelize(attributeName);
   }
 
   /**

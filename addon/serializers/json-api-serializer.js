@@ -30,7 +30,7 @@ export default Serializer.extend({
     return [ hashWithRoot, addToIncludes ];
   },
 
-  getHashForIncludedResource(key, resource) {
+  getHashForIncludedResource(resource) {
     let serializer = this.serializerFor(resource.modelName);
     let hash = serializer.getHashForResource(resource);
     let hashWithRoot = { included: (this.isModel(resource) ? [ hash ] : hash) };
@@ -77,46 +77,51 @@ export default Serializer.extend({
     relationshipPaths.forEach(path => {
       let relationshipNames = path.split('.');
       let newIncludes = this.getIncludesForResourceAndPath(resource, ...relationshipNames);
-
-      includes = includes.concat(newIncludes);
+      includes.push(newIncludes);
     });
 
     return _(includes)
-      .uniq(({ resource }) => resource.toString())
+      .flatten()
+      .compact()
+      .uniq(m => m.toString())
       .value();
   },
 
   getIncludesForResourceAndPath(resource, ...names) {
-    let key = camelize(names.shift());
+    let nameForCurrentResource = camelize(names.shift());
     let includes = [];
     let modelsToAdd = [];
 
     if (this.isModel(resource)) {
-      modelsToAdd = modelsToAdd.concat(this._getModelsToAdd(key, resource[key]));
+      let relationship = resource[nameForCurrentResource];
+
+      if (this.isModel(relationship)) {
+        modelsToAdd = [ relationship ];
+      } else if (this.isCollection(relationship)) {
+        modelsToAdd = relationship.models;
+      }
+
     } else {
       resource.models.forEach(model => {
-        modelsToAdd = modelsToAdd.concat(this._getModelsToAdd(key, model[key]));
+        let relationship = model[nameForCurrentResource];
+
+        if (this.isModel(relationship)) {
+          modelsToAdd.push(relationship);
+        } else if (this.isCollection(relationship)) {
+          modelsToAdd = modelsToAdd.concat(relationship.models);
+        }
       });
     }
 
-    // Add new models and remove empty relations
-    includes = includes.concat(modelsToAdd).filter(model => model);
+    includes = includes.concat(modelsToAdd);
 
     if (names.length) {
-      modelsToAdd.forEach(({ resource }) => {
-        includes = includes.concat(this.getIncludesForResourceAndPath(resource, ...names));
+      modelsToAdd.forEach(model => {
+        includes = includes.concat(this.getIncludesForResourceAndPath(model, ...names));
       });
     }
 
     return includes;
-  },
-
-  _getModelsToAdd(key, resource) {
-    if (this.isModel(resource)) {
-      return [{ key, resource }];
-    } else if (this.isCollection(resource)) {
-      return resource.models.map(r => ({ key, resource: r }));
-    }
   },
 
   _getResourceObjectForModel(model) {

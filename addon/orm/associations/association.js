@@ -9,8 +9,9 @@ export default class Association {
       this.modelName = undefined;
       this.opts = modelName;
     } else {
-      // The modelName of the association
-      this.modelName = dasherize(modelName);
+      // The modelName of the association. (Might not be passed in - set later
+      // by schema).
+      this.modelName = modelName ? dasherize(modelName) : '';
       this.opts = opts || {};
     }
 

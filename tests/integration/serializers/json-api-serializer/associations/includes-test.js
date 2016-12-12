@@ -33,6 +33,7 @@ module('Integration | Serializers | JSON API Serializer | Associations | Include
 });
 
 test('includes get serialized with correct serializer', function(assert) {
+  QUnit.dump.maxDepth = 20;
   let registry = new SerializerRegistry(this.schema, {
     application: JSONAPISerializer,
     blogPost: JSONAPISerializer.extend({
@@ -46,6 +47,7 @@ test('includes get serialized with correct serializer', function(assert) {
 
   let post = this.schema.blogPosts.create({ title: 'We love Mirage!' });
   post.createWordSmith({ firstName: 'Sam' });
+  debugger;
 
   let result = registry.serialize(post);
 

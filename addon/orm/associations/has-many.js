@@ -136,9 +136,7 @@ export default class extends Association {
 
         if (association.inverse())  {
           models.forEach(model => {
-            let inverseKey = association.inverse().key;
-
-            model.associateModelWithKey(this, inverseKey);
+            model.associate(this, association.inverse());
           });
         }
       }

@@ -218,7 +218,7 @@ The [Faker.js](https://github.com/marak/Faker.js/) library is included with Mira
 
 ```js
 // mirage/factories/user.js
-import { Factory, faker} from 'ember-cli-mirage';
+import { Factory, faker } from 'ember-cli-mirage';
 
 export default Factory.extend({
   firstName() {

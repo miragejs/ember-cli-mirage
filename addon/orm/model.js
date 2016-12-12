@@ -189,8 +189,8 @@ class Model {
     return this.associationFor(key).inverse();
   }
 
-  associateModelWithKey(model, key) {
-    let association = this.associationFor(key);
+  associate(model, association) {
+    let { key } = association;
 
     if (association instanceof HasMany) {
       let currentModels = this[key].models;
@@ -202,8 +202,7 @@ class Model {
     }
   }
 
-  disassociateModelWithKey(model, key) {
-    let association = this.associationFor(key);
+  disassociate(model, association) {
     let fk = association.getForeignKey();
 
     if (association instanceof HasMany) {
@@ -409,7 +408,7 @@ class Model {
         .models
         .filter(model => !tempAssociation.includes(model)) // filter out models that will still be associated
         .forEach(model => {
-          model.disassociateModelWithKey(this, inverse.key);
+          model.disassociate(this, inverse);
           model.save();
         });
     }
@@ -427,7 +426,7 @@ class Model {
       let model = this._schema[toCollectionName(association.modelName)]
         .find(this.attrs[fk]);
 
-      model.disassociateModelWithKey(this, inverse.key);
+      model.disassociate(this, inverse);
       model._updateInDb(model.attrs);
     }
   }
@@ -472,6 +471,16 @@ class Model {
         .update(this[fk], { [inverseFk]: this.id });
 
     } else if (this[fk] && inverse && (inverse instanceof HasMany) && !this.__isSavingNewChildren) {
+      let inverseFk = inverse.getForeignKey();
+      let inverseCollection = this._schema.db[toCollectionName(association.modelName)];
+      let currentIdsForInverse = inverseCollection.find(this[fk])[inverse.getForeignKey()] || [];
+      let newIdsForInverse = currentIdsForInverse;
+
+      if (newIdsForInverse.indexOf(this.id) === -1) {
+        newIdsForInverse.push(this.id);
+      }
+
+      inverseCollection.update(this[fk], { [inverseFk]: newIdsForInverse });
     }
   }
 

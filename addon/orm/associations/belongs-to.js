@@ -133,8 +133,7 @@ export default class extends Association {
           association.inverse() &&
           !association.inversesAlreadyAssociated(model, this) // check for an existing match, to avoid recursion
         )  {
-          let inverseKey = association.inverse().key;
-          model[inverseKey] = this;
+          model.associate(this, association.inverse());
         }
       }
     });

@@ -342,7 +342,7 @@ class Model {
     if (Array.isArray(foreignKeys)) {
       let associationModelName = Object.keys(this.hasManyAssociations)
         .map(key => this.hasManyAssociations[key])
-        .find(association => association.getForeignKey() === foreignKeyName)
+        .filter(association => association.getForeignKey() === foreignKeyName)[0]
         .modelName;
 
       let found = this._schema.db[toCollectionName(associationModelName)].find(foreignKeys);
@@ -351,7 +351,7 @@ class Model {
     } else {
       let associationModelName = Object.keys(this.belongsToAssociations)
         .map(key => this.belongsToAssociations[key])
-        .find(association => association.getForeignKey() === foreignKeyName)
+        .filter(association => association.getForeignKey() === foreignKeyName)[0]
         .modelName;
 
       let found = this._schema.db[toCollectionName(associationModelName)].find(foreignKeys);

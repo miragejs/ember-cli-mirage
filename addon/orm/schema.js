@@ -125,14 +125,14 @@ export default class Schema {
    */
   new(type, attrs) {
 
-      // let fk = foreignKeysHash[attr];
-      // debugger;
-      // assert(
-      //   !fk || this.schema.db[toCollectionName(association.modelName)].find(fk),
-      //   `Couldn\'t find ${association.modelName} with id = ${fk}`
-      // );
+    // let fk = foreignKeysHash[attr];
+    // debugger;
+    // assert(
+    //   !fk || this.schema.db[toCollectionName(association.modelName)].find(fk),
+    //   `Couldn\'t find ${association.modelName} with id = ${fk}`
+    // );
 
-      // this[attr] = fk;
+    // this[attr] = fk;
     return this._instantiateModel(dasherize(type), attrs);
   }
 
@@ -170,7 +170,7 @@ export default class Schema {
     if (Array.isArray(ids)) {
       assert(
         records.length === ids.length,
-        `Couldn\'t find all ${pluralize(type)} with ids: (${ids.join(',')}) (found ${records.length} results, but was looking for ${ids.length})`
+        `Couldn't find all ${pluralize(type)} with ids: (${ids.join(',')}) (found ${records.length} results, but was looking for ${ids.length})`
       );
     }
 
@@ -238,7 +238,7 @@ export default class Schema {
     let collection = toCollectionName(type);
     assert(
       this.db[collection],
-      `You\'re trying to find model(s) of type ${type} but this collection doesn\'t exist in the database.`
+      `You're trying to find model(s) of type ${type} but this collection doesn't exist in the database.`
     );
 
     return this.db[collection];

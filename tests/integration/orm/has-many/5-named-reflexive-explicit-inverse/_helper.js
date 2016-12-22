@@ -42,11 +42,11 @@ export default class Helper {
   }
 
   savedParentSavedChildren() {
-    let schema = this.schema;
+    let { schema } = this;
     schema.db.tags.insert([
       { id: '1', name: 'Red', labelIds: ['2', '3'] },
       { id: '2', name: 'Blue', labelIds: ['1'] },
-      { id: '3', name: 'Green', labelIds: ['1'] },
+      { id: '3', name: 'Green', labelIds: ['1'] }
     ]);
 
     return [ schema.tags.find(1), [ schema.tags.find(2), schema.tags.find(3) ] ];

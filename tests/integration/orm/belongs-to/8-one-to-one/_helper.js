@@ -24,7 +24,7 @@ export default class BelongsToHelper {
       }),
       profile: Model.extend({
         user: belongsTo()
-      }),
+      })
     });
   }
 

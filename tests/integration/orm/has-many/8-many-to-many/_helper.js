@@ -18,7 +18,7 @@ export default class Helper {
   constructor() {
     this.db = new Db();
 
-     // implicit inverse
+    // implicit inverse
     this.schema = new Schema(this.db, {
       order: Model.extend({
         products: hasMany()
@@ -46,13 +46,13 @@ export default class Helper {
   }
 
   savedParentSavedChildren() {
-    let schema = this.schema;
+    let { schema } = this;
     schema.db.orders.insert([
-      { id: '1', name: 'Red', productIds: ['2', '3'] },
+      { id: '1', name: 'Red', productIds: ['2', '3'] }
     ]);
     schema.db.products.insert([
       { id: '2', name: 'Blue', orderIds: ['1'] },
-      { id: '3', name: 'Green', orderIds: ['1'] },
+      { id: '3', name: 'Green', orderIds: ['1'] }
     ]);
 
     return [ schema.orders.find(1), [ schema.products.find(2), schema.products.find(3) ] ];
@@ -60,7 +60,7 @@ export default class Helper {
 
   savedParentMixedChildren() {
     this.schema.db.orders.insert([
-      { id: '1', name: 'Red', productIds: ['2'] },
+      { id: '1', name: 'Red', productIds: ['2'] }
     ]);
     this.schema.db.products.insert([
       { id: '2', name: 'Blue', orderIds: ['1'] }

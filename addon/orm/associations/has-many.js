@@ -13,7 +13,7 @@ import assert from 'ember-cli-mirage/assert';
  * @constructor
  * @public
  */
-export default class extends Association {
+export default class HasMany extends Association {
 
   /**
    * @method getForeignKeyArray

@@ -84,7 +84,6 @@ export default class Association {
    *
    * @public
   */
-  // TODO: rename to inversesAlreadyAssociated
   inversesAlreadyAssociated(inverse, owner) {
     let inverseKey = this.inverse().key;
     let inverseAssociation = inverse[inverseKey];

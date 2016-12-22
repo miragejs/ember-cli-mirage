@@ -30,6 +30,9 @@ module('Integration | Serializer | RestSerializer', {
       wordSmith: RestSerializer.extend({
         attrs: ['id', 'name'],
         include: ['blogPosts']
+      }),
+      blogPost: RestSerializer.extend({
+        include: ['wordSmith']
       })
     });
   },

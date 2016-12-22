@@ -1,9 +1,10 @@
 ---
 language: node_js
 node_js:
-  - "0.12"
+  - "6.9.2"
 
-sudo: false
+sudo: required
+dist: trusty
 
 cache:
   directories:

@@ -13,7 +13,7 @@ module('Integration | ORM | Has Many | Named One-Way Reflexive | association #se
 states.forEach((state) => {
 
   test(`a ${state} can update its association to a list of saved children`, function(assert) {
-    let [ tag, originalTags ] = this.helper[state]();
+    let [ tag ] = this.helper[state]();
     let savedTag = this.helper.savedChild();
 
     tag.labels = [ savedTag ];
@@ -26,7 +26,7 @@ states.forEach((state) => {
   });
 
   test(`a ${state} can update its association to a new parent`, function(assert) {
-    let [ tag, originalTags ] = this.helper[state]();
+    let [ tag ] = this.helper[state]();
     let newTag = this.helper.newChild();
 
     tag.labels = [ newTag ];
@@ -39,7 +39,7 @@ states.forEach((state) => {
   });
 
   test(`a ${state} can clear its association via an empty list`, function(assert) {
-    let [ tag, originalTags ] = this.helper[state]();
+    let [ tag ] = this.helper[state]();
 
     tag.labels = [ ];
 
@@ -50,7 +50,7 @@ states.forEach((state) => {
   });
 
   test(`a ${state} can clear its association via an empty list`, function(assert) {
-    let [ tag, originalTags ] = this.helper[state]();
+    let [ tag ] = this.helper[state]();
 
     tag.labels = null;
 

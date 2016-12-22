@@ -10,7 +10,7 @@ module('Integration | ORM | Has Many | One-Way Reflexive | association #setIds',
 states.forEach((state) => {
 
   test(`a ${state} can update its association to include a saved child via childIds`, function(assert) {
-    let [ tag, originalTags ] = this.helper[state]();
+    let [ tag ] = this.helper[state]();
     let savedTag = this.helper.savedChild();
 
     tag.tagIds = [ savedTag.id ];
@@ -25,7 +25,7 @@ states.forEach((state) => {
   });
 
   test(`a ${state} can clear its association via a null childIds`, function(assert) {
-    let [ tag, originalTags ] = this.helper[state]();
+    let [ tag ] = this.helper[state]();
 
     tag.tagIds = null;
 

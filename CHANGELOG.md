@@ -4,6 +4,13 @@ In general, it's good to run `ember g ember-cli-mirage` after upgrading.
 
 ## master
 
+- new serializer hook: `keyForForeignKey`
+  - used for belongsTo relationships (keyForRelationshipIds)
+  - TODO: this is an awful name, change it
+- belongs to keys no longer automatically serialize
+  - need to explain why (one-sided relationships)
+  - change: either set `serializeIds` to `true`, or add missing relationships to `include: []` property on that model's serializer
+
 ## 0.2.5
 
 Update notes: None

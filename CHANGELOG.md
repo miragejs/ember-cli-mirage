@@ -4,6 +4,8 @@ In general, it's good to run `ember g ember-cli-mirage` after upgrading.
 
 ## master
 
+- hasMany/belongsTo used to be autodefined, no longer
+  - explain why: sometimes one-way, sometimes ambiguous
 - new serializer hook: `keyForForeignKey`
   - used for belongsTo relationships (keyForRelationshipIds)
   - TODO: this is an awful name, change it

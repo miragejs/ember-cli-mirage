@@ -113,7 +113,62 @@ You should define the attributes of your factory as the "base case" for your obj
 
 ## Factories and relationships
 
-When building objects using factories, you may want to create related objects automatically. To build related objects, use the `afterCreate()` hook:
+When building objects using factories, you may want to create related objects automatically. To build related objects, you can use `association` helper.
+
+Start with defining relationships in your models so that they can be introspected for the details like relationship name:
+
+``` js
+// mirage/models/article.js
+import { Model, belongsTo } from 'ember-cli-mirage';
+
+export default Model.extend({
+  author: belongsTo()
+});
+```
+
+// mirage/models/author.js
+import { Model } from 'ember-cli-mirage';
+
+export default Model.extend();
+```
+
+And simply indicate which attributes are `association`s:
+
+``` js
+// mirage/factories/article.js
+import { Factory, association } from 'ember-cli-mirage';
+
+export default Factory.extend({
+  title: 'ember-cli-mirage rockzzz',
+  author: association()
+});
+```
+
+You can also pass a list of traits and overrides as arguments to `association` helper:
+
+``` js
+// mirage/factories/author.js
+import { Factory, trait } from 'ember-cli-mirage';
+
+export default Factory.extend({
+  withNames: trait({
+    firstName: 'Yehuda',
+    lastName: 'Katz'
+  })
+});
+```
+
+``` js
+// mirage/factories/article.js
+import { Factory, association } from 'ember-cli-mirage';
+
+export default Factory.extend({
+  title: 'ember-cli-mirage rockzzz',
+  author: association('withNames', { lastName: 'Dale' })
+});
+```
+
+You can also use the `afterCreate()` hook:
 
 ```js
 // mirage/factories/author.js
@@ -168,7 +223,7 @@ export default Factory.extend({
     isPublished: true,
     publishedAt: '2010-01-01 10:00:00'
   }),
-  
+
   official: trait({
     isOfficial: true
   })

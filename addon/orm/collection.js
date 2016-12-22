@@ -102,7 +102,7 @@ export default class Collection {
    * @public
    */
   remove(model) {
-    let match = this.models.filter(m => _isEqual(m.attrs, model.attrs))[0];
+    let [ match ] = this.models.filter(m => _isEqual(m.attrs, model.attrs));
     if (match) {
       let i = this.models.indexOf(match);
       this.models.splice(i, 1);

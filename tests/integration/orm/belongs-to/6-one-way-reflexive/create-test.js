@@ -10,7 +10,7 @@ module('Integration | ORM | Belongs To | One-Way Reflexive | create', {
 });
 
 test('it sets up associations correctly when passing in the foreign key', function(assert) {
-  let schema = this.helper.schema;
+  let { schema } = this.helper;
   let parent = schema.create('user');
   let child = schema.create('user', {
     userId: parent.id
@@ -24,7 +24,7 @@ test('it sets up associations correctly when passing in the foreign key', functi
 });
 
 test('it sets up associations correctly when passing in the association itself', function(assert) {
-  let schema = this.helper.schema;
+  let { schema } = this.helper;
   let parent = schema.create('user');
   let child = schema.create('user', {
     user: parent
@@ -38,7 +38,7 @@ test('it sets up associations correctly when passing in the association itself',
 });
 
 test('it throws an error if a model is passed in without a defined relationship', function(assert) {
-  let schema = this.helper.schema;
+  let { schema } = this.helper;
 
   assert.throws(function() {
     schema.create('user', {
@@ -48,7 +48,7 @@ test('it throws an error if a model is passed in without a defined relationship'
 });
 
 test('it throws an error if a collection is passed in without a defined relationship', function(assert) {
-  let schema = this.helper.schema;
+  let { schema } = this.helper;
   schema.create('foo');
   schema.create('foo');
 

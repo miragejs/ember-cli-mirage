@@ -10,7 +10,7 @@ module('Integration | ORM | Has Many | Named One-Way Reflexive | create', {
 });
 
 test('it sets up associations correctly when passing in the foreign key', function(assert) {
-  let schema = this.helper.schema;
+  let { schema } = this.helper;
   let tagA = schema.tags.create();
   let tagB = schema.tags.create({
     labelIds: [ tagA.id ]
@@ -28,7 +28,7 @@ test('it sets up associations correctly when passing in the foreign key', functi
 });
 
 test('it sets up associations correctly when passing in an array of models', function(assert) {
-  let schema = this.helper.schema;
+  let { schema } = this.helper;
   let tagA = schema.tags.create();
   let tagB = schema.tags.create({
     labels: [ tagA ]
@@ -44,7 +44,7 @@ test('it sets up associations correctly when passing in an array of models', fun
 });
 
 test('it sets up associations correctly when passing in a collection', function(assert) {
-  let schema = this.helper.schema;
+  let { schema } = this.helper;
   let tagA = schema.tags.create();
   let tagB = schema.tags.create({
     labels: schema.tags.all()
@@ -60,7 +60,7 @@ test('it sets up associations correctly when passing in a collection', function(
 });
 
 test('it throws an error if a model is passed in without a defined relationship', function(assert) {
-  let schema = this.helper.schema;
+  let { schema } = this.helper;
 
   assert.throws(function() {
     schema.tags.create({
@@ -70,7 +70,7 @@ test('it throws an error if a model is passed in without a defined relationship'
 });
 
 test('it throws an error if an array of models is passed in without a defined relationship', function(assert) {
-  let schema = this.helper.schema;
+  let { schema } = this.helper;
 
   assert.throws(function() {
     schema.tags.create({
@@ -80,7 +80,7 @@ test('it throws an error if an array of models is passed in without a defined re
 });
 
 test('it throws an error if a collection is passed in without a defined relationship', function(assert) {
-  let schema = this.helper.schema;
+  let { schema } = this.helper;
   schema.foos.create();
   schema.foos.create();
 

@@ -58,7 +58,7 @@ test('the child accepts a null parent model', function(assert) {
 
 test('the child accepts a parent model and id', function(assert) {
   let parent = this.helper.savedParent();
-  let child = this.schema.users.new({ parent: parent, parentId: parent.id });
+  let child = this.schema.users.new({ parent, parentId: parent.id });
 
   assert.equal(child.parentId, '1');
   assert.deepEqual(child.parent.attrs, parent.attrs);

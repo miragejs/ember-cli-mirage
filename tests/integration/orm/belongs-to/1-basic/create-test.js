@@ -38,7 +38,7 @@ test('it sets up associations correctly when passing in the association itself',
 });
 
 test('it throws an error if a model is passed in without a defined relationship', function(assert) {
-  let schema = this.helper.schema;
+  let { schema } = this.helper;
 
   assert.throws(function() {
     schema.create('post', {
@@ -48,7 +48,7 @@ test('it throws an error if a model is passed in without a defined relationship'
 });
 
 test('it throws an error if a collection is passed in without a defined relationship', function(assert) {
-  let schema = this.helper.schema;
+  let { schema } = this.helper;
   schema.create('foo');
   schema.create('foo');
 

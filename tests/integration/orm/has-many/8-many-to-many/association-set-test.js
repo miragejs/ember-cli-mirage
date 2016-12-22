@@ -72,7 +72,7 @@ states.forEach((state) => {
     assert.equal(order.products.models.length, 0);
 
     order.save();
-    
+
     originalProducts.forEach(p => {
       p.reload();
       assert.notOk(p.orders.includes(order), 'old inverses were cleared');

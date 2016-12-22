@@ -3,8 +3,6 @@ import { toCollectionName } from 'ember-cli-mirage/utils/normalize-name';
 import extend from '../utils/extend';
 import assert from '../assert';
 import Collection from './collection';
-import HasMany from './associations/has-many';
-import BelongsTo from './associations/belongs-to';
 import _values from 'lodash/object/values';
 
 /*
@@ -192,7 +190,7 @@ class Model {
   associate(model, association) {
     let { key } = association;
 
-    if (association instanceof HasMany) {
+    if (association.constructor.name === 'HasMany') {
       let currentModels = this[key].models;
       if (currentModels.indexOf(model) === -1) {
         this[key].add(model);
@@ -205,7 +203,7 @@ class Model {
   disassociate(model, association) {
     let fk = association.getForeignKey();
 
-    if (association instanceof HasMany) {
+    if (association.constructor.name === 'HasMany') {
       let i = this[fk].map(key => key.toString()).indexOf(model.id.toString());
       if (i > -1) {
         this.attrs[fk].splice(i, 1);
@@ -387,9 +385,9 @@ class Model {
   }
 
   _disassociateFromOldInverses(association) {
-    if (association instanceof HasMany) {
+    if (association.constructor.name === 'HasMany') {
       this._disassociateFromHasManyInverses(association);
-    } else if (association instanceof BelongsTo) {
+    } else if (association.constructor.name === 'BelongsTo') {
       this._disassociateFromBelongsToInverse(association);
     }
   }
@@ -464,13 +462,13 @@ class Model {
     let fk = association.getForeignKey();
     let inverse = association.inverse();
 
-    if (this[fk] && inverse && (inverse instanceof BelongsTo) && !this.__isSavingNewChildren) {
+    if (this[fk] && inverse && (inverse.constructor.name === 'BelongsTo') && !this.__isSavingNewChildren) {
       let inverseFk = inverse.getForeignKey();
 
       this._schema.db[toCollectionName(association.modelName)]
         .update(this[fk], { [inverseFk]: this.id });
 
-    } else if (this[fk] && inverse && (inverse instanceof HasMany) && !this.__isSavingNewChildren) {
+    } else if (this[fk] && inverse && (inverse.constructor.name === 'HasMany') && !this.__isSavingNewChildren) {
       let inverseFk = inverse.getForeignKey();
       let inverseCollection = this._schema.db[toCollectionName(association.modelName)];
       let currentIdsForInverse = inverseCollection.find(this[fk])[inverse.getForeignKey()] || [];
@@ -489,7 +487,7 @@ class Model {
     let inverse = association.inverse();
 
     // Associate new models
-    if (inverse && (inverse instanceof HasMany) && !this.__isSavingNewChildren) {
+    if (inverse && (inverse.constructor.name === 'HasMany') && !this.__isSavingNewChildren) {
       this._schema[toCollectionName(association.modelName)]
         .find(this[fk])
         .models
@@ -506,7 +504,7 @@ class Model {
 
           inverseCollection.update(model.id, { [inverseFk]: newIdsForInverse });
         });
-    } else if (inverse && (inverse instanceof BelongsTo) && !this.__isSavingNewChildren) {
+    } else if (inverse && (inverse.constructor.name === 'BelongsTo') && !this.__isSavingNewChildren) {
       this._schema[toCollectionName(association.modelName)]
         .find(this[fk])
         .models

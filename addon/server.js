@@ -123,7 +123,7 @@ class RouteHandlerOptions {
     options[method] = options[method] || {};
     options[method][path] = options[method][path] || {};
 
-    options[method][path] = _assign(options[method][path], overrides);
+    options[method][path] = _assign({}, options[method][path], overrides);
     this.options = options;
   }
 }
@@ -404,7 +404,7 @@ export default class Server {
 
   _registerRouteHandler(verb, path, rawHandler, customizedCode, options) {
     options = options || {};
-    options = _assign(options, this._routeHandlerOptions.optionsForRouteHandler(verb, path));
+    options = _assign({}, options, this._routeHandlerOptions.optionsForRouteHandler(verb, path));
 
     let routeHandler = new RouteHandler({
       schema: this.schema,

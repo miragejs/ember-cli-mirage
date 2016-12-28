@@ -58,21 +58,6 @@ test('paginator can be customized', function(assert) {
   assert.expect(3);
   let done = assert.async();
 
-  class TestPaginator {
-    constructor(assert) {
-      this.assert = assert;
-    }
-
-    paginate() {
-      this.assert.ok(true, 'should call paginate method');
-      return [];
-    }
-
-    shouldPaginate() {
-      return true;
-    }
-  }
-
   let paginator = new TestPaginator(assert);
 
   this.server.db.loadData({
@@ -95,3 +80,18 @@ test('paginator can be customized', function(assert) {
     done();
   });
 });
+
+class TestPaginator {
+  constructor(assert) {
+    this.assert = assert;
+  }
+
+  paginate() {
+    this.assert.ok(true, 'should call paginate method');
+    return [];
+  }
+
+  shouldPaginate() {
+    return true;
+  }
+}

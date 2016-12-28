@@ -108,6 +108,26 @@ function extractRouteArguments(args) {
   return args;
 }
 
+class RouteHandlerOptions {
+  constructor(options = {}) {
+    this.options = options;
+  }
+
+  optionsForRouteHandler(method, path) {
+    let { options } = this;
+    return options[method] && options[method][path] || {};
+  }
+
+  mergeOptionsForRouteHandler(method, path, overrides = {}) {
+    let { options } = this;
+    options[method] = options[method] || {};
+    options[method][path] = options[method][path] || {};
+
+    options[method][path] = _assign(options[method][path], overrides);
+    this.options = options;
+  }
+}
+
 export default class Server {
 
   constructor(options = {}) {
@@ -126,6 +146,7 @@ export default class Server {
     this.namespace = this.namespace || config.namespace || '';
     this.urlPrefix = this.urlPrefix || config.urlPrefix || '';
 
+    this._routeHandlerOptions = new RouteHandlerOptions();
     this._defineRouteHandlerHelpers();
 
     this.db = this.db || new Db();
@@ -356,6 +377,10 @@ export default class Server {
     });
   }
 
+  configureOptionsForRouteHandler(method, path, optionsOverrides) {
+    this._routeHandlerOptions.mergeOptionsForRouteHandler(method, path, optionsOverrides);
+  }
+
   _defineRouteHandlerHelpers() {
     [['get'], ['post'], ['put'], ['delete', 'del'], ['patch'], ['head']].forEach(([verb, alias]) => {
       this[verb] = (path, ...args) => {
@@ -378,6 +403,9 @@ export default class Server {
   }
 
   _registerRouteHandler(verb, path, rawHandler, customizedCode, options) {
+    options = options || {};
+    options = _assign(options, this._routeHandlerOptions.optionsForRouteHandler(verb, path));
+
     let routeHandler = new RouteHandler({
       schema: this.schema,
       verb, rawHandler, customizedCode, options, path,

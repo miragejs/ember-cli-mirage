@@ -1,4 +1,5 @@
 // jscs:disable requireParenthesesAroundArrowParam
+/* globals FastBoot */
 
 import { pluralize, camelize } from './utils/inflector';
 import { toCollectionName } from 'ember-cli-mirage/utils/normalize-name';
@@ -17,6 +18,50 @@ import _find from 'lodash/collection/find';
 import _isPlainObject from 'lodash/lang/isPlainObject';
 
 const { RSVP: { Promise } } = Ember;
+
+class FastBootExpressServer {
+  constructor(options = {}) {
+    let express = FastBoot.require('express');
+    this.app = express();
+    this.server = this.app.listen(options.port || 0, () => {
+      console.log(`Mirage's express server for fastboot listening on ${this.server.address().port}!`);
+    });
+  }
+  shutdown() {
+    this.server.close(() => {
+      console.log("Mirage's express server for fastboot closed");
+    });
+  }
+  handle(type, path, promise) {
+    this.app[type](path,
+      (req, res) => {
+        promise(req).then((responseArray) => {
+          let [ code, headers, response ] = responseArray;
+          let allowAccessFromOnceFastbootLoadedJS = { 'Access-Control-Allow-Origin': '*' };
+          res.status(code).set(allowAccessFromOnceFastbootLoadedJS).set(headers).send(response);
+        });
+      });
+  }
+  get(path, promise) {
+    this.handle('get', path, promise);
+  }
+  post(path, promise) {
+    this.handle('post', path, promise);
+  }
+  put(path, promise) {
+    this.handle('put', path, promise);
+  }
+  delete(path, promise) {
+    this.handle('delete', path, promise);
+  }
+  patch(path, promise) {
+    this.handle('patch', path, promise);
+  }
+}
+
+function createExpress(server, options = {}) {
+  return new FastBootExpressServer(options);
+}
 
 function createPretender(server) {
   return new Pretender(function() {
@@ -140,7 +185,13 @@ export default class Server {
     let hasFactories = this._hasModulesOfType(config, 'factories');
     let hasDefaultScenario = config.scenarios && config.scenarios.hasOwnProperty('default');
 
-    this.pretender = this.pretender || createPretender(this);
+    if (!this.pretender) {
+      if (config.serverOptions && config.serverOptions.express) {
+        this.pretender = createExpress(this, config.serverOptions.express);
+      } else {
+        this.pretender = createPretender(this);
+      }
+    }
 
     if (config.baseConfig) {
       this.loadConfig(config.baseConfig);

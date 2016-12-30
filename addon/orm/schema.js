@@ -18,6 +18,7 @@ export default class Schema {
 
     this.db = db;
     this._registry = {};
+    this._dependentAssociations = {};
     this.registerModels(modelsMap);
   }
 
@@ -46,6 +47,7 @@ export default class Schema {
     ModelClass = ModelClass.extend();
 
     // Store model & fks in registry
+    // TODO: don't think this is needed anymore
     this._registry[camelizedModelName] = this._registry[camelizedModelName] || { class: null, foreignKeys: [] }; // we may have created this key before, if another model added fks to it
     this._registry[camelizedModelName].class = ModelClass;
 
@@ -57,6 +59,7 @@ export default class Schema {
     ModelClass.prototype.belongsToAssociations = {}; // a registry of the model's belongsTo associations. Key is key from model definition, value is association instance itself
     ModelClass.prototype.associationKeys = [];       // ex: address.user, user.addresses
     ModelClass.prototype.associationIdKeys = [];     // ex: address.user_id, user.address_ids
+    ModelClass.prototype.dependentAssociations = []; // a registry of associations that depend on this model, needed for deletion cleanup.
 
     let fksAddedFromThisModel = {};
     for (let associationProperty in ModelClass.prototype) {
@@ -217,6 +220,15 @@ export default class Schema {
 
   modelClassFor(modelName) {
     return this._registry[camelize(modelName)].class.prototype;
+  }
+
+  addDependentAssociation(association, modelName) {
+    this._dependentAssociations[modelName] = this._dependentAssociations[modelName] || [];
+    this._dependentAssociations[modelName].push(association);
+  }
+
+  dependentAssociationsFor(modelName) {
+    return this._dependentAssociations[modelName];
   }
 
   associationsFor(modelName) {

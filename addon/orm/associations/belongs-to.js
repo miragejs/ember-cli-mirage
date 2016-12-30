@@ -54,6 +54,9 @@ export default class BelongsTo extends Association {
     associationHash[key] = this;
     modelPrototype.belongsToAssociations = _assign(modelPrototype.belongsToAssociations, associationHash);
 
+    // Add to target's dependent associations array
+    this.schema.addDependentAssociation(this, this.modelName);
+
     // TODO: look how this is used. Are these necessary, seems like they could be gotten from the above?
     // Or we could use a single data structure to store this information?
     modelPrototype.associationKeys.push(key);

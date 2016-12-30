@@ -95,8 +95,12 @@ class Model {
    * @public
    */
   destroy() {
-    let collection = toCollectionName(this.modelName);
-    this._schema.db[collection].remove(this.attrs.id);
+    if (this.isSaved()) {
+      this._disassociateFromDependents();
+
+      let collection = toCollectionName(this.modelName);
+      this._schema.db[collection].remove(this.attrs.id);
+    }
   }
 
   /**
@@ -427,6 +431,12 @@ class Model {
       model.disassociate(this, inverse);
       model._updateInDb(model.attrs);
     }
+  }
+
+  _disassociateFromDependents() {
+    _values(this._schema.dependentAssociationsFor(this.modelName)).forEach(association => {
+      association.disassociateAllDependentsFromTarget(this);
+    });
   }
 
   _saveNewAssociates(association) {

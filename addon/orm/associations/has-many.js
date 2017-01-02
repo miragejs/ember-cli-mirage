@@ -46,14 +46,17 @@ export default class HasMany extends Association {
    */
   addMethodsToModelClass(ModelClass, key) {
     let modelPrototype = ModelClass.prototype;
-    this._model = modelPrototype;
-    this._key = key;
-
     let association = this;
     let foreignKey = this.getForeignKey();
     let associationHash = { [key]: this };
 
     modelPrototype.hasManyAssociations = _assign(modelPrototype.hasManyAssociations, associationHash);
+
+    // Add to target's dependent associations array
+    this.schema.addDependentAssociation(this, this.modelName);
+
+    // TODO: look how this is used. Are these necessary, seems like they could be gotten from the above?
+    // Or we could use a single data structure to store this information?
     modelPrototype.associationKeys.push(key);
     modelPrototype.associationIdKeys.push(foreignKey);
 
@@ -172,5 +175,26 @@ export default class HasMany extends Association {
 
       return child.reload();
     };
+  }
+
+  /**
+   *
+   *
+   * @public
+  */
+  disassociateAllDependentsFromTarget(model) {
+    let owner = this.ownerModelName;
+    let dependents = this.schema[toCollectionName(owner)]
+      .where((potentialOwner) => {
+        let currentIds = potentialOwner[this.getForeignKey()];
+
+        // Need this check because currentIds could be null
+        return currentIds && currentIds.includes(model.id);
+      });
+
+    dependents.models.forEach(dependent => {
+      dependent.disassociate(model, this);
+      dependent.save();
+    });
   }
 }

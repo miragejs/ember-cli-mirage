@@ -434,9 +434,10 @@ class Model {
   }
 
   _disassociateFromDependents() {
-    _values(this._schema.dependentAssociationsFor(this.modelName)).forEach(association => {
-      association.disassociateAllDependentsFromTarget(this);
-    });
+    _values(this._schema.dependentAssociationsFor(this.modelName))
+      .forEach(association => {
+        association.disassociateAllDependentsFromTarget(this);
+      });
   }
 
   _saveNewAssociates(association) {

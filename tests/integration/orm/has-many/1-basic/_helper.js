@@ -48,6 +48,7 @@ export default class Helper {
     let post2 = this.schema.posts.create({ title: 'Ipsum' });
 
     user.posts = [ post1, post2 ];
+    user.save();
 
     return [ user, [ post1, post2 ] ];
   }

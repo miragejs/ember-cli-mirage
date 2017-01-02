@@ -1,5 +1,4 @@
 import Model from '../model';
-import { toCollectionName } from 'ember-cli-mirage/utils/normalize-name';
 import { dasherize } from 'ember-cli-mirage/utils/inflector';
 
 export default class Association {
@@ -100,21 +99,5 @@ export default class Association {
         return inverseAssociation.includes(owner);
       }
     }
-  }
-
-  /**
-   *
-   *
-   * @public
-  */
-  disassociateAllDependentsFromTarget(model) {
-    let owner = this.ownerModelName;
-    let dependents = this.schema[toCollectionName(owner)]
-      .where({ [this.getForeignKey()]: model.id });
-
-    dependents.models.forEach(dependent => {
-      dependent.disassociate(model, this);
-      dependent.save();
-    });
   }
 }

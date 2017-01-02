@@ -47,11 +47,8 @@ export default class BelongsTo extends Association {
     let modelPrototype = ModelClass.prototype;
     let association = this;
     let foreignKey = this.getForeignKey();
+    let associationHash = { [key]: this };
 
-    // The model prototype stores a reference to this association, to access information like
-    // the name of the foreign keys, and other options.
-    let associationHash = {};
-    associationHash[key] = this;
     modelPrototype.belongsToAssociations = _assign(modelPrototype.belongsToAssociations, associationHash);
 
     // Add to target's dependent associations array
@@ -165,5 +162,21 @@ export default class BelongsTo extends Association {
 
       return parent;
     };
+  }
+
+  /**
+   *
+   *
+   * @public
+  */
+  disassociateAllDependentsFromTarget(model) {
+    let owner = this.ownerModelName;
+    let dependents = this.schema[toCollectionName(owner)]
+      .where({ [this.getForeignKey()]: model.id });
+
+    dependents.models.forEach(dependent => {
+      dependent.disassociate(model, this);
+      dependent.save();
+    });
   }
 }

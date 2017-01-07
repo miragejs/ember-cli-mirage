@@ -1,0 +1,18 @@
+.Topbar {
+  background-color: $highlight-color;
+  color: white;
+  padding-top: 5px;
+
+  p {
+    margin: 0;
+    padding-top: 5px;
+    padding-bottom: 10px;
+    font-size: 15px;
+  }
+
+  a {
+    color: white;
+    text-decoration: none;
+    border-bottom: 1px solid white;
+  }
+}

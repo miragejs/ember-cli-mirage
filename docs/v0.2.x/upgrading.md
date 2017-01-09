@@ -56,7 +56,7 @@ If you're upgrading your Mirage server from v0.1.x to v0.2.x, here's what you ne
 
   - **All JavaScript properties are camelCased.** Similar to the previous change, factory properties and database collection names followed the format of your API in Mirage 0.1.x. If you were faking an ActiveModelSerializer backend, multiword keys used snake_case throughout your Mirage code. So, your database table might be `db.blog_posts`, and your factory keys might be `first_name() {..}`. Looks pretty cool right?
 
-    Wrong. We're JavaScript developers here, people. It's time to start using camelCase.
+    Wrong. We're JavaScript developers here, people. It's time to start using camelCase. (Also, the idea of tying these keys to your serialization format was bad, as it left us without any conventions. We need to stick to a single format, so the ORM knows how to find foreign keys.)
 
     You'll need to update your route handlers, which may look like this:
 

@@ -113,7 +113,7 @@ You should define the attributes of your factory as the "base case" for your obj
 
 ## Factories and relationships
 
-When building objects using factories, you may want to create related objects automatically. To build related objects, you can use `association` helper.
+When building objects using factories, you may want to create related objects automatically. To build related objects for `belongsTo` relationships, you can use `association` helper.
 
 Start with defining relationships in your models so that they can be introspected for the details like relationship name:
 
@@ -126,6 +126,7 @@ export default Model.extend({
 });
 ```
 
+``` js
 // mirage/models/author.js
 import { Model } from 'ember-cli-mirage';
 
@@ -168,7 +169,7 @@ export default Factory.extend({
 });
 ```
 
-You can also use the `afterCreate()` hook:
+You can also use the `afterCreate()` hook (for both `hasMany` and `belongsTo` relationships):
 
 ```js
 // mirage/factories/author.js

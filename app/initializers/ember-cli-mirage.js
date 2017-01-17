@@ -21,7 +21,8 @@ export default {
 export function startMirage(env = ENV) {
   let environment = env.environment;
   let modules = readModules(env.modulePrefix);
-  let options = _assign(modules, {environment, baseConfig, testConfig});
+  let serverOptions = (env['ember-cli-mirage'] && env['ember-cli-mirage'].serverOptions) || {};
+  let options = _assign(modules, {environment, baseConfig, testConfig, serverOptions});
 
   return new Server(options);
 }

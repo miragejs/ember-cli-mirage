@@ -77,5 +77,8 @@
     "faker": "^3.0.0",
     "pretender": "^1.4.2",
     "route-recognizer": "^0.2.3"
-  }
+  },
+  "fastbootDependencies": [
+    "express"
+  ]
 }

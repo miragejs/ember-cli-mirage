@@ -324,6 +324,7 @@ export default class Server {
   shutdown() {
     this.pretender.shutdown();
     if (this.environment === 'test') {
+      this._resetHasManyAssociations();
       window.server = undefined;
     }
   }
@@ -353,6 +354,23 @@ export default class Server {
       let methodsWithPath = actionsMethodsAndsPathsMappings[action];
 
       methodsWithPath.methods.forEach(method => this[method](methodsWithPath.path));
+    });
+  }
+
+  _resetHasManyAssociations() {
+    Object.keys(this.schema._registry).forEach((modelKey)=> {
+      let modelClass = this.schema._registry[modelKey].class;
+      if (Ember.isPresent(modelClass)) {
+        this._removeCachedChildren(modelClass.prototype.hasManyAssociations);
+      }
+    });
+  }
+
+  _removeCachedChildren(hasManyAssociations) {
+    Object.keys(hasManyAssociations).forEach((hasMany)=> {
+      if (Ember.get(hasManyAssociations[hasMany], '_cachedChildren.models')) {
+        hasManyAssociations[hasMany]._cachedChildren.models = [];
+      }
     });
   }
 

@@ -20,6 +20,17 @@ export default class Collection {
   }
 
   /**
+   * Number of models in the collection.
+   *
+   * @property length
+   * @type Number
+   * @public
+   */
+  get length() {
+    return this.models.length;
+  }
+
+  /**
    * Updates each model in the collection (persisting immediately to the db).
    * @method update
    * @param key
@@ -91,6 +102,19 @@ export default class Collection {
     let sortedModels = this.models.concat().sort(f);
 
     return new Collection(this.modelName, sortedModels);
+  }
+
+  /**
+   * @method slice
+   * @param {Integer} begin
+   * @param {Integer} end
+   * @return {Collection}
+   * @public
+   */
+  slice(...args) {
+    let slicedModels = this.models.slice(...args);
+
+    return new Collection(this.modelName, slicedModels);
   }
 
   /**

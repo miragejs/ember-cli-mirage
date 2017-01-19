@@ -35,3 +35,14 @@ test('I can use fixtures with the filename api', function(assert) {
   });
 });
 
+test('I can use fixtures with subdirectories', function(assert) {
+  server.loadFixtures();
+
+  visit(`/user/profile`);
+
+  andThen(() => {
+    let userProfilesInStore = this.store.peekAll('user/profile');
+
+    assert.equal(userProfilesInStore.get('length'), 3);
+  });
+});

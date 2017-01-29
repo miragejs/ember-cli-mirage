@@ -18,4 +18,8 @@ Router.map(function() {
   this.route('pets');
 
   this.route('word-smith', { path: '/word-smiths/:word_smith_id' });
+
+  this.route('user', function() {
+    this.route('profile');
+  });
 });

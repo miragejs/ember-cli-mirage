@@ -40,6 +40,19 @@ export default function() {
 
   this.get('/word-smiths/:id');
 
+  this.get('/user/profiles', function(db, request) {
+    let things = db['user/profiles'].all();
+
+    return {
+      data: things.models.map((thing) => {
+        return {
+          id: thing.id,
+          name: thing.name,
+          type: thing.modelName
+        };
+      })
+    };
+  });
 }
 
 export function testConfig() {

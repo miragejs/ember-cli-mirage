@@ -42,3 +42,28 @@ test('a named one-to-many association is correct', function(assert) {
   assert.equal(association.ownerModelName, 'word-smith');
   assert.deepEqual(association.inverse(), inverse);
 });
+
+test('multiple has-many associations of the same type', function(assert) {
+  let schema = new Schema(new Db(), {
+    user: Model.extend({
+      notes: hasMany('post', { inverse: 'author' }),
+      messages: hasMany('post', { inverse: 'messenger' })
+    }),
+    post: Model.extend({
+      author: belongsTo('user', { inverse: 'notes' }),
+      messenger: belongsTo('user', { inverse: 'messages' })
+    })
+  });
+
+  let { notes, messages } = schema.associationsFor('user');
+  let { author, messenger } = schema.associationsFor('post');
+
+  assert.equal(notes.key, 'notes');
+  assert.equal(notes.modelName, 'post');
+  assert.equal(notes.ownerModelName, 'user');
+  assert.deepEqual(notes.inverse(), author);
+  assert.equal(messages.key, 'messages');
+  assert.equal(messages.modelName, 'post');
+  assert.equal(messages.ownerModelName, 'user');
+  assert.deepEqual(messages.inverse(), messenger);
+});

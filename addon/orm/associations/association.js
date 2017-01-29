@@ -50,14 +50,19 @@ export default class Association {
 
     } else {
       let associationsMap = this.schema.associationsFor(this.modelName);
-      let matches = Object.keys(associationsMap)
-        .map(key => associationsMap[key])
-        .filter(association => association.modelName === this.ownerModelName);
-
-      if (matches.length === 1) {
-        inverse = matches[0];
+      let explicitInverse = this.opts.inverse;
+      if (explicitInverse) {
+        inverse = associationsMap[explicitInverse];
       } else {
-        inverse = null;
+        let matches = Object.keys(associationsMap)
+          .map(key => associationsMap[key])
+          .filter(association => association.modelName === this.ownerModelName);
+
+        if (matches.length === 1) {
+          inverse = matches[0];
+        } else {
+          inverse = null;
+        }
       }
     }
 

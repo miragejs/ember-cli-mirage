@@ -68,3 +68,28 @@ let posts = author.blogPosts.all();
 
 posts.destroy(); // all posts removed from db
 ```
+
+### sort(func)
+
+Returns a new `Collection` with its `models` sorted according to the provided [compare function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort#Parameters)
+
+```js
+let posts = author.blogPosts.all();
+
+let postsByTitleAsc = posts.sort((a, b) => {
+  return b.title < a.title;
+});
+```
+
+### filter(func)
+
+Returns a new `Collection` with only the `models` that pass the test implemented by the provided function.
+
+```js
+let posts = author.blogPosts.all();
+
+let longPosts = posts.filter((postModel) => {
+  return postModel.wordCount >= 1000;
+});
+```
+

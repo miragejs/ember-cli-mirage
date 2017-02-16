@@ -96,7 +96,7 @@ let posts = blogPosts.find([1, 3, 4]);
 Returns the first model in the database that matches the key-value pairs in the `query` object. Note that a string comparison is used. `query` is a POJO.
 
 ```js
-let posts = blogPosts.where({ published: true });
+let post = blogPosts.findBy({ published: true });
 ```
 
 ### first()

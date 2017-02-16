@@ -4,6 +4,49 @@ var path = require('path');
 var mergeTrees = require('broccoli-merge-trees');
 var Funnel = require('broccoli-funnel');
 
+function toNodeJSBuilder(projectRoot, mirageDirectory) {
+  var esTranspiler = require('broccoli-babel-transpiler');
+  var broccoli = require('broccoli-builder');
+
+  var appEnvPath = path.join(projectRoot, 'config', 'environment.js');
+  var appEnv = require(appEnvPath);
+
+  var emberCliMiragePath = __dirname;
+  var mirageAddon = new Funnel(emberCliMiragePath, {srcDir: 'addon', destDir: 'ember-cli-mirage'});
+  var appMirageSrc = new Funnel(mirageDirectory, {srcDir:'.', destDir: 'mirage'});
+  var nodejsSrc = new Funnel(emberCliMiragePath, {srcDir:'nodejs', destDir: 'nodejs'});
+  var combinedSrcTree = mergeTrees([mirageAddon, nodejsSrc, appMirageSrc]);
+  var transpiledTree = esTranspiler(combinedSrcTree, {
+    browserPolyfill: true,
+    resolveModuleSource: function(source, filename) {
+      var result = source;
+      var result_abs;
+
+      var dirname = path.dirname(path.join(transpiledTree.outputPath,filename));
+      if (source === 'ember') {
+        result_abs = path.join(transpiledTree.outputPath,'nodejs/ember-compat');
+      } else if (source === 'pretender') {
+        result_abs = path.join(transpiledTree.outputPath,'nodejs/no-pretender');
+      } else if (source.startsWith('ember-cli-mirage/')) {
+        result_abs = path.join(transpiledTree.outputPath,source);
+      } else if (source.startsWith('../mirage/')) {
+        result_abs = path.join(transpiledTree.outputPath,'na',source);
+      } else if (source === '../config/environment') {
+        result = appEnvPath;
+      }
+      if (result_abs) {
+        result = path.relative(dirname, result_abs);
+        if (!(result.startsWith('../') || result.startsWith('./'))) {
+          result = './' + result;
+        }
+      }
+      return result;
+    }
+  });
+  var builder = new broccoli.Builder(transpiledTree);
+  return { builder, appEnv };
+}
+
 module.exports = {
   name: 'ember-cli-mirage',
 
@@ -16,6 +59,34 @@ module.exports = {
       'fake-xml-http-request': npmAsset('fake_xml_http_request.js'),
       'pretender': npmAsset('pretender.js'),
       'faker': npmAsset('build/build/faker.js')
+    }
+  },
+
+  loadMirageToNode: function(router) {
+    var { builder, appEnv } = toNodeJSBuilder(this.app.project.root, this.mirageDirectory);
+    builder.build().then(function(output) {
+      var startExpressServer = require(path.join(output.directory,'nodejs/start-express-server.js'));
+      var res = startExpressServer(router, appEnv);
+    }).catch(function(err) {
+      console.log('Error during build for node.js:', err);
+    }).finally(function() {
+      console.log('Build for node.js finished!');
+    });
+  },
+
+  serverMiddleware: function(options) {
+    if (this.addonConfig.useExpress) {
+      this.expressRouter = require('express').Router();
+      var router = this.expressRouter;
+      var app = options.app;
+      app.use(router);
+    }
+  },
+
+  postBuild: function(result) {
+    if (this.expressRouter) {
+      this.expressRouter.stack = [];
+      this.loadMirageToNode(this.expressRouter);
     }
   },
 

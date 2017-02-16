@@ -38,7 +38,7 @@ function _shouldUseMirage(env, addonConfig) {
   to initialize Mirage.
 */
 function _defaultEnabled(env, addonConfig) {
-  let usingInDev = env === 'development' && !addonConfig.usingProxy;
+  let usingInDev = env === 'development' && !addonConfig.usingProxy && !addonConfig.useExpress;
   let usingInTest = env === 'test';
 
   return usingInDev || usingInTest;

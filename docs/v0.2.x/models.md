@@ -91,6 +91,14 @@ let post = blogPosts.find(1);
 let posts = blogPosts.find([1, 3, 4]);
 ```
 
+### findBy(*query*)
+
+Returns the first model in the database that matches the key-value pairs in the `query` object. Note that a string comparison is used.
+
+```js
+let post = blogPosts.findBy({ published: true });
+```
+
 ### first()
 
 Returns the first model in the database.
@@ -101,7 +109,7 @@ let post = blogPosts.first();
 
 ### where(*query*)
 
-Return an array of models in the database matching the key-value pairs in *query*.
+Return an array of models in the database matching the key-value pairs in *query*. Note that a string comparison is used.
 
 ```js
 let posts = blogPosts.where({ published: true });

@@ -31,7 +31,7 @@ class BelongsTo extends Association {
    * @public
    */
   getForeignKey() {
-    return `${camelize(this.key)}Id`;
+    return camelize(this.key);
   }
 
   /**
@@ -50,20 +50,25 @@ class BelongsTo extends Association {
     let association = this;
     let foreignKey = this.getForeignKey();
 
-    let associationHash = {};
-    associationHash[key] = this;
-    modelPrototype.belongsToAssociations = _assign(modelPrototype.belongsToAssociations, associationHash);
-    modelPrototype.associationKeys.push(key);
-    modelPrototype.associationIdKeys.push(foreignKey);
+    let isPolymorphic = this.opts.polymorphic;
+    let associationHash = { [key]: this };
 
-    Object.defineProperty(modelPrototype, this.getForeignKey(), {
+    modelPrototype.associationKeys.push(key);
+    modelPrototype.associationIdKeys.push(`${foreignKey}Id`);
+    modelPrototype.belongsToAssociations = _assign(modelPrototype.belongsToAssociations, associationHash);
+
+    if (isPolymorphic) {
+      modelPrototype.associationTypeKeys.push(`${foreignKey}Type`);
+    }
+
+    Object.defineProperty(modelPrototype, `${foreignKey}Id`, {
 
       /*
         object.parentId
           - returns the associated parent's id
       */
       get() {
-        return this.attrs[foreignKey];
+        return this.attrs[`${foreignKey}Id`];
       },
 
       /*
@@ -71,26 +76,51 @@ class BelongsTo extends Association {
           - sets the associated parent (via id)
       */
       set(id) {
+        let foreignType = this[`${foreignKey}Type`] || association.modelName;
+
         assert(
-          !id || schema.db[toCollectionName(association.modelName)].find(id),
+          !id || schema.db[toCollectionName(foreignType)].find(id),
           `Couldn\'t find ${association.modelName} with id = ${id}`
         );
 
-        this.attrs[foreignKey] = id;
+        this.attrs[`${foreignKey}Id`] = id;
+        return this;
+      }
+    });
+
+    Object.defineProperty(modelPrototype, `${foreignKey}Type`, {
+
+      /*
+        object.parentId
+          - returns the associated parent's id
+      */
+      get() {
+        return this.attrs[`${foreignKey}Type`];
+      },
+
+      /*
+        object.parentId = (parentId)
+          - sets the associated parent (via id)
+      */
+      set(type) {
+        this.attrs[`${foreignKey}Type`] = type;
         return this;
       }
     });
 
     Object.defineProperty(modelPrototype, key, {
       /*
+       * });
         object.parent
           - returns the associated parent
       */
       get() {
-        let foreignKeyId = this[foreignKey];
+        let foreignKeyId = this[`${foreignKey}Id`];
         if (foreignKeyId != null) {
+          let foreignType = this[`${foreignKey}Type`] || association.modelName;
+
           association._tempParent = null;
-          return schema[toCollectionName(association.modelName)].find(foreignKeyId);
+          return schema[toCollectionName(foreignType)].find(foreignKeyId);
 
         } else if (association._tempParent) {
           return association._tempParent;
@@ -105,14 +135,19 @@ class BelongsTo extends Association {
       */
       set(newModel) {
         if (newModel && newModel.isNew()) {
-          this[foreignKey] = null;
+          this[`${foreignKey}Id`] = null;
           association._tempParent = newModel;
         } else if (newModel) {
           association._tempParent = null;
-          this[foreignKey] = newModel.id;
+
+          if (isPolymorphic) {
+            this[`${foreignKey}Type`] = newModel.modelName;
+          }
+
+          this[`${foreignKey}Id`] = newModel.id;
         } else {
           association._tempParent = null;
-          this[foreignKey] = null;
+          this[`${foreignKey}Id`] = null;
         }
       }
     });

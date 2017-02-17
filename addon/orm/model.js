@@ -265,14 +265,25 @@ class Model {
       if (parent && parent.isNew()) {
         let fk = association.getForeignKey();
         parent.save();
-        this.update(fk, parent.id);
+
+        if (association.opts.polymorphic) {
+          this.update(`${fk}Type`, parent.modelName);
+        }
+
+        this.update(`${fk}Id`, parent.id);
       }
     });
 
     Object.keys(this.hasManyAssociations).forEach((key) => {
       let association = this.hasManyAssociations[key];
       let children = this[key];
-      children.update(association.getForeignKey(), this.id);
+      let fk = association.getForeignKey();
+
+      if (association.opts.polymorphic) {
+        children.update(`${fk}Type`, this.modelName);
+      }
+
+      children.update(`${fk}Id`, this.id);
     });
   }
 

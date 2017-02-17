@@ -30,7 +30,7 @@ class HasMany extends Association {
    * @public
    */
   getForeignKey() {
-    return `${this.opts.inverse || camelize(this.ownerModelName)}Id`;
+    return this.opts.inverse || camelize(this.ownerModelName);
   }
 
   /**
@@ -52,11 +52,17 @@ class HasMany extends Association {
     let association = this;
     let foreignKey = this.getForeignKey();
     let relationshipIdsKey = `${camelize(singularize(association.key))}Ids`;
+
+    let isPolymorphic = this.opts.polymorphic;
     let associationHash = { [key]: this };
 
     modelPrototype.hasManyAssociations = _assign(modelPrototype.hasManyAssociations, associationHash);
     modelPrototype.associationKeys.push(key);
     modelPrototype.associationIdKeys.push(relationshipIdsKey);
+
+    if (isPolymorphic) {
+      modelPrototype.associationTypeKeys.push(`${foreignKey}Type`);
+    }
 
     Object.defineProperty(modelPrototype, relationshipIdsKey, {
 
@@ -68,7 +74,12 @@ class HasMany extends Association {
         let children = association._cachedChildren || new Collection(association.modelName);
 
         if (!this.isNew()) {
-          let query = { [foreignKey]: this.id };
+          let query = { [`${foreignKey}Id`]: this.id };
+
+          if (isPolymorphic) {
+            query[`${foreignKey}Type`] = association.ownerModelName;
+          }
+
           let savedChildren = schema[toCollectionName(association.modelName)].where(query);
 
           children.mergeCollection(savedChildren);
@@ -88,12 +99,31 @@ class HasMany extends Association {
           association._cachedChildren = schema[toCollectionName(association.modelName)].find(ids);
 
         } else {
+          let query = { [`${foreignKey}Id`]: this.id };
+
+          if (isPolymorphic) {
+            query[`${foreignKey}Type`] = this.modelName;
+          }
+
           // Set current children's fk to null
-          let query = { [foreignKey]: this.id };
-          schema[toCollectionName(association.modelName)].where(query).update(foreignKey, null);
+          let currentChildren = schema[toCollectionName(association.modelName)]
+            .where(query);
+
+          if (isPolymorphic) {
+            currentChildren.update(`${foreignKey}Type`, null);
+          }
+
+          currentChildren.update(`${foreignKey}Id`, null);
 
           // Associate the new childrens to this model
-          schema[toCollectionName(association.modelName)].find(ids).update(foreignKey, this.id);
+          let newChildren = schema[toCollectionName(association.modelName)]
+            .find(ids);
+
+          if (isPolymorphic) {
+            newChildren.update(`${foreignKey}Type`, this.modelName);
+          }
+
+          newChildren.update(`${foreignKey}Id`, this.id);
 
           // Clear out any old cached children
           association._cachedChildren = new Collection(association.modelName);
@@ -116,7 +146,12 @@ class HasMany extends Association {
           return temporaryChildren;
 
         } else {
-          let query = { [foreignKey]: this.id };
+          let query = { [`${foreignKey}Id`]: this.id };
+
+          if (isPolymorphic) {
+            query[`${foreignKey}Type`] = this.modelName;
+          }
+
           let savedChildren = schema[toCollectionName(association.modelName)].where(query);
 
           return savedChildren.mergeCollection(temporaryChildren);
@@ -137,16 +172,35 @@ class HasMany extends Association {
 
         } else {
 
+          let query = { [`${foreignKey}Id`]: this.id };
+
+          if (isPolymorphic) {
+            query[`${foreignKey}Type`] = this.modelName;
+          }
+
           // Set current children's fk to null
-          let query = { [foreignKey]: this.id };
-          schema[toCollectionName(association.modelName)].where(query).update(foreignKey, null);
+          let currentChildren = schema[toCollectionName(association.modelName)]
+            .where(query);
+
+          if (isPolymorphic) {
+            currentChildren.update(`${foreignKey}Type`, null);
+          }
+
+          currentChildren.update(`${foreignKey}Id`, null);
 
           // Save any children that are new
-          models.filter((model) => model.isNew())
-            .forEach((model) => model.save());
+          models.filter(model => model.isNew())
+            .forEach(model => model.save());
 
           // Associate the new children to this model
-          schema[toCollectionName(association.modelName)].find(models.map((m) => m.id)).update(foreignKey, this.id);
+          let newChildren = schema[toCollectionName(association.modelName)]
+            .find(models.map(m => m.id));
+
+          if (isPolymorphic) {
+            newChildren.update(`${foreignKey}Type`, this.modelName);
+          }
+
+          currentChildren.update(`${foreignKey}Id`, this.id);
 
           // Clear out any old cached children
           association._cachedChildren = new Collection(association.modelName);
@@ -160,7 +214,11 @@ class HasMany extends Association {
     */
     modelPrototype[`new${capitalize(camelize(singularize(association.key)))}`] = function(attrs = {}) {
       if (!this.isNew()) {
-        attrs = _assign(attrs, { [foreignKey]: this.id });
+        if (isPolymorphic) {
+          attrs = _assign(attrs, { [`${foreignKey}Type`]: this.modelName });
+        }
+
+        attrs = _assign(attrs, { [`${foreignKey}Id`]: this.id });
       }
 
       let child = schema[toCollectionName(association.modelName)].new(attrs);
@@ -180,7 +238,17 @@ class HasMany extends Association {
     modelPrototype[`create${capitalize(camelize(singularize(association.key)))}`] = function(attrs = {}) {
       assert(!this.isNew(), 'You cannot call create unless the parent is saved');
 
-      let augmentedAttrs = _assign(attrs, { [foreignKey]: this.id });
+      let augmentedAttrs;
+
+      if (isPolymorphic) {
+        augmentedAttrs = _assign(attrs, {
+          [`${foreignKey}Type`]: this.modelName,
+          [`${foreignKey}Id`]: this.id
+        });
+      } else {
+        augmentedAttrs = _assign(attrs, { [`${foreignKey}Id`]: this.id });
+      }
+
       let child = schema[toCollectionName(association.modelName)].create(augmentedAttrs);
 
       return child;

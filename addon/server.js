@@ -19,6 +19,9 @@ import _isInteger from 'lodash/isInteger';
 
 const { RSVP: { Promise } } = Ember;
 
+const LOCALSTORAGE_KEY_DUMP = 'ember-cli-mirage:persistence';
+const LOCALSTORAGE_KEY_VERSION = 'ember-cli-mirage:persistence-version';
+
 /**
  * Creates a new Pretender instance.
  *
@@ -30,25 +33,27 @@ const { RSVP: { Promise } } = Ember;
 function createPretender(server) {
   return new Pretender(function() {
     this.passthroughRequest = function(verb, path, request) {
-      if (server.shouldLog()) {
-        console.log(`Passthrough request: ${verb.toUpperCase()} ${request.url}`);
-      }
+      server.log(`Passthrough request: ${verb.toUpperCase()} ${request.url}`);
     };
 
     this.handledRequest = function(verb, path, request) {
-      if (server.shouldLog()) {
-        console.log(`Mirage: [${request.status}] ${verb.toUpperCase()} ${request.url}`);
-        let { responseText } = request;
-        let loggedResponse;
-
-        try {
-          loggedResponse = JSON.parse(responseText);
-        } catch(e) {
-          loggedResponse = responseText;
-        }
-
-        console.log(loggedResponse);
+      if (!server.shouldLog()) {
+        return;
       }
+
+      server.log(`Mirage: [${request.status}] ${verb.toUpperCase()} ${request.url}`);
+
+      let { responseText } = request;
+      let loggedResponse;
+
+      try {
+        loggedResponse = JSON.parse(responseText);
+      } catch(e) {
+        loggedResponse = responseText;
+      }
+
+      server.log(loggedResponse);
+      server.savePersistenceDump(verb);
     };
 
     this.unhandledRequest = function(verb, path) {
@@ -153,6 +158,8 @@ export default class Server {
     this.timing = this.timing || config.timing || 400;
     this.namespace = this.namespace || config.namespace || '';
     this.urlPrefix = this.urlPrefix || config.urlPrefix || '';
+    this.persistence = !this.isTest() && config.addonConfig && config.addonConfig.persistence;
+    this.persistenceVersion = config.addonConfig && config.addonConfig.persistenceVersion || 1;
 
     this._defineRouteHandlerHelpers();
 
@@ -186,7 +193,7 @@ export default class Server {
       this.loadFactories(config.factories);
     } else if (!this.isTest() && hasDefaultScenario) {
       this.loadFactories(config.factories);
-      config.scenarios.default(this);
+      this.loadScenario();
     } else {
       this.loadFixtures();
     }
@@ -217,6 +224,25 @@ export default class Server {
    */
   shouldLog() {
     return typeof this.logging !== 'undefined' ? this.logging : !this.isTest();
+  }
+
+  /**
+   * Logs given message to console, unless logging is disabled.
+   *
+   * @method log
+   * @param {String} Message to log.
+   * @public
+   */
+  log(...args) {
+    if (!this.shouldLog()) {
+      return;
+    }
+
+    if (console.info) {
+      console.info(...args);
+    } else {
+      console.log(...args);
+    }
   }
 
   /**
@@ -258,6 +284,104 @@ export default class Server {
         this.pretender[verb](fullPath, this.pretender.passthrough);
       });
     });
+  }
+
+  /**
+   * Populates Mirage DB either from the persistence dump
+   * or by running the default scenario.
+   *
+   * @method loadScenario
+   * @public
+   */
+  loadScenario() {
+    if (!this.persistence) {
+      this.loadDefaultScenario();
+      return;
+    }
+
+    if (!window.localStorage) {
+      this.log("Mirage persistence is enabled, but localStorage is unavailable. Loading the default scenario.");
+      this.loadDefaultScenario();
+      return;
+    }
+
+    let dumpVersion = window.localStorage.getItem(LOCALSTORAGE_KEY_VERSION);
+
+    if (dumpVersion === undefined && this.persistenceVersion !== undefined) {
+      this.log("Mirage persistence dump not found. Loading the default scenario.");
+      this.loadDefaultScenario();
+      return;
+    }
+
+    if (dumpVersion !== undefined) {
+      dumpVersion = JSON.parse(dumpVersion);
+    }
+
+    if (this.persistenceVersion !== dumpVersion) {
+      this.log("Mirage persistence version mismatch. Loading the default scenario.");
+      window.localStorage.removeItem(LOCALSTORAGE_KEY_VERSION);
+      window.localStorage.removeItem(LOCALSTORAGE_KEY_DUMP);
+      this.loadDefaultScenario();
+      return;
+    }
+
+    let dump = window.localStorage.getItem(LOCALSTORAGE_KEY_DUMP);
+
+    if (!dump) {
+      this.log("Mirage persistence dump not found. Loading the default scenario.");
+      window.localStorage.removeItem(LOCALSTORAGE_KEY_VERSION);
+      this.loadDefaultScenario();
+      return;
+    }
+
+    let data = JSON.parse(dump);
+
+    this.log("Mirage persistence dump found, loading it into the database:", data);
+
+    this.db.loadData(data);
+  }
+
+  /**
+   * Runs the default scenario to populate the database
+   *
+   * @method loadDefaultScenario
+   * @public
+   */
+  loadDefaultScenario() {
+    this.options.scenarios.default(this);
+    this.savePersistenceDump();
+  }
+
+  /**
+   * Dumps DB content into localStorage, unless persistence is disabled.
+   *
+   * @method savePersistenceDump
+   * @public
+   */
+  savePersistenceDump(verb) {
+    if (!this.persistence || !window.localStorage || !this._isMutatingRequest(verb)) {
+      return;
+    }
+
+    let data = this.db._collections.reduce(
+      (result, {name, _records}) => {
+        result[name] = _records;
+        return result;
+      }, {}
+    );
+
+    let version = JSON.stringify(this.persistenceVersion);
+
+    this.log(`Dumping Mirage database into localStorage (version ${version}):`, data);
+
+    data = JSON.stringify(data);
+
+    window.localStorage.setItem(LOCALSTORAGE_KEY_VERSION, this.persistenceVersion);
+    window.localStorage.setItem(LOCALSTORAGE_KEY_DUMP, data);
+  }
+
+  _isMutatingRequest(verb) {
+    return !verb || ['post', 'put', 'patch', 'delete'].indexOf(verb) > -1;
   }
 
   /**
@@ -474,7 +598,8 @@ export default class Server {
     let routeHandler = new RouteHandler({
       schema: this.schema,
       verb, rawHandler, customizedCode, options, path,
-      serializerOrRegistry: this.serializerOrRegistry
+      serializerOrRegistry: this.serializerOrRegistry,
+      server: this
     });
 
     let fullPath = this._getFullPath(path);

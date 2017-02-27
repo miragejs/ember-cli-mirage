@@ -2,7 +2,6 @@
 
 import { pluralize, camelize } from './utils/inflector';
 import { toCollectionName } from 'ember-cli-mirage/utils/normalize-name';
-import Ember from 'ember';
 import isAssociation from 'ember-cli-mirage/utils/is-association';
 import Pretender from 'pretender';
 import Db from './db';
@@ -16,8 +15,6 @@ import _assign from 'lodash/assign';
 import _find from 'lodash/find';
 import _isPlainObject from 'lodash/isPlainObject';
 import _isInteger from 'lodash/isInteger';
-
-const { RSVP: { Promise } } = Ember;
 
 /**
  * Creates a new Pretender instance.
@@ -459,14 +456,12 @@ export default class Server {
     });
   }
 
-  _serialize(body) {
-    if (typeof body === 'string') {
-      return body;
-    } else if (body) {
-      return JSON.stringify(body);
-    } else {
-      return '{"error": "not found"}';
+  _serialize([code, headers, body]) {
+    if (typeof body !== "string") {
+      body = body ? JSON.stringify(body) : '{"error": "not found"}';
     }
+
+    return [code, headers, body];
   }
 
   _registerRouteHandler(verb, path, rawHandler, customizedCode, options) {
@@ -482,14 +477,7 @@ export default class Server {
 
     this.pretender[verb](
       fullPath,
-      (request) => {
-        return new Promise(resolve => {
-          Promise.resolve(routeHandler.handle(request)).then(mirageResponse => {
-            let [ code, headers, response ] = mirageResponse;
-            resolve([ code, headers, this._serialize(response) ]);
-          });
-        });
-      },
+      (request) => routeHandler.handle(request).then(response => this._serialize(response)),
       timing
     );
   }

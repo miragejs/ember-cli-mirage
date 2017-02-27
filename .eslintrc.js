@@ -1,5 +1,6 @@
 module.exports = {
   root: true,
+  parser: "babel-eslint",
   parserOptions: {
     ecmaVersion: 6,
     sourceType: 'module'
@@ -21,7 +22,8 @@ module.exports = {
     'no-var': 0,
     'object-shorthand': 0,
     'arrow-parens': 0,
-    'no-unused-vars': ['error', { 'args': 'none' }]
+    'no-unused-vars': ['error', { 'args': 'none' }],
+    'strict': 0
   },
   globals: {
     faker: true,

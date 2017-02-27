@@ -158,8 +158,8 @@ export default class Server {
     this.timing = this.timing || config.timing || 400;
     this.namespace = this.namespace || config.namespace || '';
     this.urlPrefix = this.urlPrefix || config.urlPrefix || '';
-    this.persistence = !this.isTest() && config.addonConfig && config.addonConfig.persistence;
-    this.persistenceVersion = config.addonConfig && config.addonConfig.persistenceVersion || 1;
+    this.persistDb = !this.isTest() && config.addonConfig && config.addonConfig.persistDb;
+    this.persistDbVersion = config.addonConfig && config.addonConfig.persistDbVersion || 1;
 
     this._defineRouteHandlerHelpers();
 
@@ -193,7 +193,7 @@ export default class Server {
       this.loadFactories(config.factories);
     } else if (!this.isTest() && hasDefaultScenario) {
       this.loadFactories(config.factories);
-      this.loadScenario();
+      this.populateDatabase();
     } else {
       this.loadFixtures();
     }
@@ -290,55 +290,51 @@ export default class Server {
    * Populates Mirage DB either from the persistence dump
    * or by running the default scenario.
    *
-   * @method loadScenario
+   * @method populateDatabase
    * @public
    */
-  loadScenario() {
-    if (!this.persistence) {
-      this.loadDefaultScenario();
-      return;
-    }
+  populateDatabase() {
+    if (this._shouldUseLocalStorageDump()) {
+      let dump = window.localStorage.getItem(LOCALSTORAGE_KEY_DUMP);
+      let data = JSON.parse(dump);
+      this.log("Mirage persistence dump found, loading it into the database:", data);
+      this.db.loadData(data);
 
-    if (!window.localStorage) {
+    } else {
+      this.loadDefaultScenario();
+    }
+  }
+
+  _shouldUseLocalStorageDump() {
+    let shouldUseDump = true;
+    let dump = window.localStorage.getItem(LOCALSTORAGE_KEY_DUMP);
+    let dumpVersionString = window.localStorage.getItem(LOCALSTORAGE_KEY_VERSION);
+    let dumpVersion = (dumpVersionString !== "undefined") ? JSON.parse(dumpVersionString) : undefined;
+
+    if (!this.persistDb) {
+      shouldUseDump = false;
+
+    } else if (!window.localStorage) {
       this.log("Mirage persistence is enabled, but localStorage is unavailable. Loading the default scenario.");
-      this.loadDefaultScenario();
-      return;
-    }
+      shouldUseDump = false;
 
-    let dumpVersion = window.localStorage.getItem(LOCALSTORAGE_KEY_VERSION);
-
-    if (dumpVersion === undefined && this.persistenceVersion !== undefined) {
+    } else if (dumpVersion === undefined && this.persistDbVersion !== undefined) {
       this.log("Mirage persistence dump not found. Loading the default scenario.");
-      this.loadDefaultScenario();
-      return;
-    }
+      shouldUseDump = false;
 
-    if (dumpVersion !== undefined) {
-      dumpVersion = JSON.parse(dumpVersion);
-    }
-
-    if (this.persistenceVersion !== dumpVersion) {
+    } else if (this.persistDbVersion !== dumpVersion) {
       this.log("Mirage persistence version mismatch. Loading the default scenario.");
       window.localStorage.removeItem(LOCALSTORAGE_KEY_VERSION);
       window.localStorage.removeItem(LOCALSTORAGE_KEY_DUMP);
-      this.loadDefaultScenario();
-      return;
-    }
+      shouldUseDump = false;
 
-    let dump = window.localStorage.getItem(LOCALSTORAGE_KEY_DUMP);
-
-    if (!dump) {
+    } else if (!dump) {
       this.log("Mirage persistence dump not found. Loading the default scenario.");
       window.localStorage.removeItem(LOCALSTORAGE_KEY_VERSION);
-      this.loadDefaultScenario();
-      return;
+      shouldUseDump = false;
     }
 
-    let data = JSON.parse(dump);
-
-    this.log("Mirage persistence dump found, loading it into the database:", data);
-
-    this.db.loadData(data);
+    return shouldUseDump;
   }
 
   /**
@@ -359,7 +355,7 @@ export default class Server {
    * @public
    */
   savePersistenceDump(verb) {
-    if (!this.persistence || !window.localStorage || !this._isMutatingRequest(verb)) {
+    if (!this.persistDb || !window.localStorage || !this._isMutatingRequest(verb)) {
       return;
     }
 
@@ -370,18 +366,18 @@ export default class Server {
       }, {}
     );
 
-    let version = JSON.stringify(this.persistenceVersion);
+    let version = JSON.stringify(this.persistDbVersion);
 
     this.log(`Dumping Mirage database into localStorage (version ${version}):`, data);
 
     data = JSON.stringify(data);
 
-    window.localStorage.setItem(LOCALSTORAGE_KEY_VERSION, this.persistenceVersion);
+    window.localStorage.setItem(LOCALSTORAGE_KEY_VERSION, this.persistDbVersion);
     window.localStorage.setItem(LOCALSTORAGE_KEY_DUMP, data);
   }
 
   _isMutatingRequest(verb) {
-    return !verb || ['post', 'put', 'patch', 'delete'].indexOf(verb) > -1;
+    return !verb || ['post', 'put', 'patch', 'delete'].indexOf(verb.toLowerCase()) > -1;
   }
 
   /**

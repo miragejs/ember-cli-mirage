@@ -108,7 +108,7 @@ To ignore paths on your current host (as well as configured `namespace`), use a 
 this.passthrough('/addresses');
 ```
 
-You can also pass a list of paths, or call `passthrough` multiple time:
+You can also pass a list of paths, or call `passthrough` multiple times:
 
 ```js
 this.passthrough('/addresses', '/contacts');

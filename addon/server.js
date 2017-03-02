@@ -594,8 +594,7 @@ export default class Server {
     let routeHandler = new RouteHandler({
       schema: this.schema,
       verb, rawHandler, customizedCode, options, path,
-      serializerOrRegistry: this.serializerOrRegistry,
-      server: this
+      serializerOrRegistry: this.serializerOrRegistry
     });
 
     let fullPath = this._getFullPath(path);

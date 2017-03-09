@@ -92,6 +92,7 @@ test('_getAttrsForRequest works with attributes and relationships', function(ass
       doesMirage: true,
       companyId: '1',
       githubAccountId: '1',
+      manyThingsId: [],
       somethingId: null
     },
     'it normalizes data correctly.'
@@ -123,6 +124,49 @@ test('_getAttrsForRequest works with just relationships', function(assert) {
     attrs,
     {
       companyId: '1'
+    },
+    'it normalizes data correctly.'
+  );
+});
+
+test('_getAttrsForRequest works with has-may relationships', function(assert) {
+  let payload = {
+    'data': {
+      'relationships': {
+        'company': {
+          'data': {
+            'id': '1',
+            'type': 'companies'
+          }
+        },
+        'employes': {
+          data: [{
+            id: '1',
+            type: 'employ'
+          }, {
+            id: '2',
+            type: 'employ'
+          }, {
+            id: '3',
+            type: 'employ'
+          }]
+        }
+      },
+      'type': 'github-account'
+    }
+  };
+
+  this.handler._getJsonApiDocForRequest = function() {
+    return payload;
+  };
+
+  let attrs = this.handler._getAttrsForRequest(this.request, 'user');
+
+  assert.deepEqual(
+    attrs,
+    {
+      companyId: '1',
+      employesId: ['1', '2', '3']
     },
     'it normalizes data correctly.'
   );

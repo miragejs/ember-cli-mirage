@@ -58,8 +58,11 @@ export default class BaseRouteHandler {
       Object.keys(json.data.relationships).forEach((key) => {
         let relationship = json.data.relationships[key];
 
+        let attrKey = camelize(key);
         if (!Array.isArray(relationship.data)) {
-          attrs[`${camelize(key)}Id`] = relationship.data && relationship.data.id;
+          attrs[`${attrKey}Id`] = relationship.data && relationship.data.id;
+        } else {
+          attrs[`${attrKey}Id`] = relationship.data.map((relationObject) => relationObject.id);
         }
       }, {});
     }

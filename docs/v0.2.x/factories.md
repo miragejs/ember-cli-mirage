@@ -41,6 +41,10 @@ export default Factory.extend({
 
 The first user generated (per test) would have a name of `User 1`, the second a name of `User 2`, and so on.
 
+<aside class='Docs-page__aside'>
+  <p>Referencing other attributes from within dynamic attributes is only available in 2.4 and later.</p>
+</aside>
+
 Finally, you can also reference attributes from within a dynamic attribute via `this`:
 
 ```js

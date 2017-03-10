@@ -244,3 +244,25 @@ test('multiple hasMany associations with one explicit inverse sets up the correc
   assert.deepEqual(schema._registry.user.foreignKeys, []);
   assert.deepEqual(schema._registry.project.foreignKeys, ['userId', 'specialUserId']);
 });
+
+test('reflexive association with one explicit inverse sets up the correct foreign keys', function(assert) {
+  let schema = new Schema(new Db(), {
+    user: Model.extend({
+      boss: belongsTo('user'),
+      employees: hasMany('user', { inverse: 'boss' })
+    })
+  });
+
+  assert.deepEqual(schema._registry.user.foreignKeys, ['bossId']);
+});
+
+test('reflexive association with no explicit inverse thow an error', function(assert) {
+  assert.throws(() => {
+    new Schema(new Db(), {
+      user: Model.extend({
+        boss: belongsTo('user'),
+        employees: hasMany('user')
+      })
+    });
+  }, /without an inverse/);
+});

@@ -192,6 +192,6 @@ And one from setting up your development database:
 // app/mirage/scenarios/default.js
 export default function(server) {
   var contact = server.create('contact');
-  server.createList('address', { contact_id: contact.id });
+  server.create('address', { contact_id: contact.id });
 }
 ```

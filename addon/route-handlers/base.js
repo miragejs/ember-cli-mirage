@@ -59,7 +59,15 @@ export default class BaseRouteHandler {
         let relationship = json.data.relationships[key];
 
         if (!Array.isArray(relationship.data)) {
+          let type = relationship.data && relationship.data.type;
+          let lastSlashIndex = type.lastIndexOf('/');
+
           attrs[`${camelize(key)}Id`] = relationship.data && relationship.data.id;
+
+          if (lastSlashIndex > -1) {
+            let typeSuffix = type.slice(lastSlashIndex + 1);
+            attrs[`${camelize(key)}Type`] = singularize(typeSuffix);
+          }
         }
       }, {});
     }

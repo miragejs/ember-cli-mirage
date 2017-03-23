@@ -9,7 +9,7 @@ import PutShorthandHandler from './route-handlers/shorthands/put';
 import DeleteShorthandHandler from './route-handlers/shorthands/delete';
 import HeadShorthandHandler from './route-handlers/shorthands/head';
 
-const { RSVP: { Promise }, isBlank, typeOf } = Ember;
+const { RSVP, isBlank, typeOf } = Ember;
 
 function isNotBlankResponse(response) {
   return response
@@ -52,54 +52,50 @@ export default class RouteHandler {
   }
 
   handle(request) {
-    return new Promise(resolve => {
-      this._getMirageResponseForRequest(request).then(mirageResponse => {
-        this.serialize(mirageResponse, request).then(serializedMirageResponse => {
-          resolve(serializedMirageResponse.toRackResponse());
-        });
-      });
-    });
+    return RSVP
+      .resolve(request) // convert to a promise
+
+      .then(request => RSVP.hash({
+        request,
+        response: this._handleReqeust(request)
+      }))
+
+      .then(({request, response}) => RSVP.hash({
+        request,
+        mirageResponse: this._toMirageResponse(response)
+      }))
+
+      .then(({request, mirageResponse}) =>
+        this.serialize(mirageResponse, request).toRackResponse()
+      )
+
+      .catch(error => this._throw(request, error));
   }
 
-  _getMirageResponseForRequest(request) {
-    let result;
-    try {
-      /*
-       We need to do this for the #serialize convenience method. Probably is
-       a better way.
-     */
-      if (this.handler instanceof FunctionHandler) {
-        this.handler.setRequest(request);
-      }
-
-      result = this.handler.handle(request);
-    } catch(e) {
-      if (e instanceof MirageError) {
-        throw e;
-      } else {
-        let message = (typeOf(e) === 'string') ? e : e.message;
-        throw new MirageError(`Your handler for the url ${request.url} threw an error: ${message}`);
-      }
+  _handleReqeust(request) {
+    if (this.handler instanceof FunctionHandler) {
+      this.handler.setRequest(request);
     }
 
-    return this._toMirageResponse(result);
+    return this.handler.handle(request);
   }
 
-  _toMirageResponse(result) {
-    let mirageResponse;
+  _throw(request, error) {
+    if (error instanceof MirageError) {
+      throw error;
+    } else {
+      let message = (typeOf(error) === 'string') ? error : error.message;
+      throw new MirageError(`Your handler for the url ${request.url} threw an error: ${message}`);
+    }
+  }
 
-    return new Promise(resolve => {
-      Promise.resolve(result).then(response => {
-        if (response instanceof Response) {
-          mirageResponse = result;
-        } else {
-          let code = this._getCodeForResponse(response);
-          mirageResponse = new Response(code, {}, response);
-        }
-        resolve(mirageResponse);
-      });
+  _toMirageResponse(response) {
+    if (!(response instanceof Response)) {
+      let code = this._getCodeForResponse(response);
+      response = new Response(code, {}, response);
+    }
 
-    });
+    return response;
   }
 
   _getCodeForResponse(response) {
@@ -115,12 +111,8 @@ export default class RouteHandler {
     return code;
   }
 
-  serialize(mirageResponsePromise, request) {
-    return new Promise(resolve => {
-      Promise.resolve(mirageResponsePromise).then(mirageResponse => {
-        mirageResponse.data = this.serializerOrRegistry.serialize(mirageResponse.data, request);
-        resolve(mirageResponse);
-      });
-    });
+  serialize(mirageResponse, request) {
+    mirageResponse.data = this.serializerOrRegistry.serialize(mirageResponse.data, request);
+    return mirageResponse;
   }
 }

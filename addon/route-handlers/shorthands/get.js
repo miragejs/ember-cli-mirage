@@ -31,9 +31,27 @@ export default class GetShorthandRouteHandler extends BaseShorthandRouteHandler 
       }
     } else if (this.options.coalesce && request.queryParams && request.queryParams.ids) {
       return modelClass.find(request.queryParams.ids);
+    } else if (request.queryParams) {
+      return modelClass.where(this.buildFilterQuery(request.queryParams));
     } else {
       return modelClass.all();
     }
+  }
+
+  /*
+    Parse request.queryParams into a query to pass to
+    modelClass.where()
+
+  */
+  buildFilterQuery(queryParams) {
+    let query = {};
+    Object.keys(queryParams).forEach(key => {
+      let filterRegex = key.match(/filter\[([^&]*)\]/);
+      if (filterRegex) {
+        query[filterRegex[1]] = queryParams[key];
+      }
+    });
+    return query;
   }
 
   /*

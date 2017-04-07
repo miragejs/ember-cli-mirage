@@ -1,5 +1,6 @@
-import _invoke from 'lodash/collection/invoke';
 import assert from '../assert';
+import _invokeMap from 'lodash/invokeMap';
+import _isEqual from 'lodash/isEqual';
 
 /**
  * An array of models, returned from one of the schema query
@@ -20,6 +21,17 @@ export default class Collection {
   }
 
   /**
+   * Number of models in the collection.
+   *
+   * @property length
+   * @type Number
+   * @public
+   */
+  get length() {
+    return this.models.length;
+  }
+
+  /**
    * Updates each model in the collection (persisting immediately to the db).
    * @method update
    * @param key
@@ -28,7 +40,7 @@ export default class Collection {
    * @public
    */
   update(...args) {
-    _invoke(this.models, 'update', ...args);
+    _invokeMap(this.models, 'update', ...args);
 
     return this;
   }
@@ -40,7 +52,7 @@ export default class Collection {
    * @public
    */
   destroy() {
-    _invoke(this.models, 'destroy');
+    _invokeMap(this.models, 'destroy');
 
     return this;
   }
@@ -52,7 +64,7 @@ export default class Collection {
    * @public
    */
   save() {
-    _invoke(this.models, 'save');
+    _invokeMap(this.models, 'save');
 
     return this;
   }
@@ -64,9 +76,50 @@ export default class Collection {
    * @public
    */
   reload() {
-    _invoke(this.models, 'reload');
+    _invokeMap(this.models, 'reload');
 
     return this;
+  }
+
+  /**
+   * Adds a model to this collection
+   *
+   * @method add
+   * @return this
+   * @public
+   */
+  add(model) {
+    this.models.push(model);
+
+    return this;
+  }
+
+  /**
+   * Removes a model to this collection
+   *
+   * @method remove
+   * @return this
+   * @public
+   */
+  remove(model) {
+    let [ match ] = this.models.filter(m => _isEqual(m.attrs, model.attrs));
+    if (match) {
+      let i = this.models.indexOf(match);
+      this.models.splice(i, 1);
+    }
+
+    return this;
+  }
+
+  /**
+   * Checks if the collection includes the model
+   *
+   * @method includes
+   * @return boolean
+   * @public
+   */
+  includes(model) {
+    return this.models.filter(m => _isEqual(m.attrs, model.attrs)).length > 0;
   }
 
   /**
@@ -94,6 +147,19 @@ export default class Collection {
   }
 
   /**
+   * @method slice
+   * @param {Integer} begin
+   * @param {Integer} end
+   * @return {Collection}
+   * @public
+   */
+  slice(...args) {
+    let slicedModels = this.models.slice(...args);
+
+    return new Collection(this.modelName, slicedModels);
+  }
+
+  /**
    * @method mergeCollection
    * @param collection
    * @return this
@@ -112,6 +178,6 @@ export default class Collection {
    * @public
    */
   toString() {
-    return `collection:${this.modelName}(${this.models.map(m => m.id).join(',')})`;
+    return `collection:${this.modelName}(${this.models.map((m) => m.id).join(',')})`;
   }
 }

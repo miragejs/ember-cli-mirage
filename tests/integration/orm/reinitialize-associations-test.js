@@ -1,13 +1,12 @@
 // jscs:disable disallowVar
-import Mirage from 'ember-cli-mirage';
-import Model from 'ember-cli-mirage/orm/model';
+import { Model, hasMany } from 'ember-cli-mirage';
 import Schema from 'ember-cli-mirage/orm/schema';
 import Db from 'ember-cli-mirage/db';
 import {module, test} from 'qunit';
 
 // Model classes are defined statically, just like in a typical app
 var User = Model.extend({
-  addresses: Mirage.hasMany()
+  addresses: hasMany()
 });
 var Address = Model.extend();
 
@@ -18,8 +17,8 @@ module('Integration | ORM | reinitialize associations', {
       user: User
     });
 
-    this.schema.users.create({ id: 1, name: 'Link' });
-    this.schema.addresses.create({ id: 1, country: 'Hyrule', userId: 1 });
+    this.schema.addresses.create({ id: 1, country: 'Hyrule' });
+    this.schema.users.create({ id: 1, name: 'Link', addressIds: [ 1 ] });
   }
 });
 

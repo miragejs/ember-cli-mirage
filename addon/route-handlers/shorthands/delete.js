@@ -1,4 +1,3 @@
-// jscs:disable requireParenthesesAroundArrowParam
 import assert from 'ember-cli-mirage/assert';
 import BaseShorthandRouteHandler from './base';
 import { pluralize, camelize } from 'ember-cli-mirage/utils/inflector';
@@ -26,7 +25,7 @@ export default class DeleteShorthandRouteHandler extends BaseShorthandRouteHandl
   /*
     Remove the model and child related models from the db.
 
-    This would remove the contact with id `:id`, and well
+    This would remove the contact with id `:id`, as well
     as this contact's addresses and phone numbers.
       Ex: this.del('/contacts/:id', ['contact', 'addresses', 'numbers');
   */
@@ -38,7 +37,7 @@ export default class DeleteShorthandRouteHandler extends BaseShorthandRouteHandl
       .map((modelClass) => pluralize(modelClass.camelizedModelName));
 
     // Delete related children
-    childTypes.forEach(type => parent[type].destroy());
+    childTypes.forEach((type) => parent[type].destroy());
     parent.destroy();
   }
 

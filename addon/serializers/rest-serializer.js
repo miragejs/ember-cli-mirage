@@ -15,7 +15,16 @@ export default ActiveModelSerializer.extend({
     return camelize(pluralize(type));
   },
 
+  keyForEmbeddedRelationship(attributeName) {
+    return camelize(attributeName);
+  },
+
   keyForRelationshipIds(type) {
-    return `${camelize(singularize(type))}Ids`;
+    return camelize(pluralize(type));
+  },
+
+  keyForForeignKey(relationshipName) {
+    return camelize(singularize(relationshipName));
   }
+
 });

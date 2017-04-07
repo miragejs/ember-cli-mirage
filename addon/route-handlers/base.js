@@ -43,7 +43,7 @@ export default class BaseRouteHandler {
     let attrs = {};
 
     assert(
-      json.data && (json.data.attributes || json.data.relationships),
+      json.data && (json.data.attributes || json.data.type || json.data.relationships),
       `You're using a shorthand or #normalizedRequestAttrs, but your serializer's normalize function did not return a valid JSON:API document. http://www.ember-cli-mirage.com/docs/v0.2.x/serializers/#normalizejson`
     );
 
@@ -71,4 +71,23 @@ export default class BaseRouteHandler {
     return attrs;
   }
 
+  _getAttrsForFormRequest({ requestBody }) {
+    let attrs;
+    let urlEncodedParts = [];
+
+    assert(
+      requestBody && typeof requestBody === 'string',
+      `You're using the helper method #normalizedFormData, but the request body is empty or not a valid url encoded string.`
+    );
+
+    urlEncodedParts = requestBody.split('&');
+
+    attrs = urlEncodedParts.reduce((a, urlEncodedPart) => {
+      let [key, value] = urlEncodedPart.split('=');
+      a[key] = decodeURIComponent(value.replace(/\+/g,  ' '));
+      return a;
+    }, {});
+
+    return attrs;
+  }
 }

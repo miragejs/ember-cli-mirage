@@ -1,8 +1,8 @@
-import _assign from 'lodash/object/assign';
-import _isFunction from 'lodash/lang/isFunction';
-import _mapValues from 'lodash/object/mapValues';
+import _assign from 'lodash/assign';
+import _isFunction from 'lodash/isFunction';
+import _mapValues from 'lodash/mapValues';
 import referenceSort from './utils/reference-sort';
-import _isPlainObject from 'lodash/lang/isPlainObject';
+import _isPlainObject from 'lodash/isPlainObject';
 
 let Factory = function() {
   this.build = function(sequence) {
@@ -17,8 +17,7 @@ let Factory = function() {
     let keys = sortAttrs(topLevelAttrs, sequence);
 
     keys.forEach(function(key) {
-      let buildAttrs;
-      let buildSingleValue;
+      let buildAttrs, buildSingleValue;
 
       buildAttrs = function(attrs) {
         return _mapValues(attrs, buildSingleValue);
@@ -105,9 +104,14 @@ function sortAttrs(attrs, sequence) {
   let property;
 
   Object.keys(attrs).forEach(function(key) {
+    let value;
     Object.defineProperty(obj.constructor.prototype, key, {
       get() {
         refs.push([property, key]);
+        return value;
+      },
+      set(newValue) {
+        value = newValue;
       },
       enumerable: false,
       configurable: true
@@ -116,10 +120,17 @@ function sortAttrs(attrs, sequence) {
 
   Object.keys(attrs).forEach(function(key) {
     let value = attrs[key];
+    if (typeof value !== 'function') {
+      obj[key] = value;
+    }
+  });
+
+  Object.keys(attrs).forEach(function(key) {
+    let value = attrs[key];
     property = key;
 
     if (typeof value === 'function') {
-      value.call(obj, sequence);
+      obj[key] = value.call(obj, sequence);
     }
 
     refs.push([key]);

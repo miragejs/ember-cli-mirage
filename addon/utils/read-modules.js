@@ -1,11 +1,11 @@
-// jscs:disable
 /* global requirejs, require */
-/*jslint node: true */
-// jscs:enable
+/* eslint-env node */
 'use strict';
 
 import Ember from 'ember';
+import _camelCase from 'lodash/camelCase';
 import { camelize, pluralize } from 'ember-cli-mirage/utils/inflector';
+import require from 'require';
 
 const { assert } = Ember;
 
@@ -49,7 +49,7 @@ export default function(prefix) {
       throw new Error(`${moduleName} must export a ${moduleType}`);
     }
 
-    let data = module['default'];
+    let data = module.default;
 
     modulesMap[moduleType][camelize(moduleKey)] = data;
   });

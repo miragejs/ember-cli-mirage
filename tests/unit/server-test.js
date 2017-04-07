@@ -1,7 +1,6 @@
-// jscs:disable requireCamelCaseOrUpperCaseIdentifiers, disallowMultipleVarDecl
 import Server, { defaultPassthroughs } from 'ember-cli-mirage/server';
 import {module, test} from 'qunit';
-import { Model, Factory, trait } from 'ember-cli-mirage';
+import { Model, Factory, belongsTo, hasMany, trait, association } from 'ember-cli-mirage';
 
 module('Unit | Server');
 
@@ -19,7 +18,7 @@ test('it runs the default scenario in non-test environments', function(assert) {
   let server = new Server({
     environment: 'development',
     scenarios: {
-      default(server) {
+      default() {
         assert.ok(true);
       }
     }
@@ -241,6 +240,25 @@ test('create allows for nested attr overrides', function(assert) {
   server.shutdown();
 });
 
+test('factories can have dynamic properties that depend on attr overrides', function(assert) {
+  let server = new Server({
+    environment: 'test',
+    factories: {
+      baz: Factory.extend({
+        bar() {
+          return this.name.substr(1);
+        }
+      })
+    }
+  });
+
+  let baz1 = server.create('baz', { name: 'foo' });
+
+  assert.deepEqual(baz1, { id: '1', name: 'foo', bar: 'oo' });
+
+  server.shutdown();
+});
+
 test('create allows for arrays of attr overrides', function(assert) {
   let server = new Server({
     environment: 'test',
@@ -446,6 +464,97 @@ test('create throws errors when using trait that is not defined and distinquishe
   server.shutdown();
 });
 
+test('create allows to create objects with associations', function(assert) {
+  let AuthorFactory = Factory.extend({
+    name: 'Sam'
+  });
+  let CategoryFactory = Factory.extend({
+    name: 'splendid software'
+  });
+  let ArticleFactory = Factory.extend({
+    title: 'Lorem ipsum',
+
+    withCategory: trait({
+      awesomeCategory: association()
+    }),
+
+    author: association()
+  });
+
+  let server = new Server({
+    environment: 'test',
+    models: {
+      author: Model.extend({
+        articles: hasMany()
+      }),
+      category: Model.extend({
+      }),
+      article: Model.extend({
+        author: belongsTo(),
+        awesomeCategory: belongsTo('category')
+      })
+    },
+    factories: {
+      article: ArticleFactory,
+      author: AuthorFactory,
+      category: CategoryFactory
+    }
+  });
+
+  let article = server.create('article', 'withCategory');
+
+  assert.deepEqual(article.attrs, { title: 'Lorem ipsum', id: '1', authorId: '1', awesomeCategoryId: '1' });
+  assert.equal(server.db.authors.length, 1);
+  assert.equal(server.db.categories.length, 1);
+
+  let anotherArticle = server.create('article', 'withCategory');
+  assert.deepEqual(anotherArticle.attrs, { title: 'Lorem ipsum', id: '2', authorId: '2', awesomeCategoryId: '2' });
+  assert.equal(server.db.authors.length, 2);
+  assert.equal(server.db.categories.length, 2);
+});
+
+test('create allows to create objects with associations with traits and overrides for associations', function(assert) {
+  let CategoryFactory = Factory.extend({
+    name: 'splendid software',
+
+    published: trait({
+      isPublished: true,
+      publishedAt: '2014-01-01 10:00:00'
+    })
+  });
+  let ArticleFactory = Factory.extend({
+    title: 'Lorem ipsum',
+
+    withCategory: trait({
+      category: association('published', { publishedAt: '2016-01-01 12:00:00' })
+    })
+  });
+
+  let server = new Server({
+    environment: 'test',
+    factories: {
+      article: ArticleFactory,
+      category: CategoryFactory
+    },
+    models: {
+      category: Model.extend({
+      }),
+      article: Model.extend({
+        category: belongsTo('category')
+      })
+    }
+  });
+
+  let article = server.create('article', 'withCategory');
+
+  assert.deepEqual(article.attrs, { title: 'Lorem ipsum', id: '1', categoryId: '1' });
+  assert.equal(server.db.categories.length, 1);
+  assert.deepEqual(
+    server.db.categories[0],
+    { name: 'splendid software', id: '1', isPublished: true, publishedAt: '2016-01-01 12:00:00' }
+  );
+});
+
 module('Unit | Server #createList', {
   beforeEach() {
     this.server = new Server({ environment: 'test' });
@@ -587,6 +696,25 @@ test('createList throws errors when using trait that is not defined and distinqu
   assert.throws(() => {
     this.server.createList('article', 2, 'private');
   }, /'private' trait is not registered in 'article' factory/);
+});
+
+test('createList throws an error if the second argument is not an integer', function(assert) {
+  let ArticleFactory = Factory.extend({
+    title: 'Lorem ipsum',
+
+    published: trait({
+      isPublished: true,
+      publishedAt: '2010-01-01 10:00:00'
+    })
+  });
+
+  this.server.loadFactories({
+    article: ArticleFactory
+  });
+
+  assert.throws(() => {
+    this.server.createList('article', 'published');
+  }, /second argument has to be an integer, you passed: string/);
 });
 
 module('Unit | Server #build', {
@@ -783,6 +911,93 @@ test('build allows to extend with multiple traits and to apply attr overrides', 
     publishedAt: '2012-01-01 10:00:00', content: 'content' });
 });
 
+test('build allows to build objects with associations', function(assert) {
+  let AuthorFactory = Factory.extend({
+    name: 'Yehuda'
+  });
+  let CategoryFactory = Factory.extend({
+    name: 'splendid software'
+  });
+  let ArticleFactory = Factory.extend({
+    title: 'Lorem ipsum',
+
+    withCategory: trait({
+      awesomeCategory: association()
+    }),
+
+    someOtherTrait: trait({
+      user: association()
+    }),
+
+    author: association()
+  });
+
+  this.server.loadFactories({
+    article: ArticleFactory,
+    author: AuthorFactory,
+    category: CategoryFactory
+  });
+  this.server.schema.registerModels({
+    author: Model.extend({
+      articles: hasMany()
+    }),
+    category: Model.extend({
+    }),
+    article: Model.extend({
+      author: belongsTo(),
+      awesomeCategory: belongsTo('category')
+    })
+  });
+
+  let article = this.server.build('article', 'withCategory');
+
+  assert.deepEqual(article, { title: 'Lorem ipsum', authorId: '1', awesomeCategoryId: '1' });
+  assert.equal(server.db.authors.length, 1);
+  assert.equal(server.db.categories.length, 1);
+});
+
+test('build allows to build objects with associations with traits and overrides for associations', function(assert) {
+  let CategoryFactory = Factory.extend({
+    name: 'splendid software',
+
+    published: trait({
+      isPublished: true,
+      publishedAt: '2014-01-01 10:00:00'
+    })
+  });
+  let ArticleFactory = Factory.extend({
+    title: 'Lorem ipsum',
+
+    withCategory: trait({
+      category: association('published', { publishedAt: '2016-01-01 12:00:00' })
+    })
+  });
+
+  let server = new Server({
+    environment: 'test',
+    factories: {
+      article: ArticleFactory,
+      category: CategoryFactory
+    },
+    models: {
+      category: Model.extend({
+      }),
+      article: Model.extend({
+        category: belongsTo()
+      })
+    }
+  });
+
+  let article = server.build('article', 'withCategory');
+
+  assert.deepEqual(article, { title: 'Lorem ipsum', categoryId: '1' });
+  assert.equal(server.db.categories.length, 1);
+  assert.deepEqual(
+    server.db.categories[0],
+    { name: 'splendid software', id: '1', isPublished: true, publishedAt: '2016-01-01 12:00:00' }
+  );
+});
+
 test('build throws errors when using trait that is not defined and distinquishes between traits and non-traits', function(assert) {
   let ArticleFactory = Factory.extend({
     title: 'Lorem ipsum',
@@ -804,6 +1019,73 @@ test('build throws errors when using trait that is not defined and distinquishes
   assert.throws(() => {
     this.server.build('article', 'private');
   }, /'private' trait is not registered in 'article' factory/);
+});
+
+test('build does not build objects and throws error if model is not registered and association helper is used', function(assert) {
+  let CategoryFactory = Factory.extend({
+    name: 'splendid software',
+
+    published: trait({
+      isPublished: true,
+      publishedAt: '2014-01-01 10:00:00'
+    })
+  });
+  let ArticleFactory = Factory.extend({
+    title: 'Lorem ipsum',
+
+    withCategory: trait({
+      category: association('published', { publishedAt: '2016-01-01 12:00:00' })
+    })
+  });
+
+  let server = new Server({
+    environment: 'test',
+    factories: {
+      article: ArticleFactory,
+      category: CategoryFactory
+    },
+    models: {
+      category: Model.extend({
+      })
+    }
+  });
+
+  assert.throws(() => {
+    server.build('article', 'withCategory');
+  }, /Model not registered: article/);
+});
+
+test('build does not build objects and throws error if model for given association is not registered', function(assert) {
+  let CategoryFactory = Factory.extend({
+    name: 'splendid software',
+
+    published: trait({
+      isPublished: true,
+      publishedAt: '2014-01-01 10:00:00'
+    })
+  });
+  let ArticleFactory = Factory.extend({
+    title: 'Lorem ipsum',
+
+    withCategory: trait({
+      category: association('published', { publishedAt: '2016-01-01 12:00:00' })
+    })
+  });
+
+  let server = new Server({
+    environment: 'test',
+    factories: {
+      article: ArticleFactory,
+      category: CategoryFactory
+    },
+    models: {
+      article: Model.extend()
+    }
+  });
+
+  assert.throws(() => {
+    server.build('article', 'withCategory');
+  }, /You're using the `association` factory helper on the 'category' attribute/);
 });
 
 module('Unit | Server #buildList', {
@@ -946,6 +1228,25 @@ test('buildList throws errors when using trait that is not defined and distinqui
   }, /'private' trait is not registered in 'article' factory/);
 });
 
+test('buildList throws an error if the second argument is not an integer', function(assert) {
+  let ArticleFactory = Factory.extend({
+    title: 'Lorem ipsum',
+
+    published: trait({
+      isPublished: true,
+      publishedAt: '2010-01-01 10:00:00'
+    })
+  });
+
+  this.server.loadFactories({
+    article: ArticleFactory
+  });
+
+  assert.throws(() => {
+    this.server.buildList('article', 'published');
+  }, /second argument has to be an integer, you passed: string/);
+});
+
 module('Unit | Server #defaultPassthroughs');
 
 test('server configures default passthroughs when useDefaultPassthroughs is true', function(assert) {
@@ -953,8 +1254,8 @@ test('server configures default passthroughs when useDefaultPassthroughs is true
 
   assert.expect(defaultPassthroughs.length);
   defaultPassthroughs.forEach((passthroughUrl) => {
-    let passthroughRequest = { method: 'GET', url: passthroughUrl },
-    isPassedThrough = server.pretender.checkPassthrough(passthroughRequest);
+    let passthroughRequest = { method: 'GET', url: passthroughUrl };
+    let isPassedThrough = server.pretender.checkPassthrough(passthroughRequest);
 
     assert.ok(isPassedThrough);
   });
@@ -967,8 +1268,8 @@ test('server does not configure default passthroughs when useDefaultPassthroughs
 
   assert.expect(defaultPassthroughs.length);
   defaultPassthroughs.forEach((passthroughUrl) => {
-    let passthroughRequest = { method: 'GET', url: passthroughUrl },
-    isPassedThrough = server.pretender.checkPassthrough(passthroughRequest);
+    let passthroughRequest = { method: 'GET', url: passthroughUrl };
+    let isPassedThrough = server.pretender.checkPassthrough(passthroughRequest);
 
     assert.ok(!isPassedThrough);
   });

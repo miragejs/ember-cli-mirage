@@ -240,12 +240,12 @@ this.del('/contacts/:id');
 
 {% include resource-shorthands-code-compare.html resource=resource equivalent=equivalent %}
 
-If your route path, and collection names do not match, you can pass a
-string value as the second param indicating the collection name.
+If your route path, and collection names do not match, you can define a relative
+or absolute path into the *path* option.
 
 {% capture resource %}
 {% highlight js %}
-this.resource('blog-posts', 'posts');
+this.resource('blog-posts', { path: '/posts' });
 {% endhighlight %}
 {% endcapture %}
 

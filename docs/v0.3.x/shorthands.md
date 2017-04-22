@@ -240,6 +240,28 @@ this.del('/contacts/:id');
 
 {% include resource-shorthands-code-compare.html resource=resource equivalent=equivalent %}
 
+If your route path, and collection names do not match, you can pass a
+string value as the second param indicating the collection name.
+
+{% capture resource %}
+{% highlight js %}
+this.resource('blog-posts', 'posts');
+{% endhighlight %}
+{% endcapture %}
+
+{% capture equivalent %}
+{% highlight js %}
+this.get('/posts', 'blog-posts');
+this.get('/posts/:id', 'blog-posts');
+this.post('/posts', 'blog-posts');
+this.put('/posts/:id', 'blog-posts');
+this.patch('/posts/:id', 'blog-posts');
+this.del('/posts/:id', 'blog-posts');
+{% endhighlight %}
+{% endcapture %}
+
+{% include resource-shorthands-code-compare.html resource=resource equivalent=equivalent %}
+
 Here is the full reference of actions' names you can pass to *only* / *except* options and the shorthands they stand for:
 
 <div class='Table__wrapper'>

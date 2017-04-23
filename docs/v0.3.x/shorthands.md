@@ -240,8 +240,8 @@ this.del('/contacts/:id');
 
 {% include resource-shorthands-code-compare.html resource=resource equivalent=equivalent %}
 
-If your route path, and collection names do not match, you can define a relative
-or absolute path into the *path* option.
+If your route path and collection names do not match, you can define a relative
+or absolute path using the *path* option:
 
 {% capture resource %}
 {% highlight js %}

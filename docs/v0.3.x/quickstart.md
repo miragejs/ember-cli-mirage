@@ -82,7 +82,7 @@ Let's create a factory for our author with
 $ ember g mirage-factory author
 ```
 
-and add some properties to it:
+Mirage also includes the Faker.js library. Let's use this in the Factory and add some properties to it:
 
 ```js
 // mirage/factories/author.js

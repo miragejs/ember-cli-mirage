@@ -68,12 +68,14 @@ module('Unit | Db #loadData', function(hooks) {
 
   test('it can load an object of data', function(assert) {
     let data = {
-      contacts: [{ id: '1', name: 'Link' }],
+      contacts: [{ id: '1', name: 'Link', items: [{a: 1}] }],
       addresses: [{ id: '1', name: '123 Hyrule Way' }]
     };
-    db.loadData(data);
 
-    assert.deepEqual(db.contacts, data.contacts);
+    db.loadData(data);
+    db.contacts[0].items.push({ b: 2 });
+
+    assert.deepEqual(data.contacts, [{ id: '1', name: 'Link', items: [{a: 1}] }]);
     assert.deepEqual(db.addresses, data.addresses);
   });
 

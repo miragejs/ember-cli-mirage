@@ -113,14 +113,22 @@ this.get('/api/users/:id', ({ users }, request) => {
 
 This handler returns a User model, which will pass through the UserSerializer if one exists, or the ApplicationSerializer otherwise.
 
-You can also return an instance of `Mirage.Response` to dynamically set headers and the status code:
-
+You can also return an instance of `Response` to dynamically set headers and the status code:
+```js
+import Response from 'ember-cli-mirage/response';
+```
 ```js
 this.post('/api/messages', (schema, request) => {
   var params = JSON.parse(request.requestBody);
 
   if (!params.title) {
-    return new Mirage.Response(422, {some: 'header'}, {errors: {title: ['cannot be blank']}});
+    return new Response(422, {some: 'header', 'Content-Type': 'application/json'}, {
+      errors: [{
+        status: 422,
+        title: 'email is invalid',
+        description: 'email cannot be blank'
+      }]
+    });
   } else {
     return schema.messages.create(params);
   }

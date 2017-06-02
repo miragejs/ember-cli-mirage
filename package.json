@@ -67,6 +67,7 @@
   "dependencies": {
     "broccoli-funnel": "^1.0.2",
     "broccoli-merge-trees": "^1.1.0",
+    "broccoli-stew": "^1.5.0",
     "broccoli-unwatched-tree": "^0.1.1",
     "chalk": "^1.1.1",
     "ember-cli-babel": "^5.1.7",

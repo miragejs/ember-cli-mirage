@@ -12,6 +12,8 @@ Models wrap your database and allow you to define relationships.
 
 Define models by adding files under `/models`. These are automatically registered with `schema`, which is how you'll access your model classes in your route handlers.
 
+Note - if you're using Ember Data and version 0.3.3 of Mirage or later, models will be detected and auto-generated for you in-memory, so you don't need to define the files yourself. 
+
 ---
 
 ## Defining Models
@@ -295,6 +297,74 @@ export default Model.extend({
 export default Model.extend({
   talks: hasMany('talk', { inverse: 'primaryEvent' }),
 });
+```
+
+*polymorphic*
+
+You can specify whether an association is a polymorphic association by passing `{ polymorphic: true }` as an option.
+
+For example, say you have a `Comment` that can belong to a `BlogPost` or a `Picture`. Here's how the model definitions would look:
+
+```js
+// app/models/comment.js
+export default Model.extend({
+  commentable: belongsTo({ polymorphic: true })
+});
+
+// app/models/blog-post.js
+export default Model.extend({
+  comments: hasMany()
+});
+
+// app/models/picture.js
+export default Model.extend({
+  comments: hasMany()
+});
+```
+
+Note that `commentable` doesn't need a type (there's no validation done on which types of models can exist on that association).
+
+Polymorphic associations have slightly different method signatures for their foreign keys and build/create methods.
+
+```js
+let comment = schema.comments.create({ text: "foo" });
+
+comment.buildCommentable('post', { title: 'Lorem Ipsum' });
+comment.createCommentable('post', { title: 'Lorem Ipsum' });
+
+// getter
+comment.commentableId; // { id: 1, type: 'blog-post' }
+
+// setter
+comment.commentableId = { id: 2, type: 'picture' };
+```
+
+Has-many asssociations can also be polymorphic:
+
+```js
+// app/models/user.js
+export default Model.extend({
+  things: hasMany({ polymorphic: true })
+});
+
+// app/models/car.js
+export default Model.extend({
+});
+
+// app/models/watch.js
+export default Model.extend({
+});
+
+let user = schema.users.create({ name: "Sam" });
+
+user.buildThing('car', { attrs });
+user.createThing('watch', { attrs });
+
+// getter
+user.thingIds; // [ { id: 1, type: 'car' }, { id: 3, type: 'watch' }, ... ]
+
+// setter
+user.thingIds = [ { id: 2, type: 'watch' }, ... ];
 ```
 
 ### Building associations

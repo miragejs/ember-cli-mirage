@@ -11,6 +11,14 @@ let posts = schema.blogPosts.find([1, 2, 4]);
 let posts = schema.blogPosts.where({published: true});
 ```
 
+## Instance properties
+
+These properties are available on your collection instances.
+
+### models
+
+The plain array of models in this collection.
+
 ## Instance methods
 
 These methods are available on your collection instances.
@@ -92,4 +100,3 @@ let longPosts = posts.filter((postModel) => {
   return postModel.wordCount >= 1000;
 });
 ```
-

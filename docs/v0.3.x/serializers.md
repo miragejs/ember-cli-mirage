@@ -547,7 +547,9 @@ Use this hook to add top-level `links` data to JSON:API resource objects. The ar
 
 ```js
 // serializers/author.js
-export default JsonApiSerializer.extend({
+import { JSONAPISerializer } from 'ember-cli-mirage';
+
+export default JSONAPISerializer.extend({
 
   links(author) {
     return {

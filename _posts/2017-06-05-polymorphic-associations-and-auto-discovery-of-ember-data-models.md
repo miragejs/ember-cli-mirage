@@ -51,11 +51,11 @@ schema.users.create({
 });
 ```
 
-Just like all other associations in Mirage's ORM, they can be one-way (null inverse), one-to-one, one-to-many or many-to-many. Check out [the docs on polymorphic associations](../docs/v0.3.x/models/#association-options) for more details.
+Just like all other associations in Mirage's ORM, they can be one-way (null inverse), one-to-one, one-to-many or many-to-many. Check out [the docs on polymorphic associations](http://www.ember-cli-mirage.com/docs/v0.3.x/models/#association-options) for more details.
 
 ## Upgrading
 
-These past few releases are all backwards-compatible with the 0.3.x series. If you're still on 0.2.x, be sure to check out the [upgrade guide](../docs/v0.3.x/upgrading/#02x--03-upgrade-guide) so you can get on the 0.3 series.
+These past few releases are all backwards-compatible with the 0.3.x series. If you're still on 0.2.x, be sure to check out the [upgrade guide](http://www.ember-cli-mirage.com/docs/v0.3.x/upgrading/) so you can get on the 0.3 series.
 
 <!-- ## Example
 

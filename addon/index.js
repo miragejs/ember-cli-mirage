@@ -11,12 +11,16 @@ import JSONAPISerializer from './serializers/json-api-serializer';
 import RestSerializer from './serializers/rest-serializer';
 import HasMany from './orm/associations/has-many';
 import BelongsTo from './orm/associations/belongs-to';
+import HasAndBelongsToMany from './orm/associations/has-and-belongs-to-many';
 
 function hasMany(...args) {
   return new HasMany(...args);
 }
 function belongsTo(...args) {
   return new BelongsTo(...args);
+}
+function hasAndBelongsToMany(...args) {
+  return new HasAndBelongsToMany(...args);
 }
 
 export {
@@ -32,12 +36,14 @@ export {
   JSONAPISerializer,
   RestSerializer,
   hasMany,
-  belongsTo
+  belongsTo,
+  hasAndBelongsToMany
 };
 
 export default {
   Factory,
   Response,
   hasMany,
-  belongsTo
+  belongsTo,
+  hasAndBelongsToMany
 };

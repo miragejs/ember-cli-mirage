@@ -37,7 +37,7 @@ export default Mirage.Factory.extend({
 });
 ```
 
-The first user generated (per test) would have a name of `User 1`, the second a name of `User 2`, and so on.
+The first user generated (per test) would have a name of `User 0`, the second a name of `User 1`, and so on.
 
 <aside class='Docs-page__aside'>
   <p>Currently, you cannot reference dynamic attributes, although this is [in the works](https://github.com/samselikoff/ember-cli-mirage/issues/27).</p>

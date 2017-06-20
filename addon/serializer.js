@@ -1,7 +1,7 @@
-/* global _ */
 import Model from './orm/model';
 import extend from './utils/extend';
 import { singularize, pluralize } from './utils/inflector';
+import _ from 'lodash';
 
 class Serializer {
 

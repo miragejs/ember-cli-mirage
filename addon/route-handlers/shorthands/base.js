@@ -1,4 +1,5 @@
 import { singularize, capitalize, camelize } from 'ember-cli-mirage/utils/inflector';
+import _ from 'lodash';
 
 const { isArray } = _;
 const allDigitsRegex = /^\d+$/;

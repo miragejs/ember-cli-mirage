@@ -5,6 +5,7 @@ import Schema from './orm/schema';
 import ActiveModelSerializer from 'ember-cli-mirage/serializers/active-model-serializer';
 import SerializerRegistry from './serializer-registry';
 import RouteHandler from './route-handler';
+import _ from 'lodash';
 
 const { isArray } = _;
 

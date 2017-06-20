@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import Association from './association';
 import Collection from '../collection';
 import { capitalize } from 'ember-cli-mirage/utils/inflector';

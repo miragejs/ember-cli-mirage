@@ -1,3 +1,5 @@
+import _ from 'lodash';
+
 function stringify(data) {
   return JSON.parse(JSON.stringify(data));
 }

@@ -1,4 +1,4 @@
-/* global _ */
+import _ from 'lodash';
 
 export default function(protoProps, staticProps) {
   var parent = this;

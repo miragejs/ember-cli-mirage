@@ -34,7 +34,6 @@ module.exports = {
 
     return this.addBowerPackagesToProject([
       {name: 'pretender', target: '~0.10.1'},
-      {name: 'lodash', target: '~3.7.0'},
       {name: 'Faker', target: '~3.0.0'}
     ]);
   }

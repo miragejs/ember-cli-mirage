@@ -2,8 +2,7 @@ import Model from 'ember-cli-mirage/orm/model';
 import Collection from 'ember-cli-mirage/orm/collection';
 import ActiveModelSerializer from 'ember-cli-mirage/serializers/active-model-serializer';
 import { pluralize } from './utils/inflector';
-
-const { isArray, assign } = _;
+import _ from 'lodash';
 
 export default class SerializerRegistry {
 
@@ -45,14 +44,14 @@ export default class SerializerRegistry {
       The array shorthand can return this, e.g.
         this.get('/home', ['authors', 'photos'])
     */
-    } else if (isArray(response) && response.filter(item => (this._isCollection(item))).length) {
+  } else if (_.isArray(response) && response.filter(item => (this._isCollection(item))).length) {
       return response.reduce((json, collection) => {
         let serializer = this._serializerFor(collection);
 
         if (serializer.embed) {
           json[pluralize(collection.type)] = this._serializeModelOrCollection(collection);
         } else {
-          json = assign(json, this._serializeSideloadedModelOrCollection(collection));
+          json = _.assign(json, this._serializeSideloadedModelOrCollection(collection));
         }
 
         return json;

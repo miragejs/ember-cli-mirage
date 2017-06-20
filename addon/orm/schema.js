@@ -1,6 +1,7 @@
 import { singularize, pluralize, camelize } from '../utils/inflector';
 import Collection from './collection';
 import Association from './associations/association';
+import _ from 'lodash';
 
 export default function(db) {
 

@@ -6,6 +6,7 @@ import GetShorthandHandler from './route-handlers/shorthands/get';
 import PostShorthandHandler from './route-handlers/shorthands/post';
 import PutShorthandHandler from './route-handlers/shorthands/put';
 import DeleteShorthandHandler from './route-handlers/shorthands/delete';
+import _ from 'lodash';
 
 const { isArray, keys } = _;
 const { isBlank, typeOf } = Ember;

@@ -2,6 +2,7 @@
 /*jslint node: true */
 
 'use strict';
+import _ from 'lodash';
 
 /*
   This function looks through all files that have been loaded by Ember CLI and

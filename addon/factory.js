@@ -1,3 +1,5 @@
+import _ from 'lodash';
+
 var Factory = function() {
   this.build = function(sequence) {
     var object = {};

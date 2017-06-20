@@ -2,6 +2,7 @@ import readModules from 'ember-cli-mirage/utils/read-modules';
 import ENV from '../config/environment';
 import baseConfig, { testConfig } from '../mirage/config';
 import Server from 'ember-cli-mirage/server';
+import _ from 'lodash';
 
 export default {
   name: 'ember-cli-mirage',

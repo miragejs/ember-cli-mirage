@@ -2,7 +2,8 @@ export default [
   {
     id: 1,
     title: 'Lorem',
-    wordSmithId: 1
+    wordSmithId: 1,
+    commentIds: [1, 2, 3]
   },
   {
     id: 2,

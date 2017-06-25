@@ -1,5 +1,10 @@
 # Ember CLI Mirage Changelog
 
+## 0.1.15
+
+Changes:
+  - [IMPROVEMENT] Remove bower lodash dependency @blimmer
+
 ## 0.1.9
 
 Update notes:
@@ -62,7 +67,7 @@ Changes:
 Update notes:
   - If you run the generator to update deps, the blueprint will put a file under `/scenarios/default.js`. The presence of this file will mean your fixtures will be ignored during development. If you'd still like to use your fixtures, delete the `/scenarios` directory.
 
-Changes: 
+Changes:
   - [IMPROVEMENT] factory-focused initial blueprints
 
 ## 0.1.3
@@ -173,9 +178,9 @@ Change:
 Update notes:
   - Rename your `/app/mirage/data` directory to `/app/mirage/fixtures`.
   - Move your `/tests/factories` directory to `/app/mirage/factories`.
-  - `store`, the data cache your routes interact with, has been renamed to `db` and its API has changed. 
+  - `store`, the data cache your routes interact with, has been renamed to `db` and its API has changed.
 
-    Your shorthand routes should not be affected, but you'll need to update any routes where you passed in a function and interacted with the store.See [the wiki entry](../../wiki/Database) for more details, and the new API. 
+    Your shorthand routes should not be affected, but you'll need to update any routes where you passed in a function and interacted with the store.See [the wiki entry](../../wiki/Database) for more details, and the new API.
 
 Changes:
 
@@ -183,7 +188,7 @@ Changes:
  - [BREAKING CHANGE] Move `/tests/factories` directory to `app/mirage/factories`
  - #41 [BREAKING CHANGE] Renamed `store` to `db`, and changed API. See [the wiki entry](../../wiki/Database).
  - #42 [ENHANCEMENT] Add ability to change timing within tests, e.g. to test the UI on long delays.
- - #6 [ENHANCEMENT] Add ability to force an error response from a route. 
+ - #6 [ENHANCEMENT] Add ability to force an error response from a route.
  - [ENHANCEMENT] Return POJO from route
  - [BUGFIX] ignore assets if Mirage isn't being used
 

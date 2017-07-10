@@ -256,7 +256,7 @@ export default class Server {
    * @public
    */
   passthrough(...paths) {
-    let verbs = ['get', 'post', 'put', 'delete', 'patch'];
+    let verbs = ['get', 'post', 'put', 'delete', 'patch', 'options'];
     let lastArg = paths[paths.length - 1];
 
     if (paths.length === 0) {
@@ -467,7 +467,7 @@ export default class Server {
    * @private
    */
   _defineRouteHandlerHelpers() {
-    [['get'], ['post'], ['put'], ['delete', 'del'], ['patch'], ['head']].forEach(([verb, alias]) => {
+    [['get'], ['post'], ['put'], ['delete', 'del'], ['patch'], ['head'], ['options']].forEach(([verb, alias]) => {
       this[verb] = (path, ...args) => {
         let [ rawHandler, customizedCode, options ] = extractRouteArguments(args);
         this._registerRouteHandler(verb, path, rawHandler, customizedCode, options);

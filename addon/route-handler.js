@@ -17,7 +17,7 @@ function isNotBlankResponse(response) {
     && (Array.isArray(response) || !isBlank(response));
 }
 
-const DEFAULT_CODES = { get: 200, put: 204, post: 201, 'delete': 204 };
+const DEFAULT_CODES = { get: 200, put: 204, post: 201, 'delete': 204, 'options': 200 };
 
 function createHandler({ verb, schema, serializerOrRegistry, path, rawHandler, options }) {
   let handler;
@@ -38,6 +38,8 @@ function createHandler({ verb, schema, serializerOrRegistry, path, rawHandler, o
     handler = new DeleteShorthandHandler(...args);
   } else if (verb === 'head') {
     handler = new HeadShorthandHandler(...args);
+  } else if (verb === 'options') {
+    handler = new FunctionHandler(...args);
   }
   return handler;
 }

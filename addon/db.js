@@ -1,4 +1,6 @@
 import DbCollection from './db-collection';
+import IdentityManager from './identity-manager';
+import { singularize } from './utils/inflector';
 
 /**
  * The db, an identity map.
@@ -8,8 +10,10 @@ import DbCollection from './db-collection';
  */
 class Db {
 
-  constructor(initialData) {
+  constructor(initialData, identityManagers) {
     this._collections = [];
+
+    this.registerIdentityManagers(identityManagers);
 
     if (initialData) {
       this.loadData(initialData);
@@ -28,6 +32,18 @@ class Db {
   }
 
   /**
+   * @method dump
+   * @public
+   */
+  dump() {
+    return this._collections.reduce((data, collection) => {
+      data[collection.name] = collection.all();
+
+      return data;
+    }, {});
+  }
+
+  /**
    * @method createCollection
    * @param name
    * @param initialData
@@ -35,7 +51,8 @@ class Db {
    */
   createCollection(name, initialData) {
     if (!this[name]) {
-      let newCollection = new DbCollection(name, initialData);
+      let IdentityManager = this.identityManagerFor(name);
+      let newCollection = new DbCollection(name, initialData, IdentityManager);
 
       Object.defineProperty(this, name, {
         get() {
@@ -76,6 +93,23 @@ class Db {
    */
   emptyData() {
     this._collections.forEach((c) => c.remove());
+  }
+
+  /**
+   * @method identityManagerFor
+   * @param name
+   * @public
+   */
+  identityManagerFor(name) {
+    return this._identityManagers[singularize(name)] || this._identityManagers.application || IdentityManager;
+  }
+
+  /**
+   * @method registerIdentityManagers
+   * @public
+   */
+  registerIdentityManagers(identityManagers) {
+    this._identityManagers = identityManagers || {};
   }
 }
 

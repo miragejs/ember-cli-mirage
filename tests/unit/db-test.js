@@ -1,4 +1,5 @@
 import Db from 'ember-cli-mirage/db';
+import DefaultIdentityManager from 'ember-cli-mirage/identity-manager';
 
 import {module, test} from 'qunit';
 
@@ -246,14 +247,12 @@ test('returns a copy not a reference', function(assert) {
 test('returns the first record matching the criteria', function(assert) {
   let contact = db.contacts.findBy({ 'name': 'Epona' });
 
-  console.log(contact);
   assert.deepEqual(contact, { id: '3', name: 'Epona', race: 'Horse' });
 });
 
 test('returns a record only matching multiple criteria', function(assert) {
   let contact = db.contacts.findBy({ 'name': 'Epona', 'race': 'Centaur' });
 
-  console.log(contact);
   assert.deepEqual(contact, { id: '4', name: 'Epona', race: 'Centaur' });
 });
 
@@ -411,11 +410,11 @@ test('it can update the whole collection', function(assert) {
   let actualContacts = db.contacts;
 
   let expectedContacts = [
-      { id: '123-abc', name: 'Sam', evil: false },
-      { id: '1', name: 'Sam', evil: false },
-      { id: '2', name: 'Sam', evil: false },
-      { id: '3', name: 'Sam', evil: false }
-    ];
+    { id: '123-abc', name: 'Sam', evil: false },
+    { id: '1', name: 'Sam', evil: false },
+    { id: '2', name: 'Sam', evil: false },
+    { id: '3', name: 'Sam', evil: false }
+  ];
 
   assert.deepEqual(
     actualContacts, expectedContacts, [actualContacts.map(function(r) {
@@ -596,4 +595,42 @@ test('does not require attrs', function(assert) {
 
   assert.equal(record.name, 'Luigi');
   assert.ok(record.id);
+});
+
+module('Unit | Db #registerIdentityManagers and #identityManagerFor');
+
+test('identityManagerFor returns ember-cli-mirage default IdentityManager if there aren\'t any custom ones', function(assert) {
+  let db = new Db();
+  assert.equal(db.identityManagerFor('foo'), DefaultIdentityManager);
+});
+
+test('it can register identity managers per db collection and for application', function(assert) {
+  let FooIdentityManager = class {};
+  let ApplicationIdentityManager = class {};
+
+  let db = new Db();
+  db.registerIdentityManagers({
+    foo: FooIdentityManager,
+    application: ApplicationIdentityManager
+  });
+
+  assert.equal(
+    db.identityManagerFor('foo'),
+    FooIdentityManager,
+    'it allows to declare an identity manager per db collection'
+  );
+  assert.equal(
+    db.identityManagerFor('bar'),
+    ApplicationIdentityManager,
+    'it falls back to application idenitity manager if there isn\'t one for a specific db collection'
+  );
+});
+
+test('it can register idenitity managers on instantiation', function(assert) {
+  let CustomIdentityManager = class {};
+  let db = new Db(undefined, {
+    foo: CustomIdentityManager
+  });
+  assert.equal(db.identityManagerFor('foo'), CustomIdentityManager);
+  assert.equal(db.identityManagerFor('bar'), DefaultIdentityManager);
 });

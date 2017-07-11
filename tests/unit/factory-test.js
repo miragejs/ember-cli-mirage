@@ -106,6 +106,22 @@ test('it can reuse dynamic properties', function(assert) {
   assert.deepEqual(baz2, { foo: 10, bar: 20 });
 });
 
+test('it can have dynamic properties that depend on another', function(assert) {
+  let BazFactory = Mirage.Factory.extend({
+    name() {
+      return 'foo';
+    },
+    bar() {
+      return this.name.substr(1);
+    }
+  });
+
+  let b = new BazFactory();
+  let baz1 = b.build(1);
+
+  assert.deepEqual(baz1, { name: 'foo', bar: 'oo' });
+});
+
 test('it can reference properties out of order', function(assert) {
   let BazFactory = Mirage.Factory.extend({
     bar() {
@@ -207,7 +223,7 @@ test('throws meaningfull exception on circular reference', function(assert) {
       return this.foo;
     },
 
-    foo(i) {
+    foo() {
       return this.bar;
     }
   });
@@ -262,7 +278,7 @@ test('extractAfterCreateCallbacks returns all afterCreate callbacks from factory
 
   let callbacks = PostFactory.extractAfterCreateCallbacks();
   assert.equal(callbacks.length, 3);
-  assert.deepEqual(callbacks.map((cb) => cb()), ['from base','from published', 'from withComments']);
+  assert.deepEqual(callbacks.map((cb) => cb()), ['from base', 'from published', 'from withComments']);
 });
 
 test('extractAfterCreateCallbacks filters traits from which the afterCreate callbacks will be extracted from', function(assert) {

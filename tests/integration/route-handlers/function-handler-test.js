@@ -4,7 +4,7 @@ import Ember from 'ember';
 import Server from 'ember-cli-mirage/server';
 import Response from 'ember-cli-mirage/response';
 import FunctionRouteHandler from 'ember-cli-mirage/route-handlers/function';
-import _uniq from 'lodash/array/uniq';
+import _uniqBy from 'lodash/uniqBy';
 
 const { RSVP: { Promise } } = Ember;
 
@@ -31,6 +31,20 @@ module('Integration | Route handlers | Function handler', {
   afterEach() {
     this.server.shutdown();
   }
+});
+
+test('a meaningful error is thrown if a custom route handler throws an error', function(assert) {
+  assert.expect(1);
+  let done = assert.async();
+
+  this.server.get('/users', function() {
+    throw 'I goofed';
+  });
+
+  $.ajax({ method: 'GET', url: '/users' }).error(({ responseText }) => {
+    assert.equal(responseText, 'Mirage: Your GET handler for the url /users threw an error: I goofed');
+    done();
+  });
 });
 
 test('mirage response string is not serialized to string', function(assert) {
@@ -77,6 +91,22 @@ test('function can return a promise with serializable content', function(assert)
 
   $.ajax({ method: 'GET', url: '/users' }).done(function(res) {
     assert.deepEqual(res, { users: [ { id: user.id, name: 'Sam' } ] });
+    done();
+  });
+});
+
+test('function can return a promise with an empty string', function(assert) {
+  assert.expect(1);
+  let done = assert.async();
+
+  this.server.get('/users', function() {
+    return new Promise(resolve => {
+      resolve(new Response(200, { 'Content-Type': 'text/csv' }, ''));
+    });
+  });
+
+  $.ajax({ method: 'GET', url: '/users' }).done(function(res) {
+    assert.equal(res, '');
     done();
   });
 });
@@ -139,7 +169,7 @@ test('#serialize noops on plain JS arrays', function(assert) {
   this.server.schema.users.create({ name: 'Ganondorf' });
 
   let users = this.schema.users.all().models;
-  let uniqueNames = _uniq(users, u => u.name);
+  let uniqueNames = _uniqBy(users, 'name');
   let serializedResponse = this.functionHandler.serialize(uniqueNames);
 
   assert.deepEqual(serializedResponse, uniqueNames);
@@ -151,7 +181,7 @@ test('#serialize on a Collection takes an optional serializer type', function(as
   this.server.schema.users.create({ name: 'Ganondorf', tall: true, evil: true });
 
   let users = this.schema.users.all().models;
-  let uniqueNames = _uniq(users, u => u.name);
+  let uniqueNames = _uniqBy(users, 'name');
   let collection = new Collection('user', uniqueNames);
   let json = this.functionHandler.serialize(collection, 'sparse-user');
 

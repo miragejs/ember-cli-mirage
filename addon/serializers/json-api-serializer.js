@@ -1,7 +1,7 @@
 import Serializer from '../serializer';
 import { dasherize, pluralize, camelize } from '../utils/inflector';
 
-import _get from 'lodash/object/get';
+import _get from 'lodash/get';
 import _ from 'lodash';
 
 export default Serializer.extend({
@@ -31,7 +31,8 @@ export default Serializer.extend({
   },
 
   getHashForIncludedResource(resource) {
-    let hash = this.getHashForResource(resource);
+    let serializer = this.serializerFor(resource.modelName);
+    let hash = serializer.getHashForResource(resource);
     let hashWithRoot = { included: (this.isModel(resource) ? [ hash ] : hash) };
     let addToIncludes = [];
 
@@ -48,7 +49,7 @@ export default Serializer.extend({
     if (this.isModel(resource)) {
       hash = this._getResourceObjectForModel(resource);
     } else {
-      hash = resource.models.map(m => this._getResourceObjectForModel(m));
+      hash = resource.models.map((m) => this._getResourceObjectForModel(m));
     }
 
     return hash;
@@ -73,7 +74,7 @@ export default Serializer.extend({
   getAddToIncludesForResourceAndPaths(resource, relationshipPaths) {
     let includes = [];
 
-    relationshipPaths.forEach(path => {
+    relationshipPaths.forEach((path) => {
       let relationshipNames = path.split('.');
       let newIncludes = this.getIncludesForResourceAndPath(resource, ...relationshipNames);
       includes.push(newIncludes);
@@ -82,7 +83,7 @@ export default Serializer.extend({
     return _(includes)
       .flatten()
       .compact()
-      .uniq(m => m.toString())
+      .uniqBy(m => m.toString())
       .value();
   },
 
@@ -101,7 +102,7 @@ export default Serializer.extend({
       }
 
     } else {
-      resource.models.forEach(model => {
+      resource.models.forEach((model) => {
         let relationship = model[nameForCurrentResource];
 
         if (this.isModel(relationship)) {
@@ -115,7 +116,7 @@ export default Serializer.extend({
     includes = includes.concat(modelsToAdd);
 
     if (names.length) {
-      modelsToAdd.forEach(model => {
+      modelsToAdd.forEach((model) => {
         includes = includes.concat(this.getIncludesForResourceAndPath(model, ...names));
       });
     }
@@ -133,36 +134,35 @@ export default Serializer.extend({
       attributes: attrs
     };
 
-    model.associationKeys.forEach(key => {
+    model.associationKeys.forEach((key) => {
       let relationship = model[key];
       let relationshipKey = this.keyForRelationship(key);
-      let relationshipHash;
+      let relationshipHash = {};
       hash.relationships = hash.relationships || {};
 
       if (this.hasLinksForRelationship(model, key)) {
         let serializer = this.serializerFor(model.modelName);
         let links = serializer.links(model);
-        relationshipHash = { links: links[key] };
-
-      } else {
-        let data = null;
-
-        if (this.isModel(relationship)) {
-          data = {
-            type: this.typeKeyForModel(relationship),
-            id: relationship.id
-          };
-        } else if (this.isCollection(relationship)) {
-          data = relationship.models.map(model => {
-            return {
-              type: this.typeKeyForModel(model),
-              id: model.id
-            };
-          });
-        }
-
-        relationshipHash = { data };
+        relationshipHash.links = links[key];
       }
+
+      let data = null;
+
+      if (this.isModel(relationship)) {
+        data = {
+          type: this.typeKeyForModel(relationship),
+          id: relationship.id
+        };
+      } else if (this.isCollection(relationship)) {
+        data = relationship.models.map((model) => {
+          return {
+            type: this.typeKeyForModel(model),
+            id: model.id
+          };
+        });
+      }
+
+      relationshipHash.data = data;
 
       hash.relationships[relationshipKey] = relationshipHash;
     });

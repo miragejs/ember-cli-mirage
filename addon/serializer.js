@@ -1,14 +1,15 @@
 import Model from './orm/model';
 import Collection from './orm/collection';
+import PolymorphicCollection from './orm/polymorphic-collection';
 import extend from './utils/extend';
 import { singularize, pluralize, camelize } from './utils/inflector';
 
-import _isFunction from 'lodash/lang/isFunction';
-import _isArray from 'lodash/lang/isArray';
-import _isEmpty from 'lodash/lang/isEmpty';
-import _includes from 'lodash/collection/includes';
-import _assign from 'lodash/object/assign';
-import _get from 'lodash/object/get';
+import _isFunction from 'lodash/isFunction';
+import _isArray from 'lodash/isArray';
+import _isEmpty from 'lodash/isEmpty';
+import _includes from 'lodash/includes';
+import _assign from 'lodash/assign';
+import _get from 'lodash/get';
 import _ from 'lodash';
 
 class Serializer {
@@ -35,7 +36,7 @@ class Serializer {
    * @param request
    * @public
    */
-  serialize(primaryResource, request) {
+  serialize(primaryResource /* , request */) {
     return this.buildPayload(primaryResource);
   }
 
@@ -44,21 +45,21 @@ class Serializer {
       return json;
 
     } else if (primaryResource) {
-      let [ resourceHash, newIncludes ] = this.getHashForPrimaryResource(primaryResource);
-      let newDidSerialize = (this.isCollection(primaryResource) ? primaryResource.models : [ primaryResource ]);
+      let [resourceHash, newIncludes] = this.getHashForPrimaryResource(primaryResource);
+      let newDidSerialize = (this.isCollection(primaryResource) ? primaryResource.models : [primaryResource]);
 
       return this.buildPayload(undefined, newIncludes, newDidSerialize, resourceHash);
 
     } else {
       let nextIncludedResource = toInclude.shift();
-      let [ resourceHash, newIncludes ] = this.getHashForIncludedResource(nextIncludedResource);
+      let [resourceHash, newIncludes] = this.getHashForIncludedResource(nextIncludedResource);
 
       let newToInclude = newIncludes
-        .filter(resource => {
-          return !_includes(didSerialize.map(m => m.toString()), resource.toString());
+        .filter((resource) => {
+          return !_includes(didSerialize.map((m) => m.toString()), resource.toString());
         })
         .concat(toInclude);
-      let newDidSerialize = (this.isCollection(nextIncludedResource) ? nextIncludedResource.models : [ nextIncludedResource ])
+      let newDidSerialize = (this.isCollection(nextIncludedResource) ? nextIncludedResource.models : [nextIncludedResource])
         .concat(didSerialize);
       let newJson = this.mergePayloads(json, resourceHash);
 
@@ -67,7 +68,7 @@ class Serializer {
   }
 
   getHashForPrimaryResource(resource) {
-    let [ hash, addToIncludes ] = this.getHashForResource(resource);
+    let [hash, addToIncludes] = this.getHashForResource(resource);
     let hashWithRoot;
 
     if (this.root) {
@@ -78,48 +79,57 @@ class Serializer {
       hashWithRoot = hash;
     }
 
-    return [ hashWithRoot, addToIncludes ];
+    return [hashWithRoot, addToIncludes];
   }
 
   getHashForIncludedResource(resource) {
-    let serializer = this.serializerFor(resource.modelName);
-    let [ hash, addToIncludes ] = serializer.getHashForResource(resource);
+    let hashWithRoot, addToIncludes;
 
-    // Included resources always have a root, and are always pushed to an array.
-    let rootKey = serializer.keyForRelationship(resource.modelName);
-    let hashWithRoot = _isArray(hash) ? { [rootKey]: hash } : { [rootKey]: [ hash ] };
+    if (resource instanceof PolymorphicCollection) {
+      hashWithRoot = {};
+      addToIncludes = resource.models;
+
+    } else {
+      let serializer = this.serializerFor(resource.modelName);
+      let [ hash, newModels ] = serializer.getHashForResource(resource);
+
+      // Included resources always have a root, and are always pushed to an array.
+      let rootKey = serializer.keyForRelationship(resource.modelName);
+      hashWithRoot = _isArray(hash) ? { [rootKey]: hash } : { [rootKey]: [hash] };
+      addToIncludes = newModels;
+    }
 
     return [ hashWithRoot, addToIncludes ];
   }
 
-  getHashForResource(resource, removeForeignKeys=false, didSerialize={}, lookupSerializer=false) {
+  getHashForResource(resource, removeForeignKeys = false, didSerialize = {}, lookupSerializer = false) {
     let hash;
     let serializer = lookupSerializer ? this.serializerFor(resource.modelName) : this; // this is used for embedded responses
 
     if (this.isModel(resource)) {
       hash = serializer._hashForModel(resource, removeForeignKeys, didSerialize);
     } else {
-      hash = resource.models.map(m => serializer._hashForModel(m, removeForeignKeys, didSerialize));
+      hash = resource.models.map((m) => serializer._hashForModel(m, removeForeignKeys, didSerialize));
     }
 
     if (this.embed) {
-      return [ hash ];
+      return [hash];
 
     } else {
       let addToIncludes = _(serializer.getKeysForIncluded())
-        .map(key => {
+        .map((key) => {
           if (this.isCollection(resource)) {
-            return resource.models.map(m => m[key]);
+            return resource.models.map((m) => m[key]);
           } else {
             return resource[key];
           }
         })
         .flatten()
         .compact()
-        .uniq(m => m.toString())
+        .uniqBy(m => m.toString())
         .value();
 
-      return [ hash, addToIncludes ];
+      return [hash, addToIncludes];
     }
   }
 
@@ -155,7 +165,7 @@ class Serializer {
   */
   mergePayloads(json, resourceHash) {
     let newJson;
-    let [ resourceHashKey ] = Object.keys(resourceHash);
+    let [resourceHashKey] = Object.keys(resourceHash);
 
     if (json[resourceHashKey]) {
       newJson = json;
@@ -195,11 +205,11 @@ class Serializer {
     return pluralize(this.keyForModel(modelName));
   }
 
-  _hashForModel(model, removeForeignKeys, didSerialize={}) {
+  _hashForModel(model, removeForeignKeys, didSerialize = {}) {
     let attrs = this._attrsForModel(model);
 
     if (removeForeignKeys) {
-      model.fks.forEach(fk => {
+      model.fks.forEach((fk) => {
         delete attrs[fk];
       });
     }
@@ -209,15 +219,15 @@ class Serializer {
       newDidSerialize[model.modelName] = newDidSerialize[model.modelName] || {};
       newDidSerialize[model.modelName][model.id] = true;
 
-      this.getKeysForIncluded().forEach(key => {
+      this.getKeysForIncluded().forEach((key) => {
         let associatedResource = model[key];
         if (!_get(newDidSerialize, `${associatedResource.modelName}.${associatedResource.id}`)) {
           let [ associatedResourceHash ] = this.getHashForResource(associatedResource, true, newDidSerialize, true);
-          let formattedKey = this.keyForResource(associatedResource);
+          let formattedKey = this.keyForEmbeddedRelationship(key);
           attrs[formattedKey] = associatedResourceHash;
 
           if (this.isModel(associatedResource)) {
-            let fk = `${camelize(associatedResource.modelName)}Id`;
+            let fk = `${camelize(key)}Id`;
             delete attrs[fk];
           }
         }
@@ -234,7 +244,7 @@ class Serializer {
    * @param model
    * @private
    */
-  _attrsForModel(model, removeForeignKeys=false) {
+  _attrsForModel(model) {
     let attrs = {};
 
     if (this.attrs) {
@@ -246,9 +256,8 @@ class Serializer {
       attrs = _assign(attrs, model.attrs);
     }
 
-    if (removeForeignKeys) {
-      model.fks.forEach(key => delete attrs[key]);
-    }
+    // Remove fks
+    model.fks.forEach(key => delete attrs[key]);
 
     return this._formatAttributeKeys(attrs);
   }
@@ -263,19 +272,46 @@ class Serializer {
     let newHash = _assign({}, attrs);
 
     if (this.serializeIds === 'always') {
-      model.associationKeys.forEach(key => {
+      model.associationKeys.forEach((key) => {
         let association = model[key];
         if (this.isCollection(association)) {
           let formattedKey = this.keyForRelationshipIds(key);
-          newHash[formattedKey] = model[key].models.map(m => m.id);
+          newHash[formattedKey] = model[key].models.map((m) => m.id);
+        } else if (association) {
+          let formattedKey = this.keyForForeignKey(key);
+          newHash[formattedKey] = model[`${key}Id`];
         }
       });
     } else if (this.serializeIds === 'included') {
-      this.getKeysForIncluded().forEach(key => {
+      this.getKeysForIncluded().forEach((key) => {
         let association = model[key];
-        if (this.isCollection(association)) {
-          let formattedKey = this.keyForRelationshipIds(key);
-          newHash[formattedKey] = model[key].models.map(m => m.id);
+
+        if (model.associationFor(key).isPolymorphic) {
+          if (association instanceof PolymorphicCollection) {
+            let formattedKey = this.keyForRelationship(key);
+
+            newHash[formattedKey] = model[`${singularize(key)}Ids`];
+          } else if (association instanceof Collection) {
+            let formattedKey = this.keyForRelationshipIds(key);
+
+            newHash[formattedKey] = model[key].models.map((m) => m.id);
+          } else {
+            let formattedTypeKey = this.keyForPolymorphicForeignKeyType(key);
+            let formattedIdKey = this.keyForPolymorphicForeignKeyId(key);
+
+            newHash[formattedTypeKey] = model[`${key}Id`].type;
+            newHash[formattedIdKey] = model[`${key}Id`].id;
+          }
+        } else {
+          if (this.isCollection(association)) {
+            let formattedKey = this.keyForRelationshipIds(key);
+
+            newHash[formattedKey] = model[key].models.map((m) => m.id);
+          } else if (association) {
+            let formattedKey = this.keyForForeignKey(key);
+
+            newHash[formattedKey] = model[`${key}Id`];
+          }
         }
       });
     }
@@ -320,6 +356,15 @@ class Serializer {
   }
 
   /**
+   * @method keyForEmbeddedRelationship
+   * @param attributeName
+   * @public
+   */
+  keyForEmbeddedRelationship(attributeName) {
+    return camelize(attributeName);
+  }
+
+  /**
    * Use this hook to format the key for relationship ids
    * in this model's JSON representation.
    *
@@ -345,6 +390,18 @@ class Serializer {
    */
   keyForRelationshipIds(relationshipName) {
     return `${singularize(camelize(relationshipName))}Ids`;
+  }
+
+  keyForForeignKey(relationshipName) {
+    return `${camelize(relationshipName)}Id`;
+  }
+
+  keyForPolymorphicForeignKeyId(relationshipName) {
+    return `${camelize(relationshipName)}Id`;
+  }
+
+  keyForPolymorphicForeignKeyType(relationshipName) {
+    return `${camelize(relationshipName)}Type`;
   }
 
   /**
@@ -383,7 +440,7 @@ class Serializer {
    * @public
    */
   isCollection(object) {
-    return object instanceof Collection;
+    return (object instanceof Collection) || (object instanceof PolymorphicCollection);
   }
 
   /**
@@ -407,6 +464,10 @@ class Serializer {
 
   getKeysForIncluded() {
     return _isFunction(this.include) ? this.include(this.request) : this.include;
+  }
+
+  get schema() {
+    return this.registry.schema;
   }
 
   /**

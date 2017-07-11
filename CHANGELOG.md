@@ -1,6 +1,155 @@
 # Ember CLI Mirage Changelog
 
-In general, it's good to run `ember g ember-cli-mirage` after upgrading.
+## 0.3.4
+
+Update notes: none
+
+Changes:
+
+  - [ENHANCEMENT][#1098](https://github.com/samselikoff/ember-cli-mirage/pull/1098) Fix for FastBoot 1.0 @simonihmig
+  - [ENHANCEMENT][#1102](https://github.com/samselikoff/ember-cli-mirage/pull/1102) Extend modelRegexp to match models in pod structure @dguettler
+  - [ENHANCEMENT][#1096](https://github.com/samselikoff/ember-cli-mirage/pull/1096) Fixed existence of `relationships.data` if `links` are defined @lancedikson
+  - [FEATURE][#1110](https://github.com/samselikoff/ember-cli-mirage/pull/1110) Expose database in serializer @zinyando
+  - [FEATURE][#977](https://github.com/samselikoff/ember-cli-mirage/pull/977) adds support for custom identity managers per application and model @jelhan
+  - General enhancements @samselikoff, @kellyselden, @rwjblue
+
+## 0.3.3
+
+Update notes: none
+
+Changes:
+
+  - [FEATURE][#1080](https://github.com/samselikoff/ember-cli-mirage/pull/1080) Polymorphic association support @samselikoff
+
+## 0.3.2
+
+Update notes: none
+
+Changes:
+
+  - [FEATURE][#1056](https://github.com/samselikoff/ember-cli-mirage/pull/1056) Auto generate models from Ember Data models @offirgolan
+  - [ENHANCEMENT][#1068](https://github.com/samselikoff/ember-cli-mirage/pull/1068) Add Resource helper custom path parameter @rjschie
+  - [ENHANCEMENT][#1077](https://github.com/samselikoff/ember-cli-mirage/pull/1077) Upgrade ember-inflector to 2.0 @john-griffin
+  - [ENHANCEMENT][#1088](https://github.com/samselikoff/ember-cli-mirage/pull/1088) Upgrade ember-lodash @john-griffin
+  - [ENHANCEMENT][#1086](https://github.com/samselikoff/ember-cli-mirage/pull/1086) Normalize hasMany relationships @npafundi
+  - General improvements: @kishiamy, @aheuermann, @marpo60,
+
+## 0.3.1
+
+Update notes: none
+
+Changes:
+
+  - [BUGFIX] [1054](https://github.com/samselikoff/ember-cli-mirage/pull/1054) Remove bad reflexive inverse logic @samselikoff
+  - General enhancements @Serabe, @cs3b
+
+## 0.3.0
+
+Update notes: View the [Upgrade guide](http://www.ember-cli-mirage.com/docs/v0.3.x/upgrading/#02x--03-upgrade-guide) on the 0.3.x docs page
+
+Changes:
+
+  - [FEATURE] [#965](https://github.com/samselikoff/ember-cli-mirage/pull/965) One-way associations @samselikoff, @HeroicEric, @xomaczar
+
+## 0.2.9
+
+Update notes: none
+
+Changes:
+
+  - [ENHANCEMENT] [#1006](https://github.com/samselikoff/ember-cli-mirage/pull/1006) Make host/namespace support more robust @zinyando
+
+## 0.2.8
+
+Update notes: none
+
+Changes:
+
+  - [BUGFIX] [#1026](https://github.com/samselikoff/ember-cli-mirage/pull/1040) Import `require` to avoid issue in babel@6 @rwjblue
+  - [BUGFIX] [#1026](https://github.com/samselikoff/ember-cli-mirage/pull/1026) Fixes generated code for destroy app helper @NLincoln
+
+## 0.2.7
+
+Update notes: 0.2.6 introduced a breaking change for PhantomJS users, so we've reverted a change and published 0.2.7. See [#1024](https://github.com/samselikoff/ember-cli-mirage/pull/1024) for details.
+
+Changes:
+
+  - [BUGFIX [#1025](https://github.com/samselikoff/ember-cli-mirage/pull/1025) Fix factory association feature @yratanov
+  - [BUGFIX [#1024](https://github.com/samselikoff/ember-cli-mirage/pull/1024) Replace Number.isInteger with lodash isInteger @ilucin
+  - [ENHANCEMENT [#1023](https://github.com/samselikoff/ember-cli-mirage/pull/1023) Allow route handlers to return empty string responses @bendemboski
+  - [ENHANCEMENT [#1030](https://github.com/samselikoff/ember-cli-mirage/pull/1030) Code Climate config with ESLint and duplication @larkinscott
+
+## 0.2.6
+
+Update notes: None
+
+Changes:
+
+  - [ENHANCEMENT] [#1010](https://github.com/samselikoff/ember-cli-mirage/pull/1010) Better support for nested addons @samselikoff
+  - [ENHANCEMENT] [#998](https://github.com/samselikoff/ember-cli-mirage/pull/998) Adapting to use lodash 4 using latest ember-lodash @eturino
+  - [ENHANCEMENT] [#1008](https://github.com/samselikoff/ember-cli-mirage/pull/1008) Upgrade to Ember CLI 2.9 @cibernox
+  - [ENHANCEMENT] [#995](https://github.com/samselikoff/ember-cli-mirage/pull/995) Invoke _getAttrsForRequest with correct model name @bwbuchanan
+  - General improvements @azdaroth
+
+- hasMany/belongsTo used to be autodefined, no longer
+  - explain why: sometimes one-way, sometimes ambiguous
+- new serializer hook: `keyForForeignKey`
+  - used for belongsTo relationships (keyForRelationshipIds)
+  - TODO: this is an awful name, change it
+- belongs to keys no longer automatically serialize
+  - need to explain why (one-sided relationships)
+  - change: either set `serializeIds` to `true`, or add missing relationships to `include: []` property on that model's serializer
+
+## 0.2.5
+
+Update notes: None
+
+Changes:
+
+  - [FEATURE] [#880](https://github.com/samselikoff/ember-cli-mirage/pull/880) Add association helper @azdaroth
+  - [FEATURE] [#948](https://github.com/samselikoff/ember-cli-mirage/pull/948) Add length to collections @mfazekas
+  - [FEATURE] [#957](https://github.com/samselikoff/ember-cli-mirage/pull/957) Add slice method to collections @alexparker
+  - [ENHANCEMENT] [#796](https://github.com/samselikoff/ember-cli-mirage/pull/796) improve `normalizedRequestAttrs` helper @jbailey4
+  - [ENHANCEMENT] [#928](https://github.com/samselikoff/ember-cli-mirage/pull/928) add a default passthrough @anulman
+  - [ENHANCEMENT] [#987](https://github.com/samselikoff/ember-cli-mirage/pull/987) Added falsy condition to exclude faker.js & pretender.js in production build @renpinto
+  - [BUGFIX] [#984](https://github.com/samselikoff/ember-cli-mirage/pull/984) Blueprint.prototype.insertIntoFile is async @stefanpennar
+  - [BUGFIX] [#905](https://github.com/samselikoff/ember-cli-mirage/pull/905) Serialize on key instead of modelName @jessedijkstra
+  - [BUGFIX] [#950](https://github.com/samselikoff/ember-cli-mirage/pull/950) fix JSON:API includes @deepflame
+  - General improvements @jessedijkstra @bantic @alecho @alexparker @mfazekas @azdaroth
+
+## 0.2.4
+
+Update notes: None
+
+Changes:
+
+  - [ENHANCEMENT] Let faker float from 3.0.0 @Dhaulagiri
+
+    To improve backwards compatibility concerns raised by the changes from [#863](https://github.com/samselikoff/ember-cli-mirage/pull/863), [#932](https://github.com/samselikoff/ember-cli-mirage/pull/932) allows the version of Faker.js used in ember-cli-mirage to float from `3.0.0`.  If you need to use a specific older `3.x` version in your project you can specify it in your project's package.json.
+  - General improvements @Gaurav0
+
+## 0.2.3
+
+Update notes: None
+
+Changes:
+  - Newer versions of Pretender will [show a warning](https://github.com/pretenderjs/pretender/pull/178)
+    if you forget to shut down a pretender server before starting another one.  Mirage does this
+    for you in acceptance tests, but if you are starting Mirage manually in other tests, remember
+    to shut down the server when you are done.
+    (see [#925](https://github.com/samselikoff/ember-cli-mirage/pull/925))
+
+Changes:
+
+  - [FEATURE] Add support for promises in route functions
+    ([#924](https://github.com/samselikoff/ember-cli-mirage/pull/924))
+    @dustinfarris
+  - [BUGFIX] Adjust afterCreate callbacks execution order
+    ([#893](https://github.com/samselikoff/ember-cli-mirage/pull/893))
+    @Azdaroth
+  - [INTERNAL] Shutdown pretender servers in unit tests
+    ([#917](https://github.com/samselikoff/ember-cli-mirage/pull/917))
+    @dustinfarris
 
 ## 0.2.2
 
@@ -78,7 +227,7 @@ Update notes:
 
     ```js
     let usersCollection = schema.users.all();
-    let uniqueUsers = _.uniq(usersCollection.models, u => u.firstName);
+    let uniqueUsers = _.uniqBy(usersCollection.models, 'firstName');
     ```
 
     - Collection no longer attempts to mimic an array. This turned out to be confusing, since you can't really subclass arrays in JavaScript, and it would sometimes be compatible with functions that operate on arrays, but sometimes not.
@@ -104,7 +253,7 @@ Update notes:
     import { Collection } from 'ember-cli-mirage';
 
     let authors = schema.authors.all().models;
-    let topPosts = authors.map(a => a.topPost);
+    let topPosts = authors.map((a) => a.topPost);
 
     return new Collection('post', topPosts);
     ```
@@ -197,7 +346,7 @@ Update notes:
 
     In Mirage 0.2, all filenames should be dasherized, following the conventions of Ember CLI. If you ever encounter a situation where this doesn't work, please file an issue, as this is a bug.
 
-Changes:  
+Changes:
 
   - [ENHANCEMENT] Better blueprints
   - [BUGFIX] Ensure multiword dasherized serializers work #333

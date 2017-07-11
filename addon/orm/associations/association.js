@@ -1,3 +1,5 @@
+import { dasherize } from 'ember-cli-mirage/utils/inflector';
+
 export default class Association {
 
   constructor(modelName, opts) {
@@ -6,8 +8,9 @@ export default class Association {
       this.modelName = undefined;
       this.opts = modelName;
     } else {
-      // The modelName of the association
-      this.modelName = modelName;
+      // The modelName of the association. (Might not be passed in - set later
+      // by schema).
+      this.modelName = modelName ? dasherize(modelName) : '';
       this.opts = opts || {};
     }
 
@@ -18,4 +21,31 @@ export default class Association {
     this.ownerModelName = '';
   }
 
+  /**
+   * A setter for schema, since we don't have a reference at constuction time.
+   *
+   * @method setSchema
+   * @public
+  */
+  setSchema(schema) {
+    this.schema = schema;
+  }
+
+  /**
+   * Returns true if the association is reflexive.
+   *
+   * @method isReflexive
+   * @return {Boolean}
+   * @public
+  */
+  isReflexive() {
+    let isExplicitReflexive = !!(this.modelName === this.ownerModelName && this.opts.inverse);
+    let isImplicitReflexive = !!(this.opts.inverse === undefined && this.ownerModelName === this.modelName);
+
+    return isExplicitReflexive || isImplicitReflexive;
+  }
+
+  get isPolymorphic() {
+    return this.opts.polymorphic;
+  }
 }

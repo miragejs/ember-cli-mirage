@@ -1,20 +1,19 @@
 import Association from './association';
-import _assign from 'lodash/object/assign';
+import _assign from 'lodash/assign';
 import { capitalize, camelize } from 'ember-cli-mirage/utils/inflector';
 import { toCollectionName } from 'ember-cli-mirage/utils/normalize-name';
 import assert from 'ember-cli-mirage/assert';
 
 /**
+ * The belongsTo association adds a fk to the owner of the association
+ *
  * @class BelongsTo
  * @extends Association
  * @constructor
  * @public
  */
-class BelongsTo extends Association {
+export default class BelongsTo extends Association {
 
-  /*
-    The belongsTo association adds a fk to the owner of the association
-  */
   /**
    * @method getForeignKeyArray
    * @return {Array} Array of camelized name of the model owning the association
@@ -35,49 +34,85 @@ class BelongsTo extends Association {
   }
 
   /**
-   * registers belongs-to association defined by given key on given model,
+   * Registers belongs-to association defined by given key on given model,
    * defines getters / setters for associated parent and associated parent's id,
    * adds methods for creating unsaved parent record and creating a saved one
    *
    * @method addMethodsToModelClass
    * @param {Function} ModelClass
-   * @param {String} key
-   * @param {Schema} schema
+   * @param {String} key the named key for the association
    * @public
    */
-  addMethodsToModelClass(ModelClass, key, schema) {
+  addMethodsToModelClass(ModelClass, key) {
     let modelPrototype = ModelClass.prototype;
     let association = this;
     let foreignKey = this.getForeignKey();
+    let associationHash = { [key]: this };
 
-    let associationHash = {};
-    associationHash[key] = this;
     modelPrototype.belongsToAssociations = _assign(modelPrototype.belongsToAssociations, associationHash);
+
+    // Add to target's dependent associations array
+    this.schema.addDependentAssociation(this, this.modelName);
+
+    // TODO: look how this is used. Are these necessary, seems like they could be gotten from the above?
+    // Or we could use a single data structure to store this information?
     modelPrototype.associationKeys.push(key);
     modelPrototype.associationIdKeys.push(foreignKey);
 
-    Object.defineProperty(modelPrototype, this.getForeignKey(), {
+    Object.defineProperty(modelPrototype, foreignKey, {
 
       /*
         object.parentId
           - returns the associated parent's id
       */
       get() {
-        return this.attrs[foreignKey];
+        this._tempAssociations = this._tempAssociations || {};
+        let tempParent = this._tempAssociations[key];
+        let id;
+
+        if (tempParent === null) {
+          id = null;
+        } else {
+
+          if (association.isPolymorphic) {
+            if (tempParent) {
+              id = { id: tempParent.id, type: tempParent.modelName };
+            } else {
+              id = this.attrs[foreignKey];
+            }
+          } else {
+            if (tempParent) {
+              id = tempParent.id;
+            } else {
+              id = this.attrs[foreignKey];
+            }
+          }
+
+        }
+
+        return id;
       },
 
       /*
         object.parentId = (parentId)
-          - sets the associated parent (via id)
+          - sets the associated parent via id
       */
       set(id) {
-        assert(
-          !id || schema.db[toCollectionName(association.modelName)].find(id),
-          `Couldn\'t find ${association.modelName} with id = ${id}`
-        );
+        let tempParent;
 
-        this.attrs[foreignKey] = id;
-        return this;
+        if (id === null) {
+          tempParent = null;
+        } else if (id !== undefined) {
+          if (association.isPolymorphic) {
+            assert(typeof id === 'object', `You're setting an ID on the polymorphic association '${association.key}' but you didn't pass in an object. Polymorphic IDs need to be in the form { type, id }.`);
+            tempParent = association.schema[toCollectionName(id.type)].find(id.id);
+          } else {
+            tempParent = association.schema[toCollectionName(association.modelName)].find(id);
+            assert(tempParent, `Couldn\'t find ${association.modelName} with id = ${id}`);
+          }
+        }
+
+        this[key] = tempParent;
       }
     });
 
@@ -87,32 +122,47 @@ class BelongsTo extends Association {
           - returns the associated parent
       */
       get() {
-        let foreignKeyId = this[foreignKey];
-        if (foreignKeyId != null) {
-          association._tempParent = null;
-          return schema[toCollectionName(association.modelName)].find(foreignKeyId);
+        this._tempAssociations = this._tempAssociations || {};
 
-        } else if (association._tempParent) {
-          return association._tempParent;
-        } else {
-          return null;
+        let tempParent = this._tempAssociations[key];
+        let foreignKeyId = this[foreignKey];
+        let model = null;
+
+        if (tempParent) {
+          model = tempParent;
+        } else if (foreignKeyId !== null) {
+          if (association.isPolymorphic) {
+            model = association.schema[toCollectionName(foreignKeyId.type)].find(foreignKeyId.id);
+          } else {
+            model = association.schema[toCollectionName(association.modelName)].find(foreignKeyId);
+          }
         }
+
+        return model;
       },
 
       /*
         object.parent = (parentModel)
-          - sets the associated parent (via model)
+          - sets the associated parent via model
+
+        I want to jot some notes about hasInverseFor. There used to be an
+        association.inverse() check, but adding polymorphic associations
+        complicated this. `comment.commentable`, you can't easily check for an
+        inverse since `comments: hasMany()` could be on any model.
+
+        Instead of making it very complex and looking for an inverse on the
+        association in isoaltion, it was much simpler to ask the model being
+        passed in if it had an inverse for the setting model and with its
+        association.
       */
-      set(newModel) {
-        if (newModel && newModel.isNew()) {
-          this[foreignKey] = null;
-          association._tempParent = newModel;
-        } else if (newModel) {
-          association._tempParent = null;
-          this[foreignKey] = newModel.id;
-        } else {
-          association._tempParent = null;
-          this[foreignKey] = null;
+      set(model) {
+        this._tempAssociations = this._tempAssociations || {};
+        this._tempAssociations[key] = model;
+
+        if (model && model.hasInverseFor(association)) {
+          let inverse = model.inverseFor(association);
+
+          model.associate(this, inverse);
         }
       }
     });
@@ -120,9 +170,21 @@ class BelongsTo extends Association {
     /*
       object.newParent
         - creates a new unsaved associated parent
+
+      TODO: document polymorphic
     */
-    modelPrototype[`new${capitalize(key)}`] = function(attrs) {
-      let parent = schema[toCollectionName(association.modelName)].new(attrs);
+    modelPrototype[`new${capitalize(key)}`] = function(...args) {
+      let modelName, attrs;
+
+      if (association.isPolymorphic) {
+        modelName = args[0];
+        attrs = args[1];
+      } else {
+        modelName = association.modelName;
+        attrs = args[0];
+      }
+
+      let parent = association.schema[toCollectionName(modelName)].new(attrs);
 
       this[key] = parent;
 
@@ -132,9 +194,20 @@ class BelongsTo extends Association {
     /*
       object.createParent
         - creates a new saved associated parent, and immediately persists both models
+
+      TODO: document polymorphic
     */
-    modelPrototype[`create${capitalize(key)}`] = function(attrs) {
-      let parent = schema[toCollectionName(association.modelName)].create(attrs);
+    modelPrototype[`create${capitalize(key)}`] = function(...args) {
+      let modelName, attrs;
+      if (association.isPolymorphic) {
+        modelName = args[0];
+        attrs = args[1];
+      } else {
+        modelName = association.modelName;
+        attrs = args[0];
+      }
+
+      let parent = association.schema[toCollectionName(modelName)].create(attrs);
 
       this[key] = parent;
       this.save();
@@ -143,6 +216,27 @@ class BelongsTo extends Association {
     };
   }
 
-}
+  /**
+   *
+   *
+   * @public
+  */
+  disassociateAllDependentsFromTarget(model) {
+    let owner = this.ownerModelName;
+    let fk;
 
-export default BelongsTo;
+    if (this.isPolymorphic) {
+      fk = { type: model.modelName, id: model.id };
+    } else {
+      fk = model.id;
+    }
+
+    let dependents = this.schema[toCollectionName(owner)]
+      .where({ [this.getForeignKey()]: fk });
+
+    dependents.models.forEach(dependent => {
+      dependent.disassociate(model, this);
+      dependent.save();
+    });
+  }
+}

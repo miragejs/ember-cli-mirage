@@ -62,6 +62,21 @@ test('_getAttrsForRequest works with attributes and relationships', function(ass
             'type': 'companies'
           }
         },
+        'employees': {
+          'data': [{
+            'id': '1',
+            'type': 'employees'
+          }, {
+            'id': '2',
+            'type': 'employees'
+          }, {
+            'id': '3',
+            'type': 'employees'
+          }]
+        },
+        'nothings': {
+          'data': []
+        },
         'github-account': {
           'data': {
             'id': '1',
@@ -70,16 +85,13 @@ test('_getAttrsForRequest works with attributes and relationships', function(ass
         },
         'something': {
           'data': null
-        },
-        'many-things': {
-          'data': []
         }
       },
       'type': 'github-account'
     }
   };
 
-  this.handler._getJsonApiDocForRequest = function(request, modelName) {
+  this.handler._getJsonApiDocForRequest = function() {
     return payload;
   };
 
@@ -91,6 +103,8 @@ test('_getAttrsForRequest works with attributes and relationships', function(ass
       name: 'Sam',
       doesMirage: true,
       companyId: '1',
+      employeeIds: ['1', '2', '3'],
+      nothingIds: [],
       githubAccountId: '1',
       somethingId: null
     },
@@ -113,7 +127,7 @@ test('_getAttrsForRequest works with just relationships', function(assert) {
     }
   };
 
-  this.handler._getJsonApiDocForRequest = function(request, modelName) {
+  this.handler._getJsonApiDocForRequest = function() {
     return payload;
   };
 
@@ -126,4 +140,20 @@ test('_getAttrsForRequest works with just relationships', function(assert) {
     },
     'it normalizes data correctly.'
   );
+});
+
+test('_getAttrsForRequest works with just type', function(assert) {
+  let payload = {
+    'data': {
+      'type': 'github-account'
+    }
+  };
+
+  this.handler._getJsonApiDocForRequest = function(request, modelName) {
+    return payload;
+  };
+
+  let attrs = this.handler._getAttrsForRequest(this.request, 'user');
+
+  assert.deepEqual(attrs, {});
 });

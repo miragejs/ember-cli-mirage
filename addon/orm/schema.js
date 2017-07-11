@@ -2,8 +2,9 @@ import { pluralize, camelize, dasherize } from '../utils/inflector';
 import { toCollectionName, toModelName } from 'ember-cli-mirage/utils/normalize-name';
 import Association from './associations/association';
 import Collection from './collection';
-import _forIn from 'lodash/object/forIn';
-import _includes from 'lodash/collection/includes';
+import _assign from 'lodash/assign';
+import _forIn from 'lodash/forIn';
+import _includes from 'lodash/includes';
 import assert from '../assert';
 
 /**
@@ -18,6 +19,7 @@ export default class Schema {
 
     this.db = db;
     this._registry = {};
+    this._dependentAssociations = { polymorphic: [] };
     this.registerModels(modelsMap);
   }
 
@@ -46,14 +48,19 @@ export default class Schema {
     ModelClass = ModelClass.extend();
 
     // Store model & fks in registry
+    // TODO: don't think this is needed anymore
     this._registry[camelizedModelName] = this._registry[camelizedModelName] || { class: null, foreignKeys: [] }; // we may have created this key before, if another model added fks to it
     this._registry[camelizedModelName].class = ModelClass;
 
+    // TODO: set here, remove from model#constructor
+    ModelClass.prototype._schema = this;
+    ModelClass.prototype.modelName = modelName;
     // Set up associations
     ModelClass.prototype.hasManyAssociations = {};   // a registry of the model's hasMany associations. Key is key from model definition, value is association instance itself
     ModelClass.prototype.belongsToAssociations = {}; // a registry of the model's belongsTo associations. Key is key from model definition, value is association instance itself
     ModelClass.prototype.associationKeys = [];       // ex: address.user, user.addresses
-    ModelClass.prototype.associationIdKeys = [];     // ex: address.user_id, user.address_ids. may or may not be a fk.
+    ModelClass.prototype.associationIdKeys = [];     // ex: address.user_id, user.address_ids
+    ModelClass.prototype.dependentAssociations = []; // a registry of associations that depend on this model, needed for deletion cleanup.
 
     let fksAddedFromThisModel = {};
     for (let associationProperty in ModelClass.prototype) {
@@ -62,10 +69,11 @@ export default class Schema {
         association.key = associationProperty;
         association.modelName = association.modelName || toModelName(associationProperty);
         association.ownerModelName = modelName;
+        association.setSchema(this);
 
         // Update the registry with this association's foreign keys. This is
         // essentially our "db migration", since we must know about the fks.
-        let [ fkHolder, fk ] = association.getForeignKeyArray();
+        let [fkHolder, fk] = association.getForeignKeyArray();
 
         fksAddedFromThisModel[fkHolder] = fksAddedFromThisModel[fkHolder] || [];
         assert(
@@ -79,7 +87,7 @@ export default class Schema {
         this._addForeignKeyToRegistry(fkHolder, fk);
 
         // Augment the Model's class with any methods added by this association
-        association.addMethodsToModelClass(ModelClass, associationProperty, this);
+        association.addMethodsToModelClass(ModelClass, associationProperty);
       }
     }
 
@@ -102,6 +110,15 @@ export default class Schema {
     };
 
     return this;
+  }
+
+  /**
+   * @method modelFor
+   * @param type
+   * @public
+   */
+  modelFor(type) {
+    return this._registry[type];
   }
 
   /**
@@ -148,7 +165,7 @@ export default class Schema {
     if (Array.isArray(ids)) {
       assert(
         records.length === ids.length,
-        `Couldn\'t find all ${pluralize(type)} with ids: (${ids.join(',')}) (found ${records.length} results, but was looking for ${ids.length})`
+        `Couldn't find all ${pluralize(type)} with ids: (${ids.join(',')}) (found ${records.length} results, but was looking for ${ids.length})`
       );
     }
 
@@ -188,9 +205,59 @@ export default class Schema {
    */
   first(type) {
     let collection = this._collectionForType(type);
-    let [ record ] = collection;
+    let [record] = collection;
 
     return this._hydrate(record, dasherize(type));
+  }
+
+  modelClassFor(modelName) {
+    return this._registry[camelize(modelName)].class.prototype;
+  }
+
+  /*
+    This method updates the dependentAssociations registry, which is used to
+    keep track of which models depend on a given association. It's used when
+    deleting models - their dependents need to be looked up and foreign keys
+    updated.
+
+    For example,
+
+        schema = {
+          post: Model.extend(),
+          comment: Model.extend({
+            post: belongsTo()
+          })
+        };
+
+        comment1.post = post1;
+        ...
+        post1.destroy()
+
+    Deleting this post should clear out comment1's foreign key.
+
+    Polymorphic associations can have _any_ other model as a dependent, so we
+    handle them separately.
+  */
+  addDependentAssociation(association, modelName) {
+    if (association.isPolymorphic) {
+      this._dependentAssociations.polymorphic.push(association);
+    } else {
+      this._dependentAssociations[modelName] = this._dependentAssociations[modelName] || [];
+      this._dependentAssociations[modelName].push(association);
+    }
+  }
+
+  dependentAssociationsFor(modelName) {
+    let directDependents = this._dependentAssociations[modelName] || [];
+    let polymorphicAssociations = this._dependentAssociations.polymorphic || [];
+
+    return directDependents.concat(polymorphicAssociations);
+  }
+
+  associationsFor(modelName) {
+    let modelClass = this.modelClassFor(modelName);
+
+    return _assign({}, modelClass.belongsToAssociations, modelClass.hasManyAssociations);
   }
 
   /*
@@ -206,7 +273,7 @@ export default class Schema {
     let collection = toCollectionName(type);
     assert(
       this.db[collection],
-      `You\'re trying to find model(s) of type ${type} but this collection doesn\'t exist in the database.`
+      `You're trying to find model(s) of type ${type} but this collection doesn't exist in the database.`
     );
 
     return this.db[collection];
@@ -261,6 +328,7 @@ export default class Schema {
   /**
    * Takes a record and returns a model, or an array of records
    * and returns a collection.
+   *
    * @method _hydrate
    * @param records
    * @param modelName

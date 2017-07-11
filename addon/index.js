@@ -1,5 +1,6 @@
 import Factory from './factory';
 import trait from './trait';
+import association from './association';
 import Response from './response';
 import faker from './faker';
 import Model from './orm/model';
@@ -10,6 +11,7 @@ import JSONAPISerializer from './serializers/json-api-serializer';
 import RestSerializer from './serializers/rest-serializer';
 import HasMany from './orm/associations/has-many';
 import BelongsTo from './orm/associations/belongs-to';
+import IdentityManager from './identity-manager';
 
 function hasMany(...args) {
   return new HasMany(...args);
@@ -21,6 +23,7 @@ function belongsTo(...args) {
 export {
   Factory,
   trait,
+  association,
   Response,
   faker,
   Model,
@@ -30,7 +33,8 @@ export {
   JSONAPISerializer,
   RestSerializer,
   hasMany,
-  belongsTo
+  belongsTo,
+  IdentityManager
 };
 
 export default {

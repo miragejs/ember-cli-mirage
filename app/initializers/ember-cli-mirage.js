@@ -1,8 +1,13 @@
+import Ember from 'ember';
 import readModules from 'ember-cli-mirage/utils/read-modules';
 import ENV from '../config/environment';
 import baseConfig, { testConfig } from '../mirage/config';
 import Server from 'ember-cli-mirage/server';
-import _assign from 'lodash/object/assign';
+import _assign from 'lodash/assign';
+
+const {
+  getWithDefault
+} = Ember;
 
 export default {
   name: 'ember-cli-mirage',
@@ -20,13 +25,17 @@ export default {
 
 export function startMirage(env = ENV) {
   let environment = env.environment;
+  let discoverEmberDataModels = getWithDefault(env['ember-cli-mirage'] || {}, 'discoverEmberDataModels', true);
   let modules = readModules(env.modulePrefix);
-  let options = _assign(modules, {environment, baseConfig, testConfig});
+  let options = _assign(modules, {environment, baseConfig, testConfig, discoverEmberDataModels});
 
   return new Server(options);
 }
 
 function _shouldUseMirage(env, addonConfig) {
+  if (typeof FastBoot !== 'undefined') {
+    return false;
+  }
   let userDeclaredEnabled = typeof addonConfig.enabled !== 'undefined';
   let defaultEnabled = _defaultEnabled(env, addonConfig);
 

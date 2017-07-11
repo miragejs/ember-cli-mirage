@@ -1,4 +1,3 @@
-// jscs:disable requireCamelCaseOrUpperCaseIdentifiers
 import { ActiveModelSerializer, Model, hasMany, belongsTo } from 'ember-cli-mirage';
 import Schema from 'ember-cli-mirage/orm/schema';
 import Db from 'ember-cli-mirage/db';
@@ -14,18 +13,22 @@ module('Integration | Serializer | ActiveModelSerializer', {
         blogPosts: hasMany()
       }),
       blogPost: Model.extend({
-        wordSmith: belongsTo()
+        wordSmith: belongsTo(),
+        comments: hasMany()
       }),
       user: Model.extend({
         contactInfos: hasMany()
       }),
       contactInfo: Model.extend({
         user: belongsTo()
+      }),
+      comment: Model.extend({
+        commentable: belongsTo({ polymorphic: true })
       })
     });
 
     let link = this.schema.wordSmiths.create({ name: 'Link', age: 123 });
-    link.createBlogPost({ title: 'Lorem' });
+    let post1 = link.createBlogPost({ title: 'Lorem' });
     link.createBlogPost({ title: 'Ipsum' });
 
     this.schema.wordSmiths.create({ name: 'Zelda', age: 230 });
@@ -35,12 +38,22 @@ module('Integration | Serializer | ActiveModelSerializer', {
     user.createContactInfo({ email: 'john3000@mail.com' });
 
     this.schema.users.create({ name: 'Pine Apple', age: 230 });
+    this.schema.comments.create({ text: 'Hi there', commentable: post1 });
 
     this.registry = new SerializerRegistry(this.schema, {
       application: ActiveModelSerializer,
       wordSmith: ActiveModelSerializer.extend({
         attrs: ['id', 'name'],
         include: ['blogPosts']
+      }),
+      blogPost: ActiveModelSerializer.extend({
+        include: ['wordSmith', 'comments']
+      }),
+      comment: ActiveModelSerializer.extend({
+        include: ['commentable']
+      }),
+      contactInfo: ActiveModelSerializer.extend({
+        include: ['user']
       }),
       user: ActiveModelSerializer.extend({
         attrs: ['id', 'name'],
@@ -69,12 +82,22 @@ test('it sideloads associations and snake-cases relationships and attributes cor
       {
         id: '1',
         title: 'Lorem',
-        word_smith_id: '1'
+        word_smith_id: '1',
+        comment_ids: [ '1' ]
       },
       {
         id: '2',
         title: 'Ipsum',
-        word_smith_id: '1'
+        word_smith_id: '1',
+        comment_ids: [ ]
+      }
+    ],
+    comments: [
+      {
+        id: '1',
+        text: 'Hi there',
+        commentable_id: '1',
+        commentable_type: 'blog-post'
       }
     ]
   });
@@ -101,12 +124,22 @@ test('it sideloads associations and snake-cases relationships and attributes cor
       {
         id: '1',
         title: 'Lorem',
-        word_smith_id: '1'
+        word_smith_id: '1',
+        comment_ids: [ '1' ]
       },
       {
         id: '2',
         title: 'Ipsum',
-        word_smith_id: '1'
+        word_smith_id: '1',
+        comment_ids: [ ]
+      }
+    ],
+    comments: [
+      {
+        id: '1',
+        text: 'Hi there',
+        commentable_id: '1',
+        commentable_type: 'blog-post'
       }
     ]
   });

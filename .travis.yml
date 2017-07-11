@@ -33,7 +33,7 @@ matrix:
 before_install:
   - if [[ $(npm -v | cut -d '.' -f 1) -lt 3 ]]; then npm i -g npm@^3; fi
   - npm config set spin false
-  - npm install -g bower phantomjs-prebuilt
+  - npm install -g bower
 
 install:
   - npm install

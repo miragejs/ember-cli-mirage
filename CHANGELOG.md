@@ -1,5 +1,39 @@
 # Ember CLI Mirage Changelog
 
+## 0.3.4
+
+Update notes: none
+
+Changes:
+
+  - [ENHANCEMENT][#1098](https://github.com/samselikoff/ember-cli-mirage/pull/1098) Fix for FastBoot 1.0 @simonihmig
+  - [ENHANCEMENT][#1102](https://github.com/samselikoff/ember-cli-mirage/pull/1102) Extend modelRegexp to match models in pod structure @dguettler
+  - [ENHANCEMENT][#1096](https://github.com/samselikoff/ember-cli-mirage/pull/1096) Fixed existence of `relationships.data` if `links` are defined @lancedikson
+  - [FEATURE][#1110](https://github.com/samselikoff/ember-cli-mirage/pull/1110) Expose database in serializer @zinyando
+  - [FEATURE][#977](https://github.com/samselikoff/ember-cli-mirage/pull/977) adds support for custom identity managers per application and model @jelhan
+  - General enhancements @samselikoff, @kellyselden, @rwjblue
+
+## 0.3.3
+
+Update notes: none
+
+Changes:
+
+  - [FEATURE][#1080](https://github.com/samselikoff/ember-cli-mirage/pull/1080) Polymorphic association support @samselikoff
+
+## 0.3.2
+
+Update notes: none
+
+Changes:
+
+  - [FEATURE][#1056](https://github.com/samselikoff/ember-cli-mirage/pull/1056) Auto generate models from Ember Data models @offirgolan
+  - [ENHANCEMENT][#1068](https://github.com/samselikoff/ember-cli-mirage/pull/1068) Add Resource helper custom path parameter @rjschie
+  - [ENHANCEMENT][#1077](https://github.com/samselikoff/ember-cli-mirage/pull/1077) Upgrade ember-inflector to 2.0 @john-griffin
+  - [ENHANCEMENT][#1088](https://github.com/samselikoff/ember-cli-mirage/pull/1088) Upgrade ember-lodash @john-griffin
+  - [ENHANCEMENT][#1086](https://github.com/samselikoff/ember-cli-mirage/pull/1086) Normalize hasMany relationships @npafundi
+  - General improvements: @kishiamy, @aheuermann, @marpo60,
+
 ## 0.3.1
 
 Update notes: none

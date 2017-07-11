@@ -14,10 +14,10 @@ const { assert } = Ember;
   a hash containing the names of the files as keys and the data as values.
 */
 export default function(prefix) {
-  let modules = ['factories', 'fixtures', 'scenarios', 'models', 'serializers'];
+  let modules = ['factories', 'fixtures', 'scenarios', 'models', 'serializers', 'identity-managers'];
   let mirageModuleRegExp = new RegExp(`^${prefix}/mirage/(${modules.join('|')})`);
   let modulesMap = modules.reduce((memo, name) => {
-    memo[name] = {};
+    memo[_camelCase(name)] = {};
     return memo;
   }, {});
 

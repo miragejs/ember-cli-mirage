@@ -23,7 +23,7 @@ export default Serializer.extend({
   },
 
   getHashForPrimaryResource(resource) {
-    let resourceHash = this.getHashForResource(resource);
+    let resourceHash = this.getHashForResource(resource, true);
     let hashWithRoot = { data: resourceHash };
     let addToIncludes = this.getAddToIncludesForResource(resource);
 
@@ -32,7 +32,7 @@ export default Serializer.extend({
 
   getHashForIncludedResource(resource) {
     let serializer = this.serializerFor(resource.modelName);
-    let hash = serializer.getHashForResource(resource);
+    let hash = serializer.getHashForResource(resource, false);
     let hashWithRoot = { included: (this.isModel(resource) ? [ hash ] : hash) };
     let addToIncludes = [];
 
@@ -43,13 +43,13 @@ export default Serializer.extend({
     return [ hashWithRoot, addToIncludes ];
   },
 
-  getHashForResource(resource) {
+  getHashForResource(resource, isPrimary) {
     let hash;
 
     if (this.isModel(resource)) {
-      hash = this._getResourceObjectForModel(resource);
+      hash = this._getResourceObjectForModel(resource, isPrimary);
     } else {
-      hash = resource.models.map((m) => this._getResourceObjectForModel(m));
+      hash = resource.models.map((m) => this._getResourceObjectForModel(m, isPrimary));
     }
 
     return hash;
@@ -124,7 +124,12 @@ export default Serializer.extend({
     return includes;
   },
 
-  _getResourceObjectForModel(model) {
+  /**
+   * @param model
+   * @param {Boolean} isPrimary Temporary fix because of the problem (https://github.com/emberjs/data/issues/5062)
+   * @private
+   */
+  _getResourceObjectForModel(model, isPrimary) {
     let attrs = this._attrsForModel(model, true);
     delete attrs.id;
 
@@ -162,7 +167,9 @@ export default Serializer.extend({
         });
       }
 
-      relationshipHash.data = data;
+      if (isPrimary || !relationshipHash.links) {
+        relationshipHash.data = data;
+      }
 
       hash.relationships[relationshipKey] = relationshipHash;
     });

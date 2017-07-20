@@ -36,7 +36,7 @@
     "broccoli-merge-trees": "^1.1.0",
     "broccoli-stew": "^1.5.0",
     "chalk": "^1.1.1",
-    "ember-cli-babel": "^5.1.7",
+    "ember-cli-babel": "^6.6.0",
     "ember-cli-node-assets": "^0.1.4",
     "ember-get-config": "^0.2.2",
     "ember-inflector": "^2.0.0",

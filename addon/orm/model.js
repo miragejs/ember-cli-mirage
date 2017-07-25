@@ -233,26 +233,31 @@ class Model {
   inverseFor(association) {
     let associations = this.schema.associationsFor(this.modelName);
     let modelName = association.ownerModelName;
+    let candidates = _values(associations).filter(association => association.modelName === modelName);
 
-    let theInverse = _values(associations)
-      .filter(candidate => candidate.modelName === modelName)
-      .reduce((inverse, candidate) => {
-        let candidateInverse = candidate.opts.inverse;
-        let candidateIsImplicitInverse = candidateInverse === undefined;
-        let candidateIsExplicitInverse = (candidateInverse === association.key);
-        let candidateMatches = candidateIsImplicitInverse || candidateIsExplicitInverse;
+    let explicitInverses = candidates.filter(candidate => candidate.opts.inverse === association.key);
 
-        if (candidateMatches) {
-          // Need to move this check to compile-time init
-          assert(!inverse, `The ${this.modelName} model has multiple possible inverse associations for the ${association.key} association on the ${association.ownerModelName} model.`);
+    // If an explicit inverse is found, return that as the inverse for the given
+    // association. If multiple explicit inverses are found, throw an error --
+    // only one explicit inverse should be defined for an association.
+    if (explicitInverses.length === 1) {
+      return explicitInverses[0];
+    } else if (explicitInverses.length > 1) {
+      assert(`The ${this.modelName} model has defined multiple explicit inverse associations for the ${modelName}.${association.key} association.`);
+    }
 
-          inverse = candidate;
-        }
+    let implicitInverses = candidates.filter(candidate => candidate.opts.inverse === undefined);
 
-        return inverse;
-      }, null);
+    // If an implicit inverse is found, return that as the inverse for the given
+    // association. If multiple implicit inverses are found, throw an error --
+    // we can't determine which inverse to use.
+    if (implicitInverses.length === 1) {
+      return implicitInverses[0];
+    } else if (implicitInverses.length > 1) {
+      assert(`The ${this.modelName} model has multiple possible inverse associations for the ${modelName}.${association.key} association.`);
+    }
 
-    return theInverse;
+    return null;
   }
 
   /**

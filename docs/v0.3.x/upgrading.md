@@ -74,7 +74,7 @@ This could also affect your fixture files, if you are using those to seed your d
 
 Conceptually this change should be straightforward, as its making existing implicit relationships explicit, but if you find yourself having trouble with the upgrade it's probably because of something I haven't thought of. Please reach out to the community on the #ec-mirage channel on Slack and ask for help!
 
-For more information on the motivation behind change, please read the [0-3 beta series release blog post](../blog/2017/01/09/0-3-0-beta-series/).
+For more information on the motivation behind change, please read the [0-3 beta series release blog post](http://www.ember-cli-mirage.com/blog/2017/01/09/0-3-0-beta-series/).
 
 ## 0.1.x > 0.2 Upgrade guide
 

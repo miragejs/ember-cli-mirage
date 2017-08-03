@@ -108,6 +108,24 @@ test('I can view the authors', function() {
 });
 ```
 
+## Using scenarios in testing
+
+If you want to run the same scenario in your tests that runs in development, you can import a scenario and run your server through it:
+
+```js
+import defaultScenario from '../../mirage/scenarios/default';
+
+test('I can view the authors', function() {
+  defaultScenario(server);
+
+  visit('/contacts');
+
+  andThen(function() {
+    equal( find('p').length, 3 );
+  });
+});
+```
+
 Learn more about acceptance testing in the [next section](../acceptance-testing).
 
 ## Overriding factory attributes

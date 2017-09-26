@@ -86,7 +86,20 @@ export default class BaseRouteHandler {
 
     attrs = urlEncodedParts.reduce((a, urlEncodedPart) => {
       let [key, value] = urlEncodedPart.split('=');
-      a[key] = decodeURIComponent(value.replace(/\+/g,  ' '));
+      let decodedKey = decodeURIComponent(key);
+      let decodedValue = decodeURIComponent(value.replace(/\+/g,  ' '));
+
+      if (decodedKey.endsWith('[]')) {
+        // support for field[]=value1&field[]=value2
+        let cleanKey = decodedKey.slice(0, -2);
+        if (!(cleanKey in a)) {
+          a[cleanKey] = [];
+        }
+        a[cleanKey].push(decodedValue);
+      } else {
+        a[key] = decodedValue;
+      }
+
       return a;
     }, {});
 

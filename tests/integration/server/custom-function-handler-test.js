@@ -101,3 +101,27 @@ test(`#normalizedRequestAttrs parses a x-www-form-urlencoded request and returns
     done();
   });
 });
+
+test(`#normalizedRequestAttrs parses a x-www-form-urlencoded request containing array and returns a POJO`, function(assert) {
+  assert.expect(1);
+  let done = assert.async();
+  let { server } = this;
+
+  server.post('/form-test', function() {
+    let attrs = this.normalizedRequestAttrs();
+
+    assert.deepEqual(attrs, {
+      names: ['Sam', 'Hugo']
+    }, '#normalizedRequestAttrs successfully returned the parsed x-www-form-urlencoded request body containing an array');
+
+    return {};
+  });
+
+  $.ajax({
+    method: 'POST',
+    url: '/form-test',
+    data: 'names%5B%5D=Sam&names%5B%5D=Hugo'
+  }).done(() => {
+    done();
+  });
+});

@@ -123,6 +123,8 @@ and the payload would look like
 }
 ```
 
+*Note: This is not available yet for the JSONAPISerializer.*
+
 ---
 
 ## include
@@ -179,6 +181,8 @@ export default Serializer.extend({
   }
 });
 ```
+
+*Note: This is not available yet for the JSONAPISerializer.*
 
 ## include query param
 
@@ -309,7 +313,7 @@ GET /authors/1
 
 ## serializeIds
 
-> Note: this feature was added in 0.2.2.
+*Note: this feature was added in 0.2.2.*
 
 Use this to define how your serializer handles serializing relationship keys. It can take one of three values:
 
@@ -317,6 +321,7 @@ Use this to define how your serializer handles serializing relationship keys. It
 - `always` will always serialize the ids of all relationships for the model or collection in the response
 - `never` will never serialize the ids of relationships for the model or collection in the response
 
+*Note: This is not available yet for the JSONAPISerializer.*
 
 ---
 
@@ -535,7 +540,7 @@ Now the response will look like:
 
 ## typeKeyForModel(*model*)
 
-This hook is only available on the JSONAPISerializer. 
+This hook is only available on the JSONAPISerializer.
 
 Use this hook to override the generated `type` for the JSON:API resource object. By default, `type` will be the plural and dasherized form of the model name.
 

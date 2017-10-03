@@ -51,9 +51,9 @@ When writing model-specific serializers, remember to extend from your applicatio
 
 ```js
 // mirage/serializers/blog-post.js
-import BaseSerializer from './application';
+import ApplicationSerializer from './application';
 
-export default BaseSerializer.extend({
+export default ApplicationSerializer.extend({
   include: ['comments']
 });
 ```
@@ -535,7 +535,7 @@ Now the response will look like:
 
 ## typeKeyForModel(*model*)
 
-This hook is only available on the JSONAPISerializer. 
+This hook is only available on the JSONAPISerializer.
 
 Use this hook to override the generated `type` for the JSON:API resource object. By default, `type` will be the plural and dasherized form of the model name.
 

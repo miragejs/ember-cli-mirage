@@ -337,14 +337,14 @@ export default class Server {
     this.factorySequences = this.factorySequences || {};
     this.factorySequences[camelizedType] = this.factorySequences[camelizedType] + 1 || 0;
 
-    let OriginalFactory = this.factoryFor(type);
+    let OriginalFactory = this.factoryFor(camelizedType);
     if (OriginalFactory) {
       OriginalFactory = OriginalFactory.extend({});
       let attrs = OriginalFactory.attrs || {};
-      this._validateTraits(traits, OriginalFactory, type);
+      this._validateTraits(traits, OriginalFactory, camelizedType);
       let mergedExtensions = this._mergeExtensions(attrs, traits, overrides);
-      this._mapAssociationsFromAttributes(type, attrs);
-      this._mapAssociationsFromAttributes(type, mergedExtensions);
+      this._mapAssociationsFromAttributes(camelizedType, attrs);
+      this._mapAssociationsFromAttributes(camelizedType, mergedExtensions);
 
       let Factory = OriginalFactory.extend(mergedExtensions);
       let factory = new Factory();

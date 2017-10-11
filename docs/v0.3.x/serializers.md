@@ -182,7 +182,7 @@ export default Serializer.extend({
 });
 ```
 
-*Note: This is not available yet for the JSONAPISerializer.*
+*Note: This is not used anymore by the JSONAPISerializer. Instead specify your included entities in the request `?include=xxx`*
 
 ## include query param
 

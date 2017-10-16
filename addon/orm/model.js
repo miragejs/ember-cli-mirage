@@ -462,10 +462,10 @@ class Model {
         });
         found = _compact(found);
       } else {
-        found = this._schema.db[toCollectionName(association.modelName)].find(foreignKeys);
+        found = this._schema.db[toCollectionName(association.modelName)].find(foreignKeys.id || foreignKeys);
       }
 
-      let foreignKeyLabel = association.isPolymorphic ? foreignKeys.map(fk => `${fk.type}:${fk.id}`).join(',') : foreignKeys;
+      let foreignKeyLabel = association.isPolymorphic ? foreignKeys.map(fk => `${fk.type}:${fk.id}`).join(',') : (foreignKeys.id || foreignKeys);
       assert(found.length === foreignKeys.length, `You're instantiating a ${this.modelName} that has a ${foreignKeyName} of ${foreignKeyLabel}, but some of those records don't exist in the database.`);
 
     } else {
@@ -477,10 +477,10 @@ class Model {
       if (association.isPolymorphic) {
         found = this._schema.db[toCollectionName(foreignKeys.type)].find(foreignKeys.id);
       } else {
-        found = this._schema.db[toCollectionName(association.modelName)].find(foreignKeys);
+        found = this._schema.db[toCollectionName(association.modelName)].find(foreignKeys.id || foreignKeys);
       }
 
-      let foreignKeyLabel = association.isPolymorphic ? `${foreignKeys.type}:${foreignKeys.id}` : foreignKeys;
+      let foreignKeyLabel = association.isPolymorphic ? `${foreignKeys.type}:${foreignKeys.id}` : foreignKeys.id || foreignKeys;
       assert(found, `You're instantiating a ${this.modelName} that has a ${foreignKeyName} of ${foreignKeyLabel}, but that record doesn't exist in the database.`);
     }
   }

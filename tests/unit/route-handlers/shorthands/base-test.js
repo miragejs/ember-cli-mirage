@@ -102,10 +102,25 @@ test('_getAttrsForRequest works with attributes and relationships', function(ass
     {
       name: 'Sam',
       doesMirage: true,
-      companyId: '1',
-      employeeIds: ['1', '2', '3'],
+      companyId: {
+        id: '1',
+        type: 'companies'
+      },
+      employeeIds: [{
+        id: '1',
+        type: 'employees'
+      }, {
+        id: '2',
+        type: 'employees'
+      }, {
+        id: '3',
+        type: 'employees'
+      }],
       nothingIds: [],
-      githubAccountId: '1',
+      githubAccountId: {
+        id: '1',
+        type: 'github-accounts'
+      },
       somethingId: null
     },
     'it normalizes data correctly.'
@@ -136,7 +151,10 @@ test('_getAttrsForRequest works with just relationships', function(assert) {
   assert.deepEqual(
     attrs,
     {
-      companyId: '1'
+      companyId: {
+        id: '1',
+        type: 'companies'
+      }
     },
     'it normalizes data correctly.'
   );

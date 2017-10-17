@@ -41,6 +41,15 @@ class IdentityManager {
   }
 
   /**
+   * @method remove
+   * @param {String|Number} n
+   * @public
+   */
+  remove(n) {
+    this._ids[n] = undefined;
+  }
+
+  /**
    * @method inc
    * @private
    */

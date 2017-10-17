@@ -38,3 +38,17 @@ test('destroying a collection removes the associated records from the db', funct
 
   assert.deepEqual(db.users, []);
 });
+
+test('destroying a model makes the ID reusable', function(assert) {
+  assert.deepEqual(db.users.length, 3);
+
+  let user = this.schema.users.first();
+  let id = user.id;
+  user.destroy();
+
+  assert.deepEqual(db.users.length, 2);
+
+  this.schema.users.create({ id, name: 'Link', evil: true });
+
+  assert.deepEqual(db.users.length, 3);
+});

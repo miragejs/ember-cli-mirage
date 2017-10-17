@@ -221,12 +221,16 @@ class DbCollection {
     } else if (typeof target === 'number' || typeof target === 'string') {
       let record = this._findRecord(target);
       let index = this._records.indexOf(record);
+
+      this.identityManager.remove(record.id);
       this._records.splice(index, 1);
 
     } else if (Array.isArray(target)) {
       records = this._findRecords(target);
       records.forEach((record) =>  {
         let index = this._records.indexOf(record);
+
+        this.identityManager.remove(record.id);
         this._records.splice(index, 1);
       });
 
@@ -234,6 +238,8 @@ class DbCollection {
       records = this._findRecordsWhere(target);
       records.forEach((record) =>  {
         let index = this._records.indexOf(record);
+
+        this.identityManager.remove(record.id);
         this._records.splice(index, 1);
       });
     }

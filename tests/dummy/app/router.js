@@ -19,14 +19,14 @@ Router.map(function() {
   // this.route('word-smith', { path: '/word-smiths/:word_smith_id' });
   this.route('docs', function() {
     this.route('getting-started', { path: '/' }, function() {
-      this.route('overview', { path: '/' });
+      this.route('overview');
       this.route('installation');
       this.route('quickstart');
       this.route('upgrading');
     });
 
     this.route('writing-your-server', function() {
-      this.route('defining-routes', { path: '/' });
+      this.route('defining-routes');
       this.route('seeding-your-database');
       this.route('acceptance-testing');
     });

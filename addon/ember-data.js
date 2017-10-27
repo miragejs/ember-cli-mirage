@@ -35,16 +35,14 @@ export function getDsModels() {
     return DsModels;
   }
 
+  let modelPathMatchRegex = new RegExp(`models/(.*)$|${podModulePrefix}/(.*?)(?=/model)/`, 'i');
+
   Object.keys(moduleMap)
     .filter((module) => !!module.match(modelMatchRegex))
     .forEach((path) => {
-      let paths = path.split('/');
-      let modelName = paths[paths.length - 1];
+      let matches = path.match(modelPathMatchRegex);
+      let modelName = matches[1] || matches[2];
       let model = require(path, null, null, true).default;
-
-      if (modelName === 'model') {
-        modelName = paths[paths.length - 2];
-      }
 
       if (isDsModel(model)) {
         DsModels[modelName] = model;

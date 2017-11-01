@@ -1,6 +1,7 @@
 import {module, test} from 'qunit';
 import { Model, ActiveModelSerializer } from 'ember-cli-mirage';
 import Server from 'ember-cli-mirage/server';
+import fetch from 'fetch';
 
 module('Integration | Server | Resource shorthand', function(hooks) {
   hooks.beforeEach(function() {
@@ -22,294 +23,218 @@ module('Integration | Server | Resource shorthand', function(hooks) {
     this.server.shutdown();
   });
 
-  test('resource generates get shorthand for index action', function(assert) {
-    assert.expect(3);
-    let done = assert.async(2);
+  test('resource generates get shorthand for index action', async function(assert) {
+    assert.expect(2);
 
     this.server.db.loadData({
       contacts: [
         { id: 1, name: 'Link' },
         { id: 2, name: 'Zelda' }
-      ],
-      blogPosts: [
-        { id: 1, title: 'Post 1' },
-        { id: 2, title: 'Post 2' }
       ]
     });
 
     this.server.resource('contacts');
-    this.server.resource('blog-posts', { path: '/posts' });
 
-    $.ajax({
-      method: 'GET',
-      url: '/contacts'
-    }).done(function(res, status, xhr) {
-      assert.equal(xhr.status, 200);
-      assert.deepEqual(res, { contacts: [{ id: '1', name: 'Link' }, { id: '2', name: 'Zelda' }] });
-      done();
-    });
-
-    $.ajax({
-      method: 'GET',
-      url: '/posts'
-    }).fail((xhr, textStatus, error) => {
-      assert.ok(false, 'failed to find custom path');
-      done();
-    }).done(function(res, status, xhr) {
-      assert.ok(true);
-      done();
-    });
+    let response = await fetch('/contacts');
+    assert.equal(response.status, 200, 'Should receive a 200 response from resource index action');
+    let results = await response.json();
+    assert.deepEqual(
+      results,
+      { contacts: [{ id: '1', name: 'Link' }, { id: '2', name: 'Zelda' }] },
+      'Should receive all resources from the DB'
+    );
   });
 
-  test('resource generates get shorthand for show action', function(assert) {
-    assert.expect(3);
-    let done = assert.async(2);
+  test('resource generates get shorthand for show action', async function(assert) {
+    assert.expect(2);
 
     this.server.db.loadData({
       contacts: [
         { id: 1, name: 'Link' },
         { id: 2, name: 'Zelda' }
-      ],
-      blogPosts: [
-        { id: 1, title: 'Post 1' },
-        { id: 2, title: 'Post 2' }
       ]
     });
 
     this.server.resource('contacts');
-    this.server.resource('blog-posts', { path: '/posts' });
 
-    $.ajax({
-      method: 'GET',
-      url: '/contacts/2'
-    }).done(function(res, status, xhr) {
-      assert.equal(xhr.status, 200);
-      assert.deepEqual(res, { contact: { id: '2', name: 'Zelda' } });
-      done();
-    });
-
-    $.ajax({
-      method: 'GET',
-      url: '/posts/2'
-    }).fail((xhr, textStatus, error) => {
-      assert.ok(false, 'failed to find custom path');
-      done();
-    }).done(function(res, status, xhr) {
-      assert.ok(true);
-      done();
-    });
+    let response = await fetch('/contacts/2');
+    assert.equal(response.status, 200, 'Should receive a 200 response from resource show action');
+    let results = await response.json();
+    assert.deepEqual(
+      results,
+      { contact: { id: '2', name: 'Zelda' } },
+      'Should receive the requested resource from the DB'
+    );
   });
 
-  test('resource generates post shorthand', function(assert) {
+  test('resource generates post shorthand for create action', async function(assert) {
     let { server } = this;
-    assert.expect(3);
-    let done = assert.async(2);
+    assert.expect(2);
 
     server.resource('contacts');
-    server.resource('blog-posts', { path: '/posts' });
 
-    $.ajax({
+    let options = {
       method: 'POST',
-      url: '/contacts',
-      data: JSON.stringify({
+      body: JSON.stringify({
         contact: {
           name: 'Zelda'
         }
       })
-    }).done((res, status, xhr) => {
-      assert.equal(xhr.status, 201);
-      assert.equal(server.db.contacts.length, 1);
-      done();
+    };
+
+    let response = await fetch('/contacts', options);
+    assert.equal(response.status, 201, 'Should receive 201 response from resource create action');
+    assert.equal(server.db.contacts.length, 1, 'Should create a new record in the DB');
+  });
+
+  test('resource generates put shorthand for update action', async function(assert) {
+    let { server } = this;
+    assert.expect(2);
+
+    this.server.db.loadData({
+      contacts: [
+        { id: 1, name: 'Link' }
+      ]
     });
 
-    $.ajax({
+    server.resource('contacts');
+
+    let options = {
+      method: 'PUT',
+      body: JSON.stringify({
+        contact: {
+          name: 'Zelda'
+        }
+      })
+    };
+
+    let response = await fetch('/contacts/1', options);
+    assert.equal(response.status, 200, 'Should receive 200 response from resource update action');
+    assert.equal(server.db.contacts[0].name, 'Zelda', 'Should update record in the DB');
+  });
+
+  test('resource generates patch shorthand for update action', async function(assert) {
+    let { server } = this;
+    assert.expect(2);
+
+    this.server.db.loadData({
+      contacts: [
+        { id: 1, name: 'Link' }
+      ]
+    });
+
+    server.resource('contacts');
+
+    let options = {
+      method: 'PATCH',
+      body: JSON.stringify({
+        contact: {
+          name: 'Zelda'
+        }
+      })
+    };
+
+    let response = await fetch('/contacts/1', options);
+    assert.equal(response.status, 200, 'Should receive 200 response from resource update action');
+    assert.equal(server.db.contacts[0].name, 'Zelda', 'Should update record in the DB');
+  });
+
+  test('resource generates delete shorthand for delete action', async function(assert) {
+    let { server } = this;
+    assert.expect(2);
+
+    this.server.db.loadData({
+      contacts: [
+        { id: 1, name: 'Link' }
+      ]
+    });
+
+    server.resource('contacts');
+
+    let response = await fetch('/contacts/1', { method: 'DELETE' });
+    assert.equal(response.status, 204, 'Should receive 204 response from the resource delete action');
+    assert.equal(server.db.contacts.length, 0, 'Should delete record in the DB');
+  });
+
+  test('resource accepts a custom path for a resource', async function(assert) {
+    assert.expect(6);
+
+    this.server.db.loadData({
+      blogPosts: [
+        { id: 1, title: 'Post 1' },
+        { id: 2, title: 'Post 2' }
+      ]
+    });
+
+    this.server.resource('blog-posts', { path: '/custom-posts-path' });
+
+    let response = await fetch('/custom-posts-path');
+    assert.equal(response.status, 200, 'Should receive a 200 response from resource index action');
+
+    response = await fetch('/custom-posts-path/2');
+    assert.equal(response.status, 200, 'Should receive a 200 response from resource show action');
+
+    let options = {
       method: 'POST',
-      url: '/posts',
-      data: JSON.stringify({
-        blog_post: {
-          name: 'Post 1'
+      body: JSON.stringify({
+        blogPost: {
+          title: 'Post 3'
         }
       })
-    }).fail((xhr, textStatus, error) => {
-      assert.ok(false, 'failed to find custom path');
-      done();
-    }).done((res, status, xhr) => {
-      assert.ok(true);
-      done();
-    });
-  });
+    };
 
-  test('resource generates put shorthand', function(assert) {
-    let { server } = this;
-    assert.expect(3);
-    let done = assert.async(2);
+    response = await fetch('/custom-posts-path', options);
+    assert.equal(response.status, 201, 'Should receive 201 response from resource create action');
 
-    this.server.db.loadData({
-      contacts: [
-        { id: 1, name: 'Link' }
-      ],
-      blogPosts: [
-        { id: 1, title: 'Post 1' }
-      ]
-    });
-
-    server.resource('contacts');
-    server.resource('blog-posts', { path: '/posts' });
-
-    $.ajax({
+    options = {
       method: 'PUT',
-      url: '/contacts/1',
-      data: JSON.stringify({
+      body: JSON.stringify({
         contact: {
           name: 'Zelda'
         }
       })
-    }).done((res, status, xhr) => {
-      assert.equal(xhr.status, 200);
-      assert.equal(server.db.contacts[0].name, 'Zelda');
-      done();
-    });
+    };
 
-    $.ajax({
-      method: 'PUT',
-      url: '/posts/1',
-      data: JSON.stringify({
-        blog_post: {
-          name: 'Post 2'
-        }
-      })
-    }).fail((xhr, textStatus, error) => {
-      assert.ok(false, 'failed to find custom path');
-      done();
-    }).done((res, status, xhr) => {
-      assert.ok(true);
-      done();
-    });
-  });
+    response = await fetch('/custom-posts-path/1', options);
+    assert.equal(response.status, 200, 'Should receive 200 response from resource update action with PUT');
 
-  test('resource generates patch shorthand', function(assert) {
-    let { server } = this;
-    assert.expect(3);
-    let done = assert.async(2);
-
-    this.server.db.loadData({
-      contacts: [
-        { id: 1, name: 'Link' }
-      ],
-      blogPosts: [
-        { id: 1, title: 'Post 1' }
-      ]
-    });
-
-    server.resource('contacts');
-    server.resource('blog-posts', { path: '/posts' });
-
-    $.ajax({
+    options = {
       method: 'PATCH',
-      url: '/contacts/1',
-      data: JSON.stringify({
+      body: JSON.stringify({
         contact: {
           name: 'Zelda'
         }
       })
-    }).done((res, status, xhr) => {
-      assert.equal(xhr.status, 200);
-      assert.equal(server.db.contacts[0].name, 'Zelda');
-      done();
-    });
+    };
 
-    $.ajax({
-      method: 'PATCH',
-      url: '/posts/1',
-      data: JSON.stringify({
-        blog_post: {
-          name: 'Post 2'
-        }
-      })
-    }).fail((xhr, textStatus, error) => {
-      assert.ok(false, 'failed to find custom path');
-      done();
-    }).done((res, status, xhr) => {
-      assert.ok(true);
-      done();
-    });
+    response = await fetch('/custom-posts-path/1', options);
+    assert.equal(response.status, 200, 'Should receive 200 response from resource update action with PATCH');
+
+    response = await fetch('/custom-posts-path/1', { method: 'DELETE' });
+    assert.equal(response.status, 204, 'Should receive 204 response from the resource delete action');
   });
 
-  test('resource generates delete shorthand works', function(assert) {
-    let { server } = this;
-    assert.expect(3);
-    let done = assert.async(2);
-
-    this.server.db.loadData({
-      contacts: [
-        { id: 1, name: 'Link' }
-      ],
-      blogPosts: [
-        { id: 1, title: 'Post 1' }
-      ]
-    });
-
-    server.resource('contacts');
-    server.resource('blog-posts', { path: '/posts' });
-
-    $.ajax({
-      method: 'DELETE',
-      url: '/contacts/1'
-    }).done((res, status, xhr) => {
-      assert.equal(xhr.status, 204);
-      assert.equal(server.db.contacts.length, 0);
-      done();
-    });
-
-    $.ajax({
-      method: 'DELETE',
-      url: '/posts/1'
-    }).fail((xhr, textStatus, error) => {
-      assert.ok(false, 'failed to find custom path');
-      done();
-    }).done((res, status, xhr) => {
-      assert.ok(true);
-      done();
-    });
-  });
-
-  test('resource accepts singular name', function(assert) {
-    assert.expect(3);
-    let done = assert.async(2);
+  test('resource accepts singular name', async function(assert) {
+    assert.expect(2);
 
     this.server.db.loadData({
       contacts: [
         { id: 1, name: 'Link' },
         { id: 2, name: 'Zelda' }
-      ],
-      blogPosts: [
-        { id: 1, title: 'Post 1' },
-        { id: 2, title: 'Post 2' }
       ]
     });
 
     this.server.resource('contact');
-    this.server.resource('blog-post', { path: '/posts' });
+    // this.server.resource('blog-post', { path: '/posts' });
 
-    $.ajax({
-      method: 'GET',
-      url: '/contacts'
-    }).done(function(res, status, xhr) {
-      assert.equal(xhr.status, 200);
-      assert.deepEqual(res, { contacts: [{ id: '1', name: 'Link' }, { id: '2', name: 'Zelda' }] });
-      done();
-    });
-
-    $.ajax({
-      method: 'GET',
-      url: '/posts'
-    }).fail((xhr, textStatus, error) => {
-      assert.ok(false, 'failed to find custom path');
-      done();
-    }).done(function(res, status, xhr) {
-      assert.ok(true);
-      done();
-    });
+    let response = await fetch('/contacts');
+    assert.equal(response.status, 200, 'Should receive a 200 response from resource index action');
+    let results = await response.json();
+    assert.deepEqual(
+      results,
+      { contacts: [{ id: '1', name: 'Link' }, { id: '2', name: 'Zelda' }] },
+      'Should receive all resources from the DB'
+    );
   });
 
   test('resource does not accept both :all and :except options', function(assert) {
@@ -320,10 +245,9 @@ module('Integration | Server | Resource shorthand', function(hooks) {
     }, 'cannot use both :only and :except options');
   });
 
-  test('resource generates shorthands which are whitelisted by :only option', function(assert) {
+  test('resource generates shorthands which are whitelisted by :only option', async function(assert) {
     let { server } = this;
-    assert.expect(2);
-    let done = assert.async(2);
+    assert.expect(1);
 
     server.db.loadData({
       contacts: [
@@ -333,29 +257,12 @@ module('Integration | Server | Resource shorthand', function(hooks) {
     });
 
     server.resource('contacts', { only: ['index'] });
-    server.resource('blog-posts', { path: '/posts',  only: ['index'] });
 
-    $.ajax({
-      method: 'GET',
-      url: '/contacts'
-    }).done((res, status, xhr) => {
-      assert.equal(xhr.status, 200);
-      done();
-    });
-
-    $.ajax({
-      method: 'GET',
-      url: '/posts'
-    }).fail(function() {
-      assert.ok(false, 'failed to find custom path');
-      done();
-    }).done((res, status, xhr) => {
-      assert.equal(xhr.status, 200);
-      done();
-    });
+    let response = await fetch('/contacts');
+    assert.equal(response.status, 200, 'Should receive a 200 response from resource index action');
   });
 
-  test('resource does not generate shorthands which are not whitelisted with :only option', function(assert) {
+  test('resource does not generate shorthands which are not whitelisted with :only option', async function(assert) {
     let { server } = this;
     assert.expect(5);
 
@@ -367,73 +274,77 @@ module('Integration | Server | Resource shorthand', function(hooks) {
 
     server.resource('contacts', { only: ['index'] });
 
-    let doneForShow = assert.async();
+    try {
+      await fetch('/contacts/1');
+    } catch(e) {
+      assert.ok(
+        e.message.indexOf("Mirage: Your Ember app tried to GET '/contacts/1'") > -1,
+        'Should receive an error from Mirage when requesting the show action'
+      );
+    }
 
-    $.ajax({
-      method: 'GET',
-      url: '/contacts/1'
-    }).fail((xhr, textStatus, error) => {
-      assert.ok(error.message.indexOf("Mirage: Your Ember app tried to GET '/contacts/1'") !== -1);
-      doneForShow();
-    });
+    try {
+      let options = {
+        method: 'POST',
+        data: JSON.stringify({
+          contact: {
+            name: 'Zelda'
+          }
+        })
+      };
+      await fetch('/contacts', options);
+    } catch(e) {
+      assert.ok(
+        e.message.indexOf("Mirage: Your Ember app tried to POST '/contacts'") > -1,
+        'Should receive an error from Mirage when requesting the create action'
+      );
+    }
 
-    let doneForCreate = assert.async();
+    try {
+      let options = {
+        method: 'PUT',
+        data: JSON.stringify({
+          contact: {
+            name: 'Zelda'
+          }
+        })
+      };
+      await fetch('/contacts/1', options);
+    } catch(e) {
+      assert.ok(
+        e.message.indexOf("Mirage: Your Ember app tried to PUT '/contacts/1'") > -1,
+        'Should receive an error from Mirage when requesting the update action with PUT'
+      );
+    }
 
-    $.ajax({
-      method: 'POST',
-      url: '/contacts',
-      data: JSON.stringify({
-        contact: {
-          name: 'Zelda'
-        }
-      })
-    }).fail((xhr, textStatus, error) => {
-      assert.ok(error.message.indexOf("Mirage: Your Ember app tried to POST '/contacts'") !== -1);
-      doneForCreate();
-    });
+    try {
+      let options = {
+        method: 'PATCH',
+        data: JSON.stringify({
+          contact: {
+            name: 'Zelda'
+          }
+        })
+      };
+      await fetch('/contacts/1', options);
+    } catch(e) {
+      assert.ok(
+        e.message.indexOf("Mirage: Your Ember app tried to PATCH '/contacts/1'") > -1,
+        'Should receive an error from Mirage when requesting the update action with PATCH'
+      );
+    }
 
-    let doneForPut = assert.async();
-
-    $.ajax({
-      method: 'PUT',
-      url: '/contacts/1',
-      data: JSON.stringify({
-        contact: {
-          name: 'Zelda'
-        }
-      })
-    }).fail((xhr, textStatus, error) => {
-      assert.ok(error.message.indexOf("Mirage: Your Ember app tried to PUT '/contacts/1'") !== -1);
-      doneForPut();
-    });
-
-    let doneForPatch = assert.async();
-
-    $.ajax({
-      method: 'PATCH',
-      url: '/contacts/1',
-      data: JSON.stringify({
-        contact: {
-          name: 'Zelda'
-        }
-      })
-    }).fail((xhr, textStatus, error) => {
-      assert.ok(error.message.indexOf("Mirage: Your Ember app tried to PATCH '/contacts/1'") !== -1);
-      doneForPatch();
-    });
-
-    let doneForDelete = assert.async();
-
-    $.ajax({
-      method: 'DELETE',
-      url: '/contacts/1'
-    }).fail((xhr, textStatus, error) => {
-      assert.ok(error.message.indexOf("Mirage: Your Ember app tried to DELETE '/contacts/1'") !== -1);
-      doneForDelete();
-    });
+    try {
+      await fetch('/contacts/1', { method: 'DELETE' });
+    } catch(e) {
+      assert.ok(
+        e.message.indexOf("Mirage: Your Ember app tried to DELETE '/contacts/1'") > -1,
+        'Should receive an error from Mirage when requesting the delet action'
+      );
+    }
   });
 
-  test('resource generates shorthands which are not blacklisted by :except option', function(assert) {
+  test('resource generates shorthands which are not blacklisted by :except option', async function(assert) {
     let { server } = this;
     assert.expect(2);
 
@@ -445,28 +356,14 @@ module('Integration | Server | Resource shorthand', function(hooks) {
 
     server.resource('contacts', { except: ['create', 'update', 'delete'] });
 
-    let doneForIndex = assert.async();
+    let response = await fetch('/contacts');
+    assert.equal(response.status, 200, 'Should receive a 200 response from resource index action');
 
-    $.ajax({
-      method: 'GET',
-      url: '/contacts'
-    }).done((res, status, xhr) => {
-      assert.equal(xhr.status, 200);
-      doneForIndex();
-    });
-
-    let doneForShow = assert.async();
-
-    $.ajax({
-      method: 'GET',
-      url: '/contacts'
-    }).done((res, status, xhr) => {
-      assert.equal(xhr.status, 200);
-      doneForShow();
-    });
+    response = await fetch('/contacts/1');
+    assert.equal(response.status, 200, 'Should receive a 200 response from resource show action');
   });
 
-  test('resource does not generate shorthands which are blacklisted by :except option', function(assert) {
+  test('resource does not generate shorthands which are blacklisted by :except option', async function(assert) {
     let { server } = this;
     assert.expect(4);
 
@@ -478,59 +375,64 @@ module('Integration | Server | Resource shorthand', function(hooks) {
 
     server.resource('contacts', { except: ['create', 'update', 'delete'] });
 
-    let doneForCreate = assert.async();
+    try {
+      let options = {
+        method: 'POST',
+        data: JSON.stringify({
+          contact: {
+            name: 'Zelda'
+          }
+        })
+      };
+      await fetch('/contacts', options);
+    } catch(e) {
+      assert.ok(
+        e.message.indexOf("Mirage: Your Ember app tried to POST '/contacts'") > -1,
+        'Should receive an error from Mirage when requesting the create action'
+      );
+    }
 
-    $.ajax({
-      method: 'POST',
-      url: '/contacts',
-      data: JSON.stringify({
-        contact: {
-          name: 'Zelda'
-        }
-      })
-    }).fail((xhr, textStatus, error) => {
-      assert.ok(error.message.indexOf("Mirage: Your Ember app tried to POST '/contacts'") !== -1);
-      doneForCreate();
-    });
+    try {
+      let options = {
+        method: 'PUT',
+        data: JSON.stringify({
+          contact: {
+            name: 'Zelda'
+          }
+        })
+      };
+      await fetch('/contacts/1', options);
+    } catch(e) {
+      assert.ok(
+        e.message.indexOf("Mirage: Your Ember app tried to PUT '/contacts/1'") > -1,
+        'Should receive an error from Mirage when requesting the update action with PUT'
+      );
+    }
 
-    let doneForPut = assert.async();
+    try {
+      let options = {
+        method: 'PATCH',
+        data: JSON.stringify({
+          contact: {
+            name: 'Zelda'
+          }
+        })
+      };
+      await fetch('/contacts/1', options);
+    } catch(e) {
+      assert.ok(
+        e.message.indexOf("Mirage: Your Ember app tried to PATCH '/contacts/1'") > -1,
+        'Should receive an error from Mirage when requesting the update action with PATCH'
+      );
+    }
 
-    $.ajax({
-      method: 'PUT',
-      url: '/contacts/1',
-      data: JSON.stringify({
-        contact: {
-          name: 'Zelda'
-        }
-      })
-    }).fail((xhr, textStatus, error) => {
-      assert.ok(error.message.indexOf("Mirage: Your Ember app tried to PUT '/contacts/1'") !== -1);
-      doneForPut();
-    });
-
-    let doneForPatch = assert.async();
-
-    $.ajax({
-      method: 'PATCH',
-      url: '/contacts/1',
-      data: JSON.stringify({
-        contact: {
-          name: 'Zelda'
-        }
-      })
-    }).fail((xhr, textStatus, error) => {
-      assert.ok(error.message.indexOf("Mirage: Your Ember app tried to PATCH '/contacts/1'") !== -1);
-      doneForPatch();
-    });
-
-    let doneForDelete = assert.async();
-
-    $.ajax({
-      method: 'DELETE',
-      url: '/contacts/1'
-    }).fail((xhr, textStatus, error) => {
-      assert.ok(error.message.indexOf("Mirage: Your Ember app tried to DELETE '/contacts/1'") !== -1);
-      doneForDelete();
-    });
+    try {
+      await fetch('/contacts/1', { method: 'DELETE' });
+    } catch(e) {
+      assert.ok(
+        e.message.indexOf("Mirage: Your Ember app tried to DELETE '/contacts/1'") > -1,
+        'Should receive an error from Mirage when requesting the delet action'
+      );
+    }
   });
 });

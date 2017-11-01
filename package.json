@@ -68,6 +68,7 @@
     "ember-disable-prototype-extensions": "^1.1.2",
     "ember-export-application-global": "^2.0.0",
     "ember-fastboot-addon-tests": "^0.4.0",
+    "ember-fetch": "^3.4.3",
     "ember-load-initializers": "^1.0.0",
     "ember-resolver": "^4.0.0",
     "ember-sinon": "0.5.1",

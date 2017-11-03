@@ -13,6 +13,8 @@ export default function() {
   this.put('/contacts/:id');
   this.del('/contacts/:id');
 
+  // this.get('/namespaced/users');
+
   // Friends
   this.get('/friends', { coalesce: true });
 

@@ -4,9 +4,10 @@ import Server from 'ember-cli-mirage/server';
 import ActiveModelSerializer from 'ember-cli-mirage/serializers/active-model-serializer';
 import RestSerializer from 'ember-cli-mirage/serializers/rest-serializer';
 
+let server;
 module('Integration | Server Config', function(hooks) {
   hooks.beforeEach(function() {
-    this.server = new Server({
+    server = new Server({
       environment: 'development',
       models: {
         contact: Model,
@@ -16,27 +17,27 @@ module('Integration | Server Config', function(hooks) {
         contact: ActiveModelSerializer
       }
     });
-    this.server.timing = 0;
-    this.server.logging = false;
+    server.timing = 0;
+    server.logging = false;
   });
 
   hooks.afterEach(function() {
-    this.server.shutdown();
+    server.shutdown();
   });
 
   test('namespace can be configured', function(assert) {
     assert.expect(1);
     let done = assert.async();
+    server.namespace = 'api';
 
     let contacts = [
       { id: '1', name: 'Link' },
       { id: '2', name: 'Zelda' }
     ];
-    this.server.db.loadData({
+    server.db.loadData({
       contacts
     });
-    this.server.namespace = 'api';
-    this.server.get('/contacts');
+    server.get('/contacts');
 
     $.getJSON('/api/contacts', function(data) {
       assert.deepEqual(data, { contacts });
@@ -47,7 +48,7 @@ module('Integration | Server Config', function(hooks) {
   test('urlPrefix can be configured', function(assert) {
     assert.expect(1);
     let done = assert.async();
-    let { server } = this;
+    server.urlPrefix = 'http://localhost:3000';
 
     let contacts = [
       { id: '1', name: 'Link' },
@@ -56,7 +57,6 @@ module('Integration | Server Config', function(hooks) {
     server.db.loadData({
       contacts
     });
-    server.urlPrefix = 'http://localhost:3000';
     server.get('/contacts');
 
     $.getJSON('http://localhost:3000/contacts', function(data) {
@@ -68,7 +68,8 @@ module('Integration | Server Config', function(hooks) {
   test('urlPrefix and namespace can be configured simultaneously', function(assert) {
     assert.expect(1);
     let done = assert.async();
-    let { server } = this;
+    server.urlPrefix = 'http://localhost:3000';
+    server.namespace = 'api';
 
     let contacts = [
       { id: '1', name: 'Link' },
@@ -77,8 +78,6 @@ module('Integration | Server Config', function(hooks) {
     server.db.loadData({
       contacts
     });
-    server.urlPrefix = 'http://localhost:3000';
-    server.namespace = 'api';
     server.get('/contacts');
 
     $.getJSON('http://localhost:3000/api/contacts', function(data) {
@@ -90,15 +89,17 @@ module('Integration | Server Config', function(hooks) {
   test('fully qualified domain names can be used in configuration', function(assert) {
     assert.expect(1);
     let done = assert.async();
+    server.urlPrefix = 'http://example.org';
+    server.namespace = 'api';
 
     let contacts = [
       { id: '1', name: 'Link' },
       { id: '2', name: 'Zelda' }
     ];
-    this.server.db.loadData({
+    server.db.loadData({
       contacts
     });
-    this.server.get('http://example.org/api/contacts');
+    server.get('http://example.org/api/contacts');
 
     $.getJSON('http://example.org/api/contacts', function(data) {
       assert.deepEqual(data, { contacts });
@@ -109,7 +110,8 @@ module('Integration | Server Config', function(hooks) {
   test('urlPrefix/namespace are ignored when fully qualified domain names are used in configuration', function(assert) {
     assert.expect(1);
     let done = assert.async();
-    let { server } = this;
+    server.urlPrefix = 'http://example.org';
+    server.namespace = 'api';
 
     let contacts = [
       { id: '1', name: 'Link' },
@@ -118,7 +120,7 @@ module('Integration | Server Config', function(hooks) {
     server.db.loadData({
       contacts
     });
-    this.urlPrefix = 'https://example.net';
+
     server.get('http://example.org/api/contacts');
 
     $.getJSON('http://example.org/api/contacts', function(data) {
@@ -130,17 +132,17 @@ module('Integration | Server Config', function(hooks) {
   test('blank urlPrefix and namespace ends up as /', function(assert) {
     assert.expect(1);
     let done = assert.async();
+    server.namespace = '';
+    server.urlPrefix = '';
 
     let contacts = [
       { id: '1', name: 'Link' },
       { id: '2', name: 'Zelda' }
     ];
-    this.server.db.loadData({
+    server.db.loadData({
       contacts
     });
-    this.server.namespace = '';
-    this.server.urlPrefix = '';
-    this.server.get('contacts');
+    server.get('contacts');
 
     $.getJSON('/contacts', function(data) {
       assert.deepEqual(data, { contacts });
@@ -151,16 +153,16 @@ module('Integration | Server Config', function(hooks) {
   test('namespace with no slash gets one', function(assert) {
     assert.expect(1);
     let done = assert.async();
+    server.namespace = 'api';
 
     let contacts = [
       { id: '1', name: 'Link' },
       { id: '2', name: 'Zelda' }
     ];
-    this.server.db.loadData({
+    server.db.loadData({
       contacts
     });
-    this.server.namespace = 'api';
-    this.server.get('contacts');
+    server.get('contacts');
 
     $.getJSON('/api/contacts', function(data) {
       assert.deepEqual(data, { contacts });
@@ -171,16 +173,16 @@ module('Integration | Server Config', function(hooks) {
   test('urlPrefix with no slash gets one', function(assert) {
     assert.expect(1);
     let done = assert.async();
+    server.urlPrefix = 'pre';
 
     let contacts = [
       { id: '1', name: 'Link' },
       { id: '2', name: 'Zelda' }
     ];
-    this.server.db.loadData({
+    server.db.loadData({
       contacts
     });
-    this.server.urlPrefix = 'pre';
-    this.server.get('contacts');
+    server.get('contacts');
 
     $.getJSON('/pre/contacts', function(data) {
       assert.deepEqual(data, { contacts });
@@ -191,16 +193,16 @@ module('Integration | Server Config', function(hooks) {
   test('namespace of / works', function(assert) {
     assert.expect(1);
     let done = assert.async();
+    server.namespace = '/';
 
     let contacts = [
       { id: '1', name: 'Link' },
       { id: '2', name: 'Zelda' }
     ];
-    this.server.db.loadData({
+    server.db.loadData({
       contacts
     });
-    this.server.namespace = '/';
-    this.server.get('contacts');
+    server.get('contacts');
 
     $.getJSON('/contacts', function(data) {
       assert.deepEqual(data, { contacts });
@@ -211,7 +213,6 @@ module('Integration | Server Config', function(hooks) {
   test('redefining options using the config method works', function(assert) {
     assert.expect(5);
     let done = assert.async();
-    let { server } = this;
 
     let contacts = [
       { id: '1', name: 'Link' },
@@ -242,7 +243,6 @@ module('Integration | Server Config', function(hooks) {
   });
 
   test('changing the environment of the server throws an error', function(assert) {
-    let { server } = this;
 
     assert.throws(function() {
       server.config({

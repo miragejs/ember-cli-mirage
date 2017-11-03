@@ -1,22 +1,31 @@
 import assert from 'ember-cli-mirage/assert';
 import { camelize, singularize, dasherize } from 'ember-cli-mirage/utils/inflector';
 
-export default class BaseRouteHandler {
+const PATH_REGEX = /(?:\/)?(.*?)(?:\/:id|$)?$/;
 
+export default class BaseRouteHandler {
   getModelClassFromPath(fullPath) {
     if (!fullPath) {
       return;
     }
-    let path = fullPath.split('/');
-    let lastPath;
-    while (path.length > 0) {
-      lastPath = path.splice(-1)[0];
-      if (lastPath && lastPath !== ':id') {
-        break;
+    let modelPath = fullPath;
+
+    if (this.options) {
+      let { options: { namespace, urlPrefix } } = this;
+
+      if (urlPrefix) {
+        let prefixRegex = new RegExp(`(?:${urlPrefix}/)`);
+        modelPath = modelPath.replace(prefixRegex, '');
+      }
+
+      if (namespace) {
+        let namespaceRegex = new RegExp(`(?:${namespace})`);
+        modelPath = modelPath.replace(namespaceRegex, '');
       }
     }
-    let modelName = dasherize(camelize(singularize(lastPath)));
-    return modelName;
+
+    let match = modelPath.match(PATH_REGEX);
+    return dasherize(camelize(singularize(match[1])));
   }
 
   _getIdForRequest(request, jsonApiDoc) {

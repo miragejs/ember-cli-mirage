@@ -5,11 +5,13 @@ export default class BaseShorthandRouteHandler extends BaseRouteHandler {
 
   constructor(schema, serializerOrRegistry, shorthand, path, options = {}) {
     super();
+    // Options must be set prior to calling `getModelClassFromPath`
+    // as it contains the `namespace` and `urlPrefix`.
+    this.options = options;
     shorthand = shorthand || this.getModelClassFromPath(path);
     this.schema = schema;
     this.serializerOrRegistry = serializerOrRegistry;
     this.shorthand = shorthand;
-    this.options = options;
 
     let type = Array.isArray(shorthand) ? 'array' : typeof shorthand;
     if (type === 'string') {
@@ -24,13 +26,4 @@ export default class BaseShorthandRouteHandler extends BaseRouteHandler {
       };
     }
   }
-
-  // handleStringShorthand() {
-  //
-  // }
-  //
-  // handleArrayShorthand() {
-  //
-  // }
-
 }

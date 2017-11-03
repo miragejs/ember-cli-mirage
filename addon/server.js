@@ -505,6 +505,10 @@ export default class Server {
   }
 
   _registerRouteHandler(verb, path, rawHandler, customizedCode, options) {
+    // Expose the `namespace` and `urlPrefix` to the `routeHandler`
+    // so we can resolve the model name from a prefixed or full domain path.
+    options.namespace = this.namespace;
+    options.urlPrefix = this.urlPrefix;
 
     let routeHandler = new RouteHandler({
       schema: this.schema,

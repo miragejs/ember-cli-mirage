@@ -29,11 +29,13 @@ module('Unit | Route handlers | Shorthands | BaseShorthandRouteHandler', functio
   });
 
   test('getModelClassFromPath works', function(assert) {
-    let urlWithSlash = '/api/fancy-users';
-    let urlWithIdAndSlash = '/api/fancy-users/:id';
+    let urlWithSlash = '/fancy-users';
+    let urlWithIdAndSlash = '/fancy-users/:id';
+    let urlWithNamespacedModels = '/namespaced/not-so-fancy-users/:id';
 
     assert.equal(this.handler.getModelClassFromPath(urlWithSlash), 'fancy-user', 'it returns a singular model name');
-    assert.equal(this.handler.getModelClassFromPath(urlWithIdAndSlash, true), 'fancy-user', 'it returns a singular model name');
+    assert.equal(this.handler.getModelClassFromPath(urlWithIdAndSlash), 'fancy-user', 'it returns a singular model name');
+    assert.equal(this.handler.getModelClassFromPath(urlWithNamespacedModels), 'namespaced/not-so-fancy-user', 'it returns a singular namespaced model name');
   });
 
   test('it can read the id from the url', function(assert) {

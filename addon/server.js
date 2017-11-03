@@ -126,7 +126,7 @@ function extractRouteArguments(args) {
 }
 
 /**
- *
+ * Note that `this` within your config
  *
  * @class Server
  * @public

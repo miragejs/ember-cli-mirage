@@ -198,7 +198,7 @@ var ENV = {
 };
 ```
 
-To tell Mirage to sideload blogPosts when we find find all authors we can do something like the following:
+To tell Mirage to sideload blogPosts when we find all authors we can do something like the following:
 
 ```js
 // routes/authors.js

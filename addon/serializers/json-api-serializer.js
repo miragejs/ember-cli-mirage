@@ -214,8 +214,15 @@ const JSONAPISerializer = Serializer.extend({
 
   typeKeyForModel(model) {
     return dasherize(pluralize(model.modelName));
-  }
+  },
 
+  getCoalescedIds(request) {
+    let ids = request.queryParams && request.queryParams['filter[id]'];
+    if (typeof ids === 'string') {
+      return ids.split(',');
+    }
+    return ids;
+  }
 });
 
 JSONAPISerializer.prototype.alwaysIncludeLinkageData = false;

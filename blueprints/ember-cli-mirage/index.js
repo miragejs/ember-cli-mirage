@@ -45,7 +45,7 @@ module.exports = {
 
   insertServerIntoJSHintrc: function() {
     var text = '    "server",';
-    var after = '"predef": [\n';
+    var after = '"predef": \\[\n';
 
     return this.insertIntoFile('.jshintrc', text, { after: after });
   },

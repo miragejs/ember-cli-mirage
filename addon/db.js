@@ -55,20 +55,16 @@ class Db {
       let IdentityManager = this.identityManagerFor(name);
       let newCollection = new DbCollection(name, initialData, IdentityManager);
 
-      Object.defineProperty(this, name, {
-        get() {
-          let recordsCopy = newCollection.all();
+      let recordsCopy = newCollection._records;
 
-          ['insert', 'find', 'findBy', 'where', 'update', 'remove', 'firstOrCreate']
-            .forEach(function(method) {
-              recordsCopy[method] = function() {
-                return newCollection[method](...arguments);
-              };
-            });
+      ['insert', 'find', 'findBy', 'where', 'update', 'remove', 'firstOrCreate']
+        .forEach(function(method) {
+          recordsCopy[method] = function() {
+            return newCollection[method](...arguments);
+          };
+        });
 
-          return recordsCopy;
-        }
-      });
+      this[name] = recordsCopy;
 
       this._collections.push(newCollection);
 

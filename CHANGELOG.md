@@ -14,7 +14,10 @@ Changes:
 
 Update notes:
 
-We bumped our "major" to 0.4.x because support for Node 0.12 has been explicitly dropped from some of our dependencies. There's no Mirage-specific changes you need to make for this upgrade.
+We bumped our "major" to 0.4.x because support for Node 0.12 has been explicitly dropped from some of our dependencies. 
+
+Mirage's JSONAPISerializer will now by default no longer include linkage information unless the related data is requested via include. 
+Both implementations are valid per JSONAPI spec, but you may want to configure `alwaysIncludeLinkageData` if that is what your application expects from your backend.
 
 _Special thanks to @turbo87 and @kellyselden for all their work on this release._
 

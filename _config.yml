@@ -19,13 +19,13 @@ exclude:
   - bower_components
   - tmp
 
-gems:
+plugins:
   - jekyll-redirect-from
 
 github:
   repo: https://github.com/samselikoff/ember-cli-mirage
 
-default_version: v0.3.x
+default_version: v0.4.x
 
 defaults:
   -

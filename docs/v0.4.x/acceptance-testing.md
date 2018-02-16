@@ -5,7 +5,7 @@ version: v0.4.x
 redirect_from: "/docs/latest/acceptance-testing/"
 ---
 
-Acceptance testing your Ember app typically involves verifying some user behavior. For example, you may want to test that the user can view the photos on your app's index route.
+Acceptance testing your Ember app typically involves verifying some user behavior. For example, you may want to test that the user can view the photos on your app's `index` route.
 
 Many of these tests rely on a given server state. In other words, you want to test that the user can view ten photos, *given that ten photo resources exist on the server* at the time the user boots up the app.
 
@@ -153,7 +153,7 @@ test('the user sees an error if the save attempt fails', function(assert) {
    click('.save');
 
    andThen(() => {
-     assert.equals(find('p:contains(There was an error)').length, 1);
+     assert.equal(find('p:contains(There was an error)').length, 1);
    });
 });
 ```

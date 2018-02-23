@@ -3,8 +3,7 @@
 'use strict';
 
 import { assert } from '@ember/debug';
-import _camelCase from 'lodash/camelCase';
-import { pluralize } from 'ember-cli-mirage/utils/inflector';
+import { pluralize, camelize } from 'ember-cli-mirage/utils/inflector';
 import require from 'require';
 
 /*
@@ -16,7 +15,7 @@ export default function(prefix) {
   let modules = ['factories', 'fixtures', 'scenarios', 'models', 'serializers', 'identity-managers'];
   let mirageModuleRegExp = new RegExp(`^${prefix}/mirage/(${modules.join('|')})`);
   let modulesMap = modules.reduce((memo, name) => {
-    memo[_camelCase(name)] = {};
+    memo[camelize(name)] = {};
     return memo;
   }, {});
 
@@ -27,8 +26,9 @@ export default function(prefix) {
       return;
     }
     let moduleParts = moduleName.split('/');
-    let moduleType = _camelCase(moduleParts[moduleParts.length - 2]);
-    let moduleKey = moduleParts[moduleParts.length - 1];
+    let moduleTypeIndex = moduleParts.indexOf('mirage') + 1;
+    let moduleType = camelize(moduleParts[moduleTypeIndex]);
+    let moduleKey = moduleParts.slice([moduleTypeIndex + 1]).join('/');
 
     if (moduleType === 'scenario') {
       assert('Only scenario/default.js is supported at this time.',
@@ -49,7 +49,7 @@ export default function(prefix) {
 
     let data = module.default;
 
-    modulesMap[moduleType][_camelCase(moduleKey)] = data;
+    modulesMap[moduleType][camelize(moduleKey)] = data;
   });
 
   return modulesMap;

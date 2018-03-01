@@ -36,7 +36,7 @@ Inserts *data* into the collection. *data* can be a single object or an array of
 // Insert a single record
 let link = db.users.insert({name: 'Link', age: 173});
 
-link;  // {id: 1, name: 'Link', age: 137}
+link;  // {id: 1, name: 'Link', age: 173}
 
 // Insert an array
 let users = db.users.insert([

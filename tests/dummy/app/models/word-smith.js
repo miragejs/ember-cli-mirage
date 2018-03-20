@@ -6,6 +6,6 @@ export default Model.extend({
 
   name: attr(),
 
-  blogPosts: hasMany()
+  'blog/posts': hasMany()
 
 });

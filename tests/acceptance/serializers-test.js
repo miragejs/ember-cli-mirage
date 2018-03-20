@@ -9,13 +9,13 @@ moduleForAcceptance('Acceptance | Serializers', {
 
 test('Serializers can provide default includes', function(assert) {
   let wordSmith = server.create('word-smith');
-  server.createList('blog-post', 3, { wordSmithId: wordSmith.id });
+  server.createList('blog/post', 3, { wordSmithId: wordSmith.id });
 
   visit(`/word-smiths/${wordSmith.id}`);
 
   andThen(() => {
     let wordSmithsInStore = this.store.peekAll('word-smith');
-    let blogPostsInStore = this.store.peekAll('blog-post');
+    let blogPostsInStore = this.store.peekAll('blog/post');
 
     assert.equal(wordSmithsInStore.get('length'), 1);
     assert.equal(blogPostsInStore.get('length'), 3);

@@ -3,7 +3,7 @@ import Schema from 'ember-cli-mirage/orm/schema';
 import Db from 'ember-cli-mirage/db';
 import Serializer from 'ember-cli-mirage/serializer';
 import SerializerRegistry from 'ember-cli-mirage/serializer-registry';
-import { module, test } from 'qunit';
+import { module, test, only } from 'qunit';
 
 module('Integration | Serializers | Base | Associations | Embedded Models', function(hooks) {
   hooks.beforeEach(function() {
@@ -134,6 +134,28 @@ module('Integration | Serializers | Base | Associations | Embedded Models', func
             id: '1', name: 'Link'
           }
         }
+      }
+    });
+  });
+
+  test(`it can have a null value on a belongs-to relationship`, function(assert) {
+    let registry = new SerializerRegistry(this.schema, {
+      application: this.BaseSerializer,
+      blogPost: this.BaseSerializer.extend({
+        embed: true,
+        include: ['author']
+      })
+    });
+
+    let blogPost = this.schema.blogPosts.find(1);
+    blogPost.update('author', null);
+    let result = registry.serialize(blogPost);
+
+    assert.deepEqual(result, {
+      blogPost: {
+        id: '1',
+        title: 'Lorem',
+        author: { id: '1', name: 'Link' }
       }
     });
   });

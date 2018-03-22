@@ -3,7 +3,7 @@ import Schema from 'ember-cli-mirage/orm/schema';
 import Db from 'ember-cli-mirage/db';
 import Serializer from 'ember-cli-mirage/serializer';
 import SerializerRegistry from 'ember-cli-mirage/serializer-registry';
-import { module, test, only } from 'qunit';
+import { module, test } from 'qunit';
 
 module('Integration | Serializers | Base | Associations | Embedded Models', function(hooks) {
   hooks.beforeEach(function() {

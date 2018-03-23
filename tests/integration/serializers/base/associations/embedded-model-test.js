@@ -154,8 +154,7 @@ module('Integration | Serializers | Base | Associations | Embedded Models', func
     assert.deepEqual(result, {
       blogPost: {
         id: '1',
-        title: 'Lorem',
-        author: { id: '1', name: 'Link' }
+        title: 'Lorem'
       }
     });
   });

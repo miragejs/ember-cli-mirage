@@ -90,11 +90,19 @@ module('Unit | Route handlers | Shorthands | BaseShorthandRouteHandler', functio
       }
     };
 
+    let associations = {
+      employees: { isPolymorphic: false },
+      nothings: { isPolymorphic: false },
+      company: { isPolymorphic: false },
+      githubAccount: { isPolymorphic: false },
+      something: { isPolymorphic: false }
+    };
+
     this.handler._getJsonApiDocForRequest = function() {
       return payload;
     };
 
-    let attrs = this.handler._getAttrsForRequest(this.request, 'user');
+    let attrs = this.handler._getAttrsForRequest(this.request, 'user', associations);
 
     assert.deepEqual(
       attrs,
@@ -126,11 +134,15 @@ module('Unit | Route handlers | Shorthands | BaseShorthandRouteHandler', functio
       }
     };
 
+    let associations = {
+      company: { isPolymorphic: false }
+    };
+
     this.handler._getJsonApiDocForRequest = function() {
       return payload;
     };
 
-    let attrs = this.handler._getAttrsForRequest(this.request, 'user');
+    let attrs = this.handler._getAttrsForRequest(this.request, 'user', associations);
 
     assert.deepEqual(
       attrs,
@@ -152,8 +164,60 @@ module('Unit | Route handlers | Shorthands | BaseShorthandRouteHandler', functio
       return payload;
     };
 
-    let attrs = this.handler._getAttrsForRequest(this.request, 'user');
+    let attrs = this.handler._getAttrsForRequest(this.request, 'user', {});
 
     assert.deepEqual(attrs, {});
+  });
+
+  test('_getAttrsForRequest works with polymorphic relationships', function(assert) {
+    let payload = {
+      'data': {
+        'relationships': {
+          'company': {
+            'data': {
+              'id': '1',
+              'type': 'companies'
+            }
+          },
+          'employees': {
+            'data': [{
+              'id': '1',
+              'type': 'employees'
+            }, {
+              'id': '2',
+              'type': 'employees'
+            }, {
+              'id': '3',
+              'type': 'employees'
+            }]
+          }
+        },
+        'type': 'github-account'
+      }
+    };
+
+    let associations = {
+      employees: { isPolymorphic: true },
+      company: { isPolymorphic: true }
+    };
+
+    this.handler._getJsonApiDocForRequest = function() {
+      return payload;
+    };
+
+    let attrs = this.handler._getAttrsForRequest(this.request, 'user', associations);
+
+    assert.deepEqual(
+      attrs,
+      {
+        companyId: { type: 'companies', id: '1' },
+        employeeIds: [
+          { type: 'employees', id: '1' },
+          { type: 'employees', id: '2' },
+          { type: 'employees', id: '3' }
+        ]
+      },
+      'it normalizes data correctly.'
+    );
   });
 });

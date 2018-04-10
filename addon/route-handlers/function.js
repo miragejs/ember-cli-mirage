@@ -42,7 +42,7 @@ export default class FunctionRouteHandler extends BaseRouteHandler {
     if (/x-www-form-urlencoded/.test(requestHeaders['Content-Type'])) {
       return this._getAttrsForFormRequest(request);
     } else {
-      return this._getAttrsForRequest(request, modelName);
+      return this._getAttrsForRequest(request, modelName, this.schema.associationsFor(modelName));
     }
   }
 }

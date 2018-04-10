@@ -19,7 +19,7 @@ export default class PutShorthandRouteHandler extends BaseShorthandRouteHandler 
     );
 
     let id = this._getIdForRequest(request);
-    let attrs = this._getAttrsForRequest(request, modelClass.camelizedModelName);
+    let attrs = this._getAttrsForRequest(request, modelClass.camelizedModelName, this.schema.associationsFor(modelClass.camelizedModelName));
 
     return modelClass.find(id).update(attrs);
   }

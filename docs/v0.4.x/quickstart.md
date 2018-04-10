@@ -62,7 +62,7 @@ Let's update our route handler to be dynamic:
 this.namespace = 'api';
 
 this.get('/authors', (schema, request) => {
-  return schema.authors.all();
+  return schema.db.authors.all();
 });
 ```
 
@@ -179,7 +179,7 @@ Now Mirage knows about the relationship between these two models, which can be u
 
 ```js
 this.get('/authors/:id/blog-posts', (schema, request) => {
-  let author = schema.authors.find(request.params.id);
+  let author = schema.db.authors.find(request.params.id);
 
   return author.blogPosts;
 });
@@ -226,7 +226,7 @@ export default Serializer.extend({
 // mirage/config.js
 export default function() {
   this.get('/authors/:id', (schema, request) => {
-    return schema.authors.find(request.params.id);
+    return schema.db.authors.find(request.params.id);
   });
 }
 ```
@@ -260,7 +260,7 @@ Mirage has *shorthands* to reduce the code needed for conventional API routes. F
 
 ```js
 this.get('/authors', (schema, request) => {
-  return schema.authors.all();
+  return schema.db.authors.all();
 });
 ```
 

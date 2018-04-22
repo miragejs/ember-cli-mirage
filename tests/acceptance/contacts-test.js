@@ -1,4 +1,4 @@
-import {test} from 'qunit';
+import { test } from 'qunit';
 import moduleForAcceptance from '../helpers/module-for-acceptance';
 
 let contacts;
@@ -9,8 +9,8 @@ moduleForAcceptance('Acceptance | Contacts', {
   }
 });
 
-test('I can view the contacts', function(assert) {
-  visit('/');
+test('I can view the contacts', async function(assert) {
+  await visit('/');
 
   andThen(function() {
     assert.equal(currentRouteName(), 'contacts');
@@ -19,10 +19,10 @@ test('I can view the contacts', function(assert) {
   });
 });
 
-test('I can create a new contact', function(assert) {
-  visit('/');
-  fillIn('input', 'Ganon');
-  click('button:contains(Create)');
+test('I can create a new contact', async function(assert) {
+  await visit('/');
+  await fillIn('input', 'Ganon');
+  await click('button:contains(Create)');
 
   andThen(function() {
     assert.equal(currentRouteName(), 'contacts');
@@ -31,12 +31,12 @@ test('I can create a new contact', function(assert) {
   });
 });
 
-test('If the server errors on /contacts, the first error message should show', function(assert) {
+test('If the server errors on /contacts, the first error message should show', async function(assert) {
   server.get('/contacts', {
     errors: ['improper auth']
   }, 404);
 
-  visit('/');
+  await visit('/');
 
   andThen(function() {
     assert.equal(find('.error span').text(), 'improper auth');

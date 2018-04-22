@@ -7,10 +7,10 @@ moduleForAcceptance('Acceptance | Fixtures', {
   }
 });
 
-test('I can use fixtures', function(assert) {
+test('I can use fixtures', async function(assert) {
   server.loadFixtures();
 
-  visit(`/word-smiths/1`);
+  await visit(`/word-smiths/1`);
 
   andThen(() => {
     let wordSmithsInStore = this.store.peekAll('word-smith');
@@ -21,10 +21,10 @@ test('I can use fixtures', function(assert) {
   });
 });
 
-test('I can use fixtures with the filename api', function(assert) {
+test('I can use fixtures with the filename api', async function(assert) {
   server.loadFixtures('word-smiths', 'blog-posts');
 
-  visit(`/word-smiths/1`);
+  await visit(`/word-smiths/1`);
 
   andThen(() => {
     let wordSmithsInStore = this.store.peekAll('word-smith');

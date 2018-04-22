@@ -49,11 +49,10 @@ To help out with Mirage development, first pull down the project locally and ver
 2. Ensure `node` is installed. I use version 4.2.x, the LTS release.
   - Ensure `npm` is installed
 3. Ensure `ember-cli` is installed: `npm install -g ember-cli`
-4. Ensure `phantomjs` v2.x is installed.
-5. Install dependencies and run the tests:
+4. Install dependencies and run the tests:
 
     ```
-    npm i && bower i
+    npm i
     ember test
     ```
 

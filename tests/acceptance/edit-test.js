@@ -1,15 +1,15 @@
-import {test} from 'qunit';
+import { test } from 'qunit';
 import moduleForAcceptance from '../helpers/module-for-acceptance';
 
 moduleForAcceptance('Acceptance | Edit');
 
-test('I can edit a contact', function(assert) {
+test('I can edit a contact', async function(assert) {
   let contact = server.create('contact');
 
-  visit(`/${contact.id}`);
-  click('button:contains(Edit)');
-  fillIn('input', 'Shiek');
-  click('button:contains(Save)');
+  await visit(`/${contact.id}`);
+  await click('button:contains(Edit)');
+  await fillIn('input', 'Shiek');
+  await click('button:contains(Save)');
 
   andThen(function() {
     assert.equal(currentRouteName(), 'contact');

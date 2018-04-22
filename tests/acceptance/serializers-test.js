@@ -7,11 +7,11 @@ moduleForAcceptance('Acceptance | Serializers', {
   }
 });
 
-test('Serializers can provide default includes', function(assert) {
+test('Serializers can provide default includes', async function(assert) {
   let wordSmith = server.create('word-smith');
   server.createList('blog-post', 3, { wordSmithId: wordSmith.id });
 
-  visit(`/word-smiths/${wordSmith.id}`);
+  await visit(`/word-smiths/${wordSmith.id}`);
 
   andThen(() => {
     let wordSmithsInStore = this.store.peekAll('word-smith');

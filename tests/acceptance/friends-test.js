@@ -1,13 +1,13 @@
-import {test} from 'qunit';
+import { test } from 'qunit';
 import moduleForAcceptance from '../helpers/module-for-acceptance';
 
 moduleForAcceptance('Acceptance | Friends');
 
-test('I can view the friends', function(assert) {
+test('I can view the friends', async function(assert) {
   let friend = server.create('friend');
   let youngFriend = server.create('friend', { name: 'Tommy', age: 10 });
 
-  visit('/friends');
+  await visit('/friends');
 
   andThen(function() {
     assert.equal(currentRouteName(), 'friends');
@@ -22,12 +22,12 @@ test('I can view the friends', function(assert) {
   });
 });
 
-test('I can view the selected friends', function(assert) {
+test('I can view the selected friends', async function(assert) {
   server.create('friend', { name: 'Jane', age: 30 });
   server.create('friend', { name: 'Tommy', age: 10 });
   server.create('friend', { name: 'Bob', age: 28 });
 
-  visit('/close-friends');
+  await visit('/close-friends');
 
   andThen(function() {
     assert.equal(currentRouteName(), 'close-friends');
@@ -40,10 +40,10 @@ test('I can view the selected friends', function(assert) {
   });
 });
 
-test('I can view a friend that was configured only for test mode', function(assert) {
+test('I can view a friend that was configured only for test mode', async function(assert) {
   let friend = server.create('friend', { name: 'The Dude' });
 
-  visit(`/friends/${friend.id}`);
+  await visit(`/friends/${friend.id}`);
 
   andThen(function() {
     assert.equal(currentRouteName(), 'friend');

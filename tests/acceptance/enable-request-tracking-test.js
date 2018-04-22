@@ -1,5 +1,5 @@
 import { run } from '@ember/runloop';
-import {module, test} from 'qunit';
+import { module, test } from 'qunit';
 import startApp from '../helpers/start-app';
 import ENV from 'dummy/config/environment';
 import promiseAjax from '../helpers/promise-ajax';

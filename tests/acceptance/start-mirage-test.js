@@ -1,7 +1,7 @@
 import Ember from 'ember';
-import {module as qunitModule, test} from 'qunit';
-import {setupTest} from 'ember-qunit';
-import {visit, currentRouteName} from '@ember/test-helpers';
+import { module as qunitModule, test } from 'qunit';
+import { setupTest } from 'ember-qunit';
+import { visit, currentRouteName } from '@ember/test-helpers';
 import startMirage from 'ember-cli-mirage/start-mirage';
 import setupMirage from 'ember-cli-mirage/test-support/setup-mirage';
 import ENV from 'dummy/config/environment';

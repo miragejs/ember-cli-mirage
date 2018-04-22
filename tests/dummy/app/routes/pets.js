@@ -6,23 +6,26 @@ export default Route.extend({
     createPet() {
       let controller = this.controllerFor('pets');
       let name = controller.get('petName');
+      let alive = controller.get('isAlive');
       controller.set('petName', '');
-      this.store.createRecord('pet', { name, alive: true });
+      controller.set('isAlive', false);
+      this.store.createRecord('pet', { name, alive });
     }
   },
 
   setupController(controller, model) {
-    if (this.get('error')) {
-      controller.set('error', this.get('error'));
+    if (this.error) {
+      controller.set('error', this.error);
     } else {
       controller.set('model', model);
     }
+    controller.set('isAlive', false);
   },
 
   model() {
     return this.store.findAll('pet').catch((reason) => {
       let errorMsg = reason.responseJSON ? reason.responseJSON.errors[0] : reason.errors[0];
-      this.set('error', errorMsg);
+      this.error = errorMsg;
     });
   }
 });

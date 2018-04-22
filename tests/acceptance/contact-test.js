@@ -1,4 +1,4 @@
-import {test} from 'qunit';
+import { test } from 'qunit';
 import moduleForAcceptance from '../helpers/module-for-acceptance';
 
 let contact;
@@ -9,8 +9,8 @@ moduleForAcceptance('Acceptance | Contact', {
   }
 });
 
-test('I can view a contact', function(assert) {
-  visit(`${contact.id}`);
+test('I can view a contact', async function(assert) {
+  await visit(`${contact.id}`);
 
   andThen(function() {
     assert.equal(currentRouteName(), 'contact');
@@ -18,9 +18,9 @@ test('I can view a contact', function(assert) {
   });
 });
 
-test('I can delete a contact', function(assert) {
-  visit(`${contact.id}`);
-  click('button:contains(Delete)');
+test('I can delete a contact', async function(assert) {
+  await visit(`${contact.id}`);
+  await click('button:contains(Delete)');
 
   andThen(function() {
     assert.equal(currentRouteName(), 'contacts');

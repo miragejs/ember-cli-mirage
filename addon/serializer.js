@@ -290,9 +290,23 @@ class Serializer {
   _maybeAddAssociationIds(model, attrs) {
     let newHash = _assign({}, attrs);
 
-    if (this.serializeIds === 'always') {
-      model.associationKeys.forEach((key) => {
-        let association = model[key];
+    let associationKeys = this._associationKeysToInclude(model);
+
+    associationKeys.forEach((key) => {
+      let association = model[key];
+
+      if (model.associationFor(key).isPolymorphic) {
+        if (this.isCollection(association)) {
+          let formattedKey = this.keyForRelationshipIds(key);
+          newHash[formattedKey] = model[`${singularize(key)}Ids`];
+        } else {
+          let formattedTypeKey = this.keyForPolymorphicForeignKeyType(key);
+          let formattedIdKey = this.keyForPolymorphicForeignKeyId(key);
+
+          newHash[formattedTypeKey] = model[`${key}Id`].type;
+          newHash[formattedIdKey] = model[`${key}Id`].id;
+        }
+      } else {
         if (this.isCollection(association)) {
           let formattedKey = this.keyForRelationshipIds(key);
           newHash[formattedKey] = model[key].models.map((m) => m.id);
@@ -300,42 +314,19 @@ class Serializer {
           let formattedKey = this.keyForForeignKey(key);
           newHash[formattedKey] = model[`${key}Id`];
         }
-      });
-    } else if (this.serializeIds === 'included') {
-      this.getKeysForIncluded().forEach((key) => {
-        let association = model[key];
-
-        if (model.associationFor(key).isPolymorphic) {
-          if (association instanceof PolymorphicCollection) {
-            let formattedKey = this.keyForRelationship(key);
-
-            newHash[formattedKey] = model[`${singularize(key)}Ids`];
-          } else if (association instanceof Collection) {
-            let formattedKey = this.keyForRelationshipIds(key);
-
-            newHash[formattedKey] = model[key].models.map((m) => m.id);
-          } else {
-            let formattedTypeKey = this.keyForPolymorphicForeignKeyType(key);
-            let formattedIdKey = this.keyForPolymorphicForeignKeyId(key);
-
-            newHash[formattedTypeKey] = model[`${key}Id`].type;
-            newHash[formattedIdKey] = model[`${key}Id`].id;
-          }
-        } else {
-          if (this.isCollection(association)) {
-            let formattedKey = this.keyForRelationshipIds(key);
-
-            newHash[formattedKey] = model[key].models.map((m) => m.id);
-          } else if (association) {
-            let formattedKey = this.keyForForeignKey(key);
-
-            newHash[formattedKey] = model[`${key}Id`];
-          }
-        }
-      });
-    }
+      }
+    });
 
     return newHash;
+  }
+
+  _associationKeysToInclude(model) {
+    if (this.serializeIds === 'always') {
+      return model.associationKeys;
+    } else if (this.serializeIds === 'included') {
+      return this.getKeysForIncluded();
+    }
+    return [];
   }
 
   /**

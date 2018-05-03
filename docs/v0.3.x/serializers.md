@@ -123,6 +123,8 @@ and the payload would look like
 }
 ```
 
+*Note: This is not available yet for the JSONAPISerializer.*
+
 ---
 
 ## include
@@ -179,6 +181,8 @@ export default Serializer.extend({
   }
 });
 ```
+
+*Note: This is not used anymore by the JSONAPISerializer. Instead specify your included entities in the request `?include=xxx`*
 
 ## include query param
 
@@ -309,7 +313,7 @@ GET /authors/1
 
 ## serializeIds
 
-> Note: this feature was added in 0.2.2.
+*Note: this feature was added in 0.2.2.*
 
 Use this to define how your serializer handles serializing relationship keys. It can take one of three values:
 
@@ -317,6 +321,7 @@ Use this to define how your serializer handles serializing relationship keys. It
 - `always` will always serialize the ids of all relationships for the model or collection in the response
 - `never` will never serialize the ids of relationships for the model or collection in the response
 
+*Note: This is not available yet for the JSONAPISerializer.*
 
 ---
 

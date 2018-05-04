@@ -86,7 +86,7 @@ class Model {
     }
 
     Object.keys(attrs).forEach(function(attr) {
-      if (this.associationKeys.indexOf(attr) === -1 && this.associationIdKeys.indexOf(attr) === -1) {
+      if (this.associationKeys.indexOf(attr) === -1) {
         this._definePlainAttribute(attr);
       }
       this[attr] = attrs[attr];
@@ -442,7 +442,6 @@ class Model {
    * @private
    */
   _definePlainAttribute(attr) {
-
     // Ensure the property hasn't already been defined
     let existingProperty = Object.getOwnPropertyDescriptor(this, attr);
     if (existingProperty && existingProperty.get) {

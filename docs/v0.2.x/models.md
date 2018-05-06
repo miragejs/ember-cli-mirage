@@ -285,13 +285,13 @@ would add all the named `author` and `comment` methods as listed above, but use 
 Sometimes a `hasMany` relationship can point to a model with multiple associations of the same type. You can use the `inverse` option to specify which property on the related model is the inverse of the given relationship:
 
 ```js
-// app/models/talk.js
+// mirage/models/talk.js
 export default Model.extend({
   primaryEvent: belongsTo('event'),
   secondaryEvent: belongsTo('event'),
 });
 
-// app/models/event.js
+// mirage/models/event.js
 export default Model.extend({
   talks: hasMany('talk', { inverse: 'primaryEvent' }),
 });

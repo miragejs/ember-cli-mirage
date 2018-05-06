@@ -1,14 +1,11 @@
 import _assign from 'lodash/assign';
+import _cloneDeep from 'lodash/cloneDeep';
 import _map from 'lodash/map';
 import _isEqual from 'lodash/isEqual';
 import _sortBy from 'lodash/sortBy';
 
 function duplicate(data) {
-  if (Array.isArray(data)) {
-    return data.map(duplicate);
-  } else {
-    return _assign({}, data);
-  }
+  return _cloneDeep(data);
 }
 
 /**

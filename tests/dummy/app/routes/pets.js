@@ -25,7 +25,7 @@ export default Route.extend({
   model() {
     return this.store.findAll('pet').catch((reason) => {
       let errorMsg = reason.responseJSON ? reason.responseJSON.errors[0] : reason.errors[0];
-      this.error = errorMsg;
+      this.set('error', errorMsg);
     });
   }
 });

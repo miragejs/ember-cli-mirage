@@ -5,7 +5,7 @@ export default Route.extend({
     return this.store.findAll('contact').catch((reason) => {
       let errorMsg = reason.responseJSON ? reason.responseJSON.errors[0] : reason.errors[0];
 
-      this.error = errorMsg;
+      this.set('error', errorMsg)
     });
   },
 

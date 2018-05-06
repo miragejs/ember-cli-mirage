@@ -3,9 +3,9 @@ title: Manually starting Mirage
 version: v0.4.x
 ---
 
-Currently, Mirage's server boots up in an Ember initializer. This means it will not automatically start in unit or integration tests, since there's no Ember app running.
+Mirage currently starts automatically (when not disabled in your application config) **in acceptance tests only**. This is because Mirage's server boots up in an Ember initializer.
 
-Eventually we'll extract Mirage's initializer, but for now you can use this workaround. Add the following to any test where you want Mirage to initialize:
+You can still start a Mirage server **for your integration and unit tests** with the following workaround:
 
 ```js
 // tests/integration/components/your-test.js
@@ -22,4 +22,7 @@ moduleForComponent('your-component', 'Integration | Component | your component',
 });
 ```
 
-If you are using Mirage in an Ember addon, you'll need to change the import path to `dummy/initializers/ember-cli-mirage`.
+Some notes:
+
+* In an Ember addon, you'll need to change the import path to `dummy/initializers/ember-cli-mirage`.
+* The Mirage configuration of `urlPrefix` and `namespace` may require to be adapted when used with integration or unit tests.

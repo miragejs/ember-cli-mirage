@@ -9,17 +9,15 @@ test('I can view the friends', async function(assert) {
 
   await visit('/friends');
 
-  andThen(function() {
-    assert.equal(currentRouteName(), 'friends');
-    assert.equal(find('p').length, 2);
-    assert.equal(friend.isYoung, false);
-    assert.equal(youngFriend.isYoung, true);
+  assert.equal(currentRouteName(), 'friends');
+  assert.equal(find('p').length, 2);
+  assert.equal(friend.isYoung, false);
+  assert.equal(youngFriend.isYoung, true);
 
-    assert.ok(find('p:first').text().match(friend.name));
-    assert.ok(find('p:first').text().match(friend.age));
-    assert.ok(find('p:last').text().match('Tommy'));
-    assert.ok(find('p:last').text().match(10));
-  });
+  assert.ok(find('p:first').text().match(friend.name));
+  assert.ok(find('p:first').text().match(friend.age));
+  assert.ok(find('p:last').text().match('Tommy'));
+  assert.ok(find('p:last').text().match(10));
 });
 
 test('I can view the selected friends', async function(assert) {
@@ -29,15 +27,13 @@ test('I can view the selected friends', async function(assert) {
 
   await visit('/close-friends');
 
-  andThen(function() {
-    assert.equal(currentRouteName(), 'close-friends');
-    assert.equal(find('p').length, 2);
+  assert.equal(currentRouteName(), 'close-friends');
+  assert.equal(find('p').length, 2);
 
-    assert.ok(find('p:first').text().match('Jane'));
-    assert.ok(find('p:first').text().match(30));
-    assert.ok(find('p:last').text().match('Bob'));
-    assert.ok(find('p:last').text().match(28));
-  });
+  assert.ok(find('p:first').text().match('Jane'));
+  assert.ok(find('p:first').text().match(30));
+  assert.ok(find('p:last').text().match('Bob'));
+  assert.ok(find('p:last').text().match(28));
 });
 
 test('I can view a friend that was configured only for test mode', async function(assert) {
@@ -45,8 +41,6 @@ test('I can view a friend that was configured only for test mode', async functio
 
   await visit(`/friends/${friend.id}`);
 
-  andThen(function() {
-    assert.equal(currentRouteName(), 'friend');
-    assert.ok(find('h2.friend-name').text().match('The Dude'));
-  });
+  assert.equal(currentRouteName(), 'friend');
+  assert.ok(find('h2.friend-name').text().match('The Dude'));
 });

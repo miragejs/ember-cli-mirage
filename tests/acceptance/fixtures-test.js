@@ -12,13 +12,11 @@ test('I can use fixtures', async function(assert) {
 
   await visit(`/word-smiths/1`);
 
-  andThen(() => {
-    let wordSmithsInStore = this.store.peekAll('word-smith');
-    let blogPostsInStore = this.store.peekAll('blog-post');
+  let wordSmithsInStore = this.store.peekAll('word-smith');
+  let blogPostsInStore = this.store.peekAll('blog-post');
 
-    assert.equal(wordSmithsInStore.get('length'), 1);
-    assert.equal(blogPostsInStore.get('length'), 3);
-  });
+  assert.equal(wordSmithsInStore.get('length'), 1);
+  assert.equal(blogPostsInStore.get('length'), 3);
 });
 
 test('I can use fixtures with the filename api', async function(assert) {
@@ -26,12 +24,10 @@ test('I can use fixtures with the filename api', async function(assert) {
 
   await visit(`/word-smiths/1`);
 
-  andThen(() => {
-    let wordSmithsInStore = this.store.peekAll('word-smith');
-    let blogPostsInStore = this.store.peekAll('blog-post');
+  let wordSmithsInStore = this.store.peekAll('word-smith');
+  let blogPostsInStore = this.store.peekAll('blog-post');
 
-    assert.equal(wordSmithsInStore.get('length'), 1);
-    assert.equal(blogPostsInStore.get('length'), 3);
-  });
+  assert.equal(wordSmithsInStore.get('length'), 1);
+  assert.equal(blogPostsInStore.get('length'), 3);
 });
 

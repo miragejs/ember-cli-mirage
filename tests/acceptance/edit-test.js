@@ -11,8 +11,6 @@ test('I can edit a contact', async function(assert) {
   await fillIn('input', 'Shiek');
   await click('button:contains(Save)');
 
-  andThen(function() {
-    assert.equal(currentRouteName(), 'contact');
-    assert.equal(find('p:first').text(), 'The contact is Shiek');
-  });
+  assert.equal(currentRouteName(), 'contact');
+  assert.equal(find('p:first').text(), 'The contact is Shiek');
 });

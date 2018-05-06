@@ -12,18 +12,14 @@ moduleForAcceptance('Acceptance | Contact', {
 test('I can view a contact', async function(assert) {
   await visit(`${contact.id}`);
 
-  andThen(function() {
-    assert.equal(currentRouteName(), 'contact');
-    assert.equal(find('p:first').text(), `The contact is ${contact.name}`);
-  });
+  assert.equal(currentRouteName(), 'contact');
+  assert.equal(find('p:first').text(), `The contact is ${contact.name}`);
 });
 
 test('I can delete a contact', async function(assert) {
   await visit(`${contact.id}`);
   await click('button:contains(Delete)');
 
-  andThen(function() {
-    assert.equal(currentRouteName(), 'contacts');
-    assert.equal(find('p').length, 0);
-  });
+  assert.equal(currentRouteName(), 'contacts');
+  assert.equal(find('p').length, 0);
 });

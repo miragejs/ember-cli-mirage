@@ -187,7 +187,7 @@ export default Factory.extend({
 });
 ```
 
-Because the `afterCreate()` hook is called with the newly created object a reference to the server, you can construct complex object graphs to associate with your newly created object.
+Because the `afterCreate()` hook is called with the newly created object and a reference to the server, you can construct complex object graphs to associate with your newly created object.
 
 ## Traits
 

@@ -172,6 +172,61 @@ module('Integration | Serializers | JSON API Serializer | Associations | Include
     });
   });
 
+  test('query param includes as an array work when serializing a model', function(assert) {
+    let registry = new SerializerRegistry(this.schema, {
+      application: JSONAPISerializer
+    });
+
+    let post = this.schema.blogPosts.create();
+    post.createWordSmith();
+    post.createFineComment();
+    post.createFineComment();
+
+    let request = {
+      queryParams: {
+        include: ['word-smith', 'fine-comments']
+      }
+    };
+
+    let result = registry.serialize(post, request);
+
+    assert.propEqual(result, {
+      data: {
+        type: 'blog-posts',
+        id: '1',
+        attributes: {},
+        relationships: {
+          'word-smith': {
+            data: { type: 'word-smiths', id: '1' }
+          },
+          'fine-comments': {
+            data: [
+              { type: 'fine-comments', id: '1' },
+              { type: 'fine-comments', id: '2' }
+            ]
+          }
+        }
+      },
+      included: [
+        {
+          type: 'word-smiths',
+          id: '1',
+          attributes: {}
+        },
+        {
+          type: 'fine-comments',
+          id: '1',
+          attributes: {}
+        },
+        {
+          type: 'fine-comments',
+          id: '2',
+          attributes: {}
+        }
+      ]
+    });
+  });
+
   test('query param includes work when serializing a collection', function(assert) {
     let registry = new SerializerRegistry(this.schema, {
       application: JSONAPISerializer

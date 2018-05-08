@@ -62,7 +62,8 @@ const JSONAPISerializer = Serializer.extend({
     let relationshipPaths;
 
     if (this.hasQueryParamIncludes()) {
-      relationshipPaths = this.request.queryParams.include.split(',');
+      let { include } = this.request.queryParams;
+      relationshipPaths = this._getIncludedRelationshipsAsArray(include);
     } else {
       let serializer = this.serializerFor(resource.modelName);
       relationshipPaths = serializer.getKeysForIncluded();
@@ -194,16 +195,21 @@ const JSONAPISerializer = Serializer.extend({
   _relationshipIsIncluded(relationshipKey) {
     if (this.hasQueryParamIncludes()) {
       let relationshipKeyAsString = this.keyForRelationship(relationshipKey);
-
-      return this.request.queryParams
-        .include
-        .split(',')
+      let { include } = this.request.queryParams;
+      let includedRelationships = this._getIncludedRelationshipsAsArray(include);
+      return includedRelationships
         .some(str => str.indexOf(relationshipKeyAsString) > -1);
     } else {
       let relationshipPaths = this.getKeysForIncluded();
 
       return relationshipPaths.includes(relationshipKey);
     }
+  },
+
+  _getIncludedRelationshipsAsArray(included) {
+    return Array.isArray(included)
+      ? included
+      : included.split(',');
   },
 
   getQueryParamIncludes() {

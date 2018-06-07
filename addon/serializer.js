@@ -278,6 +278,12 @@ class Serializer {
     // Remove fks
     model.fks.forEach(key => delete attrs[key]);
 
+    if (this.syntheticAttrs) {
+      Object.keys(this.syntheticAttrs).forEach(syntheticAttrName => {
+        attrs[syntheticAttrName] = this.syntheticAttrs[syntheticAttrName](model);
+      });
+    }
+
     return this._formatAttributeKeys(attrs);
   }
 

@@ -40,7 +40,12 @@ export default function() {
   this.delete('/pets/:id', function() { }, 200);
 
   this.get('/word-smiths/:id');
-
+  this.get('/blog-posts/:id');
+  this.get('/blog-posts/:id/comments', (schema, request) => {
+    return schema.comments.where({
+      blogPostId: request.params.id
+    });
+  });
 }
 
 export function testConfig() {

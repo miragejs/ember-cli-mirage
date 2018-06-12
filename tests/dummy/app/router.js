@@ -16,7 +16,11 @@ Router.map(function() {
   this.route('close-friends');
   this.route('pets');
 
-  this.route('word-smith', { path: '/word-smiths/:word_smith_id' });
+  this.route('word-smith', { path: '/word-smiths/:word_smith_id' }, function() {
+    this.route('blog-post', { path: '/blog-posts/:blog_post_id' }, function() {
+      this.route('comments');
+    });
+  });
 });
 
 export default Router;

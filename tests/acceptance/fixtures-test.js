@@ -22,7 +22,7 @@ test('I can use fixtures', function(assert) {
 });
 
 test('I can use fixtures with the filename api', function(assert) {
-  server.loadFixtures('word-smiths', 'blog-posts');
+  server.loadFixtures('word-smiths', 'blog-posts', 'comments');
 
   visit(`/word-smiths/1`);
 
@@ -35,3 +35,14 @@ test('I can use fixtures with the filename api', function(assert) {
   });
 });
 
+test('I can use links serializer', function(assert) {
+  server.loadFixtures();
+
+  visit(`/word-smiths/1/blog-posts/1/comments`);
+
+  andThen(() => {
+    let blogPostCommentsInStore = this.store.peekAll('comment');
+
+    assert.equal(blogPostCommentsInStore.get('length'), 3);
+  });
+});

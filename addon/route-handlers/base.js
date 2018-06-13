@@ -37,7 +37,7 @@ export default class BaseRouteHandler {
     return this.serializerOrRegistry.normalize(body, modelName);
   }
 
-  _getAttrsForRequest(request, modelName) {
+  _getAttrsForRequest(request, modelName, associations) {
     let json = this._getJsonApiDocForRequest(request, modelName);
     let id = this._getIdForRequest(request, json);
     let attrs = {};
@@ -57,11 +57,13 @@ export default class BaseRouteHandler {
     if (json.data.relationships) {
       Object.keys(json.data.relationships).forEach((key) => {
         let relationship = json.data.relationships[key];
+        let camelizedKey = camelize(key);
+        let isPolymorphic = associations[camelizedKey].isPolymorphic;
 
         if (Array.isArray(relationship.data)) {
-          attrs[`${camelize(singularize(key))}Ids`] = relationship.data.map(rel => rel.id);
+          attrs[`${camelize(singularize(key))}Ids`] = relationship.data.map(rel => isPolymorphic ? rel : rel.id);
         } else {
-          attrs[`${camelize(key)}Id`] = relationship.data && relationship.data.id;
+          attrs[`${camelizedKey}Id`] = relationship.data && (isPolymorphic ? relationship.data : relationship.data.id);
         }
       }, {});
     }

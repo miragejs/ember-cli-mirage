@@ -32,11 +32,6 @@ export default function(prefix) {
     assert(`Subdirectories under ${moduleType} are not supported`,
       moduleParts[moduleParts.length - 3] === 'mirage');
 
-    if (moduleType === 'scenario') {
-      assert('Only scenario/default.js is supported at this time.',
-        moduleKey !== 'default');
-    }
-
     /*
       Ensure fixture keys are pluralized
     */

@@ -35,6 +35,41 @@ module('Unit | Server', function() {
 
     server.shutdown();
   });
+
+  test('it runs a different scenario if configured in non-test environments', function(assert) {
+    assert.expect(1);
+
+    let server = new Server({
+      environment: 'development',
+      scenario: 'plans',
+      scenarios: {
+        default() {
+          assert.ok(false);
+        },
+        plans() {
+          assert.ok(true);
+        }
+      }
+    });
+
+    server.shutdown();
+  });
+
+  test('it throws an exception if the configured scenario is not present in non-test environments', function(assert) {
+    assert.expect(1);
+
+    assert.throws(function() {
+      let server = new Server({
+        environment: 'development',
+        scenario: 'plans',
+        scenarios: {
+          default() {}
+        }
+      });
+
+      server.shutdown();
+    }, /You configured a scenario 'plans' but it was not found/);
+  });
 });
 
 module('Unit | Server #loadConfig', function() {

@@ -193,6 +193,15 @@ export default class Server {
     }
 
     let hasFactories = this._hasModulesOfType(config, 'factories');
+
+    let hasConfiguredScenario = !!config.scenario;
+    let configuredScenarioPresent = config.scenarios && config.scenarios.hasOwnProperty(config.scenario);
+
+    if (hasConfiguredScenario) {
+      assert(configuredScenarioPresent,
+        `You configured a scenario '${config.scenario}' but it was not found`);
+    }
+
     let hasDefaultScenario = config.scenarios && config.scenarios.hasOwnProperty('default');
 
     let didOverridePretenderConfig = (config.trackRequests !== undefined) && this.pretender;
@@ -214,6 +223,9 @@ export default class Server {
 
     if (this.isTest() && hasFactories) {
       this.loadFactories(config.factories);
+    } else if (!this.isTest() && hasConfiguredScenario) {
+      this.loadFactories(config.factories);
+      config.scenarios[config.scenario](this);
     } else if (!this.isTest() && hasDefaultScenario) {
       this.loadFactories(config.factories);
       config.scenarios.default(this);

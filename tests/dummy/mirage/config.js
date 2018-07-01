@@ -1,4 +1,4 @@
-import { isBlank } from '@ember/utils';
+import isEmpty from 'lodash/isEmpty';
 
 import Mirage from 'ember-cli-mirage';
 
@@ -23,7 +23,7 @@ export default function() {
 
   this.post('/pets', function({ db }, req) {
     let { pet } = JSON.parse(req.requestBody);
-    if (isBlank(pet.name)) {
+    if (isEmpty(pet.name)) {
       let body = { errors: { name: ["can't be blank"] } };
       return new Mirage.Response(422, { some: 'header' }, body);
     } else {

@@ -1,4 +1,4 @@
-import { isBlank, typeOf } from '@ember/utils';
+import isEmpty from 'lodash/isEmpty';
 import { Promise } from 'rsvp';
 
 import { MirageError } from './assert';
@@ -12,9 +12,15 @@ import DeleteShorthandHandler from './route-handlers/shorthands/delete';
 import HeadShorthandHandler from './route-handlers/shorthands/head';
 
 function isNotBlankResponse(response) {
-  return response
-    && !(typeOf(response) === 'object' && Object.keys(response).length === 0)
-    && (Array.isArray(response) || !isBlank(response));
+  let isEmptyObject = typeof(response) === 'object' && isEmpty(response);
+  let isArray = Array.isArray(response);
+  let isBlank = response !== true && isEmpty(response); // isEmpty(true) returns true, so we exclude that case
+
+  let isNotBlankResponse = response
+    && !isEmptyObject
+    && (isArray || !isBlank);
+
+  return isNotBlankResponse;
 }
 
 const DEFAULT_CODES = { get: 200, put: 204, post: 201, 'delete': 204 };
@@ -22,7 +28,7 @@ const DEFAULT_CODES = { get: 200, put: 204, post: 201, 'delete': 204 };
 function createHandler({ verb, schema, serializerOrRegistry, path, rawHandler, options }) {
   let handler;
   let args = [schema, serializerOrRegistry, rawHandler, path, options];
-  let type = typeOf(rawHandler);
+  let type = typeof(rawHandler);
 
   if (type === 'function') {
     handler = new FunctionHandler(...args);
@@ -78,7 +84,7 @@ export default class RouteHandler {
         throw e;
 
       } else {
-        let message = (typeOf(e) === 'string') ? e : e.message;
+        let message = (typeof(e) === 'string') ? e : e.message;
         let error = new MirageError(`Your ${request.method} handler for the url ${request.url} threw an error: ${message}`);
 
         result = new Response(500, {}, error.message);

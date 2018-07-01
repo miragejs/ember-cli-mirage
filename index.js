@@ -178,7 +178,8 @@ module.exports = {
     // debugger;
     // console.log('TREE FOR APP');
 
-    return stew.debug(mergedTrees);
+    return mergedTrees;
+    // return stew.debug(mergedTrees);
   },
 
   preprocessTree(type, tree) {

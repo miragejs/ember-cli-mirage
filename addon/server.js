@@ -4,8 +4,8 @@ import { Promise } from 'rsvp';
 
 import { pluralize, camelize } from './utils/inflector';
 import { toCollectionName, toInternalCollectionName } from './utils/normalize-name';
-import { getModels } from './ember-data';
-import { hasEmberData } from './utils/ember-data';
+// import { getModels } from './ember-data';
+// import { hasEmberData } from './utils/ember-data';
 import isAssociation from './utils/is-association';
 import Pretender from 'pretender';
 import Db from './db';
@@ -21,11 +21,10 @@ import _find from 'lodash/find';
 import _isPlainObject from 'lodash/isPlainObject';
 import _isInteger from 'lodash/isInteger';
 
-// let i = () => {};
-// const toCollectionName = i;
-// const toInternalCollectionName = i;
-// const hasEmberData = false;
-// const getModels = i;
+// TODO: add back feature, make work in node
+const i = () => {};
+const hasEmberData = false;
+const getModels = i;
 
 /**
  * Creates a new Pretender instance.

@@ -1,22 +1,17 @@
-import { capitalize, camelize, dasherize, underscore } from '@ember/string';
+import capitalize from 'lodash/upperFirst';
+import dasherize from 'lodash/kebabCase';
+import underscore from 'lodash/snakeCase';
+import camelCase from 'lodash/camelCase';
+
+/*
+  Lodash's camelCase removes slashes, Ember's doesn't. We originally used
+  Ember.String.camelize.
+*/
+const camelize = str => {
+  return str.split('/')
+    .map(piece => camelCase(piece))
+    .join('/');
+};
+
 export { singularize, pluralize } from 'ember-inflector';
-
 export { capitalize, camelize, dasherize, underscore };
-
-// TODO:
-// let i = () => {};
-// let capitalize = i;
-// let camelize = i;
-// let dasherize = i;
-// let underscore = i;
-// let singularize = i;
-// let pluralize = i;
-//
-// export {
-//   capitalize,
-//   camelize,
-//   dasherize,
-//   underscore,
-//   singularize,
-//   pluralize
-// };

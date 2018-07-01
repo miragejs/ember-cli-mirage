@@ -146,11 +146,10 @@ module.exports = {
       trees.push(this._lintMirageTree(mirageFilesTree));
     }
 
-    let mirageServer = path.join(this.project.resolveSync('ember-cli-mirage'), '../addon/server.js');
-
-    let s = require(mirageServer);
-    console.log(s);
-    debugger;
+    // let mirageServer = path.join(this.project.resolveSync('ember-cli-mirage'), '../addon/server.js');
+    // let s = require(mirageServer);
+    // console.log(s);
+    // debugger;
 
     // rollup.rollup({
     //   input: mirageServer

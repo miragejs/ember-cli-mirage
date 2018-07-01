@@ -1,7 +1,7 @@
-import assert from 'ember-cli-mirage/assert';
+import assert from '../../assert';
 import BaseShorthandRouteHandler from './base';
-import { Response } from 'ember-cli-mirage';
-import { singularize, camelize } from 'ember-cli-mirage/utils/inflector';
+import { Response } from '../..';
+import { singularize, camelize } from '../../utils/inflector';
 
 export default class GetShorthandRouteHandler extends BaseShorthandRouteHandler {
 

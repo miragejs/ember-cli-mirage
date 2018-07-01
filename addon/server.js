@@ -3,7 +3,7 @@
 import { Promise } from 'rsvp';
 
 import { pluralize, camelize } from './utils/inflector';
-import { toCollectionName, toInternalCollectionName } from 'ember-cli-mirage/utils/normalize-name';
+import { toCollectionName, toInternalCollectionName } from './utils/normalize-name';
 import { getModels } from './ember-data';
 import { hasEmberData } from './utils/ember-data';
 import isAssociation from './utils/is-association';

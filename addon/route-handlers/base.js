@@ -1,5 +1,5 @@
-import assert from 'ember-cli-mirage/assert';
-import { camelize, singularize, dasherize } from 'ember-cli-mirage/utils/inflector';
+import assert from '../assert';
+import { camelize, singularize, dasherize } from '../utils/inflector';
 
 export default class BaseRouteHandler {
 

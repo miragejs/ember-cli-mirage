@@ -1,7 +1,7 @@
-import Model from 'ember-cli-mirage/orm/model';
-import Collection from 'ember-cli-mirage/orm/collection';
-import Serializer from 'ember-cli-mirage/serializer';
-import JsonApiSerializer from 'ember-cli-mirage/serializers/json-api-serializer';
+import Model from './orm/model';
+import Collection from './orm/collection';
+import Serializer from './serializer';
+import JsonApiSerializer from './serializers/json-api-serializer';
 import { pluralize, camelize } from './utils/inflector';
 import assert from './assert';
 

@@ -1,4 +1,4 @@
-import { dasherize } from 'ember-cli-mirage/utils/inflector';
+import { dasherize } from '../../utils/inflector';
 
 export default class Association {
 

@@ -1,10 +1,17 @@
 'use strict';
+require = require('esm')(module);
 const path = require('path');
 const mergeTrees = require('broccoli-merge-trees');
 const Funnel = require('broccoli-funnel');
-const map = require('broccoli-stew').map;
-const rm = require('broccoli-stew').rm;
+const stew = require('broccoli-stew');
+const map = stew.map;
+const rm = stew.rm;
 const replace = require('broccoli-replace');
+const Rollup = require('broccoli-rollup');
+const commonjs = require('rollup-plugin-commonjs');
+const Plugin = require('broccoli-plugin');
+const quickTemp = require('quick-temp');
+const rollup = require('rollup');
 
 module.exports = {
   name: 'ember-cli-mirage',
@@ -19,6 +26,21 @@ module.exports = {
       'pretender': npmAsset('pretender.js'),
       'faker': npmAsset('build/build/faker.js')
     }
+  },
+
+  // isDevelopingAddon() {
+  //   return true;
+  // },
+  //
+  serverMiddleware(options) {
+    // this.express = require('express');
+    debugger;
+    console.log('SERVER MIDDLEWARE');
+    this.expressApp = options.app;
+    // console.log('Server middleware');
+    // startOptions.app.get('/foo', (req, res) => {
+    //   res.json({ hello: 'world' });
+    // });
   },
 
   included() {
@@ -124,6 +146,50 @@ module.exports = {
       trees.push(this._lintMirageTree(mirageFilesTree));
     }
 
+    let mirageServer = path.join(this.project.resolveSync('ember-cli-mirage'), '../addon/server.js');
+
+    let s = require(mirageServer);
+    console.log(s);
+    debugger;
+
+    // rollup.rollup({
+    //   input: mirageServer
+    // }).then(bundle => {
+    //   this.mirageTempDir = quickTemp.makeOrRemake('mirageTmp');
+    //   return bundle.write({
+    //     file: path.join(this.mirageTempDir, 'mirage-server.js'),
+    //     format: 'cjs'
+    //   });
+    // }).then(() => {
+    //   console.log(this.expressApp);
+    //   console.log(this.mirageTempDir);
+    //   console.log(arguments);
+    //   debugger;
+    // });
+    // let tree = this._writeMirageToNode();
+    // trees.push(tree);
+
+    // let x = new MyPlugin([ tree ]);
+    // console.log('THE RETURN VAL IS ', x);
+
+    // console.log('HERE');
+    // debugger;
+    // stew.log(tree);
+    let mergedTrees = mergeTrees(trees);
+    // debugger;
+    // console.log('TREE FOR APP');
+
+    return stew.debug(mergedTrees);
+  },
+
+  preprocessTree(type, tree) {
+    let trees = [ tree ];
+
+    // if (type === 'js') {
+    //   trees.push(this._writeMirageToNode(this));
+    //   trees = [ stew.debug(mergeTrees(trees)) ];
+    // }
+
     return mergeTrees(trees);
   },
 
@@ -141,8 +207,49 @@ module.exports = {
                       + 'production environment.');
     }
     return enabledInProd || (environment && environment !== 'production' && explicitExcludeFiles !== true);
+  },
+
+  _writeMirageToNode(thing) {
+    // debugger;
+    let mirageRoot = path.join(this.project.resolveSync('ember-cli-mirage'), '../addon');
+    let tree = new Rollup(mirageRoot, {
+      rollup: {
+        input: 'server.js',
+        output: {
+          file: 'mirage-server.js',
+          format: 'cjs'
+        },
+        plugins: [
+          commonjs()
+        ]
+      }
+    });
+
+    // return tree;
+    return new MyPlugin([ tree ], thing);
   }
 };
+
+class MyPlugin extends Plugin {
+
+  constructor(trees, thing) {
+    super(trees);
+
+    this.thing = thing;
+  }
+
+  build() {
+    debugger;
+    let mirageConfigPath = path.join(this.inputPaths[0], 'mirage-config.js');
+    let mirageConfig = require(mirageConfigPath);
+    // this.thing.hostAppMirageConfig = mirageConfig;
+
+    // this.thing.expressApp.
+    mirageConfig.call(this.thing.expressApp);
+  }
+
+}
+
 
 function npmAsset(filePath) {
   return function() {

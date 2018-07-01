@@ -3,22 +3,29 @@
 import { Promise } from 'rsvp';
 
 import { pluralize, camelize } from './utils/inflector';
-import { toCollectionName, toInternalCollectionName } from 'ember-cli-mirage/utils/normalize-name';
-import { getModels } from './ember-data';
-import { hasEmberData } from './utils/ember-data';
-import isAssociation from 'ember-cli-mirage/utils/is-association';
+// import { toCollectionName, toInternalCollectionName } from 'ember-cli-mirage/utils/normalize-name';
+// import { getModels } from './ember-data';
+// import { hasEmberData } from './utils/ember-data';
+import isAssociation from './utils/is-association';
 import Pretender from 'pretender';
 import Db from './db';
 import Schema from './orm/schema';
 import assert from './assert';
 import SerializerRegistry from './serializer-registry';
 import RouteHandler from './route-handler';
+import RequestHandler from './server/request-handler';
 
 import _pick from 'lodash/pick';
 import _assign from 'lodash/assign';
 import _find from 'lodash/find';
 import _isPlainObject from 'lodash/isPlainObject';
 import _isInteger from 'lodash/isInteger';
+
+let i = () => {};
+const toCollectionName = i;
+const toInternalCollectionName = i;
+const hasEmberData = false;
+const getModels = i;
 
 /**
  * Creates a new Pretender instance.
@@ -153,7 +160,12 @@ export default class Server {
    * @public
    */
   constructor(options = {}) {
+    this.requestHandler = new RequestHandler(this);
     this.config(options);
+  }
+
+  get handleRequest() {
+    return this.requestHandler.helpers;
   }
 
   config(config = {}) {
@@ -518,7 +530,6 @@ export default class Server {
   }
 
   _registerRouteHandler(verb, path, rawHandler, customizedCode, options) {
-
     let routeHandler = new RouteHandler({
       schema: this.schema,
       verb, rawHandler, customizedCode, options, path,
@@ -528,6 +539,18 @@ export default class Server {
     let fullPath = this._getFullPath(path);
     let timing = options.timing !== undefined ? options.timing : (() => this.timing);
 
+    let handler = request => {
+      return new Promise(resolve => {
+        Promise.resolve(routeHandler.handle(request)).then(mirageResponse => {
+          let [ code, headers, data ] = mirageResponse;
+          resolve({ code, headers, data });
+        });
+      });
+    };
+
+    this.requestHandler.register(verb, fullPath, handler);
+
+    // TODO: consolidate. Pretender should use this.requestHandler to get handler/response
     return this.pretender[verb](
       fullPath,
       (request) => {

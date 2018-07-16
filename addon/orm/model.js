@@ -1,6 +1,7 @@
 import BelongsTo from './associations/belongs-to';
 import HasMany from './associations/has-many';
 import { toCollectionName, toInternalCollectionName } from 'ember-cli-mirage/utils/normalize-name';
+import { camelize } from 'ember-cli-mirage/utils/inflector';
 import extend from '../utils/extend';
 import assert from '../assert';
 import Collection from './collection';
@@ -186,7 +187,7 @@ class Model {
    * @public
    */
   associationFor(key) {
-    return this.schema.associationsFor(this.modelName)[key];
+    return this.schema.associationsFor(this.modelName)[camelize(key)];
   }
 
   /**

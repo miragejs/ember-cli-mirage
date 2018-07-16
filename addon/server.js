@@ -91,6 +91,8 @@ const defaultPassthroughs = [
 */
 export { defaultPassthroughs };
 
+const HTTP_REQUEST_METHODS = ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS', 'HEAD'];
+
 /**
  * Determine if the object contains a valid option.
  *
@@ -152,6 +154,9 @@ function extractRouteArguments(args) {
 export default class Server {
 
   constructor(options = {}) {
+    this._deferRequestsFor = new Map();
+    this._deferredRequests = new Map();
+
     this.config(options);
 
     /**
@@ -814,6 +819,211 @@ export default class Server {
   }
 
   /**
+   * Start deferring requests. Pass optional `path` and `options` arguments to only defer some requests.
+   *
+   * `path` must match a path of a route registered before.
+   * `server.namespace` configuration is taken into consideration.
+   * If `path` contains a dynamic segment also it's name must match the one used for route registration.
+   *
+   * `options` only supports filtering by HTTP request methods. To do so, pass an array of HTTP request methods under
+   * `methods` key. Allowed values are: `GET`, `POST`, `PUT`, `PATCH`, `DELETE`, `OPTIONS`, `HEAD`. Additionally
+   * `DEL` is supported as an alias for `DELETE`. The value is case-insensitive.
+   *
+   * `path` is considered a resource helper, if it does not start with a protocol and domain (full URL) or with a slash.
+   * In that case it registers deferring for same endpoint, method combination as resource helper does for route
+   * registration.
+   *
+   * @method deferRequests
+   * @param  {String} [path]
+   * @param  {Object} [options]
+   * @return void
+   * @public
+   */
+  deferRequests(path, options = {}) {
+    // defer requests for all registered routes if path argument was not passed in
+    if (!path) {
+      this._deferRequestsFor.forEach((shouldDeferRequests, routeIdentifier) => {
+        this._startDeferringRequestsFor(routeIdentifier);
+      });
+      return;
+    }
+
+    let fullPath = this._getFullPath(path);
+    let methods = Array.isArray(options.methods) ? options.methods : HTTP_REQUEST_METHODS;
+    methods.forEach((method) => {
+      let routeIdentifier = this._getRouteIdentifier(method, fullPath);
+
+      // do not try to register deferring for a method that has not been registered if options.methods has not been
+      // set explicitly
+      if (
+        !Array.isArray(options.methods)
+        && !this._deferRequestsFor.has(routeIdentifier)
+      ) {
+        return;
+      }
+
+      this._startDeferringRequestsFor(routeIdentifier);
+    });
+  }
+
+  /**
+   * Cancels deferring requests. Pass optional `path` and `options` arguments to only cancel deferring of some requests.
+   * Resolves all deferred requests for affected routes.
+   *
+   * @method resolveRequests
+   * @param  {String}   [path]
+   * @param  {Object}   [options]
+   * @return {Integer}  number of requests resolved
+   * @public
+   */
+  undeferRequests(path, options = {}) {
+    let resolvedRequests = this.resolveRequests(...arguments);
+
+    if (!path) {
+      // cancel all registered deferring if path isn't specified
+      this._deferRequestsFor.forEach((shouldDeferRequests, routeIdentifier) => {
+        if (shouldDeferRequests) {
+          this._stopDeferringRequestsFor(routeIdentifier);
+        }
+      });
+    } else {
+      let fullPath = this._getFullPath(path);
+      let methods = Array.isArray(options.methods) ? options.methods : HTTP_REQUEST_METHODS;
+      methods.forEach((method) => {
+        let routeIdentifier = this._getRouteIdentifier(method, fullPath);
+
+        // do not try to unregister deferring for a method that has not been registered if options.methods has not been
+        // set explicitly
+        if (
+          !Array.isArray(options.methods)
+          && !this._deferRequestsFor.get(routeIdentifier)
+        ) {
+          return;
+        }
+
+        this._stopDeferringRequestsFor(routeIdentifier);
+      });
+    }
+
+    // resolve all pending requests
+    return resolvedRequests;
+  }
+
+  /**
+   * Resolves deferred requests. Pass optional `path` and `options` arguments to only resolve some deferred requests.
+   *
+   * @method resolveRequests
+   * @param  {String}   [path]
+   * @param  {Object}   [options]
+   * @return {Integer}  number of requests resolved
+   * @public
+   */
+  resolveRequests(path, options = {}) {
+    let affectedRequests = 0;
+
+    if (!path) {
+      // resolve all pending requests
+      this._deferRequestsFor.forEach((shouldDeferRequests, routeIdentifier) => {
+        if (!shouldDeferRequests) {
+          return;
+        }
+
+        affectedRequests = affectedRequests + this._resolveDeferredRequestsFor(routeIdentifier);
+      });
+    } else {
+      let fullPath = this._getFullPath(path);
+      let methods = Array.isArray(options.methods) ? options.methods : HTTP_REQUEST_METHODS;
+
+      methods.forEach((method) => {
+        let routeIdentifier = this._getRouteIdentifier(method, fullPath);
+
+        // do not try to resolve requests for a method that has not been registered for deferring if options.methods
+        // has not been set explicitly
+        if (
+          !Array.isArray(options.methods)
+          && !this._deferRequestsFor.get(routeIdentifier)
+        ) {
+          return;
+        }
+
+        affectedRequests = affectedRequests + this._resolveDeferredRequestsFor(routeIdentifier);
+      });
+    }
+
+    return affectedRequests;
+  }
+
+  /**
+   * @method _startDeferringRequestsFor
+   * @param  {String} routeIdentifier
+   * @return void
+   */
+  _startDeferringRequestsFor(routeIdentifier) {
+    assert(this._deferRequestsFor.has(routeIdentifier), `route identified by ${routeIdentifier} must have been registered`);
+
+    this._deferRequestsFor.set(routeIdentifier, true);
+  }
+
+  /**
+   * @method _stopDeferringRequestsFor
+   * @param  {[type]} routeIdentifier
+   * @return void
+   */
+  _stopDeferringRequestsFor(routeIdentifier) {
+    assert(this._deferRequestsFor.get(routeIdentifier), `route identified by ${routeIdentifier} must have been registered for deferring`);
+
+    this._deferRequestsFor.set(routeIdentifier, false);
+  }
+
+  /**
+   * @method _resolveDeferredRequestsFor
+   * @param  {String}   routeIdentifier
+   * @return {Integer}  count of affected requests
+   */
+  _resolveDeferredRequestsFor(routeIdentifier) {
+    assert(this._deferRequestsFor.get(routeIdentifier), `route identified by ${routeIdentifier} must have been registered for deferring`);
+
+    let deferredRequests = this._deferredRequests.get(routeIdentifier);
+    let numberOfDeferredRequests = deferredRequests.length;
+
+    // resolve all deferred requests or mark them as resolveable
+    deferredRequests.forEach((deferredRequest) => {
+      if (typeof deferredRequest.resolve === 'function') {
+        // promise returned by routeHandler has fulfilled before
+        deferredRequest.resolve(deferredRequest.response);
+      } else {
+        // resolve request as soon as promise returned by routeHandler fulfills
+        deferredRequest.mayResolve = true;
+      }
+    });
+
+    // clear array of deferred requests
+    deferredRequests.slice(0, numberOfDeferredRequests);
+
+    return numberOfDeferredRequests;
+  }
+
+  /**
+   * Map holding information for which routes the requests should be deferred.
+   * Keys are route identifier returned by `_getRouteIdentifier()`.
+   * Value is a boolean indicating if should be deferred or not.
+   *
+   * @property _deferRequestsFor
+   * @type {Map}
+   * @private
+   */
+
+  /**
+   * Map holding a list of deferred requests for a specific request method and path combination.
+   * Keys are route identifier returned by `_getRouteIdentifier()`.
+   * Value is an array of deferred requests.
+   *
+   * @property _deferredRequests
+   * @type {Map}
+   * @private
+   */
+
+  /**
    *
    * @private
    * @hide
@@ -849,16 +1059,48 @@ export default class Server {
 
     let fullPath = this._getFullPath(path);
     let timing = options.timing !== undefined ? options.timing : (() => this.timing);
+    let routeIdentifier = this._getRouteIdentifier(verb, path);
+
+    // register routes for deferring
+    this._deferRequestsFor.set(routeIdentifier, false);
+    this._deferredRequests.set(routeIdentifier, []);
 
     return this.pretender[verb](
       fullPath,
       (request) => {
-        return routeHandler.handle(request)
+        let shouldBeDeferred = this._deferRequestsFor.get(routeIdentifier);
+        let promise = routeHandler.handle(request)
           .then(mirageResponse => {
             let [ code, headers, response ] = mirageResponse;
-
             return [ code, headers, this._serialize(response) ];
           });
+
+        if (!shouldBeDeferred) {
+          return promise;
+        }
+
+        let requestManager = {
+          // `true` if `resolveRequests()` was called before routeHandler has settled
+          mayResolve: false,
+          // holds resolve method of promise if routeHandler has fulfilled
+          resolve: undefined,
+          // holds response value if routeHandler has fulfilled
+          response: undefined
+        };
+        let deferredPromise = new Promise(resolve => {
+          promise.then((response) => {
+            if (requestManager.mayResolve) {
+              // `resolveRequests()` called before routeHandler has fulfilled
+              resolve(response);
+            } else {
+              // defer until `resolveRequests()` is called
+              requestManager.resolve = resolve;
+              requestManager.response = response;
+            }
+          });
+        });
+        this._deferredRequests.get(routeIdentifier).push(requestManager);
+        return deferredPromise;
       },
       timing
     );
@@ -960,6 +1202,30 @@ export default class Server {
     }
 
     return fullPath;
+  }
+
+  /**
+   * Returns a unique route identifier.
+   *
+   * It expects a HTTP request method as first argument and a full path returned from `this._getFullPath()` as second
+   * argument.
+   *
+   * `method` is case-insensitive and supports 'DEL' as an alias for 'DELETE'.
+   *
+   * @method _getRouteIdentifier
+   * @param  {String}  method
+   * @param  {String}  fullPath
+   * @return {String}
+   */
+  _getRouteIdentifier(verb, fullPath) {
+    verb = verb.toUpperCase();
+
+    // support DEL alias
+    if (verb === 'DEL') {
+      verb = 'DELETE';
+    }
+
+    return `${verb}_${fullPath}`;
   }
 
   /**

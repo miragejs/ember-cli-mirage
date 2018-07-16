@@ -12,7 +12,8 @@ module.exports = {
     'plugin:ember-suave/recommended'
   ],
   env: {
-    browser: true
+    browser: true,
+    es6: true
   },
   rules: {
     'camelcase': 0,

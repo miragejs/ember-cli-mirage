@@ -1061,9 +1061,11 @@ export default class Server {
     let timing = options.timing !== undefined ? options.timing : (() => this.timing);
     let routeIdentifier = this._getRouteIdentifier(verb, fullPath);
 
-    // register routes for deferring
-    this._deferRequestsFor.set(routeIdentifier, false);
-    this._deferredRequests.set(routeIdentifier, []);
+    // register routes for deferring not registered yet
+    if (!this._deferRequestsFor.has(routeIdentifier)) {
+      this._deferRequestsFor.set(routeIdentifier, false);
+      this._deferredRequests.set(routeIdentifier, []);
+    }
 
     return this.pretender[verb](
       fullPath,

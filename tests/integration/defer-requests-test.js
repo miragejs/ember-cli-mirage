@@ -108,6 +108,25 @@ module('Integration | defer requests', function(hooks) {
     this.server.deferRequests('/posts', { methods: ['GET', 'POST'] });
   });
 
+  test('overriding route handler does not cancel deferring of requests for that one', async function(assert) {
+    this.server.deferRequests('/posts');
+    this.server.get('/posts', () => {});
+
+    let request = promiseAjax({
+      methog: 'GET',
+      url: '/posts'
+    }).then(() => {
+      assert.step('request');
+    });
+
+    await sleep(100);
+    assert.step('timer');
+
+    this.server.resolveRequests();
+    await request;
+    assert.verifySteps(['timer', 'request']);
+  });
+
   test('it can resolve requests for only a specific path', async function(assert) {
     this.server.deferRequests();
 

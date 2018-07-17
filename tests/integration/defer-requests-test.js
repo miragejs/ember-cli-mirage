@@ -95,17 +95,17 @@ module('Integration | defer requests', function(hooks) {
   });
 
   skip('it can defer requests for only a specific resource', function(assert) {
-    this.deferRequests('posts');
+    this.server.deferRequests('posts');
   });
 
   skip('it can defer requests for multiple paths', function(assert) {
-    this.deferRequests('/posts');
-    this.deferRequests('/comments');
+    this.server.deferRequests('/posts');
+    this.server.deferRequests('/comments');
   });
 
   skip('it can change deferring for a specific path', function(assert) {
-    this.deferRequests('/posts', { methods: ['GET'] });
-    this.deferRequests('/posts', { methods: ['GET', 'POST'] });
+    this.server.deferRequests('/posts', { methods: ['GET'] });
+    this.server.deferRequests('/posts', { methods: ['GET', 'POST'] });
   });
 
   test('it can resolve requests for only a specific path', async function(assert) {
@@ -260,10 +260,30 @@ module('Integration | defer requests', function(hooks) {
   });
 
   skip('it can cancel deferring requests for only a specific resource', function(assert) {
-    this.undeferRequests('posts');
+    this.server.undeferRequests('posts');
   });
 
   skip('it returns number of deferred request that have been resolved by cancel deffering');
+
+  test('it respects namespace configuration', async function(assert) {
+    this.server.namespace = 'v1';
+    this.server.get('/authors', () => {});
+    this.server.deferRequests('/authors');
+
+    let request = promiseAjax({
+      method: 'GET',
+      url: '/v1/authors'
+    }).then(() => {
+      assert.step('deferred request');
+    });
+
+    await sleep(100);
+    assert.step('timer');
+
+    this.server.resolveRequests('/authors');
+    await request;
+    assert.verifySteps(['timer', 'deferred request']);
+  });
 
   skip('it can handle promises returned by route handler that settle before resolveRequests() is called');
   skip('it can handle promises returned by route handler that settle after resolveRequests() has been called');

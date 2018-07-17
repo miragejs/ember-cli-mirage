@@ -1059,7 +1059,7 @@ export default class Server {
 
     let fullPath = this._getFullPath(path);
     let timing = options.timing !== undefined ? options.timing : (() => this.timing);
-    let routeIdentifier = this._getRouteIdentifier(verb, path);
+    let routeIdentifier = this._getRouteIdentifier(verb, fullPath);
 
     // register routes for deferring
     this._deferRequestsFor.set(routeIdentifier, false);

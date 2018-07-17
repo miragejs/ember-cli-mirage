@@ -164,7 +164,32 @@ module('Integration | defer requests', function(hooks) {
     this.resolveRequests('posts');
   });
 
-  skip('it returns number of deferred request that have been resolved');
+  test('it returns number of deferred request that have been resolved', async function(assert) {
+    this.server.deferRequests();
+
+    promiseAjax({ method: 'GET', url: '/posts' });
+
+    assert.equal(this.server.resolveRequests(), 1);
+
+    promiseAjax({ method: 'GET', url: '/posts' });
+    promiseAjax({ method: 'GET', url: '/posts' });
+
+    assert.equal(this.server.resolveRequests(), 2);
+
+    promiseAjax({ method: 'GET', url: '/posts' });
+    promiseAjax({ method: 'GET', url: '/comments' });
+
+    assert.equal(this.server.resolveRequests('/posts'), 1);
+    assert.equal(this.server.resolveRequests('/comments'), 1);
+
+    promiseAjax({ method: 'GET', url: '/posts' });
+    promiseAjax({ method: 'POST', url: '/posts' });
+
+    assert.equal(this.server.resolveRequests('/posts', { methods: ['GET'] }), 1);
+    assert.equal(this.server.resolveRequests('/posts', { methods: ['POST'] }), 1);
+
+    assert.equal(this.server.resolveRequests(), 0);
+  });
 
   test('it can cancel deferring requests', async function(assert) {
     assert.expect(2);

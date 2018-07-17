@@ -998,7 +998,7 @@ export default class Server {
     });
 
     // clear array of deferred requests
-    deferredRequests.slice(0, numberOfDeferredRequests);
+    deferredRequests.splice(0, numberOfDeferredRequests);
 
     return numberOfDeferredRequests;
   }

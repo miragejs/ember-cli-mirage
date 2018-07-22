@@ -5,29 +5,31 @@ export default class RequestHandler {
   constructor(server) {
     this.server = server;
     this.routers = {
-      get: new RouteRecognizer(),
-      post: new RouteRecognizer(),
-      put: new RouteRecognizer(),
-      patch: new RouteRecognizer(),
-      del: new RouteRecognizer(),
-      options: new RouteRecognizer()
+      GET: new RouteRecognizer(),
+      POST: new RouteRecognizer(),
+      PUT: new RouteRecognizer(),
+      PATCH: new RouteRecognizer(),
+      DELETE: new RouteRecognizer(),
+      OPTIONS: new RouteRecognizer()
     };
     this.routers.delete = this.routers.del;
   }
 
   register(verb, path, handler) {
-    this.routers[verb].add([{ path, handler }]);
+    let method = verb.toUpperCase();
+
+    this.routers[method].add([{ path, handler }]);
   }
 
   get helpers() {
     return {
-      get: this.handle.bind(this, 'get'),
-      post: this.handle.bind(this, 'post'),
-      put: this.handle.bind(this, 'put'),
-      patch: this.handle.bind(this, 'patch'),
-      del: this.handle.bind(this, 'del'),
-      delete: this.handle.bind(this, 'del'),
-      options: this.handle.bind(this, 'options')
+      GET: this.handle.bind(this, 'GET'),
+      POST: this.handle.bind(this, 'POST'),
+      PUT: this.handle.bind(this, 'PUT'),
+      PATCH: this.handle.bind(this, 'PATCH'),
+      DELETE: this.handle.bind(this, 'DELETE'),
+      DEL: this.handle.bind(this, 'DELETE'),
+      OPTIONS: this.handle.bind(this, 'OPTIONS')
     };
   }
 

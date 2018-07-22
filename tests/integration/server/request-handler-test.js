@@ -2,7 +2,7 @@ import {module, test} from 'qunit';
 import { Model, JSONAPISerializer } from 'ember-cli-mirage';
 import Server from 'ember-cli-mirage/server';
 
-module('Integration | Server | Handle request test', function(hooks) {
+module('Integration | Server | Request handler test', function(hooks) {
   hooks.beforeEach(function() {
     this.server = new Server({
       environment: 'test',
@@ -28,7 +28,7 @@ module('Integration | Server | Handle request test', function(hooks) {
 
     this.server.create('user', { name: 'Link' });
 
-    let response = await this.server.handleRequest.get('/users');
+    let response = await this.server.requestHandler.handle('GET', '/users');
 
     assert.deepEqual(response.data, {
       data: [
@@ -48,7 +48,7 @@ module('Integration | Server | Handle request test', function(hooks) {
 
     let user = this.server.create('user', { name: 'Link' });
 
-    let response = await this.server.handleRequest.get(`/users/${user.id}`);
+    let response = await this.server.requestHandler.handle('GET', `/users/${user.id}`);
 
     assert.deepEqual(response.data, {
       data: [
@@ -66,7 +66,7 @@ module('Integration | Server | Handle request test', function(hooks) {
   test('it returns undefined for unrecognized URLS', async function(assert) {
     assert.expect(1);
 
-    let response = await this.server.handleRequest.get('/foo');
+    let response = await this.server.requestHandler.handle('GET', '/foo');
 
     assert.equal(response, undefined);
   });

@@ -10,9 +10,26 @@ import camelCase from 'lodash/camelCase';
 // const singularize = inflector.singularize.bind(inflector);
 // const pluralize = inflector.pluralize.bind(inflector);
 
-import { singularize, pluralize } from 'ember-inflector';
+// import { singularize, pluralize } from 'ember-inflector';
 // import { singularize, pluralize } from 'ember-inflector/addon/index';
 // import singularize from 'ember-inflector/addon/index'
+
+// import {
+//   pluralize,
+//   singularize
+// } from "ember-inflector/lib/system/string";
+// console.log(pluralize);
+
+// import Inflector from 'ember-inflector';
+import { singularize, pluralize } from 'ember-inflector';
+
+// import Inflector from "ember-inflector/lib/system/inflector";
+// import defaultRules from "ember-inflector/lib/system/inflections";
+//
+// const inflector = new Inflector(defaultRules);
+// const singularize = inflector.singularize.bind(inflector);
+// const pluralize = inflector.pluralize.bind(inflector);
+// debugger;
 
 /*
   Lodash's camelCase removes slashes, Ember's doesn't. We originally used

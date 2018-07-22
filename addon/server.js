@@ -83,6 +83,9 @@ function createPretender(server) {
   }, { trackRequests: server.shouldTrackRequests() });
 }
 
+
+function createPretender() { }
+
 const defaultRouteOptions = {
   coalesce: false,
   timing: undefined

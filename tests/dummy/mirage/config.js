@@ -1,6 +1,6 @@
 import isEmpty from 'lodash/isEmpty';
 
-import Mirage from 'ember-cli-mirage';
+// import { Response } from '../../../addon/index';
 
 export default function() {
   this.namespace = '/api';
@@ -11,7 +11,19 @@ export default function() {
   this.get('/contacts/:id');
   this.post('/contacts');
   this.put('/contacts/:id');
-  this.del('/contacts/:id');
+  // this.del('/contacts/:id');
+  this.del('/contacts/:id', (schema, req) => {
+    try {
+      let contact = schema.contacts.find(req.params.id);
+      // console.log(contact);
+      // contact.destroy();
+
+    } catch (e) {
+      console.log('something wrong..');
+    }
+    // console.log(schema);
+    // debugger;
+  });
 
   // Friends
   this.get('/friends', { coalesce: true });
@@ -23,12 +35,12 @@ export default function() {
 
   this.post('/pets', function({ db }, req) {
     let { pet } = JSON.parse(req.requestBody);
-    if (isEmpty(pet.name)) {
-      let body = { errors: { name: ["can't be blank"] } };
-      return new Mirage.Response(422, { some: 'header' }, body);
-    } else {
+    // if (isEmpty(pet.name)) {
+    //   let body = { errors: { name: ["can't be blank"] } };
+    //   return new Response(422, { some: 'header' }, body);
+    // } else {
       return { pet: db.pets.insert(pet) };
-    }
+    // }
   });
 
   this.put('/pets/:id', function({ db }, req) {

@@ -33,9 +33,56 @@ module.exports = {
   // },
   //
   serverMiddleware(options) {
+    // let mirageServer = ;
+    // let mirageServer = path.join(this.project.resolveSync('ember-cli-mirage'), '../addon/server.js');
+    let Server = require('./addon/server');
+    let Mirage = require('./addon/index');
+    // this.mirageDirectory
+    let baseConfig = require(path.join(this.mirageDirectory, 'config')).default;
+
+    let server = new Server.default({
+      models: {
+        contact: Mirage.Model
+      },
+      serializers: {
+        application: Mirage.ActiveModelSerializer
+      },
+      baseConfig
+    });
+
+    // server.namespace('/api');
+    // server.get('/contacts');
+    // server.get('/contacts/:id');
+
+    server.create('contact', { name: 'Sam' });
+    server.create('contact', { name: 'Ryan' });
+    server.create('contact', { name: 'Peter' });
+    // console.log(Server);
+    // debugger;
     // this.express = require('express');
-    debugger;
-    console.log('SERVER MIDDLEWARE');
+    // console.log('SERVER MIDDLEWARE');
+
+    let app = options.app;
+
+    // debugger;
+    app.use((req, res, next) => {
+      // server.handleRequest('GET', '/api/users',
+      server.requestHandler.handle(req.method, req.url)
+        .then(mirageRes => {
+          if (mirageRes) {
+            res.status(mirageRes.code).send(mirageRes.data);
+          } else {
+            next();
+          }
+        });
+    });
+
+    // app.get('/api/contacts', function(req, res) {
+    //   server.handleRequest.get('/api/contacts').then(mirageResponse => {
+    //     res.send(mirageResponse.data);
+    //   });
+    // });
+
     this.expressApp = options.app;
     // console.log('Server middleware');
     // startOptions.app.get('/foo', (req, res) => {
@@ -146,9 +193,11 @@ module.exports = {
       trees.push(this._lintMirageTree(mirageFilesTree));
     }
 
-    let mirageServer = path.join(this.project.resolveSync('ember-cli-mirage'), '../addon/server.js');
-    let s = require(mirageServer);
-    console.log(s);
+    // let mirageServer = path.join(this.root, '/addon/server.js');
+    // // let mirageServer = path.join(this.project.resolveSync('ember-cli-mirage'), '../addon/server.js');
+    // let s = require(mirageServer);
+    // console.log(s);
+    // debugger;
     // debugger;
 
     // rollup.rollup({
@@ -249,7 +298,6 @@ class MyPlugin extends Plugin {
   }
 
 }
-
 
 function npmAsset(filePath) {
   return function() {

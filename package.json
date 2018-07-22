@@ -44,7 +44,7 @@
     "ember-cli-babel": "^6.8.2",
     "ember-cli-node-assets": "^0.1.4",
     "ember-get-config": "^0.2.2",
-    "ember-inflector": "^2.0.0",
+    "ember-inflector": "*",
     "ember-lodash": "^4.17.3",
     "esm": "^3.0.58",
     "exists-sync": "0.0.3",

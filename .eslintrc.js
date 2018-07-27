@@ -36,7 +36,8 @@ module.exports = {
         'testem.js',
         'ember-cli-build.js',
         'config/**/*.js',
-        'tests/dummy/config/**/*.js'
+        'tests/dummy/config/**/*.js',
+        'fastboot-tests/**/*.js'
       ],
       excludedFiles: [
         'app/**',
@@ -75,11 +76,9 @@ module.exports = {
       rules: {
         'prefer-template': 0
       },
-      globals: {
-        require: true,
-        describe: true,
-        afterEach: true,
-        it: true
+      env: {
+        mocha: true,
+        node: true
       }
     }
   ]

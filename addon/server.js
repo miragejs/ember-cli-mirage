@@ -2,7 +2,7 @@
 
 import { Promise } from 'rsvp';
 
-import { pluralize, camelize } from './utils/inflector';
+import { singularize, pluralize, camelize } from './utils/inflector';
 import { toCollectionName, toInternalCollectionName } from 'ember-cli-mirage/utils/normalize-name';
 import { getModels } from './ember-data';
 import { hasEmberData } from './utils/ember-data';
@@ -349,10 +349,10 @@ export default class Server {
    * @private
    */
   factoryFor(type) {
-    let camelizedType = camelize(type);
+    let normalizedType = camelize(singularize(type));
 
-    if (this._factoryMap && this._factoryMap[camelizedType]) {
-      return this._factoryMap[camelizedType];
+    if (this._factoryMap && this._factoryMap[normalizedType]) {
+      return this._factoryMap[normalizedType];
     }
   }
 

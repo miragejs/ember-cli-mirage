@@ -1,4 +1,5 @@
 'use strict';
+const fs = require('fs');
 const path = require('path');
 const mergeTrees = require('broccoli-merge-trees');
 const Funnel = require('broccoli-funnel');
@@ -114,18 +115,26 @@ module.exports = {
   },
 
   treeForApp(appTree) {
-    let mirageFilesTree = new Funnel(this.mirageDirectory, { destDir: 'mirage' });
-    let mirageFilesTrees = loadMiragePluginTrees(this)
-      .concat(mirageFilesTree);
+    let trees = [appTree];
 
-    let trees = [
-      appTree,
-      mergeTrees(mirageFilesTrees, { overwrite: true })
-    ];
+    let mirageFilesTrees = loadMiragePluginTrees(this);
 
-    if (this.hintingEnabled()) {
-      trees.push(this._lintMirageTree(mirageFilesTree)); // only lint host app
+    if (mirageFilesTrees.length === 0 || fs.existsSync(this.mirageDirectory)) {
+      let mirageFilesTree = new Funnel(this.mirageDirectory, {
+        destDir: 'mirage',
+        allowEmpty: mirageFilesTrees.length > 0
+      });
+
+      if (this.hintingEnabled()) {
+        trees.push(this._lintMirageTree(mirageFilesTree)); // only lint host app
+      }
+
+      mirageFilesTrees.push(mirageFilesTree);
     }
+
+    trees.push(mergeTrees(mirageFilesTrees, {
+      overwrite: true
+    }));
 
     return mergeTrees(trees);
   },

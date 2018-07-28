@@ -114,14 +114,17 @@ module.exports = {
   },
 
   treeForApp(appTree) {
-    let trees = [ appTree ];
-    let mirageFilesTree = new Funnel(this.mirageDirectory, {
-      destDir: 'mirage'
-    });
-    trees.push(mirageFilesTree);
+    let mirageFilesTree = new Funnel(this.mirageDirectory, { destDir: 'mirage' });
+    let mirageFilesTrees = loadMiragePluginTrees(this)
+      .concat(mirageFilesTree);
+
+    let trees = [
+      appTree,
+      mergeTrees(mirageFilesTrees, { overwrite: true })
+    ];
 
     if (this.hintingEnabled()) {
-      trees.push(this._lintMirageTree(mirageFilesTree));
+      trees.push(this._lintMirageTree(mirageFilesTree)); // only lint host app
     }
 
     return mergeTrees(trees);
@@ -155,4 +158,31 @@ function npmAsset(filePath) {
       }
     };
   };
+}
+
+function loadMiragePluginTrees(context) {
+  let addons = context.project.addons || [];
+
+  return addons
+    .filter((addon) => addon.pkg.keywords.includes('mirage-plugin')
+      && ['function', 'string'].includes(typeof addon.treeForMirage))
+    .map((addon) => {
+      let treeForMirage = addon.treeForMirage;
+
+      if (typeof treeForMirage === 'function') {
+        treeForMirage = addon.treeForMirage.call(addon);
+      }
+
+      if (typeof treeForMirage === 'string') {
+        // the function above may have returned a string|Funnel
+        let addonDir = path.dirname(addon.constructor._meta_.modulePath);
+
+        treeForMirage = new Funnel(path.join(addonDir, treeForMirage), {
+          destDir: 'mirage'
+        });
+      }
+
+      return treeForMirage;
+    })
+    .filter((tree) => tree && tree.constructor.name === 'Funnel');
 }

@@ -115,6 +115,10 @@ module.exports = {
   },
 
   treeForApp(appTree) {
+    if (!this._shouldIncludeFiles()) {
+      return appTree;
+    }
+
     let trees = [appTree];
 
     let mirageFilesTrees = loadMiragePluginTrees(this);

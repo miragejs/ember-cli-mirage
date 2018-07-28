@@ -177,8 +177,8 @@ function loadMiragePluginTrees(context) {
   let addons = context.project.addons || [];
 
   return addons
-    .filter((addon) => addon.pkg.keywords.includes('mirage-plugin')
-      && ['function', 'string'].includes(typeof addon.treeForMirage))
+    .filter((addon) => includes(addon.pkg.keywords, 'mirage-plugin')
+      && includes(['function', 'string'], typeof addon.treeForMirage))
     .map((addon) => {
       let treeForMirage = addon.treeForMirage;
 
@@ -198,4 +198,20 @@ function loadMiragePluginTrees(context) {
       return treeForMirage;
     })
     .filter((tree) => tree && tree.constructor.name === 'Funnel');
+}
+
+function includes(array, key) {
+  return Array.prototype.includes
+    ? Array.prototype.includes.call(array, key)
+    : _includes(array, key);
+}
+
+function _includes(array, key) {
+  for (let value of array) {
+    if (value === key) {
+      return true;
+    }
+  }
+
+  return false;
 }

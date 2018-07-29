@@ -22,7 +22,7 @@ module('Integration | Server | Factory creation', function(hooks) {
         author: this.Author
       },
       factories: {
-        contact: Factory,
+        contact: Factory.extend({ firstName: 'Melanie' }),
         amazingContact: Factory
       }
     });
@@ -56,6 +56,18 @@ module('Integration | Server | Factory creation', function(hooks) {
     let contacts = this.server.createList('amazing-contact', 1);
 
     assert.ok(contacts[0] instanceof this.AmazingContact, 'expected an AmazingContact');
+  });
+
+  test('create applies a factory', function(assert) {
+    let contact = this.server.create('contact');
+
+    assert.ok(contact.firstName, 'Melanie');
+  });
+
+  test('create applies a factory, when using pluralized name', function(assert) {
+    let contact = this.server.create('contacts');
+
+    assert.ok(contact.firstName, 'Melanie');
   });
 
   test('create falls back to a model if no factory is defined', function(assert) {

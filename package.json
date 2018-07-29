@@ -27,10 +27,9 @@
     "build": "ember build",
     "lint:js": "eslint ./*.js addon addon-test-support app config lib server test-support tests",
     "start": "ember serve",
-    "test": "ember test",
+    "test": "./scripts/test.sh",
     "test:all": "ember try:each",
-    "test:fastboot": "ember fastboot:test",
-    "test:node": "mocha node-tests/**/*-test.js",
+    "test:root": "ember test --test-port=0",
     "prepare": "./scripts/link.sh"
   },
   "dependencies": {

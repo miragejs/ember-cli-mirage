@@ -23,6 +23,12 @@ module.exports = function(environment) {
     }
   };
 
+  if (process.env.MIRAGE_ENABLED) {
+    ENV['ember-cli-mirage'] = {
+      enabled: true
+    };
+  }
+
   if (environment === 'development') {
     // ENV.APP.LOG_RESOLVER = true;
     // ENV.APP.LOG_ACTIVE_GENERATION = true;

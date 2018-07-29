@@ -14,7 +14,8 @@
     "build": "ember build",
     "lint:js": "eslint ./*.js app blueprints config lib server tests",
     "start": "ember serve",
-    "test": "ember test"
+    "test": "ember test --test-port=0",
+    "test:fastboot": "qunit fastboot-tests/**/*.js"
   },
   "devDependencies": {
     "broccoli-asset-rev": "*",

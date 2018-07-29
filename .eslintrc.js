@@ -1,5 +1,6 @@
 module.exports = {
   root: true,
+  parser: 'babel-eslint',
   parserOptions: {
     ecmaVersion: 2017,
     sourceType: 'module'
@@ -66,20 +67,5 @@ module.exports = {
         embertest: true
       }
     },
-
-    // node test files
-    {
-      files: [
-        'fastboot-tests/**/*.js',
-        'node-tests/**/*.js'
-      ],
-      rules: {
-        'prefer-template': 0
-      },
-      env: {
-        mocha: true,
-        node: true
-      }
-    }
   ]
 };

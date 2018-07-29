@@ -5,6 +5,9 @@ module.exports = {
     ecmaVersion: 2017,
     sourceType: 'module'
   },
+  plugins: [
+    'ember'
+  ],
   extends: [
     'eslint:recommended',
     'plugin:ember-suave/recommended'
@@ -47,7 +50,7 @@ module.exports = {
       ],
       parserOptions: {
         sourceType: 'script',
-        ecmaVersion: 2015
+        ecmaVersion: 2018
       },
       env: {
         browser: false,

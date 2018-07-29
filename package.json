@@ -52,6 +52,7 @@
   },
   "devDependencies": {
     "active-model-adapter": "^2.0.3",
+    "babel-eslint": "^8.2.6",
     "broccoli-asset-rev": "^2.4.5",
     "broccoli-test-helper": "^1.3.0",
     "chai": "^4.1.0",
@@ -78,7 +79,7 @@
     "ember-source": "~2.18.0",
     "eslint-plugin-ember": "^5.0.0",
     "eslint-plugin-ember-suave": "^1.0.0",
-    "eslint-plugin-node": "^5.2.1",
+    "eslint-plugin-node": "^6.0.1",
     "fastboot": "^1.2.0",
     "loader.js": "^4.2.3",
     "mocha": "^3.4.2",

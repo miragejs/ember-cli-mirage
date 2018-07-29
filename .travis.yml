@@ -49,3 +49,25 @@ jobs:
       script: yarn test:browser
     - env: NAME=node tests
       script: yarn test:node
+
+    - stage: versioned tests
+      env: EMBER_TRY_SCENARIO=ember-lts-2.4
+      script: yarn test:browser
+    - env: EMBER_TRY_SCENARIO=ember-lts-2.8
+      script: yarn test:browser
+    - env: EMBER_TRY_SCENARIO=ember-lts-2.12
+      script: yarn test:browser
+    - env: EMBER_TRY_SCENARIO=ember-lts-2.16
+      script: yarn test:browser
+    - env: EMBER_TRY_SCENARIO=ember-release
+      script: yarn test:browser
+    - env: EMBER_TRY_SCENARIO=ember-beta
+      script: yarn test:browser
+    - env: EMBER_TRY_SCENARIO=ember-canary
+      script: yarn test:browser
+    - env: EMBER_TRY_SCENARIO=ember-default
+      script: yarn test:browser
+
+  allow_failures:
+    - env: EMBER_TRY_SCENARIO=ember-beta
+    - env: EMBER_TRY_SCENARIO=ember-canary

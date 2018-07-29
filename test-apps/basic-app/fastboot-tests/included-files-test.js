@@ -1,6 +1,6 @@
 const FastBoot = require('fastboot');
 const { execFileSync } = require('child_process');
-const { module, test } = require('qunit');
+const { module: qModule, test } = require('qunit');
 const jsdom = require('jsdom');
 const { JSDOM } = jsdom;
 
@@ -11,7 +11,7 @@ const findTextFromHtml = (html, selector) => {
     .trim();
 };
 
-module('basic-app | fastboot | included files', function(hooks) {
+qModule('basic-app | fastboot | included files', function(hooks) {
 
   test('it includes all modules in development by default', async function(assert) {
     execFileSync('node', [

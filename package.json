@@ -29,8 +29,8 @@
     "start": "ember serve",
     "test": "./scripts/test.sh",
     "test:all": "ember try:each",
+    "test:browser": "ember test --test-port=0",
     "test:node": "cd test-apps/basic-app && yarn test:fastboot",
-    "test:root": "ember test --test-port=0",
     "prepare": "./scripts/link.sh"
   },
   "dependencies": {

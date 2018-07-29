@@ -37,5 +37,15 @@ jobs:
 
   include:
     - stage: locked dependencies
-      env: NAME=node tests
+      env: NAME=browser tests
+      install: yarn install
+      script: yarn test:browser
+    - env: NAME=node tests
+      install: yarn install
+      script: yarn test:node
+
+    - stage: floating dependencies
+      env: NAME=browser tests
+      script: yarn test:browser
+    - env: NAME=node tests
       script: yarn test:node

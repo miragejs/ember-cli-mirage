@@ -2,5 +2,5 @@
 
 ./scripts/parallel --tag <<EOF
 cd test-apps/basic-app && yarn test:fastboot
-yarn test:root
+yarn test:browser
 EOF

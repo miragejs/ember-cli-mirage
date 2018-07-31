@@ -144,7 +144,7 @@ module.exports = {
   },
 
   _shouldIncludeFiles() {
-    if (process.env.EMBER_CLI_FASTBOOT) {
+    if (process.env.EMBER_CLI_FASTBOOT || typeof FastBoot !== 'undefined') {
       return false;
     }
 

@@ -7,7 +7,7 @@ version: v0.4.x
 Models wrap your database and allow you to define relationships.
 
 <aside class='Docs-page__aside'>
-  <p>As a clarifying point, Mirage models know nothing about your Ember application, including any Ember Data models you may have defined.</p>
+  <p>As a clarifying point, Mirage model instances only exist within Mirage's server, and are never shared with your Ember app, rendered in components, etc. They solely exist to help you manage the data and relationships in your fake backend.</p>
 </aside>
 
 Define models by adding files under `/models`. These are automatically registered with `schema`, which is how you'll access your model classes in your route handlers.

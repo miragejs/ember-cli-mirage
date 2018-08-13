@@ -92,6 +92,9 @@
     "configPath": "tests/dummy/config",
     "before": [
       "ember-cli-babel"
-    ]
+    ],
+    "versionCompatibility": {
+      "ember": ">=1.13"
+    }
   }
 }

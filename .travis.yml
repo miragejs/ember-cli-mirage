@@ -42,22 +42,7 @@ jobs:
       script: yarn test:node
 
     - stage: versioned tests
-      env: EMBER_TRY_SCENARIO=ember-lts-2.4
-      script: node_modules/.bin/ember try:one $EMBER_TRY_SCENARIO --skip-cleanup
-    - env: EMBER_TRY_SCENARIO=ember-lts-2.8
-      script: node_modules/.bin/ember try:one $EMBER_TRY_SCENARIO --skip-cleanup
-    - env: EMBER_TRY_SCENARIO=ember-lts-2.12
-      script: node_modules/.bin/ember try:one $EMBER_TRY_SCENARIO --skip-cleanup
-    - env: EMBER_TRY_SCENARIO=ember-lts-2.16
-      script: node_modules/.bin/ember try:one $EMBER_TRY_SCENARIO --skip-cleanup
-    - env: EMBER_TRY_SCENARIO=ember-release
-      script: node_modules/.bin/ember try:one $EMBER_TRY_SCENARIO --skip-cleanup
-    - env: EMBER_TRY_SCENARIO=ember-beta
-      script: node_modules/.bin/ember try:one $EMBER_TRY_SCENARIO --skip-cleanup
-    - env: EMBER_TRY_SCENARIO=ember-canary
-      script: node_modules/.bin/ember try:one $EMBER_TRY_SCENARIO --skip-cleanup
-    - env: EMBER_TRY_SCENARIO=ember-default
-      script: node_modules/.bin/ember try:one $EMBER_TRY_SCENARIO --skip-cleanup
+      script: node_modules/.bin/ember try:each --skip-cleanup
 
     - stage: npm release
       install: skip

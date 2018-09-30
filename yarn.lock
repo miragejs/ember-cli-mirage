@@ -3756,7 +3756,7 @@ extsprintf@^1.2.0:
   resolved "https://registry.yarnpkg.com/extsprintf/-/extsprintf-1.4.0.tgz#e2689f8f356fad62cca65a3a91c5df5f9551692f"
   integrity sha1-4mifjzVvrWLMplo6kcXfX5VRaS8=
 
-fake-xml-http-request@^1.4.0, fake-xml-http-request@^1.6.0:
+fake-xml-http-request@^1.6.0:
   version "1.6.0"
   resolved "https://registry.yarnpkg.com/fake-xml-http-request/-/fake-xml-http-request-1.6.0.tgz#bd0ac79ae3e2660098282048a12c730a6f64d550"
   integrity sha512-99XPwwSg89BfzPuv4XCpZxn3EbauMCgAQCxq9MzrvS6DFD73OON6AnUTicL4A0HZtYMBwCZBWVnRqGjZDgQkTg==

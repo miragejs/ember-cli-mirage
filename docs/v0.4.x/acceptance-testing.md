@@ -22,7 +22,7 @@ Once you've defined your routes and included the needed includes, use the `serve
 
 ```js
 test('I can view the photos', assert => {
-  server.createList('photo', 10);
+  this.server.createList('photo', 10);
 
   visit('/');
 
@@ -32,13 +32,13 @@ test('I can view the photos', assert => {
 });
 ```
 
-`server.createList` uses the `photo` factory to generate 10 database records. This way, Mirage's database is populated when the Ember app boots and makes an AJAX request to fetch the photos data.
+`this.server.createList` uses the `photo` factory to generate 10 database records. This way, Mirage's database is populated when the Ember app boots and makes an AJAX request to fetch the photos data.
 
 Mirage's server will be reset after each test, so each test starts out with a clean database state.
 
 ## Keeping your tests focused
 
-The purpose of factories is to put code that's relevant to a test as close to that test as possible. In the example above, we wanted to verify that the user would see ten photos, given those photos existed on the server. So, the `server.createList('photo', 10)` call was directly in the test.
+The purpose of factories is to put code that's relevant to a test as close to that test as possible. In the example above, we wanted to verify that the user would see ten photos, given those photos existed on the server. So, the `this.server.createList('photo', 10)` call was directly in the test.
 
 Say we wanted to test that when the user visits a details route for a photo titled "Sunset over Hyrule," they would see that title in an `<h1>` tag. One way to accomplish this would be to update the photo factory itself:
 
@@ -75,7 +75,7 @@ Now, we can write our tests, overriding the factory-generated attributes where a
 
 ```js
 test("I can view the photos", assert => {
-  server.createList('photo', 10);
+  this.server.createList('photo', 10);
 
   visit('/');
 
@@ -85,7 +85,7 @@ test("I can view the photos", assert => {
 });
 
 test("I see the photo's title on a detail route", assert => {
-  let photo = server.create('photo', {title: 'Sunset over Hyrule'});
+  let photo = this.server.create('photo', {title: 'Sunset over Hyrule'});
 
   visit('/' + photo.id);
 
@@ -105,7 +105,7 @@ There are two general approaches to this. First, you can assert directly against
 
 ```js
 test("I can change the lesson's title", assert => {
-  server.create('lesson', {title: 'My First Lesson'})
+  this.server.create('lesson', {title: 'My First Lesson'})
 
   visit('/');
   click('.Edit')
@@ -129,7 +129,7 @@ test("I can change the lesson's title", function(assert) {
   assert.expect(1);
   let done = assert.async();
 
-  server.create('lesson', {title: 'My First Lesson'})
+  this.server.create('lesson', {title: 'My First Lesson'})
 
   server.put('/lessons/:id', (schema, request) => {
     let params = JSON.parse(request.requestBody);
@@ -154,7 +154,7 @@ To test how your Ember app responds to a server error, overwrite a route handler
 
 ```js
 test('the user sees an error if the save attempt fails', function(assert) {
-   server.post('/questions', {errors: ['There was an error']}, 500);
+   this.server.post('/questions', {errors: ['There was an error']}, 500);
 
    visit('/');
    click('.new');

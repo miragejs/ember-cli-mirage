@@ -1,4 +1,4 @@
-import { camelize, dasherize } from 'ember-cli-mirage/utils/inflector';
+import { dasherize } from 'ember-cli-mirage/utils/inflector';
 
 export default class Association {
 

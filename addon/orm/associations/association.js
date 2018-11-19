@@ -50,6 +50,6 @@ export default class Association {
   }
 
   get identifier() {
-    return `${camelize(this.key)}Id`;
+    throw new Error('Subclasses of Association must implement a getter for identifier');
   }
 }

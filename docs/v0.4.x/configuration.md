@@ -18,7 +18,7 @@ Set the base namespace used for all routes defined with `get`, `post`, `put` or 
 For example,
 
 ```js
-// app/mirage/config.js
+// mirage/config.js
 export default function() {
 
   this.namespace = '/api';
@@ -31,7 +31,7 @@ export default function() {
 Note that only routes defined after `this.namespace` are affected. This is useful if you have a few one-off routes that you don't want under your namespace:
 
 ```js
-// app/mirage/config.js
+// mirage/config.js
 export default function() {
 
   // this route handles /auth
@@ -52,7 +52,7 @@ For a sample implementation leveraging a configured API host & namespace, check 
 Set the timing parameter of the response. Default is a 400ms delay during development and 0 delay in testing (so your tests run fast).
 
 ```js
-// app/mirage/config.js
+// mirage/config.js
 export default function() {
 
   this.timing = 400; // default
@@ -262,12 +262,12 @@ which is used by iOS for URL verification.
 
 Configure which directory contains your Mirage server definition. The default directory is `/mirage` (from the root of your project).
 
-For example, to have your server definition under `/app/mirage`,
+For example, to have your server definition under `/mirage`,
 
 ```js
 // config/environment.js
 ...
 ENV['ember-cli-mirage'] = {
-  directory: 'app/mirage'
+  directory: 'mirage'
 };
 ```

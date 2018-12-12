@@ -22,7 +22,7 @@ export default function extend(protoProps, staticProps) {
   // Add prototype properties (instance properties) to the subclass,
   // if supplied.
   if (protoProps) {
-    _assign(Child.prototype, protoProps);
+    Object.defineProperties(Child.prototype, Object.getOwnPropertyDescriptors(protoProps));
   }
 
   return Child;

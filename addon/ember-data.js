@@ -29,6 +29,7 @@ export function getDsModels() {
   let moduleMap = requirejs.entries;
   let classicModelMatchRegex = new RegExp(`^${modulePrefix}/models/(.*)$`, 'i');
   let podModelMatchRegex = new RegExp(`^${podModulePrefix}/(.*)/model$`, 'i');
+  let muModelMatchRegex = new RegExp(`^${modulePrefix}/src/data/models/(.*)/model$`, 'i');
 
   DsModels = {};
 
@@ -38,7 +39,7 @@ export function getDsModels() {
 
   Object.keys(moduleMap)
     .forEach((path) => {
-      let matches = path.match(classicModelMatchRegex) || path.match(podModelMatchRegex);
+      let matches = path.match(classicModelMatchRegex) || path.match(podModelMatchRegex) || path.match(muModelMatchRegex);
       if (matches && matches[1]) {
         let modelName = matches[1];
 

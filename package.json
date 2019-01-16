@@ -46,7 +46,7 @@
     "ember-lodash": "^4.19.4",
     "fake-xml-http-request": "^2.0.0",
     "faker": "^3.0.0",
-    "jsdom": "^11.12.0",
+    "jsdom": "^13.1.0",
     "pretender": "2.1.1",
     "route-recognizer": "^0.3.4"
   },

@@ -57,7 +57,6 @@
     "chai": "^4.2.0",
     "ember-ajax": "^3.0.0",
     "ember-cli": "~2.18.2",
-    "ember-cli-app-version": "^2.0.0",
     "ember-cli-dependency-checker": "^2.0.0",
     "ember-cli-eslint": "^4.2.1",
     "ember-cli-fastboot": "^1.1.4-beta.1",

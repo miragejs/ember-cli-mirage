@@ -3254,15 +3254,7 @@ ember-cli-addon-tests@^0.7.0:
     symlink-or-copy "^1.1.3"
     temp "^0.8.3"
 
-ember-cli-app-version@^2.0.0:
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/ember-cli-app-version/-/ember-cli-app-version-2.1.0.tgz#149101d4fd0d97875e12ec5e61ff105f508e5e2d"
-  integrity sha1-FJEB1P0Nl4deEuxeYf8QX1COXi0=
-  dependencies:
-    ember-cli-babel "^6.8.0"
-    git-repo-version "0.4.1"
-
-ember-cli-babel@^6.0.0, ember-cli-babel@^6.0.0-beta.7, ember-cli-babel@^6.11.0, ember-cli-babel@^6.3.0, ember-cli-babel@^6.8.0, ember-cli-babel@^6.8.1, ember-cli-babel@^6.8.2, ember-cli-babel@^6.9.0:
+ember-cli-babel@^6.0.0, ember-cli-babel@^6.0.0-beta.7, ember-cli-babel@^6.11.0, ember-cli-babel@^6.3.0, ember-cli-babel@^6.8.1, ember-cli-babel@^6.8.2, ember-cli-babel@^6.9.0:
   version "6.11.0"
   resolved "https://registry.yarnpkg.com/ember-cli-babel/-/ember-cli-babel-6.11.0.tgz#79cb184bac3c05bfe181ddc306bac100ab1f9493"
   integrity sha512-lHQyl30lbAsMmMq2it1GO85HKrqr2gMpK5CFxmOgTJ3moBqOGMKsdV3Z0qXWpgh8Asy7pB9AACMShdgfQvSGPg==
@@ -4875,18 +4867,6 @@ git-repo-info@^1.1.2, git-repo-info@^1.4.1:
   version "1.4.1"
   resolved "https://registry.yarnpkg.com/git-repo-info/-/git-repo-info-1.4.1.tgz#2a072823254aaf62fcf0766007d7b6651bd41943"
   integrity sha1-KgcoIyVKr2L88HZgB9e2ZRvUGUM=
-
-git-repo-info@~1.2.0:
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/git-repo-info/-/git-repo-info-1.2.0.tgz#43d8513e04a24dd441330a2f7c6655a709fdbaf2"
-  integrity sha1-Q9hRPgSiTdRBMwovfGZVpwn9uvI=
-
-git-repo-version@0.4.1:
-  version "0.4.1"
-  resolved "https://registry.yarnpkg.com/git-repo-version/-/git-repo-version-0.4.1.tgz#75fab9a0a4ec8470755b0eea7fdaa6f9d41453bf"
-  integrity sha1-dfq5oKTshHB1Ww7qf9qm+dQUU78=
-  dependencies:
-    git-repo-info "~1.2.0"
 
 git-tools@^0.1.4:
   version "0.1.4"

@@ -54,7 +54,6 @@
   "devDependencies": {
     "active-model-adapter": "^2.0.3",
     "broccoli-asset-rev": "^2.4.5",
-    "chai": "^4.2.0",
     "ember-ajax": "^3.0.0",
     "ember-cli": "~2.18.2",
     "ember-cli-dependency-checker": "^2.0.0",
@@ -78,7 +77,6 @@
     "eslint-plugin-node": "^6.0.1",
     "fastboot": "^1.2.0",
     "loader.js": "^4.7.0",
-    "mocha": "^3.4.2",
     "qunit-dom": "^0.5.0"
   },
   "engines": {

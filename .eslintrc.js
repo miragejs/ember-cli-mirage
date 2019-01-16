@@ -28,8 +28,7 @@ module.exports = {
   },
   globals: {
     faker: true,
-    server: true,
-    $: true
+    server: true
   },
   overrides: [
     // node files

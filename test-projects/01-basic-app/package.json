@@ -18,6 +18,7 @@
     "test:fastboot": "qunit fastboot-tests/**/*.js"
   },
   "devDependencies": {
+    "@ember/jquery": "*",
     "broccoli-asset-rev": "*",
     "ember-ajax": "*",
     "ember-cli": "*",

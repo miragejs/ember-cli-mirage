@@ -30,7 +30,6 @@
     "ember-cli-inject-live-reload": "*",
     "ember-cli-mirage": "*",
     "ember-cli-qunit": "*",
-    "ember-cli-shims": "*",
     "ember-cli-sri": "*",
     "ember-cli-uglify": "*",
     "ember-data": "*",

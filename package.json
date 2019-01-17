@@ -52,6 +52,7 @@
     "route-recognizer": "^0.3.4"
   },
   "devDependencies": {
+    "@ember/jquery": "^0.5.2",
     "@ember/optional-features": "^0.6.3",
     "active-model-adapter": "^2.0.3",
     "broccoli-asset-rev": "^2.7.0",

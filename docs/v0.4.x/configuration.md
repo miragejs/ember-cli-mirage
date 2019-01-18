@@ -62,6 +62,31 @@ export default function() {
 
 Note that this is a global parameter which affects all routes. You can override the timing for individual routes by using the [route handler's timing parameter](../route-handlers#timing).
 
+If you want to add delays to a particular test's routes, you can override the timing for individual tests by putting the timing parameter in your test
+
+```js
+test('Call this route with a delay', function() {
+  server.timing = 10000;
+  // ...
+});
+```
+
+Or for all tests in a particular module
+
+```js
+module('Add delayed route calls to multiple tests', function() {
+  server.timing = 10000;
+  
+  test('It slowly calls a route', function() {
+    // ...
+  });
+  
+  test ('It slow calls another route', function() {
+    // ...
+  });
+});
+```
+
 <a name="logging" href="#logging">#</a> this.<b>logging</b>
 
 Set to `true` or `false` to explicitly specify logging behavior.

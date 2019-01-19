@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+
+  <head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      Serializers are ready for testing &middot; Ember CLI Mirage
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/style.css">
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-144-precomposed.png">
+                                 <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+
+  <body>
+    <div class="Topbar">
+      <div class="Container">
+      </div>
+    </div>
+
+    <header class="Header">
+  <div class="Container">
+    <nav class='Header__nav'>
+      <ul class='Header__nav-list'>
+        <li class='Header__nav-item'>
+          <a href='/docs/v0.4.x' class="Header__nav-item-link">
+            <span class="u-mobile">Docs</span>
+            <span class="u-desktop">Documentation</span>
+          </a>
+        </li>
+        <li class='Header__nav-item'>
+          <a href='/blog' class="Header__nav-item-link active">Blog</a>
+        </li>
+        <li class='Header__nav-item'>
+          <a href='/about' class="Header__nav-item-link">About</a>
+        </li>
+        <li class='Header__nav-item'>
+          <a href="https://github.com/samselikoff/ember-cli-mirage" class='Header__nav-item-link' target="_blank">GitHub</a>
+        </li>
+      </ul>
+    </nav>
+    <a class="Header__logo" href="/">
+      <span class='Header__logo-minor'>Ember CLI</span><br>
+      <span class='Header__logo-major'>Mirage</span>
+    </a>
+  </div>
+</header>
+
+
+    <div class="Wrapper">
+      <div class="Content">
+        <div class="Blog">
+  <div class='Blog__post'>
+    <div class="Blog__post-info">
+      <h1 class='Blog__title'>Serializers are ready for testing</h1>
+      <p class='Blog__byline'>October 19, 2015</p>
+      <hr class='Blog__divider'>
+    </div>
+    <div class='Blog__content'>
+      <p>Yesterday I merged in the <a href="https://github.com/samselikoff/ember-cli-mirage/commit/9927a7f7a2232ddf8df15e01991e538eefadee9c">JSON:API Serializer</a>, which is the last piece of planned work I have for the serializer layer. That means it’s ready to test! I’m sure there’s plenty I haven’t thought of yet, but I think it’s time to get some people kicking the tires.</p>
+
+<p>For the brave, I’ll be writing documentation this week about how to take advantage of the ORM and Serializer layer in your route handlers. Migration will be at your own pace: you should be able to switch over, keep old custom route handlers that access the db directly, and switch them over one at a time to use the new <code>schema</code> object - the ORM. Using a schema in your route handler lets you respond with a model or collection, which is the basis for your serializers knowing how to transform your response into an appropriately-formatted JSON payload.</p>
+
+<p>The docs should be landing soon. But, the code is already in master (since the entire ORM is opt-in) - so, for the <em>truly</em> brave, you can try this out right now, by doing something like the following:</p>
+
+<ol>
+  <li>Upgrade to master (“samselikoff/ember-cli-mirage” in your package.json)</li>
+  <li>
+    <p>Define your models. For each model create a file under <code class="highlighter-rouge">mirage/models</code> that looks like the following:</p>
+
+    <div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="c1">// mirage/models/post.js</span>
+ <span class="k">import</span> <span class="p">{</span> <span class="nx">Model</span> <span class="p">}</span> <span class="k">from</span> <span class="s1">'ember-cli-mirage'</span><span class="p">;</span>
+
+ <span class="k">export</span> <span class="k">default</span> <span class="nx">Model</span><span class="p">;</span>
+</code></pre></div>    </div>
+
+    <p>Use the singular version of your model for the filename.</p>
+  </li>
+  <li>
+    <p>Define your serializer. There are two named serializers, JSON:API and ActiveModelSerializer. You can customize these as well the basic Serializer that’s also included.</p>
+
+    <div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="c1">// mirage/serializers/application.js</span>
+ <span class="k">import</span> <span class="nx">Serializer</span> <span class="k">from</span> <span class="s1">'ember-cli-mirage/serializers/json-api-serializer'</span><span class="p">;</span>
+
+ <span class="k">export</span> <span class="k">default</span> <span class="nx">Serializer</span><span class="p">;</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Once you do the above, Mirage will now be using an ORM. This means your custom route handlers will no longer have the signature</p>
+
+    <div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="kd">function</span><span class="p">(</span><span class="nx">db</span><span class="p">,</span> <span class="nx">request</span><span class="p">)</span>
+</code></pre></div>    </div>
+
+    <p>but rather</p>
+
+    <div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="kd">function</span><span class="p">(</span><span class="nx">schema</span><span class="p">,</span> <span class="nx">request</span><span class="p">)</span>
+</code></pre></div>    </div>
+
+    <p>where <code>schema</code> is the ORM object. Fortunately, the <code>db</code> is available at <code>schema.db</code>. This means you can give your old route handlers access to the <code>db</code> by doing the following refactoring:</p>
+
+    <div class="language-diff highlighter-rouge"><div class="highlight"><pre class="highlight"><code> - this.get('/some/path', function(db, request), {
+ + this.get('/some/path', function({db}, request), {
+    // your custom route handler
+ });
+</code></pre></div>    </div>
+
+    <p>Not bad, thanks to the magic of ES6 object destructuring!</p>
+
+    <p>Additionally, the ORM standardizes the formatting of database attributes and collections. Previously, for example, the name of the database collection was based on the filename of your fixture or factory - so, you could have a collection called <code>db.blog_posts</code>. With the ORM, everything is camel-cased (we are writing JS, after all). So, this may necessitate some refactoring of your custom route handler code.</p>
+  </li>
+</ol>
+
+<p>Adding relationship support looks like this:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// mirage/models/author.js</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">Model</span><span class="p">,</span> <span class="nx">hasMany</span> <span class="p">}</span> <span class="k">from</span> <span class="s1">'ember-cli-mirage'</span><span class="p">;</span>
+
+<span class="k">export</span> <span class="k">default</span> <span class="nx">Model</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
+  <span class="na">posts</span><span class="p">:</span> <span class="nx">hasMany</span><span class="p">()</span>
+<span class="p">});</span>
+
+<span class="c1">// mirage/models/post.js</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">Model</span><span class="p">,</span> <span class="nx">belongsTo</span> <span class="p">}</span> <span class="k">from</span> <span class="s1">'ember-cli-mirage'</span><span class="p">;</span>
+
+<span class="k">export</span> <span class="k">default</span> <span class="nx">Model</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
+  <span class="na">author</span><span class="p">:</span> <span class="nx">belongsTo</span><span class="p">()</span>
+<span class="p">});</span>
+
+<span class="c1">// mirage/serializers/author.js</span>
+<span class="k">import</span> <span class="nx">ApplicationSerializer</span> <span class="k">from</span> <span class="s1">'./application'</span><span class="p">;</span>
+
+<span class="k">export</span> <span class="k">default</span> <span class="nx">ApplicationSerializer</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
+  <span class="na">relationships</span><span class="p">:</span> <span class="p">[</span><span class="s1">'posts'</span><span class="p">]</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p>and now, the GET shorthands to <code>/authors</code> should return included posts!</p>
+
+<hr />
+
+<p>That’s just a taste of what’s to come! I want to reiterate this is very new and I basically don’t suggest using it. But, if you’re feeling adventurous, dive in! I would love to hear any feedback. If you do try it out, hit me up on Slack if you have questions.</p>
+
+      
+      <div id="disqus_thread"></div>
+    </div>
+  </div>
+</div>
+
+
+<script>
+/**
+* RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+* LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+*/
+/*
+var disqus_config = function () {
+this.page.url = PAGE_URL; // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+*/
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+
+s.src = '//emberclimirage.disqus.com/embed.js';
+
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+      </div>
+    </div>
+
+    <footer class="Footer">
+  <div class="Container Grid Grid--gutters Grid--full med-Grid--fit">
+    <div class="Grid-cell">
+      <p>Project and site maintained by <a href="https://twitter.com/samselikoff">Sam Selikoff</a> and <a href="https://github.com/samselikoff/ember-cli-mirage/graphs/contributors">contributors</a>.</p>
+      <p>Sponsored by <a href="https://embermap.com/">EmberMap</a>.<p>
+    </div>
+    <div class="Grid-cell">
+      <div class="Github-stars">
+        <iframe src="https://ghbtns.com/github-btn.html?user=samselikoff&repo=ember-cli-mirage&type=star&count=true" frameborder="0" scrolling="0" width="170px" height="20px"></iframe>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/1.1.1/anchor.min.js"></script>
+<script>
+  /* global anchors */
+  // anchors.options = {
+  //   placement: 'left',
+  //   visible: 'always'
+  // };
+  anchors.add('h2:not(.Home-page__feature-heading)');
+</script>
+
+
+  </body>
+</html>

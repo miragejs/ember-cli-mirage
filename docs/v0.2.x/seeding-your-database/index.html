@@ -1,0 +1,948 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+
+  <head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      Seeding your database &middot; Ember CLI Mirage
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/style.css">
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-144-precomposed.png">
+                                 <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+
+  <body>
+    <div class="Topbar">
+      <div class="Container">
+      </div>
+    </div>
+
+    <header class="Header">
+  <div class="Container">
+    <nav class='Header__nav'>
+      <ul class='Header__nav-list'>
+        <li class='Header__nav-item'>
+          <a href='/docs/v0.4.x' class="Header__nav-item-link active">
+            <span class="u-mobile">Docs</span>
+            <span class="u-desktop">Documentation</span>
+          </a>
+        </li>
+        <li class='Header__nav-item'>
+          <a href='/blog' class="Header__nav-item-link">Blog</a>
+        </li>
+        <li class='Header__nav-item'>
+          <a href='/about' class="Header__nav-item-link">About</a>
+        </li>
+        <li class='Header__nav-item'>
+          <a href="https://github.com/samselikoff/ember-cli-mirage" class='Header__nav-item-link' target="_blank">GitHub</a>
+        </li>
+      </ul>
+    </nav>
+    <a class="Header__logo" href="/">
+      <span class='Header__logo-minor'>Ember CLI</span><br>
+      <span class='Header__logo-major'>Mirage</span>
+    </a>
+  </div>
+</header>
+
+
+    <div class="Wrapper">
+      <div class="Content">
+        
+
+<div class="Side-panel">
+
+  <div class="Mobile-nav">
+    <select class="Mobile-nav__toc" onchange="if (this.value) window.location.href=this.value">
+      <option value="">Navigate the docs...</option>
+      
+        
+
+
+  
+  <optgroup label='Getting started'>
+
+<option value="/docs/v0.2.x/">Overview</option>
+
+
+      
+        
+
+
+<option value="/docs/v0.2.x/installation/">Installation</option>
+
+
+      
+        
+
+
+<option value="/docs/v0.2.x/quickstart/">Quickstart</option>
+
+
+      
+        
+
+
+<option value="/docs/v0.2.x/upgrading/">Upgrading</option>
+
+
+      
+        
+
+
+  
+    </optgroup>
+  
+  <optgroup label='Writing your server'>
+
+<option value="/docs/v0.2.x/defining-routes/">Defining routes</option>
+
+
+      
+        
+
+
+<option value="/docs/v0.2.x/seeding-your-database/">Seeding your database</option>
+
+
+      
+        
+
+
+<option value="/docs/v0.2.x/acceptance-testing/">Acceptance testing</option>
+
+
+      
+        
+
+
+  
+    </optgroup>
+  
+  <optgroup label='API'>
+
+<option value="/docs/v0.2.x/configuration/">Configuration</option>
+
+
+      
+        
+
+
+<option value="/docs/v0.2.x/collections/">Collections</option>
+
+
+      
+        
+
+
+<option value="/docs/v0.2.x/route-handlers/">Route handlers</option>
+
+
+      
+        
+
+
+<option value="/docs/v0.2.x/database/">Database</option>
+
+
+      
+        
+
+
+<option value="/docs/v0.2.x/factories/">Factories</option>
+
+
+      
+        
+
+
+<option value="/docs/v0.2.x/fixtures/">Fixtures</option>
+
+
+      
+        
+
+
+<option value="/docs/v0.2.x/models/">Models</option>
+
+
+      
+        
+
+
+<option value="/docs/v0.2.x/schema/">Schema</option>
+
+
+      
+        
+
+
+<option value="/docs/v0.2.x/serializers/">Serializers</option>
+
+
+      
+        
+
+
+<option value="/docs/v0.2.x/shorthands/">Shorthands</option>
+
+
+      
+        
+
+
+  
+    </optgroup>
+  
+  <optgroup label='Cookbook'>
+
+<option value="/docs/v0.2.x/manually-starting-mirage/">Manually starting Mirage</option>
+
+
+      
+        
+
+
+<option value="/docs/v0.2.x/simulating-cookie-responses/">Simulating cookie responses</option>
+
+  </optgroup>
+
+
+      
+    </select>
+
+    <div class="Mobile-nav__version">
+      <span class='Mobile-nav__version-label'>Version: </span>
+      <select class='Mobile-nav__version-select' onchange="if (this.value) window.location.href=this.value">
+        
+          <option value="/docs/v0.4.x" >v0.4.x</option>
+        
+          <option value="/docs/v0.3.x" >v0.3.x</option>
+        
+          <option value="/docs/v0.2.x" selected >v0.2.x</option>
+        
+          <option value="/docs/v0.1.x" >v0.1.x</option>
+        
+          <option value="/docs/v0.0.29" >v0.0.29</option>
+        
+          <option value="/docs/v0.0.28" >v0.0.28</option>
+        
+          <option value="/docs/v0.0.27" >v0.0.27</option>
+        
+      </select>
+    </div>
+  </div>
+
+  <div class="Desktop-nav">
+    <div class="Desktop-nav__version">
+      <span class="Desktop-nav__version-label">Version: </span>
+      <select class='Desktop-nav__version-select' onchange="if (this.value) window.location.href=this.value">
+        
+        <option value="/docs/v0.4.x" >v0.4.x</option>
+        
+        <option value="/docs/v0.3.x" >v0.3.x</option>
+        
+        <option value="/docs/v0.2.x" selected >v0.2.x</option>
+        
+        <option value="/docs/v0.1.x" >v0.1.x</option>
+        
+        <option value="/docs/v0.0.29" >v0.0.29</option>
+        
+        <option value="/docs/v0.0.28" >v0.0.28</option>
+        
+        <option value="/docs/v0.0.27" >v0.0.27</option>
+        
+      </select>
+    </div>
+
+    <ul class="Desktop-nav__toc">
+      
+        
+          <li class='Desktop-nav__section'>Getting started</li>
+        
+
+        
+
+<li>
+  <a class="Desktop-nav__item " href="/docs/v0.2.x/">
+    Overview
+  </a>
+</li>
+
+      
+        
+
+        
+
+<li>
+  <a class="Desktop-nav__item " href="/docs/v0.2.x/installation/">
+    Installation
+  </a>
+</li>
+
+      
+        
+
+        
+
+<li>
+  <a class="Desktop-nav__item " href="/docs/v0.2.x/quickstart/">
+    Quickstart
+  </a>
+</li>
+
+      
+        
+
+        
+
+<li>
+  <a class="Desktop-nav__item " href="/docs/v0.2.x/upgrading/">
+    Upgrading
+  </a>
+</li>
+
+      
+        
+          <li class='Desktop-nav__section'>Writing your server</li>
+        
+
+        
+
+<li>
+  <a class="Desktop-nav__item " href="/docs/v0.2.x/defining-routes/">
+    Defining routes
+  </a>
+</li>
+
+      
+        
+
+        
+
+<li>
+  <a class="Desktop-nav__item active" href="/docs/v0.2.x/seeding-your-database/">
+    Seeding your database
+  </a>
+</li>
+
+      
+        
+
+        
+
+<li>
+  <a class="Desktop-nav__item " href="/docs/v0.2.x/acceptance-testing/">
+    Acceptance testing
+  </a>
+</li>
+
+      
+        
+          <li class='Desktop-nav__section'>API</li>
+        
+
+        
+
+<li>
+  <a class="Desktop-nav__item " href="/docs/v0.2.x/configuration/">
+    Configuration
+  </a>
+</li>
+
+      
+        
+
+        
+
+<li>
+  <a class="Desktop-nav__item " href="/docs/v0.2.x/collections/">
+    Collections
+  </a>
+</li>
+
+      
+        
+
+        
+
+<li>
+  <a class="Desktop-nav__item " href="/docs/v0.2.x/route-handlers/">
+    Route handlers
+  </a>
+</li>
+
+      
+        
+
+        
+
+<li>
+  <a class="Desktop-nav__item " href="/docs/v0.2.x/database/">
+    Database
+  </a>
+</li>
+
+      
+        
+
+        
+
+<li>
+  <a class="Desktop-nav__item " href="/docs/v0.2.x/factories/">
+    Factories
+  </a>
+</li>
+
+      
+        
+
+        
+
+<li>
+  <a class="Desktop-nav__item " href="/docs/v0.2.x/fixtures/">
+    Fixtures
+  </a>
+</li>
+
+      
+        
+
+        
+
+<li>
+  <a class="Desktop-nav__item " href="/docs/v0.2.x/models/">
+    Models
+  </a>
+</li>
+
+      
+        
+
+        
+
+<li>
+  <a class="Desktop-nav__item " href="/docs/v0.2.x/schema/">
+    Schema
+  </a>
+</li>
+
+      
+        
+
+        
+
+<li>
+  <a class="Desktop-nav__item " href="/docs/v0.2.x/serializers/">
+    Serializers
+  </a>
+</li>
+
+      
+        
+
+        
+
+<li>
+  <a class="Desktop-nav__item " href="/docs/v0.2.x/shorthands/">
+    Shorthands
+  </a>
+</li>
+
+      
+        
+          <li class='Desktop-nav__section'>Cookbook</li>
+        
+
+        
+
+<li>
+  <a class="Desktop-nav__item " href="/docs/v0.2.x/manually-starting-mirage/">
+    Manually starting Mirage
+  </a>
+</li>
+
+      
+        
+
+        
+
+<li>
+  <a class="Desktop-nav__item " href="/docs/v0.2.x/simulating-cookie-responses/">
+    Simulating cookie responses
+  </a>
+</li>
+
+      
+    </ul>
+  </div>
+</div>
+
+
+<div class="Center-panel">
+
+  <div class="Docs-page">
+    <div class='Docs-page__header'>
+      <div class="Docs-page__version">
+        <a class='Docs-page__improve' href="https://github.com/samselikoff/ember-cli-mirage/edit/gh-pages/docs/v0.2.x/seeding-your-database.md">
+          <small>
+            <img class='Docs-page__improve-img' src="/public/images/edit.png" alt="">
+            <span class='Docs-page__improve-text'>Improve this page</span>
+          </small>
+        </a>
+      </div>
+      <h1 class='Docs-page__title'>Seeding your database</h1>
+    </div>
+
+    <div class='Docs-page__content'>
+      <p>Once you’ve defined your server’s routes, you’ll probably want to seed your database with some initial data. You can use factories or fixtures, or both.</p>
+
+<p>In general Mirage recommends that you use factories, for a few reasons:</p>
+
+<ul>
+  <li>they’re versatile and give you more control over data creation</li>
+  <li>they make your tests more intention-revealing</li>
+  <li>they’re easier to maintain and change</li>
+</ul>
+
+<p>First, we’ll look at using factories.</p>
+
+<h2 id="defining-factories">Defining factories</h2>
+
+<p>If you’ve never used factories before, think of them as a way to make database records for your models. You define factories by creating files under the <code class="highlighter-rouge">/mirage/factories</code> directory. The name of the factory, which you reference in your tests, is determined by the filename.</p>
+
+<p>Factories have attributes which can be strings, numbers, booleans or functions. Let’s define a factory for our <code class="highlighter-rouge">author</code> model:</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ember g mirage-factory author
+</code></pre></div></div>
+
+<p>This creates a factory file for us. Let’s add some attributes:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// mirage/factories/author.js</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">Factory</span> <span class="p">}</span> <span class="k">from</span> <span class="s1">'ember-cli-mirage'</span><span class="p">;</span>
+
+<span class="k">export</span> <span class="k">default</span> <span class="nx">Factory</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
+  <span class="nx">name</span><span class="p">(</span><span class="nx">i</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="s2">`Author </span><span class="p">${</span><span class="nx">i</span><span class="p">}</span><span class="s2">`</span><span class="p">;</span>
+  <span class="p">},</span>
+  <span class="na">age</span><span class="p">:</span> <span class="mi">20</span><span class="p">,</span>
+  <span class="na">admin</span><span class="p">:</span> <span class="kc">false</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p>Functions take one parameter, the sequence number of the object being created. This lets you create records with dynamic attributes.</p>
+
+<p>Each time this factory is used to create an object, it will have an autogenerated <code class="highlighter-rouge">id</code> assigned to it, since it will be inserted into the database. So, the objects created from the example factory above will look like</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{id: 1, name: "Author 1", age: 20, admin: false}
+{id: 2, name: "Author 2", age: 20, admin: false}
+{id: 3, name: "Author 3", age: 20, admin: false}
+</code></pre></div></div>
+
+<p>and so on.</p>
+
+<aside class="Docs-page__aside">
+  <p>View the full <a href="../factories#using-fakerjs">faker guide</a>.</p>
+</aside>
+
+<p>Mirage also includes the Faker.js library, which pairs nicely with your factories to make your data more realistic:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// mirage/factories/author.js</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">Factory</span><span class="p">,</span> <span class="nx">faker</span> <span class="p">}</span> <span class="k">from</span> <span class="s1">'ember-cli-mirage'</span><span class="p">;</span>
+
+<span class="k">export</span> <span class="k">default</span> <span class="nx">Factory</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
+  <span class="nx">firstName</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">faker</span><span class="p">.</span><span class="nx">name</span><span class="p">.</span><span class="nx">firstName</span><span class="p">();</span>
+  <span class="p">},</span>
+  <span class="nx">lastName</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">faker</span><span class="p">.</span><span class="nx">name</span><span class="p">.</span><span class="nx">lastName</span><span class="p">();</span>
+  <span class="p">},</span>
+  <span class="nx">age</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// list method added by Mirage</span>
+    <span class="k">return</span> <span class="nx">faker</span><span class="p">.</span><span class="nx">list</span><span class="p">.</span><span class="nx">random</span><span class="p">(</span><span class="mi">18</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">28</span><span class="p">,</span> <span class="mi">32</span><span class="p">,</span> <span class="mi">45</span><span class="p">,</span> <span class="mi">60</span><span class="p">)();</span>
+  <span class="p">},</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p>Once you’ve defined your factories, you can use them to seed your database via the <code class="highlighter-rouge">server.create</code> and <code class="highlighter-rouge">server.createList</code> methods.</p>
+
+<h2 id="using-factories-in-development">Using factories in development</h2>
+
+<p>To seed your database in development, use the <code class="highlighter-rouge">mirage/scenarios/default.js</code> file that was created for you when you installed Mirage. A simple scenario may look like this:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// mirage/scenarios/default.js</span>
+<span class="k">export</span> <span class="k">default</span> <span class="kd">function</span><span class="p">(</span><span class="nx">server</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">server</span><span class="p">.</span><span class="nx">createList</span><span class="p">(</span><span class="s1">'blog-post'</span><span class="p">,</span> <span class="mi">10</span><span class="p">);</span>
+
+  <span class="kd">let</span> <span class="nx">author</span> <span class="o">=</span> <span class="nx">server</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span><span class="s1">'author'</span><span class="p">,</span> <span class="p">{</span><span class="na">name</span><span class="p">:</span> <span class="s1">'Zelda'</span><span class="p">});</span>
+  <span class="nx">server</span><span class="p">.</span><span class="nx">createList</span><span class="p">(</span><span class="s1">'blog-post'</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="p">{</span> <span class="nx">author</span> <span class="p">});</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Note that this scenario will be ignored during testing. This is so you can change your development data without affecting your tests.</p>
+
+<h2 id="using-factories-in-testing">Using factories in testing</h2>
+
+<p>During acceptance testing, Mirage’s initializer is run when your Ember app starts up, and you’ll have access to a <code class="highlighter-rouge">server</code> variable within each test. Each test will start with a clean database, so you can use <code class="highlighter-rouge">create</code> and <code class="highlighter-rouge">createList</code> to define your data on a per-test basis:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">test</span><span class="p">(</span><span class="s1">'I can view the authors'</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="nx">server</span><span class="p">.</span><span class="nx">createList</span><span class="p">(</span><span class="s1">'author'</span><span class="p">,</span> <span class="mi">3</span><span class="p">);</span>
+
+  <span class="nx">visit</span><span class="p">(</span><span class="s1">'/contacts'</span><span class="p">);</span>
+
+  <span class="nx">andThen</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">equal</span><span class="p">(</span> <span class="nx">find</span><span class="p">(</span><span class="s1">'p'</span><span class="p">).</span><span class="nx">length</span><span class="p">,</span> <span class="mi">3</span> <span class="p">);</span>
+  <span class="p">});</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p>Learn more about acceptance testing in the <a href="../acceptance-testing">next section</a>.</p>
+
+<h2 id="overriding-factory-attributes">Overriding factory attributes</h2>
+
+<p><code class="highlighter-rouge">create</code> and <code class="highlighter-rouge">createList</code> use the attributes you’ve defined on your factory to create the model; however, it’s often convenient to override these attributes at the time of creation.</p>
+
+<p>To override attributes, pass in an object as the last argument to <code class="highlighter-rouge">create</code> or <code class="highlighter-rouge">createList</code> with the attributes you want to override. For instance, if we had the following factory definition</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// mirage/factories/author.js</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">Factory</span> <span class="p">}</span> <span class="k">from</span> <span class="s1">'ember-cli-mirage'</span><span class="p">;</span>
+
+<span class="k">export</span> <span class="k">default</span> <span class="nx">Factory</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
+  <span class="na">age</span><span class="p">:</span> <span class="mi">20</span><span class="p">,</span>
+  <span class="na">admin</span><span class="p">:</span> <span class="kc">false</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p>then by default authors created from this factory would have an <code class="highlighter-rouge">admin</code> attribute of <code class="highlighter-rouge">false</code> and an <code class="highlighter-rouge">age</code> of 20:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">author</span> <span class="o">=</span> <span class="nx">server</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span><span class="s1">'author'</span><span class="p">);</span>
+<span class="nx">author</span><span class="p">.</span><span class="nx">admin</span> <span class="c1">// false</span>
+<span class="nx">author</span><span class="p">.</span><span class="nx">age</span>   <span class="c1">// 20</span>
+</code></pre></div></div>
+
+<p>If we wanted to make an admin, we could do the following:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">author</span> <span class="o">=</span> <span class="nx">server</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span><span class="s1">'author'</span><span class="p">,</span> <span class="p">{</span> <span class="na">admin</span><span class="p">:</span> <span class="kc">true</span> <span class="p">});</span>
+<span class="nx">author</span><span class="p">.</span><span class="nx">admin</span> <span class="c1">// true</span>
+<span class="nx">author</span><span class="p">.</span><span class="nx">age</span>   <span class="c1">// 20</span>
+</code></pre></div></div>
+
+<p>We can also override multiple attributes:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">author</span> <span class="o">=</span> <span class="nx">server</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span><span class="s1">'author'</span><span class="p">,</span> <span class="p">{</span> <span class="na">admin</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span> <span class="na">age</span><span class="p">:</span> <span class="mi">30</span> <span class="p">});</span>
+<span class="nx">author</span><span class="p">.</span><span class="nx">admin</span> <span class="c1">// true</span>
+<span class="nx">author</span><span class="p">.</span><span class="nx">age</span>   <span class="c1">// 30</span>
+</code></pre></div></div>
+
+<h2 id="relationships-with-factories">Relationships with factories</h2>
+
+<p>You can also create related data with factories. Assuming you have the relationships defined on your models, you can pass in related data as an override:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">author</span> <span class="o">=</span> <span class="nx">server</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span><span class="s1">'author'</span><span class="p">);</span>
+<span class="nx">server</span><span class="p">.</span><span class="nx">createList</span><span class="p">(</span><span class="s1">'post'</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="p">{</span> <span class="nx">author</span> <span class="p">});</span>
+</code></pre></div></div>
+
+<p>Now that the foreign keys are set up, your models, shorthand routes and serializers should work as expected.</p>
+
+<hr />
+
+<h2 id="fixtures">Fixtures</h2>
+
+<p>You can also choose to use fixtures instead of (or in addition to) factories. If you’ve never used fixtures before, think of a fixture file as a database table. To add data to your <code class="highlighter-rouge">authors</code> table, for instance, create the file <code class="highlighter-rouge">/mirage/fixtures/authors.js</code>:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// /mirage/fixtures/authors.js</span>
+<span class="k">export</span> <span class="k">default</span> <span class="p">[</span>
+  <span class="p">{</span><span class="na">id</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="na">firstName</span><span class="p">:</span> <span class="s1">'Link'</span><span class="p">},</span>
+  <span class="p">{</span><span class="na">id</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="na">firstName</span><span class="p">:</span> <span class="s1">'Zelda'</span><span class="p">},</span>
+  <span class="p">{</span><span class="na">id</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="na">firstName</span><span class="p">:</span> <span class="s1">'Epona'</span><span class="p">}</span>
+<span class="p">];</span>
+</code></pre></div></div>
+
+<p>Fixture filenames are always plural, and export arrays of POJOs. During development, this data will be added to Mirage’s database and will be available in route handlers via <code class="highlighter-rouge">db.authors</code>.</p>
+
+<p>Use the <code class="highlighter-rouge">server.loadFixtures()</code> API to load some or all of your fixture files in development (by calling it from <code class="highlighter-rouge">scenario/default.js</code>) or from within a test. <a href="../configuration/#loadFixtures">See the guide</a> for more info.</p>
+
+<h2 id="relationships-with-fixtures">Relationships with fixtures</h2>
+
+<p>To create related data, you’ll need to manage the foreign keys yourself. Let’s look at an example.</p>
+
+<p>Suppose an <code class="highlighter-rouge">author</code> has many <code class="highlighter-rouge">blogPosts</code>. Your fixture data may look like this:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// /mirage/fixtures/authors.js</span>
+<span class="k">export</span> <span class="k">default</span> <span class="p">[</span>
+  <span class="p">{</span><span class="na">id</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="na">firstName</span><span class="p">:</span> <span class="s1">'Link'</span><span class="p">},</span>
+  <span class="p">{</span><span class="na">id</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="na">firstName</span><span class="p">:</span> <span class="s1">'Zelda'</span><span class="p">}</span>
+<span class="p">];</span>
+
+<span class="c1">// /mirage/fixtures/blog-posts.js</span>
+<span class="k">export</span> <span class="k">default</span> <span class="p">[</span>
+  <span class="p">{</span><span class="na">id</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="na">title</span><span class="p">:</span> <span class="s1">'Lorem'</span><span class="p">,</span> <span class="na">authorId</span><span class="p">:</span> <span class="mi">1</span><span class="p">},</span>
+  <span class="p">{</span><span class="na">id</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="na">title</span><span class="p">:</span> <span class="s1">'Ipsum'</span><span class="p">,</span> <span class="na">authorId</span><span class="p">:</span> <span class="mi">1</span><span class="p">},</span>
+  <span class="p">{</span><span class="na">id</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="na">title</span><span class="p">:</span> <span class="s1">'Dolor'</span><span class="p">,</span> <span class="na">authorId</span><span class="p">:</span> <span class="mi">2</span><span class="p">}</span>
+<span class="p">];</span>
+</code></pre></div></div>
+
+<hr />
+
+<p>You should now know how to seed your database with data, both during development and testing! Let’s wrap up with a look at how to use your shiny new client-side server to write some acceptance tests for your Ember app.</p>
+
+    </div>
+
+    
+
+<div class='Docs-page-nav'>
+  
+    
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+      
+      
+      
+        
+  
+         <a class="Docs-page-nav__link u-first" href="/docs/v0.2.x/defining-routes/">< Defining routes</a>
+      
+  
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+      
+      
+      
+        
+  
+         <a class="Docs-page-nav__link u-last" href="/docs/v0.2.x/acceptance-testing/">Acceptance testing ></a>
+      
+  
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+</div>
+
+  </div>
+</div>
+
+      </div>
+    </div>
+
+    <footer class="Footer">
+  <div class="Container Grid Grid--gutters Grid--full med-Grid--fit">
+    <div class="Grid-cell">
+      <p>Project and site maintained by <a href="https://twitter.com/samselikoff">Sam Selikoff</a> and <a href="https://github.com/samselikoff/ember-cli-mirage/graphs/contributors">contributors</a>.</p>
+      <p>Sponsored by <a href="https://embermap.com/">EmberMap</a>.<p>
+    </div>
+    <div class="Grid-cell">
+      <div class="Github-stars">
+        <iframe src="https://ghbtns.com/github-btn.html?user=samselikoff&repo=ember-cli-mirage&type=star&count=true" frameborder="0" scrolling="0" width="170px" height="20px"></iframe>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/1.1.1/anchor.min.js"></script>
+<script>
+  /* global anchors */
+  // anchors.options = {
+  //   placement: 'left',
+  //   visible: 'always'
+  // };
+  anchors.add('h2:not(.Home-page__feature-heading)');
+</script>
+
+
+  </body>
+</html>

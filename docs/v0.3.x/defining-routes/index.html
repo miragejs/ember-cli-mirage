@@ -1,0 +1,1092 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+
+  <head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      Defining routes &middot; Ember CLI Mirage
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/style.css">
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-144-precomposed.png">
+                                 <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+
+  <body>
+    <div class="Topbar">
+      <div class="Container">
+      </div>
+    </div>
+
+    <header class="Header">
+  <div class="Container">
+    <nav class='Header__nav'>
+      <ul class='Header__nav-list'>
+        <li class='Header__nav-item'>
+          <a href='/docs/v0.4.x' class="Header__nav-item-link active">
+            <span class="u-mobile">Docs</span>
+            <span class="u-desktop">Documentation</span>
+          </a>
+        </li>
+        <li class='Header__nav-item'>
+          <a href='/blog' class="Header__nav-item-link">Blog</a>
+        </li>
+        <li class='Header__nav-item'>
+          <a href='/about' class="Header__nav-item-link">About</a>
+        </li>
+        <li class='Header__nav-item'>
+          <a href="https://github.com/samselikoff/ember-cli-mirage" class='Header__nav-item-link' target="_blank">GitHub</a>
+        </li>
+      </ul>
+    </nav>
+    <a class="Header__logo" href="/">
+      <span class='Header__logo-minor'>Ember CLI</span><br>
+      <span class='Header__logo-major'>Mirage</span>
+    </a>
+  </div>
+</header>
+
+
+    <div class="Wrapper">
+      <div class="Content">
+        
+
+<div class="Side-panel">
+
+  <div class="Mobile-nav">
+    <select class="Mobile-nav__toc" onchange="if (this.value) window.location.href=this.value">
+      <option value="">Navigate the docs...</option>
+      
+        
+
+
+  
+  <optgroup label='Getting started'>
+
+<option value="/docs/v0.3.x/">Overview</option>
+
+
+      
+        
+
+
+<option value="/docs/v0.3.x/installation/">Installation</option>
+
+
+      
+        
+
+
+<option value="/docs/v0.3.x/quickstart/">Quickstart</option>
+
+
+      
+        
+
+
+<option value="/docs/v0.3.x/upgrading/">Upgrading</option>
+
+
+      
+        
+
+
+  
+    </optgroup>
+  
+  <optgroup label='Writing your server'>
+
+<option value="/docs/v0.3.x/defining-routes/">Defining routes</option>
+
+
+      
+        
+
+
+<option value="/docs/v0.3.x/seeding-your-database/">Seeding your database</option>
+
+
+      
+        
+
+
+<option value="/docs/v0.3.x/acceptance-testing/">Acceptance testing</option>
+
+
+      
+        
+
+
+  
+    </optgroup>
+  
+  <optgroup label='API'>
+
+<option value="/docs/v0.3.x/configuration/">Configuration</option>
+
+
+      
+        
+
+
+<option value="/docs/v0.3.x/collections/">Collections</option>
+
+
+      
+        
+
+
+<option value="/docs/v0.3.x/route-handlers/">Route handlers</option>
+
+
+      
+        
+
+
+<option value="/docs/v0.3.x/database/">Database</option>
+
+
+      
+        
+
+
+<option value="/docs/v0.3.x/factories/">Factories</option>
+
+
+      
+        
+
+
+<option value="/docs/v0.3.x/fixtures/">Fixtures</option>
+
+
+      
+        
+
+
+<option value="/docs/v0.3.x/models/">Models</option>
+
+
+      
+        
+
+
+<option value="/docs/v0.3.x/schema/">Schema</option>
+
+
+      
+        
+
+
+<option value="/docs/v0.3.x/serializers/">Serializers</option>
+
+
+      
+        
+
+
+<option value="/docs/v0.3.x/shorthands/">Shorthands</option>
+
+
+      
+        
+
+
+  
+    </optgroup>
+  
+  <optgroup label='Cookbook'>
+
+<option value="/docs/v0.3.x/manually-starting-mirage/">Manually starting Mirage</option>
+
+
+      
+        
+
+
+<option value="/docs/v0.3.x/simulating-cookie-responses/">Simulating cookie responses</option>
+
+  </optgroup>
+
+
+      
+    </select>
+
+    <div class="Mobile-nav__version">
+      <span class='Mobile-nav__version-label'>Version: </span>
+      <select class='Mobile-nav__version-select' onchange="if (this.value) window.location.href=this.value">
+        
+          <option value="/docs/v0.4.x" >v0.4.x</option>
+        
+          <option value="/docs/v0.3.x" selected >v0.3.x</option>
+        
+          <option value="/docs/v0.2.x" >v0.2.x</option>
+        
+          <option value="/docs/v0.1.x" >v0.1.x</option>
+        
+          <option value="/docs/v0.0.29" >v0.0.29</option>
+        
+          <option value="/docs/v0.0.28" >v0.0.28</option>
+        
+          <option value="/docs/v0.0.27" >v0.0.27</option>
+        
+      </select>
+    </div>
+  </div>
+
+  <div class="Desktop-nav">
+    <div class="Desktop-nav__version">
+      <span class="Desktop-nav__version-label">Version: </span>
+      <select class='Desktop-nav__version-select' onchange="if (this.value) window.location.href=this.value">
+        
+        <option value="/docs/v0.4.x" >v0.4.x</option>
+        
+        <option value="/docs/v0.3.x" selected >v0.3.x</option>
+        
+        <option value="/docs/v0.2.x" >v0.2.x</option>
+        
+        <option value="/docs/v0.1.x" >v0.1.x</option>
+        
+        <option value="/docs/v0.0.29" >v0.0.29</option>
+        
+        <option value="/docs/v0.0.28" >v0.0.28</option>
+        
+        <option value="/docs/v0.0.27" >v0.0.27</option>
+        
+      </select>
+    </div>
+
+    <ul class="Desktop-nav__toc">
+      
+        
+          <li class='Desktop-nav__section'>Getting started</li>
+        
+
+        
+
+<li>
+  <a class="Desktop-nav__item " href="/docs/v0.3.x/">
+    Overview
+  </a>
+</li>
+
+      
+        
+
+        
+
+<li>
+  <a class="Desktop-nav__item " href="/docs/v0.3.x/installation/">
+    Installation
+  </a>
+</li>
+
+      
+        
+
+        
+
+<li>
+  <a class="Desktop-nav__item " href="/docs/v0.3.x/quickstart/">
+    Quickstart
+  </a>
+</li>
+
+      
+        
+
+        
+
+<li>
+  <a class="Desktop-nav__item " href="/docs/v0.3.x/upgrading/">
+    Upgrading
+  </a>
+</li>
+
+      
+        
+          <li class='Desktop-nav__section'>Writing your server</li>
+        
+
+        
+
+<li>
+  <a class="Desktop-nav__item active" href="/docs/v0.3.x/defining-routes/">
+    Defining routes
+  </a>
+</li>
+
+      
+        
+
+        
+
+<li>
+  <a class="Desktop-nav__item " href="/docs/v0.3.x/seeding-your-database/">
+    Seeding your database
+  </a>
+</li>
+
+      
+        
+
+        
+
+<li>
+  <a class="Desktop-nav__item " href="/docs/v0.3.x/acceptance-testing/">
+    Acceptance testing
+  </a>
+</li>
+
+      
+        
+          <li class='Desktop-nav__section'>API</li>
+        
+
+        
+
+<li>
+  <a class="Desktop-nav__item " href="/docs/v0.3.x/configuration/">
+    Configuration
+  </a>
+</li>
+
+      
+        
+
+        
+
+<li>
+  <a class="Desktop-nav__item " href="/docs/v0.3.x/collections/">
+    Collections
+  </a>
+</li>
+
+      
+        
+
+        
+
+<li>
+  <a class="Desktop-nav__item " href="/docs/v0.3.x/route-handlers/">
+    Route handlers
+  </a>
+</li>
+
+      
+        
+
+        
+
+<li>
+  <a class="Desktop-nav__item " href="/docs/v0.3.x/database/">
+    Database
+  </a>
+</li>
+
+      
+        
+
+        
+
+<li>
+  <a class="Desktop-nav__item " href="/docs/v0.3.x/factories/">
+    Factories
+  </a>
+</li>
+
+      
+        
+
+        
+
+<li>
+  <a class="Desktop-nav__item " href="/docs/v0.3.x/fixtures/">
+    Fixtures
+  </a>
+</li>
+
+      
+        
+
+        
+
+<li>
+  <a class="Desktop-nav__item " href="/docs/v0.3.x/models/">
+    Models
+  </a>
+</li>
+
+      
+        
+
+        
+
+<li>
+  <a class="Desktop-nav__item " href="/docs/v0.3.x/schema/">
+    Schema
+  </a>
+</li>
+
+      
+        
+
+        
+
+<li>
+  <a class="Desktop-nav__item " href="/docs/v0.3.x/serializers/">
+    Serializers
+  </a>
+</li>
+
+      
+        
+
+        
+
+<li>
+  <a class="Desktop-nav__item " href="/docs/v0.3.x/shorthands/">
+    Shorthands
+  </a>
+</li>
+
+      
+        
+          <li class='Desktop-nav__section'>Cookbook</li>
+        
+
+        
+
+<li>
+  <a class="Desktop-nav__item " href="/docs/v0.3.x/manually-starting-mirage/">
+    Manually starting Mirage
+  </a>
+</li>
+
+      
+        
+
+        
+
+<li>
+  <a class="Desktop-nav__item " href="/docs/v0.3.x/simulating-cookie-responses/">
+    Simulating cookie responses
+  </a>
+</li>
+
+      
+    </ul>
+  </div>
+</div>
+
+
+<div class="Center-panel">
+
+  <div class="Docs-page">
+    <div class='Docs-page__header'>
+      <div class="Docs-page__version">
+        <a class='Docs-page__improve' href="https://github.com/samselikoff/ember-cli-mirage/edit/gh-pages/docs/v0.3.x/defining-routes.md">
+          <small>
+            <img class='Docs-page__improve-img' src="/public/images/edit.png" alt="">
+            <span class='Docs-page__improve-text'>Improve this page</span>
+          </small>
+        </a>
+      </div>
+      <h1 class='Docs-page__title'>Defining routes</h1>
+    </div>
+
+    <div class='Docs-page__content'>
+      <p>To define routes for your server, use the <code class="highlighter-rouge">get</code>, <code class="highlighter-rouge">post</code>, <code class="highlighter-rouge">put</code> (or <code class="highlighter-rouge">patch</code>) and <code class="highlighter-rouge">del</code> methods. Here’s an example:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// mirage/config.js</span>
+<span class="k">this</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="s1">'/authors'</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="p">[</span><span class="s1">'Link'</span><span class="p">,</span> <span class="s1">'Zelda'</span><span class="p">,</span> <span class="s1">'Epona'</span><span class="p">];</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p>Now when your Ember app makes a GET request to <code class="highlighter-rouge">/authors</code>, it will receive this data.</p>
+
+<p>Each verb method has the same signature. The first argument is the path (URL) and the second is the actual function handler that returns the response:</p>
+
+<p class="u-callout">this.<strong>verb</strong>( <em>path</em>, <em>handler</em> )</p>
+
+<p>Here are some more examples:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">this</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="s1">'/users/current'</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="p">{</span>
+    <span class="na">name</span><span class="p">:</span> <span class="s1">'Zelda'</span><span class="p">,</span>
+    <span class="na">email</span><span class="p">:</span> <span class="s1">'z@hyrule.org'</span>
+  <span class="p">};</span>
+<span class="p">});</span>
+
+<span class="k">this</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="s1">'/events'</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="kd">let</span> <span class="nx">events</span> <span class="o">=</span> <span class="p">[];</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="mi">1000</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">events</span><span class="p">.</span><span class="nx">push</span><span class="p">({</span><span class="na">id</span><span class="p">:</span> <span class="nx">i</span><span class="p">,</span> <span class="na">value</span><span class="p">:</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">random</span><span class="p">()});</span>
+  <span class="p">};</span>
+
+  <span class="k">return</span> <span class="nx">events</span><span class="p">;</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<h2 id="working-with-models">Working with Models</h2>
+
+<p>In the examples above, we wrote the response data directly in the route. Instead of doing this, Mirage provides a simple in-memory database you can use to make your routes more versatile.</p>
+
+<p>In previous versions of Mirage, you interacted with the database directly in your route handlers. Models were introduced as a wrapper around the database to provide better means for dealing with associations and formatting responses, which we’ll get to shortly. For now, it’s enough to know that models are the primary way you interact with Mirage’s database.</p>
+
+<p>So, let’s first define an <code class="highlighter-rouge">author</code> model. We can do this from the command line:</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ember g mirage-model author
+</code></pre></div></div>
+
+<p>This gives us the file</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// mirage/models/author.js</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">Model</span> <span class="p">}</span> <span class="k">from</span> <span class="s1">'ember-cli-mirage'</span><span class="p">;</span>
+
+<span class="k">export</span> <span class="k">default</span> <span class="nx">Model</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>which sets up our database (at run-time) with an <code class="highlighter-rouge">authors</code> table. Now we can rewrite our route handler to use the model.</p>
+
+<p>A <code class="highlighter-rouge">schema</code> object is injected into each route handler as the first parameter, which is how we access our models. Let’s use it to make this route dynamic:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// mirage/config.js</span>
+<span class="k">this</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="s1">'/authors'</span><span class="p">,</span> <span class="p">(</span><span class="nx">schema</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="nx">schema</span><span class="p">.</span><span class="nx">authors</span><span class="p">.</span><span class="nx">all</span><span class="p">();</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<aside class="Docs-page__aside">
+  <p>You'll learn how to seed your database with initial data in the next section.</p>
+</aside>
+
+<p>Now, Mirage will respond to this route with all the <code class="highlighter-rouge">author</code> models in its database.</p>
+
+<p>You can also create, update and delete models from your route handlers. A <code class="highlighter-rouge">request</code> object is injected as the second parameter, which contains any data that was sent along with the request.</p>
+
+<p>Let’s say your Ember app creates an author by sending a POST request with the following payload:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{
+  author: {
+    name: 'Link',
+    age: 123
+  }
+}
+</code></pre></div></div>
+
+<p>We can use this data to create a new <code class="highlighter-rouge">author</code> model:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">this</span><span class="p">.</span><span class="nx">post</span><span class="p">(</span><span class="s1">'/authors'</span><span class="p">,</span> <span class="p">(</span><span class="nx">schema</span><span class="p">,</span> <span class="nx">request</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="nx">attrs</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">request</span><span class="p">.</span><span class="nx">requestBody</span><span class="p">).</span><span class="nx">author</span><span class="p">;</span>
+
+  <span class="k">return</span> <span class="nx">schema</span><span class="p">.</span><span class="nx">authors</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span><span class="nx">attrs</span><span class="p">);</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p>This handler creates a new author, inserts it into the database (which assigns it an <code class="highlighter-rouge">id</code>), and responds with that record.</p>
+
+<aside class="Docs-page__aside">
+  <p>View the <a href="../models">full Model API</a> to see how your routes can interact with your data.</p>
+</aside>
+
+<p>As long as all your Mirage routes read from and write to the database, user interactions will persist during a single session. This lets users interact with your app as if it were wired up to a real server.</p>
+
+<h2 id="dynamic-paths-and-query-params">Dynamic paths and query params</h2>
+
+<p>The request object that’s injected into your route handlers contains any dynamic route segments and query params.</p>
+
+<p>To define a route that has a dynamic segment, use colon syntax (<code class="highlighter-rouge">:segment</code>) in your path. The dynamic piece will be available via <code class="highlighter-rouge">request.params.[segment]</code>:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">this</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="s1">'/authors/:id'</span><span class="p">,</span> <span class="p">(</span><span class="nx">schema</span><span class="p">,</span> <span class="nx">request</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">id</span> <span class="o">=</span> <span class="nx">request</span><span class="p">.</span><span class="nx">params</span><span class="p">.</span><span class="nx">id</span><span class="p">;</span>
+
+  <span class="k">return</span> <span class="nx">schema</span><span class="p">.</span><span class="nx">authors</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="nx">id</span><span class="p">);</span>
+<span class="p">})</span>
+</code></pre></div></div>
+
+<p>Query params from the request can also be accessed via <code class="highlighter-rouge">request.queryParams.[param]</code>.</p>
+
+<p>Mirage uses Pretender.js to intercept HTTP requests, so check out <a href="https://github.com/trek/pretender">its docs</a> to see the full API for the request object.</p>
+
+<h2 id="using-shorthands">Using shorthands</h2>
+
+<p>APIs have become more standardized, so Mirage has the concept of <em>shorthands</em> to deal with common scenarios. These shorthands can replace many of your custom route handlers, dramatically simplifying your server definition.</p>
+
+<p>For example, the route handler we wrote above to handle a GET request to <code class="highlighter-rouge">/authors</code></p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">this</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="s1">'/authors'</span><span class="p">,</span> <span class="p">(</span><span class="nx">schema</span><span class="p">,</span> <span class="nx">request</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="nx">schema</span><span class="p">.</span><span class="nx">authors</span><span class="p">.</span><span class="nx">all</span><span class="p">();</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p>is pretty standard: it responds with a named collection. The shorthand form of this is</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">this</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="s1">'/authors'</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>which infers the collection name from the last part of the URL. Returning a single author by id is just as easy:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">this</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="s1">'/authors/:id'</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>Similarly, we wrote a route handler by hand to deal with creating an author</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">this</span><span class="p">.</span><span class="nx">post</span><span class="p">(</span><span class="s1">'/authors'</span><span class="p">,</span> <span class="p">(</span><span class="nx">schema</span><span class="p">,</span> <span class="nx">request</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="nx">attrs</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">request</span><span class="p">.</span><span class="nx">requestBody</span><span class="p">).</span><span class="nx">author</span><span class="p">;</span>
+
+  <span class="k">return</span> <span class="nx">schema</span><span class="p">.</span><span class="nx">authors</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span><span class="nx">attrs</span><span class="p">);</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p>which is also pretty standard: it creates a new model using the attributes from the request payload. The equivalent shorthand is</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">this</span><span class="p">.</span><span class="nx">post</span><span class="p">(</span><span class="s1">'/authors'</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>View the <a href="../shorthands">full reference</a> to see all available shorthands.</p>
+
+<h2 id="formatting-your-response-with-serializers">Formatting your response with Serializers</h2>
+
+<p>When you return a model or a collection from a route handler, Mirage <em>serializes</em> it into a JSON payload, and then responds to your Ember app with that payload. It uses an object called a Serializer to do this, which you can customize. Having a single object that’s responsible for this formatting logic helps keep your route handlers simple. In particular, a bit of customization in the serializer layer often lets you use shorthands when you otherwise wouldn’t be able to.</p>
+
+<p>Mirage ships with three named serializers, JsonApiSerializer (used to implement <a href="http://jsonapi.org/">JSON:API</a>), ActiveModelSerializer (used to simulate Rails servers using ActiveModel::Serializers) and RestSerializer (use to match Ember Data’s RestSerializer expected response format). You should use these if your app’s backend will be built to conform to either standard.</p>
+
+<p>Additionally, there’s a basic Serializer class that you can use and customize. By default, it takes all the attributes of your model, and returns them under a root key of the model type. Suppose you had the following author in your database:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{
+  id: 1,
+  firstName: 'Keyser',
+  lastName: 'Soze'
+  age: 145
+}
+</code></pre></div></div>
+
+<p>and you had this route</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">this</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="s1">'/authors/:id'</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>The response would look like this:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>GET /authors/1
+
+{
+  author: {
+    id: 1,
+    firstName: 'Keyser',
+    lastName: 'Soze',
+    age: 145
+  }
+}
+</code></pre></div></div>
+
+<p>Remember, your Mirage server should mimic your backend server. Let’s say your backend server returns dasherized object keys instead of camel cased. You can customize the response by extending the base Serializer and overwriting <code class="highlighter-rouge">keyForAttribute</code>:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// mirage/serializers/application.js</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">Serializer</span> <span class="p">}</span> <span class="k">from</span> <span class="s1">'ember-cli-mirage'</span><span class="p">;</span>
+<span class="k">import</span> <span class="nx">Ember</span> <span class="k">from</span> <span class="s1">'ember'</span><span class="p">;</span>
+
+<span class="kd">const</span> <span class="p">{</span> <span class="nx">dasherize</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">Ember</span><span class="p">.</span><span class="nb">String</span><span class="p">;</span>
+
+<span class="k">export</span> <span class="k">default</span> <span class="nx">Serializer</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
+
+  <span class="nx">keyForAttribute</span><span class="p">(</span><span class="nx">key</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">dasherize</span><span class="p">(</span><span class="nx">key</span><span class="p">);</span>
+  <span class="p">}</span>
+
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p>Now, without having to edit your route handler, the response would look like this:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>GET /authors/1
+
+{
+  author: {
+    id: 1,
+    'first-name': 'Keyser',
+    'last-name': 'Soze',
+    age: 145
+  }
+}
+</code></pre></div></div>
+
+<p>Just like in Ember, the <code class="highlighter-rouge">serializers/application.js</code> file will apply to all your responses. You can also create per-model serializers, for example to include only some attributes:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// mirage/serializers/author.js</span>
+<span class="k">import</span> <span class="nx">ApplicationSerializer</span> <span class="k">from</span> <span class="s1">'./application'</span><span class="p">;</span>
+
+<span class="k">export</span> <span class="k">default</span> <span class="nx">ApplicationSerializer</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
+
+  <span class="na">attributes</span><span class="p">:</span> <span class="p">[</span><span class="s1">'firstName'</span><span class="p">]</span>
+
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p>View the <a href="../serializers">full Serializer API</a> to learn more about customizing your responses.</p>
+
+<h2 id="associations">Associations</h2>
+
+<p>You can define associations between your models, which makes dealing with related data easier. For example, let’s say an author has many posts, and when you delete an author your server also deletes all the related posts.</p>
+
+<p>We can define the relationship on our author model:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// mirage/models/author.js</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">Model</span><span class="p">,</span> <span class="nx">hasMany</span> <span class="p">}</span> <span class="k">from</span> <span class="s1">'ember-cli-mirage'</span><span class="p">;</span>
+
+<span class="k">export</span> <span class="k">default</span> <span class="nx">Model</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
+  <span class="na">posts</span><span class="p">:</span> <span class="nx">hasMany</span><span class="p">()</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">hasMany</code> tells Mirage to manage a <code class="highlighter-rouge">postIds: []</code> array on our author model. Now, our route handler for deleting an author looks like this:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">this</span><span class="p">.</span><span class="nx">del</span><span class="p">(</span><span class="s1">'/authors/:id'</span><span class="p">,</span> <span class="p">(</span><span class="nx">schema</span><span class="p">,</span> <span class="nx">request</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="kd">let</span> <span class="nx">author</span> <span class="o">=</span> <span class="nx">schema</span><span class="p">.</span><span class="nx">authors</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="nx">request</span><span class="p">.</span><span class="nx">params</span><span class="p">.</span><span class="nx">id</span><span class="p">);</span>
+
+  <span class="nx">author</span><span class="p">.</span><span class="nx">posts</span><span class="p">.</span><span class="k">delete</span><span class="p">();</span>
+  <span class="nx">author</span><span class="p">.</span><span class="k">delete</span><span class="p">();</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p>A response with DELETE’s default status code of 200 would then be returned.</p>
+
+<p>Associations are also useful in combination with serializers. With the relationship defined above on our <code class="highlighter-rouge">author</code> model, we can use a shorthand and a custom serializer to sideload an author’s related posts:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// mirage/config.js</span>
+<span class="k">this</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="s1">'/authors/:id'</span><span class="p">);</span>
+
+<span class="c1">// mirage/serializers/author.js</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">Serializer</span> <span class="p">}</span> <span class="k">from</span> <span class="s1">'ember-cli-mirage'</span><span class="p">;</span>
+
+<span class="k">export</span> <span class="k">default</span> <span class="nx">Serializer</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
+  <span class="na">include</span><span class="p">:</span> <span class="p">[</span><span class="s1">'posts'</span><span class="p">]</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p>Now a request for an author responds with the following:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>GET /authors/1
+
+{
+  author: {
+    id: 1,
+    name: 'Link'
+  },
+  posts: [
+    {id: 1, authorId: 1, title: "The Beauty of Hyrule"},
+    {id: 2, authorId: 1, title: "Really, I'm an Elf!"},
+    {id: 3, authorId: 1, title: "Ganondorf is my Father"}
+  ]
+}
+</code></pre></div></div>
+
+<aside class="Docs-page__aside">
+  <p>camelCased attributes let you stick to conventional JavaScript when working with models in your route handler and scenario code.</p>
+</aside>
+
+<p>Mirage’s database uses camelCase for all model attributes, including foreign keys (e.g. <code class="highlighter-rouge">authorId</code> in the example above), but you can customize the format that gets sent in the response by overwriting your serializer’s <code class="highlighter-rouge">keyForRelatedCollection</code>. See <a href="../serializers">the serializer guide</a> for more details.</p>
+
+<h2 id="dynamic-status-codes-and-http-headers">Dynamic status codes and HTTP headers</h2>
+
+<p>By default, Mirage sets the HTTP code of a response based on the verb being used:</p>
+
+<ul>
+  <li><code class="highlighter-rouge">get</code>, <code class="highlighter-rouge">put</code> and <code class="highlighter-rouge">del</code> are 200</li>
+  <li><code class="highlighter-rouge">post</code> is 201</li>
+</ul>
+
+<p>Additionally, a header for <code class="highlighter-rouge">Content-Type</code> is set to <code class="highlighter-rouge">application/json</code>.</p>
+
+<p>You can customize both the response code and headers by returning a <code class="highlighter-rouge">Response</code> in your route handler:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// app/mirage/config.js</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">Response</span> <span class="p">}</span> <span class="k">from</span> <span class="s1">'ember-cli-mirage'</span><span class="p">;</span>
+
+<span class="k">export</span> <span class="k">default</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">post</span><span class="p">(</span><span class="s1">'/authors'</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">schema</span><span class="p">,</span> <span class="nx">request</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">let</span> <span class="nx">attrs</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">request</span><span class="p">.</span><span class="nx">requestBody</span><span class="p">).</span><span class="nx">author</span><span class="p">;</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="nx">attrs</span><span class="p">.</span><span class="nx">name</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="nx">schema</span><span class="p">.</span><span class="nx">authors</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span><span class="nx">attrs</span><span class="p">);</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="k">new</span> <span class="nx">Response</span><span class="p">(</span><span class="mi">400</span><span class="p">,</span> <span class="p">{</span><span class="na">some</span><span class="p">:</span> <span class="s1">'header'</span><span class="p">},</span> <span class="p">{</span><span class="na">errors</span><span class="p">:</span> <span class="p">[</span><span class="s1">'name cannot be blank'</span><span class="p">]});</span>
+    <span class="p">}</span>
+  <span class="p">});</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="fully-qualified-urls">Fully qualified URLs</h2>
+
+<p>Route handlers for paths without a domain (e.g. <code class="highlighter-rouge">this.get('/authors')</code>) work for requests that target the current domain. To simulate other-origin requests, specify the fully qualified URL for your route handler:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">this</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="s1">'https://api.github.com/users/samselikoff/events'</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="p">[];</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<hr />
+
+<p>That’s the essentials of defining your routes. Next, you’ll learn how to seed your database with some starting data, both in development and within tests.</p>
+
+    </div>
+
+    
+
+<div class='Docs-page-nav'>
+  
+    
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+      
+      
+      
+        
+  
+         <a class="Docs-page-nav__link u-first" href="/docs/v0.3.x/upgrading/">< Upgrading</a>
+      
+  
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+      
+      
+      
+        
+  
+         <a class="Docs-page-nav__link u-last" href="/docs/v0.3.x/seeding-your-database/">Seeding your database ></a>
+      
+  
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+</div>
+
+  </div>
+</div>
+
+      </div>
+    </div>
+
+    <footer class="Footer">
+  <div class="Container Grid Grid--gutters Grid--full med-Grid--fit">
+    <div class="Grid-cell">
+      <p>Project and site maintained by <a href="https://twitter.com/samselikoff">Sam Selikoff</a> and <a href="https://github.com/samselikoff/ember-cli-mirage/graphs/contributors">contributors</a>.</p>
+      <p>Sponsored by <a href="https://embermap.com/">EmberMap</a>.<p>
+    </div>
+    <div class="Grid-cell">
+      <div class="Github-stars">
+        <iframe src="https://ghbtns.com/github-btn.html?user=samselikoff&repo=ember-cli-mirage&type=star&count=true" frameborder="0" scrolling="0" width="170px" height="20px"></iframe>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/1.1.1/anchor.min.js"></script>
+<script>
+  /* global anchors */
+  // anchors.options = {
+  //   placement: 'left',
+  //   visible: 'always'
+  // };
+  anchors.add('h2:not(.Home-page__feature-heading)');
+</script>
+
+
+  </body>
+</html>

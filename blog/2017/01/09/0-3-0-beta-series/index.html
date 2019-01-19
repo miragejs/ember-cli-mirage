@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+
+  <head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      Mirage 0.3.0 beta series &middot; Ember CLI Mirage
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/style.css">
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-144-precomposed.png">
+                                 <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+
+  <body>
+    <div class="Topbar">
+      <div class="Container">
+      </div>
+    </div>
+
+    <header class="Header">
+  <div class="Container">
+    <nav class='Header__nav'>
+      <ul class='Header__nav-list'>
+        <li class='Header__nav-item'>
+          <a href='/docs/v0.4.x' class="Header__nav-item-link">
+            <span class="u-mobile">Docs</span>
+            <span class="u-desktop">Documentation</span>
+          </a>
+        </li>
+        <li class='Header__nav-item'>
+          <a href='/blog' class="Header__nav-item-link active">Blog</a>
+        </li>
+        <li class='Header__nav-item'>
+          <a href='/about' class="Header__nav-item-link">About</a>
+        </li>
+        <li class='Header__nav-item'>
+          <a href="https://github.com/samselikoff/ember-cli-mirage" class='Header__nav-item-link' target="_blank">GitHub</a>
+        </li>
+      </ul>
+    </nav>
+    <a class="Header__logo" href="/">
+      <span class='Header__logo-minor'>Ember CLI</span><br>
+      <span class='Header__logo-major'>Mirage</span>
+    </a>
+  </div>
+</header>
+
+
+    <div class="Wrapper">
+      <div class="Content">
+        <div class="Blog">
+  <div class='Blog__post'>
+    <div class="Blog__post-info">
+      <h1 class='Blog__title'>Mirage 0.3.0 beta series</h1>
+      <p class='Blog__byline'>January 9, 2017</p>
+      <hr class='Blog__divider'>
+    </div>
+    <div class='Blog__content'>
+      <p>I’ve started the beta series of Mirage v0.3.0. You can install the latest release (0.3.0-beta.4 as of this writing) with</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ember install ember-cli-mirage@beta
+</code></pre></div></div>
+
+<p>Recent updates to the ORM required some breaking changes, which is why I’m bumping Mirage’s “major” version from 0.2 to 0.3. I’m hoping this is the last release series before landing a 1.0 final.</p>
+
+<ul>
+  <li><a href="#motivation">Motivation</a></li>
+  <li><a href="#usage">Usage</a></li>
+  <li><a href="#examples">Examples</a></li>
+  <li><a href="#roadmap">Roadmap</a></li>
+</ul>
+
+<h2 id="motivation">Motivation</h2>
+
+<p>The ORM that was added in 0.2 has proved useful, and recent factory enhancements (the <code class="highlighter-rouge">afterCreate</code> hook along with traits and associations) have really improved the ergonomics of creating complex object graphs.</p>
+
+<p>The biggest challenge since the 0.2 release has been the ORM’s lack of support for several relationship types:</p>
+
+<ul>
+  <li>one-way</li>
+  <li>one-to-one</li>
+  <li>many-to-many</li>
+  <li>reflexive</li>
+  <li>polymorphic</li>
+</ul>
+
+<p>I went ahead with the 0.2.0 release anyway, because the serialization layer made working with JSON:API so much more pleasant. However, ever since the release users have been forced to write custom code in order to deal with these missing relationship types.</p>
+
+<p>When I began work on these missing types several months ago, I expected it to be relatively simple. Mirage’s ORM was based off of ActiveRecord, and I felt I had a good understanding of the APIs that needed to be implemented. I started with one-to-one relationships, and nearly finished before I encountered a fundamental problem.</p>
+
+<p>In Rails, relationships are mapped on top of databases. Databases have fixed, known schemas, and ActiveRecord’s APIs are designed to work with these known quantities. Questions like which records have foreign keys and whether two models are related via has-one or has-many are unambiguous, so ActiveRecord’s API doesn’t need to account for this.</p>
+
+<p>Modern HTTP APIs, however, are quite different. For example, take the following totally valid JSON:API response:</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"authors"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"attributes"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Martin Fowler"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"relationships"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"books"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+          </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"books"</span><span class="w">
+          </span><span class="p">}</span><span class="w">
+        </span><span class="p">]</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="s2">"included"</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span><span class="w">
+    </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"books"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"attributes"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Refactoring: Improving the Design of Existing Code"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p>We can see that an author <code class="highlighter-rouge">has many</code> books. But what about the relationship from books to authors? In the response it’s ambiguous. We might assume it’s many-to-one - but we could be wrong. Perhaps our app has the book <em>Refactoring</em>, which four authors. So the relationship between authors and book could turn out to be many-to-many.</p>
+
+<p>This is just one example of the ambiguity inherent in many HTTP responses. Trying to make assumptions about the underlying schema can make Mirage’s abstractions even more complicated. In the 0.2 ORM, the <code class="highlighter-rouge">hasMany</code> and <code class="highlighter-rouge">belongsTo</code> helpers always assumed one side of the relationship was “belongs to”, and added a foreign key to it. In the above example, this would mean books would get an <code class="highlighter-rouge">authorId</code> key. But with the need for many to many relationships, this turns out to be wrong. What to do?</p>
+
+<p>We could have kept the <code class="highlighter-rouge">authorId</code> as a default assumption, and then changed it when the user specified both sides. But what if the relationship turned out to be only one-way? You often come across this as well. Even if your backend has the relationship mapped out unambiguously, your API may choose to expose only one side. So, more assumptions like this give rise to even more indirection and unnecessary complexity.</p>
+
+<p>Further, keeping a foreign key on the belongs-to side at the database level but adding an ids array to the has-many side at the ORM level is an abstraction, and something else developers need to learn. Understanding Mirage’s database structure is still useful for seeding test data and writing test assertions. And the abstractions needed to support all relationship types would be even more complex.</p>
+
+<p>Putting the <code class="highlighter-rouge">authorId</code> foreign key on a book when the user only ever needed an author to have many books (and therefore a <code class="highlighter-rouge">bookIds: []</code> array) turned out to be too confusing, and too much magic. If the user specifies that an author has many books, I decided that an author should simply get a <code class="highlighter-rouge">bookIds: []</code> array to manage the foreign keys — and nothing more. This decision automatically allows for relationships to be one-way only, and it also expands to support the other relationship types. In the event that there <em>is</em> a bidirectional relationship, the keys would now need to be kept in sync on both sides - which is precisely what I’ve been working on, and is now handled in the 0.3 series. Further, giving models an <code class="highlighter-rouge">id</code> or <code class="highlighter-rouge">ids</code> property that corresponds directly to their relationships more closely matches Ember Data’s approach. Overall, it feels like the right decision.</p>
+
+<h2 id="usage">Usage</h2>
+
+<p>The <code class="highlighter-rouge">hasMany</code> and <code class="highlighter-rouge">belongsTo</code> helpers are still present in 0.3, but they work a bit differently.</p>
+
+<p>Say we have the following models:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// mirage/models/author.js</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">Model</span><span class="p">,</span> <span class="nx">hasMany</span> <span class="p">}</span> <span class="k">from</span> <span class="s1">'ember-cli-mirage'</span><span class="p">;</span>
+
+<span class="k">export</span> <span class="k">default</span> <span class="nx">Model</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
+
+  <span class="na">books</span><span class="p">:</span> <span class="nx">hasMany</span><span class="p">()</span>
+
+<span class="p">});</span>
+</code></pre></div></div>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// mirage/models/book.js</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">Model</span> <span class="p">}</span> <span class="k">from</span> <span class="s1">'ember-cli-mirage'</span><span class="p">;</span>
+
+<span class="k">export</span> <span class="k">default</span> <span class="nx">Model</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
+
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p>The <code class="highlighter-rouge">hasMany</code> helper adds a <code class="highlighter-rouge">bookIds</code> array to each author model that it uses for bookkeeping. If we have an author instance</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">author</span> <span class="o">=</span> <span class="nx">schema</span><span class="p">.</span><span class="nx">authors</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>then the helper method <code class="highlighter-rouge">author.books</code> will use the <code class="highlighter-rouge">author.bookIds</code> property to find the related books.</p>
+
+<p>Creating related books updates the <code class="highlighter-rouge">ids</code> property</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">steinbeck</span> <span class="o">=</span> <span class="nx">schema</span><span class="p">.</span><span class="nx">authors</span><span class="p">.</span><span class="nx">create</span><span class="p">({</span> <span class="na">name</span><span class="p">:</span> <span class="s1">'John Steinbeck'</span> <span class="p">});</span>
+
+<span class="nx">steinbeck</span><span class="p">.</span><span class="nx">createBook</span><span class="p">({</span> <span class="na">title</span><span class="p">:</span> <span class="s1">'Of Mice and Men'</span> <span class="p">});</span>
+<span class="nx">steinbeck</span><span class="p">.</span><span class="nx">createBook</span><span class="p">({</span> <span class="na">title</span><span class="p">:</span> <span class="s1">'The Grapes of Wrath'</span> <span class="p">});</span>
+
+<span class="nx">steinbeck</span><span class="p">.</span><span class="nx">bookIds</span><span class="p">;</span> <span class="c1">// [ 1, 2 ]</span>
+</code></pre></div></div>
+
+<p>as does associating new books</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">hemingway</span> <span class="o">=</span> <span class="nx">schema</span><span class="p">.</span><span class="nx">authors</span><span class="p">.</span><span class="nx">create</span><span class="p">({</span> <span class="na">name</span><span class="p">:</span> <span class="s1">'Ernest Hemingway'</span> <span class="p">});</span>
+<span class="kd">let</span> <span class="nx">oldMan</span> <span class="o">=</span> <span class="nx">schema</span><span class="p">.</span><span class="nx">books</span><span class="p">.</span><span class="nx">create</span><span class="p">({</span> <span class="na">title</span><span class="p">:</span> <span class="s1">'The Old Man and the Sea'</span> <span class="p">});</span>
+
+<span class="nx">hemingway</span><span class="p">.</span><span class="nx">books</span> <span class="o">=</span> <span class="p">[</span> <span class="nx">oldMan</span> <span class="p">];</span>
+<span class="nx">hemingway</span><span class="p">.</span><span class="nx">save</span><span class="p">();</span>
+
+<span class="nx">hemingway</span><span class="p">.</span><span class="nx">bookIds</span><span class="p">;</span> <span class="c1">// [ 3 ]</span>
+</code></pre></div></div>
+
+<p>Notice that so far, <em>books themselves don’t have any knowledge of this relationship</em>. This is the biggest change in the ORM. Before, the book would automatically get an <code class="highlighter-rouge">authorId</code>, and so this would be available in tests, and it would also be sent over in responses as a relationship on the book. But in the case of 0.3, the relationship helpers are one-way. Basically, it works more like Ember Data does.</p>
+
+<p>This means if you want a book to have an <code class="highlighter-rouge">authorId</code>, you’ll need to also define the relationship on the book:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// mirage/models/book.js</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">Model</span><span class="p">,</span> <span class="nx">belongsTo</span> <span class="p">}</span> <span class="k">from</span> <span class="s1">'ember-cli-mirage'</span><span class="p">;</span>
+
+<span class="k">export</span> <span class="k">default</span> <span class="nx">Model</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
+
+  <span class="na">author</span><span class="p">:</span> <span class="nx">belongsTo</span><span class="p">()</span>
+
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p>This helper will add an <code class="highlighter-rouge">authorId</code> to the book, and, like Ember Data, look for an implicit inverse on the <code class="highlighter-rouge">author</code>. If it can find one, the ORM will keep the ids on both sides of the relationship in sync.</p>
+
+<h2 id="examples">Examples</h2>
+
+<p>Here are some Twiddles showcasing various relationship configurations:</p>
+
+<ul>
+  <li><strong><a href="https://ember-twiddle.com/802cd2f92e8c6c7280f42b054f393097?openFiles=mirage.config.js%2C">One-Way Has Many</a></strong>. Notice how the author’s keys are updated when you delete a book.</li>
+  <li><strong><a href="https://ember-twiddle.com/24d6101792f2932e9c7edf5f0934b02c?openFiles=models.book.js%2C">One-Way Belongs To</a></strong>. Deleting the author will ensure existing book’s keys are nulled out (i.e. they become orphans so that the database is kept consistent).</li>
+  <li><strong><a href="https://ember-twiddle.com/5031fb20898b277fa6aea8fe89571148?openFiles=templates.application.hbs%2C">One to Many</a></strong>. The keys on both sides of the relationship are kept in sync. If you delete the author, the books become orphaned records with null keys.</li>
+  <li><strong><a href="https://ember-twiddle.com/012bd753cb03c7ae375210d47b623ccb?openFiles=mirage.config.js%2C">One to One</a></strong>. Another bidirectional relationship with keys managed on both sides.</li>
+  <li><strong><a href="https://ember-twiddle.com/104407460799f1c16c4c0dc88daf975a?openFiles=templates.application.hbs%2C">Many to Many</a></strong>. And another.</li>
+</ul>
+
+<h2 id="roadmap">Roadmap</h2>
+
+<p>Here are my plans for Mirage’s next steps. First, after enough folks try out the beta series we can land 0.3. Then I’ll be able to add polymorphic relationships, which will round out the ORM.</p>
+
+<p>At this point I’d like to move towards a 1.0 release, barring any glaring issues in the API. Mirage has been around for nearly two years and plenty of people are using it. It’s past time we hit an official major version and lock down the API.</p>
+
+<p>After 1.0, I’d like to move forward on an Ember Data integration layer, which is now possible since Mirage’s ORM is able to represent Ember Data’s possible schemas. The layer would simply read in your application’s Ember Data schema and reproduce it in-memory for Mirage’s ORM to use. This would yield big ergonomic gains for users of the library, as you’d no longer need to duplicate your Ember Data models for Mirage, and also lower the learning curve for new users.</p>
+
+<p>There are several more features I want to move forward on now that the core API is stabilizing. Getting Mirage to be able to run in Node in an Express server would be great, since responses would be real HTTP responses, developers could use the network tab and more.</p>
+
+<p>My primary goal in 2017 is delegation. For too long my personal availability has been a bottleneck for Mirage’s development. I am going to focus on finding contributors and planning instead of actual implementation. It should help move the library forward faster while getting more folks knowledgeable about the internals, while also freeing up my time to focus more on <a href="https://embermap.com/">my business</a>.</p>
+
+<p>If you’d like to help, join #ec-mirage on Ember’s slack community and reach out! Also be sure to drop a message there or open an issue if you have any feedback on 0.3.</p>
+
+<p>I’m so happy to be part of such an awesome community and look forward to seeing you at SoEmber and EmberConf. Here’s to an exciting 2017!</p>
+
+      
+      <div id="disqus_thread"></div>
+    </div>
+  </div>
+</div>
+
+
+<script>
+/**
+* RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+* LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+*/
+/*
+var disqus_config = function () {
+this.page.url = PAGE_URL; // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+*/
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+
+s.src = '//emberclimirage.disqus.com/embed.js';
+
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+      </div>
+    </div>
+
+    <footer class="Footer">
+  <div class="Container Grid Grid--gutters Grid--full med-Grid--fit">
+    <div class="Grid-cell">
+      <p>Project and site maintained by <a href="https://twitter.com/samselikoff">Sam Selikoff</a> and <a href="https://github.com/samselikoff/ember-cli-mirage/graphs/contributors">contributors</a>.</p>
+      <p>Sponsored by <a href="https://embermap.com/">EmberMap</a>.<p>
+    </div>
+    <div class="Grid-cell">
+      <div class="Github-stars">
+        <iframe src="https://ghbtns.com/github-btn.html?user=samselikoff&repo=ember-cli-mirage&type=star&count=true" frameborder="0" scrolling="0" width="170px" height="20px"></iframe>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/1.1.1/anchor.min.js"></script>
+<script>
+  /* global anchors */
+  // anchors.options = {
+  //   placement: 'left',
+  //   visible: 'always'
+  // };
+  anchors.add('h2:not(.Home-page__feature-heading)');
+</script>
+
+
+  </body>
+</html>

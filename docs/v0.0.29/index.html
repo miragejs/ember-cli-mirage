@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+
+  <head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      Overview &middot; Ember CLI Mirage
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/style.css">
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-144-precomposed.png">
+                                 <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+
+  <body>
+    <div class="Topbar">
+      <div class="Container">
+      </div>
+    </div>
+
+    <header class="Header">
+  <div class="Container">
+    <nav class='Header__nav'>
+      <ul class='Header__nav-list'>
+        <li class='Header__nav-item'>
+          <a href='/docs/v0.4.x' class="Header__nav-item-link active">
+            <span class="u-mobile">Docs</span>
+            <span class="u-desktop">Documentation</span>
+          </a>
+        </li>
+        <li class='Header__nav-item'>
+          <a href='/blog' class="Header__nav-item-link">Blog</a>
+        </li>
+        <li class='Header__nav-item'>
+          <a href='/about' class="Header__nav-item-link">About</a>
+        </li>
+        <li class='Header__nav-item'>
+          <a href="https://github.com/samselikoff/ember-cli-mirage" class='Header__nav-item-link' target="_blank">GitHub</a>
+        </li>
+      </ul>
+    </nav>
+    <a class="Header__logo" href="/">
+      <span class='Header__logo-minor'>Ember CLI</span><br>
+      <span class='Header__logo-major'>Mirage</span>
+    </a>
+  </div>
+</header>
+
+
+    <div class="Wrapper">
+      <div class="Content">
+        
+
+<div class="Side-panel">
+
+  <div class="Mobile-nav">
+    <select class="Mobile-nav__toc" onchange="if (this.value) window.location.href=this.value">
+      <option value="">Navigate the docs...</option>
+      
+        
+
+
+  
+  <optgroup label='Getting started'>
+
+<option value="/docs/v0.0.29/">Overview</option>
+
+
+      
+        
+
+
+<option value="/docs/v0.0.29/installation/">Installation</option>
+
+
+      
+        
+
+
+<option value="/docs/v0.0.29/quickstart/">Quickstart</option>
+
+
+      
+        
+
+
+  
+    </optgroup>
+  
+  <optgroup label='Writing your server'>
+
+<option value="/docs/v0.0.29/defining-routes/">Defining routes</option>
+
+
+      
+        
+
+
+<option value="/docs/v0.0.29/seeding-your-database/">Seeding your database</option>
+
+
+      
+        
+
+
+<option value="/docs/v0.0.29/acceptance-testing/">Acceptance testing</option>
+
+
+      
+        
+
+
+  
+    </optgroup>
+  
+  <optgroup label='API reference'>
+
+<option value="/docs/v0.0.29/server-configuration/">Server configuration</option>
+
+
+      
+        
+
+
+<option value="/docs/v0.0.29/routes/">Routes</option>
+
+
+      
+        
+
+
+<option value="/docs/v0.0.29/shorthands/">Shorthands</option>
+
+
+      
+        
+
+
+<option value="/docs/v0.0.29/database/">Database</option>
+
+
+      
+        
+
+
+<option value="/docs/v0.0.29/factories/">Factories</option>
+
+  </optgroup>
+
+
+      
+    </select>
+
+    <div class="Mobile-nav__version">
+      <span class='Mobile-nav__version-label'>Version: </span>
+      <select class='Mobile-nav__version-select' onchange="if (this.value) window.location.href=this.value">
+        
+          <option value="/docs/v0.4.x" >v0.4.x</option>
+        
+          <option value="/docs/v0.3.x" >v0.3.x</option>
+        
+          <option value="/docs/v0.2.x" >v0.2.x</option>
+        
+          <option value="/docs/v0.1.x" >v0.1.x</option>
+        
+          <option value="/docs/v0.0.29" selected >v0.0.29</option>
+        
+          <option value="/docs/v0.0.28" >v0.0.28</option>
+        
+          <option value="/docs/v0.0.27" >v0.0.27</option>
+        
+      </select>
+    </div>
+  </div>
+
+  <div class="Desktop-nav">
+    <div class="Desktop-nav__version">
+      <span class="Desktop-nav__version-label">Version: </span>
+      <select class='Desktop-nav__version-select' onchange="if (this.value) window.location.href=this.value">
+        
+        <option value="/docs/v0.4.x" >v0.4.x</option>
+        
+        <option value="/docs/v0.3.x" >v0.3.x</option>
+        
+        <option value="/docs/v0.2.x" >v0.2.x</option>
+        
+        <option value="/docs/v0.1.x" >v0.1.x</option>
+        
+        <option value="/docs/v0.0.29" selected >v0.0.29</option>
+        
+        <option value="/docs/v0.0.28" >v0.0.28</option>
+        
+        <option value="/docs/v0.0.27" >v0.0.27</option>
+        
+      </select>
+    </div>
+
+    <ul class="Desktop-nav__toc">
+      
+        
+          <li class='Desktop-nav__section'>Getting started</li>
+        
+
+        
+
+<li>
+  <a class="Desktop-nav__item active" href="/docs/v0.0.29/">
+    Overview
+  </a>
+</li>
+
+      
+        
+
+        
+
+<li>
+  <a class="Desktop-nav__item " href="/docs/v0.0.29/installation/">
+    Installation
+  </a>
+</li>
+
+      
+        
+
+        
+
+<li>
+  <a class="Desktop-nav__item " href="/docs/v0.0.29/quickstart/">
+    Quickstart
+  </a>
+</li>
+
+      
+        
+          <li class='Desktop-nav__section'>Writing your server</li>
+        
+
+        
+
+<li>
+  <a class="Desktop-nav__item " href="/docs/v0.0.29/defining-routes/">
+    Defining routes
+  </a>
+</li>
+
+      
+        
+
+        
+
+<li>
+  <a class="Desktop-nav__item " href="/docs/v0.0.29/seeding-your-database/">
+    Seeding your database
+  </a>
+</li>
+
+      
+        
+
+        
+
+<li>
+  <a class="Desktop-nav__item " href="/docs/v0.0.29/acceptance-testing/">
+    Acceptance testing
+  </a>
+</li>
+
+      
+        
+          <li class='Desktop-nav__section'>API reference</li>
+        
+
+        
+
+<li>
+  <a class="Desktop-nav__item " href="/docs/v0.0.29/server-configuration/">
+    Server configuration
+  </a>
+</li>
+
+      
+        
+
+        
+
+<li>
+  <a class="Desktop-nav__item " href="/docs/v0.0.29/routes/">
+    Routes
+  </a>
+</li>
+
+      
+        
+
+        
+
+<li>
+  <a class="Desktop-nav__item " href="/docs/v0.0.29/shorthands/">
+    Shorthands
+  </a>
+</li>
+
+      
+        
+
+        
+
+<li>
+  <a class="Desktop-nav__item " href="/docs/v0.0.29/database/">
+    Database
+  </a>
+</li>
+
+      
+        
+
+        
+
+<li>
+  <a class="Desktop-nav__item " href="/docs/v0.0.29/factories/">
+    Factories
+  </a>
+</li>
+
+      
+    </ul>
+  </div>
+</div>
+
+
+<div class="Center-panel">
+
+  <div class="Docs-page">
+    <div class='Docs-page__header'>
+      <div class="Docs-page__version">
+        <a class='Docs-page__improve' href="https://github.com/samselikoff/ember-cli-mirage/edit/gh-pages/docs/v0.0.29/index.md">
+          <small>
+            <img class='Docs-page__improve-img' src="/public/images/edit.png" alt="">
+            <span class='Docs-page__improve-text'>Improve this page</span>
+          </small>
+        </a>
+      </div>
+      <h1 class='Docs-page__title'>Overview</h1>
+    </div>
+
+    <div class='Docs-page__content'>
+      <p>Nearly all Ember apps interact with a JSON API. When you reach the point during development where you need to interact with dynamic server data, you have a few options:</p>
+
+<ol>
+  <li>Proxy your app’s HTTP requests to a local or hosted version of your actual backend (if it exists)</li>
+  <li>Use a library like <a href="https://github.com/trek/pretender">Pretender</a> or <a href="https://github.com/jakerella/jquery-mockjax">jQuery mockjax</a> to write a custom script that intercepts your requests in the client</li>
+  <li>Use Ember CLI’s HTTP mocks</li>
+</ol>
+
+<p>Option 1 can work if you already have the API - but often that isn’t the case. Option 2 is flexible, but requires you to start from scratch in each project, leaving it up to you to enforce conventions across your apps. Option 3 has a bit more structure, but requires a node server to be running, and doesn’t allow you to use your mocks in a CI environment.</p>
+
+<p>Mirage was built to solve these problems. It’s a mock server that runs in the client, and can be used in both development and testing. It brings along enough conventions to quickly get you up and running.</p>
+
+<p>Mirage borrows concepts from typical backend systems like</p>
+
+<ul>
+  <li><strong>routes</strong></li>
+  <li>a <strong>database</strong></li>
+  <li><strong>factories</strong> and <strong>fixtures</strong> for stubbing data</li>
+</ul>
+
+<p>Once you define your server, developing and testing your Ember app is a breeze. Read on to learn more!</p>
+
+    </div>
+
+    
+
+<div class='Docs-page-nav'>
+  
+    
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+  
+  
+    
+    
+    
+      
+      
+      
+        
+  
+         <a class="Docs-page-nav__link u-last" href="/docs/v0.0.29/installation/">Installation ></a>
+      
+  
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+</div>
+
+  </div>
+</div>
+
+      </div>
+    </div>
+
+    <footer class="Footer">
+  <div class="Container Grid Grid--gutters Grid--full med-Grid--fit">
+    <div class="Grid-cell">
+      <p>Project and site maintained by <a href="https://twitter.com/samselikoff">Sam Selikoff</a> and <a href="https://github.com/samselikoff/ember-cli-mirage/graphs/contributors">contributors</a>.</p>
+      <p>Sponsored by <a href="https://embermap.com/">EmberMap</a>.<p>
+    </div>
+    <div class="Grid-cell">
+      <div class="Github-stars">
+        <iframe src="https://ghbtns.com/github-btn.html?user=samselikoff&repo=ember-cli-mirage&type=star&count=true" frameborder="0" scrolling="0" width="170px" height="20px"></iframe>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/1.1.1/anchor.min.js"></script>
+<script>
+  /* global anchors */
+  // anchors.options = {
+  //   placement: 'left',
+  //   visible: 'always'
+  // };
+  anchors.add('h2:not(.Home-page__feature-heading)');
+</script>
+
+
+  </body>
+</html>

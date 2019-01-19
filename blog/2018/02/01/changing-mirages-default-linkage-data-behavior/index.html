@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+
+  <head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      Changing Mirage's default linkage data behavior in 0.4 to better conform to JSON:API's semantics &middot; Ember CLI Mirage
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/style.css">
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-144-precomposed.png">
+                                 <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+
+  <body>
+    <div class="Topbar">
+      <div class="Container">
+      </div>
+    </div>
+
+    <header class="Header">
+  <div class="Container">
+    <nav class='Header__nav'>
+      <ul class='Header__nav-list'>
+        <li class='Header__nav-item'>
+          <a href='/docs/v0.4.x' class="Header__nav-item-link">
+            <span class="u-mobile">Docs</span>
+            <span class="u-desktop">Documentation</span>
+          </a>
+        </li>
+        <li class='Header__nav-item'>
+          <a href='/blog' class="Header__nav-item-link active">Blog</a>
+        </li>
+        <li class='Header__nav-item'>
+          <a href='/about' class="Header__nav-item-link">About</a>
+        </li>
+        <li class='Header__nav-item'>
+          <a href="https://github.com/samselikoff/ember-cli-mirage" class='Header__nav-item-link' target="_blank">GitHub</a>
+        </li>
+      </ul>
+    </nav>
+    <a class="Header__logo" href="/">
+      <span class='Header__logo-minor'>Ember CLI</span><br>
+      <span class='Header__logo-major'>Mirage</span>
+    </a>
+  </div>
+</header>
+
+
+    <div class="Wrapper">
+      <div class="Content">
+        <div class="Blog">
+  <div class='Blog__post'>
+    <div class="Blog__post-info">
+      <h1 class='Blog__title'>Changing Mirage's default linkage data behavior in 0.4 to better conform to JSON:API's semantics</h1>
+      <p class='Blog__byline'>February 1, 2018</p>
+      <hr class='Blog__divider'>
+    </div>
+    <div class='Blog__content'>
+      <p>I wanted to write a quick post detailing a change that happened in Mirage’s 0.4.0 release that I originally didn’t signal as a breaking change, but that affected more apps than I realized.</p>
+
+<p>I have since added the following note about it to the <a href="/docs/v0.4.x/upgrading/">0.3 -&gt; 0.4 upgrade guide</a>
+, and I’m reposting it here for more visibility. I think it’s worth understanding, as the issue sheds light on the semantics around some of JSON:API’s design decisions.</p>
+
+<p>Apologies if you upgraded to 0.4 and had to debug this yourself!</p>
+
+<hr />
+
+<p>There is one primary change in 0.4 that could break your 0.3 app.</p>
+
+<p>In 0.3.x, Mirage’s JSONAPISerializer included all related foreign keys whenever serializing a model or collection, even if those relationships were not being <code class="highlighter-rouge">included</code> in the payload.</p>
+
+<p>This actually goes against JSON:API’s design. Foreign keys in the payload are known as <a href="http://jsonapi.org/format/#document-resource-object-linkage">Resource Linkage</a> and are intended to be used by API clients to link together all resources in a JSON:API compound document. In fact, most server-side JSON:API libraries do not automatically serialize all related foreign keys, and only return linkage data for related resources when they are being included in the current document.</p>
+
+<p>By including linkage data for every relationship in 0.3, it was easy to develop Ember apps that would work with Mirage but would behave differently when hooked up to a standard JSON:API server. Since Mirage always included linkage data, an Ember app might automatically be able to fetch related resources using the ids from that linkage data plus its knowledge about the API. For example, if a <code class="highlighter-rouge">post</code> came back like this:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// GET /posts/1</span>
+<span class="p">{</span>
+  <span class="nl">data</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nl">type</span><span class="p">:</span> <span class="s1">'posts'</span><span class="p">,</span>
+    <span class="nx">id</span><span class="p">:</span> <span class="s1">'1'</span><span class="p">,</span>
+    <span class="nx">attributes</span><span class="p">:</span> <span class="p">{</span> <span class="p">...</span> <span class="p">},</span>
+    <span class="nx">relationships</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nl">author</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nl">data</span><span class="p">:</span> <span class="p">{</span>
+          <span class="nl">type</span><span class="p">:</span> <span class="s1">'users'</span><span class="p">,</span>
+          <span class="nx">id</span><span class="p">:</span> <span class="s1">'1'</span>
+        <span class="p">}</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>and you forgot to <code class="highlighter-rouge">?include=author</code> in your GET request, Ember Data would potentially use the <code class="highlighter-rouge">user:1</code> foreign key and lazily fetch the <code class="highlighter-rouge">author</code> by making a request to <code class="highlighter-rouge">GET /authors/1</code>. This is problematic because</p>
+
+<ol>
+  <li>This is not how foreign keys are intended to be used</li>
+  <li>It’d be better to see no data and fix the problem by going back up to your data-loading code and add <code class="highlighter-rouge">?include=author</code> to your GET request, or</li>
+  <li>If you do want your interface to lazily load the author, use resource <code class="highlighter-rouge">links</code> instead of the resource linkage <code class="highlighter-rouge">data</code>:</li>
+</ol>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// GET /posts/1</span>
+<span class="p">{</span>
+  <span class="nl">data</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nl">type</span><span class="p">:</span> <span class="s1">'posts'</span><span class="p">,</span>
+    <span class="nx">id</span><span class="p">:</span> <span class="s1">'1'</span><span class="p">,</span>
+    <span class="nx">attributes</span><span class="p">:</span> <span class="p">{</span> <span class="p">...</span> <span class="p">},</span>
+    <span class="nx">relationships</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nl">author</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nl">links</span><span class="p">:</span> <span class="p">{</span>
+          <span class="nl">related</span><span class="p">:</span> <span class="s1">'/api/users/1'</span>
+        <span class="p">}</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Resource links can be defined on Mirage serializers using the <a href="http://www.ember-cli-mirage.com/docs/v0.3.x/serializers/#linksmodel">links</a> method (though <code class="highlighter-rouge">including</code> is likely the far more simpler and common approach to fetching related data).</p>
+
+<p>So, Mirage 0.4 changed this behavior and by default, the JSONAPISerializer only includes linkage data for relationships that are being included in the current payload (i.e. within the same compound document).</p>
+
+<p>This behavior is configurable via the <code class="highlighter-rouge">alwaysIncludeLinkageData</code> key on your JSONAPISerializers. It is set to <code class="highlighter-rouge">false</code> by default, but if you want to opt-in to 0.3 behavior and always include linkage data, set it to <code class="highlighter-rouge">true</code>:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// mirage/serializers/application.js</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">JSONAPISerializer</span> <span class="p">}</span> <span class="k">from</span> <span class="s1">'ember-cli-mirage'</span><span class="p">;</span>
+
+<span class="k">export</span> <span class="k">default</span> <span class="nx">JSONAPISerializer</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
+  <span class="na">alwaysIncludeLinkageData</span><span class="p">:</span> <span class="kc">true</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p>If you do this, I would recommend looking closely at how your real server behaves when serializing resources’ relationships and whether it uses resource <code class="highlighter-rouge">links</code> or resource linkage <code class="highlighter-rouge">data</code>, and to update your Mirage code accordingly to give you the most faithful representation of your server.</p>
+
+      
+      <div id="disqus_thread"></div>
+    </div>
+  </div>
+</div>
+
+
+<script>
+/**
+* RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+* LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+*/
+/*
+var disqus_config = function () {
+this.page.url = PAGE_URL; // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+*/
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+
+s.src = '//emberclimirage.disqus.com/embed.js';
+
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+      </div>
+    </div>
+
+    <footer class="Footer">
+  <div class="Container Grid Grid--gutters Grid--full med-Grid--fit">
+    <div class="Grid-cell">
+      <p>Project and site maintained by <a href="https://twitter.com/samselikoff">Sam Selikoff</a> and <a href="https://github.com/samselikoff/ember-cli-mirage/graphs/contributors">contributors</a>.</p>
+      <p>Sponsored by <a href="https://embermap.com/">EmberMap</a>.<p>
+    </div>
+    <div class="Grid-cell">
+      <div class="Github-stars">
+        <iframe src="https://ghbtns.com/github-btn.html?user=samselikoff&repo=ember-cli-mirage&type=star&count=true" frameborder="0" scrolling="0" width="170px" height="20px"></iframe>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/1.1.1/anchor.min.js"></script>
+<script>
+  /* global anchors */
+  // anchors.options = {
+  //   placement: 'left',
+  //   visible: 'always'
+  // };
+  anchors.add('h2:not(.Home-page__feature-heading)');
+</script>
+
+
+  </body>
+</html>

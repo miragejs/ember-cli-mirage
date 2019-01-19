@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+
+  <head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      Server configuration &middot; Ember CLI Mirage
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/style.css">
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-144-precomposed.png">
+                                 <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+
+  <body>
+    <div class="Topbar">
+      <div class="Container">
+      </div>
+    </div>
+
+    <header class="Header">
+  <div class="Container">
+    <nav class='Header__nav'>
+      <ul class='Header__nav-list'>
+        <li class='Header__nav-item'>
+          <a href='/docs/v0.4.x' class="Header__nav-item-link active">
+            <span class="u-mobile">Docs</span>
+            <span class="u-desktop">Documentation</span>
+          </a>
+        </li>
+        <li class='Header__nav-item'>
+          <a href='/blog' class="Header__nav-item-link">Blog</a>
+        </li>
+        <li class='Header__nav-item'>
+          <a href='/about' class="Header__nav-item-link">About</a>
+        </li>
+        <li class='Header__nav-item'>
+          <a href="https://github.com/samselikoff/ember-cli-mirage" class='Header__nav-item-link' target="_blank">GitHub</a>
+        </li>
+      </ul>
+    </nav>
+    <a class="Header__logo" href="/">
+      <span class='Header__logo-minor'>Ember CLI</span><br>
+      <span class='Header__logo-major'>Mirage</span>
+    </a>
+  </div>
+</header>
+
+
+    <div class="Wrapper">
+      <div class="Content">
+        
+
+<div class="Side-panel">
+
+  <div class="Mobile-nav">
+    <select class="Mobile-nav__toc" onchange="if (this.value) window.location.href=this.value">
+      <option value="">Navigate the docs...</option>
+      
+        
+
+
+  
+  <optgroup label='Getting started'>
+
+<option value="/docs/v0.0.27/">Overview</option>
+
+
+      
+        
+
+
+<option value="/docs/v0.0.27/installation/">Installation</option>
+
+
+      
+        
+
+
+<option value="/docs/v0.0.27/quickstart/">Quickstart</option>
+
+
+      
+        
+
+
+  
+    </optgroup>
+  
+  <optgroup label='Writing your server'>
+
+<option value="/docs/v0.0.27/defining-routes/">Defining routes</option>
+
+
+      
+        
+
+
+<option value="/docs/v0.0.27/seeding-your-database/">Seeding your database</option>
+
+
+      
+        
+
+
+<option value="/docs/v0.0.27/acceptance-testing/">Acceptance testing</option>
+
+
+      
+        
+
+
+  
+    </optgroup>
+  
+  <optgroup label='API reference'>
+
+<option value="/docs/v0.0.27/server-configuration/">Server configuration</option>
+
+
+      
+        
+
+
+<option value="/docs/v0.0.27/routes/">Routes</option>
+
+
+      
+        
+
+
+<option value="/docs/v0.0.27/shorthands/">Shorthands</option>
+
+
+      
+        
+
+
+<option value="/docs/v0.0.27/database/">Database</option>
+
+
+      
+        
+
+
+<option value="/docs/v0.0.27/factories/">Factories</option>
+
+  </optgroup>
+
+
+      
+    </select>
+
+    <div class="Mobile-nav__version">
+      <span class='Mobile-nav__version-label'>Version: </span>
+      <select class='Mobile-nav__version-select' onchange="if (this.value) window.location.href=this.value">
+        
+          <option value="/docs/v0.4.x" >v0.4.x</option>
+        
+          <option value="/docs/v0.3.x" >v0.3.x</option>
+        
+          <option value="/docs/v0.2.x" >v0.2.x</option>
+        
+          <option value="/docs/v0.1.x" >v0.1.x</option>
+        
+          <option value="/docs/v0.0.29" >v0.0.29</option>
+        
+          <option value="/docs/v0.0.28" >v0.0.28</option>
+        
+          <option value="/docs/v0.0.27" selected >v0.0.27</option>
+        
+      </select>
+    </div>
+  </div>
+
+  <div class="Desktop-nav">
+    <div class="Desktop-nav__version">
+      <span class="Desktop-nav__version-label">Version: </span>
+      <select class='Desktop-nav__version-select' onchange="if (this.value) window.location.href=this.value">
+        
+        <option value="/docs/v0.4.x" >v0.4.x</option>
+        
+        <option value="/docs/v0.3.x" >v0.3.x</option>
+        
+        <option value="/docs/v0.2.x" >v0.2.x</option>
+        
+        <option value="/docs/v0.1.x" >v0.1.x</option>
+        
+        <option value="/docs/v0.0.29" >v0.0.29</option>
+        
+        <option value="/docs/v0.0.28" >v0.0.28</option>
+        
+        <option value="/docs/v0.0.27" selected >v0.0.27</option>
+        
+      </select>
+    </div>
+
+    <ul class="Desktop-nav__toc">
+      
+        
+          <li class='Desktop-nav__section'>Getting started</li>
+        
+
+        
+
+<li>
+  <a class="Desktop-nav__item " href="/docs/v0.0.27/">
+    Overview
+  </a>
+</li>
+
+      
+        
+
+        
+
+<li>
+  <a class="Desktop-nav__item " href="/docs/v0.0.27/installation/">
+    Installation
+  </a>
+</li>
+
+      
+        
+
+        
+
+<li>
+  <a class="Desktop-nav__item " href="/docs/v0.0.27/quickstart/">
+    Quickstart
+  </a>
+</li>
+
+      
+        
+          <li class='Desktop-nav__section'>Writing your server</li>
+        
+
+        
+
+<li>
+  <a class="Desktop-nav__item " href="/docs/v0.0.27/defining-routes/">
+    Defining routes
+  </a>
+</li>
+
+      
+        
+
+        
+
+<li>
+  <a class="Desktop-nav__item " href="/docs/v0.0.27/seeding-your-database/">
+    Seeding your database
+  </a>
+</li>
+
+      
+        
+
+        
+
+<li>
+  <a class="Desktop-nav__item " href="/docs/v0.0.27/acceptance-testing/">
+    Acceptance testing
+  </a>
+</li>
+
+      
+        
+          <li class='Desktop-nav__section'>API reference</li>
+        
+
+        
+
+<li>
+  <a class="Desktop-nav__item active" href="/docs/v0.0.27/server-configuration/">
+    Server configuration
+  </a>
+</li>
+
+      
+        
+
+        
+
+<li>
+  <a class="Desktop-nav__item " href="/docs/v0.0.27/routes/">
+    Routes
+  </a>
+</li>
+
+      
+        
+
+        
+
+<li>
+  <a class="Desktop-nav__item " href="/docs/v0.0.27/shorthands/">
+    Shorthands
+  </a>
+</li>
+
+      
+        
+
+        
+
+<li>
+  <a class="Desktop-nav__item " href="/docs/v0.0.27/database/">
+    Database
+  </a>
+</li>
+
+      
+        
+
+        
+
+<li>
+  <a class="Desktop-nav__item " href="/docs/v0.0.27/factories/">
+    Factories
+  </a>
+</li>
+
+      
+    </ul>
+  </div>
+</div>
+
+
+<div class="Center-panel">
+
+  <div class="Docs-page">
+    <div class='Docs-page__header'>
+      <div class="Docs-page__version">
+        <a class='Docs-page__improve' href="https://github.com/samselikoff/ember-cli-mirage/edit/gh-pages/docs/v0.0.27/server-configuration.md">
+          <small>
+            <img class='Docs-page__improve-img' src="/public/images/edit.png" alt="">
+            <span class='Docs-page__improve-text'>Improve this page</span>
+          </small>
+        </a>
+      </div>
+      <h1 class='Docs-page__title'>Server configuration</h1>
+    </div>
+
+    <div class='Docs-page__content'>
+      <p>Besides defining your routes, there’s some config options for your server available in <code class="highlighter-rouge">/app/mirage/config.js</code>. There’s also some environment options, which you define in <code class="highlighter-rouge">/config/environment.js</code>.</p>
+
+<h2 id="server-config">Server config</h2>
+
+<p><a name="namespace" href="#namespace">#</a> this.<b>namespace</b></p>
+
+<p>Set the base namespace used for all routes defined with <code class="highlighter-rouge">get</code>, <code class="highlighter-rouge">post</code>, <code class="highlighter-rouge">put</code> or <code class="highlighter-rouge">del</code>. For example,</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// app/mirage/config.js</span>
+<span class="k">export</span> <span class="k">default</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+
+  <span class="k">this</span><span class="p">.</span><span class="nx">namespace</span> <span class="o">=</span> <span class="s1">'/api'</span><span class="p">;</span>
+
+  <span class="c1">// this route will handle the URL '/api/contacts'</span>
+  <span class="k">this</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="s1">'/contacts'</span><span class="p">,</span> <span class="s1">'contacts'</span><span class="p">);</span>
+<span class="p">};</span>
+</code></pre></div></div>
+
+<p><a name="timing" href="#timing">#</a> this.<b>timing</b></p>
+
+<p>Set the timing parameter of the response. Default is a 400ms delay during development and 0 delay in testing (so your tests run fast).</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// app/mirage/config.js</span>
+<span class="k">export</span> <span class="k">default</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+
+  <span class="k">this</span><span class="p">.</span><span class="nx">timing</span> <span class="o">=</span> <span class="mi">400</span><span class="p">;</span> <span class="c1">// default</span>
+
+<span class="p">};</span>
+</code></pre></div></div>
+
+<p><a name="pretender" href="#pretender">#</a> this.<strong>pretender</strong></p>
+
+<p>Mirage uses <a href="https://github.com/trek/pretender">pretender.js</a> as its xhttp interceptor. in your mirage config, <code class="highlighter-rouge">this.pretender</code> refers to the actual pretender instance, so any config options that work there will work here as well. by default, content returned is json stringified, so you can just return js objects.</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// app/mirage/config.js</span>
+<span class="k">export</span> <span class="k">default</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+
+  <span class="k">this</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="s1">'/api/v1'</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">pretender</span><span class="p">.</span><span class="nx">passthrough</span><span class="p">);</span>
+  
+<span class="p">};</span>
+</code></pre></div></div>
+
+<p>Refer to <a href="https://github.com/trek/pretender#mutating-the-body">pretender’s docs</a> if you want to change this or any other options on your pretender instance.</p>
+
+<p>Be aware that the <code class="highlighter-rouge">passthrough</code>-option wil currently only work with jQuery versions &gt;= 2.x. See this <a href="https://github.com/pretenderjs/pretender/issues/85">issue</a> for details.</p>
+
+<h2 id="environment-options">Environment options</h2>
+
+<p><a name="enabled" href="#enabled">#</a> ENV[‘ember-cli-mirage’].<b>enabled</b></p>
+
+<p>By default, your Mirage server will run in test mode, and in development mode as long as the <code class="highlighter-rouge">--proxy</code> option isn’t passed. To change this default behavior, set <code class="highlighter-rouge">enabled</code> to either true or false in your ENV config.</p>
+
+<p>For example, to enable in production (e.g. to share a working prototype before your server is ready):</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// config/environment.js</span>
+<span class="p">...</span>
+<span class="k">if</span> <span class="p">(</span><span class="nx">environment</span> <span class="o">===</span> <span class="s1">'production'</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">ENV</span><span class="p">[</span><span class="s1">'ember-cli-mirage'</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="na">enabled</span><span class="p">:</span> <span class="kc">true</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>To disable in development,</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// config/environment.js</span>
+<span class="p">...</span>
+<span class="k">if</span> <span class="p">(</span><span class="nx">environment</span> <span class="o">===</span> <span class="s1">'development'</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">ENV</span><span class="p">[</span><span class="s1">'ember-cli-mirage'</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="na">enabled</span><span class="p">:</span> <span class="kc">false</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+    </div>
+
+    
+
+<div class='Docs-page-nav'>
+  
+    
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+      
+      
+      
+        
+  
+         <a class="Docs-page-nav__link u-first" href="/docs/v0.0.27/acceptance-testing/">< Acceptance testing</a>
+      
+  
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+      
+      
+      
+        
+  
+         <a class="Docs-page-nav__link u-last" href="/docs/v0.0.27/routes/">Routes ></a>
+      
+  
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+</div>
+
+  </div>
+</div>
+
+      </div>
+    </div>
+
+    <footer class="Footer">
+  <div class="Container Grid Grid--gutters Grid--full med-Grid--fit">
+    <div class="Grid-cell">
+      <p>Project and site maintained by <a href="https://twitter.com/samselikoff">Sam Selikoff</a> and <a href="https://github.com/samselikoff/ember-cli-mirage/graphs/contributors">contributors</a>.</p>
+      <p>Sponsored by <a href="https://embermap.com/">EmberMap</a>.<p>
+    </div>
+    <div class="Grid-cell">
+      <div class="Github-stars">
+        <iframe src="https://ghbtns.com/github-btn.html?user=samselikoff&repo=ember-cli-mirage&type=star&count=true" frameborder="0" scrolling="0" width="170px" height="20px"></iframe>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/1.1.1/anchor.min.js"></script>
+<script>
+  /* global anchors */
+  // anchors.options = {
+  //   placement: 'left',
+  //   visible: 'always'
+  // };
+  anchors.add('h2:not(.Home-page__feature-heading)');
+</script>
+
+
+  </body>
+</html>

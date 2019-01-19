@@ -1,0 +1,955 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+
+  <head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      Upgrading &middot; Ember CLI Mirage
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/style.css">
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-144-precomposed.png">
+                                 <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+
+  <body>
+    <div class="Topbar">
+      <div class="Container">
+      </div>
+    </div>
+
+    <header class="Header">
+  <div class="Container">
+    <nav class='Header__nav'>
+      <ul class='Header__nav-list'>
+        <li class='Header__nav-item'>
+          <a href='/docs/v0.4.x' class="Header__nav-item-link active">
+            <span class="u-mobile">Docs</span>
+            <span class="u-desktop">Documentation</span>
+          </a>
+        </li>
+        <li class='Header__nav-item'>
+          <a href='/blog' class="Header__nav-item-link">Blog</a>
+        </li>
+        <li class='Header__nav-item'>
+          <a href='/about' class="Header__nav-item-link">About</a>
+        </li>
+        <li class='Header__nav-item'>
+          <a href="https://github.com/samselikoff/ember-cli-mirage" class='Header__nav-item-link' target="_blank">GitHub</a>
+        </li>
+      </ul>
+    </nav>
+    <a class="Header__logo" href="/">
+      <span class='Header__logo-minor'>Ember CLI</span><br>
+      <span class='Header__logo-major'>Mirage</span>
+    </a>
+  </div>
+</header>
+
+
+    <div class="Wrapper">
+      <div class="Content">
+        
+
+<div class="Side-panel">
+
+  <div class="Mobile-nav">
+    <select class="Mobile-nav__toc" onchange="if (this.value) window.location.href=this.value">
+      <option value="">Navigate the docs...</option>
+      
+        
+
+
+  
+  <optgroup label='Getting started'>
+
+<option value="/docs/v0.3.x/">Overview</option>
+
+
+      
+        
+
+
+<option value="/docs/v0.3.x/installation/">Installation</option>
+
+
+      
+        
+
+
+<option value="/docs/v0.3.x/quickstart/">Quickstart</option>
+
+
+      
+        
+
+
+<option value="/docs/v0.3.x/upgrading/">Upgrading</option>
+
+
+      
+        
+
+
+  
+    </optgroup>
+  
+  <optgroup label='Writing your server'>
+
+<option value="/docs/v0.3.x/defining-routes/">Defining routes</option>
+
+
+      
+        
+
+
+<option value="/docs/v0.3.x/seeding-your-database/">Seeding your database</option>
+
+
+      
+        
+
+
+<option value="/docs/v0.3.x/acceptance-testing/">Acceptance testing</option>
+
+
+      
+        
+
+
+  
+    </optgroup>
+  
+  <optgroup label='API'>
+
+<option value="/docs/v0.3.x/configuration/">Configuration</option>
+
+
+      
+        
+
+
+<option value="/docs/v0.3.x/collections/">Collections</option>
+
+
+      
+        
+
+
+<option value="/docs/v0.3.x/route-handlers/">Route handlers</option>
+
+
+      
+        
+
+
+<option value="/docs/v0.3.x/database/">Database</option>
+
+
+      
+        
+
+
+<option value="/docs/v0.3.x/factories/">Factories</option>
+
+
+      
+        
+
+
+<option value="/docs/v0.3.x/fixtures/">Fixtures</option>
+
+
+      
+        
+
+
+<option value="/docs/v0.3.x/models/">Models</option>
+
+
+      
+        
+
+
+<option value="/docs/v0.3.x/schema/">Schema</option>
+
+
+      
+        
+
+
+<option value="/docs/v0.3.x/serializers/">Serializers</option>
+
+
+      
+        
+
+
+<option value="/docs/v0.3.x/shorthands/">Shorthands</option>
+
+
+      
+        
+
+
+  
+    </optgroup>
+  
+  <optgroup label='Cookbook'>
+
+<option value="/docs/v0.3.x/manually-starting-mirage/">Manually starting Mirage</option>
+
+
+      
+        
+
+
+<option value="/docs/v0.3.x/simulating-cookie-responses/">Simulating cookie responses</option>
+
+  </optgroup>
+
+
+      
+    </select>
+
+    <div class="Mobile-nav__version">
+      <span class='Mobile-nav__version-label'>Version: </span>
+      <select class='Mobile-nav__version-select' onchange="if (this.value) window.location.href=this.value">
+        
+          <option value="/docs/v0.4.x" >v0.4.x</option>
+        
+          <option value="/docs/v0.3.x" selected >v0.3.x</option>
+        
+          <option value="/docs/v0.2.x" >v0.2.x</option>
+        
+          <option value="/docs/v0.1.x" >v0.1.x</option>
+        
+          <option value="/docs/v0.0.29" >v0.0.29</option>
+        
+          <option value="/docs/v0.0.28" >v0.0.28</option>
+        
+          <option value="/docs/v0.0.27" >v0.0.27</option>
+        
+      </select>
+    </div>
+  </div>
+
+  <div class="Desktop-nav">
+    <div class="Desktop-nav__version">
+      <span class="Desktop-nav__version-label">Version: </span>
+      <select class='Desktop-nav__version-select' onchange="if (this.value) window.location.href=this.value">
+        
+        <option value="/docs/v0.4.x" >v0.4.x</option>
+        
+        <option value="/docs/v0.3.x" selected >v0.3.x</option>
+        
+        <option value="/docs/v0.2.x" >v0.2.x</option>
+        
+        <option value="/docs/v0.1.x" >v0.1.x</option>
+        
+        <option value="/docs/v0.0.29" >v0.0.29</option>
+        
+        <option value="/docs/v0.0.28" >v0.0.28</option>
+        
+        <option value="/docs/v0.0.27" >v0.0.27</option>
+        
+      </select>
+    </div>
+
+    <ul class="Desktop-nav__toc">
+      
+        
+          <li class='Desktop-nav__section'>Getting started</li>
+        
+
+        
+
+<li>
+  <a class="Desktop-nav__item " href="/docs/v0.3.x/">
+    Overview
+  </a>
+</li>
+
+      
+        
+
+        
+
+<li>
+  <a class="Desktop-nav__item " href="/docs/v0.3.x/installation/">
+    Installation
+  </a>
+</li>
+
+      
+        
+
+        
+
+<li>
+  <a class="Desktop-nav__item " href="/docs/v0.3.x/quickstart/">
+    Quickstart
+  </a>
+</li>
+
+      
+        
+
+        
+
+<li>
+  <a class="Desktop-nav__item active" href="/docs/v0.3.x/upgrading/">
+    Upgrading
+  </a>
+</li>
+
+      
+        
+          <li class='Desktop-nav__section'>Writing your server</li>
+        
+
+        
+
+<li>
+  <a class="Desktop-nav__item " href="/docs/v0.3.x/defining-routes/">
+    Defining routes
+  </a>
+</li>
+
+      
+        
+
+        
+
+<li>
+  <a class="Desktop-nav__item " href="/docs/v0.3.x/seeding-your-database/">
+    Seeding your database
+  </a>
+</li>
+
+      
+        
+
+        
+
+<li>
+  <a class="Desktop-nav__item " href="/docs/v0.3.x/acceptance-testing/">
+    Acceptance testing
+  </a>
+</li>
+
+      
+        
+          <li class='Desktop-nav__section'>API</li>
+        
+
+        
+
+<li>
+  <a class="Desktop-nav__item " href="/docs/v0.3.x/configuration/">
+    Configuration
+  </a>
+</li>
+
+      
+        
+
+        
+
+<li>
+  <a class="Desktop-nav__item " href="/docs/v0.3.x/collections/">
+    Collections
+  </a>
+</li>
+
+      
+        
+
+        
+
+<li>
+  <a class="Desktop-nav__item " href="/docs/v0.3.x/route-handlers/">
+    Route handlers
+  </a>
+</li>
+
+      
+        
+
+        
+
+<li>
+  <a class="Desktop-nav__item " href="/docs/v0.3.x/database/">
+    Database
+  </a>
+</li>
+
+      
+        
+
+        
+
+<li>
+  <a class="Desktop-nav__item " href="/docs/v0.3.x/factories/">
+    Factories
+  </a>
+</li>
+
+      
+        
+
+        
+
+<li>
+  <a class="Desktop-nav__item " href="/docs/v0.3.x/fixtures/">
+    Fixtures
+  </a>
+</li>
+
+      
+        
+
+        
+
+<li>
+  <a class="Desktop-nav__item " href="/docs/v0.3.x/models/">
+    Models
+  </a>
+</li>
+
+      
+        
+
+        
+
+<li>
+  <a class="Desktop-nav__item " href="/docs/v0.3.x/schema/">
+    Schema
+  </a>
+</li>
+
+      
+        
+
+        
+
+<li>
+  <a class="Desktop-nav__item " href="/docs/v0.3.x/serializers/">
+    Serializers
+  </a>
+</li>
+
+      
+        
+
+        
+
+<li>
+  <a class="Desktop-nav__item " href="/docs/v0.3.x/shorthands/">
+    Shorthands
+  </a>
+</li>
+
+      
+        
+          <li class='Desktop-nav__section'>Cookbook</li>
+        
+
+        
+
+<li>
+  <a class="Desktop-nav__item " href="/docs/v0.3.x/manually-starting-mirage/">
+    Manually starting Mirage
+  </a>
+</li>
+
+      
+        
+
+        
+
+<li>
+  <a class="Desktop-nav__item " href="/docs/v0.3.x/simulating-cookie-responses/">
+    Simulating cookie responses
+  </a>
+</li>
+
+      
+    </ul>
+  </div>
+</div>
+
+
+<div class="Center-panel">
+
+  <div class="Docs-page">
+    <div class='Docs-page__header'>
+      <div class="Docs-page__version">
+        <a class='Docs-page__improve' href="https://github.com/samselikoff/ember-cli-mirage/edit/gh-pages/docs/v0.3.x/upgrading.md">
+          <small>
+            <img class='Docs-page__improve-img' src="/public/images/edit.png" alt="">
+            <span class='Docs-page__improve-text'>Improve this page</span>
+          </small>
+        </a>
+      </div>
+      <h1 class='Docs-page__title'>Upgrading</h1>
+    </div>
+
+    <div class='Docs-page__content'>
+      <h2 id="updating-your-version-of-mirage">Updating your version of Mirage</h2>
+
+<p>To install a new version of Mirage, run</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>npm install ember-cli-mirage@X.X.X <span class="nt">--save-dev</span>
+ember g ember-cli-mirage
+</code></pre></div></div>
+
+<p>The <code class="highlighter-rouge">ember g ember-cli-mirage</code> command ensures all of Mirage’s Bower dependencies are added to your project. It runs during <code class="highlighter-rouge">ember install</code>, and it’s always a good idea to run it when upgrading.</p>
+
+<p>Use <code class="highlighter-rouge">ember-cli-mirage@beta</code> to get the latest beta.</p>
+
+<h2 id="changelog">Changelog</h2>
+
+<p>You can view Mirage’s full Changelog here:</p>
+
+<p><a href="https://github.com/samselikoff/ember-cli-mirage/blob/master/CHANGELOG.md">https://github.com/samselikoff/ember-cli-mirage/blob/master/CHANGELOG.md</a></p>
+
+<h2 id="02x--03-upgrade-guide">0.2.x &gt; 0.3 Upgrade guide</h2>
+
+<p>The main change from 0.2.x to 0.3.x is that relationships are now one-way. This better matches the semantics of both Ember Data and common HTTP transfer protocols like JSON:API.</p>
+
+<p>In 0.2, the following model definitions</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// mirage/models/author.js</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">Model</span> <span class="p">}</span> <span class="k">from</span> <span class="s1">'ember-cli-mirage'</span><span class="p">;</span>
+
+<span class="k">export</span> <span class="k">default</span> <span class="nx">Model</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
+
+<span class="p">});</span>
+
+<span class="c1">// mirage/models/post.js</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">Model</span><span class="p">,</span> <span class="nx">belongsTo</span> <span class="p">}</span> <span class="k">from</span> <span class="s1">'ember-cli-mirage'</span><span class="p">;</span>
+
+<span class="k">export</span> <span class="k">default</span> <span class="nx">Model</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
+
+  <span class="na">author</span><span class="p">:</span> <span class="nx">belongsTo</span><span class="p">()</span>
+
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p>would have generated a “schema” with a one-to-many relationship between authors and posts: an author has many posts, and a post belongs to an author. Now, this just generates a one-way relationship from <code class="highlighter-rouge">post</code> to <code class="highlighter-rouge">author</code>. To have a two-way sync’d relationship, known as an inverse, you’d need to define both sides of the relationship:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// mirage/models/author.js</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">Model</span><span class="p">,</span> <span class="nx">hasMany</span> <span class="p">}</span> <span class="k">from</span> <span class="s1">'ember-cli-mirage'</span><span class="p">;</span>
+
+<span class="k">export</span> <span class="k">default</span> <span class="nx">Model</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
+
+  <span class="na">posts</span><span class="p">:</span> <span class="nx">hasMany</span><span class="p">()</span>
+
+<span class="p">});</span>
+
+<span class="c1">// mirage/models/post.js</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">Model</span><span class="p">,</span> <span class="nx">belongsTo</span> <span class="p">}</span> <span class="k">from</span> <span class="s1">'ember-cli-mirage'</span><span class="p">;</span>
+
+<span class="k">export</span> <span class="k">default</span> <span class="nx">Model</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
+
+  <span class="na">author</span><span class="p">:</span> <span class="nx">belongsTo</span><span class="p">()</span>
+
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p>Practically speaking, to upgrade you’ll need to go through your code and update relationships that implicitly had inverses (from 0.2.x’s hasMany and belongsTo behavior) and update them to define both sides.</p>
+
+<p>This could also affect your fixture files, if you are using those to seed your database. Instead of just having an authorId on the post above, for example, you’d also need the author to have a <code class="highlighter-rouge">postIds: []</code> array. (In general Factories are better for seeding your database, as they save you from having to manage ids at all.)</p>
+
+<p>Conceptually this change should be straightforward, as its making existing implicit relationships explicit, but if you find yourself having trouble with the upgrade it’s probably because of something I haven’t thought of. Please reach out to the community on the #ec-mirage channel on Slack and ask for help!</p>
+
+<p>For more information on the motivation behind change, please read the <a href="http://www.ember-cli-mirage.com/blog/2017/01/09/0-3-0-beta-series/">0-3 beta series release blog post</a>.</p>
+
+<h2 id="01x--02-upgrade-guide">0.1.x &gt; 0.2 Upgrade guide</h2>
+
+<p>If you’re upgrading your Mirage server from v0.1.x to v0.2.x, here’s what you need to know:</p>
+
+<ul>
+  <li>
+    <p><strong>The default Mirage directory has changed.</strong> The default Mirage directory has moved from <code class="highlighter-rouge">/app/mirage</code> to <code class="highlighter-rouge">/mirage</code>. When you install 0.2.0, the default blueprint will add the <code class="highlighter-rouge">/mirage</code> directory to your project. You can delete it and move your current Mirage files to the new location with something like</p>
+
+    <div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>rm <span class="nt">-rf</span> mirage
+mv app/mirage mirage
+</code></pre></div>    </div>
+
+    <p>from the root of your project. Mirage’s directory is also <a href="../configuration/#directory">customizable</a> (Although you should move it from the <code class="highlighter-rouge">/app</code> directory or else it will not be removed from the build in production mode).</p>
+  </li>
+  <li>
+    <p><strong>All multiword filenames are dasherized.</strong> In Mirage 0.1.x, database collection names were taken from filenames. The idea was, if your API returned snake_case collection keys (e.g. <code class="highlighter-rouge">blog_posts: []</code>), just name your file <code class="highlighter-rouge">fixtures/blog_posts.js</code>. This approach turned out to be insufficiently flexib– what am I saying, it was just a bad idea :P.</p>
+
+    <p>In Mirage 0.2.x, we follow Ember CLI’s conventions of dasherized filenames. So, you’ll just need to go through and change</p>
+
+    <div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/mirage/factories/blog_post.js
+/mirage/fixtures/blog_post.js
+<span class="c"># etc.</span>
+</code></pre></div>    </div>
+
+    <p>to</p>
+
+    <div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/mirage/factories/blog-post.js
+/mirage/fixtures/blog-post.js
+</code></pre></div>    </div>
+
+    <p>You will then use the <a href="../serializers">new Serializer layer</a> to do things like format keys in your json payloads.</p>
+  </li>
+  <li>
+    <p><strong>All JavaScript properties are camelCased.</strong> Similar to the previous change, factory properties and database collection names followed the format of your API in Mirage 0.1.x. If you were faking an ActiveModelSerializer backend, multiword keys used snake_case throughout your Mirage code. So, your database table might be <code class="highlighter-rouge">db.blog_posts</code>, and your factory keys might be <code class="highlighter-rouge">first_name() {..}</code>. Looks pretty cool right?</p>
+
+    <p>Wrong. We’re JavaScript developers here, people. It’s time to start using camelCase. (Also, the idea of tying these keys to your serialization format was bad, as it left us without any conventions. We need to stick to a single format, so the ORM knows how to find foreign keys.)</p>
+
+    <p>You’ll need to update your route handlers, which may look like this:</p>
+
+    <div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">posts</span> <span class="o">=</span> <span class="nx">db</span><span class="p">.</span><span class="nx">blog_posts</span><span class="p">.</span><span class="nx">filter</span><span class="p">(</span><span class="nx">p</span> <span class="o">=&gt;</span> <span class="nx">p</span><span class="p">.</span><span class="nx">author_id</span> <span class="o">===</span> <span class="mi">1</span><span class="p">);</span>
+</code></pre></div>    </div>
+
+    <p>to</p>
+
+    <div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">posts</span> <span class="o">=</span> <span class="nx">db</span><span class="p">.</span><span class="nx">blogPosts</span><span class="p">.</span><span class="nx">filter</span><span class="p">(</span><span class="nx">p</span> <span class="o">=&gt;</span> <span class="nx">p</span><span class="p">.</span><span class="nx">authorId</span> <span class="o">===</span> <span class="mi">1</span><span class="p">);</span>
+</code></pre></div>    </div>
+
+    <p>Note that everything is camelCased, including foreign keys.</p>
+
+    <p>Similarly, factories that look like</p>
+
+    <div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">export</span> <span class="k">default</span> <span class="nx">Factory</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
+  <span class="nx">first_name</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">faker</span><span class="p">.</span><span class="nx">name</span><span class="p">.</span><span class="nx">firstName</span><span class="p">();</span>
+  <span class="p">},</span>
+
+  <span class="nx">last_name</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">faker</span><span class="p">.</span><span class="nx">name</span><span class="p">.</span><span class="nx">firstName</span><span class="p">();</span>
+  <span class="p">},</span>
+<span class="p">});</span>
+</code></pre></div>    </div>
+
+    <p>should be changed to</p>
+
+    <div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">export</span> <span class="k">default</span> <span class="nx">Factory</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
+  <span class="nx">firstName</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">faker</span><span class="p">.</span><span class="nx">name</span><span class="p">.</span><span class="nx">firstName</span><span class="p">();</span>
+  <span class="p">},</span>
+
+  <span class="nx">lastName</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">faker</span><span class="p">.</span><span class="nx">name</span><span class="p">.</span><span class="nx">firstName</span><span class="p">();</span>
+  <span class="p">},</span>
+<span class="p">});</span>
+</code></pre></div>    </div>
+
+    <p>This goes for all attrs that <code class="highlighter-rouge">server.create</code> takes (and returns), etc. For many this will be the most painful part of the upgrade. Please find it in your heart to forgive me.</p>
+  </li>
+  <li>
+    <p><strong>Mirage now has its own Model layer (an ORM).</strong> In Mirage 0.1.x, you had to define either a factory or a fixture file (or both) in order for a database collection to be created, which let you take advantage of the db in your route handlers. In 0.2, we’ve introduced Mirage Models, which serve as the new canonical source of truth about your database.</p>
+
+    <p>To create a model, use</p>
+
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ember g mirage-model blog-post
+</code></pre></div>    </div>
+
+    <p>This will create a file like</p>
+
+    <div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="p">{</span> <span class="nx">Model</span> <span class="p">}</span> <span class="k">from</span> <span class="s1">'ember-cli-mirage'</span><span class="p">;</span>
+
+<span class="k">export</span> <span class="k">default</span> <span class="nx">Model</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
+
+<span class="p">});</span>
+</code></pre></div>    </div>
+
+    <p>Having that file sets up the <code class="highlighter-rouge">db.blogPosts</code> collection, allows you to use the JSON:API serializer, and more. You can still define factories and fixtures - but only if you need them. <!-- not yet! in 0.6.0 For instance, given the model above, `server.create('blog-post')` would create a blank `blog-post` model. You could then make a factory for models that need more customization. --> Models, factories and fixtures all work together, but now you won’t be making blank factory or fixture files just to set up your database. The models themselves serve as the source of truth.</p>
+
+    <p>We needed to add models for <a href="../models/#associations">association support</a> (which currently exists) and factory relationships (the first feature to come after the 0.2 release). Read through the <a href="../models">models guide</a> and <a href="../serializers">serializers guide</a> to see how having models can simplify your Mirage server.</p>
+
+    <p>We also have a plan to make a separate addon that could ascertain your model definitions and their relationships from your Ember Data models. Adding the ORM paves the way for this important future addition.</p>
+
+    <p>Currently, Mirage will still work if a factory/fixture file is defined for a particular db collection without a corresponding model. Eventually, we may require all setups to have model definitions for each collection. But for now, to make for an easier upgrade path, you can start generating models and opt-in to the ORM layer in piecemeal.</p>
+  </li>
+  <li>
+    <p><strong>The ORM object <code class="highlighter-rouge">schema</code> is now injected into route handlers.</strong> In Mirage 0.1.x, the <code class="highlighter-rouge">db</code> was the first parameter injected into route handlers:</p>
+
+    <div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">this</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="s1">'/posts'</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">db</span><span class="p">,</span> <span class="nx">request</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">// work with db</span>
+<span class="p">});</span>
+</code></pre></div>    </div>
+
+    <p>Now, the <code class="highlighter-rouge">schema</code> object is, so you can take advantage of the Model layer. Fortunately, the <code class="highlighter-rouge">db</code> hangs directly off of the <code class="highlighter-rouge">schema</code>, so you can leave all your old route handler code intact (with the exception of making the change to camelCase), and just use destructuring to change the function signature to</p>
+
+    <div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">this</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="s1">'/posts'</span><span class="p">,</span> <span class="kd">function</span><span class="p">({</span> <span class="nx">db</span> <span class="p">},</span> <span class="nx">request</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">// work with db</span>
+<span class="p">});</span>
+</code></pre></div>    </div>
+
+    <p>and then start opting-in to the ORM (and using <code class="highlighter-rouge">schema</code>) one route handler at a time.</p>
+  </li>
+  <li>
+    <p><strong>Specify a Serializer.</strong> If you’re using shorthands, you’ll need to pick a serializer in <code class="highlighter-rouge">/mirage/serializers/application.js</code>. See the <a href="../serializers">serializers guide</a> for details.</p>
+  </li>
+</ul>
+
+<hr />
+
+<p>You can always view the <a href="https://github.com/samselikoff/ember-cli-mirage/blob/master/CHANGELOG.md">full changelog</a> to see everything that’s changed. If you think this guide missed a critical part of the upgrade path, please <a href="https://github.com/samselikoff/ember-cli-mirage/issues/new">open an issue</a> or <a href="https://github.com/samselikoff/ember-cli-mirage/edit/gh-pages/docs/v0.3.x/upgrading.md">help improve it</a>!</p>
+
+    </div>
+
+    
+
+<div class='Docs-page-nav'>
+  
+    
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+      
+      
+      
+        
+  
+         <a class="Docs-page-nav__link u-first" href="/docs/v0.3.x/quickstart/">< Quickstart</a>
+      
+  
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+      
+      
+      
+        
+  
+         <a class="Docs-page-nav__link u-last" href="/docs/v0.3.x/defining-routes/">Defining routes ></a>
+      
+  
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+</div>
+
+  </div>
+</div>
+
+      </div>
+    </div>
+
+    <footer class="Footer">
+  <div class="Container Grid Grid--gutters Grid--full med-Grid--fit">
+    <div class="Grid-cell">
+      <p>Project and site maintained by <a href="https://twitter.com/samselikoff">Sam Selikoff</a> and <a href="https://github.com/samselikoff/ember-cli-mirage/graphs/contributors">contributors</a>.</p>
+      <p>Sponsored by <a href="https://embermap.com/">EmberMap</a>.<p>
+    </div>
+    <div class="Grid-cell">
+      <div class="Github-stars">
+        <iframe src="https://ghbtns.com/github-btn.html?user=samselikoff&repo=ember-cli-mirage&type=star&count=true" frameborder="0" scrolling="0" width="170px" height="20px"></iframe>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/1.1.1/anchor.min.js"></script>
+<script>
+  /* global anchors */
+  // anchors.options = {
+  //   placement: 'left',
+  //   visible: 'always'
+  // };
+  anchors.add('h2:not(.Home-page__feature-heading)');
+</script>
+
+
+  </body>
+</html>

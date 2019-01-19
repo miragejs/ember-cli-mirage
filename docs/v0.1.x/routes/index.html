@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+
+  <head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      Routes &middot; Ember CLI Mirage
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/style.css">
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-144-precomposed.png">
+                                 <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+
+  <body>
+    <div class="Topbar">
+      <div class="Container">
+      </div>
+    </div>
+
+    <header class="Header">
+  <div class="Container">
+    <nav class='Header__nav'>
+      <ul class='Header__nav-list'>
+        <li class='Header__nav-item'>
+          <a href='/docs/v0.4.x' class="Header__nav-item-link active">
+            <span class="u-mobile">Docs</span>
+            <span class="u-desktop">Documentation</span>
+          </a>
+        </li>
+        <li class='Header__nav-item'>
+          <a href='/blog' class="Header__nav-item-link">Blog</a>
+        </li>
+        <li class='Header__nav-item'>
+          <a href='/about' class="Header__nav-item-link">About</a>
+        </li>
+        <li class='Header__nav-item'>
+          <a href="https://github.com/samselikoff/ember-cli-mirage" class='Header__nav-item-link' target="_blank">GitHub</a>
+        </li>
+      </ul>
+    </nav>
+    <a class="Header__logo" href="/">
+      <span class='Header__logo-minor'>Ember CLI</span><br>
+      <span class='Header__logo-major'>Mirage</span>
+    </a>
+  </div>
+</header>
+
+
+    <div class="Wrapper">
+      <div class="Content">
+        
+
+<div class="Side-panel">
+
+  <div class="Mobile-nav">
+    <select class="Mobile-nav__toc" onchange="if (this.value) window.location.href=this.value">
+      <option value="">Navigate the docs...</option>
+      
+        
+
+
+  
+  <optgroup label='Getting started'>
+
+<option value="/docs/v0.1.x/">Overview</option>
+
+
+      
+        
+
+
+<option value="/docs/v0.1.x/installation/">Installation</option>
+
+
+      
+        
+
+
+<option value="/docs/v0.1.x/quickstart/">Quickstart</option>
+
+
+      
+        
+
+
+  
+    </optgroup>
+  
+  <optgroup label='Writing your server'>
+
+<option value="/docs/v0.1.x/defining-routes/">Defining routes</option>
+
+
+      
+        
+
+
+<option value="/docs/v0.1.x/seeding-your-database/">Seeding your database</option>
+
+
+      
+        
+
+
+<option value="/docs/v0.1.x/acceptance-testing/">Acceptance testing</option>
+
+
+      
+        
+
+
+  
+    </optgroup>
+  
+  <optgroup label='Cookbook'>
+
+<option value="/docs/v0.1.x/working-with-json-api/">Working with JSON:API</option>
+
+
+      
+        
+
+
+<option value="/docs/v0.1.x/manually-starting-mirage/">Manually starting Mirage</option>
+
+
+      
+        
+
+
+<option value="/docs/v0.1.x/simulating-cookie-responses/">Simulating cookie responses</option>
+
+
+      
+        
+
+
+  
+    </optgroup>
+  
+  <optgroup label='API reference'>
+
+<option value="/docs/v0.1.x/server-configuration/">Server configuration</option>
+
+
+      
+        
+
+
+<option value="/docs/v0.1.x/routes/">Routes</option>
+
+
+      
+        
+
+
+<option value="/docs/v0.1.x/shorthands/">Shorthands</option>
+
+
+      
+        
+
+
+<option value="/docs/v0.1.x/database/">Database</option>
+
+
+      
+        
+
+
+<option value="/docs/v0.1.x/factories/">Factories</option>
+
+  </optgroup>
+
+
+      
+    </select>
+
+    <div class="Mobile-nav__version">
+      <span class='Mobile-nav__version-label'>Version: </span>
+      <select class='Mobile-nav__version-select' onchange="if (this.value) window.location.href=this.value">
+        
+          <option value="/docs/v0.4.x" >v0.4.x</option>
+        
+          <option value="/docs/v0.3.x" >v0.3.x</option>
+        
+          <option value="/docs/v0.2.x" >v0.2.x</option>
+        
+          <option value="/docs/v0.1.x" selected >v0.1.x</option>
+        
+          <option value="/docs/v0.0.29" >v0.0.29</option>
+        
+          <option value="/docs/v0.0.28" >v0.0.28</option>
+        
+          <option value="/docs/v0.0.27" >v0.0.27</option>
+        
+      </select>
+    </div>
+  </div>
+
+  <div class="Desktop-nav">
+    <div class="Desktop-nav__version">
+      <span class="Desktop-nav__version-label">Version: </span>
+      <select class='Desktop-nav__version-select' onchange="if (this.value) window.location.href=this.value">
+        
+        <option value="/docs/v0.4.x" >v0.4.x</option>
+        
+        <option value="/docs/v0.3.x" >v0.3.x</option>
+        
+        <option value="/docs/v0.2.x" >v0.2.x</option>
+        
+        <option value="/docs/v0.1.x" selected >v0.1.x</option>
+        
+        <option value="/docs/v0.0.29" >v0.0.29</option>
+        
+        <option value="/docs/v0.0.28" >v0.0.28</option>
+        
+        <option value="/docs/v0.0.27" >v0.0.27</option>
+        
+      </select>
+    </div>
+
+    <ul class="Desktop-nav__toc">
+      
+        
+          <li class='Desktop-nav__section'>Getting started</li>
+        
+
+        
+
+<li>
+  <a class="Desktop-nav__item " href="/docs/v0.1.x/">
+    Overview
+  </a>
+</li>
+
+      
+        
+
+        
+
+<li>
+  <a class="Desktop-nav__item " href="/docs/v0.1.x/installation/">
+    Installation
+  </a>
+</li>
+
+      
+        
+
+        
+
+<li>
+  <a class="Desktop-nav__item " href="/docs/v0.1.x/quickstart/">
+    Quickstart
+  </a>
+</li>
+
+      
+        
+          <li class='Desktop-nav__section'>Writing your server</li>
+        
+
+        
+
+<li>
+  <a class="Desktop-nav__item " href="/docs/v0.1.x/defining-routes/">
+    Defining routes
+  </a>
+</li>
+
+      
+        
+
+        
+
+<li>
+  <a class="Desktop-nav__item " href="/docs/v0.1.x/seeding-your-database/">
+    Seeding your database
+  </a>
+</li>
+
+      
+        
+
+        
+
+<li>
+  <a class="Desktop-nav__item " href="/docs/v0.1.x/acceptance-testing/">
+    Acceptance testing
+  </a>
+</li>
+
+      
+        
+          <li class='Desktop-nav__section'>Cookbook</li>
+        
+
+        
+
+<li>
+  <a class="Desktop-nav__item " href="/docs/v0.1.x/working-with-json-api/">
+    Working with JSON:API
+  </a>
+</li>
+
+      
+        
+
+        
+
+<li>
+  <a class="Desktop-nav__item " href="/docs/v0.1.x/manually-starting-mirage/">
+    Manually starting Mirage
+  </a>
+</li>
+
+      
+        
+
+        
+
+<li>
+  <a class="Desktop-nav__item " href="/docs/v0.1.x/simulating-cookie-responses/">
+    Simulating cookie responses
+  </a>
+</li>
+
+      
+        
+          <li class='Desktop-nav__section'>API reference</li>
+        
+
+        
+
+<li>
+  <a class="Desktop-nav__item " href="/docs/v0.1.x/server-configuration/">
+    Server configuration
+  </a>
+</li>
+
+      
+        
+
+        
+
+<li>
+  <a class="Desktop-nav__item active" href="/docs/v0.1.x/routes/">
+    Routes
+  </a>
+</li>
+
+      
+        
+
+        
+
+<li>
+  <a class="Desktop-nav__item " href="/docs/v0.1.x/shorthands/">
+    Shorthands
+  </a>
+</li>
+
+      
+        
+
+        
+
+<li>
+  <a class="Desktop-nav__item " href="/docs/v0.1.x/database/">
+    Database
+  </a>
+</li>
+
+      
+        
+
+        
+
+<li>
+  <a class="Desktop-nav__item " href="/docs/v0.1.x/factories/">
+    Factories
+  </a>
+</li>
+
+      
+    </ul>
+  </div>
+</div>
+
+
+<div class="Center-panel">
+
+  <div class="Docs-page">
+    <div class='Docs-page__header'>
+      <div class="Docs-page__version">
+        <a class='Docs-page__improve' href="https://github.com/samselikoff/ember-cli-mirage/edit/gh-pages/docs/v0.1.x/routes.md">
+          <small>
+            <img class='Docs-page__improve-img' src="/public/images/edit.png" alt="">
+            <span class='Docs-page__improve-text'>Improve this page</span>
+          </small>
+        </a>
+      </div>
+      <h1 class='Docs-page__title'>Routes</h1>
+    </div>
+
+    <div class='Docs-page__content'>
+      <p>You define route handlers using the four verb methods (<code class="highlighter-rouge">get</code>, <code class="highlighter-rouge">post</code>, <code class="highlighter-rouge">put</code> and <code class="highlighter-rouge">del</code>). You can use shorthands, return a plain object, or write custom function handlers.</p>
+
+<p>The status code defaults to the following, based on the verb being used for the route:</p>
+
+<ul>
+  <li>GET is 200</li>
+  <li>PUT is 204</li>
+  <li>POST is 201</li>
+  <li>DEL is 204</li>
+</ul>
+
+<p>PUT and POST change to 200 if there is a response body.</p>
+
+<h2 id="shorthands">Shorthands</h2>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">this</span><span class="p">.</span><span class="nx">verb</span><span class="p">(</span><span class="nx">path</span><span class="p">,</span> <span class="nx">shorthand</span><span class="p">[,</span> <span class="nx">responseCode</span><span class="p">]);</span>
+</code></pre></div></div>
+
+<p><em>shorthand</em> can either be a string, an array, or <code class="highlighter-rouge">undefined</code>, depending on which shorthand you’re using. View <a href="../shorthands">the reference</a> for all available shorthands.</p>
+
+<p>Examples:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">this</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="s1">'/api/users'</span><span class="p">);</span>
+<span class="k">this</span><span class="p">.</span><span class="nx">put</span><span class="p">(</span><span class="s1">'/api/users/:id'</span><span class="p">);</span>
+<span class="k">this</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="s1">'/posts/:id'</span><span class="p">,</span> <span class="p">[</span><span class="s1">'post'</span><span class="p">,</span> <span class="s1">'comments'</span><span class="p">]);</span>
+</code></pre></div></div>
+
+<h2 id="object-handler">Object handler</h2>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">this</span><span class="p">.</span><span class="nx">verb</span><span class="p">(</span><span class="nx">path</span><span class="p">,</span> <span class="nx">object</span><span class="p">[,</span> <span class="nx">responseCode</span><span class="p">]);</span>
+</code></pre></div></div>
+
+<p><em>object</em> is a POJO that’s returned for this route.</p>
+
+<p>Example:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">this</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="s1">'/api/users/current'</span><span class="p">,</span> <span class="p">{</span> <span class="na">id</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="na">name</span><span class="p">:</span> <span class="s1">'Link'</span> <span class="p">});</span>
+<span class="k">this</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="s1">'/some/secret'</span><span class="p">,</span> <span class="p">{</span> <span class="na">message</span><span class="p">:</span> <span class="s1">'unauthorized'</span> <span class="p">},</span> <span class="mi">404</span><span class="p">);</span>
+</code></pre></div></div>
+
+<h2 id="function-handler">Function handler</h2>
+
+<p>Write a custom function to handle this route.</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">this</span><span class="p">.</span><span class="nx">verb</span><span class="p">(</span><span class="nx">path</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">db</span><span class="p">,</span> <span class="nx">request</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">// your code</span>
+<span class="p">}[,</span> <span class="nx">responseCode</span><span class="p">]);</span>
+</code></pre></div></div>
+
+<p>The function handler you define takes two parameters, <strong>db</strong> (your Mirage server’s database) and <strong>request</strong> (the Pretender request object). Consult <a href="../database">the database’s API</a> for how to interact with the db and <a href="https://github.com/trek/pretender">Pretender’s docs</a> for more info on the request object.</p>
+
+<p>Return the data you want as plain JS - it will be stringified and sent as the response body of your request. You can also return an instance of <code class="highlighter-rouge">Mirage.Response</code> to dynamically set headers and the status code.</p>
+
+<p>Examples:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nx">Mirage</span> <span class="k">from</span> <span class="s1">'ember-cli-mirage'</span><span class="p">;</span>
+
+<span class="k">export</span> <span class="k">default</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+
+  <span class="k">this</span><span class="p">.</span><span class="nx">del</span><span class="p">(</span><span class="s1">'/api/users/:id'</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">db</span><span class="p">,</span> <span class="nx">request</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">id</span> <span class="o">=</span> <span class="nx">request</span><span class="p">.</span><span class="nx">params</span><span class="p">.</span><span class="nx">id</span><span class="p">;</span>
+    <span class="nx">db</span><span class="p">.</span><span class="nx">users</span><span class="p">.</span><span class="k">delete</span><span class="p">(</span><span class="nx">id</span><span class="p">);</span>
+    <span class="c1">// Delete related addresses</span>
+    <span class="nx">db</span><span class="p">.</span><span class="nx">addresses</span><span class="p">.</span><span class="k">delete</span><span class="p">({</span> <span class="na">user_id</span><span class="p">:</span> <span class="nx">id</span> <span class="p">});</span>
+
+    <span class="k">return</span> <span class="p">{};</span>
+  <span class="p">});</span>
+
+  <span class="k">this</span><span class="p">.</span><span class="nx">post</span><span class="p">(</span><span class="s1">'/api/messages'</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">db</span><span class="p">,</span> <span class="nx">request</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">params</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">request</span><span class="p">.</span><span class="nx">requestBody</span><span class="p">).</span><span class="nx">message</span><span class="p">;</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">params</span><span class="p">.</span><span class="nx">title</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="k">new</span> <span class="nx">Mirage</span><span class="p">.</span><span class="nx">Response</span><span class="p">(</span><span class="mi">400</span><span class="p">,</span> <span class="p">{</span> <span class="na">a</span><span class="p">:</span> <span class="s1">'header'</span> <span class="p">},</span> <span class="p">{</span> <span class="na">message</span><span class="p">:</span> <span class="s1">'title cannot be blank'</span> <span class="p">});</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="nx">db</span><span class="p">.</span><span class="nx">messages</span><span class="p">.</span><span class="nx">insert</span><span class="p">(</span><span class="nx">params</span><span class="p">);</span>
+    <span class="p">}</span>
+  <span class="p">});</span>
+
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="external-origins">External origins</h2>
+
+<aside class="Docs-page__aside">
+  <p>Support for external domains landed in v0.1.7.</p>
+</aside>
+
+<p>You can use Mirage to mock out other-origin requests. By default, a mock like</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">this</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="s1">'/contacts'</span><span class="p">,</span> <span class="p">...)</span>
+</code></pre></div></div>
+
+<p>will hit the same origin that’s serving your Ember app. To mock out a different origin, simply add the fully qualified domain name to your mock:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">this</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="s1">'http://api.twitter.com/v1'</span><span class="p">,</span> <span class="p">...)</span>
+</code></pre></div></div>
+
+<p>If your entire Ember app uses an external (other-origin) API, you can globally configure the domain via <code class="highlighter-rouge">urlPrefix</code>:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// mirage/config.js</span>
+<span class="k">this</span><span class="p">.</span><span class="nx">urlPrefix</span> <span class="o">=</span> <span class="s1">'https://my.api.com'</span><span class="p">;</span>
+
+<span class="c1">// This mock will handle requests to https://my.api.com/contacts</span>
+<span class="k">this</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="s1">'/contacts'</span><span class="p">,</span> <span class="p">...)</span>
+</code></pre></div></div>
+
+    </div>
+
+    
+
+<div class='Docs-page-nav'>
+  
+    
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+      
+      
+      
+        
+  
+         <a class="Docs-page-nav__link u-first" href="/docs/v0.1.x/server-configuration/">< Server configuration</a>
+      
+  
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+      
+      
+      
+        
+  
+         <a class="Docs-page-nav__link u-last" href="/docs/v0.1.x/shorthands/">Shorthands ></a>
+      
+  
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+</div>
+
+  </div>
+</div>
+
+      </div>
+    </div>
+
+    <footer class="Footer">
+  <div class="Container Grid Grid--gutters Grid--full med-Grid--fit">
+    <div class="Grid-cell">
+      <p>Project and site maintained by <a href="https://twitter.com/samselikoff">Sam Selikoff</a> and <a href="https://github.com/samselikoff/ember-cli-mirage/graphs/contributors">contributors</a>.</p>
+      <p>Sponsored by <a href="https://embermap.com/">EmberMap</a>.<p>
+    </div>
+    <div class="Grid-cell">
+      <div class="Github-stars">
+        <iframe src="https://ghbtns.com/github-btn.html?user=samselikoff&repo=ember-cli-mirage&type=star&count=true" frameborder="0" scrolling="0" width="170px" height="20px"></iframe>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/1.1.1/anchor.min.js"></script>
+<script>
+  /* global anchors */
+  // anchors.options = {
+  //   placement: 'left',
+  //   visible: 'always'
+  // };
+  anchors.add('h2:not(.Home-page__feature-heading)');
+</script>
+
+
+  </body>
+</html>

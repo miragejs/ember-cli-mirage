@@ -1,0 +1,909 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+
+  <head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      Acceptance testing &middot; Ember CLI Mirage
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/style.css">
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-144-precomposed.png">
+                                 <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+
+  <body>
+    <div class="Topbar">
+      <div class="Container">
+      </div>
+    </div>
+
+    <header class="Header">
+  <div class="Container">
+    <nav class='Header__nav'>
+      <ul class='Header__nav-list'>
+        <li class='Header__nav-item'>
+          <a href='/docs/v0.4.x' class="Header__nav-item-link active">
+            <span class="u-mobile">Docs</span>
+            <span class="u-desktop">Documentation</span>
+          </a>
+        </li>
+        <li class='Header__nav-item'>
+          <a href='/blog' class="Header__nav-item-link">Blog</a>
+        </li>
+        <li class='Header__nav-item'>
+          <a href='/about' class="Header__nav-item-link">About</a>
+        </li>
+        <li class='Header__nav-item'>
+          <a href="https://github.com/samselikoff/ember-cli-mirage" class='Header__nav-item-link' target="_blank">GitHub</a>
+        </li>
+      </ul>
+    </nav>
+    <a class="Header__logo" href="/">
+      <span class='Header__logo-minor'>Ember CLI</span><br>
+      <span class='Header__logo-major'>Mirage</span>
+    </a>
+  </div>
+</header>
+
+
+    <div class="Wrapper">
+      <div class="Content">
+        
+
+<div class="Side-panel">
+
+  <div class="Mobile-nav">
+    <select class="Mobile-nav__toc" onchange="if (this.value) window.location.href=this.value">
+      <option value="">Navigate the docs...</option>
+      
+        
+
+
+  
+  <optgroup label='Getting started'>
+
+<option value="/docs/v0.2.x/">Overview</option>
+
+
+      
+        
+
+
+<option value="/docs/v0.2.x/installation/">Installation</option>
+
+
+      
+        
+
+
+<option value="/docs/v0.2.x/quickstart/">Quickstart</option>
+
+
+      
+        
+
+
+<option value="/docs/v0.2.x/upgrading/">Upgrading</option>
+
+
+      
+        
+
+
+  
+    </optgroup>
+  
+  <optgroup label='Writing your server'>
+
+<option value="/docs/v0.2.x/defining-routes/">Defining routes</option>
+
+
+      
+        
+
+
+<option value="/docs/v0.2.x/seeding-your-database/">Seeding your database</option>
+
+
+      
+        
+
+
+<option value="/docs/v0.2.x/acceptance-testing/">Acceptance testing</option>
+
+
+      
+        
+
+
+  
+    </optgroup>
+  
+  <optgroup label='API'>
+
+<option value="/docs/v0.2.x/configuration/">Configuration</option>
+
+
+      
+        
+
+
+<option value="/docs/v0.2.x/collections/">Collections</option>
+
+
+      
+        
+
+
+<option value="/docs/v0.2.x/route-handlers/">Route handlers</option>
+
+
+      
+        
+
+
+<option value="/docs/v0.2.x/database/">Database</option>
+
+
+      
+        
+
+
+<option value="/docs/v0.2.x/factories/">Factories</option>
+
+
+      
+        
+
+
+<option value="/docs/v0.2.x/fixtures/">Fixtures</option>
+
+
+      
+        
+
+
+<option value="/docs/v0.2.x/models/">Models</option>
+
+
+      
+        
+
+
+<option value="/docs/v0.2.x/schema/">Schema</option>
+
+
+      
+        
+
+
+<option value="/docs/v0.2.x/serializers/">Serializers</option>
+
+
+      
+        
+
+
+<option value="/docs/v0.2.x/shorthands/">Shorthands</option>
+
+
+      
+        
+
+
+  
+    </optgroup>
+  
+  <optgroup label='Cookbook'>
+
+<option value="/docs/v0.2.x/manually-starting-mirage/">Manually starting Mirage</option>
+
+
+      
+        
+
+
+<option value="/docs/v0.2.x/simulating-cookie-responses/">Simulating cookie responses</option>
+
+  </optgroup>
+
+
+      
+    </select>
+
+    <div class="Mobile-nav__version">
+      <span class='Mobile-nav__version-label'>Version: </span>
+      <select class='Mobile-nav__version-select' onchange="if (this.value) window.location.href=this.value">
+        
+          <option value="/docs/v0.4.x" >v0.4.x</option>
+        
+          <option value="/docs/v0.3.x" >v0.3.x</option>
+        
+          <option value="/docs/v0.2.x" selected >v0.2.x</option>
+        
+          <option value="/docs/v0.1.x" >v0.1.x</option>
+        
+          <option value="/docs/v0.0.29" >v0.0.29</option>
+        
+          <option value="/docs/v0.0.28" >v0.0.28</option>
+        
+          <option value="/docs/v0.0.27" >v0.0.27</option>
+        
+      </select>
+    </div>
+  </div>
+
+  <div class="Desktop-nav">
+    <div class="Desktop-nav__version">
+      <span class="Desktop-nav__version-label">Version: </span>
+      <select class='Desktop-nav__version-select' onchange="if (this.value) window.location.href=this.value">
+        
+        <option value="/docs/v0.4.x" >v0.4.x</option>
+        
+        <option value="/docs/v0.3.x" >v0.3.x</option>
+        
+        <option value="/docs/v0.2.x" selected >v0.2.x</option>
+        
+        <option value="/docs/v0.1.x" >v0.1.x</option>
+        
+        <option value="/docs/v0.0.29" >v0.0.29</option>
+        
+        <option value="/docs/v0.0.28" >v0.0.28</option>
+        
+        <option value="/docs/v0.0.27" >v0.0.27</option>
+        
+      </select>
+    </div>
+
+    <ul class="Desktop-nav__toc">
+      
+        
+          <li class='Desktop-nav__section'>Getting started</li>
+        
+
+        
+
+<li>
+  <a class="Desktop-nav__item " href="/docs/v0.2.x/">
+    Overview
+  </a>
+</li>
+
+      
+        
+
+        
+
+<li>
+  <a class="Desktop-nav__item " href="/docs/v0.2.x/installation/">
+    Installation
+  </a>
+</li>
+
+      
+        
+
+        
+
+<li>
+  <a class="Desktop-nav__item " href="/docs/v0.2.x/quickstart/">
+    Quickstart
+  </a>
+</li>
+
+      
+        
+
+        
+
+<li>
+  <a class="Desktop-nav__item " href="/docs/v0.2.x/upgrading/">
+    Upgrading
+  </a>
+</li>
+
+      
+        
+          <li class='Desktop-nav__section'>Writing your server</li>
+        
+
+        
+
+<li>
+  <a class="Desktop-nav__item " href="/docs/v0.2.x/defining-routes/">
+    Defining routes
+  </a>
+</li>
+
+      
+        
+
+        
+
+<li>
+  <a class="Desktop-nav__item " href="/docs/v0.2.x/seeding-your-database/">
+    Seeding your database
+  </a>
+</li>
+
+      
+        
+
+        
+
+<li>
+  <a class="Desktop-nav__item active" href="/docs/v0.2.x/acceptance-testing/">
+    Acceptance testing
+  </a>
+</li>
+
+      
+        
+          <li class='Desktop-nav__section'>API</li>
+        
+
+        
+
+<li>
+  <a class="Desktop-nav__item " href="/docs/v0.2.x/configuration/">
+    Configuration
+  </a>
+</li>
+
+      
+        
+
+        
+
+<li>
+  <a class="Desktop-nav__item " href="/docs/v0.2.x/collections/">
+    Collections
+  </a>
+</li>
+
+      
+        
+
+        
+
+<li>
+  <a class="Desktop-nav__item " href="/docs/v0.2.x/route-handlers/">
+    Route handlers
+  </a>
+</li>
+
+      
+        
+
+        
+
+<li>
+  <a class="Desktop-nav__item " href="/docs/v0.2.x/database/">
+    Database
+  </a>
+</li>
+
+      
+        
+
+        
+
+<li>
+  <a class="Desktop-nav__item " href="/docs/v0.2.x/factories/">
+    Factories
+  </a>
+</li>
+
+      
+        
+
+        
+
+<li>
+  <a class="Desktop-nav__item " href="/docs/v0.2.x/fixtures/">
+    Fixtures
+  </a>
+</li>
+
+      
+        
+
+        
+
+<li>
+  <a class="Desktop-nav__item " href="/docs/v0.2.x/models/">
+    Models
+  </a>
+</li>
+
+      
+        
+
+        
+
+<li>
+  <a class="Desktop-nav__item " href="/docs/v0.2.x/schema/">
+    Schema
+  </a>
+</li>
+
+      
+        
+
+        
+
+<li>
+  <a class="Desktop-nav__item " href="/docs/v0.2.x/serializers/">
+    Serializers
+  </a>
+</li>
+
+      
+        
+
+        
+
+<li>
+  <a class="Desktop-nav__item " href="/docs/v0.2.x/shorthands/">
+    Shorthands
+  </a>
+</li>
+
+      
+        
+          <li class='Desktop-nav__section'>Cookbook</li>
+        
+
+        
+
+<li>
+  <a class="Desktop-nav__item " href="/docs/v0.2.x/manually-starting-mirage/">
+    Manually starting Mirage
+  </a>
+</li>
+
+      
+        
+
+        
+
+<li>
+  <a class="Desktop-nav__item " href="/docs/v0.2.x/simulating-cookie-responses/">
+    Simulating cookie responses
+  </a>
+</li>
+
+      
+    </ul>
+  </div>
+</div>
+
+
+<div class="Center-panel">
+
+  <div class="Docs-page">
+    <div class='Docs-page__header'>
+      <div class="Docs-page__version">
+        <a class='Docs-page__improve' href="https://github.com/samselikoff/ember-cli-mirage/edit/gh-pages/docs/v0.2.x/acceptance-testing.md">
+          <small>
+            <img class='Docs-page__improve-img' src="/public/images/edit.png" alt="">
+            <span class='Docs-page__improve-text'>Improve this page</span>
+          </small>
+        </a>
+      </div>
+      <h1 class='Docs-page__title'>Acceptance testing</h1>
+    </div>
+
+    <div class='Docs-page__content'>
+      <p>Acceptance testing your Ember app typically involves verifying some user behavior. For example, you may want to test that the user can view the photos on your app’s index route.</p>
+
+<p>Many of these tests rely on a given server state. In other words, you want to test that the user can view ten photos, <em>given that ten photo resources exist on the server</em> at the time the user boots up the app.</p>
+
+<p>Once you’ve defined your routes, use the <code class="highlighter-rouge">server</code> variable to define the initial server state directly in your tests:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">test</span><span class="p">(</span><span class="s1">'I can view the photos'</span><span class="p">,</span> <span class="nx">assert</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="nx">server</span><span class="p">.</span><span class="nx">createList</span><span class="p">(</span><span class="s1">'photo'</span><span class="p">,</span> <span class="mi">10</span><span class="p">);</span>
+
+  <span class="nx">visit</span><span class="p">(</span><span class="s1">'/'</span><span class="p">);</span>
+
+  <span class="nx">andThen</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">assert</span><span class="p">.</span><span class="nx">equal</span><span class="p">(</span> <span class="nx">find</span><span class="p">(</span><span class="s1">'img'</span><span class="p">).</span><span class="nx">length</span><span class="p">,</span> <span class="mi">10</span> <span class="p">);</span>
+  <span class="p">});</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">server.createList</code> uses the <code class="highlighter-rouge">photo</code> factory to generate 10 database records. This way, Mirage’s database is populated when the Ember app boots and makes an AJAX request to fetch the photos data.</p>
+
+<p>Mirage’s server will be reset after each test, so each test starts out with a clean database state.</p>
+
+<h2 id="keeping-your-tests-focused">Keeping your tests focused</h2>
+
+<p>The purpose of factories is to put code that’s relevant to a test as close to that test as possible. In the example above, we wanted to verify that the user would see ten photos, given those photos existed on the server. So, the <code class="highlighter-rouge">server.createList('photo', 10)</code> call was directly in the test.</p>
+
+<p>Say we wanted to test that when the user visits a details route for a photo titled “Sunset over Hyrule,” they would see that title in an <code class="highlighter-rouge">&lt;h1&gt;</code> tag. One way to accomplish this would be to update the photo factory itself:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// mirage/factories/photo.js</span>
+<span class="k">import</span> <span class="nx">Mirage</span> <span class="k">from</span> <span class="s1">'ember-cli-mirage'</span><span class="p">;</span>
+
+<span class="k">export</span> <span class="k">default</span> <span class="nx">Mirage</span><span class="p">.</span><span class="nx">Factory</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
+  <span class="na">title</span><span class="p">:</span> <span class="s1">'Sunset over Hyrule'</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p>The problem with this approach is that the desired change is very specific to this test. Suppose another test wanted to verify photos with different titles were displayed. Changing the factory to suit that case would break this test.</p>
+
+<p>For this reason, <code class="highlighter-rouge">create</code> and <code class="highlighter-rouge">createList</code> allow you to override specific attributes that your factory has defined. This lets us keep relevant code near our tests, without making them brittle.</p>
+
+<p>To override attributes, simply pass in an object as the last argument to <code class="highlighter-rouge">create</code> or <code class="highlighter-rouge">createList</code> with the attributes you want to override. Here’s what this may look like for the photos example.</p>
+
+<p>First, let’s make our factory more generic:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// mirage/factories/photo.js</span>
+<span class="k">import</span> <span class="nx">Mirage</span> <span class="k">from</span> <span class="s1">'ember-cli-mirage'</span><span class="p">;</span>
+
+<span class="k">export</span> <span class="k">default</span> <span class="nx">Mirage</span><span class="p">.</span><span class="nx">Factory</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
+  <span class="nx">title</span><span class="p">(</span><span class="nx">i</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// Photo 1, Photo 2 etc.</span>
+    <span class="k">return</span> <span class="s2">`Photo </span><span class="p">${</span><span class="nx">i</span><span class="p">}</span><span class="s2">`</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p>Now, we can write our tests, overriding the factory-generated attributes where appropriate:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">test</span><span class="p">(</span><span class="s2">"I can view the photos"</span><span class="p">,</span> <span class="nx">assert</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="nx">server</span><span class="p">.</span><span class="nx">createList</span><span class="p">(</span><span class="s1">'photo'</span><span class="p">,</span> <span class="mi">10</span><span class="p">);</span>
+
+  <span class="nx">visit</span><span class="p">(</span><span class="s1">'/'</span><span class="p">);</span>
+
+  <span class="nx">andThen</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">assert</span><span class="p">.</span><span class="nx">equal</span><span class="p">(</span> <span class="nx">find</span><span class="p">(</span><span class="s1">'img'</span><span class="p">).</span><span class="nx">length</span><span class="p">,</span> <span class="mi">10</span> <span class="p">);</span>
+  <span class="p">});</span>
+<span class="p">});</span>
+
+<span class="nx">test</span><span class="p">(</span><span class="s2">"I see the photo's title on a detail route"</span><span class="p">,</span> <span class="nx">assert</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="kd">let</span> <span class="nx">photo</span> <span class="o">=</span> <span class="nx">server</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span><span class="s1">'photo'</span><span class="p">,</span> <span class="p">{</span><span class="na">title</span><span class="p">:</span> <span class="s1">'Sunset over Hyrule'</span><span class="p">});</span>
+
+  <span class="nx">visit</span><span class="p">(</span><span class="s1">'/'</span> <span class="o">+</span> <span class="nx">photo</span><span class="p">.</span><span class="nx">id</span><span class="p">);</span>
+
+  <span class="nx">andThen</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">assert</span><span class="p">.</span><span class="nx">equal</span><span class="p">(</span> <span class="nx">find</span><span class="p">(</span><span class="s1">'h1:contains(Sunset over Hyrule)'</span><span class="p">).</span><span class="nx">length</span><span class="p">,</span> <span class="mi">1</span> <span class="p">);</span>
+  <span class="p">});</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p>We override <code class="highlighter-rouge">title</code> in the second test since it’s relevant there, but we stick with the factory-generated defaults for the first test.</p>
+
+<h2 id="asserting-a-server-call-was-made-in-a-test">Asserting a server call was made in a test</h2>
+
+<p>Often you’ll write tests against your application’s UI, which will verify that the proper data from Mirage was returned. However, because Mirage gives you a full client-side server, you can gain more confidence from your tests by asserting against Mirage’s server state, in addition to testing your Ember app’s UI.</p>
+
+<p>There are two general approaches to this. First, you can assert directly against Mirage’s database:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">test</span><span class="p">(</span><span class="s2">"I can change the lesson's title"</span><span class="p">,</span> <span class="nx">assert</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="nx">server</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span><span class="s1">'lesson'</span><span class="p">,</span> <span class="p">{</span><span class="na">title</span><span class="p">:</span> <span class="s1">'My First Lesson'</span><span class="p">})</span>
+
+  <span class="nx">visit</span><span class="p">(</span><span class="s1">'/'</span><span class="p">);</span>
+  <span class="nx">click</span><span class="p">(</span><span class="s1">'.Edit'</span><span class="p">)</span>
+  <span class="nx">fillIn</span><span class="p">(</span><span class="s1">'input'</span><span class="p">,</span> <span class="s1">'Updated lesson'</span><span class="p">);</span>
+  <span class="nx">click</span><span class="p">(</span><span class="s1">'.Save'</span><span class="p">);</span>
+
+  <span class="nx">andThen</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="c1">// Assert against our app's UI</span>
+    <span class="nx">assert</span><span class="p">.</span><span class="nx">equal</span><span class="p">(</span> <span class="nx">find</span><span class="p">(</span><span class="s1">'h1:contains(Updated lesson)'</span><span class="p">).</span><span class="nx">length</span><span class="p">,</span> <span class="mi">1</span> <span class="p">);</span>
+
+    <span class="c1">// Also check that the data was "persisted" to our backend</span>
+    <span class="nx">assert</span><span class="p">.</span><span class="nx">equal</span><span class="p">(</span> <span class="nx">server</span><span class="p">.</span><span class="nx">db</span><span class="p">.</span><span class="nx">lessons</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">title</span><span class="p">,</span> <span class="s1">'Updated lesson'</span><span class="p">);</span>
+  <span class="p">});</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p>The next strategy is to temporarily override the server route that’s relevant to your test, and assert against the actual request that your Ember app sent:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">test</span><span class="p">(</span><span class="s2">"I can change the lesson's title"</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">assert</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">assert</span><span class="p">.</span><span class="nx">expect</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+  <span class="kd">let</span> <span class="nx">done</span> <span class="o">=</span> <span class="nx">assert</span><span class="p">.</span><span class="k">async</span><span class="p">();</span>
+
+  <span class="nx">server</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span><span class="s1">'lesson'</span><span class="p">,</span> <span class="p">{</span><span class="na">title</span><span class="p">:</span> <span class="s1">'My First Lesson'</span><span class="p">})</span>
+
+  <span class="nx">server</span><span class="p">.</span><span class="nx">put</span><span class="p">(</span><span class="s1">'/lessons/:id'</span><span class="p">,</span> <span class="p">(</span><span class="nx">schema</span><span class="p">,</span> <span class="nx">request</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="kd">let</span> <span class="nx">params</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">request</span><span class="p">.</span><span class="nx">requestBody</span><span class="p">);</span>
+
+    <span class="c1">// Here, we're asserting the params Mirage received are in the format you expect</span>
+    <span class="nx">assert</span><span class="p">.</span><span class="nx">deepEqual</span><span class="p">(</span><span class="nx">params</span><span class="p">,</span> <span class="p">{...});</span>
+    <span class="nx">done</span><span class="p">();</span>
+  <span class="p">});</span>
+
+  <span class="nx">visit</span><span class="p">(</span><span class="s1">'/'</span><span class="p">);</span>
+  <span class="nx">click</span><span class="p">(</span><span class="s1">'.Edit'</span><span class="p">)</span>
+  <span class="nx">fillIn</span><span class="p">(</span><span class="s1">'input'</span><span class="p">,</span> <span class="s1">'Updated lesson'</span><span class="p">);</span>
+  <span class="nx">click</span><span class="p">(</span><span class="s1">'.Save'</span><span class="p">);</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p>Note that here, we’re overwriting any route handler you may defined for PUT to <code class="highlighter-rouge">/lessons/:id</code> in your <code class="highlighter-rouge">config.js</code> file, but only for this test. After this test, your Mirage server will be reset, and all the routes from <code class="highlighter-rouge">config.js</code> will be used.</p>
+
+<h2 id="testing-errors">Testing errors</h2>
+
+<p>To test how your Ember app responds to a server error, overwrite a route handler within a test:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">test</span><span class="p">(</span><span class="s1">'the user sees an error if the save attempt fails'</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">assert</span><span class="p">)</span> <span class="p">{</span>
+   <span class="nx">server</span><span class="p">.</span><span class="nx">post</span><span class="p">(</span><span class="s1">'/questions'</span><span class="p">,</span> <span class="p">{</span><span class="na">errors</span><span class="p">:</span> <span class="p">[</span><span class="s1">'There was an error'</span><span class="p">]},</span> <span class="mi">500</span><span class="p">);</span>
+
+   <span class="nx">visit</span><span class="p">(</span><span class="s1">'/'</span><span class="p">);</span>
+   <span class="nx">click</span><span class="p">(</span><span class="s1">'.new'</span><span class="p">);</span>
+   <span class="nx">fillIn</span><span class="p">(</span><span class="s1">'input'</span><span class="p">,</span> <span class="s1">'New question'</span><span class="p">);</span>
+   <span class="nx">click</span><span class="p">(</span><span class="s1">'.save'</span><span class="p">);</span>
+
+   <span class="nx">andThen</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+     <span class="nx">assert</span><span class="p">.</span><span class="nx">equals</span><span class="p">(</span><span class="nx">find</span><span class="p">(</span><span class="s1">'p:contains(There was an error)'</span><span class="p">).</span><span class="nx">length</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+   <span class="p">});</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p>This route handler definition is only in effect for the duration of this test, so as soon as it’s over any handler you have defined for POST to <code class="highlighter-rouge">/questions</code> in your <code class="highlighter-rouge">config.js</code> file will be used again.</p>
+
+<hr />
+
+<p>You should now know enough to fake your production API and test your app using Mirage!</p>
+
+    </div>
+
+    
+
+<div class='Docs-page-nav'>
+  
+    
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+      
+      
+      
+        
+  
+         <a class="Docs-page-nav__link u-first" href="/docs/v0.2.x/seeding-your-database/">< Seeding your database</a>
+      
+  
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+      
+      
+      
+        
+  
+         <a class="Docs-page-nav__link u-last" href="/docs/v0.2.x/configuration/">Configuration ></a>
+      
+  
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+</div>
+
+  </div>
+</div>
+
+      </div>
+    </div>
+
+    <footer class="Footer">
+  <div class="Container Grid Grid--gutters Grid--full med-Grid--fit">
+    <div class="Grid-cell">
+      <p>Project and site maintained by <a href="https://twitter.com/samselikoff">Sam Selikoff</a> and <a href="https://github.com/samselikoff/ember-cli-mirage/graphs/contributors">contributors</a>.</p>
+      <p>Sponsored by <a href="https://embermap.com/">EmberMap</a>.<p>
+    </div>
+    <div class="Grid-cell">
+      <div class="Github-stars">
+        <iframe src="https://ghbtns.com/github-btn.html?user=samselikoff&repo=ember-cli-mirage&type=star&count=true" frameborder="0" scrolling="0" width="170px" height="20px"></iframe>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/1.1.1/anchor.min.js"></script>
+<script>
+  /* global anchors */
+  // anchors.options = {
+  //   placement: 'left',
+  //   visible: 'always'
+  // };
+  anchors.add('h2:not(.Home-page__feature-heading)');
+</script>
+
+
+  </body>
+</html>

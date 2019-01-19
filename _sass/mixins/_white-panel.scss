@@ -1,8 +1,0 @@
-@mixin white-panel() {
-  background-color: white;
-  padding: 20px;
-  max-width: none;
-  @include above($breakpoint) {
-    border-radius: 4px;
-  }
-}

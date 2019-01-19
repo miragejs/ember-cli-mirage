@@ -1,0 +1,1097 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+
+  <head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      Models &middot; Ember CLI Mirage
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/style.css">
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-144-precomposed.png">
+                                 <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+
+  <body>
+    <div class="Topbar">
+      <div class="Container">
+      </div>
+    </div>
+
+    <header class="Header">
+  <div class="Container">
+    <nav class='Header__nav'>
+      <ul class='Header__nav-list'>
+        <li class='Header__nav-item'>
+          <a href='/docs/v0.4.x' class="Header__nav-item-link active">
+            <span class="u-mobile">Docs</span>
+            <span class="u-desktop">Documentation</span>
+          </a>
+        </li>
+        <li class='Header__nav-item'>
+          <a href='/blog' class="Header__nav-item-link">Blog</a>
+        </li>
+        <li class='Header__nav-item'>
+          <a href='/about' class="Header__nav-item-link">About</a>
+        </li>
+        <li class='Header__nav-item'>
+          <a href="https://github.com/samselikoff/ember-cli-mirage" class='Header__nav-item-link' target="_blank">GitHub</a>
+        </li>
+      </ul>
+    </nav>
+    <a class="Header__logo" href="/">
+      <span class='Header__logo-minor'>Ember CLI</span><br>
+      <span class='Header__logo-major'>Mirage</span>
+    </a>
+  </div>
+</header>
+
+
+    <div class="Wrapper">
+      <div class="Content">
+        
+
+<div class="Side-panel">
+
+  <div class="Mobile-nav">
+    <select class="Mobile-nav__toc" onchange="if (this.value) window.location.href=this.value">
+      <option value="">Navigate the docs...</option>
+      
+        
+
+
+  
+  <optgroup label='Getting started'>
+
+<option value="/docs/v0.4.x/">Overview</option>
+
+
+      
+        
+
+
+<option value="/docs/v0.4.x/installation/">Installation</option>
+
+
+      
+        
+
+
+<option value="/docs/v0.4.x/quickstart/">Quickstart</option>
+
+
+      
+        
+
+
+<option value="/docs/v0.4.x/upgrading/">Upgrading</option>
+
+
+      
+        
+
+
+  
+    </optgroup>
+  
+  <optgroup label='Writing your server'>
+
+<option value="/docs/v0.4.x/defining-routes/">Defining routes</option>
+
+
+      
+        
+
+
+<option value="/docs/v0.4.x/seeding-your-database/">Seeding your database</option>
+
+
+      
+        
+
+
+<option value="/docs/v0.4.x/acceptance-testing/">Acceptance testing</option>
+
+
+      
+        
+
+
+  
+    </optgroup>
+  
+  <optgroup label='API'>
+
+<option value="/docs/v0.4.x/configuration/">Configuration</option>
+
+
+      
+        
+
+
+<option value="/docs/v0.4.x/collections/">Collections</option>
+
+
+      
+        
+
+
+<option value="/docs/v0.4.x/route-handlers/">Route handlers</option>
+
+
+      
+        
+
+
+<option value="/docs/v0.4.x/database/">Database</option>
+
+
+      
+        
+
+
+<option value="/docs/v0.4.x/factories/">Factories</option>
+
+
+      
+        
+
+
+<option value="/docs/v0.4.x/fixtures/">Fixtures</option>
+
+
+      
+        
+
+
+<option value="/docs/v0.4.x/models/">Models</option>
+
+
+      
+        
+
+
+<option value="/docs/v0.4.x/schema/">Schema</option>
+
+
+      
+        
+
+
+<option value="/docs/v0.4.x/serializers/">Serializers</option>
+
+
+      
+        
+
+
+<option value="/docs/v0.4.x/shorthands/">Shorthands</option>
+
+
+      
+        
+
+
+  
+    </optgroup>
+  
+  <optgroup label='Cookbook'>
+
+<option value="/docs/v0.4.x/manually-starting-mirage/">Manually starting Mirage</option>
+
+
+      
+        
+
+
+<option value="/docs/v0.4.x/simulating-cookie-responses/">Simulating cookie responses</option>
+
+  </optgroup>
+
+
+      
+    </select>
+
+    <div class="Mobile-nav__version">
+      <span class='Mobile-nav__version-label'>Version: </span>
+      <select class='Mobile-nav__version-select' onchange="if (this.value) window.location.href=this.value">
+        
+          <option value="/docs/v0.4.x" selected >v0.4.x</option>
+        
+          <option value="/docs/v0.3.x" >v0.3.x</option>
+        
+          <option value="/docs/v0.2.x" >v0.2.x</option>
+        
+          <option value="/docs/v0.1.x" >v0.1.x</option>
+        
+          <option value="/docs/v0.0.29" >v0.0.29</option>
+        
+          <option value="/docs/v0.0.28" >v0.0.28</option>
+        
+          <option value="/docs/v0.0.27" >v0.0.27</option>
+        
+      </select>
+    </div>
+  </div>
+
+  <div class="Desktop-nav">
+    <div class="Desktop-nav__version">
+      <span class="Desktop-nav__version-label">Version: </span>
+      <select class='Desktop-nav__version-select' onchange="if (this.value) window.location.href=this.value">
+        
+        <option value="/docs/v0.4.x" selected >v0.4.x</option>
+        
+        <option value="/docs/v0.3.x" >v0.3.x</option>
+        
+        <option value="/docs/v0.2.x" >v0.2.x</option>
+        
+        <option value="/docs/v0.1.x" >v0.1.x</option>
+        
+        <option value="/docs/v0.0.29" >v0.0.29</option>
+        
+        <option value="/docs/v0.0.28" >v0.0.28</option>
+        
+        <option value="/docs/v0.0.27" >v0.0.27</option>
+        
+      </select>
+    </div>
+
+    <ul class="Desktop-nav__toc">
+      
+        
+          <li class='Desktop-nav__section'>Getting started</li>
+        
+
+        
+
+<li>
+  <a class="Desktop-nav__item " href="/docs/v0.4.x/">
+    Overview
+  </a>
+</li>
+
+      
+        
+
+        
+
+<li>
+  <a class="Desktop-nav__item " href="/docs/v0.4.x/installation/">
+    Installation
+  </a>
+</li>
+
+      
+        
+
+        
+
+<li>
+  <a class="Desktop-nav__item " href="/docs/v0.4.x/quickstart/">
+    Quickstart
+  </a>
+</li>
+
+      
+        
+
+        
+
+<li>
+  <a class="Desktop-nav__item " href="/docs/v0.4.x/upgrading/">
+    Upgrading
+  </a>
+</li>
+
+      
+        
+          <li class='Desktop-nav__section'>Writing your server</li>
+        
+
+        
+
+<li>
+  <a class="Desktop-nav__item " href="/docs/v0.4.x/defining-routes/">
+    Defining routes
+  </a>
+</li>
+
+      
+        
+
+        
+
+<li>
+  <a class="Desktop-nav__item " href="/docs/v0.4.x/seeding-your-database/">
+    Seeding your database
+  </a>
+</li>
+
+      
+        
+
+        
+
+<li>
+  <a class="Desktop-nav__item " href="/docs/v0.4.x/acceptance-testing/">
+    Acceptance testing
+  </a>
+</li>
+
+      
+        
+          <li class='Desktop-nav__section'>API</li>
+        
+
+        
+
+<li>
+  <a class="Desktop-nav__item " href="/docs/v0.4.x/configuration/">
+    Configuration
+  </a>
+</li>
+
+      
+        
+
+        
+
+<li>
+  <a class="Desktop-nav__item " href="/docs/v0.4.x/collections/">
+    Collections
+  </a>
+</li>
+
+      
+        
+
+        
+
+<li>
+  <a class="Desktop-nav__item " href="/docs/v0.4.x/route-handlers/">
+    Route handlers
+  </a>
+</li>
+
+      
+        
+
+        
+
+<li>
+  <a class="Desktop-nav__item " href="/docs/v0.4.x/database/">
+    Database
+  </a>
+</li>
+
+      
+        
+
+        
+
+<li>
+  <a class="Desktop-nav__item " href="/docs/v0.4.x/factories/">
+    Factories
+  </a>
+</li>
+
+      
+        
+
+        
+
+<li>
+  <a class="Desktop-nav__item " href="/docs/v0.4.x/fixtures/">
+    Fixtures
+  </a>
+</li>
+
+      
+        
+
+        
+
+<li>
+  <a class="Desktop-nav__item active" href="/docs/v0.4.x/models/">
+    Models
+  </a>
+</li>
+
+      
+        
+
+        
+
+<li>
+  <a class="Desktop-nav__item " href="/docs/v0.4.x/schema/">
+    Schema
+  </a>
+</li>
+
+      
+        
+
+        
+
+<li>
+  <a class="Desktop-nav__item " href="/docs/v0.4.x/serializers/">
+    Serializers
+  </a>
+</li>
+
+      
+        
+
+        
+
+<li>
+  <a class="Desktop-nav__item " href="/docs/v0.4.x/shorthands/">
+    Shorthands
+  </a>
+</li>
+
+      
+        
+          <li class='Desktop-nav__section'>Cookbook</li>
+        
+
+        
+
+<li>
+  <a class="Desktop-nav__item " href="/docs/v0.4.x/manually-starting-mirage/">
+    Manually starting Mirage
+  </a>
+</li>
+
+      
+        
+
+        
+
+<li>
+  <a class="Desktop-nav__item " href="/docs/v0.4.x/simulating-cookie-responses/">
+    Simulating cookie responses
+  </a>
+</li>
+
+      
+    </ul>
+  </div>
+</div>
+
+
+<div class="Center-panel">
+
+  <div class="Docs-page">
+    <div class='Docs-page__header'>
+      <div class="Docs-page__version">
+        <a class='Docs-page__improve' href="https://github.com/samselikoff/ember-cli-mirage/edit/gh-pages/docs/v0.4.x/models.md">
+          <small>
+            <img class='Docs-page__improve-img' src="/public/images/edit.png" alt="">
+            <span class='Docs-page__improve-text'>Improve this page</span>
+          </small>
+        </a>
+      </div>
+      <h1 class='Docs-page__title'>Models</h1>
+    </div>
+
+    <div class='Docs-page__content'>
+      <p>Models wrap your database and allow you to define relationships.</p>
+
+<aside class="Docs-page__aside">
+  <p>As a clarifying point, Mirage model instances only exist within Mirage's server, and are never shared with your Ember app, rendered in components, etc. They solely exist to help you manage the data and relationships in your fake backend.</p>
+</aside>
+
+<p>Define models by adding files under <code class="highlighter-rouge">/models</code>. These are automatically registered with <code class="highlighter-rouge">schema</code>, which is how you’ll access your model classes in your route handlers.</p>
+
+<p>Note - if you’re using Ember Data and version 0.3.3 of Mirage or later, models will be detected and auto-generated for you in-memory, so you don’t need to define the files yourself.</p>
+
+<hr />
+
+<h2 id="defining-models">Defining Models</h2>
+
+<p>To define a model, use the generator:</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ember g mirage-model blog-post
+</code></pre></div></div>
+
+<p>This creates a file under <code class="highlighter-rouge">/mirage/models</code>:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// mirage/models/blog-post.js</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">Model</span> <span class="p">}</span> <span class="k">from</span> <span class="s1">'ember-cli-mirage'</span><span class="p">;</span>
+
+<span class="k">export</span> <span class="k">default</span> <span class="nx">Model</span><span class="p">;</span>
+</code></pre></div></div>
+
+<h2 id="class-methods">Class methods</h2>
+
+<p>Access a model class using the <code class="highlighter-rouge">schema</code> object injected into your route handlers. For example, given the <code class="highlighter-rouge">blog-post</code> file above, you’d access the <code class="highlighter-rouge">BlogPost</code> class via <code class="highlighter-rouge">schema.blogPosts</code>:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">this</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="s1">'/blog_posts'</span><span class="p">,</span> <span class="p">(</span><span class="nx">schema</span><span class="p">,</span> <span class="nx">request</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="nx">schema</span><span class="p">.</span><span class="nx">blogPosts</span><span class="p">.</span><span class="nx">all</span><span class="p">();</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p>You can then invoke the model’s class methods.</p>
+
+<p>Use ES6 destructuring to add some sugar:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">this</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="s1">'/blog_posts'</span><span class="p">,</span> <span class="p">({</span> <span class="nx">blogPosts</span> <span class="p">},</span> <span class="nx">request</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="nx">blogPosts</span><span class="p">.</span><span class="nx">all</span><span class="p">();</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<h3 id="newattrs">new(<em>attrs</em>)</h3>
+
+<p>Create a new unsaved model instance with attributes <em>attrs</em>.</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">post</span> <span class="o">=</span> <span class="nx">blogPosts</span><span class="p">.</span><span class="k">new</span><span class="p">({</span> <span class="na">title</span><span class="p">:</span> <span class="s1">'Lorem ipsum'</span> <span class="p">});</span>
+<span class="nx">post</span><span class="p">.</span><span class="nx">title</span><span class="p">;</span>   <span class="c1">// Lorem ipsum</span>
+<span class="nx">post</span><span class="p">.</span><span class="nx">id</span><span class="p">;</span>      <span class="c1">// null</span>
+<span class="nx">post</span><span class="p">.</span><span class="nx">isNew</span><span class="p">();</span> <span class="c1">// true</span>
+</code></pre></div></div>
+
+<h3 id="createattrs">create(<em>attrs</em>)</h3>
+
+<p>Create a new model instance with attributes <em>attrs</em>, and insert it into the database.</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">post</span> <span class="o">=</span> <span class="nx">blogPosts</span><span class="p">.</span><span class="nx">create</span><span class="p">({</span><span class="na">title</span><span class="p">:</span> <span class="s1">'Lorem ipsum'</span><span class="p">});</span>
+<span class="nx">post</span><span class="p">.</span><span class="nx">title</span><span class="p">;</span>   <span class="c1">// Lorem ipsum</span>
+<span class="nx">post</span><span class="p">.</span><span class="nx">id</span><span class="p">;</span>      <span class="c1">// 1</span>
+<span class="nx">post</span><span class="p">.</span><span class="nx">isNew</span><span class="p">();</span> <span class="c1">// false</span>
+</code></pre></div></div>
+
+<h3 id="all">all()</h3>
+
+<p>Return all models in the database.</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">posts</span> <span class="o">=</span> <span class="nx">blogPosts</span><span class="p">.</span><span class="nx">all</span><span class="p">();</span>
+<span class="c1">// [post:1, post:2, ...]</span>
+</code></pre></div></div>
+
+<h3 id="findid-or-ids">find(<em>id</em> or <em>ids</em>)</h3>
+
+<p>Return one or many models in the database by id.</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">post</span> <span class="o">=</span> <span class="nx">blogPosts</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+<span class="kd">let</span> <span class="nx">posts</span> <span class="o">=</span> <span class="nx">blogPosts</span><span class="p">.</span><span class="nx">find</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]);</span>
+</code></pre></div></div>
+
+<h3 id="findbyquery">findBy(<em>query</em>)</h3>
+
+<p>Returns the first model in the database that matches the key-value pairs in the <code class="highlighter-rouge">query</code> object. Note that a string comparison is used.</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">post</span> <span class="o">=</span> <span class="nx">blogPosts</span><span class="p">.</span><span class="nx">findBy</span><span class="p">({</span> <span class="na">published</span><span class="p">:</span> <span class="kc">true</span> <span class="p">});</span>
+</code></pre></div></div>
+
+<h3 id="first">first()</h3>
+
+<p>Returns the first model in the database.</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">post</span> <span class="o">=</span> <span class="nx">blogPosts</span><span class="p">.</span><span class="nx">first</span><span class="p">();</span>
+</code></pre></div></div>
+
+<h3 id="wherequery">where(<em>query</em>)</h3>
+
+<p>Return an array of models in the database matching the key-value pairs in <em>query</em>. Note that a string comparison is used.</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">posts</span> <span class="o">=</span> <span class="nx">blogPosts</span><span class="p">.</span><span class="nx">where</span><span class="p">({</span> <span class="na">published</span><span class="p">:</span> <span class="kc">true</span> <span class="p">});</span>
+</code></pre></div></div>
+
+<h2 id="instance-methods">Instance methods</h2>
+
+<p>These methods are available on your model instances.</p>
+
+<h3 id="attrs">attrs</h3>
+
+<p>Returns the attributes of your model.</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">post</span> <span class="o">=</span> <span class="nx">blogPosts</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+<span class="nx">post</span><span class="p">.</span><span class="nx">attrs</span><span class="p">;</span> <span class="c1">// {id: 1, title: 'Lorem Ipsum', publishedAt: '2012-01-01 10:00:00'}</span>
+</code></pre></div></div>
+
+<h3 id="save">save()</h3>
+
+<p>Create or saves the model.</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">post</span> <span class="o">=</span> <span class="nx">blogPosts</span><span class="p">.</span><span class="k">new</span><span class="p">({</span> <span class="na">title</span><span class="p">:</span> <span class="s1">'Lorem ipsum'</span> <span class="p">});</span>
+<span class="nx">post</span><span class="p">.</span><span class="nx">id</span><span class="p">;</span> <span class="c1">// null</span>
+
+<span class="nx">post</span><span class="p">.</span><span class="nx">save</span><span class="p">();</span>
+<span class="nx">post</span><span class="p">.</span><span class="nx">id</span><span class="p">;</span> <span class="c1">// 1</span>
+
+<span class="nx">post</span><span class="p">.</span><span class="nx">title</span> <span class="o">=</span> <span class="s1">'Hipster ipsum'</span><span class="p">;</span> <span class="c1">// db has not been updated</span>
+<span class="nx">post</span><span class="p">.</span><span class="nx">save</span><span class="p">();</span>                  <span class="c1">// ...now the db is updated</span>
+</code></pre></div></div>
+
+<h3 id="updatekey-val">update(key, val)</h3>
+
+<p>Updates the record in the db.</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">post</span> <span class="o">=</span> <span class="nx">blogPosts</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+<span class="nx">post</span><span class="p">.</span><span class="nx">update</span><span class="p">(</span><span class="s1">'title'</span><span class="p">,</span> <span class="s1">'Hipster ipsum'</span><span class="p">);</span> <span class="c1">// the db was updated</span>
+<span class="nx">post</span><span class="p">.</span><span class="nx">update</span><span class="p">({</span>
+  <span class="na">title</span><span class="p">:</span> <span class="s1">'Lorem ipsum'</span><span class="p">,</span>
+  <span class="na">created_at</span><span class="p">:</span> <span class="s1">'before it was cool'</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<h3 id="destroy">destroy()</h3>
+
+<p>Destroys the db record.</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">post</span> <span class="o">=</span> <span class="nx">blogPosts</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+<span class="nx">post</span><span class="p">.</span><span class="nx">destroy</span><span class="p">();</span> <span class="c1">// removed from the db</span>
+</code></pre></div></div>
+
+<h3 id="isnew">isNew()</h3>
+
+<p>Boolean, true if the model has not been persisted yet to the db.</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">post</span> <span class="o">=</span> <span class="nx">blogPosts</span><span class="p">.</span><span class="k">new</span><span class="p">({</span><span class="na">title</span><span class="p">:</span> <span class="s1">'Lorem ipsum'</span><span class="p">});</span>
+<span class="nx">post</span><span class="p">.</span><span class="nx">isNew</span><span class="p">();</span> <span class="c1">// true</span>
+<span class="nx">post</span><span class="p">.</span><span class="nx">id</span><span class="p">;</span>      <span class="c1">// null</span>
+
+<span class="nx">post</span><span class="p">.</span><span class="nx">save</span><span class="p">();</span>  <span class="c1">// true</span>
+<span class="nx">post</span><span class="p">.</span><span class="nx">isNew</span><span class="p">();</span> <span class="c1">// false</span>
+<span class="nx">post</span><span class="p">.</span><span class="nx">id</span><span class="p">;</span>      <span class="c1">// 1</span>
+</code></pre></div></div>
+
+<h3 id="issaved">isSaved()</h3>
+
+<p>Boolean, opposite of <code class="highlighter-rouge">isNew</code>.</p>
+
+<h3 id="reload">reload()</h3>
+
+<p>Reload a model’s data from the database.</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">post</span> <span class="o">=</span> <span class="nx">blogPosts</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+<span class="nx">post</span><span class="p">.</span><span class="nx">attrs</span><span class="p">;</span>     <span class="c1">// {id: 1, title: 'Lorem ipsum'}</span>
+
+<span class="nx">post</span><span class="p">.</span><span class="nx">title</span> <span class="o">=</span> <span class="s1">'Hipster ipsum'</span><span class="p">;</span>
+<span class="nx">post</span><span class="p">.</span><span class="nx">title</span><span class="p">;</span>     <span class="c1">// 'Hipster ipsum';</span>
+
+<span class="nx">post</span><span class="p">.</span><span class="nx">reload</span><span class="p">();</span>  <span class="c1">// true</span>
+<span class="nx">post</span><span class="p">.</span><span class="nx">title</span><span class="p">;</span>     <span class="c1">// 'Lorem ipsum'</span>
+</code></pre></div></div>
+
+<h3 id="tostring">toString()</h3>
+
+<p>Simple string representation of the model and id.</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">post</span> <span class="o">=</span> <span class="nx">blogPosts</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+<span class="nx">post</span><span class="p">.</span><span class="nx">toString</span><span class="p">();</span> <span class="c1">// "model:blogPost:1"</span>
+</code></pre></div></div>
+
+<h2 id="associations">Associations</h2>
+
+<p>You can also define associations by using the <code class="highlighter-rouge">belongsTo</code> and <code class="highlighter-rouge">hasMany</code> helpers. Each helper adds some dynamic methods to your model.</p>
+
+<p><em>belongsTo</em></p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// mirage/models/blog-post.js</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">Model</span><span class="p">,</span> <span class="nx">belongsTo</span> <span class="p">}</span> <span class="k">from</span> <span class="s1">'ember-cli-mirage'</span><span class="p">;</span>
+
+<span class="k">export</span> <span class="k">default</span> <span class="nx">Model</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
+  <span class="na">author</span><span class="p">:</span> <span class="nx">belongsTo</span><span class="p">()</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p>This adds an <code class="highlighter-rouge">authorId</code> property to your <code class="highlighter-rouge">blogPost</code> model, as well as some methods for working with the associated <code class="highlighter-rouge">author</code> model:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">blogPost</span><span class="p">.</span><span class="nx">authorId</span><span class="p">;</span>                <span class="c1">// 1</span>
+<span class="nx">blogPost</span><span class="p">.</span><span class="nx">authorId</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>            <span class="c1">// updates the relationship</span>
+<span class="nx">blogPost</span><span class="p">.</span><span class="nx">author</span><span class="p">;</span>                  <span class="c1">// Author instance</span>
+<span class="nx">blogPost</span><span class="p">.</span><span class="nx">author</span> <span class="o">=</span> <span class="nx">anotherAuthor</span><span class="p">;</span>
+<span class="nx">blogPost</span><span class="p">.</span><span class="nx">newAuthor</span><span class="p">(</span><span class="nx">attrs</span><span class="p">);</span>        <span class="c1">// new unsaved author</span>
+<span class="nx">blogPost</span><span class="p">.</span><span class="nx">createAuthor</span><span class="p">(</span><span class="nx">attrs</span><span class="p">);</span>     <span class="c1">// new saved author (updates blogPost.authorId in memory only)</span>
+</code></pre></div></div>
+<p>Note that when a child calls <code class="highlighter-rouge">child.createParent</code>, the new parent is immediately saved to the <code class="highlighter-rouge">db</code>, but the child’s foreign key is updated <em>on this instance only</em>, and is not immediately persisted to the database.</p>
+
+<p>In other words, <code class="highlighter-rouge">blogPost.createAuthor</code> will create a new <code class="highlighter-rouge">author</code> record, insert it into the <code class="highlighter-rouge">db</code>, and update the <code class="highlighter-rouge">blogPost.authorId</code> in memory, but if you were to fetch the <code class="highlighter-rouge">blogPost</code> from the <code class="highlighter-rouge">db</code> again, the relationship would not be persisted.</p>
+
+<p>To persist the new foreign key, you would call <code class="highlighter-rouge">blogPost.save()</code> after creating the new author.</p>
+
+<p><em>hasMany</em></p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// mirage/models/blog-post.js</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">Model</span><span class="p">,</span> <span class="nx">hasMany</span> <span class="p">}</span> <span class="k">from</span> <span class="s1">'ember-cli-mirage'</span><span class="p">;</span>
+
+<span class="k">export</span> <span class="k">default</span> <span class="nx">Model</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
+  <span class="na">comments</span><span class="p">:</span> <span class="nx">hasMany</span><span class="p">()</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p>This adds a <code class="highlighter-rouge">commentIds</code> property to the <code class="highlighter-rouge">blogPost</code> model, as well as some methods for working with the associated <code class="highlighter-rouge">comments</code> collection:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">blogPost</span><span class="p">.</span><span class="nx">commentIds</span><span class="p">;</span>                      <span class="c1">// [1, 2, 3]</span>
+<span class="nx">blogPost</span><span class="p">.</span><span class="nx">commentIds</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">];</span>             <span class="c1">// updates the relationship</span>
+<span class="nx">blogPost</span><span class="p">.</span><span class="nx">comments</span><span class="p">;</span>                        <span class="c1">// array of related comments</span>
+<span class="nx">blogPost</span><span class="p">.</span><span class="nx">comments</span> <span class="o">=</span> <span class="p">[</span><span class="nx">comment1</span><span class="p">,</span> <span class="nx">comment2</span><span class="p">];</span> <span class="c1">// updates the relationship</span>
+<span class="nx">blogPost</span><span class="p">.</span><span class="nx">newComment</span><span class="p">(</span><span class="nx">attrs</span><span class="p">);</span>               <span class="c1">// new unsaved comment</span>
+<span class="nx">blogPost</span><span class="p">.</span><span class="nx">createComment</span><span class="p">(</span><span class="nx">attrs</span><span class="p">);</span>            <span class="c1">// new saved comment (comment.blogPostId is set)</span>
+</code></pre></div></div>
+
+<h3 id="association-options">Association options</h3>
+
+<p><em>modelName</em></p>
+
+<p>If your associations model has a different name than the association itself, you can specify the <code class="highlighter-rouge">modelName</code> on the association.</p>
+
+<p>For example,</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// mirage/models/blog-post.js</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">Model</span><span class="p">,</span> <span class="nx">belongsTo</span><span class="p">,</span> <span class="nx">hasMany</span> <span class="p">}</span> <span class="k">from</span> <span class="s1">'ember-cli-mirage'</span><span class="p">;</span>
+
+<span class="k">export</span> <span class="k">default</span> <span class="nx">Model</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
+  <span class="na">author</span><span class="p">:</span> <span class="nx">belongsTo</span><span class="p">(</span><span class="s1">'user'</span><span class="p">),</span>
+  <span class="na">comments</span><span class="p">:</span> <span class="nx">hasMany</span><span class="p">(</span><span class="s1">'annotation'</span><span class="p">)</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p>would add all the named <code class="highlighter-rouge">author</code> and <code class="highlighter-rouge">comment</code> methods as listed above, but use <code class="highlighter-rouge">user</code> and <code class="highlighter-rouge">annotation</code> models for the actual relationships.</p>
+
+<p><em>inverse</em></p>
+
+<p>Sometimes a <code class="highlighter-rouge">hasMany</code> relationship can point to a model with multiple associations of the same type. You can use the <code class="highlighter-rouge">inverse</code> option to specify which property on the related model is the inverse of the given relationship:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// app/models/talk.js</span>
+<span class="k">export</span> <span class="k">default</span> <span class="nx">Model</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
+  <span class="na">primaryEvent</span><span class="p">:</span> <span class="nx">belongsTo</span><span class="p">(</span><span class="s1">'event'</span><span class="p">),</span>
+  <span class="na">secondaryEvent</span><span class="p">:</span> <span class="nx">belongsTo</span><span class="p">(</span><span class="s1">'event'</span><span class="p">),</span>
+<span class="p">});</span>
+
+<span class="c1">// app/models/event.js</span>
+<span class="k">export</span> <span class="k">default</span> <span class="nx">Model</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
+  <span class="na">talks</span><span class="p">:</span> <span class="nx">hasMany</span><span class="p">(</span><span class="s1">'talk'</span><span class="p">,</span> <span class="p">{</span> <span class="na">inverse</span><span class="p">:</span> <span class="s1">'primaryEvent'</span> <span class="p">}),</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p><em>polymorphic</em></p>
+
+<p>You can specify whether an association is a polymorphic association by passing <code class="highlighter-rouge">{ polymorphic: true }</code> as an option.</p>
+
+<p>For example, say you have a <code class="highlighter-rouge">Comment</code> that can belong to a <code class="highlighter-rouge">BlogPost</code> or a <code class="highlighter-rouge">Picture</code>. Here’s how the model definitions would look:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// app/models/comment.js</span>
+<span class="k">export</span> <span class="k">default</span> <span class="nx">Model</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
+  <span class="na">commentable</span><span class="p">:</span> <span class="nx">belongsTo</span><span class="p">({</span> <span class="na">polymorphic</span><span class="p">:</span> <span class="kc">true</span> <span class="p">})</span>
+<span class="p">});</span>
+
+<span class="c1">// app/models/blog-post.js</span>
+<span class="k">export</span> <span class="k">default</span> <span class="nx">Model</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
+  <span class="na">comments</span><span class="p">:</span> <span class="nx">hasMany</span><span class="p">()</span>
+<span class="p">});</span>
+
+<span class="c1">// app/models/picture.js</span>
+<span class="k">export</span> <span class="k">default</span> <span class="nx">Model</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
+  <span class="na">comments</span><span class="p">:</span> <span class="nx">hasMany</span><span class="p">()</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p>Note that <code class="highlighter-rouge">commentable</code> doesn’t need a type (there’s no validation done on which types of models can exist on that association).</p>
+
+<p>Polymorphic associations have slightly different method signatures for their foreign keys and build/create methods.</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">comment</span> <span class="o">=</span> <span class="nx">schema</span><span class="p">.</span><span class="nx">comments</span><span class="p">.</span><span class="nx">create</span><span class="p">({</span> <span class="na">text</span><span class="p">:</span> <span class="s2">"foo"</span> <span class="p">});</span>
+
+<span class="nx">comment</span><span class="p">.</span><span class="nx">buildCommentable</span><span class="p">(</span><span class="s1">'post'</span><span class="p">,</span> <span class="p">{</span> <span class="na">title</span><span class="p">:</span> <span class="s1">'Lorem Ipsum'</span> <span class="p">});</span>
+<span class="nx">comment</span><span class="p">.</span><span class="nx">createCommentable</span><span class="p">(</span><span class="s1">'post'</span><span class="p">,</span> <span class="p">{</span> <span class="na">title</span><span class="p">:</span> <span class="s1">'Lorem Ipsum'</span> <span class="p">});</span>
+
+<span class="c1">// getter</span>
+<span class="nx">comment</span><span class="p">.</span><span class="nx">commentableId</span><span class="p">;</span> <span class="c1">// { id: 1, type: 'blog-post' }</span>
+
+<span class="c1">// setter</span>
+<span class="nx">comment</span><span class="p">.</span><span class="nx">commentableId</span> <span class="o">=</span> <span class="p">{</span> <span class="na">id</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="na">type</span><span class="p">:</span> <span class="s1">'picture'</span> <span class="p">};</span>
+</code></pre></div></div>
+
+<p>Has-many asssociations can also be polymorphic:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// app/models/user.js</span>
+<span class="k">export</span> <span class="k">default</span> <span class="nx">Model</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
+  <span class="na">things</span><span class="p">:</span> <span class="nx">hasMany</span><span class="p">({</span> <span class="na">polymorphic</span><span class="p">:</span> <span class="kc">true</span> <span class="p">})</span>
+<span class="p">});</span>
+
+<span class="c1">// app/models/car.js</span>
+<span class="k">export</span> <span class="k">default</span> <span class="nx">Model</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
+<span class="p">});</span>
+
+<span class="c1">// app/models/watch.js</span>
+<span class="k">export</span> <span class="k">default</span> <span class="nx">Model</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
+<span class="p">});</span>
+
+<span class="kd">let</span> <span class="nx">user</span> <span class="o">=</span> <span class="nx">schema</span><span class="p">.</span><span class="nx">users</span><span class="p">.</span><span class="nx">create</span><span class="p">({</span> <span class="na">name</span><span class="p">:</span> <span class="s2">"Sam"</span> <span class="p">});</span>
+
+<span class="nx">user</span><span class="p">.</span><span class="nx">buildThing</span><span class="p">(</span><span class="s1">'car'</span><span class="p">,</span> <span class="p">{</span> <span class="nx">attrs</span> <span class="p">});</span>
+<span class="nx">user</span><span class="p">.</span><span class="nx">createThing</span><span class="p">(</span><span class="s1">'watch'</span><span class="p">,</span> <span class="p">{</span> <span class="nx">attrs</span> <span class="p">});</span>
+
+<span class="c1">// getter</span>
+<span class="nx">user</span><span class="p">.</span><span class="nx">thingIds</span><span class="p">;</span> <span class="c1">// [ { id: 1, type: 'car' }, { id: 3, type: 'watch' }, ... ]</span>
+
+<span class="c1">// setter</span>
+<span class="nx">user</span><span class="p">.</span><span class="nx">thingIds</span> <span class="o">=</span> <span class="p">[</span> <span class="p">{</span> <span class="na">id</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="na">type</span><span class="p">:</span> <span class="s1">'watch'</span> <span class="p">},</span> <span class="p">...</span> <span class="p">];</span>
+</code></pre></div></div>
+
+<h3 id="building-associations">Building associations</h3>
+
+<p>To create objects via factories that come with relationships (and related models) already built, you can use the <code class="highlighter-rouge">afterCreate()</code> hook when defining your factory. For details, check out the <a href="../factories/#factories-and-relationships">factories documentation</a>.</p>
+
+    </div>
+
+    
+
+<div class='Docs-page-nav'>
+  
+    
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+      
+      
+      
+        
+  
+         <a class="Docs-page-nav__link u-first" href="/docs/v0.4.x/fixtures/">< Fixtures</a>
+      
+  
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+      
+      
+      
+        
+  
+         <a class="Docs-page-nav__link u-last" href="/docs/v0.4.x/schema/">Schema ></a>
+      
+  
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+</div>
+
+  </div>
+</div>
+
+      </div>
+    </div>
+
+    <footer class="Footer">
+  <div class="Container Grid Grid--gutters Grid--full med-Grid--fit">
+    <div class="Grid-cell">
+      <p>Project and site maintained by <a href="https://twitter.com/samselikoff">Sam Selikoff</a> and <a href="https://github.com/samselikoff/ember-cli-mirage/graphs/contributors">contributors</a>.</p>
+      <p>Sponsored by <a href="https://embermap.com/">EmberMap</a>.<p>
+    </div>
+    <div class="Grid-cell">
+      <div class="Github-stars">
+        <iframe src="https://ghbtns.com/github-btn.html?user=samselikoff&repo=ember-cli-mirage&type=star&count=true" frameborder="0" scrolling="0" width="170px" height="20px"></iframe>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/1.1.1/anchor.min.js"></script>
+<script>
+  /* global anchors */
+  // anchors.options = {
+  //   placement: 'left',
+  //   visible: 'always'
+  // };
+  anchors.add('h2:not(.Home-page__feature-heading)');
+</script>
+
+
+  </body>
+</html>

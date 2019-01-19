@@ -1,0 +1,899 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+
+  <head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      Database &middot; Ember CLI Mirage
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/style.css">
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-144-precomposed.png">
+                                 <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+
+  <body>
+    <div class="Topbar">
+      <div class="Container">
+      </div>
+    </div>
+
+    <header class="Header">
+  <div class="Container">
+    <nav class='Header__nav'>
+      <ul class='Header__nav-list'>
+        <li class='Header__nav-item'>
+          <a href='/docs/v0.4.x' class="Header__nav-item-link active">
+            <span class="u-mobile">Docs</span>
+            <span class="u-desktop">Documentation</span>
+          </a>
+        </li>
+        <li class='Header__nav-item'>
+          <a href='/blog' class="Header__nav-item-link">Blog</a>
+        </li>
+        <li class='Header__nav-item'>
+          <a href='/about' class="Header__nav-item-link">About</a>
+        </li>
+        <li class='Header__nav-item'>
+          <a href="https://github.com/samselikoff/ember-cli-mirage" class='Header__nav-item-link' target="_blank">GitHub</a>
+        </li>
+      </ul>
+    </nav>
+    <a class="Header__logo" href="/">
+      <span class='Header__logo-minor'>Ember CLI</span><br>
+      <span class='Header__logo-major'>Mirage</span>
+    </a>
+  </div>
+</header>
+
+
+    <div class="Wrapper">
+      <div class="Content">
+        
+
+<div class="Side-panel">
+
+  <div class="Mobile-nav">
+    <select class="Mobile-nav__toc" onchange="if (this.value) window.location.href=this.value">
+      <option value="">Navigate the docs...</option>
+      
+        
+
+
+  
+  <optgroup label='Getting started'>
+
+<option value="/docs/v0.4.x/">Overview</option>
+
+
+      
+        
+
+
+<option value="/docs/v0.4.x/installation/">Installation</option>
+
+
+      
+        
+
+
+<option value="/docs/v0.4.x/quickstart/">Quickstart</option>
+
+
+      
+        
+
+
+<option value="/docs/v0.4.x/upgrading/">Upgrading</option>
+
+
+      
+        
+
+
+  
+    </optgroup>
+  
+  <optgroup label='Writing your server'>
+
+<option value="/docs/v0.4.x/defining-routes/">Defining routes</option>
+
+
+      
+        
+
+
+<option value="/docs/v0.4.x/seeding-your-database/">Seeding your database</option>
+
+
+      
+        
+
+
+<option value="/docs/v0.4.x/acceptance-testing/">Acceptance testing</option>
+
+
+      
+        
+
+
+  
+    </optgroup>
+  
+  <optgroup label='API'>
+
+<option value="/docs/v0.4.x/configuration/">Configuration</option>
+
+
+      
+        
+
+
+<option value="/docs/v0.4.x/collections/">Collections</option>
+
+
+      
+        
+
+
+<option value="/docs/v0.4.x/route-handlers/">Route handlers</option>
+
+
+      
+        
+
+
+<option value="/docs/v0.4.x/database/">Database</option>
+
+
+      
+        
+
+
+<option value="/docs/v0.4.x/factories/">Factories</option>
+
+
+      
+        
+
+
+<option value="/docs/v0.4.x/fixtures/">Fixtures</option>
+
+
+      
+        
+
+
+<option value="/docs/v0.4.x/models/">Models</option>
+
+
+      
+        
+
+
+<option value="/docs/v0.4.x/schema/">Schema</option>
+
+
+      
+        
+
+
+<option value="/docs/v0.4.x/serializers/">Serializers</option>
+
+
+      
+        
+
+
+<option value="/docs/v0.4.x/shorthands/">Shorthands</option>
+
+
+      
+        
+
+
+  
+    </optgroup>
+  
+  <optgroup label='Cookbook'>
+
+<option value="/docs/v0.4.x/manually-starting-mirage/">Manually starting Mirage</option>
+
+
+      
+        
+
+
+<option value="/docs/v0.4.x/simulating-cookie-responses/">Simulating cookie responses</option>
+
+  </optgroup>
+
+
+      
+    </select>
+
+    <div class="Mobile-nav__version">
+      <span class='Mobile-nav__version-label'>Version: </span>
+      <select class='Mobile-nav__version-select' onchange="if (this.value) window.location.href=this.value">
+        
+          <option value="/docs/v0.4.x" selected >v0.4.x</option>
+        
+          <option value="/docs/v0.3.x" >v0.3.x</option>
+        
+          <option value="/docs/v0.2.x" >v0.2.x</option>
+        
+          <option value="/docs/v0.1.x" >v0.1.x</option>
+        
+          <option value="/docs/v0.0.29" >v0.0.29</option>
+        
+          <option value="/docs/v0.0.28" >v0.0.28</option>
+        
+          <option value="/docs/v0.0.27" >v0.0.27</option>
+        
+      </select>
+    </div>
+  </div>
+
+  <div class="Desktop-nav">
+    <div class="Desktop-nav__version">
+      <span class="Desktop-nav__version-label">Version: </span>
+      <select class='Desktop-nav__version-select' onchange="if (this.value) window.location.href=this.value">
+        
+        <option value="/docs/v0.4.x" selected >v0.4.x</option>
+        
+        <option value="/docs/v0.3.x" >v0.3.x</option>
+        
+        <option value="/docs/v0.2.x" >v0.2.x</option>
+        
+        <option value="/docs/v0.1.x" >v0.1.x</option>
+        
+        <option value="/docs/v0.0.29" >v0.0.29</option>
+        
+        <option value="/docs/v0.0.28" >v0.0.28</option>
+        
+        <option value="/docs/v0.0.27" >v0.0.27</option>
+        
+      </select>
+    </div>
+
+    <ul class="Desktop-nav__toc">
+      
+        
+          <li class='Desktop-nav__section'>Getting started</li>
+        
+
+        
+
+<li>
+  <a class="Desktop-nav__item " href="/docs/v0.4.x/">
+    Overview
+  </a>
+</li>
+
+      
+        
+
+        
+
+<li>
+  <a class="Desktop-nav__item " href="/docs/v0.4.x/installation/">
+    Installation
+  </a>
+</li>
+
+      
+        
+
+        
+
+<li>
+  <a class="Desktop-nav__item " href="/docs/v0.4.x/quickstart/">
+    Quickstart
+  </a>
+</li>
+
+      
+        
+
+        
+
+<li>
+  <a class="Desktop-nav__item " href="/docs/v0.4.x/upgrading/">
+    Upgrading
+  </a>
+</li>
+
+      
+        
+          <li class='Desktop-nav__section'>Writing your server</li>
+        
+
+        
+
+<li>
+  <a class="Desktop-nav__item " href="/docs/v0.4.x/defining-routes/">
+    Defining routes
+  </a>
+</li>
+
+      
+        
+
+        
+
+<li>
+  <a class="Desktop-nav__item " href="/docs/v0.4.x/seeding-your-database/">
+    Seeding your database
+  </a>
+</li>
+
+      
+        
+
+        
+
+<li>
+  <a class="Desktop-nav__item " href="/docs/v0.4.x/acceptance-testing/">
+    Acceptance testing
+  </a>
+</li>
+
+      
+        
+          <li class='Desktop-nav__section'>API</li>
+        
+
+        
+
+<li>
+  <a class="Desktop-nav__item " href="/docs/v0.4.x/configuration/">
+    Configuration
+  </a>
+</li>
+
+      
+        
+
+        
+
+<li>
+  <a class="Desktop-nav__item " href="/docs/v0.4.x/collections/">
+    Collections
+  </a>
+</li>
+
+      
+        
+
+        
+
+<li>
+  <a class="Desktop-nav__item " href="/docs/v0.4.x/route-handlers/">
+    Route handlers
+  </a>
+</li>
+
+      
+        
+
+        
+
+<li>
+  <a class="Desktop-nav__item active" href="/docs/v0.4.x/database/">
+    Database
+  </a>
+</li>
+
+      
+        
+
+        
+
+<li>
+  <a class="Desktop-nav__item " href="/docs/v0.4.x/factories/">
+    Factories
+  </a>
+</li>
+
+      
+        
+
+        
+
+<li>
+  <a class="Desktop-nav__item " href="/docs/v0.4.x/fixtures/">
+    Fixtures
+  </a>
+</li>
+
+      
+        
+
+        
+
+<li>
+  <a class="Desktop-nav__item " href="/docs/v0.4.x/models/">
+    Models
+  </a>
+</li>
+
+      
+        
+
+        
+
+<li>
+  <a class="Desktop-nav__item " href="/docs/v0.4.x/schema/">
+    Schema
+  </a>
+</li>
+
+      
+        
+
+        
+
+<li>
+  <a class="Desktop-nav__item " href="/docs/v0.4.x/serializers/">
+    Serializers
+  </a>
+</li>
+
+      
+        
+
+        
+
+<li>
+  <a class="Desktop-nav__item " href="/docs/v0.4.x/shorthands/">
+    Shorthands
+  </a>
+</li>
+
+      
+        
+          <li class='Desktop-nav__section'>Cookbook</li>
+        
+
+        
+
+<li>
+  <a class="Desktop-nav__item " href="/docs/v0.4.x/manually-starting-mirage/">
+    Manually starting Mirage
+  </a>
+</li>
+
+      
+        
+
+        
+
+<li>
+  <a class="Desktop-nav__item " href="/docs/v0.4.x/simulating-cookie-responses/">
+    Simulating cookie responses
+  </a>
+</li>
+
+      
+    </ul>
+  </div>
+</div>
+
+
+<div class="Center-panel">
+
+  <div class="Docs-page">
+    <div class='Docs-page__header'>
+      <div class="Docs-page__version">
+        <a class='Docs-page__improve' href="https://github.com/samselikoff/ember-cli-mirage/edit/gh-pages/docs/v0.4.x/database.md">
+          <small>
+            <img class='Docs-page__improve-img' src="/public/images/edit.png" alt="">
+            <span class='Docs-page__improve-text'>Improve this page</span>
+          </small>
+        </a>
+      </div>
+      <h1 class='Docs-page__title'>Database</h1>
+    </div>
+
+    <div class='Docs-page__content'>
+      <p>Your Mirage server has a database which you can interact with in your route handlers. You’ll typically use <a href="../models">models</a> to interact with your database data, but you can always reach into the db directly in the event you want more control.</p>
+
+<p>Access the db from your route handlers via <code class="highlighter-rouge">schema.db</code>.</p>
+
+<p><a name="createCollection" href="#createCollection">#</a> db.<b>createCollection</b>(<i>name</i>)</p>
+
+<p>Add an empty collection named <em>name</em> to your database. Typically you won’t need to do this yourself, since collections are automatically created for any models you have defined.</p>
+
+<p><a name="collection" href="#collection">#</a> db.<b>collection</b></p>
+
+<p>Returns the <em>collection</em> attached to the database object.</p>
+
+<p>For example if you had the following data file named <code class="highlighter-rouge">mirage/fixtures/contacts.js</code></p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">export</span> <span class="k">default</span> <span class="p">[</span>
+  <span class="p">{</span><span class="na">id</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="na">name</span><span class="p">:</span> <span class="s1">'Zelda'</span><span class="p">},</span>
+  <span class="p">{</span><span class="na">id</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="na">name</span><span class="p">:</span> <span class="s1">'Link'</span><span class="p">}</span>
+<span class="p">];</span>
+</code></pre></div></div>
+
+<p>then <code class="highlighter-rouge">db.contacts</code> would return this array.</p>
+
+<p><a name="insert" href="#insert">#</a> db.collection.<b>insert</b>(<i>data</i>)</p>
+
+<p>Inserts <em>data</em> into the collection. <em>data</em> can be a single object or an array of objects. Returns the inserted record.</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Insert a single record</span>
+<span class="kd">let</span> <span class="nx">link</span> <span class="o">=</span> <span class="nx">db</span><span class="p">.</span><span class="nx">users</span><span class="p">.</span><span class="nx">insert</span><span class="p">({</span><span class="na">name</span><span class="p">:</span> <span class="s1">'Link'</span><span class="p">,</span> <span class="na">age</span><span class="p">:</span> <span class="mi">173</span><span class="p">});</span>
+
+<span class="nx">link</span><span class="p">;</span>  <span class="c1">// {id: 1, name: 'Link', age: 173}</span>
+
+<span class="c1">// Insert an array</span>
+<span class="kd">let</span> <span class="nx">users</span> <span class="o">=</span> <span class="nx">db</span><span class="p">.</span><span class="nx">users</span><span class="p">.</span><span class="nx">insert</span><span class="p">([</span>
+  <span class="p">{</span><span class="na">name</span><span class="p">:</span> <span class="s1">'Zelda'</span><span class="p">,</span> <span class="na">age</span><span class="p">:</span> <span class="mi">142</span><span class="p">},</span>
+  <span class="p">{</span><span class="na">name</span><span class="p">:</span> <span class="s1">'Epona'</span><span class="p">,</span> <span class="na">age</span><span class="p">:</span> <span class="mi">58</span><span class="p">},</span>
+<span class="p">]);</span>
+
+<span class="nx">users</span><span class="p">;</span>  <span class="c1">// [{id: 2, name: 'Zelda', age: 142}, {id: 3, name: 'Epona', age: 58}]</span>
+</code></pre></div></div>
+
+<p><a name="find" href="#find">#</a> db.collection.<b>find</b>(<i>ids</i>)</p>
+
+<p>Returns a single record from the <em>collection</em> if <em>ids</em> is a single id, or an array of records if <em>ids</em> is an array of ids. Note each <em>id</em> can be an int or a string, but integer ids as strings (e.g. the string “1”) will be treated as integers.</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/* 
+  Given users = [{id: 1, name: 'Link'}, {id: 2, name: 'Zelda'}]
+*/</span>
+<span class="nx">db</span><span class="p">.</span><span class="nx">users</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>      <span class="c1">// {id: 1, name: 'Link'}</span>
+<span class="nx">db</span><span class="p">.</span><span class="nx">users</span><span class="p">.</span><span class="nx">find</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]);</span> <span class="c1">// [{id: 1, name: 'Link'}, {id: 2, name: 'Zelda'}]</span>
+</code></pre></div></div>
+
+<p><a name="findBy" href="#findBy">#</a> db.collection.<b>findBy</b>(<i>query</i>)</p>
+
+<p>Returns the first model from <em>collection</em> that matches the key-value pairs in the <em>query</em> object. Note that a string comparison is used. <em>query</em> is a POJO.</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/* 
+  Given users = [{id: 1, name: 'Link'}, {id: 2, name: 'Zelda'}]
+*/</span>
+<span class="nx">db</span><span class="p">.</span><span class="nx">users</span><span class="p">.</span><span class="nx">findBy</span><span class="p">({</span><span class="na">name</span><span class="p">:</span> <span class="s1">'Link'</span><span class="p">});</span> <span class="c1">// {id: 1, name: 'Link'}</span>
+</code></pre></div></div>
+
+<p><a name="where" href="#where">#</a> db.collection.<b>where</b>(<i>query</i>)</p>
+
+<p>Returns an array of models from <em>collection</em> that match the key-value pairs in the <em>query</em> object. Note that a string comparison is used. <em>query</em> is normally a POJO but can also be a function (see <a href="https://github.com/samselikoff/ember-cli-mirage/pull/379">PR #379 for details</a></p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/* 
+  Given users = [{id: 1, name: 'Link'}, {id: 2, name: 'Zelda'}]
+*/</span>
+
+<span class="nx">db</span><span class="p">.</span><span class="nx">users</span><span class="p">.</span><span class="nx">where</span><span class="p">({</span><span class="na">name</span><span class="p">:</span> <span class="s1">'Zelda'</span><span class="p">});</span> <span class="c1">// [{id: 2, name: 'Zelda'}]</span>
+</code></pre></div></div>
+
+<p><a name="update" href="#update">#</a> db.collection.<b>update</b>(<i>attrs</i>) or db.collection.<b>update</b>(<i>target</i>, <i>attrs</i>)</p>
+
+<p>Updates one or more records in <em>collection</em>.</p>
+
+<p>If <em>attrs</em> is the only arg present, updates all records in the collection according to the key-value pairs in <em>attrs</em>.</p>
+
+<p>If <em>target</em> is present, restricts updates to those that match <em>target</em>. If <em>target</em> is a number or string, finds a single record whose id is <em>target</em> to update. If <em>target</em> is a POJO, queries <em>collection</em> for records that match the key-value pairs in <em>target</em>, and updates their <em>attrs</em>.</p>
+
+<p>Returns the updated record or records.</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/* 
+  Given users = [
+    {id: 1, name: 'Link'},
+    {id: 2, name: 'Zelda'}
+  ]
+*/</span>
+
+<span class="nx">db</span><span class="p">.</span><span class="nx">users</span><span class="p">.</span><span class="nx">update</span><span class="p">({</span><span class="na">name</span><span class="p">:</span> <span class="s1">'Ganon'</span><span class="p">});</span> <span class="c1">// db.users = [{id: 1, name: 'Ganon'}, {id: 2, name: 'Ganon'}]</span>
+<span class="nx">db</span><span class="p">.</span><span class="nx">users</span><span class="p">.</span><span class="nx">update</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="p">{</span><span class="na">name</span><span class="p">:</span> <span class="s1">'Young Link'</span><span class="p">});</span> <span class="c1">// db.users = [{id: 1, name: 'Young Link'}, {id: 2, name: 'Zelda'}]</span>
+<span class="nx">db</span><span class="p">.</span><span class="nx">users</span><span class="p">.</span><span class="nx">update</span><span class="p">({</span><span class="na">name</span><span class="p">:</span> <span class="s1">'Link'</span><span class="p">},</span> <span class="p">{</span><span class="na">name</span><span class="p">:</span> <span class="s1">'Epona'</span><span class="p">});</span> <span class="c1">// db.users = [{id: 1, name: 'Epona'}, {id: 2, name: 'Zelda'}]</span>
+</code></pre></div></div>
+
+<p><a name="remove" href="#remove">#</a> db.collection.<b>remove</b>(<i>target</i>)</p>
+
+<p>Removes one or more records in <em>collection</em>.</p>
+
+<p>If <em>target</em> is undefined, removes all records. If <em>target</em> is a number or string, removes a single record using <em>target</em> as id. If <em>target</em> is a POJO, queries <em>collection</em> for records that match the key-value pairs in <em>target</em>, and removes them from the collection.</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/* 
+  Given users = [
+    {id: 1, name: 'Link'},
+    {id: 2, name: 'Zelda'}
+  ]
+*/</span>
+
+<span class="nx">db</span><span class="p">.</span><span class="nx">users</span><span class="p">.</span><span class="nx">remove</span><span class="p">();</span> <span class="c1">// db.users = []</span>
+<span class="nx">db</span><span class="p">.</span><span class="nx">users</span><span class="p">.</span><span class="nx">remove</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span> <span class="c1">// db.users = [{id: 2, name: 'Zelda'}]</span>
+<span class="nx">db</span><span class="p">.</span><span class="nx">users</span><span class="p">.</span><span class="nx">remove</span><span class="p">({</span><span class="na">name</span><span class="p">:</span> <span class="s1">'Zelda'</span><span class="p">});</span> <span class="c1">// db.users = [{id: 1, name: 'Link'}]</span>
+</code></pre></div></div>
+
+<p><a name="first-or-create" href="#first-or-create">#</a> db.collection.<b>firstOrCreate</b>(<i>query</i>, <i>attributesForCreate</i>)</p>
+
+<p>Finds the first record matching the provided query in <em>collection</em>, or creates a new record using a merge of the <em>query</em> and optional <em>attributesForCreate</em>. Often times you may have a pattern like the following in your API stub:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/* 
+  Given users = [
+    {id: 1, name: 'Link'},
+    {id: 2, name: 'Zelda'}
+  ]
+*/</span>
+<span class="kd">let</span> <span class="nx">records</span> <span class="o">=</span> <span class="nx">db</span><span class="p">.</span><span class="nx">users</span><span class="p">.</span><span class="nx">where</span><span class="p">({</span> <span class="na">name</span><span class="p">:</span> <span class="s1">'Link'</span> <span class="p">});</span>
+<span class="kd">let</span> <span class="nx">record</span><span class="p">;</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">records</span><span class="p">.</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">record</span> <span class="o">=</span> <span class="nx">records</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+  <span class="nx">record</span> <span class="o">=</span> <span class="nx">db</span><span class="p">.</span><span class="nx">users</span><span class="p">.</span><span class="nx">insert</span><span class="p">({</span> <span class="na">name</span><span class="p">:</span> <span class="s1">'Link'</span> <span class="p">});</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>You can now replace this with the following:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">record</span> <span class="o">=</span> <span class="nx">db</span><span class="p">.</span><span class="nx">users</span><span class="p">.</span><span class="nx">firstOrCreate</span><span class="p">({</span> <span class="na">name</span><span class="p">:</span> <span class="s1">'Link'</span> <span class="p">});</span>
+</code></pre></div></div>
+
+<p>An extended example using <em>attributesForCreate</em>:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">record</span> <span class="o">=</span> <span class="nx">db</span><span class="p">.</span><span class="nx">users</span><span class="p">.</span><span class="nx">firstOrCreate</span><span class="p">({</span> <span class="na">name</span><span class="p">:</span> <span class="s1">'Link'</span> <span class="p">},</span> <span class="p">{</span> <span class="na">evil</span><span class="p">:</span> <span class="kc">false</span> <span class="p">});</span>
+</code></pre></div></div>
+
+    </div>
+
+    
+
+<div class='Docs-page-nav'>
+  
+    
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+      
+      
+      
+        
+  
+         <a class="Docs-page-nav__link u-first" href="/docs/v0.4.x/route-handlers/">< Route handlers</a>
+      
+  
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+      
+      
+      
+        
+  
+         <a class="Docs-page-nav__link u-last" href="/docs/v0.4.x/factories/">Factories ></a>
+      
+  
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+</div>
+
+  </div>
+</div>
+
+      </div>
+    </div>
+
+    <footer class="Footer">
+  <div class="Container Grid Grid--gutters Grid--full med-Grid--fit">
+    <div class="Grid-cell">
+      <p>Project and site maintained by <a href="https://twitter.com/samselikoff">Sam Selikoff</a> and <a href="https://github.com/samselikoff/ember-cli-mirage/graphs/contributors">contributors</a>.</p>
+      <p>Sponsored by <a href="https://embermap.com/">EmberMap</a>.<p>
+    </div>
+    <div class="Grid-cell">
+      <div class="Github-stars">
+        <iframe src="https://ghbtns.com/github-btn.html?user=samselikoff&repo=ember-cli-mirage&type=star&count=true" frameborder="0" scrolling="0" width="170px" height="20px"></iframe>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/1.1.1/anchor.min.js"></script>
+<script>
+  /* global anchors */
+  // anchors.options = {
+  //   placement: 'left',
+  //   visible: 'always'
+  // };
+  anchors.add('h2:not(.Home-page__feature-heading)');
+</script>
+
+
+  </body>
+</html>

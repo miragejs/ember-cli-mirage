@@ -1,0 +1,1287 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+
+  <head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      Serializers &middot; Ember CLI Mirage
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/style.css">
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-144-precomposed.png">
+                                 <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+
+  <body>
+    <div class="Topbar">
+      <div class="Container">
+      </div>
+    </div>
+
+    <header class="Header">
+  <div class="Container">
+    <nav class='Header__nav'>
+      <ul class='Header__nav-list'>
+        <li class='Header__nav-item'>
+          <a href='/docs/v0.4.x' class="Header__nav-item-link active">
+            <span class="u-mobile">Docs</span>
+            <span class="u-desktop">Documentation</span>
+          </a>
+        </li>
+        <li class='Header__nav-item'>
+          <a href='/blog' class="Header__nav-item-link">Blog</a>
+        </li>
+        <li class='Header__nav-item'>
+          <a href='/about' class="Header__nav-item-link">About</a>
+        </li>
+        <li class='Header__nav-item'>
+          <a href="https://github.com/samselikoff/ember-cli-mirage" class='Header__nav-item-link' target="_blank">GitHub</a>
+        </li>
+      </ul>
+    </nav>
+    <a class="Header__logo" href="/">
+      <span class='Header__logo-minor'>Ember CLI</span><br>
+      <span class='Header__logo-major'>Mirage</span>
+    </a>
+  </div>
+</header>
+
+
+    <div class="Wrapper">
+      <div class="Content">
+        
+
+<div class="Side-panel">
+
+  <div class="Mobile-nav">
+    <select class="Mobile-nav__toc" onchange="if (this.value) window.location.href=this.value">
+      <option value="">Navigate the docs...</option>
+      
+        
+
+
+  
+  <optgroup label='Getting started'>
+
+<option value="/docs/v0.2.x/">Overview</option>
+
+
+      
+        
+
+
+<option value="/docs/v0.2.x/installation/">Installation</option>
+
+
+      
+        
+
+
+<option value="/docs/v0.2.x/quickstart/">Quickstart</option>
+
+
+      
+        
+
+
+<option value="/docs/v0.2.x/upgrading/">Upgrading</option>
+
+
+      
+        
+
+
+  
+    </optgroup>
+  
+  <optgroup label='Writing your server'>
+
+<option value="/docs/v0.2.x/defining-routes/">Defining routes</option>
+
+
+      
+        
+
+
+<option value="/docs/v0.2.x/seeding-your-database/">Seeding your database</option>
+
+
+      
+        
+
+
+<option value="/docs/v0.2.x/acceptance-testing/">Acceptance testing</option>
+
+
+      
+        
+
+
+  
+    </optgroup>
+  
+  <optgroup label='API'>
+
+<option value="/docs/v0.2.x/configuration/">Configuration</option>
+
+
+      
+        
+
+
+<option value="/docs/v0.2.x/collections/">Collections</option>
+
+
+      
+        
+
+
+<option value="/docs/v0.2.x/route-handlers/">Route handlers</option>
+
+
+      
+        
+
+
+<option value="/docs/v0.2.x/database/">Database</option>
+
+
+      
+        
+
+
+<option value="/docs/v0.2.x/factories/">Factories</option>
+
+
+      
+        
+
+
+<option value="/docs/v0.2.x/fixtures/">Fixtures</option>
+
+
+      
+        
+
+
+<option value="/docs/v0.2.x/models/">Models</option>
+
+
+      
+        
+
+
+<option value="/docs/v0.2.x/schema/">Schema</option>
+
+
+      
+        
+
+
+<option value="/docs/v0.2.x/serializers/">Serializers</option>
+
+
+      
+        
+
+
+<option value="/docs/v0.2.x/shorthands/">Shorthands</option>
+
+
+      
+        
+
+
+  
+    </optgroup>
+  
+  <optgroup label='Cookbook'>
+
+<option value="/docs/v0.2.x/manually-starting-mirage/">Manually starting Mirage</option>
+
+
+      
+        
+
+
+<option value="/docs/v0.2.x/simulating-cookie-responses/">Simulating cookie responses</option>
+
+  </optgroup>
+
+
+      
+    </select>
+
+    <div class="Mobile-nav__version">
+      <span class='Mobile-nav__version-label'>Version: </span>
+      <select class='Mobile-nav__version-select' onchange="if (this.value) window.location.href=this.value">
+        
+          <option value="/docs/v0.4.x" >v0.4.x</option>
+        
+          <option value="/docs/v0.3.x" >v0.3.x</option>
+        
+          <option value="/docs/v0.2.x" selected >v0.2.x</option>
+        
+          <option value="/docs/v0.1.x" >v0.1.x</option>
+        
+          <option value="/docs/v0.0.29" >v0.0.29</option>
+        
+          <option value="/docs/v0.0.28" >v0.0.28</option>
+        
+          <option value="/docs/v0.0.27" >v0.0.27</option>
+        
+      </select>
+    </div>
+  </div>
+
+  <div class="Desktop-nav">
+    <div class="Desktop-nav__version">
+      <span class="Desktop-nav__version-label">Version: </span>
+      <select class='Desktop-nav__version-select' onchange="if (this.value) window.location.href=this.value">
+        
+        <option value="/docs/v0.4.x" >v0.4.x</option>
+        
+        <option value="/docs/v0.3.x" >v0.3.x</option>
+        
+        <option value="/docs/v0.2.x" selected >v0.2.x</option>
+        
+        <option value="/docs/v0.1.x" >v0.1.x</option>
+        
+        <option value="/docs/v0.0.29" >v0.0.29</option>
+        
+        <option value="/docs/v0.0.28" >v0.0.28</option>
+        
+        <option value="/docs/v0.0.27" >v0.0.27</option>
+        
+      </select>
+    </div>
+
+    <ul class="Desktop-nav__toc">
+      
+        
+          <li class='Desktop-nav__section'>Getting started</li>
+        
+
+        
+
+<li>
+  <a class="Desktop-nav__item " href="/docs/v0.2.x/">
+    Overview
+  </a>
+</li>
+
+      
+        
+
+        
+
+<li>
+  <a class="Desktop-nav__item " href="/docs/v0.2.x/installation/">
+    Installation
+  </a>
+</li>
+
+      
+        
+
+        
+
+<li>
+  <a class="Desktop-nav__item " href="/docs/v0.2.x/quickstart/">
+    Quickstart
+  </a>
+</li>
+
+      
+        
+
+        
+
+<li>
+  <a class="Desktop-nav__item " href="/docs/v0.2.x/upgrading/">
+    Upgrading
+  </a>
+</li>
+
+      
+        
+          <li class='Desktop-nav__section'>Writing your server</li>
+        
+
+        
+
+<li>
+  <a class="Desktop-nav__item " href="/docs/v0.2.x/defining-routes/">
+    Defining routes
+  </a>
+</li>
+
+      
+        
+
+        
+
+<li>
+  <a class="Desktop-nav__item " href="/docs/v0.2.x/seeding-your-database/">
+    Seeding your database
+  </a>
+</li>
+
+      
+        
+
+        
+
+<li>
+  <a class="Desktop-nav__item " href="/docs/v0.2.x/acceptance-testing/">
+    Acceptance testing
+  </a>
+</li>
+
+      
+        
+          <li class='Desktop-nav__section'>API</li>
+        
+
+        
+
+<li>
+  <a class="Desktop-nav__item " href="/docs/v0.2.x/configuration/">
+    Configuration
+  </a>
+</li>
+
+      
+        
+
+        
+
+<li>
+  <a class="Desktop-nav__item " href="/docs/v0.2.x/collections/">
+    Collections
+  </a>
+</li>
+
+      
+        
+
+        
+
+<li>
+  <a class="Desktop-nav__item " href="/docs/v0.2.x/route-handlers/">
+    Route handlers
+  </a>
+</li>
+
+      
+        
+
+        
+
+<li>
+  <a class="Desktop-nav__item " href="/docs/v0.2.x/database/">
+    Database
+  </a>
+</li>
+
+      
+        
+
+        
+
+<li>
+  <a class="Desktop-nav__item " href="/docs/v0.2.x/factories/">
+    Factories
+  </a>
+</li>
+
+      
+        
+
+        
+
+<li>
+  <a class="Desktop-nav__item " href="/docs/v0.2.x/fixtures/">
+    Fixtures
+  </a>
+</li>
+
+      
+        
+
+        
+
+<li>
+  <a class="Desktop-nav__item " href="/docs/v0.2.x/models/">
+    Models
+  </a>
+</li>
+
+      
+        
+
+        
+
+<li>
+  <a class="Desktop-nav__item " href="/docs/v0.2.x/schema/">
+    Schema
+  </a>
+</li>
+
+      
+        
+
+        
+
+<li>
+  <a class="Desktop-nav__item active" href="/docs/v0.2.x/serializers/">
+    Serializers
+  </a>
+</li>
+
+      
+        
+
+        
+
+<li>
+  <a class="Desktop-nav__item " href="/docs/v0.2.x/shorthands/">
+    Shorthands
+  </a>
+</li>
+
+      
+        
+          <li class='Desktop-nav__section'>Cookbook</li>
+        
+
+        
+
+<li>
+  <a class="Desktop-nav__item " href="/docs/v0.2.x/manually-starting-mirage/">
+    Manually starting Mirage
+  </a>
+</li>
+
+      
+        
+
+        
+
+<li>
+  <a class="Desktop-nav__item " href="/docs/v0.2.x/simulating-cookie-responses/">
+    Simulating cookie responses
+  </a>
+</li>
+
+      
+    </ul>
+  </div>
+</div>
+
+
+<div class="Center-panel">
+
+  <div class="Docs-page">
+    <div class='Docs-page__header'>
+      <div class="Docs-page__version">
+        <a class='Docs-page__improve' href="https://github.com/samselikoff/ember-cli-mirage/edit/gh-pages/docs/v0.2.x/serializers.md">
+          <small>
+            <img class='Docs-page__improve-img' src="/public/images/edit.png" alt="">
+            <span class='Docs-page__improve-text'>Improve this page</span>
+          </small>
+        </a>
+      </div>
+      <h1 class='Docs-page__title'>Serializers</h1>
+    </div>
+
+    <div class='Docs-page__content'>
+      <p>Serializers are responsible for formatting your route handler’s response.</p>
+
+<p>The application serializer (<code class="highlighter-rouge">/mirage/serializers/application.js</code>) will apply to every response. To make specific customizations, define per-model serializers (e.g. <code class="highlighter-rouge">/mirage/serializers/blog-post.js</code>).</p>
+
+<p>Any Model or Collection returned from a route handler will pass through the serializer layer. Highest priority will be given to a model-specific serializer, then the application serializer, then the default serializer.</p>
+
+<p>Mirage ships with three named serializers:</p>
+
+<ul>
+  <li>
+    <p><strong>JSONAPISerializer</strong>, to simulate JSON:API compliant servers:</p>
+
+    <div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// mirage/serializers/application.js</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">JSONAPISerializer</span> <span class="p">}</span> <span class="k">from</span> <span class="s1">'ember-cli-mirage'</span><span class="p">;</span>
+
+<span class="k">export</span> <span class="k">default</span> <span class="nx">JSONAPISerializer</span><span class="p">;</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p><strong>ActiveModelSerializer</strong>, to fake Rails backends that use AMS-style responses:</p>
+
+    <div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// mirage/serializers/application.js</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">ActiveModelSerializer</span> <span class="p">}</span> <span class="k">from</span> <span class="s1">'ember-cli-mirage'</span><span class="p">;</span>
+
+<span class="k">export</span> <span class="k">default</span> <span class="nx">ActiveModelSerializer</span><span class="p">;</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p><strong>RestSerializer</strong>, to fake backends that match Ember Data’s RestSerializer expected response format:</p>
+
+    <div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// mirage/serializers/application.js</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">RestSerializer</span> <span class="p">}</span> <span class="k">from</span> <span class="s1">'ember-cli-mirage'</span><span class="p">;</span>
+
+<span class="k">export</span> <span class="k">default</span> <span class="nx">RestSerializer</span><span class="p">;</span>
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<p>Additionally, Mirage has a basic Serializer class which you can customize using the hooks documented below:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// mirage/serializers/application.js</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">Serializer</span> <span class="p">}</span> <span class="k">from</span> <span class="s1">'ember-cli-mirage'</span><span class="p">;</span>
+
+<span class="k">export</span> <span class="k">default</span> <span class="nx">Serializer</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>When writing model-specific serializers, remember to extend from your application serializer:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// mirage/serializers/blog-post.js</span>
+<span class="k">import</span> <span class="nx">BaseSerializer</span> <span class="k">from</span> <span class="s1">'./application'</span><span class="p">;</span>
+
+<span class="k">export</span> <span class="k">default</span> <span class="nx">BaseSerializer</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
+  <span class="na">include</span><span class="p">:</span> <span class="p">[</span><span class="s1">'comments'</span><span class="p">]</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="serializeresponse-request">serialize(<em>response, request</em>)</h2>
+
+<p>Override this method to implement your own custom serialize function. <em>response</em> is whatever was returned from your route handler, and <em>request</em> is the Pretender request object.</p>
+
+<p>Returns a plain JavaScript object or array, which Mirage uses as the response data to your Ember app’s XHR request.</p>
+
+<p>Note that this method only runs for the top-level resource. That is, <code class="highlighter-rouge">serialize()</code> will not be called when serializing included/related resources.</p>
+
+<p>You can also override this method, call super, and manipulate the data before Mirage responds with it. This is a great place to add metadata, or for one-off operations that don’t fit neatly into any of Mirage’s other abstractions:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">serialize</span><span class="p">(</span><span class="nx">object</span><span class="p">,</span> <span class="nx">request</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">// This is how to call super, as Mirage borrows [Backbone's implementation of extend](http://backbonejs.org/#Model-extend)</span>
+  <span class="kd">let</span> <span class="nx">json</span> <span class="o">=</span> <span class="nx">Serializer</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">serialize</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="kr">arguments</span><span class="p">);</span>
+
+  <span class="c1">// Add metadata, sort parts of the response, etc.</span>
+
+  <span class="k">return</span> <span class="nx">json</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="normalizejson">normalize(json)</h2>
+
+<p>This method is used by the POST and PUT shorthands. These shorthands expect a valid JSON:API document as part of the request, so that they know how to create or update the appropriate resouce. The <em>normalize</em> method allows you to transform your request body into a JSON:API document, which lets you take advantage of the shorthands when you otherwise may not be able to.</p>
+
+<p>Note that this method is a noop if you’re using JSON:API already, since request payloads sent along with POST and PUT requests will already be in the correct format.</p>
+
+<p>Take a look at the included <a href="https://github.com/samselikoff/ember-cli-mirage/blob/master/addon/serializers/active-model-serializer.js#L22">ActiveModelSerializer’s normalize method</a> for an example.</p>
+
+<hr />
+
+<h2 id="attrs">attrs</h2>
+
+<p>Use this property on a model serializer to whitelist attributes that will be used in your JSON payload.</p>
+
+<p>For example, if you had a <code class="highlighter-rouge">blog-post</code> model in your database that looked like</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{
+  id: 1,
+  title: 'Lorem ipsum',
+  created_at: '2014-01-01 10:00:00',
+  updated_at: '2014-01-03 11:42:12'
+}
+</code></pre></div></div>
+
+<p>and you just wanted <code class="highlighter-rouge">id</code> and <code class="highlighter-rouge">title</code>, you could write</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// mirage/serializers/blog-post.js</span>
+
+<span class="k">export</span> <span class="k">default</span> <span class="nx">Serializer</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
+  <span class="na">attrs</span><span class="p">:</span> <span class="p">[</span><span class="s1">'id'</span><span class="p">,</span> <span class="s1">'title'</span><span class="p">]</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p>and the payload would look like</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{
+  id: 1,
+  title: 'Lorem ipsum'
+}
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="include">include</h2>
+
+<p>Use this property on a model serializer to specify related models you’d like to include in your JSON payload.</p>
+
+<p>For example, if you had an <code class="highlighter-rouge">author</code> with many <code class="highlighter-rouge">blog-post</code>s:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// mirage/models/author.js</span>
+<span class="k">export</span> <span class="k">default</span> <span class="nx">Model</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
+  <span class="na">blogPosts</span><span class="p">:</span> <span class="nx">hasMany</span><span class="p">()</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p>and you wanted to sideload these, specify so in the <code class="highlighter-rouge">include</code> key:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// mirage/serializers/author.js</span>
+<span class="k">export</span> <span class="k">default</span> <span class="nx">Serializer</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
+  <span class="na">include</span><span class="p">:</span> <span class="p">[</span><span class="s1">'blogPosts'</span><span class="p">]</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p>Now a response to a request for an author would look like this:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>GET /authors/1
+
+{
+  author: {
+    id: 1,
+    name: 'Link',
+    blogPostIds: [1, 2]
+  },
+  blogPosts: [
+    {id: 1, authorId: 1, title: 'Lorem'},
+    {id: 2, authorId: 1, title: 'Ipsum'}
+  ]
+}
+</code></pre></div></div>
+
+<p>You can also define <code class="highlighter-rouge">include</code> as a function so it can be determined dynamically:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// mirage/serializers/author.js</span>
+<span class="k">export</span> <span class="k">default</span> <span class="nx">Serializer</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
+  <span class="na">include</span><span class="p">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">request</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">request</span><span class="p">.</span><span class="nx">queryParams</span><span class="p">.</span><span class="nx">posts</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="p">[</span><span class="s1">'blogPosts'</span><span class="p">];</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="p">[];</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<h2 id="include-query-param">include query param</h2>
+
+<p><em>Note: This is only available when using the JSONAPISerializer.</em></p>
+
+<p>The JSONAPISerializer supports the use of <code class="highlighter-rouge">include</code> query parameter to return compound documents.
+Prior to Ember Data 2.5, you will need to add <code class="highlighter-rouge">'ds-finder-include': true</code> to your app FEATURES object:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// config/environment.js</span>
+<span class="kd">var</span> <span class="nx">ENV</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">EmberENV</span><span class="p">:</span> <span class="p">{</span>
+    <span class="na">FEATURES</span><span class="p">:</span> <span class="p">{</span>
+      <span class="s1">'ds-finder-include'</span><span class="p">:</span> <span class="kc">true</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">};</span>
+</code></pre></div></div>
+
+<p>To tell Mirage to sideload blogPosts when we find find all authors we can do something like the following:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// routes/authors.js</span>
+<span class="k">export</span> <span class="k">default</span> <span class="nx">Ember</span><span class="p">.</span><span class="nx">Route</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
+  <span class="nx">model</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">store</span><span class="p">.</span><span class="nx">findAll</span><span class="p">(</span><span class="s1">'author'</span><span class="p">,</span> <span class="p">{</span><span class="na">include</span><span class="p">:</span> <span class="s1">'blogPosts'</span><span class="p">});</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>The above will make a GET request to <code class="highlighter-rouge">/api/authors?include=blogPosts</code>, and then the appropriate Mirage route handler will be invoked. When it comes time to serialize the response, the JSONAPISerializer will inspect the query params of the request, see that the blogPosts relationship is present, and then proceed as if this relationship was specified directly in the include: [] array on the serializer itself.</p>
+
+<p>Note that, in accordance with the spec, Mirage gives precedence to an ?include query param over a default include: [] array that you might have specified directly on the serializer. Default includes will still be in effect, however, if a request does not have an ?include query param.</p>
+
+<hr />
+
+<h2 id="root">root</h2>
+<p><em>default true</em></p>
+
+<p>Set whether your JSON response should have a root key in it.</p>
+
+<p>By default it does, so a request for an author looks like:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>GET /authors/1
+
+{
+  author: {
+    id: 1,
+    name: 'Link'
+  }
+}
+</code></pre></div></div>
+
+<p>Setting <code class="highlighter-rouge">root</code> to false disables this:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// mirage/serializers/application.js</span>
+<span class="k">export</span> <span class="k">default</span> <span class="nx">Serializer</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
+  <span class="na">root</span><span class="p">:</span> <span class="kc">false</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p>Now the response looks like:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>GET /authors/1
+
+{
+  id: 1,
+  name: 'Link'
+}
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="embed">embed</h2>
+<p><em>default false</em></p>
+
+<p>Set whether related models should be embedded or sideloaded.</p>
+
+<p>By default this false, so relationships are sideloaded:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>GET /authors/1
+
+{
+  author: {
+    id: 1,
+    name: 'Link',
+    blogPostIds: [1, 2]
+  },
+  blogPosts: [
+    {id: 1, authorId: 1, title: 'Lorem'},
+    {id: 2, authorId: 1, title: 'Ipsum'}
+  ]
+}
+</code></pre></div></div>
+
+<p>Setting <code class="highlighter-rouge">embed</code> to true will embed related records:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// mirage/serializers/application.js</span>
+<span class="k">export</span> <span class="k">default</span> <span class="nx">Serializer</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
+  <span class="na">embed</span><span class="p">:</span> <span class="kc">true</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p>Now the response looks like:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>GET /authors/1
+
+{
+  author: {
+    id: 1,
+    name: 'Link',
+    blogPosts: [
+      {id: 1, authorId: 1, title: 'Lorem'},
+      {id: 2, authorId: 1, title: 'Ipsum'}
+    ]
+  ]
+}
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="serializeids">serializeIds</h2>
+
+<blockquote>
+  <p>Note: this feature was added in 0.2.2.</p>
+</blockquote>
+
+<p>Use this to define how your serializer handles serializing relationship keys. It can take one of three values:</p>
+
+<ul>
+  <li><code class="highlighter-rouge">included</code>, which is the default, will serialize the ids of a relationship if that relationship is included (sideloaded) along with the model or collection in the response</li>
+  <li><code class="highlighter-rouge">always</code> will always serialize the ids of all relationships for the model or collection in the response</li>
+  <li><code class="highlighter-rouge">never</code> will never serialize the ids of relationships for the model or collection in the response</li>
+</ul>
+
+<hr />
+
+<h2 id="keyformodelmodelname">keyForModel(<em>modelName</em>)</h2>
+
+<p>Used to define a custom key when serializing a primary model of modelName <em>modelName</em>. For example, the default Serializer will return something like the following:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>GET /blogPosts/1
+
+{
+  blogPost: {
+    id: 1,
+    title: 'Lorem ipsum'
+  }
+}
+</code></pre></div></div>
+
+<p>If your API uses hyphenated keys, you could overwrite <code class="highlighter-rouge">keyForModel</code>:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// serializers/application.js</span>
+<span class="k">export</span> <span class="k">default</span> <span class="nx">Serializer</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
+  <span class="nx">keyForModel</span><span class="p">(</span><span class="nx">modelName</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">Ember</span><span class="p">.</span><span class="nb">String</span><span class="p">.</span><span class="nx">dasherize</span><span class="p">(</span><span class="nx">modelName</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p>Now the response will look like</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{
+  'blog-post': {
+    id: 1,
+    title: 'Lorem ipsum'
+  }
+}
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="keyforcollectionmodelname">keyForCollection(<em>modelName</em>)</h2>
+
+<p>Used to customize the key when serializing a primary collection. By default this pluralizes the return value of <code class="highlighter-rouge">keyForModel</code>.</p>
+
+<p>For example, by default the following request may look like:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>GET /blogPosts
+
+{
+  blogPosts: [
+    {
+      id: 1,
+      title: 'Lorem ipsum'
+    },
+    ...
+  ]
+}
+</code></pre></div></div>
+
+<p>If your API hyphenates keys, you could overwrite <code class="highlighter-rouge">keyForCollection</code>:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// serializers/application.js</span>
+<span class="kd">const</span> <span class="p">{</span> <span class="nx">dasherize</span><span class="p">,</span> <span class="nx">pluralize</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">Ember</span><span class="p">.</span><span class="nb">String</span><span class="p">;</span>
+
+<span class="k">export</span> <span class="k">default</span> <span class="nx">Serializer</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
+  <span class="nx">keyForCollection</span><span class="p">(</span><span class="nx">modelName</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">pluralize</span><span class="p">(</span><span class="nx">dasherize</span><span class="p">(</span><span class="nx">modelName</span><span class="p">));</span>
+  <span class="p">}</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p>Now the response would look like:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{
+  'blog-posts': [
+    {
+      id: 1,
+      title: 'Lorem ipsum'
+    },
+    ...
+  ]
+}
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="keyforattributeattr">keyForAttribute(<em>attr</em>)</h2>
+
+<p>Used to customize how a model’s attribute is formatted in your JSON payload.</p>
+
+<p>By default, model attributes are camelCase:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>GET /authors/1
+
+{
+  author: {
+    firstName: 'Link',
+    lastName: 'The WoodElf'
+  }
+}
+</code></pre></div></div>
+
+<p>If your API expects snake case, you could write the following:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// serializers/application.js</span>
+<span class="kd">const</span> <span class="p">{</span> <span class="nx">underscore</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">Ember</span><span class="p">.</span><span class="nb">String</span><span class="p">;</span>
+
+<span class="k">export</span> <span class="k">default</span> <span class="nx">Serializer</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
+  <span class="nx">keyForAttribute</span><span class="p">(</span><span class="nx">attr</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">underscore</span><span class="p">(</span><span class="nx">attr</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p>Now the response would look like:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{
+  author: {
+    first_name: 'Link',
+    last_name: 'The WoodElf'
+  }
+}
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="keyforrelationshiprelationship">keyForRelationship(<em>relationship</em>)</h2>
+
+<p>Use this hook to format the key for collections
+related to this model. <em>relationship</em> is the named parameter for the relationship.</p>
+
+<p>For example, if you’re serializing an <code class="highlighter-rouge">author</code> that
+sideloads many <code class="highlighter-rouge">blogPosts</code>, the default response will look like:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{
+  author: {...},
+  blogPosts: [...]
+}
+</code></pre></div></div>
+
+<p>Overwrite <code class="highlighter-rouge">keyForRelationship</code> to format this key:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// serializers/application.js</span>
+<span class="kd">const</span> <span class="p">{</span> <span class="nx">underscore</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">Ember</span><span class="p">.</span><span class="nb">String</span><span class="p">;</span>
+
+<span class="k">export</span> <span class="k">default</span> <span class="nx">Serializer</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
+  <span class="nx">keyForRelationship</span><span class="p">(</span><span class="nx">relationship</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">underscore</span><span class="p">(</span><span class="nx">relationship</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p>Now the response will look like this:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{
+  author: {...},
+  blog_posts: [...]
+}
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="keyforrelationshipidsrelationship">keyForRelationshipIds(<em>relationship</em>)</h2>
+
+<p>Use this hook to format the key for relationship ids
+in this model’s JSON representation.</p>
+
+<p>For example, if you’re serializing an <code class="highlighter-rouge">author</code> that
+sideloads many <code class="highlighter-rouge">blogPosts</code>, your <code class="highlighter-rouge">author</code> JSON would include a <code class="highlighter-rouge">blogPostIds</code> key:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{
+  author: {
+    id: 1,
+    blogPostIds: [1, 2, 3]
+  },
+  blogPosts: [...]
+}
+</code></pre></div></div>
+
+<p>Overwrite <code class="highlighter-rouge">keyForRelationshipIds</code> to format this key:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// serializers/application.js</span>
+<span class="kd">const</span> <span class="p">{</span> <span class="nx">underscore</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">Ember</span><span class="p">.</span><span class="nb">String</span><span class="p">;</span>
+
+<span class="k">export</span> <span class="k">default</span> <span class="nx">Serializer</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
+  <span class="nx">keyForRelationshipIds</span><span class="p">(</span><span class="nx">relationship</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">underscore</span><span class="p">(</span><span class="nx">relationship</span><span class="p">)</span> <span class="o">+</span> <span class="s1">'_ids'</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p>Now the response will look like:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{
+  author: {
+    id: 1,
+    blog_post_ids: [1, 2, 3]
+  },
+  blogPosts: [...]
+}
+</code></pre></div></div>
+
+<h2 id="typekeyformodelmodel">typeKeyForModel(<em>model</em>)</h2>
+
+<p>This hook is only available on the JSONAPISerializer.</p>
+
+<p>Use this hook to override the generated <code class="highlighter-rouge">type</code> for the JSON:API resource object. By default, <code class="highlighter-rouge">type</code> will be the plural and dasherized form of the model name.</p>
+
+<h2 id="linksmodel">links(<em>model</em>)</h2>
+
+<p>This hook is only available on the JSONAPISerializer.</p>
+
+<p>Use this hook to add top-level <code class="highlighter-rouge">links</code> data to JSON:API resource objects. The argument is the model being serialized.</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// serializers/author.js</span>
+<span class="k">export</span> <span class="k">default</span> <span class="nx">JsonApiSerializer</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
+
+  <span class="nx">links</span><span class="p">(</span><span class="nx">author</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">{</span>
+      <span class="s1">'posts'</span><span class="p">:</span> <span class="p">{</span>
+        <span class="na">related</span><span class="p">:</span> <span class="s2">`/api/authors/</span><span class="p">${</span><span class="nx">author</span><span class="p">.</span><span class="nx">id</span><span class="p">}</span><span class="s2">/posts`</span>
+      <span class="p">}</span>
+    <span class="p">};</span>
+  <span class="p">}</span>
+
+<span class="p">});</span>
+</code></pre></div></div>
+
+    </div>
+
+    
+
+<div class='Docs-page-nav'>
+  
+    
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+      
+      
+      
+        
+  
+         <a class="Docs-page-nav__link u-first" href="/docs/v0.2.x/schema/">< Schema</a>
+      
+  
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+      
+      
+      
+        
+  
+         <a class="Docs-page-nav__link u-last" href="/docs/v0.2.x/shorthands/">Shorthands ></a>
+      
+  
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+</div>
+
+  </div>
+</div>
+
+      </div>
+    </div>
+
+    <footer class="Footer">
+  <div class="Container Grid Grid--gutters Grid--full med-Grid--fit">
+    <div class="Grid-cell">
+      <p>Project and site maintained by <a href="https://twitter.com/samselikoff">Sam Selikoff</a> and <a href="https://github.com/samselikoff/ember-cli-mirage/graphs/contributors">contributors</a>.</p>
+      <p>Sponsored by <a href="https://embermap.com/">EmberMap</a>.<p>
+    </div>
+    <div class="Grid-cell">
+      <div class="Github-stars">
+        <iframe src="https://ghbtns.com/github-btn.html?user=samselikoff&repo=ember-cli-mirage&type=star&count=true" frameborder="0" scrolling="0" width="170px" height="20px"></iframe>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/1.1.1/anchor.min.js"></script>
+<script>
+  /* global anchors */
+  // anchors.options = {
+  //   placement: 'left',
+  //   visible: 'always'
+  // };
+  anchors.add('h2:not(.Home-page__feature-heading)');
+</script>
+
+
+  </body>
+</html>

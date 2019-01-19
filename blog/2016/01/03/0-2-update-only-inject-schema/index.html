@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+
+  <head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      Mirage 0.2 update &middot; Ember CLI Mirage
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/style.css">
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-144-precomposed.png">
+                                 <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+
+  <body>
+    <div class="Topbar">
+      <div class="Container">
+      </div>
+    </div>
+
+    <header class="Header">
+  <div class="Container">
+    <nav class='Header__nav'>
+      <ul class='Header__nav-list'>
+        <li class='Header__nav-item'>
+          <a href='/docs/v0.4.x' class="Header__nav-item-link">
+            <span class="u-mobile">Docs</span>
+            <span class="u-desktop">Documentation</span>
+          </a>
+        </li>
+        <li class='Header__nav-item'>
+          <a href='/blog' class="Header__nav-item-link active">Blog</a>
+        </li>
+        <li class='Header__nav-item'>
+          <a href='/about' class="Header__nav-item-link">About</a>
+        </li>
+        <li class='Header__nav-item'>
+          <a href="https://github.com/samselikoff/ember-cli-mirage" class='Header__nav-item-link' target="_blank">GitHub</a>
+        </li>
+      </ul>
+    </nav>
+    <a class="Header__logo" href="/">
+      <span class='Header__logo-minor'>Ember CLI</span><br>
+      <span class='Header__logo-major'>Mirage</span>
+    </a>
+  </div>
+</header>
+
+
+    <div class="Wrapper">
+      <div class="Content">
+        <div class="Blog">
+  <div class='Blog__post'>
+    <div class="Blog__post-info">
+      <h1 class='Blog__title'>Mirage 0.2 update</h1>
+      <p class='Blog__byline'>January 3, 2016</p>
+      <hr class='Blog__divider'>
+    </div>
+    <div class='Blog__content'>
+      <p>Here’s a quick update on Mirage 0.2.</p>
+
+<p>When I started working on the ORM/Serializer layer, I knew we were going to need to bump Mirage to 0.2. However, I thought it was worth keeping the library completely backwards compatible. I wanted users to be able to update to 0.2 without breaking any of their existing route handlers.</p>
+
+<p>The more I learned while developing, the more I realized some of the assumptions I made in 0.1 were simply bad. For example, using the formatting of fixture files (including their names) to determine the format of JSON responses from mocked routes.</p>
+
+<p>Now that we have a proper ORM and serializer layer, I’d like the story for how to set up your mock server to be clear, especially to newcomers.</p>
+
+<p>In 0.1, route handlers receive the <code class="highlighter-rouge">db</code> as the first argument:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">this</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="s1">'/users'</span><span class="p">,</span> <span class="p">(</span><span class="nx">db</span><span class="p">,</span> <span class="nx">request</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="nx">db</span><span class="p">.</span><span class="nx">users</span><span class="p">;</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p>This made sense in a world where there was only a <code class="highlighter-rouge">db</code>, acting as a dumb data store, and all formatting decisions were left up to the user.</p>
+
+<p>Then, we added the ORM and Serializer. Originally, the idea was, if you defined your models - that is, if you opted in to Mirage’s ORM - we’d inject a <code class="highlighter-rouge">schema</code> object instead of the comparatively dumb <code class="highlighter-rouge">db</code>:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">this</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="s1">'/users'</span><span class="p">,</span> <span class="p">(</span><span class="nx">schema</span><span class="p">,</span> <span class="nx">request</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="nx">schema</span><span class="p">.</span><span class="nx">user</span><span class="p">.</span><span class="nx">all</span><span class="p">();</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p>This returned a User Collection, which the Serializer layer knew how to serialize.</p>
+
+<p>This has been working well - but obviously, this is a breaking change for old route handlers. I also wanted people to be able to opt-in to the ORM layer, but still be able to dive into the raw <code class="highlighter-rouge">db</code> if they ever wanted to. <code class="highlighter-rouge">db</code> is an object that hangs directly off of <code class="highlighter-rouge">schema</code>, so you can always access it, even if you’ve opted in to the ORM:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">this</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="s1">'/users'</span><span class="p">,</span> <span class="p">(</span><span class="nx">schema</span><span class="p">,</span> <span class="nx">request</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="nx">schema</span><span class="p">.</span><span class="nx">db</span><span class="p">.</span><span class="nx">users</span><span class="p">;</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p>This would bypass the model-specific serializers.</p>
+
+<p>ES6 destructring makes this even better:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">this</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="s1">'/users'</span><span class="p">,</span> <span class="p">({</span><span class="nx">db</span><span class="p">})</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="nx">db</span><span class="p">.</span><span class="nx">users</span><span class="p">;</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p>Given this, I feel it’s worth making the breaking change, and <em>only</em> injecting <code class="highlighter-rouge">schema</code> to route handlers. The upgrade path for existing route handlers should be a simple change:</p>
+
+<div class="language-diff highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gd">- this.get('/users', (db) =&gt; {
+</span><span class="gi">+ this.get('/users', ({db}) =&gt; {
+</span>    return db.users;
+  });
+</code></pre></div></div>
+
+<p>along with possibly specifying a default Application serializer.</p>
+
+<p>The main reason I want to make this change, is to simplify the story around how Mirage data gets set up. In 0.1, Mirage looked for defined fixtures and/or factories to set up its database. In traditional server frameworks (e.g. Rails), you have a <code class="highlighter-rouge">schema</code> file that specifies the schema of your db. Using a mixture of fixtures and factories is confusing and unnecessary. Further, factories should be seen as an extension of the models (db collections) they’re creating, rather than their definitions.</p>
+
+<p>This is why going forward, the story for configuring Mirage will be a unified one: Models define your schema/database. So, new users will define models for each table/collection they want in their Mirage mock server. That sets up the database tables, and also gives the user a very easy starting point when they <em>do</em> want to opt into the relationship/serializer support. <code class="highlighter-rouge">server.create</code> will still use a factory if it exists, but if no factory exists, it will simply create an empty model.</p>
+
+<p>I’m confident this change will make Mirage simpler and more approachable. The downside is, existing users will need to define blank models for each collection they have. We’ll have a generator, which will help some, but this could prove to be annoying. My hope is that having a single <code class="highlighter-rouge">/models</code> directory, while being able to delete empty factory and fixture files, will simplify things. Also, this paves the way for a planned future addon, <code class="highlighter-rouge">mirage-ember-data</code>. The purpose of this addon is to ascertain, at run-time, the server models and their relationships, based on a user’s Ember Data models. This would eliminate the need to define models again, in Mirage-land.</p>
+
+<p>This addon is still a ways off, but this change - enforcing users to simply define their models as the single source of truth for their backend schema - paves the way.</p>
+
+<hr />
+
+<p>You can see all the open items left before we release 0.2.0 <a href="https://github.com/samselikoff/ember-cli-mirage/issues?q=is%3Aopen+is%3Aissue+milestone%3A0.2.0">here</a>. Bugs, Help Wanted and Good for New Contributors are great tags to look out for if you’d like to help push us towards release!</p>
+
+<p>If you have any thoughts or comments, tweet @samselikoff or <a href="https://github.com/samselikoff/ember-cli-mirage/issues">open an issue</a>.</p>
+
+      
+      <div id="disqus_thread"></div>
+    </div>
+  </div>
+</div>
+
+
+<script>
+/**
+* RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+* LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+*/
+/*
+var disqus_config = function () {
+this.page.url = PAGE_URL; // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+*/
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+
+s.src = '//emberclimirage.disqus.com/embed.js';
+
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+      </div>
+    </div>
+
+    <footer class="Footer">
+  <div class="Container Grid Grid--gutters Grid--full med-Grid--fit">
+    <div class="Grid-cell">
+      <p>Project and site maintained by <a href="https://twitter.com/samselikoff">Sam Selikoff</a> and <a href="https://github.com/samselikoff/ember-cli-mirage/graphs/contributors">contributors</a>.</p>
+      <p>Sponsored by <a href="https://embermap.com/">EmberMap</a>.<p>
+    </div>
+    <div class="Grid-cell">
+      <div class="Github-stars">
+        <iframe src="https://ghbtns.com/github-btn.html?user=samselikoff&repo=ember-cli-mirage&type=star&count=true" frameborder="0" scrolling="0" width="170px" height="20px"></iframe>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/1.1.1/anchor.min.js"></script>
+<script>
+  /* global anchors */
+  // anchors.options = {
+  //   placement: 'left',
+  //   visible: 'always'
+  // };
+  anchors.add('h2:not(.Home-page__feature-heading)');
+</script>
+
+
+  </body>
+</html>

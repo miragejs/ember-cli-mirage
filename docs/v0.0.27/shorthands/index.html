@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+
+  <head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      Shorthand reference &middot; Ember CLI Mirage
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/style.css">
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-144-precomposed.png">
+                                 <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+
+  <body>
+    <div class="Topbar">
+      <div class="Container">
+      </div>
+    </div>
+
+    <header class="Header">
+  <div class="Container">
+    <nav class='Header__nav'>
+      <ul class='Header__nav-list'>
+        <li class='Header__nav-item'>
+          <a href='/docs/v0.4.x' class="Header__nav-item-link active">
+            <span class="u-mobile">Docs</span>
+            <span class="u-desktop">Documentation</span>
+          </a>
+        </li>
+        <li class='Header__nav-item'>
+          <a href='/blog' class="Header__nav-item-link">Blog</a>
+        </li>
+        <li class='Header__nav-item'>
+          <a href='/about' class="Header__nav-item-link">About</a>
+        </li>
+        <li class='Header__nav-item'>
+          <a href="https://github.com/samselikoff/ember-cli-mirage" class='Header__nav-item-link' target="_blank">GitHub</a>
+        </li>
+      </ul>
+    </nav>
+    <a class="Header__logo" href="/">
+      <span class='Header__logo-minor'>Ember CLI</span><br>
+      <span class='Header__logo-major'>Mirage</span>
+    </a>
+  </div>
+</header>
+
+
+    <div class="Wrapper">
+      <div class="Content">
+        
+
+<div class="Side-panel">
+
+  <div class="Mobile-nav">
+    <select class="Mobile-nav__toc" onchange="if (this.value) window.location.href=this.value">
+      <option value="">Navigate the docs...</option>
+      
+        
+
+
+  
+  <optgroup label='Getting started'>
+
+<option value="/docs/v0.0.27/">Overview</option>
+
+
+      
+        
+
+
+<option value="/docs/v0.0.27/installation/">Installation</option>
+
+
+      
+        
+
+
+<option value="/docs/v0.0.27/quickstart/">Quickstart</option>
+
+
+      
+        
+
+
+  
+    </optgroup>
+  
+  <optgroup label='Writing your server'>
+
+<option value="/docs/v0.0.27/defining-routes/">Defining routes</option>
+
+
+      
+        
+
+
+<option value="/docs/v0.0.27/seeding-your-database/">Seeding your database</option>
+
+
+      
+        
+
+
+<option value="/docs/v0.0.27/acceptance-testing/">Acceptance testing</option>
+
+
+      
+        
+
+
+  
+    </optgroup>
+  
+  <optgroup label='API reference'>
+
+<option value="/docs/v0.0.27/server-configuration/">Server configuration</option>
+
+
+      
+        
+
+
+<option value="/docs/v0.0.27/routes/">Routes</option>
+
+
+      
+        
+
+
+<option value="/docs/v0.0.27/shorthands/">Shorthands</option>
+
+
+      
+        
+
+
+<option value="/docs/v0.0.27/database/">Database</option>
+
+
+      
+        
+
+
+<option value="/docs/v0.0.27/factories/">Factories</option>
+
+  </optgroup>
+
+
+      
+    </select>
+
+    <div class="Mobile-nav__version">
+      <span class='Mobile-nav__version-label'>Version: </span>
+      <select class='Mobile-nav__version-select' onchange="if (this.value) window.location.href=this.value">
+        
+          <option value="/docs/v0.4.x" >v0.4.x</option>
+        
+          <option value="/docs/v0.3.x" >v0.3.x</option>
+        
+          <option value="/docs/v0.2.x" >v0.2.x</option>
+        
+          <option value="/docs/v0.1.x" >v0.1.x</option>
+        
+          <option value="/docs/v0.0.29" >v0.0.29</option>
+        
+          <option value="/docs/v0.0.28" >v0.0.28</option>
+        
+          <option value="/docs/v0.0.27" selected >v0.0.27</option>
+        
+      </select>
+    </div>
+  </div>
+
+  <div class="Desktop-nav">
+    <div class="Desktop-nav__version">
+      <span class="Desktop-nav__version-label">Version: </span>
+      <select class='Desktop-nav__version-select' onchange="if (this.value) window.location.href=this.value">
+        
+        <option value="/docs/v0.4.x" >v0.4.x</option>
+        
+        <option value="/docs/v0.3.x" >v0.3.x</option>
+        
+        <option value="/docs/v0.2.x" >v0.2.x</option>
+        
+        <option value="/docs/v0.1.x" >v0.1.x</option>
+        
+        <option value="/docs/v0.0.29" >v0.0.29</option>
+        
+        <option value="/docs/v0.0.28" >v0.0.28</option>
+        
+        <option value="/docs/v0.0.27" selected >v0.0.27</option>
+        
+      </select>
+    </div>
+
+    <ul class="Desktop-nav__toc">
+      
+        
+          <li class='Desktop-nav__section'>Getting started</li>
+        
+
+        
+
+<li>
+  <a class="Desktop-nav__item " href="/docs/v0.0.27/">
+    Overview
+  </a>
+</li>
+
+      
+        
+
+        
+
+<li>
+  <a class="Desktop-nav__item " href="/docs/v0.0.27/installation/">
+    Installation
+  </a>
+</li>
+
+      
+        
+
+        
+
+<li>
+  <a class="Desktop-nav__item " href="/docs/v0.0.27/quickstart/">
+    Quickstart
+  </a>
+</li>
+
+      
+        
+          <li class='Desktop-nav__section'>Writing your server</li>
+        
+
+        
+
+<li>
+  <a class="Desktop-nav__item " href="/docs/v0.0.27/defining-routes/">
+    Defining routes
+  </a>
+</li>
+
+      
+        
+
+        
+
+<li>
+  <a class="Desktop-nav__item " href="/docs/v0.0.27/seeding-your-database/">
+    Seeding your database
+  </a>
+</li>
+
+      
+        
+
+        
+
+<li>
+  <a class="Desktop-nav__item " href="/docs/v0.0.27/acceptance-testing/">
+    Acceptance testing
+  </a>
+</li>
+
+      
+        
+          <li class='Desktop-nav__section'>API reference</li>
+        
+
+        
+
+<li>
+  <a class="Desktop-nav__item " href="/docs/v0.0.27/server-configuration/">
+    Server configuration
+  </a>
+</li>
+
+      
+        
+
+        
+
+<li>
+  <a class="Desktop-nav__item " href="/docs/v0.0.27/routes/">
+    Routes
+  </a>
+</li>
+
+      
+        
+
+        
+
+<li>
+  <a class="Desktop-nav__item active" href="/docs/v0.0.27/shorthands/">
+    Shorthands
+  </a>
+</li>
+
+      
+        
+
+        
+
+<li>
+  <a class="Desktop-nav__item " href="/docs/v0.0.27/database/">
+    Database
+  </a>
+</li>
+
+      
+        
+
+        
+
+<li>
+  <a class="Desktop-nav__item " href="/docs/v0.0.27/factories/">
+    Factories
+  </a>
+</li>
+
+      
+    </ul>
+  </div>
+</div>
+
+
+<div class="Center-panel">
+
+  <div class="Docs-page">
+    <div class='Docs-page__header'>
+      <div class="Docs-page__version">
+        <a class='Docs-page__improve' href="https://github.com/samselikoff/ember-cli-mirage/edit/gh-pages/docs/v0.0.27/shorthands.md">
+          <small>
+            <img class='Docs-page__improve-img' src="/public/images/edit.png" alt="">
+            <span class='Docs-page__improve-text'>Improve this page</span>
+          </small>
+        </a>
+      </div>
+      <h1 class='Docs-page__title'>Shorthand reference</h1>
+    </div>
+
+    <div class='Docs-page__content'>
+      <p>A <em>shorthand</em> is a simple way to write a route handler for common API scenarios. Here’s a reference of the shorthands, and the code they represent.</p>
+
+<p>Shorthands use default status codes, based on the HTTP verb:</p>
+
+<ul>
+  <li>GET is 200</li>
+  <li>PUT is 204</li>
+  <li>POST is 201</li>
+  <li>DEL is 204</li>
+</ul>
+
+<h2 id="get-shorthands">GET shorthands</h2>
+
+<p><em>Single collection</em></p>
+
+<div class="Table__wrapper">
+  <table>
+    <tbody>
+      <tr>
+        <td class="Table__label">Shorthand</td>
+        <td class="Table__code">
+
+<figure class="highlight"><pre><code class="language-js" data-lang="js"><span class="k">this</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="s1">'/contacts'</span><span class="p">);</span>          <span class="c1">// finds type by singularizing url</span>
+<span class="k">this</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="s1">'/contacts'</span><span class="p">,</span> <span class="s1">'users'</span><span class="p">);</span> <span class="c1">// optionally specify the collection as second param</span></code></pre></figure>
+
+</td>
+      </tr>
+      <tr>
+        <td class="Table__label">Expanded</td>
+        <td class="Table__code">
+
+<figure class="highlight"><pre><code class="language-js" data-lang="js"><span class="k">this</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="s1">'/contacts'</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">db</span><span class="p">,</span> <span class="nx">request</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="p">{</span>
+    <span class="na">contacts</span><span class="p">:</span> <span class="nx">db</span><span class="p">.</span><span class="nx">contacts</span> <span class="c1">// db.users in the second case</span>
+  <span class="p">};</span>
+<span class="p">});</span></code></pre></figure>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<p><em>Multiple collections</em></p>
+
+<div class="Table__wrapper">
+  <table>
+    <tbody>
+      <tr>
+        <td class="Table__label">Shorthand</td>
+        <td class="Table__code">
+
+<figure class="highlight"><pre><code class="language-js" data-lang="js"><span class="k">this</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="s1">'/'</span><span class="p">,</span> <span class="p">[</span><span class="s1">'photos'</span><span class="p">,</span> <span class="s1">'articles'</span><span class="p">]);</span></code></pre></figure>
+
+</td>
+      </tr>
+      <tr>
+        <td class="Table__label">Expanded</td>
+        <td class="Table__code">
+
+<figure class="highlight"><pre><code class="language-js" data-lang="js"><span class="k">this</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="s1">'/'</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">db</span><span class="p">,</span> <span class="nx">request</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="p">{</span>
+    <span class="na">photos</span><span class="p">:</span> <span class="nx">db</span><span class="p">.</span><span class="nx">photos</span><span class="p">,</span>
+    <span class="na">articles</span><span class="p">:</span> <span class="nx">db</span><span class="p">.</span><span class="nx">articles</span>
+  <span class="p">};</span>
+<span class="p">});</span></code></pre></figure>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<p><em>Single record</em></p>
+
+<div class="Table__wrapper">
+  <table>
+    <tbody>
+      <tr>
+        <td class="Table__label">Shorthand</td>
+        <td class="Table__code">
+
+<figure class="highlight"><pre><code class="language-js" data-lang="js"><span class="k">this</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="s1">'/contacts/:id'</span><span class="p">);</span>         <span class="c1">// finds type by singularizing url</span>
+<span class="k">this</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="s1">'/contacts/:id'</span><span class="p">,</span> <span class="s1">'user'</span><span class="p">);</span> <span class="c1">// optionally specify the type as second param</span></code></pre></figure>
+
+</td>
+      </tr>
+      <tr>
+        <td class="Table__label">Expanded</td>
+        <td class="Table__code">
+
+<figure class="highlight"><pre><code class="language-js" data-lang="js"><span class="k">this</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="s1">'/contacts/:id'</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">db</span><span class="p">,</span> <span class="nx">request</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">id</span> <span class="o">=</span> <span class="nx">request</span><span class="p">.</span><span class="nx">params</span><span class="p">.</span><span class="nx">id</span><span class="p">;</span>
+
+  <span class="k">return</span> <span class="p">{</span>
+    <span class="na">contact</span><span class="p">:</span> <span class="nx">db</span><span class="p">.</span><span class="nx">contacts</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="nx">id</span><span class="p">)</span>
+  <span class="p">};</span>
+<span class="p">});</span></code></pre></figure>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<p><em>Single record with related records</em></p>
+
+<div class="Table__wrapper">
+  <table>
+    <tbody>
+      <tr>
+        <td class="Table__label">Shorthand</td>
+        <td class="Table__code">
+
+<figure class="highlight"><pre><code class="language-js" data-lang="js"><span class="k">this</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="s1">'/contacts/:id'</span><span class="p">,</span> <span class="p">[</span><span class="s1">'contact'</span><span class="p">,</span> <span class="s1">'addresses'</span><span class="p">]);</span> <span class="c1">// put the owning (singular) model first</span></code></pre></figure>
+
+</td>
+      </tr>
+      <tr>
+        <td class="Table__label">Expanded</td>
+        <td class="Table__code">
+
+<figure class="highlight"><pre><code class="language-js" data-lang="js"><span class="k">this</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="s1">'/contacts/:id'</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">db</span><span class="p">,</span> <span class="nx">request</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">id</span> <span class="o">=</span> <span class="nx">request</span><span class="p">.</span><span class="nx">params</span><span class="p">.</span><span class="nx">id</span><span class="p">;</span>
+
+  <span class="k">return</span> <span class="p">{</span>
+    <span class="na">contact</span><span class="p">:</span> <span class="nx">db</span><span class="p">.</span><span class="nx">contacts</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="nx">id</span><span class="p">),</span>
+    <span class="na">addresses</span><span class="p">:</span> <span class="nx">db</span><span class="p">.</span><span class="nx">addresses</span><span class="p">.</span><span class="nx">where</span><span class="p">({</span> <span class="na">contact_id</span><span class="p">:</span> <span class="nx">id</span> <span class="p">})</span>
+  <span class="p">};</span>
+<span class="p">});</span></code></pre></figure>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<h2 id="post-shorthands">POST shorthands</h2>
+
+<p><em>Create a resource</em></p>
+
+<div class="Table__wrapper">
+  <table>
+    <tbody>
+      <tr>
+        <td class="Table__label">Shorthand</td>
+        <td class="Table__code">
+
+<figure class="highlight"><pre><code class="language-js" data-lang="js"><span class="k">this</span><span class="p">.</span><span class="nx">post</span><span class="p">(</span><span class="s1">'/contacts'</span><span class="p">);</span>          <span class="c1">// finds type by singularizing url</span>
+<span class="k">this</span><span class="p">.</span><span class="nx">post</span><span class="p">(</span><span class="s1">'/contacts'</span><span class="p">,</span> <span class="s1">'user'</span><span class="p">);</span>  <span class="c1">// optionally specify the type as second param</span></code></pre></figure>
+
+</td>
+      </tr>
+      <tr>
+        <td class="Table__label">Expanded</td>
+        <td class="Table__code">
+
+<figure class="highlight"><pre><code class="language-js" data-lang="js"><span class="k">this</span><span class="p">.</span><span class="nx">post</span><span class="p">(</span><span class="s1">'/contacts'</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">db</span><span class="p">,</span> <span class="nx">request</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">attrs</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">request</span><span class="p">.</span><span class="nx">requestBody</span><span class="p">);</span>
+  <span class="kd">var</span> <span class="nx">record</span> <span class="o">=</span> <span class="nx">db</span><span class="p">.</span><span class="nx">contacts</span><span class="p">.</span><span class="nx">insert</span><span class="p">(</span><span class="nx">attrs</span><span class="p">);</span>
+  
+  <span class="k">return</span> <span class="p">{</span>
+    <span class="na">contact</span><span class="p">:</span> <span class="nx">record</span>
+  <span class="p">};</span>
+<span class="p">});</span></code></pre></figure>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<h2 id="put-shorthands">PUT shorthands</h2>
+
+<p><em>Update a resource</em></p>
+
+<div class="Table__wrapper">
+  <table>
+    <tbody>
+      <tr>
+        <td class="Table__label">Shorthand</td>
+        <td class="Table__code">
+
+<figure class="highlight"><pre><code class="language-js" data-lang="js"><span class="k">this</span><span class="p">.</span><span class="nx">put</span><span class="p">(</span><span class="s1">'/contacts'</span><span class="p">);</span>          <span class="c1">// finds type by singularizing url</span>
+<span class="k">this</span><span class="p">.</span><span class="nx">put</span><span class="p">(</span><span class="s1">'/contacts'</span><span class="p">,</span> <span class="s1">'user'</span><span class="p">);</span>  <span class="c1">// optionally specify the type as second param</span></code></pre></figure>
+
+</td>
+      </tr>
+      <tr>
+        <td class="Table__label">Expanded</td>
+        <td class="Table__code">
+
+<figure class="highlight"><pre><code class="language-js" data-lang="js"><span class="k">this</span><span class="p">.</span><span class="nx">put</span><span class="p">(</span><span class="s1">'/contacts/:id'</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">db</span><span class="p">,</span> <span class="nx">request</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">id</span> <span class="o">=</span> <span class="nx">db</span><span class="p">.</span><span class="nx">params</span><span class="p">.</span><span class="nx">id</span><span class="p">;</span>
+  <span class="kd">var</span> <span class="nx">attrs</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">request</span><span class="p">.</span><span class="nx">requestBody</span><span class="p">)[</span><span class="s1">'contact'</span><span class="p">];</span>
+  <span class="kd">var</span> <span class="nx">record</span> <span class="o">=</span> <span class="nx">db</span><span class="p">.</span><span class="nx">contacts</span><span class="p">.</span><span class="nx">update</span><span class="p">(</span><span class="nx">id</span><span class="p">,</span> <span class="nx">attrs</span><span class="p">);</span>
+
+  <span class="k">return</span> <span class="p">{</span>
+    <span class="na">contact</span><span class="p">:</span> <span class="nx">record</span>
+  <span class="p">};</span>
+<span class="p">});</span></code></pre></figure>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<h2 id="delete-shorthands">DELETE shorthands</h2>
+
+<p><em>Remove a resource</em></p>
+
+<div class="Table__wrapper">
+  <table>
+    <tbody>
+      <tr>
+        <td class="Table__label">Shorthand</td>
+        <td class="Table__code">
+
+<figure class="highlight"><pre><code class="language-js" data-lang="js"><span class="k">this</span><span class="p">.</span><span class="nx">del</span><span class="p">(</span><span class="s1">'/contacts/:id'</span><span class="p">);</span>          <span class="c1">// finds type by singularizing url</span>
+<span class="k">this</span><span class="p">.</span><span class="nx">del</span><span class="p">(</span><span class="s1">'/contacts/:id'</span><span class="p">,</span> <span class="s1">'user'</span><span class="p">);</span>  <span class="c1">// optionally specify the type as second param</span></code></pre></figure>
+
+</td>
+      </tr>
+      <tr>
+        <td class="Table__label">Expanded</td>
+        <td class="Table__code">
+
+<figure class="highlight"><pre><code class="language-js" data-lang="js"><span class="k">this</span><span class="p">.</span><span class="nx">put</span><span class="p">(</span><span class="s1">'/contacts/:id'</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">db</span><span class="p">,</span> <span class="nx">request</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">id</span> <span class="o">=</span> <span class="nx">db</span><span class="p">.</span><span class="nx">params</span><span class="p">.</span><span class="nx">id</span><span class="p">;</span>
+  <span class="nx">db</span><span class="p">.</span><span class="nx">contacts</span><span class="p">.</span><span class="nx">remove</span><span class="p">(</span><span class="nx">id</span><span class="p">);</span>
+
+  <span class="k">return</span> <span class="p">{};</span>
+<span class="p">});</span></code></pre></figure>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<p><em>Remove a resource and related models</em></p>
+
+<div class="Table__wrapper">
+  <table>
+    <tbody>
+      <tr>
+        <td class="Table__label">Shorthand</td>
+        <td class="Table__code">
+
+<figure class="highlight"><pre><code class="language-js" data-lang="js"><span class="k">this</span><span class="p">.</span><span class="nx">del</span><span class="p">(</span><span class="s1">'/contacts/:id'</span><span class="p">,</span> <span class="p">[</span><span class="s1">'contact'</span><span class="p">,</span> <span class="s1">'addresses'</span><span class="p">]);</span></code></pre></figure>
+
+</td>
+      </tr>
+      <tr>
+        <td class="Table__label">Expanded</td>
+        <td class="Table__code">
+
+<figure class="highlight"><pre><code class="language-js" data-lang="js"><span class="k">this</span><span class="p">.</span><span class="nx">put</span><span class="p">(</span><span class="s1">'/contacts/:id'</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">db</span><span class="p">,</span> <span class="nx">request</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">id</span> <span class="o">=</span> <span class="nx">db</span><span class="p">.</span><span class="nx">params</span><span class="p">.</span><span class="nx">id</span><span class="p">;</span>
+  <span class="nx">db</span><span class="p">.</span><span class="nx">contacts</span><span class="p">.</span><span class="nx">remove</span><span class="p">(</span><span class="nx">id</span><span class="p">);</span>
+
+  <span class="kd">var</span> <span class="nx">addresses</span> <span class="o">=</span> <span class="nx">db</span><span class="p">.</span><span class="nx">addresses</span><span class="p">.</span><span class="nx">where</span><span class="p">({</span> <span class="na">contact_id</span><span class="p">:</span> <span class="nx">id</span> <span class="p">});</span>
+  <span class="nx">addresses</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">address</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">db</span><span class="p">.</span><span class="nx">addresses</span><span class="p">.</span><span class="nx">remove</span><span class="p">(</span><span class="nx">address</span><span class="p">.</span><span class="nx">id</span><span class="p">);</span>
+  <span class="p">});</span>
+
+  <span class="k">return</span> <span class="p">{};</span>
+<span class="p">});</span></code></pre></figure>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+
+    </div>
+
+    
+
+<div class='Docs-page-nav'>
+  
+    
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+      
+      
+      
+        
+  
+         <a class="Docs-page-nav__link u-first" href="/docs/v0.0.27/routes/">< Routes</a>
+      
+  
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+  
+  
+    
+    
+    
+      
+      
+      
+        
+  
+         <a class="Docs-page-nav__link u-last" href="/docs/v0.0.27/database/">Database ></a>
+      
+  
+    
+  
+  
+    
+    
+    
+  
+  
+    
+</div>
+
+  </div>
+</div>
+
+      </div>
+    </div>
+
+    <footer class="Footer">
+  <div class="Container Grid Grid--gutters Grid--full med-Grid--fit">
+    <div class="Grid-cell">
+      <p>Project and site maintained by <a href="https://twitter.com/samselikoff">Sam Selikoff</a> and <a href="https://github.com/samselikoff/ember-cli-mirage/graphs/contributors">contributors</a>.</p>
+      <p>Sponsored by <a href="https://embermap.com/">EmberMap</a>.<p>
+    </div>
+    <div class="Grid-cell">
+      <div class="Github-stars">
+        <iframe src="https://ghbtns.com/github-btn.html?user=samselikoff&repo=ember-cli-mirage&type=star&count=true" frameborder="0" scrolling="0" width="170px" height="20px"></iframe>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/1.1.1/anchor.min.js"></script>
+<script>
+  /* global anchors */
+  // anchors.options = {
+  //   placement: 'left',
+  //   visible: 'always'
+  // };
+  anchors.add('h2:not(.Home-page__feature-heading)');
+</script>
+
+
+  </body>
+</html>

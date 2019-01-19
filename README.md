@@ -1,1 +1,0 @@
-# Ember CLI Mirage - Documentation

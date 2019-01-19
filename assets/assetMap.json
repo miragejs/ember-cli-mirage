@@ -1,0 +1,17 @@
+{
+  "assets": {
+    "assets/assetMap.json": "assets/assetMap.json",
+    "assets/branding/Ember-CLI-Mirage-Branding-Preview.png": "assets/branding/Ember-CLI-Mirage-Branding-Preview-ada285620c054e32a1fc2e4ddf651176.png",
+    "assets/branding/png/Ember-CLI-Mirage-Logo-Horiz-Black.png": "assets/branding/png/Ember-CLI-Mirage-Logo-Horiz-Black-ccc1103d604b5c09a3f6d5ec0fcb984b.png",
+    "assets/branding/png/Ember-CLI-Mirage-Logo-Horiz-Color.png": "assets/branding/png/Ember-CLI-Mirage-Logo-Horiz-Color-368110755546228f43640a4f71e093e0.png",
+    "assets/branding/png/Ember-CLI-Mirage-Logo-Stacked-Black.png": "assets/branding/png/Ember-CLI-Mirage-Logo-Stacked-Black-6946461b61a46d6e6e998f0b899d274b.png",
+    "assets/branding/png/Ember-CLI-Mirage-Logo-Stacked-Color.png": "assets/branding/png/Ember-CLI-Mirage-Logo-Stacked-Color-11a390f6715697c040c7fba6a09a89e6.png",
+    "assets/dummy-fastboot.js": "assets/dummy-fastboot-7496aeae7033b35ae6bddf97a32740c1.js",
+    "assets/dummy.css": "assets/dummy-c5cf8fbc65882e5b88f8dad8d5abf5f1.css",
+    "assets/dummy.js": "assets/dummy-fda09f6bce0c62fbd2538d3900c1ea0b.js",
+    "assets/vendor.css": "assets/vendor-a3f3360cf8064f60f1068f49d6f66ae5.css",
+    "assets/vendor.js": "assets/vendor-804c17e569c61d2c858676e504bf095b.js",
+    "ember-fetch/fastboot-fetch.js": "ember-fetch/fastboot-fetch-ee5cef26e0470d371ec08fef9ba4a5b8.js"
+  },
+  "prepend": ""
+}

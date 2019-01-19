@@ -29,6 +29,12 @@
 
 
   <body>
+    <script>
+      var pathname = window.location.pathname;
+      if (pathname.match("/docs/v0.3.x")) {
+        window.location = pathname.replace("/docs/v0.3.x", "/versions/v0.3.x");
+      }
+    </script>
     <div class="Topbar">
       <div class="Container">
       </div>
@@ -98,12 +104,6 @@
   //   visible: 'always'
   // };
   anchors.add('h2:not(.Home-page__feature-heading)');
-</script>
-<script>
-  var pathname = window.location.pathname;
-  if (pathname.match("/docs/v0.3.x")) {
-    window.location = pathname.replace("/docs/v0.3.x", "/versions/v0.3.x");
-  }
 </script>
 
 

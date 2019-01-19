@@ -6,4 +6,5 @@ else if(!/^https?:\/\//.test(e.url))try{e.url=r+"//"+t(this,"fastboot.request.ho
 najax(e)}
 e.default={name:"ajax-service",initialize:function(e){e.register("ajax:node",r,{instantiate:!1}),e.inject("adapter","_ajaxRequest","ajax:node"),e.inject("adapter","fastboot","service:fastboot")}}}),define("dummy/initializers/error-handler",["exports"],function(e){"use strict"
 Object.defineProperty(e,"__esModule",{value:!0}),e.default={name:"error-handler",initialize:function(e){Ember.onerror||(Ember.onerror=function(e){var t="There was an error running your app in fastboot. More info about the error: \n "+(e.stack||e)
-Ember.Logger.error(t)})}}})
+Ember.Logger.error(t)})}}}),define("dummy/instance-initializers/setup-fetch",["exports","fetch/setup"],function(e,t){"use strict"
+Object.defineProperty(e,"__esModule",{value:!0}),e.default={name:"fetch",initialize:function(e){var r=e.lookup("service:fastboot").get("request"),o="undefined:"===r.protocol?"http:":r.protocol;(0,t.default)(o,r.get("host"))()}}})

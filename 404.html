@@ -10,9 +10,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
 
   <title>
-    
+
       404: Page not found &middot; Ember CLI Mirage
-    
+
   </title>
 
   <!-- CSS -->
@@ -98,6 +98,13 @@
   //   visible: 'always'
   // };
   anchors.add('h2:not(.Home-page__feature-heading)');
+</script>
+<script>
+  console.log('running redirecting logic...');
+  var pathname = window.location.pathname;
+  if (pathname.match("/docs/v0.9.x")) {
+    window.location = pathname.replace("/docs/v0.9.x", "/versions/v0.3.x");
+  }
 </script>
 
 

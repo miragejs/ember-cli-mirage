@@ -100,10 +100,9 @@
   anchors.add('h2:not(.Home-page__feature-heading)');
 </script>
 <script>
-  console.log('running redirecting logic...');
   var pathname = window.location.pathname;
-  if (pathname.match("/docs/v0.9.x")) {
-    window.location = pathname.replace("/docs/v0.9.x", "/versions/v0.3.x");
+  if (pathname.match("/docs/v0.3.x")) {
+    window.location = pathname.replace("/docs/v0.3.x", "/versions/v0.3.x");
   }
 </script>
 

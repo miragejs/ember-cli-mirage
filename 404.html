@@ -31,10 +31,21 @@
   <body>
     <script>
       var pathname = window.location.pathname;
-      if (pathname.match("/docs/v0.3.x")) {
-        window.location = pathname.replace("/docs/v0.3.x", "/versions/v0.3.x");
-      }
+      [
+        "v0.0.27",
+        "v0.0.28",
+        "v0.0.29",
+        "v0.1.x",
+        "v0.2.x",
+        "v0.3.x",
+        "v0.4.x",
+      ].forEach(function(version) {
+        if (pathname.match("/docs/" + version)) {
+          window.location = pathname.replace("/docs/" + version, "/versions/" + version);
+        }
+      });
     </script>
+
     <div class="Topbar">
       <div class="Container">
       </div>

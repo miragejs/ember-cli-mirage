@@ -1,122 +1,54 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
-
+<html>
   <head>
-  <link href="http://gmpg.org/xfn/11" rel="profile">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta charset="utf-8">
+    <title>Redirect</title>
+    <script type="text/javascript">
+      // Single Page Apps for GitHub Pages
+      // https://github.com/rafrex/spa-github-pages
+      // Copyright (c) 2016 Rafael Pedicini, licensed under the MIT License
+      // ----------------------------------------------------------------------
+      // This script takes the current url and converts the path and query
+      // string into just a query string, and then redirects the browser
+      // to the new url with only a query string and hash fragment,
+      // e.g. http://www.foo.tld/one/two?a=b&c=d#qwe, becomes
+      // http://www.foo.tld/?p=/one/two&q=a=b~and~c=d#qwe
+      // Note: this 404.html file must be at least 512 bytes for it to work
+      // with Internet Explorer (it is currently > 512 bytes)
+      // If you're creating a Project Pages site and NOT using a custom domain,
+      // then set segmentCount to 1 (enterprise users may need to set it to > 1).
+      // This way the code will only replace the route part of the path, and not
+      // the real directory in which the app resides, for example:
+      // https://username.github.io/repo-name/one/two?a=b&c=d#qwe becomes
+      // https://username.github.io/repo-name/?p=/one/two&q=a=b~and~c=d#qwe
+      // Otherwise, leave segmentCount as 0.
+      var segmentCount = 1;
+      var l = window.location;
+      var segments = l.pathname.split('/');
+      var redirects = [];
 
-  <!-- Enable responsiveness on mobile devices-->
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+      var firstLocalSegment = segments[segmentCount+1];
+      if (redirects[firstLocalSegment] != null) {
+        segments = [""].concat(segments.slice(0, segmentCount+1).concat(redirects[firstLocalSegment]).concat(segments.slice(segmentCount+2)).filter(Boolean).join('/').split('/'))
+      }
 
-  <title>
+      // If we're inside the special "versions" path, we want to load a versioned 
+      // child app, and those are two segments deeper than the top-level app.
+      if (segments[segmentCount+1] === "versions") {
+        segmentCount += 2;
+      }
 
-      404: Page not found &middot; Ember CLI Mirage
-
-  </title>
-
-  <!-- CSS -->
-  <link rel="stylesheet" href="/public/css/syntax.css">
-  <link rel="stylesheet" href="/public/css/style.css">
-
-  <!-- Icons -->
-  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-144-precomposed.png">
-                                 <link rel="shortcut icon" href="/public/favicon.ico">
-
-  <!-- RSS -->
-  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
-</head>
-
-
-  <body>
-    <script>
-      var pathname = window.location.pathname;
-      [
-        "v0.0.27",
-        "v0.0.28",
-        "v0.0.29",
-        "v0.1.x",
-        "v0.2.x",
-        "v0.3.x",
-        "v0.4.x",
-      ].forEach(function(version) {
-        if (pathname.match("/docs/" + version)) {
-          window.location = pathname.replace("/docs/" + version, "/versions/" + version);
-        }
-      });
+      // Avoid an infinite loop if we try to direct to a location that doesn't exist
+      if (!/^\?p=\/.*&q=.*/.test(l.search)) {
+        l.replace(
+          l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') +
+          segments.slice(0, 1 + segmentCount).join('/') + '/?p=/' +
+          segments.slice(segmentCount+1).join('/').replace(/&/g, '~and~') +
+          (l.search ? '&q=' + l.search.slice(1).replace(/&/g, '~and~') : '') +
+          l.hash
+        );
+      }
     </script>
-
-    <div class="Topbar">
-      <div class="Container">
-      </div>
-    </div>
-
-    <header class="Header">
-  <div class="Container">
-    <nav class='Header__nav'>
-      <ul class='Header__nav-list'>
-        <li class='Header__nav-item'>
-          <a href='/docs/v0.4.x' class="Header__nav-item-link">
-            <span class="u-mobile">Docs</span>
-            <span class="u-desktop">Documentation</span>
-          </a>
-        </li>
-        <li class='Header__nav-item'>
-          <a href='/blog' class="Header__nav-item-link">Blog</a>
-        </li>
-        <li class='Header__nav-item'>
-          <a href='/about' class="Header__nav-item-link">About</a>
-        </li>
-        <li class='Header__nav-item'>
-          <a href="https://github.com/samselikoff/ember-cli-mirage" class='Header__nav-item-link' target="_blank">GitHub</a>
-        </li>
-      </ul>
-    </nav>
-    <a class="Header__logo" href="/">
-      <span class='Header__logo-minor'>Ember CLI</span><br>
-      <span class='Header__logo-major'>Mirage</span>
-    </a>
-  </div>
-</header>
-
-
-    <div class="Wrapper">
-      <div class="Content">
-        <div class="Container u-inverted">
-  <div class="page">
-  <h1 class="page-title">404: Page not found</h1>
-  <p class="lead">Sorry, we've misplaced that URL or it's pointing to something that doesn't exist. <a href="/">Head back home</a> to try finding it again.</p>
-</div>
-
-</div>
-
-      </div>
-    </div>
-
-    <footer class="Footer">
-  <div class="Container Grid Grid--gutters Grid--full med-Grid--fit">
-    <div class="Grid-cell">
-      <p>Project and site maintained by <a href="https://twitter.com/samselikoff">Sam Selikoff</a> and <a href="https://github.com/samselikoff/ember-cli-mirage/graphs/contributors">contributors</a>.</p>
-      <p>Sponsored by <a href="https://embermap.com/">EmberMap</a>.<p>
-    </div>
-    <div class="Grid-cell">
-      <div class="Github-stars">
-        <iframe src="https://ghbtns.com/github-btn.html?user=samselikoff&repo=ember-cli-mirage&type=star&count=true" frameborder="0" scrolling="0" width="170px" height="20px"></iframe>
-      </div>
-    </div>
-  </div>
-</footer>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/1.1.1/anchor.min.js"></script>
-<script>
-  /* global anchors */
-  // anchors.options = {
-  //   placement: 'left',
-  //   visible: 'always'
-  // };
-  anchors.add('h2:not(.Home-page__feature-heading)');
-</script>
-
-
-  </body>
+  </head>
+  <body>The requested page wasn't found.</body>
 </html>

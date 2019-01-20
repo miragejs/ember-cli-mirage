@@ -10,5 +10,12 @@
     "name": "Latest",
     "sha": "f8d1165ac4a1336ef8bd1f1095d3a5555452b5e9",
     "tag": null
+  },
+  "v0.3.x": {
+    "sha": "d56c76ab5113df4f77adc28e294b952865a2af65",
+    "tag": "v0.3.4",
+    "path": "versions/v0.3.x",
+    "name": "v0.3.x",
+    "oldPath": "docs/v0.3.x"
   }
 }

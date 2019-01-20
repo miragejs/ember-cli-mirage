@@ -11,11 +11,53 @@
     "sha": "8a327bc813dd8260b7c9db80c61edee44ea1c9e3",
     "tag": null
   },
+  "v0.0.27": {
+    "sha": "c5de122d094a8b5709bea8aaf07b4da2f142ac57",
+    "tag": "v0.0.27",
+    "path": "versions/v0.0.27",
+    "name": "v0.0.27",
+    "oldPath": "docs/v0.0.27"
+  },
+  "v0.0.28": {
+    "sha": "d04a3047c933c465fabf71f578319da30544c6f1",
+    "tag": "v0.0.28",
+    "path": "versions/v0.0.28",
+    "name": "v0.0.28",
+    "oldPath": "docs/v0.0.28"
+  },
+  "v0.0.29": {
+    "sha": "a215c797f8b336e817ba515ced23589001eb596c",
+    "tag": "v0.0.29",
+    "path": "versions/v0.0.29",
+    "name": "v0.0.29",
+    "oldPath": "docs/v0.0.29"
+  },
+  "v0.1.x": {
+    "sha": "40742dc06308e704d2b26f1fd5a60bc4a5911f12",
+    "tag": "v0.1.x",
+    "path": "versions/v0.1.x",
+    "name": "v0.1.x",
+    "oldPath": "docs/v0.1.x"
+  },
+  "v0.2.x": {
+    "sha": "2703e767bcb3e47c8694691aae2c076c45fe0d6c",
+    "tag": "v0.2.x",
+    "path": "versions/v0.2.x",
+    "name": "v0.2.x",
+    "oldPath": "docs/v0.2.x"
+  },
   "v0.3.x": {
     "sha": "d56c76ab5113df4f77adc28e294b952865a2af65",
     "tag": "v0.3.4",
     "path": "versions/v0.3.x",
     "name": "v0.3.x",
     "oldPath": "docs/v0.3.x"
+  },
+  "v0.4.x": {
+    "sha": "22ffb2aedfe65bf95adb2f45832a4a841aa4022a",
+    "tag": "v0.4.12",
+    "path": "versions/v0.4.x",
+    "name": "v0.4.x",
+    "oldPath": "docs/v0.4.x"
   }
 }

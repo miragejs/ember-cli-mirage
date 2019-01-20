@@ -8,9 +8,9 @@
     "assets/branding/png/Ember-CLI-Mirage-Logo-Stacked-Color.png": "assets/branding/png/Ember-CLI-Mirage-Logo-Stacked-Color-11a390f6715697c040c7fba6a09a89e6.png",
     "assets/dummy-fastboot.js": "assets/dummy-fastboot-ee06523e7569631073ccc8c9c59fb3ee.js",
     "assets/dummy.css": "assets/dummy-c5cf8fbc65882e5b88f8dad8d5abf5f1.css",
-    "assets/dummy.js": "assets/dummy-47cd37e2039eea708456f4fa754033df.js",
+    "assets/dummy.js": "assets/dummy-b09c394de6a911aefeaa73b5b48edc6e.js",
     "assets/vendor.css": "assets/vendor-a3f3360cf8064f60f1068f49d6f66ae5.css",
-    "assets/vendor.js": "assets/vendor-95a924cc28a0e6b325413d8aa8b4c79b.js",
+    "assets/vendor.js": "assets/vendor-5e1336540a77b0d4954a5e8f328297f5.js",
     "ember-fetch/fastboot-fetch.js": "ember-fetch/fastboot-fetch-d0a987aa68a35560ff74884f82d87c8d.js"
   },
   "prepend": ""

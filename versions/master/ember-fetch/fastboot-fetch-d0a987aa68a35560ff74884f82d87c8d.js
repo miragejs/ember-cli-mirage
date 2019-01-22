@@ -1,4 +1,0 @@
-define("fetch/setup",["exports"],function(e){var t=/^https?:\/\//,o=/^\/\//,r=FastBoot.require("abortcontroller-polyfill/dist/cjs-ponyfill"),n=FastBoot.require("node-fetch")
-e.default=function(e,s){return function(){define("fetch",["exports"],function(i){function u(e,r,n){if(o.test(e))e=n+e
-else if(!t.test(e)){if(!n)throw new Error("You are using using fetch with a path-relative URL, but host is missing from Fastboot request. Please set the hostWhitelist property in your environment.js.")
-e=r+"//"+n+e}return e}i.default=function(t,o){return"object"==typeof t?t.url=u(t.url,e,s):t=u(t,e,s),n(t,o)},i.Request=n.Request,i.Headers=n.Headers,i.Response=n.Response,i.AbortController=r.AbortController})}}}),define("fetch/ajax",["exports"],function(){throw new Error("You included `fetch/ajax` but it was renamed to `ember-fetch/ajax`")})

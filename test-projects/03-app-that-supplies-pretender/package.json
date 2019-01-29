@@ -42,6 +42,7 @@
     "fastboot": "*",
     "jsdom": "*",
     "loader.js": "*",
+    "pretender": "*",
     "qunit": "*",
     "qunit-dom": "*"
   },

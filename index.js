@@ -21,9 +21,6 @@ module.exports = {
       'fake-xml-http-request': npmAsset({
         import: ['fake_xml_http_request.js']
       }),
-      'pretender': npmAsset({
-        import: ['pretender.js']
-      }),
       'faker': npmAsset({
         import: ['build/build/faker.js']
       })
@@ -53,6 +50,10 @@ module.exports = {
     // Call super after initializing config so we can use _shouldIncludeFiles for the node assets
     this._super.included.apply(this, arguments);
 
+    if (this._shouldIncludeFiles()) {
+      app.import('vendor/pretender/pretender.js');
+    }
+
     if (this.addonBuildConfig.directory) {
       this.mirageDirectory = this.addonBuildConfig.directory;
     } else if (this.addonConfig.directory) {
@@ -61,13 +62,6 @@ module.exports = {
       this.mirageDirectory = path.resolve(app.project.root, path.join('tests', 'dummy', 'mirage'));
     } else {
       this.mirageDirectory = path.join(this.app.project.root, '/mirage');
-    }
-
-    if (this._shouldIncludeFiles()) {
-      app.import('vendor/ember-cli-mirage/pretender-shim.js', {
-        type: 'vendor',
-        exports: { 'pretender': ['default'] }
-      });
     }
   },
 
@@ -92,6 +86,28 @@ module.exports = {
     }
 
     return tree;
+  },
+
+  treeForVendor() {
+    let Funnel = require('broccoli-funnel');
+    let resolve = require('resolve');
+    let path = require('path');
+
+    let pretenderPath;
+
+    try {
+      pretenderPath = path.dirname(
+        resolve.sync('pretender/package.json', { basedir: this.project.root })
+      );
+    } catch(error) {
+      pretenderPath = path.dirname(require.resolve('pretender/package.json'));
+    }
+
+    let pretender = new Funnel(pretenderPath, {
+      destDir: 'pretender'
+    });
+
+    return pretender;
   },
 
   _lintMirageTree(mirageTree) {

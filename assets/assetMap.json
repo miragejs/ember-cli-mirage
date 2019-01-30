@@ -7,10 +7,10 @@
     "assets/branding/png/Ember-CLI-Mirage-Logo-Stacked-Black.png": "assets/branding/png/Ember-CLI-Mirage-Logo-Stacked-Black-6946461b61a46d6e6e998f0b899d274b.png",
     "assets/branding/png/Ember-CLI-Mirage-Logo-Stacked-Color.png": "assets/branding/png/Ember-CLI-Mirage-Logo-Stacked-Color-11a390f6715697c040c7fba6a09a89e6.png",
     "assets/dummy-fastboot.js": "assets/dummy-fastboot-29137fb8c8ab317534e44cda28e756f6.js",
-    "assets/dummy.css": "assets/dummy-05934ae34b6e1b79648cf9c5bbdb1f91.css",
-    "assets/dummy.js": "assets/dummy-d9617aee2f2beba87a7ebfbc21309362.js",
+    "assets/dummy.css": "assets/dummy-0ead89416ed0a2d9a826b985e3b67e79.css",
+    "assets/dummy.js": "assets/dummy-7a1a98329604626b5d99ffbdbfb0a6b1.js",
     "assets/vendor.css": "assets/vendor-f58a7b3c05f636390c34f9df25710fef.css",
-    "assets/vendor.js": "assets/vendor-3ab68ba003577fba83aa2dbd42336b0a.js"
+    "assets/vendor.js": "assets/vendor-160e88a7cb067dd59fe17c6e865bcf11.js"
   },
   "prepend": ""
 }

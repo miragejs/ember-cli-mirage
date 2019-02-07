@@ -71,11 +71,5 @@
     "name": "v0.4.14",
     "sha": "33049c5db50b609054b146165ac00683f48630d0",
     "tag": "v0.4.14"
-  },
-  "add-disqus-comments": {
-    "path": "versions/add-disqus-comments",
-    "name": "add-disqus-comments",
-    "sha": "f15639d09b336e8601265fa5bf5a4ff30ce45e25",
-    "tag": null
   }
 }

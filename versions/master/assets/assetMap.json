@@ -1,16 +1,19 @@
 {
   "assets": {
     "assets/assetMap.json": "assets/assetMap.json",
+    "assets/auto-import-fastboot.js": "assets/auto-import-fastboot-d41d8cd98f00b204e9800998ecf8427e.js",
     "assets/branding/Ember-CLI-Mirage-Branding-Preview.png": "assets/branding/Ember-CLI-Mirage-Branding-Preview-ada285620c054e32a1fc2e4ddf651176.png",
     "assets/branding/png/Ember-CLI-Mirage-Logo-Horiz-Black.png": "assets/branding/png/Ember-CLI-Mirage-Logo-Horiz-Black-ccc1103d604b5c09a3f6d5ec0fcb984b.png",
     "assets/branding/png/Ember-CLI-Mirage-Logo-Horiz-Color.png": "assets/branding/png/Ember-CLI-Mirage-Logo-Horiz-Color-368110755546228f43640a4f71e093e0.png",
     "assets/branding/png/Ember-CLI-Mirage-Logo-Stacked-Black.png": "assets/branding/png/Ember-CLI-Mirage-Logo-Stacked-Black-6946461b61a46d6e6e998f0b899d274b.png",
     "assets/branding/png/Ember-CLI-Mirage-Logo-Stacked-Color.png": "assets/branding/png/Ember-CLI-Mirage-Logo-Stacked-Color-11a390f6715697c040c7fba6a09a89e6.png",
     "assets/dummy-fastboot.js": "assets/dummy-fastboot-29137fb8c8ab317534e44cda28e756f6.js",
-    "assets/dummy.css": "assets/dummy-0ead89416ed0a2d9a826b985e3b67e79.css",
-    "assets/dummy.js": "assets/dummy-3487b8b11c491836fe70ff0ef24abd49.js",
+    "assets/dummy.css": "assets/dummy-6fc181cff6a0ba64207034fa33448af8.css",
+    "assets/dummy.js": "assets/dummy-e3769ecf7be06d760558034f560b769f.js",
     "assets/vendor.css": "assets/vendor-f58a7b3c05f636390c34f9df25710fef.css",
-    "assets/vendor.js": "assets/vendor-160e88a7cb067dd59fe17c6e865bcf11.js"
+    "assets/vendor.js": "assets/vendor-e9915be2fa69ddaf766798bf189333c7.js",
+    "moment/fastboot-moment-timezone.js": "moment/fastboot-moment-timezone-578ab4bc24839c1fa18fc484b2cf5d0d.js",
+    "moment/fastboot-moment.js": "moment/fastboot-moment-fc1d02c2a35021ee4ca1a6f87a5a64c7.js"
   },
   "prepend": ""
 }

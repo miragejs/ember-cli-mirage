@@ -9,9 +9,9 @@
     "assets/branding/png/Ember-CLI-Mirage-Logo-Stacked-Color.png": "assets/branding/png/Ember-CLI-Mirage-Logo-Stacked-Color-11a390f6715697c040c7fba6a09a89e6.png",
     "assets/dummy-fastboot.js": "assets/dummy-fastboot-29137fb8c8ab317534e44cda28e756f6.js",
     "assets/dummy.css": "assets/dummy-b15d8e13e0199bbd6ebf4476cad30fa7.css",
-    "assets/dummy.js": "assets/dummy-77d599333f534e4fccc7e01427213da1.js",
-    "assets/vendor.css": "assets/vendor-f58a7b3c05f636390c34f9df25710fef.css",
-    "assets/vendor.js": "assets/vendor-19997d5ea3a4134da66e9f7d6d5d7616.js",
+    "assets/dummy.js": "assets/dummy-003a8456a91a6300488db14e20f0f37c.js",
+    "assets/vendor.css": "assets/vendor-1b96122d39e6ec625af926456a88745d.css",
+    "assets/vendor.js": "assets/vendor-a1bfe3c91b5ac67149b26a029aa456ce.js",
     "moment/fastboot-moment-timezone.js": "moment/fastboot-moment-timezone-578ab4bc24839c1fa18fc484b2cf5d0d.js",
     "moment/fastboot-moment.js": "moment/fastboot-moment-fc1d02c2a35021ee4ca1a6f87a5a64c7.js"
   },

@@ -71,5 +71,11 @@
     "name": "v0.4.14",
     "sha": "33049c5db50b609054b146165ac00683f48630d0",
     "tag": "v0.4.14"
+  },
+  "try-prember": {
+    "path": "versions/try-prember",
+    "name": "try-prember",
+    "sha": "fb5521f133a4d2afa3cb4eb0b26bea3a74ec0937",
+    "tag": null
   }
 }

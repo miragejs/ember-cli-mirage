@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>EmberCLI Mirage</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    
+<meta name="dummy/config/environment" content="%7B%22modulePrefix%22%3A%22dummy%22%2C%22podModulePrefix%22%3A%22dummy/pods%22%2C%22environment%22%3A%22production%22%2C%22rootURL%22%3A%22/versions/try-prember/%22%2C%22locationType%22%3A%22auto%22%2C%22EmberENV%22%3A%7B%22FEATURES%22%3A%7B%7D%2C%22EXTEND_PROTOTYPES%22%3A%7B%22Date%22%3Afalse%7D%7D%2C%22APP%22%3A%7B%22name%22%3A%22ember-cli-mirage%22%2C%22version%22%3A%220.4.14+fb5521f1%22%7D%2C%22fastboot%22%3A%7B%22hostWhitelist%22%3A%5B%7B%7D%5D%7D%2C%22ember-cli-mirage%22%3A%7B%22usingProxy%22%3Afalse%2C%22useDefaultPassthroughs%22%3Atrue%7D%2C%22emberData%22%3A%7B%22enableRecordDataRFCBuild%22%3Afalse%7D%2C%22ember-component-css%22%3A%7B%22namespacing%22%3Afalse%7D%2C%22ember-cli-addon-docs%22%3A%7B%22projectName%22%3A%22ember-cli-mirage%22%2C%22projectDescription%22%3A%22A%20client-side%20server%20to%20help%20you%20build%2C%20test%20and%20demo%20your%20Ember%20app%22%2C%22projectTag%22%3A%220.4.14%22%2C%22projectHref%22%3A%22https%3A//github.com/samselikoff/ember-cli-mirage%22%2C%22primaryBranch%22%3A%22master%22%2C%22latestVersionName%22%3A%22-latest%22%2C%22deployVersion%22%3A%7B%22path%22%3A%22versions%2Ftry-prember%22%2C%22name%22%3A%22try-prember%22%2C%22sha%22%3A%22fb5521f133a4d2afa3cb4eb0b26bea3a74ec0937%22%2C%22tag%22%3Anull%2C%22key%22%3A%22try-prember%22%7D%2C%22searchTokenSeparator%22%3A%22%5C%5Cs+%22%7D%2C%22ember-cli-tailwind%22%3A%7B%22shouldIncludeStyleguide%22%3Afalse%2C%22shouldBuildTailwind%22%3Afalse%7D%2C%22ember-modal-dialog%22%3A%7B%22hasEmberTether%22%3A%221.0.0%22%7D%2C%22exportApplicationGlobal%22%3Afalse%7D" />
+<!-- EMBER_CLI_FASTBOOT_TITLE -->
+
+    <link integrity="" rel="stylesheet" href="/versions/try-prember/assets/vendor-1b96122d39e6ec625af926456a88745d.css">
+    <link integrity="" rel="stylesheet" href="/versions/try-prember/assets/dummy-b15d8e13e0199bbd6ebf4476cad30fa7.css">
+
+    <link href="https://fonts.googleapis.com/css?family=Crimson+Text:400,600" rel="stylesheet">
+  <link rel="manifest" href="/manifest.json">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#fff">
+<meta name="application-name">
+<link rel="apple-touch-icon" sizes="57x57" href="/apple-touch-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="/apple-touch-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="/apple-touch-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="/apple-touch-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="/apple-touch-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="/apple-touch-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="/apple-touch-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="/apple-touch-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon-180x180.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title">
+<link rel="icon" type="image/png" sizes="228x228" href="/coast-228x228-7eaa146f52d988d03ba2f05924f2187f.png">
+<link rel="yandex-tableau-widget" href="/yandex-browser-manifest.json">
+<meta name="msapplication-TileColor" content="#fff">
+<meta name="msapplication-TileImage" content="/mstile-144x144.png">
+<meta name="msapplication-config" content="/browserconfig.xml">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="apple-touch-startup-image" media="(device-width: 320px) and (device-height: 480px) and (-webkit-device-pixel-ratio: 1)" href="/apple-touch-startup-image-320x460-ecdf7847b1b63761da004c934e527c9b.png">
+<link rel="apple-touch-startup-image" media="(device-width: 320px) and (device-height: 480px) and (-webkit-device-pixel-ratio: 2)" href="/apple-touch-startup-image-640x920-db5bc2dcc88dc0af46d9b1f8707f101f.png">
+<link rel="apple-touch-startup-image" media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)" href="/apple-touch-startup-image-640x1096-7725516d8ebb9af3c87bb4b9dc5ecc2b.png">
+<link rel="apple-touch-startup-image" media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2)" href="/apple-touch-startup-image-750x1294-c9fb58bfb89225251522bf3a58ffb14f.png">
+<link rel="apple-touch-startup-image" media="(device-width: 414px) and (device-height: 736px) and (orientation: landscape) and (-webkit-device-pixel-ratio: 3)" href="/apple-touch-startup-image-1182x2208-f49121d0c58a21f81d5f713d6defa9ce.png">
+<link rel="apple-touch-startup-image" media="(device-width: 414px) and (device-height: 736px) and (orientation: portrait) and (-webkit-device-pixel-ratio: 3)" href="/apple-touch-startup-image-1242x2148-2620cce3d2a127d6fcaed5570d225017.png">
+<link rel="apple-touch-startup-image" media="(device-width: 768px) and (device-height: 1024px) and (orientation: landscape) and (-webkit-device-pixel-ratio: 1)" href="/apple-touch-startup-image-748x1024-2885366b17b2e5f3e3471460e6c183b6.png">
+<link rel="apple-touch-startup-image" media="(device-width: 768px) and (device-height: 1024px) and (orientation: portrait) and (-webkit-device-pixel-ratio: 1)" href="/apple-touch-startup-image-768x1004-00e27fa58280f6c6c6b01141296c99cc.png">
+<link rel="apple-touch-startup-image" media="(device-width: 768px) and (device-height: 1024px) and (orientation: landscape) and (-webkit-device-pixel-ratio: 2)" href="/apple-touch-startup-image-1496x2048-4a35c2585ae79b68521c4c5a1ccf42bf.png">
+<link rel="apple-touch-startup-image" media="(device-width: 768px) and (device-height: 1024px) and (orientation: portrait) and (-webkit-device-pixel-ratio: 2)" href="/apple-touch-startup-image-1536x2008-a21fdc5867e19d787246fbdd26f4de90.png">
+</head>
+  <body class='docs-font-sans docs-text-black docs-leading-normal'>
+    <script type="x/boundary" id="fastboot-body-start"></script><div class="ember-view" id="ember3"><header class="docs-shadow docs-relative docs-z-40 docs-bg-white">
+  <div class="docs-flex docs-items-center docs-max-w-site-container docs-mx-auto md:docs-px-2">
+
+
+<a href="/versions/try-prember/" id="ember5" class="docs-px-4 docs-py-5 docs-transition docs-uppercase docs-text-xxs
+      docs-font-bold docs-no-underline docs-text-grey-darkest active ember-view">          <span class="docs-leading-none docs-font-title docs-text-large-2 docs-font-normal docs-normal-case docs-block docs-mr-6">
+          <div class="docs-text-xxs">
+            EmberCLI
+          </div>
+        Mirage
+      </span>
+
+</a>
+
+    <div class="docs-flex-1 docs-flex docs-items-center docs-overflow-auto docs-overflow-momentum docs-mask-image md:docs-no-mask-image">
+
+<a href="/versions/try-prember/docs" id="ember7" class="docs-px-4 docs-py-5 docs-transition docs-uppercase docs-text-xxs
+      docs-font-bold docs-no-underline docs-text-grey-darkest hover:docs-text-brand ember-view">            Documentation
+
+</a>
+
+      
+<a href="/versions/try-prember/blog" id="ember9" class="docs-px-4 docs-py-5 docs-transition docs-uppercase docs-text-xxs
+      docs-font-bold docs-no-underline docs-text-grey-darkest hover:docs-text-brand ember-view">        Blog
+
+</a>
+
+
+      <div id="ember10" class="docs-ml-auto ember-view"><div class="docs-relative docs-text-grey-darkest" data-search-box>
+  <svg width="12" height="12" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" class="docs-absolute docs-pin-t docs-h-full docs-ml-1"><title>search</title><path d="M23.997 40.742c-9.249 0-16.746-7.497-16.746-16.745 0-9.248 7.497-16.745 16.746-16.745 9.248 0 16.746 7.497 16.746 16.745a16.674 16.674 0 0 1-16.746 16.745zm38.885 16.93L43.534 38.32a23.59 23.59 0 0 0 4.65-14.328 24.092 24.092 0 1 0-39.67 18.475 24.092 24.092 0 0 0 29.807 1.065l19.353 19.35a3.6 3.6 0 0 0 5.212 0 3.6 3.6 0 0 0-.004-5.211z" fill-rule="nonzero"/></svg>
+
+  <input placeholder="SEARCH" class="docs-w-24 docs-text-xxs docs-p-2 docs-pl-6 docs-rounded focus:docs-bg-grey-lighter outline-none" data-search-box-input data-test-search-box-input type="text">
+</div>
+</div>
+
+
+  <a href="#" class="
+      docs-px-4 docs-py-5 docs-transition docs-uppercase docs-text-xxs docs-font-bold
+      docs-text-grey-darkest docs-no-underline hover:docs-text-brand
+      
+    " data-test-id="current-version">
+            <span data-version-selector class="docs-flex docs-items-center">
+
+              0.4.14
+
+          <svg width="12" height="12" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><title>caret</title><path d="M32 41L15 24h35z" fill-rule="evenodd"/></svg>
+        </span>
+
+  </a>
+
+
+
+  <a href="https://github.com/samselikoff/ember-cli-mirage" class="
+      docs-px-4 docs-py-5 docs-transition docs-uppercase docs-text-xxs docs-font-bold
+      docs-text-grey-darkest docs-no-underline hover:docs-text-brand
+      
+    ">
+              <span class="docs-flex">
+            <svg class="fill-current w-5 h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" width="24" height="24"><title>GitHub</title><path d="M10 0a10 10 0 0 0-3.16 19.49c.5.1.68-.22.68-.48l-.01-1.7c-2.78.6-3.37-1.34-3.37-1.34-.46-1.16-1.11-1.47-1.11-1.47-.9-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.9 1.52 2.34 1.08 2.91.83.1-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.94 0-1.1.39-1.99 1.03-2.69a3.6 3.6 0 0 1 .1-2.64s.84-.27 2.75 1.02a9.58 9.58 0 0 1 5 0c1.91-1.3 2.75-1.02 2.75-1.02.55 1.37.2 2.4.1 2.64.64.7 1.03 1.6 1.03 2.69 0 3.84-2.34 4.68-4.57 4.93.36.31.68.92.68 1.85l-.01 2.75c0 .26.18.58.69.48A10 10 0 0 0 10 0"/></svg>
+          </span>
+
+  </a>
+
+
+      <div class="docs-h-px docs-px-3 sm:docs-hidden"></div>
+    </div>
+  </div>
+</header>
+
+<!---->
+<!---->
+<div class="
+  docs-bg-brand docs-text-white
+  docs-px-4 docs-py-16 docs-text-center
+">
+  <div class="docs-max-w-sm docs-mx-auto">
+    <h1 class="
+      docs-font-title docs-font-normal docs-text-jumbo-1 md:docs-text-jumbo-2 xl:docs-text-jumbo-3
+      docs-leading-none docs-tracking-tight
+    ">
+        <span class="docs-block docs-text-large-5 md:docs-text-large-6 xl:docs-text-large-7">
+          EmberCLI
+        </span>
+
+      Mirage
+    </h1>
+
+    <p class="
+      docs-mt-4 xl:docs-mt-6 docs-mb-2 docs-leading-small docs-mx-auto docs-tracking-tight
+      docs-text-large-1 md:docs-text-large-2 xl:docs-text-large-3
+    ">
+      A client-side server to help you build, test and demo your Ember app
+    </p>
+
+    <div class="docs-mt-8">
+<a href="/versions/try-prember/docs" id="ember14" class="
+        docs-no-underline docs-bg-white docs-text-brand docs-text-xs docs-px-3 docs-py-2
+        docs-rounded docs-mt-4 docs-shadow-md hover:docs-shadow-lg
+        docs-transition hover:docs-nudge-t docs-font-bold docs-inline-block docs-uppercase
+       ember-view">        Read the docs
+</a>    </div>
+
+    
+  </div>
+</div>
+
+
+<div class="home">
+  <div class="home__section">
+    <h2>Productive</h2>
+    <p class="home__lead">
+      Spend less time wiring up HTTP stubs, and get back to developing your app.
+    </p>
+  </div>
+
+  <div class="home__section">
+    <h2>Test-worthy</h2>
+    <p class="home__lead">
+      Use factories to define your server's state per test. Acceptance testing just got a whole lot easier.
+    </p>
+  </div>
+
+  <div class="home__section">
+    <h2>Shareable</h2>
+    <p class="home__lead">
+      Share a functional prototype of your app that runs entirely in the client – before writing a single line of your API.
+    </p>
+  </div>
+
+  <div class="home__cta">
+<a href="/versions/try-prember/docs" id="ember15" class="home__cta-link ember-view">      Read the docs
+</a>  </div>
+</div>
+
+
+<div id="ember16" class="ember-view"><!----></div>
+</div><script type="x/boundary" id="fastboot-body-end"></script>
+<!-- Start Single Page Apps for GitHub Pages -->
+<script type="text/javascript">
+  // Single Page Apps for GitHub Pages
+  // https://github.com/rafrex/spa-github-pages
+  // Copyright (c) 2016 Rafael Pedicini, licensed under the MIT License
+  // ----------------------------------------------------------------------
+  // This script checks to see if a redirect is present in the query string
+  // and converts it back into the correct url and adds it to the
+  // browser's history using window.history.replaceState(...),
+  // which won't cause the browser to attempt to load the new url.
+  // When the single page app is loaded further down in this file,
+  // the correct url will be waiting in the browser's history for
+  // the single page app to route accordingly.
+  (function(l) {
+    if (l.search) {
+      var q = {};
+      l.search.slice(1).split('&').forEach(function(v) {
+        var a = v.split('=');
+        q[a[0]] = a.slice(1).join('=').replace(/~and~/g, '&');
+      });
+      if (q.p !== undefined) {
+        window.history.replaceState(null, null,
+          l.pathname.slice(0, -1) + (q.p || '') +
+          (q.q ? ('?' + q.q) : '') +
+          l.hash
+        );
+      }
+    }
+  }(window.location))
+</script>
+<!-- End Single Page Apps for GitHub Pages -->
+
+
+    <script src="/versions/try-prember/assets/vendor-b054663a60e72271c5ff1df6b30b22cc.js"></script>
+    <script src="/versions/try-prember/assets/dummy-2025cbce028e6f5ffaffcbaef557337c.js"></script>
+
+    
+  </body>
+</html>

@@ -57,7 +57,7 @@
     "@ember/optional-features": "^0.7.0",
     "active-model-adapter": "^2.0.3",
     "babel-eslint": "^8.2.6",
-    "broccoli-asset-rev": "^2.7.0",
+    "broccoli-asset-rev": "^3.0.0",
     "broccoli-test-helper": "^2.0.0",
     "chai": "^4.1.0",
     "ember-ajax": "^4.0.2",

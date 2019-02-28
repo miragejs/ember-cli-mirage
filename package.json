@@ -98,7 +98,7 @@
     "eslint-plugin-ember-suave": "^1.0.0",
     "eslint-plugin-node": "^8.0.1",
     "faker": "^4.1.0",
-    "fastboot": "^1.2.0",
+    "fastboot": "^2.0.1",
     "js-yaml": "^3.12.1",
     "jsdom": "^13.1.0",
     "loader.js": "^4.7.0",

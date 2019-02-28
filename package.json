@@ -72,7 +72,7 @@
     "ember-cli-deploy-git-ci": "^1.0.1",
     "ember-cli-eslint": "^4.2.3",
     "ember-cli-fastboot": "^2.0.4",
-    "ember-cli-favicon": "^1.0.0-beta.4",
+    "ember-cli-favicon": "^2.0.0",
     "ember-cli-htmlbars": "^3.0.0",
     "ember-cli-htmlbars-inline-precompile": "^2.1.0",
     "ember-cli-inject-live-reload": "^2.0.1",

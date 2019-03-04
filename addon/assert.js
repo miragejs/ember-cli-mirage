@@ -27,8 +27,12 @@ export default function assert(bool, text) {
   @hide
   Copied from ember-metal/error
 */
-export function MirageError() {
-  let tmp = Error.apply(this, arguments);
+export function MirageError(message, stack) {
+  let tmp = Error(message);
+
+  if (stack) {
+    tmp.stack = stack;
+  }
 
   for (let idx = 0; idx < errorProps.length; idx++) {
     let prop = errorProps[idx];

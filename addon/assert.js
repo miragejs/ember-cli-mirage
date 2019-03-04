@@ -1,3 +1,5 @@
+import Ember from 'ember';
+
 /* eslint no-console: 0 */
 let errorProps = [
   'description',
@@ -27,8 +29,12 @@ export default function assert(bool, text) {
   @hide
   Copied from ember-metal/error
 */
-export function MirageError() {
-  let tmp = Error.apply(this, arguments);
+export function MirageError(message, stack) {
+  let tmp = Error(message);
+
+  if (stack) {
+    tmp.stack = stack;
+  }
 
   for (let idx = 0; idx < errorProps.length; idx++) {
     let prop = errorProps[idx];
@@ -45,3 +51,19 @@ export function MirageError() {
 }
 
 MirageError.prototype = Object.create(Error.prototype);
+
+export const logger = {
+  errors: [],
+
+  get messages() {
+    return this.errors;
+  },
+
+  error(message) {
+    if (Ember.testing) {
+      this.errors.push(message);
+    } else {
+      console.error(message);
+    }
+  }
+};

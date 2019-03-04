@@ -1,7 +1,5 @@
-import { typeOf } from '@ember/utils';
 import { Promise } from 'rsvp';
-
-import { MirageError } from 'ember-cli-mirage/assert';
+import { MirageError, logger } from 'ember-cli-mirage/assert';
 import Response from './response';
 import FunctionHandler from './route-handlers/function';
 import ObjectHandler from './route-handlers/object';
@@ -75,11 +73,9 @@ export default class RouteHandler {
         throw e;
 
       } else {
-        let message = (typeOf(e) === 'string') ? e : e.message;
-        let messageExtended = `Your ${request.method} handler for the url ${request.url} threw an error: ${message}`;
-        let error = new MirageError(messageExtended, e.stack);
+        logger.error(`Mirage: Your ${request.method} handler for the url ${request.url} threw an error:\n\n${e.stack || e}`);
 
-        result = new Response(500, {}, error.message);
+        result = new Response(500, {}, e.message || e);
       }
     }
 

@@ -3,6 +3,7 @@ import { Promise } from 'rsvp';
 import { Model, ActiveModelSerializer, Response } from 'ember-cli-mirage';
 import Server from 'ember-cli-mirage/server';
 import promiseAjax from '../../../helpers/promise-ajax';
+import { logger } from 'ember-cli-mirage/assert';
 
 module('Integration | Route handlers | Function handler', function(hooks) {
   hooks.beforeEach(function() {
@@ -28,8 +29,6 @@ module('Integration | Route handlers | Function handler', function(hooks) {
   });
 
   test('a meaningful error is thrown if a custom route handler throws an error', async function(assert) {
-    assert.expect(1);
-
     this.server.get('/users', function() {
       throw 'I goofed';
     });
@@ -40,10 +39,10 @@ module('Integration | Route handlers | Function handler', function(hooks) {
         url: '/users'
       });
     } catch(e) {
-      assert.equal(
-        e.xhr.responseText,
-        'Mirage: Your GET handler for the url /users threw an error: I goofed'
-      );
+      assert.equal(e.xhr.responseText, 'I goofed');
+      assert.equal(logger.messages.length, 1);
+      assert.ok(logger.messages[0].match(`Mirage: Your GET handler for the url /users threw an error:`));
+      assert.ok(logger.messages[0].match(`I goofed`));
     }
   });
 

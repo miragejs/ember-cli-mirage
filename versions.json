@@ -8,8 +8,8 @@
   "-latest": {
     "path": "",
     "name": "Latest",
-    "sha": "0a3e01c57af8fbda6524a14f1532009900dd984e",
-    "tag": null
+    "sha": "bf4ac5a8a7245c32c8a502bfcaf4bff5f3a30880",
+    "tag": "v0.4.15"
   },
   "v0.0.27": {
     "sha": "c5de122d094a8b5709bea8aaf07b4da2f142ac57",
@@ -77,5 +77,11 @@
     "name": "try-prember",
     "sha": "ebf0be80638e7dd3b0add9944dc4e02cf0df4cd2",
     "tag": null
+  },
+  "v0.4.15": {
+    "path": "versions/v0.4.15",
+    "name": "v0.4.15",
+    "sha": "bf4ac5a8a7245c32c8a502bfcaf4bff5f3a30880",
+    "tag": "v0.4.15"
   }
 }

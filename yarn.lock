@@ -4911,12 +4911,12 @@ elliptic@^6.0.0:
     minimalistic-assert "^1.0.0"
     minimalistic-crypto-utils "^1.0.0"
 
-ember-ajax@^4.0.2:
-  version "4.0.2"
-  resolved "https://registry.yarnpkg.com/ember-ajax/-/ember-ajax-4.0.2.tgz#ce86d52c24289657e0a230140b06a52fe453d655"
-  integrity sha512-YeeeAQizQc5ioCeraxFo30y3W6mmUxmndF0ShI/Wvwfe8IhVw40jL42itaUHbo2CxKsNRZzQ8x3re65dGM0CrA==
+ember-ajax@^5.0.0:
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/ember-ajax/-/ember-ajax-5.0.0.tgz#404b17c93194ab37aff86b7b8607d8edab93c9ec"
+  integrity sha512-Pet0S5VuiO7PDOwyTIF28VHdR7BpugL+jp+6PxNHRQvAq3SkKmVnXN0W06rnOgicH3xX29S46fx7czkKOGB3gA==
   dependencies:
-    ember-cli-babel "^6.16.0"
+    ember-cli-babel "^7.5.0"
     najax "^1.0.3"
 
 ember-app-scheduler@^1.0.1:

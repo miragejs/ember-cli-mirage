@@ -60,7 +60,7 @@
     "broccoli-asset-rev": "^3.0.0",
     "broccoli-test-helper": "^2.0.0",
     "chai": "^4.1.0",
-    "ember-ajax": "^4.0.2",
+    "ember-ajax": "^5.0.0",
     "ember-cli": "~3.4.4",
     "ember-cli-addon-docs": "^0.6.4",
     "ember-cli-addon-docs-esdoc": "^0.2.1",

@@ -53,7 +53,7 @@
     "route-recognizer": "^0.3.4"
   },
   "devDependencies": {
-    "@ember/jquery": "^0.5.2",
+    "@ember/jquery": "^0.6.0",
     "@ember/optional-features": "^0.7.0",
     "active-model-adapter": "^2.0.3",
     "babel-eslint": "^9.0.0",

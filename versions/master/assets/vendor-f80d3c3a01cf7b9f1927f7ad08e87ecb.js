@@ -8607,6 +8607,7 @@ if(t<r){if(a=e.input.slice(t,r),n)for(i=0,o=a.length;i<o;i+=1)9===(s=a.charCodeA
 else y.test(a)&&M(e,"the stream contains non-printable characters")
 e.result+=a}}function I(e,t,r,i){var o,s,a,l
 for(n.isObject(r)||M(e,"cannot merge mappings; the provided source object is unacceptable"),a=0,l=(o=Object.keys(r)).length;a<l;a+=1)s=o[a],u.call(t,s)||(t[s]=r[s],i[s]=!0)}function L(e,t,r,n,i,o,s,a){var l,c
+if(Array.isArray(i))for(l=0,c=i.length;l<c;l+=1)Array.isArray(i[l])&&M(e,"nested arrays are not supported inside keys")
 if(i=String(i),null===t&&(t={}),"tag:yaml.org,2002:merge"===n)if(Array.isArray(o))for(l=0,c=o.length;l<c;l+=1)I(e,t,o[l],r)
 else I(e,t,o,r)
 else e.json||u.call(r,i)||!u.call(t,i)||(e.line=s||e.line,e.position=a||e.position,M(e,"duplicated mapping key")),t[i]=o,delete r[i]

@@ -1,7 +1,10 @@
 import Serializer from '../serializer';
 import { dasherize, pluralize, camelize } from '../utils/inflector';
 import _get from 'lodash/get';
-import _ from 'lodash';
+import _flatten from 'lodash/flatten';
+import _compact from 'lodash/compact';
+import _uniqBy from 'lodash/uniqBy';
+import _isEmpty from 'lodash/isEmpty';
 import assert from 'ember-cli-mirage/assert';
 
 /**
@@ -95,11 +98,7 @@ const JSONAPISerializer = Serializer.extend({
       includes.push(newIncludes);
     });
 
-    return _(includes)
-      .flatten()
-      .compact()
-      .uniqBy(m => m.toString())
-      .value();
+    return _uniqBy(_compact(_flatten(includes)), m => m.toString());
   },
 
   getIncludesForResourceAndPath(resource, ...names) {
@@ -182,14 +181,14 @@ const JSONAPISerializer = Serializer.extend({
         relationshipHash.data = data;
       }
 
-      if (!_.isEmpty(relationshipHash)) {
+      if (!_isEmpty(relationshipHash)) {
         relationships[relationshipKey] = relationshipHash;
       }
 
       return relationships;
     }, {});
 
-    if (!_.isEmpty(relationships)) {
+    if (!_isEmpty(relationships)) {
       hash.relationships = relationships;
     }
 

@@ -10,7 +10,9 @@ import _isEmpty from 'lodash/isEmpty';
 import _includes from 'lodash/includes';
 import _assign from 'lodash/assign';
 import _get from 'lodash/get';
-import _ from 'lodash';
+import _flatten from 'lodash/flatten';
+import _compact from 'lodash/compact';
+import _uniqBy from 'lodash/uniqBy';
 
 /**
   Serializers are responsible for formatting your route handler's response.
@@ -473,19 +475,20 @@ class Serializer {
       return [hash, []];
 
     } else {
-      let addToIncludes = _(serializer.getKeysForIncluded())
-        .map((key) => {
-          if (this.isCollection(resource)) {
-            return resource.models.map((m) => m[key]);
-          } else {
-            return resource[key];
-          }
-        })
-        .flatten()
-        .compact()
-        .uniqBy(m => m.toString())
-        .value();
-
+      let addToIncludes = _uniqBy(
+        _compact(
+          _flatten(
+            serializer.getKeysForIncluded().map(key => {
+              if (this.isCollection(resource)) {
+                return resource.models.map(m => m[key]);
+              } else {
+                return resource[key];
+              }
+            })
+          )
+        ),
+        m => m.toString()
+      );
       return [hash, addToIncludes];
     }
   }

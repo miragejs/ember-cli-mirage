@@ -109,7 +109,7 @@ this.verb(path, (schema, request) => {
 }[, responseCode]);
 ```
 
-The function handler you define takes two parameters, **schema** (your Mirage server's ORM) and **request** (the Pretender request object). Consult [the schema's API](../schema) for how to interact with your models (or the database directly) and [Pretender's docs](https://github.com/trek/pretender) for more info on the request object.
+The function handler you define takes two parameters, **schema** (your Mirage server's ORM) and **request** (the Pretender request object). Consult [the schema's API](/docs/api/modules/ember-cli-mirage/orm/schema~Schema) for how to interact with your models (or the database directly) and [Pretender's docs](https://github.com/trek/pretender) for more info on the request object.
 
 If the data returned from your handler is a JavaScript object or array, it will be stringified and sent as the response body of your request:
 

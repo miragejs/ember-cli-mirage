@@ -8,22 +8,6 @@ const writeFile = require('broccoli-file-creator');
 module.exports = {
   name: 'ember-cli-mirage',
 
-  options: {
-    nodeAssets: {
-      '@xg-wang/whatwg-fetch': npmAsset({
-        import: ['dist/fetch.umd.js']
-      }),
-      'route-recognizer': npmAsset({
-        srcDir: 'dist',
-        import: ['route-recognizer.js'],
-        vendor: ['route-recognizer.js.map']
-      }),
-      'fake-xml-http-request': npmAsset({
-        import: ['fake_xml_http_request.js']
-      })
-    }
-  },
-
   included() {
     let app;
 

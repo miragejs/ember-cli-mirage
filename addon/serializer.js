@@ -902,6 +902,51 @@ class Serializer {
     return `${singularize(camelize(relationshipName))}Ids`;
   }
 
+  /**
+    Like `keyForRelationshipIds`, but for `belongsTo` relationships.
+
+    For example, if you're serializing a `blogPost` that sideloads one `author`,
+    your `blogPost` JSON would include a `authorId` key:
+
+    ```
+    {
+      blogPost: {
+        id: 1,
+        authorId: 1
+      },
+      author: ...
+    }
+    ```
+
+    Overwrite `keyForForeignKey` to format this key:
+
+    ```js
+    // serializers/application.js
+    const { underscore } = Ember.String;
+
+    export default Serializer.extend({
+      keyForForeignKey(relationshipName) {
+        return underscore(relationshipName) + '_id';
+      }
+    });
+    ```
+
+    Now the response will look like:
+
+    ```
+    {
+      blogPost: {
+        id: 1,
+        author_id: 1
+      },
+      author: ...
+    }
+    ```
+
+    @method keyForForeignKey
+    @param relationshipName
+    @public
+   */
   keyForForeignKey(relationshipName) {
     return `${camelize(relationshipName)}Id`;
   }

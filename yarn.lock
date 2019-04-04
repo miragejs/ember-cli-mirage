@@ -4973,9 +4973,9 @@ ember-cli-addon-docs-esdoc@^0.2.1:
     walk-sync "^0.3.2"
 
 ember-cli-addon-docs@^0.6.4:
-  version "0.6.7"
-  resolved "https://registry.yarnpkg.com/ember-cli-addon-docs/-/ember-cli-addon-docs-0.6.7.tgz#26854c9e60cf35c5d6fbe2e849c4450df7ecf03a"
-  integrity sha512-XpgqZ5Ty3sxDto5hxSowc6rxwxoYsDXE2ny7N8bSVQQ/Uihp4BUjA/ztkIkkfXnU5dqp89S4nBlumJf5NmJQeg==
+  version "0.6.8"
+  resolved "https://registry.yarnpkg.com/ember-cli-addon-docs/-/ember-cli-addon-docs-0.6.8.tgz#ec3ebee8ef2a4f78109a28ce3c63a0623480016d"
+  integrity sha512-Lf7luk36PX4ljAQhbRJidcYWB4/Mf/2EWmMTt8gyRx8con39dVjMI/gzBtRGayVeyN2ZFJw9uqfud0p+d28Ntw==
   dependencies:
     "@glimmer/syntax" "^0.36.4"
     broccoli-bridge "^1.0.0"
@@ -4999,7 +4999,7 @@ ember-cli-addon-docs@^0.6.4:
     ember-cli-tailwind "^0.6.2"
     ember-code-snippet "^2.4.0"
     ember-component-css "^0.6.7"
-    ember-concurrency "^0.8.21"
+    ember-concurrency "^0.9.0"
     ember-data "2.x - 3.x"
     ember-fetch "^6.2.0"
     ember-fetch-adapter "^0.4.3"
@@ -5658,6 +5658,15 @@ ember-compatibility-helpers@^1.1.1:
     ember-cli-version-checker "^2.1.1"
     semver "^5.4.1"
 
+ember-compatibility-helpers@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/ember-compatibility-helpers/-/ember-compatibility-helpers-1.2.0.tgz#feee16c5e9ef1b1f1e53903b241740ad4b01097e"
+  integrity sha512-pUW4MzJdcaQtwGsErYmitFRs0rlCYBAnunVzlFFUBr4xhjlCjgHJo0b53gFnhTgenNM3d3/NqLarzRhDTjXRTg==
+  dependencies:
+    babel-plugin-debug-macros "^0.2.0"
+    ember-cli-version-checker "^2.1.1"
+    semver "^5.4.1"
+
 ember-component-css@^0.6.7:
   version "0.6.7"
   resolved "https://registry.yarnpkg.com/ember-component-css/-/ember-component-css-0.6.7.tgz#dbc6debe5c04a2c0fe8a5edc64303c7324b33945"
@@ -5690,13 +5699,14 @@ ember-composable-helpers@^2.1.0:
     broccoli-funnel "^1.0.1"
     ember-cli-babel "^7.1.0"
 
-ember-concurrency@^0.8.21:
-  version "0.8.22"
-  resolved "https://registry.yarnpkg.com/ember-concurrency/-/ember-concurrency-0.8.22.tgz#900e870aae486e1f5fcb168bbb4efba02561a5ad"
-  integrity sha512-njLqyjMxBf8fapIV8WPyG2gFbSCIQgMpk33uSs5Ih7HsfFAz60KwVo9sMVPBYAJwQmF8jFPm7Ph+mjkiQXHmmA==
+ember-concurrency@^0.9.0:
+  version "0.9.0"
+  resolved "https://registry.yarnpkg.com/ember-concurrency/-/ember-concurrency-0.9.0.tgz#0016652ff780fb665842e7f47815ee0601122ea1"
+  integrity sha512-JDjvwSlZBUQwv1+qUj6YUqXXe0Y0/to4ppUTNXQ1EEiEAopkHJXQUn0ZcFOiQpEinrYp34Vg6+lUNskoJFL2Vg==
   dependencies:
     babel-core "^6.24.1"
     ember-cli-babel "^6.8.2"
+    ember-compatibility-helpers "^1.2.0"
     ember-maybe-import-regenerator "^0.1.5"
 
 ember-copy@^1.0.0:

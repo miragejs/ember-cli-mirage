@@ -20,3 +20,12 @@ There's an Ember CLI bug that exposes itself when using Prettier + Mirage. A lon
   ```sh
   /mirage/mirage
   ```
+  
+**Note for Fastboot users**
+
+Mirage might not work with [Fastboot](https://ember-fastboot.com/) enabled. 
+To use Mirage with a Fastboot, use 
+
+```sh
+FASTBOOT_DISABLED=true ember serve
+```

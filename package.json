@@ -45,6 +45,8 @@
     "ember-cli-babel": "^7.5.0",
     "ember-get-config": "^0.2.2",
     "ember-inflector": "^2.0.0 || ^3.0.0",
+    "esm": "^3.2.22",
+    "inflected": "^2.0.4",
     "lodash": "^4.17.11",
     "pretender": "2.1.1"
   },

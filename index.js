@@ -4,9 +4,17 @@ const mergeTrees = require('broccoli-merge-trees');
 const Funnel = require('broccoli-funnel');
 const map = require('broccoli-stew').map;
 const writeFile = require('broccoli-file-creator');
-const Server = require('./lib/server');
+const { Server, Model } = require('./lib');
 
-console.log(Server);
+let server = new Server({
+  models: {
+    user: Model.extend()
+  }
+});
+
+server.create('user', { name: 'Ryan' });
+
+console.log(server.db.users);
 
 module.exports = {
   name: 'ember-cli-mirage',

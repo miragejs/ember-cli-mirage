@@ -11,6 +11,7 @@ import RestSerializer from './serializers/rest-serializer';
 import HasMany from './orm/associations/has-many';
 import BelongsTo from './orm/associations/belongs-to';
 import IdentityManager from './identity-manager';
+import Server from './server';
 
 /**
   @hide
@@ -27,6 +28,7 @@ function belongsTo(...args) {
 }
 
 export {
+  Server,
   Factory,
   trait,
   association,

@@ -4,17 +4,7 @@ const mergeTrees = require('broccoli-merge-trees');
 const Funnel = require('broccoli-funnel');
 const map = require('broccoli-stew').map;
 const writeFile = require('broccoli-file-creator');
-const { Server, Model } = require('./lib');
-
-let server = new Server({
-  models: {
-    user: Model.extend()
-  }
-});
-
-server.create('user', { name: 'Ryan' });
-
-console.log(server.db.users);
+const { Server } = require('./lib');
 
 module.exports = {
   name: 'ember-cli-mirage',
@@ -131,8 +121,37 @@ module.exports = {
     return enabledInProd || (environment && environment !== 'production' && explicitExcludeFiles !== true);
   },
 
-  serverMiddleware(options) {
-    console.log('hi');
+  serverMiddleware({ app }) {
+    app.use((req, res, next) => {
+      if (this.server.canHandle(req.method, req.url)) {
+        this.server.handle(req.method, req.url).then(mirageRes => {
+          res.status(mirageRes.code).send(mirageRes.data);
+        });
+      } else {
+        next();
+      }
+    });
+
+    app.get('/node-endpoint', (req, res) => {
+      res.json({
+        message: 'hello-node'
+      });
+    });
+  },
+
+  postBuild(result) {
+    this.server = this.makeServer();
+  },
+
+  makeServer() {
+    let configPath = require.resolve(path.join(this.mirageDirectory, 'config'));
+    delete require.cache[configPath]; // freshen it up
+    let baseConfig = require('esm')(module, { cjs: { cache: true } })(configPath).default;
+    baseConfig.call({ get() {} });
+
+    return new Server({
+      baseConfig
+    });
   }
 };
 

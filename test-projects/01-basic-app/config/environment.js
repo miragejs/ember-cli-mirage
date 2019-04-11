@@ -28,6 +28,10 @@ module.exports = function(environment) {
     ENV['ember-cli-mirage'] = {
       enabled: true
     };
+  } else if (process.env.MIRAGE_DISABLED) {
+    ENV['ember-cli-mirage'] = {
+      enabled: false
+    };
   }
 
   if (environment === 'development') {

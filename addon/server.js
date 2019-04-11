@@ -17,6 +17,7 @@ import Schema from './orm/schema';
 import assert from './assert';
 import SerializerRegistry from './serializer-registry';
 import RouteHandler from './route-handler';
+import RequestHandler from './server/request-handler';
 import BelongsTo from './orm/associations/belongs-to';
 
 import _pick from 'lodash/pick';
@@ -164,6 +165,7 @@ function extractRouteArguments(args) {
 export default class Server {
 
   constructor(options = {}) {
+    this.requestHandler = new RequestHandler(this);
     this.config(options);
 
     /**
@@ -181,6 +183,14 @@ export default class Server {
       @return Schema
     */
     this.schema = this.schema || undefined;
+  }
+
+  handle(...args) {
+    return this.requestHandler.handle(...args);
+  }
+
+  canHandle(...args) {
+    return this.requestHandler.canHandle(...args);
   }
 
   config(config = {}) {
@@ -852,7 +862,6 @@ export default class Server {
   }
 
   _registerRouteHandler(verb, path, rawHandler, customizedCode, options) {
-
     let routeHandler = new RouteHandler({
       schema: this.schema,
       verb, rawHandler, customizedCode, options, path,
@@ -860,20 +869,33 @@ export default class Server {
     });
 
     let fullPath = this._getFullPath(path);
+    // TODO: respect timing in node
     let timing = options.timing !== undefined ? options.timing : (() => this.timing);
 
-    return this.pretender[verb](
-      fullPath,
-      (request) => {
-        return new Promise(resolve => {
-          Promise.resolve(routeHandler.handle(request)).then(mirageResponse => {
-            let [ code, headers, response ] = mirageResponse;
-            resolve([ code, headers, this._serialize(response) ]);
-          });
+    let handler = request => {
+      return new Promise(resolve => {
+        Promise.resolve(routeHandler.handle(request)).then(mirageResponse => {
+          let [ code, headers, data ] = mirageResponse;
+          resolve({ code, headers, data });
         });
-      },
-      timing
-    );
+      });
+    };
+
+    this.requestHandler.register(verb, fullPath, handler);
+
+    // TODO: consolidate. Pretender should use this.requestHandler to get handler/response
+    // return this.pretender[verb](
+    //   fullPath,
+    //   (request) => {
+    //     return new Promise(resolve => {
+    //       Promise.resolve(routeHandler.handle(request)).then(mirageResponse => {
+    //         let [ code, headers, response ] = mirageResponse;
+    //         resolve([ code, headers, this._serialize(response) ]);
+    //       });
+    //     });
+    //   },
+    //   timing
+    // );
   }
 
   /**

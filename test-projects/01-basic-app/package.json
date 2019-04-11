@@ -40,12 +40,12 @@
     "ember-resolver": "*",
     "ember-source": "*",
     "eslint-plugin-ember": "*",
+    "faker": "*",
     "fastboot": "*",
     "jsdom": "*",
     "loader.js": "*",
     "qunit": "*",
-    "qunit-dom": "*",
-    "faker": "*"
+    "qunit-dom": "*"
   },
   "engines": {
     "node": ">= 8.*"

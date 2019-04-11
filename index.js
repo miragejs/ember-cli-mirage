@@ -9,6 +9,10 @@ const { Server } = require('./lib');
 module.exports = {
   name: 'ember-cli-mirage',
 
+  isDevelopingAddon() {
+    return true;
+  },
+
   included() {
     let app;
 

@@ -38,12 +38,14 @@ export default class extends ServerCore {
     return new Pretender(function() {
       this.passthroughRequest = function(verb, path, request) {
         if (server.shouldLog()) {
+          // eslint-disable-next-line no-console
           console.log(`Passthrough request: ${verb.toUpperCase()} ${request.url}`);
         }
       };
 
       this.handledRequest = function(verb, path, request) {
         if (server.shouldLog()) {
+          // eslint-disable-next-line no-console
           console.groupCollapsed(
             `Mirage: [${request.status}] ${verb.toUpperCase()} ${request.url}`
           );
@@ -62,11 +64,13 @@ export default class extends ServerCore {
             loggedResponse = responseText;
           }
 
+          // eslint-disable-next-line no-console
           console.log({
             request: loggedRequest,
             response: loggedResponse,
             raw: request
           });
+          // eslint-disable-next-line no-console
           console.groupEnd();
         }
       };

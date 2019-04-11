@@ -122,15 +122,15 @@ module.exports = {
   },
 
   serverMiddleware({ app }) {
-    app.use((req, res, next) => {
-      if (this.server.canHandle(req.method, req.url)) {
-        this.server.handle(req.method, req.url).then(mirageRes => {
-          res.status(mirageRes.code).send(mirageRes.data);
-        });
-      } else {
-        next();
-      }
-    });
+    // app.use((req, res, next) => {
+    //   if (this.server.canHandle(req.method, req.url)) {
+    //     this.server.handle(req.method, req.url).then(mirageRes => {
+    //       res.status(mirageRes.code).send(mirageRes.data);
+    //     });
+    //   } else {
+    //     next();
+    //   }
+    // });
 
     app.get('/node-endpoint', (req, res) => {
       res.json({
@@ -139,20 +139,20 @@ module.exports = {
     });
   },
 
-  postBuild(result) {
-    this.server = this.makeServer();
-  },
-
-  makeServer() {
-    let configPath = require.resolve(path.join(this.mirageDirectory, 'config'));
-    delete require.cache[configPath]; // freshen it up
-    let baseConfig = require('esm')(module, { cjs: { cache: true } })(configPath).default;
-    baseConfig.call({ get() {} });
-
-    return new Server({
-      baseConfig
-    });
-  }
+  // postBuild(result) {
+  //   this.server = this.makeServer();
+  // },
+  //
+  // makeServer() {
+  //   let configPath = require.resolve(path.join(this.mirageDirectory, 'config'));
+  //   delete require.cache[configPath]; // freshen it up
+  //   let baseConfig = require('esm')(module, { cjs: { cache: true } })(configPath).default;
+  //   baseConfig.call({ get() {} });
+  //
+  //   return new Server({
+  //     baseConfig
+  //   });
+  // }
 };
 
 function npmAsset(options = {}) {

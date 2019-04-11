@@ -45,6 +45,7 @@ module('Acceptance | Ember Data', function(hooks) {
     let { schema } = this.server;
     let registry = schema._registry;
 
+    debugger;
     assert.ok(registry['things/watch'], 'Model things/watch has been registered');
   });
 

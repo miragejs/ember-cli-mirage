@@ -1,4 +1,6 @@
-import { warn } from '@ember/debug';
+// import { warn } from '@ember/debug';
+/* eslint no-console: "off" */
+const warn = console.warn;
 
 /**
   You can use this class when you want more control over your route handlers response.

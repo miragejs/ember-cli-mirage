@@ -1,5 +1,3 @@
-import Ember from 'ember';
-
 /* eslint no-console: 0 */
 let errorProps = [
   'description',
@@ -60,10 +58,6 @@ export const logger = {
   },
 
   error(message) {
-    if (Ember.testing) {
-      this.errors.push(message);
-    } else {
-      console.error(message);
-    }
+    console.error(message);
   }
 };

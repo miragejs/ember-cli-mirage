@@ -1,5 +1,5 @@
 import { Promise } from 'rsvp';
-import { MirageError, logger } from 'ember-cli-mirage/assert';
+import { MirageError, logger } from './assert';
 import Response from './response';
 import FunctionHandler from './route-handlers/function';
 import ObjectHandler from './route-handlers/object';

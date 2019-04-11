@@ -3,10 +3,15 @@
 import { Promise } from 'rsvp';
 import { singularize, pluralize, camelize } from './utils/inflector';
 import { toCollectionName, toInternalCollectionName } from './utils/normalize-name';
-import { getModels } from './ember-data';
-import { hasEmberData } from './utils/ember-data';
+// TODO: fix
+// import { getModels } from './ember-data';
+const getModels = () => ({});
+// TODO: fix
+// import { hasEmberData } from './utils/ember-data';
+const hasEmberData = () => false;
 import isAssociation from './utils/is-association';
-import Pretender from 'pretender';
+// TODO: fix
+// import Pretender from 'pretender';
 import Db from './db';
 import Schema from './orm/schema';
 import assert from './assert';
@@ -28,53 +33,56 @@ import _isInteger from 'lodash/isInteger';
  * @return {Object} A new Pretender instance.
  * @public
  */
-function createPretender(server) {
-  return new Pretender(function() {
-    this.passthroughRequest = function(verb, path, request) {
-      if (server.shouldLog()) {
-        console.log(`Passthrough request: ${verb.toUpperCase()} ${request.url}`);
-      }
-    };
+// function createPretender(server) {
+//   return new Pretender(function() {
+//     this.passthroughRequest = function(verb, path, request) {
+//       if (server.shouldLog()) {
+//         console.log(`Passthrough request: ${verb.toUpperCase()} ${request.url}`);
+//       }
+//     };
+//
+//     this.handledRequest = function(verb, path, request) {
+//       if (server.shouldLog()) {
+//         console.groupCollapsed(
+//           `Mirage: [${request.status}] ${verb.toUpperCase()} ${request.url}`
+//         );
+//         let { requestBody, responseText } = request;
+//         let loggedRequest, loggedResponse;
+//
+//         try {
+//           loggedRequest = JSON.parse(requestBody);
+//         } catch(e) {
+//           loggedRequest = requestBody;
+//         }
+//
+//         try {
+//           loggedResponse = JSON.parse(responseText);
+//         } catch(e) {
+//           loggedResponse = responseText;
+//         }
+//
+//         console.log({
+//           request: loggedRequest,
+//           response: loggedResponse,
+//           raw: request
+//         });
+//         console.groupEnd();
+//       }
+//     };
+//
+//     this.unhandledRequest = function(verb, path) {
+//       path = decodeURI(path);
+//       assert(
+//         `Your Ember app tried to ${verb} '${path}',
+//          but there was no route defined to handle this request.
+//          Define a route that matches this path in your
+//          mirage/config.js file. Did you forget to add your namespace?`
+//       );
+//     };
+//   }, { trackRequests: server.shouldTrackRequests() });
+// }
 
-    this.handledRequest = function(verb, path, request) {
-      if (server.shouldLog()) {
-        console.groupCollapsed(
-          `Mirage: [${request.status}] ${verb.toUpperCase()} ${request.url}`
-        );
-        let { requestBody, responseText } = request;
-        let loggedRequest, loggedResponse;
-
-        try {
-          loggedRequest = JSON.parse(requestBody);
-        } catch(e) {
-          loggedRequest = requestBody;
-        }
-
-        try {
-          loggedResponse = JSON.parse(responseText);
-        } catch(e) {
-          loggedResponse = responseText;
-        }
-
-        console.log({
-          request: loggedRequest,
-          response: loggedResponse,
-          raw: request
-        });
-        console.groupEnd();
-      }
-    };
-
-    this.unhandledRequest = function(verb, path) {
-      path = decodeURI(path);
-      assert(
-        `Your Ember app tried to ${verb} '${path}',
-         but there was no route defined to handle this request.
-         Define a route that matches this path in your
-         mirage/config.js file. Did you forget to add your namespace?`
-      );
-    };
-  }, { trackRequests: server.shouldTrackRequests() });
+function createPretender() {
 }
 
 const defaultRouteOptions = {

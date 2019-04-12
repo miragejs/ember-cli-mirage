@@ -20,6 +20,7 @@ export default function() {
     throw 'you goofed';
   });
 
+  this.createList('ticket', 3);
   this.get('node-endpoint-models', (schema) => {
     return schema.tickets.all();
   });

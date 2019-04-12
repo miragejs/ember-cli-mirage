@@ -1,11 +1,4 @@
-// import { Server } from 'ember-cli-mirage';
-// export default Server;
-import faker from 'faker';
+import { Model } from 'ember-cli-mirage';
 
-export default faker;
-// export default "foo";
-// import { Model } from 'ember-cli-mirage';
-//
-// export default Model.extend({
-//
-// });
+export default Model.extend({
+});

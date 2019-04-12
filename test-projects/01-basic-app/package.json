@@ -25,7 +25,8 @@
     "ignore": [
       "tmp",
       "dist",
-      "tests/*"
+      "tests",
+      "mirage"
     ]
   },
   "devDependencies": {
@@ -60,5 +61,8 @@
   },
   "engines": {
     "node": ">= 8.*"
+  },
+  "dependencies": {
+    "prop-types": "^15.7.2"
   }
 }

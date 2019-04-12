@@ -42,7 +42,13 @@ module('Acceptance | Mirage in Node test', function(hooks) {
     let res = await fetch('/node-endpoint-models');
     let json = await res.json();
 
-    assert.equal(json, 123);
+    assert.deepEqual(json, {
+      tickets: [
+        { id: "1" },
+        { id: "2" },
+        { id: "3" }
+      ]
+    });
   });
 
   // test('factories work', async function(assert) {

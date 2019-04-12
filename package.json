@@ -23,6 +23,7 @@
   "bugs": {
     "url": "https://github.com/samselikoff/ember-cli-mirage/issues"
   },
+  "module": "addon/index-node.js",
   "scripts": {
     "build": "ember build",
     "lint:hbs": "ember-template-lint .",

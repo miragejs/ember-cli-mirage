@@ -47,15 +47,11 @@ export default class RouteHandler {
   }
 
   handle(request) {
-    return new Promise((resolve, reject) => {
-      this._getMirageResponseForRequest(request)
-        .then(mirageResponse => this.serialize(mirageResponse, request))
-        .then(serializedMirageResponse => {
-          resolve(serializedMirageResponse.toRackResponse());
-        }).catch(e => {
-          reject(e);
-        });
-    });
+    return this._getMirageResponseForRequest(request)
+      .then(mirageResponse => this.serialize(mirageResponse, request))
+      .then(serializedMirageResponse => {
+        return serializedMirageResponse.toRackResponse();
+      });
   }
 
   _getMirageResponseForRequest(request) {
@@ -97,7 +93,6 @@ export default class RouteHandler {
         }
         resolve(mirageResponse);
       });
-
     });
   }
 

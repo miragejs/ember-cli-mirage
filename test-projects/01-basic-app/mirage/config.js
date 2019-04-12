@@ -19,4 +19,8 @@ export default function() {
   this.get('node-endpoint-with-other-error', (schema) => {
     throw 'you goofed';
   });
+
+  this.get('node-endpoint-models', (schema) => {
+    return schema.tickets.all();
+  });
 }

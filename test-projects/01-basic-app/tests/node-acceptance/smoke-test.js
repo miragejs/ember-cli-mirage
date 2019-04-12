@@ -38,6 +38,13 @@ module('Acceptance | Mirage in Node test', function(hooks) {
     assert.equal(json.message, "you goofed");
   });
 
+  test('models work', async function(assert) {
+    let res = await fetch('/node-endpoint-models');
+    let json = await res.json();
+
+    assert.equal(json, 123);
+  });
+
   // test('factories work', async function(assert) {
   // });
 

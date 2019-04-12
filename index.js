@@ -146,8 +146,18 @@ module.exports = {
     delete require.cache[configPath]; // freshen it up
     let baseConfig = require('esm')(module, { cjs: { cache: true } })(configPath).default;
 
+    // get models
+    let ticketPath = require.resolve(path.join(this.mirageDirectory, 'models', 'ticket'));
+    delete require.cache[ticketPath]; // freshen it up
+    console.log('heres the ticket module: ');
+    let ticketModule = require('esm')(module, { cjs: { cache: true } })(ticketPath);
+    console.log(ticketModule);
+
     return new Server({
-      baseConfig
+      baseConfig,
+      models: {
+        ticket: ticketModule
+      }
     });
   }
 };

@@ -5,6 +5,7 @@ const Funnel = require('broccoli-funnel');
 const map = require('broccoli-stew').map;
 const writeFile = require('broccoli-file-creator');
 const { Server } = require('./lib');
+const glob = require('glob');
 
 module.exports = {
   name: 'ember-cli-mirage',
@@ -146,16 +147,22 @@ module.exports = {
     delete require.cache[configPath]; // freshen it up
     let baseConfig = require('esm')(module, { cjs: { cache: true } })(configPath).default;
 
-    // get models
-    let ticketPath = require.resolve(path.join(this.mirageDirectory, 'models', 'ticket'));
-    delete require.cache[ticketPath]; // freshen it up
-    let ticketModule = require('esm')(module, { mainFields: ["module"], cjs: { cache: true } })(ticketPath).default;
+    // Get models
+    let modelsDir = path.join(this.mirageDirectory, 'models');
+    let models = {};
+    let baseModelsDir = `${modelsDir}/**/*.js`;
+    let files = glob.sync(baseModelsDir);
+    files.forEach(file => {
+      delete require.cache[file]; // freshen it up
+      let modelModule = require('esm')(module, { mainFields: ["module"], cjs: { cache: true } })(file).default;
+
+      let modelName = path.relative(modelsDir, file).replace(/\.[^/.]+$/, "");
+      models[modelName] = modelModule;
+    });
 
     return new Server({
       baseConfig,
-      models: {
-        ticket: ticketModule
-      }
+      models
     });
   }
 };

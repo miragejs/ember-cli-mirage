@@ -47,6 +47,7 @@
     "ember-get-config": "^0.2.2",
     "ember-inflector": "^2.0.0 || ^3.0.0",
     "esm": "^3.2.22",
+    "glob": "^7.1.3",
     "inflected": "^2.0.4",
     "lodash": "^4.17.11",
     "pretender": "2.1.1",

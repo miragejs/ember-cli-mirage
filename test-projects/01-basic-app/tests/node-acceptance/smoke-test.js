@@ -14,7 +14,7 @@ module('Acceptance | Mirage in Node test', function(hooks) {
     assert.equal(res.statusText, 'Not Found');
   });
 
-  test('when a route handler throws a MirageError I see a 500 with a meaningful message', async function(assert) {
+  test('when a route handler throws a MirageError I see a 500 with a meaningful json message', async function(assert) {
     let res = await fetch('/node-endpoint-with-mirage-error');
     let json = await res.json();
 
@@ -22,12 +22,20 @@ module('Acceptance | Mirage in Node test', function(hooks) {
     assert.equal(json.message, "Mirage: Model not registered: foo");
   });
 
-  test('when a route handler throws a generic error I see a 500 with a meaningful message', async function(assert) {
-    let res = await fetch('/node-endpoint-with-generic-error');
-    let text = await res.text();
+  test('when a route handler throws a generic error object I see a 500 with a meaningful json message', async function(assert) {
+    let res = await fetch('/node-endpoint-with-generic-error-object');
+    let json = await res.json();
 
     assert.equal(res.status, 500);
-    assert.equal(text, "you goofed");
+    assert.equal(json.message, "Whoops!");
+  });
+
+  test('when a route handler throws a non-error object I see a 500 with a meaningful json message', async function(assert) {
+    let res = await fetch('/node-endpoint-with-other-error');
+    let json = await res.json();
+
+    assert.equal(res.status, 500);
+    assert.equal(json.message, "you goofed");
   });
 
   // test('factories work', async function(assert) {

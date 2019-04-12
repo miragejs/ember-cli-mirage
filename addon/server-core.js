@@ -808,14 +808,12 @@ export default class Server {
     let timing = options.timing !== undefined ? options.timing : (() => this.timing);
 
     let handler = request => {
-      return new Promise((resolve, reject) => {
-        Promise.resolve(routeHandler.handle(request))
-          .then(mirageResponse => {
-            let [ code, headers, data ] = mirageResponse;
-            resolve({ code, headers, data });
-          })
-          .catch(reject);
-      });
+      return routeHandler.handle(request)
+        .then(mirageResponse => {
+          let [ code, headers, data ] = mirageResponse;
+
+          return { code, headers, data };
+        });
     };
 
     this.requestHandler.register(verb, fullPath, handler);

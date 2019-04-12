@@ -68,12 +68,16 @@ export default class RouteHandler {
       result = this.handler.handle(request);
     } catch(e) {
       if (e instanceof MirageError) {
-        return Promise.reject(e);
+        result = new Response(500, {}, e);
 
       } else {
         logger.error(`Mirage: Your ${request.method} handler for the url ${request.url} threw an error:\n\n${e.stack || e}`);
 
-        result = new Response(500, {}, e.message || e);
+        let message = e.message || e;
+
+        result = new Response(500, {}, {
+          message
+        });
       }
     }
 

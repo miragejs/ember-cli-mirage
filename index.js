@@ -128,13 +128,9 @@ module.exports = {
   serverMiddleware({ app }) {
     app.use((req, res, next) => {
       if (this.server.canHandle(req.method, req.url)) {
-        this.server.handle(req.method, req.url)
-          .then(mirageRes => {
-            res.status(mirageRes.code).send(mirageRes.data);
-          })
-          .catch((e) => {
-            res.status(500).send(e);
-          });
+        this.server.handle(req.method, req.url).then(mirageRes => {
+          res.status(mirageRes.code).send(mirageRes.data);
+        });
       } else {
         next();
       }

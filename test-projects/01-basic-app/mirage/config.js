@@ -12,7 +12,11 @@ export default function() {
     schema.modelClassFor('foo');
   });
 
-  this.get('node-endpoint-with-generic-error', (schema) => {
+  this.get('node-endpoint-with-generic-error-object', (schema) => {
+    throw new Error('Whoops!');
+  });
+
+  this.get('node-endpoint-with-other-error', (schema) => {
     throw 'you goofed';
   });
 }

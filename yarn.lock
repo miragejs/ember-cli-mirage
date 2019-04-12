@@ -4986,9 +4986,9 @@ ember-cli-addon-docs-esdoc@^0.2.1:
     walk-sync "^0.3.2"
 
 ember-cli-addon-docs@^0.6.4:
-  version "0.6.9"
-  resolved "https://registry.yarnpkg.com/ember-cli-addon-docs/-/ember-cli-addon-docs-0.6.9.tgz#343b9d57f2e0c24a6d2b262948d339df93eda4b0"
-  integrity sha512-xnxJW/BjHVzokmwHIAitvBbSvYR8q0EgrVq0Vaw2v6g1KtqV5jDAuwsSLvcj+s4Ikxg8t9WsoX0Rpv0Ws+tMTQ==
+  version "0.6.10"
+  resolved "https://registry.yarnpkg.com/ember-cli-addon-docs/-/ember-cli-addon-docs-0.6.10.tgz#8a69607e96586826e46e69f6f9878def9af5a07e"
+  integrity sha512-IJSBx/yXHQQ6tmQjKnM7DLbThOoGOTBgzQogGD8kmHh+dZXdkI350uSGqYo1/sD2OJg89vdEY9eW30kOYZUflQ==
   dependencies:
     "@glimmer/syntax" "^0.36.4"
     broccoli-bridge "^1.0.0"

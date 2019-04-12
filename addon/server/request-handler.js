@@ -34,7 +34,7 @@ export default class RequestHandler {
   }
 
   routesFor(verb, url) {
-    return this.routers[verb].recognize(url);
+    return this.routers[verb].recognize(url) || [];
   }
 
   canHandle(verb, url) {

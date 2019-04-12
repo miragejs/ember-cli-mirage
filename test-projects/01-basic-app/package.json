@@ -17,6 +17,17 @@
     "test": "ember test --test-port=0",
     "test:fastboot": "qunit fastboot-tests/**/*.js"
   },
+  "nodemonConfig": {
+    "verbose": true,
+    "watch": [
+      "../../"
+    ],
+    "ignore": [
+      "tmp",
+      "dist",
+      "tests/*"
+    ]
+  },
   "devDependencies": {
     "@ember/jquery": "*",
     "broccoli-asset-rev": "*",

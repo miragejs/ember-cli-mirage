@@ -9,6 +9,7 @@ const Router = EmberRouter.extend({
 Router.map(function() {
   this.route('module-count');
   this.route('crud-demo');
+
   this.route('mirage-node');
 });
 

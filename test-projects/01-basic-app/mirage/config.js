@@ -1,14 +1,18 @@
 export default function() {
-  // if (this.environment === 'browser') {
   this.resource('user');
-  // }
 
-  // if (this.environment === 'node') {
   this.get('node-endpoint', () => {
     return {
-      message: 'ppoop-node'
+      message: 'hello-node'
     };
   });
-  // }
 
+  this.get('node-endpoint-with-mirage-error', (schema) => {
+    // this will throw a MirageError
+    schema.modelClassFor('foo');
+  });
+
+  this.get('node-endpoint-with-generic-error', (schema) => {
+    throw 'you goofed';
+  });
 }

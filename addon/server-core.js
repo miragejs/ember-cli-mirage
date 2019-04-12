@@ -337,7 +337,12 @@ export default class Server {
     }
   }
 
+  // Subcasses can implement
   createPretender() {
+  }
+
+  // Subcasses can implement
+  autodiscoverModels() {
   }
 
   /**
@@ -803,29 +808,33 @@ export default class Server {
     let timing = options.timing !== undefined ? options.timing : (() => this.timing);
 
     let handler = request => {
-      return new Promise(resolve => {
-        Promise.resolve(routeHandler.handle(request)).then(mirageResponse => {
-          let [ code, headers, data ] = mirageResponse;
-          resolve({ code, headers, data });
-        });
+      return new Promise((resolve, reject) => {
+        Promise.resolve(routeHandler.handle(request))
+          .then(mirageResponse => {
+            let [ code, headers, data ] = mirageResponse;
+            resolve({ code, headers, data });
+          })
+          .catch(reject);
       });
     };
 
     this.requestHandler.register(verb, fullPath, handler);
 
     // TODO: consolidate. Pretender should use this.requestHandler to get handler/response
-    return this.pretender[verb](
-      fullPath,
-      (request) => {
-        return new Promise(resolve => {
-          Promise.resolve(routeHandler.handle(request)).then(mirageResponse => {
-            let [ code, headers, response ] = mirageResponse;
-            resolve([ code, headers, this._serialize(response) ]);
+    if (this.pretender) {
+      return this.pretender[verb](
+        fullPath,
+        (request) => {
+          return new Promise(resolve => {
+            Promise.resolve(routeHandler.handle(request)).then(mirageResponse => {
+              let [ code, headers, response ] = mirageResponse;
+              resolve([ code, headers, this._serialize(response) ]);
+            });
           });
-        });
-      },
-      timing
-    );
+        },
+        timing
+      );
+    }
   }
 
   /**

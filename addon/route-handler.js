@@ -47,12 +47,14 @@ export default class RouteHandler {
   }
 
   handle(request) {
-    return new Promise(resolve => {
-      this._getMirageResponseForRequest(request).then(mirageResponse => {
-        this.serialize(mirageResponse, request).then(serializedMirageResponse => {
+    return new Promise((resolve, reject) => {
+      this._getMirageResponseForRequest(request)
+        .then(mirageResponse => this.serialize(mirageResponse, request))
+        .then(serializedMirageResponse => {
           resolve(serializedMirageResponse.toRackResponse());
+        }).catch(e => {
+          reject(e);
         });
-      });
     });
   }
 
@@ -70,7 +72,7 @@ export default class RouteHandler {
       result = this.handler.handle(request);
     } catch(e) {
       if (e instanceof MirageError) {
-        throw e;
+        return Promise.reject(e);
 
       } else {
         logger.error(`Mirage: Your ${request.method} handler for the url ${request.url} threw an error:\n\n${e.stack || e}`);

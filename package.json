@@ -46,7 +46,7 @@
     "ember-get-config": "^0.2.2",
     "ember-inflector": "^2.0.0 || ^3.0.0",
     "lodash": "^4.17.11",
-    "pretender": "2.1.1"
+    "pretender": "3.0.1"
   },
   "devDependencies": {
     "@ember/jquery": "^0.6.0",

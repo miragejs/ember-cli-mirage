@@ -143,27 +143,30 @@ module.exports = {
   },
 
   makeServer() {
+    let options = {};
+
     let configPath = require.resolve(path.join(this.mirageDirectory, 'config'));
     delete require.cache[configPath]; // freshen it up
     let baseConfig = require('esm')(module, { cjs: { cache: true } })(configPath).default;
+    options.baseConfig = baseConfig;
 
-    // Get models
-    let modelsDir = path.join(this.mirageDirectory, 'models');
-    let models = {};
-    let baseModelsDir = `${modelsDir}/**/*.js`;
-    let files = glob.sync(baseModelsDir);
-    files.forEach(file => {
-      delete require.cache[file]; // freshen it up
-      let modelModule = require('esm')(module, { mainFields: ["module"], cjs: { cache: true } })(file).default;
+    // Load modules from the host app
+    ['factories', 'fixtures', 'identity-managers', 'models', 'scenarios', 'serializers'].forEach(moduleType => {
+      options[moduleType] = options[moduleType] || {};
 
-      let modelName = path.relative(modelsDir, file).replace(/\.[^/.]+$/, "");
-      models[modelName] = modelModule;
+      let modelsDir = path.join(this.mirageDirectory, moduleType);
+      let baseModelsDir = `${modelsDir}/**/*.js`;
+      let files = glob.sync(baseModelsDir);
+      files.forEach(file => {
+        delete require.cache[file]; // freshen it up
+        let modelModule = require('esm')(module, { mainFields: ["module"], cjs: { cache: true } })(file).default;
+
+        let modelName = path.relative(modelsDir, file).replace(/\.[^/.]+$/, "");
+        options[moduleType][modelName] = modelModule;
+      });
     });
 
-    return new Server({
-      baseConfig,
-      models
-    });
+    return new Server(options);
   }
 };
 

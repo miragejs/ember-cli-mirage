@@ -1,6 +1,6 @@
 import { module, test } from 'qunit';
 
-module('Acceptance | Mirage in Node test', function(hooks) {
+module('Acceptance | Mirage in Node', function(hooks) {
   test('it works with a static route handler defined in config.js', async function(assert) {
     let res = await fetch('/node-endpoint');
     let json = await res.json();
@@ -43,10 +43,22 @@ module('Acceptance | Mirage in Node test', function(hooks) {
     let json = await res.json();
 
     assert.deepEqual(json, {
-      tickets: [
-        { id: "1" },
-        { id: "2" },
-        { id: "3" }
+      "data": [
+        {
+          "attributes": {},
+          "id": "1",
+          "type": "tickets"
+        },
+        {
+          "attributes": {},
+          "id": "2",
+          "type": "tickets"
+        },
+        {
+          "attributes": {},
+          "id": "3",
+          "type": "tickets"
+        }
       ]
     });
   });

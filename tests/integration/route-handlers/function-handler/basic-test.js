@@ -3,7 +3,6 @@ import { Promise } from 'rsvp';
 import { Model, ActiveModelSerializer, Response } from 'ember-cli-mirage';
 import Server from 'ember-cli-mirage/server';
 import promiseAjax from '../../../helpers/promise-ajax';
-import { logger } from 'ember-cli-mirage/assert';
 
 module('Integration | Route handlers | Function handler', function(hooks) {
   hooks.beforeEach(function() {
@@ -33,17 +32,16 @@ module('Integration | Route handlers | Function handler', function(hooks) {
       throw 'I goofed';
     });
 
-    try {
-      await promiseAjax({
-        method: 'GET',
-        url: '/users'
-      });
-    } catch(e) {
-      assert.equal(e.xhr.responseText, 'I goofed');
-      assert.equal(logger.messages.length, 1);
-      assert.ok(logger.messages[0].match(`Mirage: Your GET handler for the url /users threw an error:`));
-      assert.ok(logger.messages[0].match(`I goofed`));
-    }
+    assert.rejects(
+      promiseAjax({ method: 'GET', url: '/users' }),
+      function(ajaxError) {
+        let text = ajaxError.xhr.responseText;
+        let line1 = text.indexOf(`Mirage: Your GET handler for the url /users threw an error`) > 0;
+        let line2 = text.indexOf(`I goofed`) > 0;
+
+        return line1 && line2;
+      }
+    );
   });
 
   test('mirage response string is not serialized to string', async function(assert) {

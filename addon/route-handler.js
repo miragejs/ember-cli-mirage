@@ -47,13 +47,11 @@ export default class RouteHandler {
   }
 
   handle(request) {
-    return new Promise(resolve => {
-      this._getMirageResponseForRequest(request).then(mirageResponse => {
-        this.serialize(mirageResponse, request).then(serializedMirageResponse => {
-          resolve(serializedMirageResponse.toRackResponse());
-        });
+    return this._getMirageResponseForRequest(request)
+      .then(mirageResponse => this.serialize(mirageResponse, request))
+      .then(serializedMirageResponse => {
+        return serializedMirageResponse.toRackResponse();
       });
-    });
   }
 
   _getMirageResponseForRequest(request) {
@@ -70,12 +68,17 @@ export default class RouteHandler {
       result = this.handler.handle(request);
     } catch(e) {
       if (e instanceof MirageError) {
+        // result = new Response(500, {}, e);
         throw e;
 
       } else {
         logger.error(`Mirage: Your ${request.method} handler for the url ${request.url} threw an error:\n\n${e.stack || e}`);
 
-        result = new Response(500, {}, e.message || e);
+        let message = e.message || e;
+
+        result = new Response(500, {}, {
+          message
+        });
       }
     }
 
@@ -85,17 +88,18 @@ export default class RouteHandler {
   _toMirageResponse(result) {
     let mirageResponse;
 
-    return new Promise(resolve => {
-      Promise.resolve(result).then(response => {
-        if (response instanceof Response) {
-          mirageResponse = result;
-        } else {
-          let code = this._getCodeForResponse(response);
-          mirageResponse = new Response(code, {}, response);
-        }
-        resolve(mirageResponse);
-      });
-
+    return new Promise((resolve, reject) => {
+      Promise.resolve(result)
+        .then(response => {
+          if (response instanceof Response) {
+            mirageResponse = result;
+          } else {
+            let code = this._getCodeForResponse(response);
+            mirageResponse = new Response(code, {}, response);
+          }
+          resolve(mirageResponse);
+        })
+        .catch(reject);
     });
   }
 
@@ -113,12 +117,9 @@ export default class RouteHandler {
     return code;
   }
 
-  serialize(mirageResponsePromise, request) {
-    return new Promise(resolve => {
-      Promise.resolve(mirageResponsePromise).then(mirageResponse => {
-        mirageResponse.data = this.serializerOrRegistry.serialize(mirageResponse.data, request);
-        resolve(mirageResponse);
-      });
-    });
+  serialize(mirageResponse, request) {
+    mirageResponse.data = this.serializerOrRegistry.serialize(mirageResponse.data, request);
+
+    return mirageResponse;
   }
 }

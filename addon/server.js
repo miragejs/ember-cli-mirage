@@ -857,12 +857,12 @@ export default class Server {
     return this.pretender[verb](
       fullPath,
       (request) => {
-        return new Promise(resolve => {
-          Promise.resolve(routeHandler.handle(request)).then(mirageResponse => {
+        return routeHandler.handle(request)
+          .then(mirageResponse => {
             let [ code, headers, response ] = mirageResponse;
-            resolve([ code, headers, this._serialize(response) ]);
+
+            return [ code, headers, this._serialize(response) ];
           });
-        });
       },
       timing
     );

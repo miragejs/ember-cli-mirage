@@ -252,6 +252,8 @@ export default class Schema {
     let post = blogPosts.findBy({ published: true });
     ```
 
+    N.B. This will return `null` if the schema doesn't have any matching record.
+
     @method findBy
     @param type
     @param attributeName
@@ -289,6 +291,8 @@ export default class Schema {
     ```js
     let post = blogPosts.first();
     ```
+
+    N.B. This will return `null` if the schema doesn't contain any records.
 
     @method first
     @param type

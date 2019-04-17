@@ -78,10 +78,7 @@ export default class extends ServerCore {
       this.unhandledRequest = function(verb, path) {
         path = decodeURI(path);
         assert(
-          `Your Ember app tried to ${verb} '${path}',
-           but there was no route defined to handle this request.
-           Define a route that matches this path in your
-           mirage/config.js file. Did you forget to add your namespace?`
+          `Your Ember app tried to ${verb} '${path}', but there was no route defined to handle this request. Define a route that matches this path in your mirage/config.js file. Did you forget to add your namespace?`
         );
       };
     }, { trackRequests: server.shouldTrackRequests() });

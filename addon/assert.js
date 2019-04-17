@@ -43,9 +43,6 @@ export function MirageError(message, stack) {
       this[prop] = tmp[prop];
     }
   }
-
-  console.error(this.message);
-  console.error(this);
 }
 
 MirageError.prototype = Object.create(Error.prototype);

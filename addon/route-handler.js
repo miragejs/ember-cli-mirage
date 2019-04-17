@@ -1,5 +1,5 @@
 import { Promise } from 'rsvp';
-import { MirageError, logger } from './assert';
+import { MirageError } from './assert';
 import Response from './response';
 import FunctionHandler from './route-handlers/function';
 import ObjectHandler from './route-handlers/object';
@@ -71,12 +71,11 @@ export default class RouteHandler {
         result = new Response(500, {}, e);
 
       } else {
-        logger.error(`Mirage: Your ${request.method} handler for the url ${request.url} threw an error:\n\n${e.stack || e}`);
-
         let message = e.message || e;
 
         result = new Response(500, {}, {
-          message
+          message,
+          stack: `Mirage: Your ${request.method} handler for the url ${request.url} threw an error:\n\n${e.stack || e}`
         });
       }
     }
@@ -87,16 +86,18 @@ export default class RouteHandler {
   _toMirageResponse(result) {
     let mirageResponse;
 
-    return new Promise(resolve => {
-      Promise.resolve(result).then(response => {
-        if (response instanceof Response) {
-          mirageResponse = result;
-        } else {
-          let code = this._getCodeForResponse(response);
-          mirageResponse = new Response(code, {}, response);
-        }
-        resolve(mirageResponse);
-      });
+    return new Promise((resolve, reject) => {
+      Promise.resolve(result)
+        .then(response => {
+          if (response instanceof Response) {
+            mirageResponse = result;
+          } else {
+            let code = this._getCodeForResponse(response);
+            mirageResponse = new Response(code, {}, response);
+          }
+          resolve(mirageResponse);
+        })
+        .catch(reject);
     });
   }
 
@@ -114,12 +115,9 @@ export default class RouteHandler {
     return code;
   }
 
-  serialize(mirageResponsePromise, request) {
-    return new Promise(resolve => {
-      Promise.resolve(mirageResponsePromise).then(mirageResponse => {
-        mirageResponse.data = this.serializerOrRegistry.serialize(mirageResponse.data, request);
-        resolve(mirageResponse);
-      });
-    });
+  serialize(mirageResponse, request) {
+    mirageResponse.data = this.serializerOrRegistry.serialize(mirageResponse.data, request);
+
+    return mirageResponse;
   }
 }

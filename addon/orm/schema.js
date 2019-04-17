@@ -8,7 +8,7 @@ import _includes from 'lodash/includes';
 import assert from '../assert';
 
 /**
-  The primary use of the `Schema` class is to use it to find Models and Collectiosn via the `Model` class methods.
+  The primary use of the `Schema` class is to use it to find Models and Collections via the `Model` class methods.
 
   The `Schema` is most often accessed via the first parameter to a route handler:
 

@@ -1,6 +1,5 @@
 /* eslint no-console: 0 */
 
-import { Promise } from 'rsvp';
 import { singularize, pluralize, camelize } from './utils/inflector';
 import { toCollectionName, toInternalCollectionName } from './utils/normalize-name';
 import isAssociation from './utils/is-association';

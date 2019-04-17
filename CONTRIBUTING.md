@@ -18,20 +18,20 @@ To make more substantial changes, you'll want to be able to write locally. The d
     git clone git@github.com:[your-name]/ember-cli-mirage.git
     cd ember-cli-mirage
     ```
-    
+
 2. Checkout the `gh-pages` branch:
 
     ```
     git checkout gh-pages
     ```
-    
+
 3. Start the Jekyll build:
 
     ```
     bundle install
     bundle exec jekyll serve --watch --baseurl ''
     ```
-    
+
 You should be able to visit `localhost:4000` and see the docs site running locally. Now checkout a new branch, make your changes, and submit a PR!
 
 
@@ -45,7 +45,7 @@ To help out with Mirage development, first pull down the project locally and ver
     git clone git@github.com:[your-name]/ember-cli-mirage.git
     cd ember-cli-mirage
     ```
-    
+
 2. Ensure `node` is installed. I use version 4.2.x, the LTS release.
   - Ensure `npm` is installed
 3. Ensure `ember-cli` is installed: `npm install -g ember-cli`
@@ -53,7 +53,7 @@ To help out with Mirage development, first pull down the project locally and ver
 5. Install dependencies and run the tests:
 
     ```
-    npm i && bower i
+    npm i
     ember test
     ```
 

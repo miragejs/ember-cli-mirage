@@ -163,7 +163,7 @@ const JSONAPISerializer = Serializer.extend({
         relationshipHash.links = links[key];
       }
 
-      if (this.alwaysIncludeLinkageData || this._relationshipIsIncludedForModel(key, model)) {
+      if (this.alwaysIncludeLinkageData || this.shouldIncludeLinkageData(key, model) || this._relationshipIsIncludedForModel(key, model)) {
         let data = null;
         if (this.isModel(relationship)) {
           data = {
@@ -372,6 +372,10 @@ const JSONAPISerializer = Serializer.extend({
       return ids.split(',');
     }
     return ids;
+  },
+
+  shouldIncludeLinkageData(relationshipKey, model) {
+    return false;
   }
 });
 

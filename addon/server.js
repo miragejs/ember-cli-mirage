@@ -1,6 +1,5 @@
 /* eslint no-console: 0 */
 
-import { Promise } from 'rsvp';
 import { singularize, pluralize, camelize } from './utils/inflector';
 import { toCollectionName, toInternalCollectionName } from 'ember-cli-mirage/utils/normalize-name';
 import { getModels } from './ember-data';
@@ -68,10 +67,7 @@ function createPretender(server) {
     this.unhandledRequest = function(verb, path) {
       path = decodeURI(path);
       assert(
-        `Your Ember app tried to ${verb} '${path}',
-         but there was no route defined to handle this request.
-         Define a route that matches this path in your
-         mirage/config.js file. Did you forget to add your namespace?`
+        `Your Ember app tried to ${verb} '${path}', but there was no route defined to handle this request. Define a route that matches this path in your mirage/config.js file. Did you forget to add your namespace?`
       );
     };
   }, { trackRequests: server.shouldTrackRequests() });
@@ -857,12 +853,12 @@ export default class Server {
     return this.pretender[verb](
       fullPath,
       (request) => {
-        return new Promise(resolve => {
-          Promise.resolve(routeHandler.handle(request)).then(mirageResponse => {
+        return routeHandler.handle(request)
+          .then(mirageResponse => {
             let [ code, headers, response ] = mirageResponse;
-            resolve([ code, headers, this._serialize(response) ]);
+
+            return [ code, headers, this._serialize(response) ];
           });
-        });
       },
       timing
     );

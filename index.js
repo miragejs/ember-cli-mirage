@@ -2,7 +2,6 @@
 const path = require('path');
 const mergeTrees = require('broccoli-merge-trees');
 const Funnel = require('broccoli-funnel');
-const map = require('broccoli-stew').map;
 const writeFile = require('broccoli-file-creator');
 
 module.exports = {
@@ -120,25 +119,3 @@ module.exports = {
     return enabledInProd || (environment && environment !== 'production' && explicitExcludeFiles !== true);
   }
 };
-
-function npmAsset(options = {}) {
-  let defaultOptions = {
-    // guard against usage in FastBoot 1.0, where process.env.EMBER_CLI_FASTBOOT is not available
-    _processTree(input) {
-      return map(input, content => `if (typeof FastBoot !== 'undefined') { ${content} }`);
-    }
-  };
-
-  let assetOptions = Object.assign(defaultOptions, options);
-
-  return function() {
-    let finalOptions = Object.assign(
-      assetOptions,
-      {
-        enabled: this._shouldIncludeFiles()
-      }
-    );
-
-    return finalOptions;
-  };
-}

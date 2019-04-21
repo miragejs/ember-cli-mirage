@@ -246,7 +246,7 @@ Mirage ships with two named serializers, JSONAPISerializer and ActiveModelSerial
 ## Shorthands
 
 <aside class='Docs-page__aside'>
-  <p>View more <a href="../../advanced/shorthands">shorthands</a>.</p>
+  <p>View more <a href="./advanced/shorthands">shorthands</a>.</p>
 </aside>
 
 Mirage has *shorthands* to reduce the code needed for conventional API routes. For example, the route handler

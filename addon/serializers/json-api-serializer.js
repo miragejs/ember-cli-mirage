@@ -8,35 +8,171 @@ import _isEmpty from 'lodash/isEmpty';
 import assert from 'ember-cli-mirage/assert';
 
 /**
-  The JSONAPISerializer.
+  The JSONAPISerializer. Subclass of Serializer.
+
+  Please use
+
+  ```js
+  import { JSONAPISerializer } from 'ember-cli-mirage';
+  ```
+
+  instead of the full import path below.
 
   @class JSONAPISerializer
   @constructor
   @public
-  @hide
  */
-const JSONAPISerializer = Serializer.extend({
+class JSONAPISerializer extends Serializer {
 
-  /**
-    Do something.
-    @property keyForModel
-    @public
-  */
+  constructor() {
+    super(...arguments);
+
+    /**
+      By default, JSON:API's linkage data is only added for relationships that are being included in the current request.
+
+      That means given an `author` model with a `posts` relationship, a GET request to /authors/1 would return a JSON:API document with an empty `relationships` hash:
+
+      ```js
+      {
+        data: {
+          type: 'authors',
+          id: '1',
+          attributes: { ... }
+        }
+      }
+      ```
+
+      but a request to GET /authors/1?include=posts would have linkage data added (in addition to the included resources):
+
+      ```js
+      {
+        data: {
+          type: 'authors',
+          id: '1',
+          attributes: { ... },
+          relationships: {
+            data: [
+              { type: 'posts', id: '1' },
+              { type: 'posts', id: '2' },
+              { type: 'posts', id: '3' }
+            ]
+          }
+        },
+        included: [ ... ]
+      }
+      ```
+
+      To add the linkage data for all relationships, you could set `alwaysIncludeLinkageData` to `true`:
+
+      ```js
+      // mirage/serializers/application.js
+      import { JSONAPISerializer } from 'ember-cli-mirage';
+
+      export default JSONAPISerializer.extend({
+        alwaysIncludeLinkageData: true
+      });
+      ```
+
+      Then, a GET to /authors/1 would respond with
+
+      ```js
+      {
+        data: {
+          type: 'authors',
+          id: '1',
+          attributes: { ... },
+          relationships: {
+            posts: {
+              data: [
+                { type: 'posts', id: '1' },
+                { type: 'posts', id: '2' },
+                { type: 'posts', id: '3' }
+              ]
+            }
+          }
+        }
+      }
+      ```
+
+      even though the related `posts` are not included in the same document.
+
+      You can also use the `links` method (on the Serializer base class) to add relationship links (which will always be added regardless of the relationship is being included document), or you could use `shouldIncludeLinkageData` for more granular control.
+
+      For more background on the behavior of this API, see [this blog post](http://www.ember-cli-mirage.com/blog/changing-mirages-default-linkage-data-behavior-1475).
+
+      @property alwaysIncludeLinkageData
+      @type {Boolean}
+      @public
+    */
+    this.alwaysIncludeLinkageData = this.alwaysIncludeLinkageData || undefined; // this is just here so I can add the doc comment. Better way?
+  }
+
+  // Don't think this is used?
   keyForModel(modelName) {
     return dasherize(modelName);
-  },
+  }
 
+  // Don't think this is used?
   keyForCollection(modelName) {
     return dasherize(modelName);
-  },
+  }
 
+  /**
+    Used to customize the key for an attribute. By default, compound attribute names are dasherized.
+
+    For example, the JSON:API document for a `post` model with a `commentCount` attribute would be:
+
+    ```js
+    {
+      data: {
+        id: 1,
+        type: 'posts',
+        attributes: {
+          'comment-count': 28
+        }
+      }
+    }
+    ```
+
+    @method keyForAttribute
+    @param {String} attr
+    @return {String}
+    @public
+  */
   keyForAttribute(attr) {
     return dasherize(attr);
-  },
+  }
 
+  /**
+    Used to customize the key for a relationships. By default, compound relationship names are dasherized.
+
+    For example, the JSON:API document for an `author` model with a `blogPosts` relationship would be:
+
+    ```js
+    {
+      data: {
+        id: 1,
+        type: 'author',
+        attributes: {
+          ...
+        },
+        relationships: {
+          'blog-posts': {
+            ...
+          }
+        }
+      }
+    }
+    ```
+
+    @method keyForAttribute
+    @param {String} key
+    @return {String}
+    @public
+  */
   keyForRelationship(key) {
     return dasherize(key);
-  },
+  }
 
   getHashForPrimaryResource(resource) {
     this._createRequestedIncludesGraph(resource);
@@ -46,7 +182,7 @@ const JSONAPISerializer = Serializer.extend({
     let addToIncludes = this.getAddToIncludesForResource(resource);
 
     return [ hashWithRoot, addToIncludes ];
-  },
+  }
 
   getHashForIncludedResource(resource) {
     let serializer = this.serializerFor(resource.modelName);
@@ -59,7 +195,7 @@ const JSONAPISerializer = Serializer.extend({
     }
 
     return [ hashWithRoot, addToIncludes ];
-  },
+  }
 
   getHashForResource(resource) {
     let hash;
@@ -71,7 +207,7 @@ const JSONAPISerializer = Serializer.extend({
     }
 
     return hash;
-  },
+  }
 
   /*
     Returns a flat unique list of resources that need to be added to includes
@@ -87,7 +223,7 @@ const JSONAPISerializer = Serializer.extend({
     }
 
     return this.getAddToIncludesForResourceAndPaths(resource, relationshipPaths);
-  },
+  }
 
   getAddToIncludesForResourceAndPaths(resource, relationshipPaths) {
     let includes = [];
@@ -99,7 +235,7 @@ const JSONAPISerializer = Serializer.extend({
     });
 
     return _uniqBy(_compact(_flatten(includes)), m => m.toString());
-  },
+  }
 
   getIncludesForResourceAndPath(resource, ...names) {
     let nameForCurrentResource = camelize(names.shift());
@@ -136,7 +272,7 @@ const JSONAPISerializer = Serializer.extend({
     }
 
     return includes;
-  },
+  }
 
   _getResourceObjectForModel(model) {
     let attrs = this._attrsForModel(model, true);
@@ -149,7 +285,7 @@ const JSONAPISerializer = Serializer.extend({
     };
 
     return this._maybeAddRelationshipsToResourceObjectForModel(hash, model);
-  },
+  }
 
   _maybeAddRelationshipsToResourceObjectForModel(hash, model) {
     let relationships = model.associationKeys.reduce((relationships, key) => {
@@ -193,7 +329,7 @@ const JSONAPISerializer = Serializer.extend({
     }
 
     return hash;
-  },
+  }
 
   hasLinksForRelationship(model, relationshipKey) {
     let serializer = this.serializerFor(model.modelName);
@@ -203,7 +339,7 @@ const JSONAPISerializer = Serializer.extend({
 
       return links[relationshipKey] != null;
     }
-  },
+  }
 
   /*
     This code (and a lot of this serializer) need to be re-worked according to
@@ -234,7 +370,7 @@ const JSONAPISerializer = Serializer.extend({
 
       return relationshipPaths.includes(relationshipKey);
     }
-  },
+  }
 
   /*
     This is needed for _relationshipIsIncludedForModel - see the note there for
@@ -266,7 +402,7 @@ const JSONAPISerializer = Serializer.extend({
     // Hack :/ Need to think of a better palce to put this if
     // refactoring json:api serializer.
     this.request._includesGraph = graph;
-  },
+  }
 
   _addPrimaryModelToRequestedIncludesGraph(graph, model) {
     if (this.hasQueryParamIncludes()) {
@@ -303,7 +439,7 @@ const JSONAPISerializer = Serializer.extend({
           }
         });
     }
-  },
+  }
 
   _addResourceToRequestedIncludesGraph(graph, resource, relationshipNames) {
     graph.included = graph.included || {};
@@ -316,7 +452,7 @@ const JSONAPISerializer = Serializer.extend({
 
       this._addModelToRequestedIncludesGraph(graph, model, relationshipNames);
     });
-  },
+  }
 
   _addModelToRequestedIncludesGraph(graph, model, relationshipNames) {
     let collectionName = pluralize(model.modelName);
@@ -326,7 +462,7 @@ const JSONAPISerializer = Serializer.extend({
     if (relationshipNames.length) {
       this._addResourceRelationshipsToRequestedIncludesGraph(graph, collectionName, resourceKey, model, relationshipNames);
     }
-  },
+  }
 
   /*
     Lot of the same logic here from _addPrimaryModelToRequestedIncludesGraph, could refactor & share
@@ -348,23 +484,42 @@ const JSONAPISerializer = Serializer.extend({
     if (relationship) {
       this._addResourceToRequestedIncludesGraph(graph, relationship, relationshipNames.slice(1));
     }
-  },
+  }
 
   _graphKeyForModel(model) {
     return `${model.modelName}:${model.id}`;
-  },
+  }
 
   getQueryParamIncludes() {
     return (_get(this, 'request.queryParams.include'));
-  },
+  }
 
   hasQueryParamIncludes() {
     return !!this.getQueryParamIncludes();
-  },
+  }
 
+  /**
+    Used to customize the `type` field of the document. By default, pluralizes and dasherizes the model's `modelName`.
+
+    For example, the JSON:API document for a `blogPost` model would be:
+
+    ```js
+    {
+      data: {
+        id: 1,
+        type: 'blog-posts'
+      }
+    }
+    ```
+
+    @method typeKeyForModel
+    @param {Model} model
+    @return {String}
+    @public
+  */
   typeKeyForModel(model) {
     return dasherize(pluralize(model.modelName));
-  },
+  }
 
   getCoalescedIds(request) {
     let ids = request.queryParams && request.queryParams['filter[id]'];
@@ -372,12 +527,32 @@ const JSONAPISerializer = Serializer.extend({
       return ids.split(',');
     }
     return ids;
-  },
+  }
 
+  /**
+    Allows for per-relationship inclusion of linkage data. Use this when `alwaysIncludeLinkageData` is not granular enough.
+
+    ```js
+    export default JSONAPISerializer.extend({
+      shouldIncludeLinkageData(relationshipKey, model) {
+        if (relationshipKey === 'author' || relationshipKey === 'ghostWriter') {
+          return true;
+        }
+        return false;
+      }
+    });
+    ```
+
+    @method shouldIncludeLinkageData
+    @param {String} relationshipKey
+    @param {Model} model
+    @return {Boolean}
+    @public
+  */
   shouldIncludeLinkageData(relationshipKey, model) {
     return false;
   }
-});
+}
 
 JSONAPISerializer.prototype.alwaysIncludeLinkageData = false;
 

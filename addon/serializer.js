@@ -853,11 +853,11 @@ class Serializer {
   }
 
   /**
-    Use this hook to format the key for relationship ids
+    Use this hook to format the key for the IDS of a `hasMany` relationship
     in this model's JSON representation.
 
     For example, if you're serializing an `author` that
-    sideloads many `blogPosts`, your `author` JSON would include a `blogPostIds` key:
+    sideloads many `blogPosts`, by default your `author` JSON would include a `blogPostIds` key:
 
     ```
     {
@@ -933,7 +933,7 @@ class Serializer {
 
     Now the response will look like:
 
-    ```
+    ```js
     {
       blogPost: {
         id: 1,
@@ -951,10 +951,74 @@ class Serializer {
     return `${camelize(relationshipName)}Id`;
   }
 
+  /**
+    Polymorphic relationships are represented with type-id pairs.
+
+    Given the following model
+
+    ```js
+    // mirage/models/comment.js
+    export default Mirage.Model.extend({
+      commentable: belongsTo({ polymorphic: true })
+    });
+    ```
+
+    the default Serializer would produce
+
+    ```js
+    {
+      comment: {
+        id: 1,
+        commentableType: 'post',
+        commentableId: '1'
+      }
+    }
+    ```
+
+    This hook controls how the `id` field (`commentableId` in the above example)
+    is serialized. By default it camelizes the relationship and adds `Id` as a suffix.
+
+    @method keyForPolymorphicForeignKeyId
+    @param {String} relationshipName
+    @return {String}
+    @public
+  */
   keyForPolymorphicForeignKeyId(relationshipName) {
     return `${camelize(relationshipName)}Id`;
   }
 
+  /**
+    Polymorphic relationships are represented with type-id pairs.
+
+    Given the following model
+
+    ```js
+    // mirage/models/comment.js
+    export default Mirage.Model.extend({
+      commentable: belongsTo({ polymorphic: true })
+    });
+    ```
+
+    the default Serializer would produce
+
+    ```js
+    {
+      comment: {
+        id: 1,
+        commentableType: 'post',
+        commentableId: '1'
+      }
+    }
+    ```
+
+    This hook controls how the `type` field (`commentableType` in the above example)
+    is serialized. By default it camelizes the relationship and adds `Type` as a suffix.
+
+    @method keyForPolymorphicForeignKeyType
+    @param {String} relationshipName
+    @return {String}
+    @public
+  */
   keyForPolymorphicForeignKeyType(relationshipName) {
     return `${camelize(relationshipName)}Type`;
   }

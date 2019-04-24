@@ -6,10 +6,7 @@ To install a new version of Mirage, run
 
 ```sh
 yarn install -D ember-cli-mirage@X.X.X
-ember g ember-cli-mirage
 ```
-
-The `ember g ember-cli-mirage` command ensures all of Mirage's Bower dependencies are added to your project. It runs during `ember install`, and it's always a good idea to run it when upgrading.
 
 
 ## Changelog

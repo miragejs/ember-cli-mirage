@@ -6,10 +6,7 @@ To install a new version of Mirage, run
 
 ```sh
 yarn install -D ember-cli-mirage@X.X.X
-ember g ember-cli-mirage
 ```
-
-The `ember g ember-cli-mirage` command ensures all of Mirage's Bower dependencies are added to your project. It runs during `ember install`, and it's always a good idea to run it when upgrading.
 
 
 ## Changelog
@@ -58,7 +55,7 @@ Here are the steps you'll need to take to fix this:
   + import faker from 'faker';
   ```
 
-[There is a codemod](https://github.com/caseywatts/ember-cli-mirage-faker-codemod) that will do this for you, thanks to the gracious work of [Casey Watts](https://github.com/caseywatts).
+[There is a codemod](https://github.com/samselikoff/ember-cli-mirage-faker-codemod/tree/update-transform) that will do this for you, thanks to the gracious work of [Casey Watts](https://github.com/caseywatts).
 
 Additionally, when I originally bundled Faker, I monkey-patched it with some methods that I thought would be "useful" additions. I thought this was a good idea at the time... it wasn't. 🙈
 
@@ -96,7 +93,7 @@ For `faker.random.number.range`, use `faker.random.number` with min and max opti
   }
 ```
 
-After that, you should be on your own with respect to Faker! Thanks to Auto Import, you can change versions, or even try out other libraries like [Chance.js](https://chancejs.com/), and rest easy knowing Mirage is a big slimmer and one less thing is beyond your control.
+After that, you should be on your own with respect to Faker! Thanks to Auto Import, you can change versions, or even try out other libraries like [Chance.js](https://chancejs.com/), and rest easy knowing Mirage is a bit slimmer and one less thing is beyond your control.
 
 
 

@@ -49,6 +49,9 @@ export function MirageError(message, stack) {
 
 MirageError.prototype = Object.create(Error.prototype);
 
+/**
+  @hide
+*/
 export const logger = {
   errors: [],
 

@@ -319,6 +319,45 @@ module('Unit | Server #create', function() {
     server.shutdown();
   });
 
+  test('create allows to extend factory with trait composition', function(assert) {
+    let HotdogFactory = Factory.extend({
+      withMustard: trait({
+        mustard: true
+      }),
+
+      withOnions: trait({
+        onions: true
+      }),
+
+      withColeslaw: trait({
+        coleslaw: true
+      }),
+
+      montreal: trait('withMustard', 'withOnions', 'withColeslaw'),
+
+      montrealWithKetchup: trait('montreal', { ketchup: true })
+    });
+
+    let server = new Server({
+      environment: 'test',
+      factories: {
+        hotdog: HotdogFactory
+      }
+    });
+
+    let montrealDog = server.create('hotdog', 'montreal');
+    let noOnionsDog = server.create('hotdog', 'montreal', { onions: false });
+    let montrealKetchupDog = server.create('hotdog', 'montrealWithKetchup');
+    let montrealWithKetchupOverrideDog = server.create('hotdog', 'montreal', { ketchup: true });
+
+    assert.deepEqual(montrealDog, { id: '1', mustard: true, onions: true, coleslaw: true });
+    assert.deepEqual(noOnionsDog, { id: '2', mustard: true, onions: false, coleslaw: true });
+    assert.deepEqual(montrealKetchupDog, { id: '3', mustard: true, onions: true, coleslaw: true, ketchup: true });
+    assert.deepEqual(montrealWithKetchupOverrideDog, { id: '4', mustard: true, onions: true, coleslaw: true, ketchup: true });
+
+    server.shutdown();
+  });
+
   test('create allows to extend factory with multiple traits', function(assert) {
     let ArticleFactory = Factory.extend({
       title: 'Lorem ipsum',

@@ -605,12 +605,18 @@ export default class Server {
     this.factorySequences[camelizedType] = this.factorySequences[camelizedType] + 1 || 0;
 
     let OriginalFactory = this.factoryFor(type);
+
     if (OriginalFactory) {
       OriginalFactory = OriginalFactory.extend({});
       let attrs = OriginalFactory.attrs || {};
-      this._validateTraits(traits, OriginalFactory, type);
-      let mergedExtensions = this._mergeExtensions(attrs, traits, overrides);
-      this._mapAssociationsFromAttributes(type, attrs, overrides);
+
+      let { composedTraits, composedOverrides } = this._flattenComposedTraitsAndOverrides(attrs, traits, overrides);
+
+      this._validateTraits(composedTraits, OriginalFactory, type);
+
+      let mergedExtensions = this._mergeExtensions(attrs, composedTraits, composedOverrides);
+
+      this._mapAssociationsFromAttributes(type, attrs, composedOverrides);
       this._mapAssociationsFromAttributes(type, mergedExtensions);
 
       let Factory = OriginalFactory.extend(mergedExtensions);
@@ -1065,5 +1071,26 @@ export default class Server {
       }
       delete attributes[attr];
     });
+  }
+
+  _flattenComposedTraitsAndOverrides(attrs, traits, overrides = {}) {
+    let merging = true;
+    let composedTraits = traits;
+    let composedOverrides = overrides;
+
+    while (merging) {
+      merging = false;
+
+      composedTraits = composedTraits.map(trait => {
+        if (typeof attrs[trait].traits === 'object') {
+          merging = true;
+          Object.assign(composedOverrides, attrs[trait].extension);
+          return attrs[trait].traits;
+        }
+        return trait;
+      }).flat();
+    }
+
+    return { composedTraits, composedOverrides };
   }
 }

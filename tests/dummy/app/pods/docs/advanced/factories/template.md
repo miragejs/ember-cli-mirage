@@ -239,6 +239,33 @@ let officialPost = server.create('post', 'official');
 let officialPublishedPost = server.create('post', 'official', 'published');
 ```
 
+It is also possible to create a trait using existing traits:
+
+```js
+// mirage/factories/hotdog.js
+import { Factory, trait } from 'ember-cli-mirage';
+
+export default Factory.extend({
+  withMustard: trait({
+    mustard: true
+  }),
+
+  withOnions: trait({
+    onions: true
+  }),
+
+  withColeslaw: trait({
+    coleslaw: true
+  }),
+
+  allDressed: trait('withMustard', 'withOnions', 'withColeslaw')
+});
+
+// Use
+let allDressedHotDog = server.create('hotdog', 'allDressed');
+```
+
+
 As always, you can pass in an `attrs` hash as the last argument for attribute overrides:
 
 ```js

@@ -72,12 +72,6 @@
     "sha": "33049c5db50b609054b146165ac00683f48630d0",
     "tag": "v0.4.14"
   },
-  "try-prember": {
-    "path": "versions/try-prember",
-    "name": "try-prember",
-    "sha": "ebf0be80638e7dd3b0add9944dc4e02cf0df4cd2",
-    "tag": null
-  },
   "v0.4.15": {
     "path": "versions/v0.4.15",
     "name": "v0.4.15",

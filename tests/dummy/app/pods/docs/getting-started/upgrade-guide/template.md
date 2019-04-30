@@ -1,15 +1,18 @@
-# Upgrading
+# Upgrade guide
 
-## Updating your version of Mirage
-
-To install a new version of Mirage, run
+To install a new version of Mirage, run the following:
 
 ```sh
+# Using npm
+npm install -D ember-cli-mirage@X.X.X
+
+# Using yarn
 yarn install -D ember-cli-mirage@X.X.X
 ```
 
 
-## Changelog
+
+## Full Changelog
 
 You can view all of Mirage's release notes on [our Releases page](https://github.com/samselikoff/ember-cli-mirage/releases).
 

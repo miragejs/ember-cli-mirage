@@ -1,20 +1,20 @@
 # Quickstart
 
-Mirage is all about simulating your API server. You define *route handlers* to respond to your Ember app's AJAX requests.
+Mirage lets you simulate API responses by writing _route handlers_.
 
-Here's a simple example of a handler:
+The simplest example of a route handler is a function that returns an object:
 
 ```js
 // mirage/config.js
 export default function() {
   this.namespace = 'api';
 
-  this.get('/authors', () => {
+  this.get('/movies', () => {
     return {
-      authors: [
-        {id: 1, name: 'Zelda'},
-        {id: 2, name: 'Link'},
-        {id: 3, name: 'Epona'},
+      data: [
+        { id: 1, type: 'movies', attributes: { name: 'Interstellar' } },
+        { id: 2, type: 'movies', attributes: { name: 'Inception' } },
+        { id: 3, type: 'movies', attributes: { name: 'Dunkirk' } },
       ]
     };
   });
@@ -22,48 +22,59 @@ export default function() {
 }
 ```
 
-Now whenever your Ember app makes a GET request to `/api/authors`, Mirage will respond with this data.
+Now whenever your Ember app makes a GET request to `/api/movies`, Mirage will respond with this data.
 
 ## Dynamic data
 
 This works, and is a common way to simulate HTTP responses - but hard-coded responses like this have a few problems:
 
-   - *They're inflexible*. What if you want to change this route's response data in your tests?
-   - *They contain formatting logic*. Logic that formats the shape of your JSON payload (e.g., including the root `authors` key) is now duplicated across all your route handlers.
+   - *They're inflexible*. What if you want to change the data for this route in your tests?
+   - *They contain formatting logic*. Logic that's concerned with the shape of your JSON payload (e.g., the `data` and `attributes` keys) is now duplicated across all your route handlers.
    - *They're too basic.* Inevitably, when your fake server needs to deal with more complex things like relationships, these simple ad hoc responses start to break down.
 
-Mirage provides primitives that let you write a more flexible server implementation. Let's see how they work by replacing our basic stub data above.
+Mirage provides primitives that let you write a more powerful server implementation. Let's see how they work by replacing our basic stub data above.
 
-First, create an `author` model by running the following in your terminal:
+First, we'll need to tell Mirage that we have a dynamic `Movie` model.
+
+If you're using Ember Data and you already have a `Movie` model defined, you can skip this next step! Mirage will automatically generate its models from your Ember Data definitions, so you won't have any files in the `mirage/models` directory.
+
+If you're not using Ember Data, you can use the `mirage-model` generator to create a model from the command line:
 
 ```bash
-$ ember g mirage-model author
+$ ember g mirage-model movie
 ```
 
 This generates the following file:
 
 ```js
-// mirage/models/author.js
+// mirage/models/movie.js
 import { Model } from 'ember-cli-mirage';
 
 export default Model.extend({
 });
 ```
 
-The model will create an `authors` table in Mirage's *in-memory database*. The database makes our route handlers dynamic&mdash;we can change the returned data without rewriting the handler. In this way, we can share the same route definitions in both development and testing, while still having control over their response data.
+Models let us take advantage of an _in-memory database_ in our route handlers. The database makes our route handlers dynamic, so we can change the data that's returned without having to entirely rewrite the handler.
 
 Let's update our route handler to be dynamic:
 
 ```js
-// mirage/config.js
-this.namespace = 'api';
-
-this.get('/authors', (schema, request) => {
-  return schema.authors.all();
+this.get('/movies', (schema, request) => {
+  return schema.movies.all();
 });
 ```
 
-Now this route will respond with all the authors in Mirage's database at the time of the request. If we want to change the data this route responds with, we simply need to change the data in the database.
+Now this route will respond with all the authors in Mirage's database at the time of the request. We can therefore change this route's response by only changing Mirage's database.
+
+Right now, the response looks something like
+
+```js
+data: [
+]
+```
+
+That's because Mirage's database is empty. Let's see how we can create some new models so our response is more interesting.
+
 
 ## Creating data
 

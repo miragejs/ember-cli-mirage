@@ -8,7 +8,11 @@ const Router = AddonDocsRouter.extend({
 
 Router.map(function() {
   docsRoute(this, function() {
-    this.route('getting-started', { path: '/' }, function() {
+    this.route('introduction', { path: '/' }, function() {
+      this.route('what-is-mirage');
+    });
+
+    this.route('getting-started', function() {
       this.route('overview');
       this.route('installation');
       this.route('quickstart');

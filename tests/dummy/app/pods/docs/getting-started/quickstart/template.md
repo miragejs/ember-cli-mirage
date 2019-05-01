@@ -32,11 +32,13 @@ This works, and is a common way to simulate HTTP responses - but hard-coded resp
    - *They contain formatting logic*. Logic that's concerned with the shape of your JSON payload (e.g., the `data` and `attributes` keys) is now duplicated across all your route handlers.
    - *They're too basic.* Inevitably, when your fake server needs to deal with more complex things like relationships, these simple ad hoc responses start to break down.
 
-Mirage provides primitives that let you write a more powerful server implementation. Let's see how they work by replacing our basic stub data above.
+Mirage provides primitives that let you write more powerful server implementations. Let's see how they work by replacing our basic stub data above.
+
+### Creating a model
 
 First, we'll need to tell Mirage that we have a dynamic `Movie` model.
 
-If you're using Ember Data and you already have a `Movie` model defined, you can skip this next step! Mirage will automatically generate its models from your Ember Data definitions, so you won't have any files in the `mirage/models` directory.
+If you're using Ember Data and you already have a `Movie` model defined, you can skip this step! Mirage will automatically generate its models from your Ember Data definitions, so you won't have any files in the `mirage/models` directory.
 
 If you're not using Ember Data, you can use the `mirage-model` generator to create a model from the command line:
 
@@ -54,7 +56,9 @@ export default Model.extend({
 });
 ```
 
-Models let us take advantage of an _in-memory database_ in our route handlers. The database makes our route handlers dynamic, so we can change the data that's returned without having to entirely rewrite the handler.
+### Dynamic route handlers
+
+Models lets our route handlers take advantage of Mirage's _in-memory database_. The database makes our route handlers dynamic, so we can change the data that's returned without having to rewrite the handler.
 
 Let's update our route handler to be dynamic:
 
@@ -64,147 +68,240 @@ this.get('/movies', (schema, request) => {
 });
 ```
 
-Now this route will respond with all the authors in Mirage's database at the time of the request. We can therefore change this route's response by only changing Mirage's database.
+The `schema` argument lets us access our new `Movie` model, or any other models we've defined. This route will now respond with all the authors in Mirage's database at the time of the request. We can therefore change the data this route responds with solely by changing what records are in Mirage's database.
 
-Right now, the response looks something like
+
+### Seeding the database
+
+Right now, if we sent a request to our new handler above, the response would look something like this:
 
 ```js
+// GET /api/movies
 data: [
 ]
 ```
 
-That's because Mirage's database is empty. Let's see how we can create some new models so our response is more interesting.
+That's because Mirage's database is empty.
 
-
-## Creating data
-
-<aside class='Docs-page__aside'>
-  <p>You can also use flat fixture files to seed your database. Learn more in the <a href="../seeding-your-database">database guide</a>.</p>
-</aside>
-
-To actually seed our database with fake data, we'll use *factories*. Factories are objects that dynamically generate data - think of them as blueprints for your models.
+To actually seed our database with fake data, we'll use *factories*. Factories are objects that make it easy to generate realistic-looking data for your Mirage server. Think of them as blueprints for your models.
 
 Let's create a factory for our author with
 
 ```sh
-$ ember g mirage-factory author
+$ ember g mirage-factory movie
 ```
 
 We can then define some properties on our Factory. They can be simple types like Booleans, Strings or Numbers, or functions that return dynamic data:
 
 ```js
-// mirage/factories/author.js
+// mirage/factories/movie.js
 import { Factory } from 'ember-cli-mirage';
 
 export default Factory.extend({
 
-  name(i) {
-    return `Person ${i}`;
+  title(i) {
+    return `Movie ${i}`; // Movie 1, Movie 2, etc.
   },
 
-  age: 28,
+  year() {
+    let min = 1950;
+    let max = 2019;
 
-  admin() {
-    return Math.random() > 0.5;
-  }
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  },
+
+  rating: "PG-13"
 
 });
 ```
 
 This factory creates objects like
 
-```javascript
-[{
-  name: 'Person 1',
-  age: 28,
-  admin: false
-},
-{
-  name: 'Person 2',
-  age: 28,
-  admin: true
-}]
+```js
+[
+  {
+    title: 'Movie 1',
+    year: 1992,
+    rating: "PG-13"
+  },
+  {
+    title: 'Movie 2',
+    year: 2008,
+    rating: "PG-13"
+  },
+  // ...
+]
 ```
 
-and so on, which will automatically be inserted into the `authors` database table. The database will assign each record an `id`, and now we can interact with this data in our route handlers.
+and so on, which will automatically be inserted into the `movies` database table. The database will assign each record an `id`, and now we can interact with this data in our route handlers.
 
-To use our new factory, we can call the `server.create` and `server.createList` methods in development:
+To actually use our new factory definition, we can call the `server.create` and `server.createList` methods.
+
+To seed our development database, use the function in the `scenarios/default.js` file:
 
 ```js
 // mirage/scenarios/default.js
 export default function(server) {
 
-  server.createList('author', 10);
+  server.createList('movie', 3);
 
 };
 ```
 
-and in acceptance tests:
+Now when our Ember app makes a GET request to `/api/movies` using the route handler above, we'll see something that looks like this:
 
 ```js
-// tests/acceptance/authors-test.js
-test("I can view the authors", function() {
-  let authors = server.createList('author', 3);
+// GET /api/movies
+data: [
+  {
+    id: 1,
+    type: "movies",
+    attributes: {
+      title: "Movie 1",
+      year: 1992,
+      rating: "PG-13"
+    }
+  },
+  {
+    id: 2,
+    type: "movies",
+    attributes: {
+      title: "Movie 2",
+      year: 2008,
+      rating: "PG-13"
+    }
+  },
+  // ...
+]
+```
 
-  visit('/authors');
+As we can see, this response is now influenced by the run-time state of our database.
 
-  andThen(() => {
-    equal(find('li').length, 3);
-    equal(find('li:first').text(), authors[0].name);
+In acceptance tests, `scenarios/default.js` is ignored, and instead you can use `this.server` to setup your database in the state needed for the test:
+
+```js
+// tests/acceptance/movies-test.js
+import { setupApplicationTest } from 'ember-qunit';
+import setupMirage from 'ember-cli-mirage/test-support/setup-mirage';
+
+module('Acceptance | Homepage test', function(hooks) {
+  setupApplicationTest(hooks);
+  setupMirage(hooks);
+
+  test("I can view the movies", async function(assert) {
+    this.server.createList("movie", 3);
+
+    await visit("/home");
+
+    assert.dom("[data-test-id='movie-row']").exists({ count: 3 });
   });
 });
 ```
 
-You now have a simple way to set up your fake server's initial data, both during development and on a per-test basis.
-
-## Associations and serializers
-
-Dealing with associations is always tricky, and faking endpoints that deal with associations is no exception. Fortunately, Mirage ships with an ORM to help keep your routes clean.
-
-Let's say your author has many blog-posts. You can declare this relationship in your model:
+You can also pass attribute overrides directly to `create` or `createList`:
 
 ```js
-// mirage/models/author.js
+test("I can view the movie title", async function(assert) {
+  let movie = this.server.create('movie', { title: "Interstellar" });
+
+  await visit(`/movies/${movie.id}`);
+
+  assert.dom('h1').includesText("Interstellar");
+});
+```
+
+You now have a simple way to set up your Mirage server's initial data, both during development and on a per-test basis.
+
+## Associations
+
+Dealing with associations is always tricky, and faking endpoints that deal with associations is no exception. Fortunately, Mirage ships with an ORM to help keep your route handlers clean.
+
+Let's say your movie has many cast-members. You can declare this relationship in your model:
+
+```js
+// mirage/models/movie.js
 import { Model, hasMany } from 'ember-cli-mirage';
 
 export default Model.extend({
-  blogPosts: hasMany()
+  castMembers: hasMany()
 });
 
-// mirage/models/blog-post.js
+// mirage/models/cast-member.js
 import { Model, belongsTo } from 'ember-cli-mirage';
 
 export default Model.extend({
-  author: belongsTo()
+  movie: belongsTo()
 });
 ```
 
 Now Mirage knows about the relationship between these two models, which can be useful when writing route handlers:
 
 ```js
-this.get('/authors/:id/blog-posts', (schema, request) => {
-  let author = schema.authors.find(request.params.id);
+this.get('/movies/:id/cast-members', (schema, request) => {
+  let movie = schema.movies.find(request.params.id);
 
-  return author.blogPosts;
+  return movie.castMembers;
 });
 ```
 
 and when creating graphs of related data:
 
 ```js
-test('I can see the posts on the homepage', function(assert) {
-  let author = server.create('author');
-  server.createList('post', 10, { author });
-
-  visit('/');
-
-  andThen(() => {
-    assert.expect(find('li').length, 10);
+test("I can see a movie's cast members", async function(assert) {
+  server.create('movie', {
+    title: 'Interstellar',
+    castMembers: [
+      server.create('cast-member', { name: 'Matthew McConaughey' }),
+      server.create('cast-member', { name: 'Anne Hathaway' }),
+      server.create('cast-member', { name: 'Jessica Chastain' })
+    ]
   });
+
+  await visit('/');
+
+  assert.dom('li.cast-member').exists({ count: 3 });
 });
 ```
 
-Mirage's serializer layer is also aware of your relationships, which helps when faking endpoints that sideload or embed related data. Models and Collections that are returned from a route handler pass through the serializer layer, where you can customize which attributes and associations to include, as well as override other formatting options:
+Mirage uses foreign keys to keep track of these related models for you, so you don't have to worry about any messy bookkeeping details while your Ember app reads and writes new relationships to Mirage's database.
+
+
+## Serializers
+
+Mirage is designed for you to be able to completely replicate your production server.
+
+So far, we've seen that Mirage's default payloads are formatted using the [JSON:API](https://jsonapi.org) spec. This spec produces payloads that look like this:
+
+```js
+// GET /movies/1
+{
+  data: {
+    id: 1,
+    type: 'movies',
+    attributes: {
+      title: 'Interstellar'
+    }
+  }
+}
+```
+
+New Ember apps using Ember Data work well with the JSON:API format, but of course, not every backend uses JSON:API.
+
+For example, your API responses might look more like this:
+
+```js
+// GET /movies/1
+{
+  movies: {
+    id: 1,
+    title: 'Interstellar'
+  }
+}
+```
+
+This is why Mirage _serializers_ exist. Serializers let you customize the formatting logic of your responses, without having to change your route handlers, models, relationships, or any other part of your Mirage setup.
+
+Mirage ships with a few named serializers that match popular backend formats. You can also extend from the base class and use formatting hooks to match your own backend:
 
 ```js
 // mirage/serializers/application.js
@@ -217,48 +314,55 @@ export default Serializer.extend({
 
   keyForRelationship(attr) {
     return dasherize(attr);
-  },
+  }
 });
+```
 
-// mirage/serializers/author.js
+Mirage's serializer layer is also aware of your relationships, which helps when faking endpoints that sideload or embed related data:
+
+```js
+// mirage/serializers/movie.js
 import { Serializer } from 'ember-cli-mirage';
 
 export default Serializer.extend({
-  include: ['blogPosts']
+  include: [ 'crewMembers' ]
 });
 
 // mirage/config.js
 export default function() {
-  this.get('/authors/:id', (schema, request) => {
-    return schema.authors.find(request.params.id);
+  this.get('/movies/:id', (schema, request) => {
+    return schema.movies.find(request.params.id);
   });
 }
 ```
 
-With the above config, a GET to `/authors/1` would return something like
+With the above config, a GET to `/movies/1` would return automatically include related crew members:
 
-```
-/*
+```js
 {
-  author: {
+  movie: {
     id: 1,
-    'first-name': 'Zelda'
+    title: 'Interstellar'
   },
-  'blog-posts': [
-    {id: 1, 'author-id': 1, title: 'Lorem ipsum'},
+  'crew-members': [
+    {
+      id: 1,
+      'movie-id': 1,
+      name: 'Matthew McConaughey'
+    },
+    {
+      id: 1,
+      'movie-id': 1,
+      name: 'Anne Hathaway'
+    },
     ...
   ]
 }
-*/
 ```
 
-Mirage ships with two named serializers, JSONAPISerializer and ActiveModelSerializer, to save you the trouble of writing this custom code yourself. See the [serializer guide](./api/modules/ember-cli-mirage/serializer~Serializer) to learn more.
+Mirage ships with two named serializers, JSONAPISerializer and ActiveModelSerializer, to save you the trouble of writing this custom code yourself. See the [serializer guide](../api/modules/ember-cli-mirage/serializer~Serializer) to learn more.
 
 ## Shorthands
-
-<aside class='Docs-page__aside'>
-  <p>View more <a href="./advanced/shorthands">shorthands</a>.</p>
-</aside>
 
 Mirage has *shorthands* to reduce the code needed for conventional API routes. For example, the route handler
 
@@ -274,17 +378,19 @@ can be written as
 this.get('/authors');
 ```
 
-There are also shorthands for `put` (or `patch`), `post` and `del` methods. Here's a full set of resourceful routes for an `author` resource:
+There are also shorthands for `post`, `patch` (or `put`), and `del` methods. Here's a full set of resourceful routes for an `author` resource:
 
 ```js
 this.get('/authors');
 this.get('/authors/:id');
 this.post('/authors');
-this.put('/authors/:id'); // or this.patch
+this.patch('/authors/:id');
 this.del('/authors/:id');
 ```
 
 Shorthands make writing your server definition concise, so you should use them whenever possible. You can always fall back to a custom function when you need more control.
+
+[View the full shorthand guide]() to learn more.
 
 ## Passthrough
 

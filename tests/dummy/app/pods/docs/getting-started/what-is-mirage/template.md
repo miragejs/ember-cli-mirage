@@ -24,10 +24,10 @@ Mirage borrows concepts from server-side frameworks like
 
   - **routes** to handle HTTP requests
   - a **database** and **models** for storing data and defining relationships
-  - **factories** and **fixtures** for stubbing data
+  - **factories** and **fixtures** for stubbing data, and
   - **serializers** for formatting HTTP responses
 
-but packages them in a way that makes frontend developers feel right at home.
+without compromising a frontend-centric workflow.
 
 ## Alternatives
 

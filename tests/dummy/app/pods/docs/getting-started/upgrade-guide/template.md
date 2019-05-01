@@ -1,6 +1,6 @@
 # Upgrade guide
 
-To install a new version of Mirage, run the following:
+If you're upgrading from an existing version of Mirage, you can run the following:
 
 ```sh
 # Using npm

@@ -10,38 +10,42 @@ Router.map(function() {
   docsRoute(this, function() {
     this.route('getting-started', function() {
       this.route('what-is-mirage');
-      this.route('overview');
       this.route('installation');
-      this.route('quickstart');
       this.route('upgrade-guide');
+      this.route('overview');
     });
 
-    this.route('writing-your-server', function() {
-      this.route('defining-routes');
-      this.route('seeding-your-database');
-      this.route('acceptance-testing');
-    });
-
-    this.route('cookbook', function() {
-      this.route('manually-starting-mirage');
-      this.route('simulating-cookie-responses');
-      this.route('overriding-dependencies');
-    });
-
-    this.route('advanced', function() {
-      this.route('route-handlers');
-      this.route('defining-relationships');
-      this.route('factories');
-      this.route('fixtures');
-      this.route('environment-options');
+    this.route('route-handlers', function() {
+      this.route('functions');
       this.route('shorthands');
-      this.route('identity-managers');
     });
 
-    this.route('examples', function() {
-      this.route('1-belongs-to');
-      this.route('2-has-many');
-    });
+    // this.route('writing-your-server', function() {
+    //   this.route('defining-routes');
+    //   this.route('seeding-your-database');
+    //   this.route('acceptance-testing');
+    // });
+
+    // this.route('cookbook', function() {
+    //   this.route('manually-starting-mirage');
+    //   this.route('simulating-cookie-responses');
+    //   this.route('overriding-dependencies');
+    // });
+    //
+    // this.route('advanced', function() {
+    //   this.route('route-handlers');
+    //   this.route('defining-relationships');
+    //   this.route('factories');
+    //   this.route('fixtures');
+    //   this.route('environment-options');
+    //   this.route('shorthands');
+    //   this.route('identity-managers');
+    // });
+
+    // this.route('examples', function() {
+    //   this.route('1-belongs-to');
+    //   this.route('2-has-many');
+    // });
 
     this.route('api', function() {
       this.route('class', { path: '/:class_id' });

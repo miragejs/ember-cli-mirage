@@ -1,6 +1,6 @@
 # Overview
 
-Mirage lets you simulate API responses by writing _route handlers_.
+Mirage lets you simulate API responses by writing **route handlers**.
 
 The simplest example of a route handler is a function that returns an object:
 
@@ -29,10 +29,10 @@ Now whenever your Ember app makes a GET request to `/api/movies`, Mirage will re
 This works, and is a common way to simulate HTTP responses - but hard-coded responses like this have a few problems:
 
    - *They're inflexible*. What if you want to change the data for this route in your tests?
-   - *They contain formatting logic*. Logic that's concerned with the shape of your JSON payload (e.g., the `data` and `attributes` keys) is now duplicated across all your route handlers.
-   - *They're too basic.* Inevitably, when your fake server needs to deal with more complex things like relationships, these simple ad hoc responses start to break down.
+   - *They contain formatting logic*. Logic that's concerned with the shape of your JSON payload (e.g. the `data` and `attributes` keys) is now duplicated across all your route handlers.
+   - *They're too basic.* Inevitably, when your Mirage server needs to deal with more complex things like relationships, these simple ad hoc responses start to break down.
 
-Mirage provides primitives that let you write more powerful server implementations. Let's see how they work by replacing our basic stub data above.
+Mirage provides a **data layer** that lets you write more powerful server implementations. Let's see how it works by replacing our basic stub data above.
 
 ### Creating a model
 
@@ -56,9 +56,9 @@ export default Model.extend({
 });
 ```
 
-### Dynamic route handlers
+### Writing a dynamic route handler
 
-Models lets our route handlers take advantage of Mirage's _in-memory database_. The database makes our route handlers dynamic, so we can change the data that's returned without having to rewrite the handler.
+Models let our route handlers take advantage of Mirage's _in-memory database_. The database makes our route handlers dynamic, so we can change the data that's returned without having to rewrite the handler.
 
 Let's update our route handler to be dynamic:
 
@@ -68,7 +68,7 @@ this.get('/movies', (schema, request) => {
 });
 ```
 
-The `schema` argument lets us access our new `Movie` model, or any other models we've defined. This route will now respond with all the authors in Mirage's database at the time of the request. We can therefore change the data this route responds with solely by changing what records are in Mirage's database.
+The `schema` argument lets us access our new `Movie` model. This route will now respond with all the authors in Mirage's database at the time of the request. We can therefore change the data this route responds with by only changing what records are in Mirage's database, instead of having to write a different version of the handler for each scenario we want to simulate.
 
 
 ### Seeding the database
@@ -143,7 +143,7 @@ To seed our development database, use the function in the `scenarios/default.js`
 // mirage/scenarios/default.js
 export default function(server) {
 
-  server.createList('movie', 3);
+  server.createList('movie', 10);
 
 };
 ```
@@ -182,7 +182,7 @@ In acceptance tests, `scenarios/default.js` is ignored, and instead you can use 
 ```js
 // tests/acceptance/movies-test.js
 import { setupApplicationTest } from 'ember-qunit';
-import setupMirage from 'ember-cli-mirage/test-support/setup-mirage';
+import { setupMirage } from 'ember-cli-mirage/test-support';
 
 module('Acceptance | Homepage test', function(hooks) {
   setupApplicationTest(hooks);
@@ -415,4 +415,12 @@ and you can fully develop and test the feature. In this way you can build up you
 
 ---
 
-That should be enough to get you started! Keep reading to learn more.
+That should be enough to get you started!
+
+The rest of the docs are organized by Mirage's higher-level concepts:
+
+  - **Route handlers** contain the logic around what run-time data Mirage uses to respond to requests.
+
+  - The **Data layer** is how Mirage stores and tracks changes to your data over time.
+
+Keep reading to learn more!

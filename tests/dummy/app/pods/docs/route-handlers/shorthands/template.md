@@ -1,6 +1,6 @@
 # Shorthands
 
-APIs have become more standardized, so Mirage has the concept of *Shorthands* to deal with common scenarios. These shorthands can replace many of your custom route handlers, dramatically simplifying your server definition.
+APIs have become more standardized, so Mirage has the concept of *Shorthands* to deal with common scenarios. Shorthands can replace many of your custom route handlers, dramatically simplifying your server definition.
 
 For example, this function route handler
 
@@ -47,12 +47,12 @@ See the full list of available Shorthands below. Shorthands use default status c
   - GET, PATCH/PUT and DEL are 200
   - POST is 201
 
-## GET shorthands
+## GET Shorthands
 
 Fetching a collection:
 
 ```js
-// shorthand
+// Shorthand
 this.get('/contacts');          // finds type by singularizing url
 this.get('/contacts', 'users'); // optionally specify the collection as second param
 
@@ -65,7 +65,7 @@ this.get('/contacts', (schema) => {
 Fetching a model:
 
 ```js
-// shorthand
+// Shorthand
 this.get('/contacts/:id');         // finds type by singularizing url
 this.get('/contacts/:id', 'user'); // optionally specify the type as second param
 
@@ -80,7 +80,7 @@ this.get('/contacts/:id', (schema, request) => {
 Fetching multiple models by ID (for example, `GET /contacts?ids=1,3`):
 
 ```js
-// shorthand
+// Shorthand
 this.get('/contacts', { coalesce: true });
 this.get('/contacts', 'users', { coalesce: true });
 
@@ -93,12 +93,12 @@ this.get('/contacts', ({ contacts }, request) => {
 ```
 
 
-## POST shorthands
+## POST Shorthands
 
 Creating a resource:
 
 ```js
-// shorthand
+// Shorthand
 this.post('/contacts');          // finds type by singularizing url
 this.post('/contacts', 'user');  // optionally specify the type as second param
 
@@ -112,12 +112,12 @@ this.post('/contacts', function(schema, request) {
 
 For this POST shorthand to work, Mirage needs to know the format of the JSON payload your Ember app sends along with the request, so that it can insert the appropriate data into the database. See [the note on normalize](../serializers/#normalizejson) in the Serializer docs for more information.
 
-## PATCH/PUT shorthands
+## PATCH/PUT Shorthands
 
 Updating a resource:
 
 ```js
-// shorthand (these also work with this.put)
+// Shorthand (these also work with this.put)
 this.patch('/contacts/:id');          // finds type by singularizing url
 this.patch('/contacts/:id', 'user');  // optionally specify the type as second param
 
@@ -132,12 +132,12 @@ this.patch('/contacts/:id', function(schema, request) {
 
 For this PATCH shorthand to work, Mirage needs to know the format of the JSON payload your Ember app sends along with the request, so that it can insert the appropriate data into the database. See the note on normalize in the Serializer docs for more information.
 
-## DELETE shorthands
+## DELETE Shorthands
 
 Destroying a resource:
 
 ```js
-// shorthand
+// Shorthand
 this.del('/contacts/:id');          // finds type by singularizing url
 this.del('/contacts/:id', 'user');  // optionally specify the type as second param
 
@@ -152,7 +152,7 @@ this.del('/contacts/:id', (schema, request) => {
 Destroying a resource and related models:
 
 ```js
-// shorthand
+// Shorthand
 this.del('/contacts/:id', ['contact', 'addresses']);
 
 // equivalent
@@ -231,3 +231,9 @@ create   | this.post('/contacts')
 update   | this.patch('contacts/:id') (or this.put)
 delete   | this.del('/contacts/:id')
 ```
+
+---
+
+Shorthands are a key part of staying productive in your frontend codebase, but they only work so well because Mirage has a Data Layer that's aware of your application's domain model.
+
+We'll cover how it works in the next few sections of the docs.

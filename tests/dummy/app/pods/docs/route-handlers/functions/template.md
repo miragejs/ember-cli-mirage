@@ -22,15 +22,6 @@ this.patch('/movies/:id', () => { ... });
 this.del('/movies/:id', () => { ... });
 ```
 
-The status code for a handler defaults to the following based on the verb being used for the route:
-
-  - GET is 200
-  - PATCH/PUT is 204
-  - POST is 201
-  - DEL is 204
-
-PATCH/PUT and POST change to 200 if there is a response body.
-
 
 ## Timing
 
@@ -222,9 +213,18 @@ this.patch('/users/edit/:id', function(schema, request) {
 ```
 
 
-## Dynamic status codes and HTTP headers
+## Status codes and headers
 
-By default, Mirage sets the HTTP code of a response based on the verb being used. Additionally, a header for `Content-Type` is set to `application/json`.
+By default, Mirage sets the HTTP status code of a response based on the verb being used for the route:
+
+  - GET is 200
+  - PATCH/PUT is 204
+  - POST is 201
+  - DEL is 204
+
+PATCH/PUT and POST change to 200 if there is a response body.
+
+Additionally, a header for `Content-Type` is set to `application/json`.
 
 You can customize both the response code and headers by returning an instance of the `Response` class in your route handler:
 

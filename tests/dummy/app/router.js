@@ -20,6 +20,11 @@ Router.map(function() {
       this.route('shorthands');
     });
 
+    this.route('data-layer', function() {
+      this.route('database');
+      this.route('orm');
+    });
+
     // this.route('writing-your-server', function() {
     //   this.route('defining-routes');
     //   this.route('seeding-your-database');

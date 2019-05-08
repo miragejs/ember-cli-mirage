@@ -2,7 +2,7 @@
 
 Mirage is a JavaScript library that lets frontend developers mock out backend APIs.
 
-Unlike other mocking libraries, Mirage makes it easy to recreate entire production backends.
+Unlike other mocking libraries, Mirage makes it easy to reproduce dynamic scenarios that are typically only possible when using a true production server.
 
 Equipped with a Mirage server, a frontend developer can build, test, and even share a complete working Ember application without having to use or configure any backend services.
 
@@ -14,7 +14,7 @@ Since then, Mirage has focused on making it as easy as possible for Ember develo
 
 ## How it works
 
-Mirage runs in the browser. It uses [Pretender.js](https://github.com/pretenderjs/pretender) to intercept any network requests your Ember app makes, letting you respond as if your app were talking to a real server.
+Mirage runs in the browser. It uses [Pretender.js](https://github.com/pretenderjs/pretender) to intercept and respond to any network requests your Ember app makes, letting you build your app as if it were talking to a real server.
 
 In this way, you can develop and test your app against various server states without having to modify any application code.
 
@@ -27,7 +27,7 @@ Mirage borrows concepts from server-side frameworks like
   - **factories** and **fixtures** for stubbing data, and
   - **serializers** for formatting HTTP responses
 
-without compromising a frontend-centric workflow.
+to make it easy to simulate production server behavior.
 
 ## Alternatives
 

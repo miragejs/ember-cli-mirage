@@ -1,10 +1,10 @@
 # The ORM
 
-Mirage originally shipped with just a database as its data layer. While helpful, users still had to write a lot of code to reproduce their modern, complex backends. In particular, dealing with relationships was a pain point.
+Mirage originally shipped with just a database as its data layer. While helpful, users still had to write a lot of code to reproduce their modern, complex backends. In particular, dealing with relationships was a big pain point.
 
 The solution was to add an Object Relational Mapper, or ORM, to Mirage.
 
-Let's see how the ORM allows Mirage to do more of the heavy lifting for you.
+Let's see how an ORM allows Mirage to do more of the heavy lifting for you.
 
 
 ## Motivation
@@ -94,7 +94,7 @@ this.get('/movies/:id', (schema, request) => {
 
 As you can see, things get complicated pretty fast.
 
-Now, what if we add relationships to the mix? Say a `Movie` has a relationship to a `director`, and it stores that relationship using a `directorId` foreign key:
+What if we add relationships to the mix? Let's say a `Movie` has a relationship to a `director`, and it stores that relationship using a `directorId` foreign key:
 
 ```js
 {
@@ -127,21 +127,21 @@ The expected HTTP response for this model now looks like this
 
 meaning our route handlers need to get even more complex. In particular, they need a robust way to differentiate between a model's attributes (like `title`) and its relationship keys (like `directorId`).
 
-These sorts of problems turn out to be common enough that we can solve them generally, provided Mirage knows about your application's models and their relationships.
+These sorts of problems turn out to be common enough that we can solve them generally, provided Mirage is aware of your application's models and their relationships.
 
 
 ## Problems solved by the ORM
 
 When Mirage knows about your application's domain, it can shoulder the responsibility for the low-level bookkeeping work needed to properly implement your mock server.
 
-Let's take a look at some examples of how it works.
+Let's take a look at some examples of how it does this.
 
 
 ### Separation of formatting logic
 
 To start, we can tell Mirage about our application's schema by defining Mirage models. These models get registered with the ORM and tell Mirage about the shape of your data.
 
-Let's create a `Movie` model.
+Let's define a `Movie` model.
 
 ```js
 // mirage/models/movie.js
@@ -155,7 +155,7 @@ Mirage models are _schemaless in attributes_, in that they don't require you to 
 
 If you're using Ember Data, Mirage's ORM will automatically register your Ember Data models for you at run time, so you don't have to duplicate your domain information in two places.
 
-With the `Movie` model registered, we can update our route handler to respond with a Mirage model instance:
+With the `Movie` model defined, we can update our route handler to use the ORM to respond with a Mirage model instance:
 
 ```js
 this.get('/movies/:id', (schema, request) => {
@@ -167,9 +167,9 @@ this.get('/movies/:id', (schema, request) => {
 
 The `schema` argument is how you interact with the ORM.
 
-By returning an instance of a Mirage model from a route handler instead of a plain JavaScript object, we now get to take advantage of Mirage's Serializer layer. Serializers work by turning Models and Collections into formatted JSON responses.
+By returning an instance of a Mirage model from a route handler instead of a plain JavaScript object, we can now take advantage of Mirage's Serializer layer. Serializers work by turning Models and Collections into formatted JSON responses.
 
-Mirage ships a JSONAPISerializer out of the box, so assuming it's defined as your Application serializer
+Mirage ships with a JSONAPISerializer out of the box, so assuming it's defined as your Application serializer
 
 ```js
 // mirage/serializers/application.js
@@ -225,7 +225,7 @@ export default Model.extend({
 });
 ```
 
-Again, if you are using Ember Data, both the models and relationships will be automatically generated for you. No need to create this file.
+Again, if you're using Ember Data, both the models and relationships will be automatically generated for you. No need to create this file.
 
 Without changing anything about our route handler or serializer, we can now fetch a graph of data by using JSON:API includes.
 
@@ -235,7 +235,7 @@ The following request
 GET /api/movies/1?include=director
 ```
 
-would generate this response:
+will now generate this response:
 
 ```js
 {
@@ -278,7 +278,7 @@ In fact, the route handler we wrote is the same as the default behavior of the S
 + this.get('/movies/:id');
 ```
 
-This is another example of how the ORM helps various parts of Mirage, like Shorthands and Serializers, do more of the work for you.
+This is another example of how the ORM helps various parts of Mirage, like Shorthands and Serializers, simplify your server definition.
 
 
 ### Creating and editing related data
@@ -309,9 +309,9 @@ server.db.loadData({
 
 Note the `directorId` foreign key on the `Movies` record must match the `id` on the associated `People` record.
 
-Managing raw database data like this can quickly get unwieldy, especially as relationships change over time.
+Managing raw database data like this quickly gets unwieldy, especially as relationships change over time.
 
-Using the ORM (via `server.schema`), we can create this graph without managing any IDs:
+Using the ORM via `server.schema`, we can create this graph without managing any IDs:
 
 ```js
 let nolan = schema.people.create({ name: 'Christopher Nolan' });
@@ -324,9 +324,9 @@ schema.movies.create({
 });
 ```
 
-Passing the model instance `nolan` directly as the `director` attribute on creation of the `Movie` is enough for the keys to be properly set up.
+Passing in the model instance `nolan` as the `director` attribute when creating the movie is enough for all the keys to be properly set up.
 
-The ORM also keeps foreign keys in sync as relationships are edited. Given the database dump
+The ORM also keeps foreign keys in sync as relationships are edited. Given the database
 
 ```js
 {
@@ -350,7 +350,7 @@ The ORM also keeps foreign keys in sync as relationships are edited. Given the d
 }
 ```
 
-we could write the following code to update the movie's director:
+we could write update the movie's director like this:
 
 ```js
 let episode9 = schema.movies.findBy({
@@ -362,7 +362,7 @@ episode9.update({
 });
 ```
 
-The new database dump would look like this:
+The new database would look like this:
 
 ```js
 {
@@ -394,6 +394,6 @@ The ORM allows Mirage to abstract all this bookkeeping away from your code, and 
 
 ---
 
-These are some of the main problems solved by using Mirage's ORM. Generally, when Mirage knows about your application's models and their relationships, it can take on more of the responsibility of configuring your mock server.
+These are some of the main problems that Mirage's ORM addresses. Generally, when Mirage knows about your application's models and their relationships, it can take on more of the responsibility of configuring your mock server.
 
-Creating related data is further simplified through the use of Factories, which let us easily put our server into different states during development and while writing tests.  We'll cover that next.
+Creating related data is further simplified through the use of Factories, which let us easily put our server into different states during development and while writing tests.  We'll cover them in the next section.

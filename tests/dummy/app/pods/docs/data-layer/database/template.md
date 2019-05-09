@@ -1,6 +1,6 @@
 # The Database
 
-At the core of Mirage's data layer is a simple in-memory database. This database stores all of Mirage's initial state, and then accesses and modifies that state as your route handlers execute.
+At the core of Mirage's data layer is a simple in-memory database. This database stores all of Mirage's initial state, and then your route handlers access and modify that state as you use your application.
 
 The database is what allows Mirage to mimic a production server, giving you the ability to write complete dynamic features in your Ember app.
 
@@ -31,7 +31,7 @@ this.get('/movies', (schema, request) => {
 });
 ```
 
-This route handler would respond with the data you loaded:
+This route handler would then respond with the data you loaded:
 
 ```js
 [
@@ -41,7 +41,7 @@ This route handler would respond with the data you loaded:
 ]
 ```
 
-Note that the database assigns all new records an auto-incrementing ID.
+Note that each record has an `id` field, since the database assigns all new records an auto-incrementing ID.
 
 The most common place you'll use the database directly is in your tests, where you can access it via `this.server.db`. It can be useful to assert against the state of Mirage's database to verify that your Ember app's network requests are sending over the correct data.
 
@@ -57,6 +57,6 @@ test('I can create a movie', async function(assert) {
 });
 ```
 
-You can view the rest of the database API in the {{docs-link 'Db' 'docs.api.item' 'modules/ember-cli-mirage/db-collection~DbCollection'}} and {{docs-link 'DbCollection' 'docs.api.item' 'modules/ember-cli-mirage/db~Db'}} API reference.
+You can view the rest of the Database APIs in the {{docs-link 'Db' 'docs.api.item' 'modules/ember-cli-mirage/db-collection~DbCollection'}} and {{docs-link 'DbCollection' 'docs.api.item' 'modules/ember-cli-mirage/db~Db'}} API reference.
 
 Next, we'll learn about Mirage's ORM.

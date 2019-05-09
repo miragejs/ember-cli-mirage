@@ -1,0 +1,46 @@
+.ember-modal-dialog {
+  z-index: 51;
+  position: fixed;
+
+  &.emd-in-place {
+    position: static;
+  }
+}
+.ember-modal-wrapper.emd-static.emd-wrapper-target-attachment-center {
+  .ember-modal-dialog {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+}
+
+.ember-modal-wrapper.emd-animatable {
+  &.emd-wrapper-target-attachment-center {
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 50;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  &.emd-wrapper-target-attachment-center .ember-modal-overlay {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .ember-modal-dialog {
+    position: relative;
+  }
+}
+
+.ember-modal-overlay {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 50;
+}

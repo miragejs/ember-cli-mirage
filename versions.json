@@ -89,5 +89,11 @@
     "name": "v1.0.0-beta.2",
     "sha": "41422055dc884410a0b468ef9e336446d193c8cf",
     "tag": "v1.0.0-beta.2"
+  },
+  "docs-updates": {
+    "path": "versions/docs-updates",
+    "name": "docs-updates",
+    "sha": "6a5686f27982940038a3f10218609aba457a4eb4",
+    "tag": null
   }
 }

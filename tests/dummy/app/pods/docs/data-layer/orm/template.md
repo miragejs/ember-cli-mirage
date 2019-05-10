@@ -215,10 +215,10 @@ export default Model.extend({
 });
 ```
 
-The `director` is an instance of a `User` model:
+The `director` is an instance of a `Person` model:
 
 ```js
-// mirage/models/user.js
+// mirage/models/person.js
 import { Model } from 'ember-cli-mirage';
 
 export default Model.extend({
@@ -285,7 +285,7 @@ This is another example of how the ORM helps various parts of Mirage, like Short
 
 The ORM also makes creating and editing related data easier than if you only used the raw database records.
 
-For instance, to create a `Movie` and `User` with a relationship using only the database, you'd need to do something like this:
+For instance, to create a `Movie` and `Person` with a relationship using only the database, you'd need to do something like this:
 
 ```js
 server.db.loadData({
@@ -396,4 +396,6 @@ The ORM allows Mirage to abstract all this bookkeeping away from your code, and 
 
 These are some of the main problems that Mirage's ORM addresses. Generally, when Mirage knows about your application's models and their relationships, it can take on more of the responsibility of configuring your mock server.
 
-Creating related data is further simplified through the use of Factories, which let us easily put our server into different states during development and while writing tests.  We'll cover them in the next section.
+Be sure to check out the {{docs-link 'Schema' 'docs.api.item' 'modules/ember-cli-mirage/orm/schema~Schema'}}, {{docs-link 'Model' 'docs.api.item' 'modules/ember-cli-mirage/orm/model~Model'}} and {{docs-link 'Collection' 'docs.api.item' 'modules/ember-cli-mirage/orm/collection~Collection'}} API docs to learn about all the available ORM methods. We'll also cover Serializers in these guides, where you'll learn how to customize the serialized forms of your models and collections to match your production API.
+
+Next, let's take a look at Factories, which also take advantage of the ORM to make it easy to create the relational data needed to put your server in a variety of states.

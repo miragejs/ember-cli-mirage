@@ -82,7 +82,7 @@ this.get('/movies/:id', (schema, request) => {
       attributes: { }
     }
   };
-  Object.keys(movie.attrs)
+  Object.keys(movie)
     .filter(key => key !=== 'id')
     .forEach(key => {
       movieJSON[key] = movie[key];
@@ -394,8 +394,8 @@ The ORM allows Mirage to abstract all this bookkeeping away from your code, and 
 
 ---
 
-These are some of the main problems that Mirage's ORM addresses. Generally, when Mirage knows about your application's models and their relationships, it can take on more of the responsibility of configuring your mock server.
+These are some of the main problems addressed by Mirage's ORM. Generally, when Mirage knows about your application's models and their relationships, it can take on more of the responsibility of configuring your mock server.
 
 Be sure to check out the {{docs-link 'Schema' 'docs.api.item' 'modules/ember-cli-mirage/orm/schema~Schema'}}, {{docs-link 'Model' 'docs.api.item' 'modules/ember-cli-mirage/orm/model~Model'}} and {{docs-link 'Collection' 'docs.api.item' 'modules/ember-cli-mirage/orm/collection~Collection'}} API docs to learn about all the available ORM methods. We'll also cover Serializers in these guides, where you'll learn how to customize the serialized forms of your models and collections to match your production API.
 
-Next, let's take a look at Factories, which also take advantage of the ORM to make it easy to create the relational data needed to put your server in a variety of states.
+Next, let's take a look at Factories, which also take advantage of the ORM and make it easy to create the relational data needed to put your server in a variety of states.

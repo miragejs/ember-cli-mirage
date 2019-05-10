@@ -272,7 +272,7 @@ export default class Schema {
 
     ```js
     // Find the first published blog post, or create a new one.
-    let post = blogPosts.findBy({ published: true });
+    let post = blogPosts.findOrCreateBy({ published: true });
     ```
 
     @method findOrCreateBy

@@ -26,7 +26,7 @@ db.dump();
 
 The first problem you'll encounter when writing a route handler is how to transform this raw data into the format your Ember app expects – that is, how to match the format of your production API.
 
-Let's say your backend is using the [JSON:API](https://jsonapi.org/) format. Your response to a GET request for `/api/movies/1` should look something like this:
+Let's say your backend uses [the JSON:API spec](https://jsonapi.org/). Your response to a GET request for `/api/movies/1` should look something like this:
 
 ```js
 // GET /api/movies/1

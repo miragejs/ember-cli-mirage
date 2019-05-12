@@ -24,6 +24,7 @@ Router.map(function() {
       this.route('database');
       this.route('orm');
       this.route('factories');
+      this.route('fixtures');
     });
 
     // this.route('writing-your-server', function() {

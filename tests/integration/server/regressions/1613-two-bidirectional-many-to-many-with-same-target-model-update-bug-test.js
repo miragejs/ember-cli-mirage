@@ -3,27 +3,24 @@ import { Model, hasMany, belongsTo, JSONAPISerializer } from 'ember-cli-mirage';
 import Server from 'ember-cli-mirage/server';
 import promiseAjax from 'dummy/tests/helpers/promise-ajax';
 
-module('Integration | Server | Regressions | same-model different-attribute inverses', function(hooks) {
+module('Integration | Server | Regressions | 1613 Two bidirectional many-to-many with same target model update bug', function(hooks) {
   hooks.beforeEach(function() {
     this.server = new Server({
       environment: 'test',
       models: {
         user: Model.extend({
-          authorings: hasMany('post', { inverse: 'author' }),
-          editings: hasMany('post', { inverse: 'editor' })
+          authoredPosts: hasMany('post', { inverse: 'author' }),
+          editedPosts: hasMany('post', { inverse: 'editor' })
         }),
         post: Model.extend({
-          author: belongsTo('user', { inverse: 'authorings' }),
-          editor: belongsTo('user', { inverse: 'editings' })
+          author: belongsTo('user', { inverse: 'authoredPosts' }),
+          editor: belongsTo('user', { inverse: 'editedPosts' })
         })
       },
       serializers: {
         application: JSONAPISerializer.extend(),
-        post: JSONAPISerializer.extend({
-          include: ['author', 'editor', 'jortle']
-        }),
         user: JSONAPISerializer.extend({
-          include: ['authorings', 'editings']
+          alwaysIncludeLinkageData: true
         })
       },
       baseConfig() {
@@ -82,7 +79,7 @@ module('Integration | Server | Regressions | same-model different-attribute inve
         "attributes": {},
         "id": "1",
         "relationships": {
-          "authorings": {
+          "authored-posts": {
             "data": [
               {
                 "id": "1",
@@ -90,7 +87,7 @@ module('Integration | Server | Regressions | same-model different-attribute inve
               }
             ]
           },
-          "editings": {
+          "edited-posts": {
             "data": [
               {
                 "id": "1",

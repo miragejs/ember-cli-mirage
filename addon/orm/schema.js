@@ -133,6 +133,7 @@ export default class Schema {
       all: (attrs) => this.all(camelizedModelName, attrs),
       find: (attrs) => this.find(camelizedModelName, attrs),
       findBy: (attrs) => this.findBy(camelizedModelName, attrs),
+      findOrCreateBy: (attrs) => this.findOrCreateBy(camelizedModelName, attrs),
       where: (attrs) => this.where(camelizedModelName, attrs),
       none: (attrs) => this.none(camelizedModelName, attrs),
       first: (attrs) => this.first(camelizedModelName, attrs)
@@ -246,7 +247,7 @@ export default class Schema {
   }
 
   /**
-    Returns the first model in the database that matches the key-value pairs in the `query` object. Note that a string comparison is used.
+    Returns the first model in the database that matches the key-value pairs in `attrs`. Note that a string comparison is used.
 
     ```js
     let post = blogPosts.findBy({ published: true });
@@ -261,9 +262,36 @@ export default class Schema {
    */
   findBy(type, query) {
     let collection = this._collectionForType(type);
-    let records = collection.findBy(query);
+    let record = collection.findBy(query);
 
-    return this._hydrate(records, dasherize(type));
+    return this._hydrate(record, dasherize(type));
+  }
+
+  /**
+    Returns the first model in the database that matches the key-value pairs in `attrs`, or creates a record with the attributes if one is not found.
+
+    ```js
+    // Find the first published blog post, or create a new one.
+    let post = blogPosts.findOrCreateBy({ published: true });
+    ```
+
+    @method findOrCreateBy
+    @param type
+    @param attributeName
+    @public
+   */
+  findOrCreateBy(type, attrs) {
+    let collection = this._collectionForType(type);
+    let record = collection.findBy(attrs);
+    let model;
+
+    if (!record) {
+      model = this.create(type, attrs);
+    } else {
+      model = this._hydrate(record, dasherize(type));
+    }
+
+    return model;
   }
 
   /**
@@ -300,7 +328,7 @@ export default class Schema {
    */
   first(type) {
     let collection = this._collectionForType(type);
-    let [record] = collection;
+    let record = collection[0];
 
     return this._hydrate(record, dasherize(type));
   }

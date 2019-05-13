@@ -8,7 +8,7 @@ If you're using Application Tests (introduced in [Ember 3.0](https://emberjs.com
 
 ```diff
   import { setupApplicationTest } from 'ember-qunit';
-+ import setupMirage from 'ember-cli-mirage/test-support/setup-mirage';
++ import { setupMirage } from 'ember-cli-mirage/test-support';
 
   module('Acceptance | Homepage test', function(hooks) {
     setupApplicationTest(hooks);

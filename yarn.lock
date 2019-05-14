@@ -5734,10 +5734,10 @@ ember-copy@^1.0.0:
   dependencies:
     ember-cli-babel "^6.6.0"
 
-"ember-data@2.x - 3.x", ember-data@~3.9.3:
-  version "3.9.3"
-  resolved "https://registry.yarnpkg.com/ember-data/-/ember-data-3.9.3.tgz#6338ef6a13d30c5d9da56f2bc02bf7f832636b9f"
-  integrity sha512-t1qfuZeLeUYkhtR4V5FmhKoIkxXwT38CuRTEgyNXHeoMlDeRyj5TR06uPDIVEHJ4T3oOihx0dGZBQM4GKVrY5w==
+"ember-data@2.x - 3.x", ember-data@~3.10.0:
+  version "3.10.0"
+  resolved "https://registry.yarnpkg.com/ember-data/-/ember-data-3.10.0.tgz#b5f53a445ba1ee37890ec672b3dc3f869d8b3992"
+  integrity sha512-QqKJ5/Co2wGBnD5FSUiO1tbhsjjiRS5uJUwD2vRa0suwNv5E9f+5S6Yww6O0B2z5nDRzRheBFZ7iRjbshQhWDg==
   dependencies:
     "@ember/ordered-set" "^2.0.3"
     "@glimmer/env" "^0.1.7"

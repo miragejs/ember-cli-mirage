@@ -993,7 +993,7 @@ class Model {
   */
   _syncTempAssociations(tempAssociate) {
     Object.keys(this._tempAssociations).forEach(key => {
-      if (this._tempAssociations[key].toString() === tempAssociate.toString()) {
+      if (this._tempAssociations[key] && this._tempAssociations[key].toString() === tempAssociate.toString()) {
         this._tempAssociations[key] = tempAssociate;
       }
     });

@@ -25,6 +25,12 @@ Router.map(function() {
       this.route('orm');
       this.route('factories');
       this.route('fixtures');
+      this.route('serializers');
+    });
+
+    this.route('testing', function() {
+      this.route('acceptance-testing');
+      this.route('integration-testing');
     });
 
     // this.route('writing-your-server', function() {

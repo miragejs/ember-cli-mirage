@@ -1024,56 +1024,6 @@ class Serializer {
   }
 
   /**
-    This hook is only available on the JSONAPISerializer.
-
-    Use this hook to override the generated `type` for the JSON:API resource object. By default, `type` will be the plural and dasherized form of the model name.
-
-    For example, if you wanted singularized types:
-
-    ```js
-    export default JSONAPISerializer.extend({
-      typeKeyForModel(model) {
-        return dasherize(singularize(model.modelName));
-      }
-    });
-    ```
-
-    @method typeKeyForModel
-    @param model
-  */
-  typeKeyForModel(model) {
-  }
-
-  /**
-    This hook is only available on the JSONAPISerializer.
-
-    Use this hook to add top-level `links` data to JSON:API resource objects. The argument is the model being serialized.
-
-    ```js
-    // serializers/author.js
-    import { JSONAPISerializer } from 'ember-cli-mirage';
-
-    export default JSONAPISerializer.extend({
-
-      links(author) {
-        return {
-          'posts': {
-            related: `/api/authors/${author.id}/posts`
-          }
-        };
-      }
-
-    });
-    ```
-
-    @method links
-    @param model
-  */
-  links(model) {
-    return {};
-  }
-
-  /**
     @method isModel
     @param object
     @return {Boolean}

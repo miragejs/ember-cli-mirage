@@ -19,7 +19,7 @@ export default function(server) {
 }
 ```
 
-Let's see how we can accomplish this same thing with fixtures.
+Let's see how we can do the same thing using fixtures.
 
 
 ## Basic usage
@@ -30,7 +30,7 @@ We'll start by generating a fixture file for our `Country` model:
 ember g mirage-fixture countries
 ```
 
-Fixture filenames should be the pluralized form of the model class.
+Fixture filenames should be the dasherized plural form of the model class.
 
 We can now add some data to our fixture file:
 
@@ -68,7 +68,7 @@ If we have multiple fixtures defined, `server.loadFixtures()` will load every fi
 ```js
 // mirage/scenarios/default.js
 export default function(server) {
-  server.loadFixtures('countries', 'cities'); // only load the countries and cities fixture files
+  server.loadFixtures('countries', 'cities'); // only load the countries and cities fixtures
 }
 ```
 
@@ -76,7 +76,7 @@ Just like with factories, fixtures will be ignored during tests. If you want to 
 
 ```js
 test('I can see the countries', async function(assert) {
-  server.loadFixtures('countries');
+  this.server.loadFixtures('countries');
 
   await visit('/');
 
@@ -132,9 +132,9 @@ As you can see, Mirage added an `authorId` foreign key to the post. The conventi
 `${relationshipName}Id`
 ```
 
-In this case, a post gets an `authorId`, even though that relationship points to a `User` model. The _relationship name_ is always used rather than the _model name_, because models can have multiple relationships that point to the same type of model.
+In this case, a post gets an `authorId`, even though that relationship points to a `User` model. The relationship name is always used rather than the model name, because models can have multiple relationships that point to the same type of model.
 
-So, if you wanted to recreate the above relationship graph using only fixture files, your files would look something like this:
+Looking at the database dump above, if you wanted to recreate the same relationship graph using only fixture files, your files would look something like this:
 
 ```js
 // mirage/fixtures/users.js
@@ -148,7 +148,7 @@ export default [
 ];
 ```
 
-Once these fixtures were loaded into Mirage, all the ORM methods would work as expected.
+Once these fixtures are loaded into Mirage, all the ORM methods, Shorthands and Serializers would work as expected.
 
 If this happens to be a bi-directional relationship
 
@@ -178,13 +178,13 @@ export default [
 ];
 ```
 
-This is because Mirage supports arbitrary one-way relationships.
-
 The convention for hasMany relationship foreign keys is
 
 ```js
 `${singularize(relationshipName)}Ids`
 ```
+
+All associations have their own keys, because Mirage supports arbitrary one-way relationships. If two associations are inverses of each other, as in the above case, Mirage will keep the keys on each model in sync provided you use the ORM methods.
 
 As you can see, maintaining foreign keys and keeping them in sync across fixture files can get a little messy, which is why Mirage recommends using factories for most of your data creation.
 

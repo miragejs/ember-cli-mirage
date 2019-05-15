@@ -174,6 +174,32 @@ class JSONAPISerializer extends Serializer {
     return dasherize(key);
   }
 
+  /**
+    Use this hook to add top-level `links` data to JSON:API resource objects. The argument is the model being serialized.
+
+    ```js
+    // serializers/author.js
+    import { JSONAPISerializer } from 'ember-cli-mirage';
+
+    export default JSONAPISerializer.extend({
+
+      links(author) {
+        return {
+          'posts': {
+            related: `/api/authors/${author.id}/posts`
+          }
+        };
+      }
+
+    });
+    ```
+
+    @method links
+    @param model
+  */
+  links() {
+  }
+
   getHashForPrimaryResource(resource) {
     this._createRequestedIncludesGraph(resource);
 

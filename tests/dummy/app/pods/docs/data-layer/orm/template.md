@@ -278,12 +278,12 @@ In fact, the route handler we wrote is the same as the default behavior of the S
 + this.get('/movies/:id');
 ```
 
-This is another example of how the ORM helps various parts of Mirage, like Shorthands and Serializers, simplify your server definition.
+This is another example of how the ORM helps various parts of Mirage, like Shorthands and Serializers, work together to simplify your server definition.
 
 
 ### Creating and editing related data
 
-The ORM also makes creating and editing related data easier than if you only used the raw database records.
+The ORM also makes creating and editing related data easier than if you only worked with the raw database records.
 
 For instance, to create a `Movie` and `Person` with a relationship using only the database, you'd need to do something like this:
 
@@ -350,7 +350,7 @@ The ORM also keeps foreign keys in sync as relationships are edited. Given the d
 }
 ```
 
-we could write update the movie's director like this:
+we could update the movie's director like this:
 
 ```js
 let episode9 = schema.movies.findBy({
@@ -396,6 +396,8 @@ The ORM allows Mirage to abstract all this bookkeeping away from your code, and 
 
 These are some of the main problems addressed by Mirage's ORM. Generally, when Mirage knows about your application's models and their relationships, it can take on more of the responsibility of configuring your mock server.
 
-Be sure to check out the {{docs-link 'Schema' 'docs.api.item' 'modules/ember-cli-mirage/orm/schema~Schema'}}, {{docs-link 'Model' 'docs.api.item' 'modules/ember-cli-mirage/orm/model~Model'}} and {{docs-link 'Collection' 'docs.api.item' 'modules/ember-cli-mirage/orm/collection~Collection'}} API docs to learn about all the available ORM methods. We'll also cover Serializers in these guides, where you'll learn how to customize the serialized forms of your models and collections to match your production API.
+Be sure to check out the {{docs-link 'Schema' 'docs.api.item' 'modules/ember-cli-mirage/orm/schema~Schema'}}, {{docs-link 'Model' 'docs.api.item' 'modules/ember-cli-mirage/orm/model~Model'}} and {{docs-link 'Collection' 'docs.api.item' 'modules/ember-cli-mirage/orm/collection~Collection'}} API docs to learn about all the available ORM methods, as well as the {{docs-link 'Association' 'docs.api.item' 'modules/ember-cli-mirage/orm/associations/association~Association'}} docs to see what methods are added by belongsTo and hasMany relationships.
+
+We'll also cover Serializers in these guides, where you'll learn how to customize the serialized forms of your models and collections to match your production API.
 
 Next, let's take a look at Factories, which also leverage the ORM to make it easy to create the relational data needed to put your server in a variety of states.

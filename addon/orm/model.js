@@ -885,7 +885,10 @@ class Model {
 
         // Non-self-referential
         } else if (!tempAssociate.isSaving) {
+
+          // Save the tempAssociate and update the local reference
           tempAssociate.save();
+          this._syncTempAssociations(tempAssociate);
 
           let fkValue;
           if (association.isPolymorphic) {
@@ -976,6 +979,24 @@ class Model {
   // which can cause cycles with associations.
   _updateInDb(attrs) {
     this.attrs = this._schema.db[toInternalCollectionName(this.modelName)].update(this.attrs.id, attrs);
+  }
+
+  /*
+  Super gnarly: after we save this tempAssociate, we we need to through
+  all other tempAssociates for a reference to this same model, and
+  update it. Otherwise those other references are stale, which could
+  cause a bug when they are subsequently saved.
+
+  This only works for belongsTo right now, should add hasMany logic to it.
+
+  See issue #1613: https://github.com/samselikoff/ember-cli-mirage/pull/1613
+  */
+  _syncTempAssociations(tempAssociate) {
+    Object.keys(this._tempAssociations).forEach(key => {
+      if (this._tempAssociations[key] && this._tempAssociations[key].toString() === tempAssociate.toString()) {
+        this._tempAssociations[key] = tempAssociate;
+      }
+    });
   }
 
   /**

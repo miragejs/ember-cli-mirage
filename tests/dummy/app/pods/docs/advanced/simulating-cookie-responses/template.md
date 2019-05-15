@@ -10,14 +10,14 @@ However, you can simulate receiving cookies from an ajax
 call at the browser level by setting them in a route
 function handler:
 
-```javascript
-this.post('/users/login', ({ users }) => {
+```js
+this.post('/users/login', schema => {
   // log in for 24 hours
   let now = new Date();
   let cookieExpiration = new Date(now.getTime() + (24 * 3600 * 1000));
   document.cookie=`remember_me=cookie-content-here; domain=.dev-domain; path=/; expires=${cookieExpiration.toUTCString()};`;
 
-  return users.find(1);
+  return schema.users.find(1);
 });
 ```
 

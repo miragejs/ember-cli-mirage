@@ -359,12 +359,9 @@ class JSONAPISerializer extends Serializer {
 
   hasLinksForRelationship(model, relationshipKey) {
     let serializer = this.serializerFor(model.modelName);
-    let links;
-    if (serializer.links) {
-      links = serializer.links(model);
+    let links = serializer.links(model);
 
-      return links[relationshipKey] != null;
-    }
+    return links && links[relationshipKey] != null;
   }
 
   /*

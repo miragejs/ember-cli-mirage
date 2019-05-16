@@ -11,7 +11,7 @@ import { module } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import { setupMirage } from 'ember-cli-mirage/test-support';
 
-module('Integration | Component | LoadData', function(hooks) {
+module('Integration | Component | FindRecord', function(hooks) {
   setupRenderingTest(hooks);
   setupMirage(hooks);
 
@@ -37,7 +37,7 @@ import { module } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import { setupMirage } from 'ember-cli-mirage/test-support';
 
-module('Integration | Component | LoadData', function(hooks) {
+module('Integration | Component | FindRecord', function(hooks) {
   setupRenderingTest(hooks);
   setupMirage(hooks);
 

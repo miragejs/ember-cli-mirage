@@ -10,13 +10,13 @@ import { pluralize } from 'ember-inflector';
 pluralize("advice"); // advices
 ```
 
-Ember Data uses these inflection rules for things like building its conventional URLs:
+Ember Data uses these inflection rules for things like building its conventional URLs. For example,
 
 ```Js
 this.store.findAll('advice');
-
-// GET /api/advices
 ```
+
+would result in a GET request to `/api/advices`.
 
 Mirage also relies on the inflector for its conventions. For example, the resource Shorthand
 

@@ -37,6 +37,7 @@ Router.map(function() {
       this.route('environment-options');
       this.route('simulating-cookie-responses');
       this.route('mocking-guids');
+      this.route('customizing-the-inflector');
     });
 
     this.route('api', function() {

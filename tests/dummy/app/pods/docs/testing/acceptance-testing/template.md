@@ -181,6 +181,63 @@ test('the user sees an error if the save attempt fails', async function(assert) 
 
 This route handler definition is only in effect for the duration of this test, so as soon as it's over any handler you have defined for POST to `/questions` in your `config.js` file will be used again.
 
+
+## Using scenarios in testing
+
+Typically you should reserve the `scenarios/default.js` file for development, so changes to it don't affect the rest of your test suite. That's why Mirage doesn't autoload this module during tests.
+
+If you'd like to load your development scenario in your tests, you can always directly import that module and run your test server through it:
+
+```js
+import defaultScenario from '../../mirage/scenarios/default';
+
+test('I can view the authors', async function(assert) {
+  defaultScenario(server);
+
+  await visit('/contacts');
+
+  assert.dom('p').exists({ count: 3 });
+});
+```
+
+It might be more clear to move the shared logic to a new module
+
+```js
+// scenarios/shared.js
+export default function(server) {
+  server.loadFixtures('country');
+
+  server.createList('event', 10);
+});
+```
+
+...load it in your default scenario
+
+```js
+// scenarios/default.js
+import sharedScenario from './shared':
+export default function(server) {
+  sharedScenario(server);
+
+  server.createList('speaker', 3);
+  // ...
+});
+```
+
+...and then also load it in your tests (or even a common test setup function):
+
+```js
+import sharedScenario from '../../mirage/scenarios/shared';
+
+test('I can view the authors', async function(assert) {
+  sharedScenario(server);
+
+  // ...
+});
+```
+
+This same sort of pattern will work for Integration and Unit tests as well.
+
 ---
 
 Those are the basics of Acceptance Testing with Mirage! Next let's talk about Integration and Unit tests.

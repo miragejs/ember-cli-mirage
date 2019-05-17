@@ -186,21 +186,11 @@ This route handler definition is only in effect for the duration of this test, s
 
 Typically you should reserve the `scenarios/default.js` file for development, so changes to it don't affect the rest of your test suite. That's why Mirage doesn't autoload this module during tests.
 
-If you'd like to load your development scenario in your tests, you can always directly import that module and run your test server through it:
+If there's some logic you'd like to share between your development scenario and your tests, you can always make a new module under `scenarios` and import it in both places.
 
-```js
-import defaultScenario from '../../mirage/scenarios/default';
+you'd like to load your development scenario in your tests, you can always directly import that module and run your test server through it:
 
-test('I can view the authors', async function(assert) {
-  defaultScenario(server);
-
-  await visit('/contacts');
-
-  assert.dom('p').exists({ count: 3 });
-});
-```
-
-It might be more clear to move the shared logic to a new module
+Create the module
 
 ```js
 // scenarios/shared.js
@@ -214,13 +204,14 @@ export default function(server) {
 ...load it in your default scenario
 
 ```js
-// scenarios/default.js
-import sharedScenario from './shared':
-export default function(server) {
+import sharedScenario from '../../mirage/scenarios/shared';
+
+test('I can view the authors', async function(assert) {
   sharedScenario(server);
 
-  server.createList('speaker', 3);
-  // ...
+  await visit('/contacts');
+
+  assert.dom('p').exists({ count: 3 });
 });
 ```
 

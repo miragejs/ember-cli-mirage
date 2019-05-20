@@ -4983,9 +4983,9 @@ ember-cli-addon-docs-esdoc@^0.2.1:
     walk-sync "^0.3.2"
 
 ember-cli-addon-docs@^0.6.4:
-  version "0.6.10"
-  resolved "https://registry.yarnpkg.com/ember-cli-addon-docs/-/ember-cli-addon-docs-0.6.10.tgz#8a69607e96586826e46e69f6f9878def9af5a07e"
-  integrity sha512-IJSBx/yXHQQ6tmQjKnM7DLbThOoGOTBgzQogGD8kmHh+dZXdkI350uSGqYo1/sD2OJg89vdEY9eW30kOYZUflQ==
+  version "0.6.11"
+  resolved "https://registry.yarnpkg.com/ember-cli-addon-docs/-/ember-cli-addon-docs-0.6.11.tgz#a4b3c800aeb7ab83ea768e71845db7221b890a85"
+  integrity sha512-yu46/ExuZd2+DI6c9XVc7cNHKYKgAlpBtQnNNKdR5vdNofQmIUOyxy7GV7t/P/rT5p62nx5LxWVY8XYd8QXH0w==
   dependencies:
     "@glimmer/syntax" "^0.36.4"
     broccoli-bridge "^1.0.0"
@@ -5018,7 +5018,7 @@ ember-cli-addon-docs@^0.6.4:
     ember-href-to "^1.15.1"
     ember-keyboard "^4.0.0"
     ember-modal-dialog "3.0.0-beta.3"
-    ember-responsive "^3.0.0-beta.1"
+    ember-responsive "^3.0.0"
     ember-router-generator "^1.2.3"
     ember-router-scroll "^1.0.0"
     ember-svg-jar "^1.2.2"
@@ -5944,10 +5944,10 @@ ember-resolver@^5.0.1:
     ember-cli-version-checker "^3.0.0"
     resolve "^1.10.0"
 
-ember-responsive@^3.0.0-beta.1:
-  version "3.0.0-beta.3"
-  resolved "https://registry.yarnpkg.com/ember-responsive/-/ember-responsive-3.0.0-beta.3.tgz#63f4f5cad179399e40cd6a591bb2677c4cc0a874"
-  integrity sha512-C7E0C/hKy5BT5tjHxzyLItc7Bq/Ci/IoUucQ1OQts81Uxq0SG4srjbfO0ZlDq6nbV7xxe9xdPMPD5tPHii8W2w==
+ember-responsive@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/ember-responsive/-/ember-responsive-3.0.0.tgz#03791da324299a8c8cb461e541a5e1aeca887881"
+  integrity sha512-5JQ+REBu37M7NNDJOnTjzp5eQzg4cX7VtPcD19V3nBcntRuDwf7N6TndLxmw4Kt3JXuzQL4PkDE2SgVKuNTdWQ==
   dependencies:
     ember-cli-babel "^6.6.0"
 

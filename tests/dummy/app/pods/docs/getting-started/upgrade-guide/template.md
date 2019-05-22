@@ -16,11 +16,12 @@ yarn install -D ember-cli-mirage@X.X.X
 
 You can view all of Mirage's release notes on [our Releases page](https://github.com/samselikoff/ember-cli-mirage/releases).
 
-## 0.4.x → 1.0 Upgrade guide
 
-A few breaking changes were made in the 1.0 release.
+## 1.0 Upgrade guide
 
-**Faker.js**
+There were a few breaking changes made in the 1.0 release.
+
+### 1. Remove Faker.js
 
 When Mirage was first released, including npm libraries into Ember CLI apps was difficult. You needed to generate a vendor shim and call `app.import` in order to use the library in your application code.
 
@@ -98,6 +99,83 @@ For `faker.random.number.range`, use `faker.random.number` with min and max opti
 
 After that, you should be on your own with respect to Faker! Thanks to Auto Import, you can change versions, or even try out other libraries like [Chance.js](https://chancejs.com/), and rest easy knowing Mirage is a bit slimmer and one less thing is beyond your control.
 
+### 2. New import for setupMirage
+
+Please use the new named import for the setupMirage test helper. The old one still works for now but is not robust to us refactoring the internal file location. The named export is also more aligned with the rest of the ecosystem.
+
+```js
+// Before
+import setupMirage from 'ember-cli-mirage/test-support/setup-mirage';
+
+// After
+import { setupMirage } from 'ember-cli-mirage/test-support';
+```
+
+### 3. Remove deprecated forms of `create`, `createList` and `normalizedRequestAttrs`
+
+There are several places in Mirage's APIs that were intended to be used with singularized versions of model names, but just so happened to work if a non-singularized version was passed in.
+
+This behavior was discovered during a refactor, and the non-singularized versions were maintained to avoid breaking apps. Now that we're moving to 1.0, we're removing this deprecated/unintentional behavior.
+
+- `server.create` and `server.createList` were coded to take a singularized model name, e.g. `server.create('user')`. It just so happens that `server.create('users')` also works. That pluralized version is now removed from Mirage.
+
+    If you're running the latest 0.x version you should see a deprecation message letting you know where to change it. Otherwise, it should be a pretty mechanic change from things like `server.create('users')` to `server.create('user')`.
+
+    Note this also applies to `server.createList` – the correct form is `server.createList('user', 3)`, and the pluralized form `server.createList('users', 3)` is now unsupported.
+
+- `this.normalizedRequestAttrs` in a route handler optionally takes a modelName as an argument. This is if your URLs are non-standard and Mirage cannot guess the modelName from the URL path.
+
+    In this case, you can call `this.normalizedRequestAttrs('blog-post')` to tell Mirage to expect the payload to be for a `blog-post` model.
+
+    This API was intended to be used with dasherized names, because that's how compound model names are specified throughout Mirage when they are represented as strings.
+
+    It just so happened that `this.normalizedRequestAttrs('blogPost')` also worked, by chance, until a refactor. So, that behavior was kept but now is being removed.
+
+    The correct usage is `this.normalizedRequestAttrs('blog-post')`. Using the camelized version of the model name is no longer supported.
+
+If either of these changes cause a ton of refactoring pain, we can try to marshal some resources to help write a codemod. Please open an issue if that's the case!
+
+### 4. The `normalizeIds` serializer property now defaults to true
+
+This applies to the ActiveModelSerializer and RestSerializer.
+
+The `normalize` property on serializers helps Mirage's shorthands work by transforming differently formatted payloads into JSON:API documents. These documents are then used by Mirage to update the database accordingly.
+
+There was a gap in the default `normalize` method for a long time, in that it didn't take REST payloads that included foreign keys and looked like
+
+```js
+let payload = {
+  contact: {
+    id: 1,
+    name: 'Link',
+    address: 1
+  }
+};
+```
+
+and turn that `address` key into a proper JSON:API relationship:
+
+```js
+data: {
+  type: 'contacts',
+  id: 1,
+  attributes: {
+    name: 'Link'
+  },
+  relationships: {
+    address: {
+      data: {
+        type: 'address',
+        id: 1
+      }
+    }
+  }
+}
+```
+
+We added this feature a while ago, and it's controlled with the `normalizeIds` property on the ActiveModelSerializer and RESTSerializer. (We did this so the feature wouldn't be a breaking change.)
+
+We're now making `true` the default, which should be the behavior everyone desires (assuming they're using shorthands). This is technically a breaking change, though it's unlikely to affect most people.
 
 
 ## 0.3.x → 0.4 Upgrade guide

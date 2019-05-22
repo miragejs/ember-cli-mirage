@@ -29,8 +29,9 @@ Router.map(function() {
     });
 
     this.route('testing', function() {
-      this.route('acceptance-testing');
-      this.route('integration-and-unit-testing');
+      this.route('acceptance-tests');
+      this.route('integration-and-unit-tests');
+      this.route('assertions');
     });
 
     this.route('advanced', function() {

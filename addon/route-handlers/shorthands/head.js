@@ -1,6 +1,6 @@
 import assert from 'ember-cli-mirage/assert';
 import BaseShorthandRouteHandler from './base';
-import { Response } from '@miragejs/server';
+import { Response } from 'ember-cli-mirage';
 import { camelize } from 'ember-cli-mirage/utils/inflector';
 
 /**

@@ -6,7 +6,7 @@
 
 A client-side server to develop, test and prototype your Ember CLI app.
 
-[View the docs here.](http://www.ember-cli-mirage.com/)
+[View the docs here.](https://www.ember-cli-mirage.com/)
 
 ----
 

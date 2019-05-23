@@ -1,5 +1,5 @@
 import { module, test } from 'qunit';
-import Server from '@miragejs/server';
+import Server from 'ember-cli-mirage/server';
 import { Model } from '@miragejs/server';
 import { modelFor } from 'ember-cli-mirage/ember-data';
 

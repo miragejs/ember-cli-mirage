@@ -1,4 +1,3 @@
-import Factory from './factory';
 import association from './association';
 import Model from './orm/model';
 import Collection from './orm/collection';
@@ -9,7 +8,7 @@ import RestSerializer from './serializers/rest-serializer';
 import HasMany from './orm/associations/has-many';
 import BelongsTo from './orm/associations/belongs-to';
 import IdentityManager from './identity-manager';
-import { Response, trait } from '@miragejs/server';
+import { Factory, Response, trait } from '@miragejs/server';
 
 /**
   @hide

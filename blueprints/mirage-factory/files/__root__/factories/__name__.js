@@ -1,4 +1,4 @@
-import { Factory } from 'ember-cli-mirage';
+import { Factory } from '@miragejs/server';
 
 export default Factory.extend({
 });

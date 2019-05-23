@@ -1,5 +1,6 @@
 import {module, test} from 'qunit';
-import { Model, Factory } from 'ember-cli-mirage';
+import { Model } from 'ember-cli-mirage';
+import { Factory } from '@miragejs/server';
 import Server from 'ember-cli-mirage/server';
 
 module('Integration | Server with ORM', function(hooks) {

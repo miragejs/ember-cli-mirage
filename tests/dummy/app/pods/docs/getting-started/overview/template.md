@@ -95,7 +95,7 @@ We can then define some properties on our Factory. They can be simple types like
 
 ```js
 // mirage/factories/movie.js
-import { Factory } from 'ember-cli-mirage';
+import { Factory } from '@miragejs/server';
 
 export default Factory.extend({
 

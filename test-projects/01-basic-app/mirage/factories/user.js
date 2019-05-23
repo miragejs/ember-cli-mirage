@@ -1,4 +1,4 @@
-import { Factory } from 'ember-cli-mirage';
+import { Factory } from '@miragejs/server';
 import faker from 'faker';
 
 export default Factory.extend({

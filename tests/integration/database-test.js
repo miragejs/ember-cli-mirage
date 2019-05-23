@@ -1,6 +1,7 @@
 import {module, test} from 'qunit';
 import Server from 'ember-cli-mirage/server';
-import { Model, Factory } from 'ember-cli-mirage';
+import { Model } from 'ember-cli-mirage';
+import { Factory } from '@miragejs/server';
 
 module('Integration | Database', function(hooks) {
   hooks.beforeEach(function() {
@@ -37,4 +38,3 @@ module('Integration | Database', function(hooks) {
     assert.deepEqual(authors.map((a) => a.id), ['1', '2']);
   });
 });
-

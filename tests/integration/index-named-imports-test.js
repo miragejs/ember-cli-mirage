@@ -1,6 +1,5 @@
 import { test } from 'qunit';
 import {
-  Factory,
   Response,
   Model,
   Serializer,
@@ -10,6 +9,7 @@ import {
   belongsTo,
   IdentityManager
 } from 'ember-cli-mirage';
+import { Factory } from '@miragejs/server';
 
 test('Factory is present in named exports from ember-cli-mirage', function(assert) {
   assert.ok(Factory);

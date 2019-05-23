@@ -94,7 +94,7 @@ which creates this file:
 
 ```js
 // mirage/factories/movie.js
-import { Factory } from 'ember-cli-mirage';
+import { Factory } from '@miragejs/server';
 
 export default Factory.extend({
 });
@@ -104,7 +104,7 @@ Right now the Factory is empty. Let's define a property on it:
 
 ```js
 // mirage/factories/movie.js
-import { Factory } from 'ember-cli-mirage';
+import { Factory } from '@miragejs/server';
 
 export default Factory.extend({
 
@@ -127,7 +127,7 @@ We can also make this property a function.
 
 ```js
 // mirage/factories/movie.js
-import { Factory } from 'ember-cli-mirage';
+import { Factory } from '@miragejs/server';
 
 export default Factory.extend({
 
@@ -164,7 +164,7 @@ Let's add some more properties to our factory:
 
 ```js
 // mirage/factories/movie.js
-import { Factory } from 'ember-cli-mirage';
+import { Factory } from '@miragejs/server';
 import faker from 'faker';
 
 export default Factory.extend({
@@ -232,7 +232,7 @@ Attributes can depend on other attributes via `this` from within a function. Thi
 
 ```js
 // mirage/factories/user.js
-import { Factory } from 'ember-cli-mirage';
+import { Factory } from '@miragejs/server';
 import faker from 'faker';
 
 export default Factory.extend({
@@ -501,7 +501,7 @@ As we saw earlier, given a `Post` that `belongsTo` a `User`, we were able to use
 
 ```js
 // mirage/factories/post.js
-import { Factory } from 'ember-cli-mirage';
+import { Factory } from '@miragejs/server';
 
 export default Factory.extend({
 

@@ -1,5 +1,6 @@
 import { module } from 'qunit';
-import { Model, Factory } from 'ember-cli-mirage';
+import { Model } from 'ember-cli-mirage';
+import { Factory } from '@miragejs/server';
 import Server from 'ember-cli-mirage/server';
 import { perfTest } from './utils';
 

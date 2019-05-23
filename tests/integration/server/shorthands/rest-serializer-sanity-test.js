@@ -1,5 +1,6 @@
 import { module, test } from 'qunit';
-import { Model, hasMany, belongsTo, RestSerializer } from 'ember-cli-mirage';
+import { Model, hasMany, belongsTo } from 'ember-cli-mirage';
+import { RestSerializer } from '@miragejs/server';
 import Server from 'ember-cli-mirage/server';
 import promiseAjax from '../../../helpers/promise-ajax';
 

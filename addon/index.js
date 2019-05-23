@@ -7,10 +7,10 @@ import Collection from './orm/collection';
 import Serializer from './serializer';
 import ActiveModelSerializer from './serializers/active-model-serializer';
 import JSONAPISerializer from './serializers/json-api-serializer';
-import RestSerializer from './serializers/rest-serializer';
 import HasMany from './orm/associations/has-many';
 import BelongsTo from './orm/associations/belongs-to';
 import IdentityManager from './identity-manager';
+import { RestSerializer } from '@miragejs/server';
 
 /**
   @hide

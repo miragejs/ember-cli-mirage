@@ -4,9 +4,9 @@ import {
   hasMany,
   belongsTo,
   JSONAPISerializer,
-  RestSerializer,
   Response
 } from 'ember-cli-mirage';
+import { RestSerializer } from '@miragejs/server';
 import Collection from 'ember-cli-mirage/orm/collection';
 import Server from 'ember-cli-mirage/server';
 import GetShorthandRouteHandler from 'ember-cli-mirage/route-handlers/shorthands/get';

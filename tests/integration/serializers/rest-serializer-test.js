@@ -1,6 +1,7 @@
 import { module, test } from 'qunit';
 import Server from 'ember-cli-mirage/server';
-import { Model, hasMany, belongsTo, RestSerializer } from 'ember-cli-mirage';
+import { Model, hasMany, belongsTo } from 'ember-cli-mirage';
+import { RestSerializer } from '@miragejs/server';
 
 module('Integration | Serializer | RestSerializer', function(hooks) {
   hooks.afterEach(function() {

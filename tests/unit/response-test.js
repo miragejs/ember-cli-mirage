@@ -1,4 +1,4 @@
-import Response from 'ember-cli-mirage/response';
+import { Response } from '@miragejs/server';
 
 import { module, test } from 'qunit';
 

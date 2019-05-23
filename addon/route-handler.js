@@ -1,6 +1,6 @@
 import { Promise } from 'rsvp';
 import { MirageError } from 'ember-cli-mirage/assert';
-import Response from './response';
+import { Response } from '@miragejs/server';
 import FunctionHandler from './route-handlers/function';
 import ObjectHandler from './route-handlers/object';
 import GetShorthandHandler from './route-handlers/shorthands/get';

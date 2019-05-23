@@ -1,7 +1,7 @@
 import { module, test } from 'qunit';
 import Server from 'ember-cli-mirage/server';
 import promiseAjax from '../../helpers/promise-ajax';
-import { Response } from 'ember-cli-mirage';
+import { Response } from '@miragejs/server';
 
 module('Integration | Server | Custom responses', function(hooks) {
   hooks.beforeEach(function() {

@@ -1,12 +1,4 @@
-let trait = function(extension) {
-  let __isTrait__ = true;
-  return {
-    extension,
-    __isTrait__
-  };
-};
+import Trait from '@miragejs/server/lib/trait';
+export * from '@miragejs/server/lib/trait';
 
-/**
-  @hide
-*/
-export default trait;
+export default Trait;

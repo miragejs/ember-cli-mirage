@@ -5,6 +5,7 @@ import _flatten from 'lodash/flatten';
 import _compact from 'lodash/compact';
 import _uniqBy from 'lodash/uniqBy';
 import _isEmpty from 'lodash/isEmpty';
+import _orderBy from 'lodash/orderBy';
 import assert from 'ember-cli-mirage/assert';
 
 /**
@@ -201,9 +202,21 @@ class JSONAPISerializer extends Serializer {
   }
 
   paginateResourceHash(resourceHash) {
-    if (Array.isArray(resourceHash) && this.hasPaginationQueryParams()) {
+    if (this.hasPaginationQueryParams()) {
       let { number, size } = this.getPaginationQueryParams();
       return resourceHash.slice((number - 1) * size, number * size);
+    }
+
+    return resourceHash;
+  }
+
+  sortResourceHash(resourceHash) {
+    if (this.hasSortingQueryParam()) {
+      let params = this.getSortingQueryParam();
+      let keys = params.map(p => `attributes.${p.key}`);
+      let directions = params.map(p => p.direction);
+
+      return _orderBy(resourceHash, keys, directions);
     }
 
     return resourceHash;
@@ -213,7 +226,11 @@ class JSONAPISerializer extends Serializer {
     this._createRequestedIncludesGraph(resource);
 
     let resourceHash = this.getHashForResource(resource);
-    resourceHash = this.paginateResourceHash(resourceHash);
+
+    if (Array.isArray(resourceHash)) {
+      resourceHash = this.sortResourceHash(resourceHash);
+      resourceHash = this.paginateResourceHash(resourceHash);
+    }
 
     let hashWithRoot = { data: resourceHash };
     let addToIncludes = this.getAddToIncludesForResource(resource);
@@ -545,6 +562,24 @@ class JSONAPISerializer extends Serializer {
 
   hasPaginationQueryParams() {
     return !!this.getPaginationQueryParams();
+  }
+
+  getSortingQueryParam() {
+    let queryParams = _get(this, 'request.queryParams') || {};
+    let { sort } = queryParams;
+
+    if (sort) {
+      return sort.split(',').map(param => ({
+        direction: param.startsWith('-') ? 'desc' : 'asc',
+        key: param.replace('-', '')
+      }));
+    }
+
+    return null;
+  }
+
+  hasSortingQueryParam() {
+    return !!this.getSortingQueryParam();
   }
 
   /**

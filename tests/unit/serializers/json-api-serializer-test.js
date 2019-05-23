@@ -15,4 +15,51 @@ module('Unit | Serializers | JSON API Serializer', function(hooks) {
     let request = { url: '/authors', queryParams: {} };
     assert.strictEqual(this.serializer.getCoalescedIds(request), undefined);
   });
+
+  test('💻 it parses the pagination query params as expected', function(assert) {
+    this.serializer = new JSONAPISerializer(null, null, {});
+    assert.equal(this.serializer.hasPaginationQueryParams(), false);
+    assert.equal(this.serializer.getPaginationQueryParams(), null);
+
+    this.serializer = new JSONAPISerializer(null, null, { queryParams: { 'page[number]': 1 } });
+    assert.equal(this.serializer.hasPaginationQueryParams(), false);
+    assert.equal(this.serializer.getPaginationQueryParams(), null);
+
+    this.serializer = new JSONAPISerializer(null, null, { queryParams: { 'page[size]': 20 } });
+    assert.equal(this.serializer.hasPaginationQueryParams(), true);
+    assert.deepEqual(this.serializer.getPaginationQueryParams(), { number: 1, size: 20 });
+
+    this.serializer = new JSONAPISerializer(null, null, { queryParams: { 'page[number]': 2, 'page[size]': 20 } });
+    assert.equal(this.serializer.hasPaginationQueryParams(), true);
+    assert.deepEqual(this.serializer.getPaginationQueryParams(), { number: 2, size: 20 });
+  });
+
+  test('💻 it parses the sort query param as expected', function(assert) {
+    this.serializer = new JSONAPISerializer(null, null, {});
+    assert.equal(this.serializer.hasSortingQueryParam(), false);
+    assert.equal(this.serializer.getSortingQueryParam(), null);
+
+    this.serializer = new JSONAPISerializer(null, null, { queryParams: { sort: '' } });
+    assert.equal(this.serializer.hasSortingQueryParam(), false);
+    assert.equal(this.serializer.getSortingQueryParam(), null);
+
+    this.serializer = new JSONAPISerializer(null, null, { queryParams: { sort: 'make' } });
+    assert.equal(this.serializer.hasSortingQueryParam(), true);
+    assert.deepEqual(this.serializer.getSortingQueryParam(), [
+      { direction: 'asc', key: 'make' }
+    ]);
+
+    this.serializer = new JSONAPISerializer(null, null, { queryParams: { sort: '-make' } });
+    assert.equal(this.serializer.hasSortingQueryParam(), true);
+    assert.deepEqual(this.serializer.getSortingQueryParam(), [
+      { direction: 'desc', key: 'make' }
+    ]);
+
+    this.serializer = new JSONAPISerializer(null, null, { queryParams: { sort: '-make,model' } });
+    assert.equal(this.serializer.hasSortingQueryParam(), true);
+    assert.deepEqual(this.serializer.getSortingQueryParam(), [
+      { direction: 'desc', key: 'make' },
+      { direction: 'asc', key: 'model' }
+    ]);
+  });
 });

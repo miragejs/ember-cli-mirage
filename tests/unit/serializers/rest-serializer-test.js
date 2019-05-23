@@ -1,4 +1,4 @@
-import { RestSerializer } from '@miragejs/server';
+import RestSerializer from 'ember-cli-mirage/serializers/rest-serializer';
 
 import { module, test } from 'qunit';
 import { Model } from 'ember-cli-mirage';

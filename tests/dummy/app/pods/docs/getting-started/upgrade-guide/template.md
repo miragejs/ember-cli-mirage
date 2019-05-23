@@ -82,7 +82,7 @@ For `faker.list.cycle`, use the remainder (modulo) operator:
 -   return faker.list.cycle([ 'United States of America', 'Canada', 'Mexico' ]);
 
 +   let countries = [ 'United States of America', 'Canada', 'Mexico' ];
-+
++   
 +   return countries[i % countries.length];
   }
 ```

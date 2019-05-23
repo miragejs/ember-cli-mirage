@@ -1,6 +1,5 @@
 import { module, test } from 'qunit';
-import { Model, hasMany, belongsTo } from 'ember-cli-mirage';
-import { Factory } from 'ember-cli-mirage';
+import { Model, Factory, hasMany, belongsTo } from 'ember-cli-mirage';
 import Inflector from 'ember-inflector';
 import Server from 'ember-cli-mirage/server';
 // import escape from 'escape-string-regexp';

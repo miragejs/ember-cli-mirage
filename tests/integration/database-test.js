@@ -1,7 +1,7 @@
 import {module, test} from 'qunit';
 import Server from 'ember-cli-mirage/server';
 import { Model } from 'ember-cli-mirage';
-import { Factory } from '@miragejs/server';
+import { Factory } from 'ember-cli-mirage';
 
 module('Integration | Database', function(hooks) {
   hooks.beforeEach(function() {

@@ -54,7 +54,7 @@ Here are the steps you'll need to take to fix this:
 
   ```diff
   - import { Factory, faker } from 'ember-cli-mirage';
-  + import { Factory } from '@miragejs/server';
+  + import { Factory } from 'ember-cli-mirage';
   + import faker from 'faker';
   ```
 

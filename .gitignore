@@ -30,3 +30,5 @@ jekyll-tmp
 # IDE
 /.idea/
 /*.iml
+
+package-lock\.json

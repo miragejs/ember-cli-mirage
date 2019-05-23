@@ -200,10 +200,21 @@ class JSONAPISerializer extends Serializer {
   links() {
   }
 
+  paginateResourceHash(resourceHash) {
+    if (Array.isArray(resourceHash) && this.hasPaginationQueryParams()) {
+      let { number, size } = this.getPaginationQueryParams();
+      return resourceHash.slice((number - 1) * size, number * size);
+    }
+
+    return resourceHash;
+  }
+
   getHashForPrimaryResource(resource) {
     this._createRequestedIncludesGraph(resource);
 
     let resourceHash = this.getHashForResource(resource);
+    resourceHash = this.paginateResourceHash(resourceHash);
+
     let hashWithRoot = { data: resourceHash };
     let addToIncludes = this.getAddToIncludesForResource(resource);
 
@@ -519,6 +530,21 @@ class JSONAPISerializer extends Serializer {
 
   hasQueryParamIncludes() {
     return !!this.getQueryParamIncludes();
+  }
+
+  getPaginationQueryParams() {
+    let queryParams = _get(this, 'request.queryParams') || {};
+    let { 'page[number]': number = 1, 'page[size]': size } = queryParams;
+
+    if (size) {
+      return { number, size };
+    }
+
+    return null;
+  }
+
+  hasPaginationQueryParams() {
+    return !!this.getPaginationQueryParams();
   }
 
   /**

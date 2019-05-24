@@ -1,13 +1,4 @@
-/**
-  @hide
-*/
-let association = function(...traitsAndOverrides) {
-  let __isAssociation__ = true;
+import Association from '@miragejs/server/lib/association';
+export * from '@miragejs/server/lib/association';
 
-  return {
-    __isAssociation__,
-    traitsAndOverrides
-  };
-};
-
-export default association;
+export default Association;

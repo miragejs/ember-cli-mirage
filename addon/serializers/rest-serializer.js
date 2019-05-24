@@ -1,34 +1,4 @@
-import ActiveModelSerializer from './active-model-serializer';
-import { camelize, singularize, pluralize } from '../utils/inflector';
+import RestSerializer from '@miragejs/server/lib/serializers/rest-serializer';
+export * from '@miragejs/server/lib/serializers/rest-serializer';
 
-export default ActiveModelSerializer.extend({
-  serializeIds: 'always',
-
-  keyForModel(type) {
-    return camelize(type);
-  },
-
-  keyForAttribute(attr) {
-    return camelize(attr);
-  },
-
-  keyForRelationship(type) {
-    return camelize(pluralize(type));
-  },
-
-  keyForEmbeddedRelationship(attributeName) {
-    return camelize(attributeName);
-  },
-
-  keyForRelationshipIds(type) {
-    return camelize(pluralize(type));
-  },
-
-  keyForForeignKey(relationshipName) {
-    return camelize(singularize(relationshipName));
-  },
-
-  getCoalescedIds(request) {
-    return request.queryParams && request.queryParams.ids;
-  }
-});
+export default RestSerializer;

@@ -1,16 +1,4 @@
-/**
- * @hide
- */
-export default class ObjectRouteHandler {
+import ObjectHandler from '@miragejs/server/lib/route-handlers/object';
+export * from '@miragejs/server/lib/route-handlers/object';
 
-  constructor(schema, serializerOrRegistry, object) {
-    this.schema = schema;
-    this.serializerOrRegistry = serializerOrRegistry;
-    this.object = object;
-  }
-
-  handle(/* request */) {
-    return this.object;
-  }
-
-}
+export default ObjectHandler;

@@ -1,4 +1,4 @@
-import { capitalize, camelize, dasherize, underscore } from '@ember/string';
-export { singularize, pluralize } from 'ember-inflector';
+import Inflector from '@miragejs/server/lib/utils/inflector';
+export * from '@miragejs/server/lib/utils/inflector';
 
-export { capitalize, camelize, dasherize, underscore };
+export default Inflector;

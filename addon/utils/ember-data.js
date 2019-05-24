@@ -1,20 +1,4 @@
-/* global requirejs */
+import EmberData from '@miragejs/server/lib/utils/ember-data';
+export * from '@miragejs/server/lib/utils/ember-data';
 
-import _find from 'lodash/find';
-
-function _hasEmberData() {
-  let matchRegex = /^ember-data/i;
-  return !!_find(Object.keys(requirejs.entries), (e) => !!e.match(matchRegex));
-}
-
-/**
-  @hide
-*/
-export const hasEmberData = _hasEmberData();
-
-/**
-  @hide
-*/
-export function isDsModel(m) {
-  return m && typeof m.eachRelationship === 'function';
-}
+export default EmberData;

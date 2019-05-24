@@ -1,4 +1,4 @@
-# Acceptance testing
+# Acceptance tests
 
 Acceptance testing your Ember app involves verifying some user behavior. For example, you may want to test that the user can view a list of movies on your app's homepage.
 
@@ -108,56 +108,6 @@ test('I can view the movies', async function(assert) {
 There are of course times where it makes sense to break this rule (for example to add some extra assertions near the beginning or middle of a test), but in general you should strive to follow the pattern.
 
 
-## Asserting a server call was made in a test
-
-Often you'll write tests against your application's UI, which will verify that the proper data from Mirage was returned. However, because Mirage gives you a full client-side server, you can gain more confidence from your tests by asserting against Mirage's server state, in addition to testing your Ember app's UI.
-
-There are two general approaches to this. First, you can assert directly against Mirage's database:
-
-```js
-test("I can change the lesson's title", async function(assert) {
-  this.server.create('lesson', { title: 'My First Lesson' })
-
-  await visit('/');
-  await click('.Edit')
-  await fillIn('input', 'Updated lesson');
-  await click('.Save');
-
-  // Assert against our app's UI
-  assert.dom('h1').hasText('Updated lesson');
-
-  // Also check that the data was "persisted" to our backend
-  assert.equal(this.server.db.lessons[0].title, 'Updated lesson');
-});
-```
-
-This gives you some extra confidence that your Ember app is sending over the data you expect.
-
-The next strategy is to temporarily override the server route that's relevant to your test, and assert against the actual request that your Ember app sent:
-
-```js
-test("I can change the lesson's title", async function(assert) {
-  assert.expect(1);
-  let done = assert.async();
-
-  this.server.create('lesson', {title: 'My First Lesson'})
-
-  this.server.put('/lessons/:id', (schema, request) => {
-    let params = JSON.parse(request.requestBody);
-
-    // Here, we're asserting the params Mirage received are in the format you expect
-    assert.deepEqual(params, {...});
-    done();
-  });
-
-  await visit('/');
-  await click('.Edit')
-  await fillIn('input', 'Updated lesson');
-  await click('.Save');
-});
-```
-
-Note that here, we're overwriting any route handler you may defined for PUT to `/lessons/:id` in your `config.js` file, but only for this test. After this test, your Mirage server will be reset, and all the routes from `config.js` will be reloaded.
 
 
 ## Testing errors

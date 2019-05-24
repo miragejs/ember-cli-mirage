@@ -1,4 +1,4 @@
-# Integration and unit testing
+# Integration and unit tests
 
 While Mirage was originally designed for acceptance testing, it also works great when writing integration and unit tests.
 
@@ -248,34 +248,8 @@ module('Integration | Component | ArticleForm', function(hooks) {
 
 Something like `pushMirageIntoStore` will probably make its way into Mirage at some point.
 
-### Asserting against Mirage
-
-As far as your assertions, you can assert against the UI, as well as against Mirage's database state if you expect changes to be made on the server.
-
-```js
-test('it can edit an article', async function(assert) {
-  let serverArticle = this.server.create('article', {
-    title: 'Old title'
-  });
-  pushMirageIntoStore();
-  let store = this.owner.lookup('service:store');
-  let article = store.peekRecord('article', serverArticle.id);
-  this.set('article', article);
-
-  await render(hbs`
-    <ArticleForm @article={{article}}>
-  `);
-
-  await fillIn('input', 'New title');
-  await click('.save');
-
-  assert.equal(this.element.textContent.trim(), 'Saved!');
-  assert.equal(serverArticle.reload().title, 'New title');
-});
-```
-
 ---
 
 Now that you've seen how to use `setupMirage` outside of an acceptance test, you can use it in any kind of test where it makes sense to run your Mirage server!
 
-And with that, you've completed the main portion of the guides! Read on to see some advanced use cases and configuration options, or head over to the API docs to see how to use Mirage's various classes.
+Next, we discuss some ways you can go about asserting against your Mirage mock server.

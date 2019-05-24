@@ -1,7 +1,7 @@
 import { getWithDefault } from '@ember/object';
 import readModules from 'ember-cli-mirage/utils/read-modules';
 import Server from 'ember-cli-mirage/server';
-import _assign from 'lodash/assign';
+import { assign as _assign } from 'lodash-es';
 
 /**
   Helper to start mirage. This should not be called directly. In rfc232/rfc268

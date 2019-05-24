@@ -1,5 +1,5 @@
 import assert from '../assert';
-import _invokeMap from 'lodash/invokeMap';
+import { invokeMap as _invokeMap } from 'lodash-es';
 
 /**
   Collections represent arrays of models. They are returned by a hasMany association, or by one of the ModelClass query methods:

@@ -1,4 +1,4 @@
-import _isPlainObject from 'lodash/isPlainObject';
+import { isPlainObject as _isPlainObject } from 'lodash-es';
 
 /**
   @hide

@@ -1,10 +1,10 @@
 import Serializer from '../serializer';
 import { dasherize, pluralize, camelize } from '../utils/inflector';
-import _get from 'lodash/get';
-import _flatten from 'lodash/flatten';
-import _compact from 'lodash/compact';
-import _uniqBy from 'lodash/uniqBy';
-import _isEmpty from 'lodash/isEmpty';
+import { get as _get } from 'lodash-es';
+import { flatten as _flatten } from 'lodash-es';
+import { compact as _compact } from 'lodash-es';
+import { uniqBy as _uniqBy } from 'lodash-es';
+import { isEmpty as _isEmpty } from 'lodash-es';
 import assert from 'ember-cli-mirage/assert';
 
 /**

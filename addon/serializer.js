@@ -4,15 +4,15 @@ import PolymorphicCollection from './orm/polymorphic-collection';
 import extend from './utils/extend';
 import { singularize, pluralize, camelize } from './utils/inflector';
 import assert from './assert';
-import _isFunction from 'lodash/isFunction';
-import _isArray from 'lodash/isArray';
-import _isEmpty from 'lodash/isEmpty';
-import _includes from 'lodash/includes';
-import _assign from 'lodash/assign';
-import _get from 'lodash/get';
-import _flatten from 'lodash/flatten';
-import _compact from 'lodash/compact';
-import _uniqBy from 'lodash/uniqBy';
+import { isFunction as _isFunction } from 'lodash-es';
+import { isArray as _isArray } from 'lodash-es';
+import { isEmpty as _isEmpty } from 'lodash-es';
+import { includes as _includes } from 'lodash-es';
+import { assign as _assign } from 'lodash-es';
+import { get as _get } from 'lodash-es';
+import { flatten as _flatten } from 'lodash-es';
+import { compact as _compact } from 'lodash-es';
+import { uniqBy as _uniqBy } from 'lodash-es';
 
 /**
   Serializers are responsible for formatting your route handler's response.

@@ -1,5 +1,5 @@
-import _invokeMap from 'lodash/invokeMap';
-import _isEqual from 'lodash/isEqual';
+import { invokeMap as _invokeMap } from 'lodash-es';
+import { isEqual as _isEqual } from 'lodash-es';
 
 /**
  * An array of models, returned from one of the schema query

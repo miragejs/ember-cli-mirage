@@ -1,7 +1,7 @@
 import DbCollection from './db-collection';
 import IdentityManager from './identity-manager';
 import { singularize } from './utils/inflector';
-import _cloneDeep from 'lodash/cloneDeep';
+import { cloneDeep as _cloneDeep } from 'lodash-es';
 
 /**
   Your Mirage server has a database which you can interact with in your route handlers. You’ll typically use models to interact with your database data, but you can always reach into the db directly in the event you want more control.

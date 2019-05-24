@@ -1,6 +1,6 @@
-import _assign from 'lodash/assign';
-import _map from 'lodash/map';
-import _isEqual from 'lodash/isEqual';
+import { assign as _assign } from 'lodash-es';
+import { map as _map } from 'lodash-es';
+import { isEqual as _isEqual }  from 'lodash-es';
 
 function duplicate(data) {
   if (Array.isArray(data)) {

@@ -1,6 +1,6 @@
 /* global requirejs */
 
-import _find from 'lodash/find';
+import { find as _find } from 'lodash-es';
 
 function _hasEmberData() {
   let matchRegex = /^ember-data/i;

@@ -1,5 +1,5 @@
-import _assign from 'lodash/assign';
-import _has from 'lodash/has';
+import { assign as _assign } from 'lodash-es';
+import { has as _has } from 'lodash-es';
 
 /**
   @hide

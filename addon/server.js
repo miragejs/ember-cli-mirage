@@ -13,11 +13,11 @@ import SerializerRegistry from './serializer-registry';
 import RouteHandler from './route-handler';
 import BelongsTo from './orm/associations/belongs-to';
 
-import _pick from 'lodash/pick';
-import _assign from 'lodash/assign';
-import _find from 'lodash/find';
-import _isPlainObject from 'lodash/isPlainObject';
-import _isInteger from 'lodash/isInteger';
+import { pick as _pick } from 'lodash-es';
+import { assign as _assign } from 'lodash-es';
+import { find as _find } from 'lodash-es';
+import { isPlainObject as _isPlainObject } from 'lodash-es';
+import { isInteger as _isInteger } from 'lodash-es';
 
 /**
  * Creates a new Pretender instance.

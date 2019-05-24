@@ -1,7 +1,7 @@
 import { module, test } from 'qunit';
 import { Model, Collection, ActiveModelSerializer } from 'ember-cli-mirage';
 import Server from 'ember-cli-mirage/server';
-import _uniqBy from 'lodash/uniqBy';
+import { uniqBy as _uniqBy } from 'lodash-es';
 import promiseAjax from '../../../helpers/promise-ajax';
 
 module('Integration | Route handlers | Function handler | #serialize', function(hooks) {

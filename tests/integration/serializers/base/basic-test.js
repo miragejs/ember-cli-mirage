@@ -2,7 +2,7 @@ import SerializerRegistry from 'ember-cli-mirage/serializer-registry';
 import schemaHelper from '../schema-helper';
 import { module, test } from 'qunit';
 
-import _uniqBy from 'lodash/uniqBy';
+import { uniqBy as _uniqBy } from 'lodash-es';
 
 module('Integration | Serializers | Base | Basic', function(hooks) {
   hooks.beforeEach(function() {

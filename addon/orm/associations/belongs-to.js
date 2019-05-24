@@ -1,5 +1,5 @@
 import Association from './association';
-import _assign from 'lodash/assign';
+import { assign as _assign } from 'lodash-es';
 import { capitalize, camelize } from 'ember-cli-mirage/utils/inflector';
 import { toCollectionName } from 'ember-cli-mirage/utils/normalize-name';
 import assert from 'ember-cli-mirage/assert';

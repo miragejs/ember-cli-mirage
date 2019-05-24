@@ -1,8 +1,8 @@
-import _assign from 'lodash/assign';
-import _isFunction from 'lodash/isFunction';
-import _mapValues from 'lodash/mapValues';
+import { assign as _assign } from 'lodash-es';
+import { isFunction as _isFunction } from 'lodash-es';
+import { mapValues as _mapValues } from 'lodash-es';
 import referenceSort from './utils/reference-sort';
-import _isPlainObject from 'lodash/isPlainObject';
+import { isPlainObject as _isPlainObject} from 'lodash-es';
 
 let Factory = function() {
   this.build = function(sequence) {

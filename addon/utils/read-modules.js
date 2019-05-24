@@ -3,7 +3,7 @@
 'use strict';
 
 import { assert } from '@ember/debug';
-import _camelCase from 'lodash/camelCase';
+import { camelCase as _camelCase } from 'lodash-es';
 import { pluralize } from 'ember-cli-mirage/utils/inflector';
 import require from 'require';
 

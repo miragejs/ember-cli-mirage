@@ -1,6 +1,6 @@
 // jscs:disable disallowVar, requireArrayDestructuring
-import _uniq from 'lodash/uniq';
-import _flatten from 'lodash/flatten';
+import { uniq as _uniq } from 'lodash-es';
+import { flatten as _flatten } from 'lodash-es';
 
 /**
   @hide

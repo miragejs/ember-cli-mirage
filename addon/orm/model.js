@@ -5,9 +5,9 @@ import extend from '../utils/extend';
 import assert from '../assert';
 import Collection from './collection';
 import PolymorphicCollection from './polymorphic-collection';
-import _values from 'lodash/values';
-import _compact from 'lodash/compact';
-import _assign from 'lodash/assign';
+import { values as _values } from 'lodash-es';
+import { compact as _compact } from 'lodash-es';
+import { assign as _assign } from 'lodash-es';
 
 /**
   Models wrap your database and allow you to define relationships.

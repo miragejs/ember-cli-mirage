@@ -1,8 +1,8 @@
 import Association from './association';
 import Collection from '../collection';
 import PolymorphicCollection from '../polymorphic-collection';
-import _assign from 'lodash/assign';
-import _compact from 'lodash/compact';
+import { assign as _assign } from 'lodash-es';
+import { compact as _compact } from 'lodash-es';
 import { capitalize, camelize, singularize } from 'ember-cli-mirage/utils/inflector';
 import { toCollectionName } from 'ember-cli-mirage/utils/normalize-name';
 import assert from 'ember-cli-mirage/assert';

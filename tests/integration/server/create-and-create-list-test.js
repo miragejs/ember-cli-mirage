@@ -1,6 +1,5 @@
 import { module, test } from 'qunit';
-import { Model, Factory, hasMany, belongsTo } from 'ember-cli-mirage';
-import Inflector from 'ember-inflector';
+import { Model, Factory, hasMany, belongsTo, Inflector } from 'ember-cli-mirage';
 import Server from 'ember-cli-mirage/server';
 // import escape from 'escape-string-regexp';
 import regExpFromString from '../../helpers/reg-exp-from-string';
@@ -49,6 +48,7 @@ module('Integration | Server | create and createList', function(hooks) {
 
   hooks.afterEach(function() {
     this.server.shutdown();
+    Inflector.clearInflector();
 
     // eslint-disable-next-line no-console
     console.warn = originalWarn;
@@ -83,7 +83,7 @@ module('Integration | Server | create and createList', function(hooks) {
   test('create returns a Model instance if the Model name is uncountable', function(assert) {
     expectNoWarning(assert);
 
-    Inflector.inflector.uncountable('data');
+    Inflector.configureInflector((inflector) => inflector.uncountable('data'));
     let data = this.server.create('data');
 
     assert.ok(data instanceof this.Data, 'expected a Data');
@@ -118,7 +118,7 @@ module('Integration | Server | create and createList', function(hooks) {
   test('createList returns Models if the model name is uncountable', function(assert) {
     expectNoWarning(assert);
 
-    Inflector.inflector.uncountable('data');
+    Inflector.configureInflector(inflector => inflector.uncountable('data'));
     let data = this.server.createList('data', 1);
 
     assert.ok(data[0] instanceof this.Data, 'expected a Data');

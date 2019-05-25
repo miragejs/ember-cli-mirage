@@ -1,19 +1,25 @@
 import Model from 'ember-cli-mirage/orm/model';
 import Schema from 'ember-cli-mirage/orm/schema';
 import Db from 'ember-cli-mirage/db';
-import Inflector from 'ember-inflector';
 import {module, test} from 'qunit';
+import { Inflector } from 'ember-cli-mirage';
 
 var db, schema, HeadOfState;
 
 module('Integration | ORM | inflector-collectionName integration', function(hooks) {
   hooks.beforeEach(function() {
-    Inflector.inflector.irregular('head-of-state', 'heads-of-state');
+    Inflector.configureInflector((inflector) => {
+      inflector.irregular('head-of-state', 'heads-of-state');
+    });
 
     HeadOfState = Model.extend();
     db = new Db({});
     schema = new Schema(db);
     schema.registerModel('headOfState', HeadOfState);
+  });
+
+  hooks.afterEach(function() {
+    Inflector.clearInflector();
   });
 
   test(' [regression] collection creation respects irregular plural rules', function(assert) {

@@ -8,9 +8,9 @@ function patchEmberInflector() {
   __inflections(newInflector => {
     // Proxy ember-inflector calls to `inflected`
     Inflector.inflector = new window.Proxy(Inflector.inflector, {
-      get: function(_, prop) {
+      get: function(target, prop) {
         if (!newInflector[prop]) {
-          return window.Reflect.get(...arguments);
+          return target[prop].apply(this, arguments);
         }
 
         return (...args) => newInflector[prop](...args);

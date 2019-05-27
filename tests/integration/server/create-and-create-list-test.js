@@ -3,6 +3,7 @@ import { Model, Factory, hasMany, belongsTo } from 'ember-cli-mirage';
 import Server from 'ember-cli-mirage/server';
 // import escape from 'escape-string-regexp';
 import regExpFromString from '../../helpers/reg-exp-from-string';
+import Inflector from 'ember-inflector';
 
 // eslint-disable-next-line no-console
 let originalWarn = console.warn;

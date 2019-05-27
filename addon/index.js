@@ -5,17 +5,15 @@ import Inflector from 'ember-inflector';
 import { __inflections } from './utils/inflector';
 
 function patchEmberInflector() {
-  __inflections(inflector => {
+  __inflections(newInflector => {
     // Proxy ember-inflector calls to `inflected`
     Inflector.inflector = new window.Proxy(Inflector.inflector, {
       get: function(_, prop) {
-        if (inflector[prop]) {
-          return function(...args) {
-            return inflector[prop](...args);
-          };
+        if (!newInflector[prop]) {
+          return window.Reflect.get(...arguments);
         }
 
-        return window.Reflect.get(...arguments);
+        return (...args) => newInflector[prop](...args);
       }
     });
   });

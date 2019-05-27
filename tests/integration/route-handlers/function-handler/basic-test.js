@@ -1,6 +1,6 @@
 import { module, test } from 'qunit';
 import { Promise } from 'rsvp';
-import Server, { Model, ActiveModelSerializer, Response } from 'ember-cli-mirage';
+import { Server, Model, ActiveModelSerializer, Response } from 'ember-cli-mirage';
 import promiseAjax from '../../../helpers/promise-ajax';
 
 module('Integration | Route handlers | Function handler', function(hooks) {

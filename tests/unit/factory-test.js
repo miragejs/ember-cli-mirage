@@ -1,21 +1,22 @@
-import { Factory, trait } from 'ember-cli-mirage';
+import Mirage from 'ember-cli-mirage';
+import { trait } from 'ember-cli-mirage';
 
 import {module, test} from 'qunit';
 
 module('Unit | Factory', function() {
   test('it exists', function(assert) {
-    assert.ok(Factory);
+    assert.ok(Mirage.Factory);
   });
 
   test('the base class builds empty objects', function(assert) {
-    let f = new Factory();
+    let f = new Mirage.Factory();
     let data = f.build();
 
     assert.deepEqual(data, {});
   });
 
   test('a noop extension builds empty objects', function(assert) {
-    let EmptyFactory = Factory.extend();
+    let EmptyFactory = Mirage.Factory.extend();
     let f = new EmptyFactory();
     let data = f.build();
 
@@ -23,7 +24,7 @@ module('Unit | Factory', function() {
   });
 
   test('it works with strings, numbers and booleans', function(assert) {
-    let AFactory = Factory.extend({
+    let AFactory = Mirage.Factory.extend({
       name: 'Sam',
       age: 28,
       alive: true
@@ -36,7 +37,7 @@ module('Unit | Factory', function() {
   });
 
   test('it supports inheritance', function(assert) {
-    let PersonFactory = Factory.extend({
+    let PersonFactory = Mirage.Factory.extend({
       species: 'human'
     });
     let ManFactory = PersonFactory.extend({
@@ -56,7 +57,7 @@ module('Unit | Factory', function() {
   });
 
   test('it can use sequences', function(assert) {
-    let PostFactory = Factory.extend({
+    let PostFactory = Mirage.Factory.extend({
       likes(i) {
         return 5 * i;
       }
@@ -71,7 +72,7 @@ module('Unit | Factory', function() {
   });
 
   test('it can reuse static properties', function(assert) {
-    let BazFactory = Factory.extend({
+    let BazFactory = Mirage.Factory.extend({
       foo: 5,
       bar(i) {
         return this.foo * i;
@@ -87,7 +88,7 @@ module('Unit | Factory', function() {
   });
 
   test('it can reuse dynamic properties', function(assert) {
-    let BazFactory = Factory.extend({
+    let BazFactory = Mirage.Factory.extend({
       foo(i) {
         return 5 * i;
       },
@@ -105,7 +106,7 @@ module('Unit | Factory', function() {
   });
 
   test('it can have dynamic properties that depend on another', function(assert) {
-    let BazFactory = Factory.extend({
+    let BazFactory = Mirage.Factory.extend({
       name() {
         return 'foo';
       },
@@ -121,7 +122,7 @@ module('Unit | Factory', function() {
   });
 
   test('it can reference properties out of order', function(assert) {
-    let BazFactory = Factory.extend({
+    let BazFactory = Mirage.Factory.extend({
       bar() {
         return this.foo + 2;
       },
@@ -142,7 +143,7 @@ module('Unit | Factory', function() {
   });
 
   test('it can reference multiple properties in any order', function(assert) {
-    let FooFactory = Factory.extend({
+    let FooFactory = Mirage.Factory.extend({
       foo() {
         return this.bar + this.baz;
       },
@@ -152,7 +153,7 @@ module('Unit | Factory', function() {
       baz: 10
     });
 
-    let BarFactory = Factory.extend({
+    let BarFactory = Mirage.Factory.extend({
       bar: 6,
 
       foo() {
@@ -162,7 +163,7 @@ module('Unit | Factory', function() {
       baz: 10
     });
 
-    let BazFactory = Factory.extend({
+    let BazFactory = Mirage.Factory.extend({
       bar: 6,
 
       baz: 10,
@@ -186,7 +187,7 @@ module('Unit | Factory', function() {
   });
 
   test('it can reference properties on complex object', function(assert) {
-    let AbcFactory = Factory.extend({
+    let AbcFactory = Mirage.Factory.extend({
       a(i) {
         return this.b + i;
       },
@@ -216,7 +217,7 @@ module('Unit | Factory', function() {
   });
 
   test('throws meaningfull exception on circular reference', function(assert) {
-    let BazFactory = Factory.extend({
+    let BazFactory = Mirage.Factory.extend({
       bar() {
         return this.foo;
       },
@@ -236,7 +237,7 @@ module('Unit | Factory', function() {
 
   test('#build skips invoking `afterCreate`', function(assert) {
     let skipped = true;
-    let PostFactory = Factory.extend({
+    let PostFactory = Mirage.Factory.extend({
       afterCreate() {
         skipped = false;
       }
@@ -254,7 +255,7 @@ module('Unit | Factory', function() {
   });
 
   test('extractAfterCreateCallbacks returns all afterCreate callbacks from factory with the base one being first', function(assert) {
-    let PostFactory = Factory.extend({
+    let PostFactory = Mirage.Factory.extend({
       published: trait({
         afterCreate() {
           return 'from published';
@@ -280,7 +281,7 @@ module('Unit | Factory', function() {
   });
 
   test('extractAfterCreateCallbacks filters traits from which the afterCreate callbacks will be extracted from', function(assert) {
-    let PostFactory = Factory.extend({
+    let PostFactory = Mirage.Factory.extend({
       published: trait({
         afterCreate() {
           return 'from published';
@@ -326,7 +327,7 @@ module('Unit | Factory', function() {
   });
 
   test('isTrait returns true if there is a trait with given name', function(assert) {
-    let PostFactory = Factory.extend({
+    let PostFactory = Mirage.Factory.extend({
       title: 'Lorem ipsum',
 
       published: trait({

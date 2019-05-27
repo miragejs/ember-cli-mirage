@@ -1,5 +1,5 @@
 import { module, test } from 'qunit';
-import Server, { Model, Collection, ActiveModelSerializer } from 'ember-cli-mirage';
+import { Server, Model, Collection, ActiveModelSerializer } from 'ember-cli-mirage';
 import _uniqBy from 'lodash/uniqBy';
 import promiseAjax from '../../../helpers/promise-ajax';
 

@@ -1,9 +1,9 @@
+import Mirage from 'ember-cli-mirage';
 import Server from 'ember-cli-mirage/server';
 import Model from 'ember-cli-mirage/orm/model';
 import Serializer from 'ember-cli-mirage/serializer';
 import {module, test} from 'qunit';
 import promiseAjax from '../../../helpers/promise-ajax';
-import { hasMany, belongsTo } from 'ember-cli-mirage';
 
 module('Integration | Serializers | Base | Full Request', function(hooks) {
   hooks.beforeEach(function() {
@@ -11,14 +11,14 @@ module('Integration | Serializers | Base | Full Request', function(hooks) {
       environment: 'development',
       models: {
         author: Model.extend({
-          posts: hasMany()
+          posts: Mirage.hasMany()
         }),
         post: Model.extend({
-          author: belongsTo(),
-          comments: hasMany()
+          author: Mirage.belongsTo(),
+          comments: Mirage.hasMany()
         }),
         comment: Model.extend({
-          post: belongsTo()
+          post: Mirage.belongsTo()
         })
       },
       serializers: {

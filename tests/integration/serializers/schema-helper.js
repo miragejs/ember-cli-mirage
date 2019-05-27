@@ -1,38 +1,38 @@
+import Mirage from 'ember-cli-mirage';
 import Schema from 'ember-cli-mirage/orm/schema';
 import Model from 'ember-cli-mirage/orm/model';
 import Db from 'ember-cli-mirage/db';
-import { hasMany, belongsTo } from 'ember-cli-mirage';
 
 export default {
 
   setup() {
     return new Schema(new Db(), {
       wordSmith: Model.extend({
-        blogPosts: hasMany()
+        blogPosts: Mirage.hasMany()
       }),
       blogPost: Model.extend({
-        wordSmith: belongsTo(),
-        fineComments: hasMany()
+        wordSmith: Mirage.belongsTo(),
+        fineComments: Mirage.hasMany()
       }),
       fineComment: Model.extend({
-        blogPost: belongsTo()
+        blogPost: Mirage.belongsTo()
       }),
       greatPhoto: Model,
 
       foo: Model.extend({
-        bar: belongsTo()
+        bar: Mirage.belongsTo()
       }),
       bar: Model.extend({
-        baz: belongsTo()
+        baz: Mirage.belongsTo()
       }),
       baz: Model.extend({
-        quuxes: hasMany()
+        quuxes: Mirage.hasMany()
       }),
       quux: Model.extend({
-        zomgs: hasMany()
+        zomgs: Mirage.hasMany()
       }),
       zomg: Model.extend({
-        lol: belongsTo()
+        lol: Mirage.belongsTo()
       }),
       lol: Model
     });

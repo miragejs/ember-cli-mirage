@@ -62,4 +62,22 @@ module('Unit | Serializers | JSON API Serializer', function(hooks) {
       { direction: 'asc', key: 'model' }
     ]);
   });
+
+  test('💻 it parses the filtering query params as expected', function(assert) {
+    this.serializer = new JSONAPISerializer(null, null, {});
+    assert.equal(this.serializer.hasFilteringQueryParams(), false);
+    assert.deepEqual(this.serializer.getFilteringQueryParams(), []);
+
+    this.serializer = new JSONAPISerializer(null, null, { queryParams: { 'filter[make]': 'Citizen' } });
+    assert.equal(this.serializer.hasFilteringQueryParams(), true);
+    assert.deepEqual(this.serializer.getFilteringQueryParams(), [
+      { key: 'make', value: 'Citizen' }
+    ]);
+
+    this.serializer = new JSONAPISerializer(null, null, { queryParams: { 'filter[id]': 1 } });
+    assert.equal(this.serializer.hasFilteringQueryParams(), true);
+    assert.deepEqual(this.serializer.getFilteringQueryParams(), [
+      { key: 'id', value: 1 }
+    ]);
+  });
 });

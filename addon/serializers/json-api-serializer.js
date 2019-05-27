@@ -201,6 +201,25 @@ class JSONAPISerializer extends Serializer {
   links() {
   }
 
+  filterResourceHash(resourceHash) {
+    if (this.hasFilteringQueryParams()) {
+      let params = this.getFilteringQueryParams();
+      return resourceHash.filter(item => params.every(param => {
+        let path = param.key;
+
+        if (path === 'id') {
+          // Most of the time, the consumer will provide an integer id, hence the `==`.
+          return _get(item, path) == param.value;
+        }
+
+        let { attributes } = item;
+        return _get(attributes, path) === param.value;
+      }));
+    }
+
+    return resourceHash;
+  }
+
   paginateResourceHash(resourceHash) {
     if (this.hasPaginationQueryParams()) {
       let { number, size } = this.getPaginationQueryParams();
@@ -228,6 +247,7 @@ class JSONAPISerializer extends Serializer {
     let resourceHash = this.getHashForResource(resource);
 
     if (Array.isArray(resourceHash)) {
+      resourceHash = this.filterResourceHash(resourceHash);
       resourceHash = this.sortResourceHash(resourceHash);
       resourceHash = this.paginateResourceHash(resourceHash);
     }
@@ -547,6 +567,22 @@ class JSONAPISerializer extends Serializer {
 
   hasQueryParamIncludes() {
     return !!this.getQueryParamIncludes();
+  }
+
+  getFilteringQueryParams() {
+    let queryParams = _get(this, 'request.queryParams') || {};
+
+    let regex = /^filter\[([a-z-_]*)]$/i;
+
+    return Object.entries(queryParams)
+      .filter(([key]) => regex.test(key))
+      .map(([key, value]) => {
+        return { key: regex.exec(key)[1], value };
+      });
+  }
+
+  hasFilteringQueryParams() {
+    return this.getFilteringQueryParams().length > 0;
   }
 
   getPaginationQueryParams() {

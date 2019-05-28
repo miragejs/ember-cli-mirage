@@ -35,6 +35,8 @@ export default function startMirage(owner, { env, baseConfig, testConfig } = {})
   let options = _assign(modules, {environment, baseConfig, testConfig, discoverEmberDataModels});
   options.trackRequests = env['ember-cli-mirage'].trackRequests;
 
+  patchEmberInflector();
+
   return new Server(options);
 }
 

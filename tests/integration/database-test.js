@@ -19,6 +19,10 @@ module('Integration | Database', function(hooks) {
         authors: [
           { id: 1, name: 'Zelda' }
         ]
+      },
+      inflector: {
+        singularize: () => '',
+        pluralize: () => ''
       }
     });
   });
@@ -37,4 +41,3 @@ module('Integration | Database', function(hooks) {
     assert.deepEqual(authors.map((a) => a.id), ['1', '2']);
   });
 });
-

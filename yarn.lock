@@ -1077,9 +1077,10 @@
   dependencies:
     core-js "^2.5.7"
 
-"@miragejs/server@git+https://github.com/asantos00/server.git#add-inflector-customization-api":
-  version "2.0.0-beta.4"
-  resolved "git+https://github.com/asantos00/server.git#cbff57c909fe46876f9178189281fd26e12d86fc"
+"@miragejs/server@0.1.0":
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/@miragejs/server/-/server-0.1.0.tgz#8205e4ee20d6e6a57d7ca54bc86c0bec0534f43f"
+  integrity sha512-b03eBi4I5K8ObJqqLWixwAtE3xK5goB/ooia27nB7FkAcHi7TXdhje0a5wvmRSLQzCFQCrZBPiz4xEE1vCQR7Q==
   dependencies:
     broccoli-file-creator "^2.1.1"
     broccoli-funnel "^2.0.1"

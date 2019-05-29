@@ -2,6 +2,10 @@ import { singularize, pluralize } from 'ember-cli-mirage/utils/inflector';
 
 import {module, test} from 'qunit';
 
+/*
+  Keeping these tests here for now to avoid accidental breakage, but they are
+  definitely a Ember Mirage thing, not a Mirage thing.
+*/
 module('Unit | Inflector', function() {
   test('can singularize', function(assert) {
     assert.equal(singularize('tests'), 'test');

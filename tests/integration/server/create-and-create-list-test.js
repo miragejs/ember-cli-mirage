@@ -41,7 +41,8 @@ module('Integration | Server | create and createList', function(hooks) {
           name: 'Yehuda'
         }),
         amazingContact: Factory
-      }
+      },
+      inflector: Inflector.inflector
     });
     this.server.timing = 0;
     this.server.logging = false;

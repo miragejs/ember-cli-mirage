@@ -6,25 +6,15 @@ import { module, test } from "qunit";
 var db, schema, User;
 
 module("Integration | ORM | attrs", function(hooks) {
-  let mockedServer = {
-    inflector: { singularize: () => "", pluralize: () => "" }
-  };
   hooks.beforeEach(function() {
     db = new Db(
-      { users: [{ id: 1, name: "Link", evil: false }] },
-      {},
-      mockedServer
+      { users: [{ id: 1, name: "Link", evil: false }] }
     );
 
     User = Model.extend();
-    schema = new Schema(
-      db,
-      {
-        user: User
-      },
-      {},
-      mockedServer
-    );
+    schema = new Schema(db, {
+      user: User
+    });
   });
 
   test("attrs returns the models attributes", function(assert) {

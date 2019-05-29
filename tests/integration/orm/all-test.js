@@ -4,19 +4,11 @@ import Db from "ember-cli-mirage/db";
 import Collection from "ember-cli-mirage/orm/collection";
 import { module, test } from "qunit";
 
-const mockedInflector = {
-  inflector: { singularize: () => "", pluralize: () => "" }
-};
-
 module("Integration | ORM | #all", function() {
   test("it can return all models", function(assert) {
-    let db = new Db(
-      {
-        users: [{ id: 1, name: "Link" }, { id: 2, name: "Zelda" }]
-      },
-      {},
-      mockedInflector
-    );
+    let db = new Db({
+      users: [{ id: 1, name: "Link" }, { id: 2, name: "Zelda" }]
+    });
     let User = Model.extend();
     let schema = new Schema(db, {
       user: User
@@ -33,17 +25,12 @@ module("Integration | ORM | #all", function() {
   });
 
   test("it returns an empty array when no models exist", function(assert) {
-    let db = new Db({ users: [] }, {}, mockedInflector);
+    let db = new Db({ users: [] });
 
     let User = Model.extend();
-    let schema = new Schema(
-      db,
-      {
-        user: User
-      },
-      {},
-      mockedInflector
-    );
+    let schema = new Schema(db, {
+      user: User
+    });
 
     let users = schema.users.all();
 

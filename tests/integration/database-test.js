@@ -19,10 +19,6 @@ module('Integration | Database', function(hooks) {
         authors: [
           { id: 1, name: 'Zelda' }
         ]
-      },
-      inflector: {
-        singularize: () => '',
-        pluralize: () => ''
       }
     });
   });

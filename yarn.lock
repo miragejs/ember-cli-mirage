@@ -5273,9 +5273,9 @@ ember-cli-fastboot@^2.0.4:
     silent-error "^1.1.0"
 
 ember-cli-favicon@^2.0.0:
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/ember-cli-favicon/-/ember-cli-favicon-2.1.0.tgz#90ae95a9d507c71d688c70d37df03e243cc2ca0a"
-  integrity sha512-6mHE6NeZHtm3rxQzKoLvHQangSbx58jnNkRWOXFiyAHggOTZIiFg638PIiYbOi1wozZ0hi+4qD37yWWdI9hiZQ==
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/ember-cli-favicon/-/ember-cli-favicon-2.1.1.tgz#407075ca39ef461c012c8b08e907226d5ee6fb55"
+  integrity sha512-45gt3VAr5mVQ3v5GBjqH3KyHyUoF/fsnh90RaRh3j1ExjA9hOgtyR/OsIqcFIrhBBAcsGDJEF/LpeCKU6nXEyA==
   dependencies:
     broccoli-favicon "~2.1.0"
     broccoli-merge-trees "3.0.2"

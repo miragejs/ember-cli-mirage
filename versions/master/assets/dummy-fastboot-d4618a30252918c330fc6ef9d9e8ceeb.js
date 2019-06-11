@@ -6,8 +6,8 @@ else if(!/^https?:\/\//.test(e.url))try{e.url=r+"//"+t(this,"fastboot.request.ho
 najax(e)},o={name:"ajax-service",initialize:function(e){e.register("ajax:node",r,{instantiate:!1}),e.inject("adapter","_ajaxRequest","ajax:node"),e.inject("adapter","fastboot","service:fastboot")}}
 e.default=o}),define("dummy/initializers/error-handler",["exports"],function(e){"use strict"
 Object.defineProperty(e,"__esModule",{value:!0}),e.default=void 0
-var t={name:"error-handler",initialize:function(e){Ember.onerror||(Ember.onerror=function(e){var t="There was an error running your app in fastboot. More info about the error: \n ".concat(e.stack||e)
-Ember.Logger.error(t)})}}
+var t={name:"error-handler",initialize:function(){Ember.onerror||(Ember.onerror=function(e){var t="There was an error running your app in fastboot. More info about the error: \n ".concat(e.stack||e)
+console.error(t)})}}
 e.default=t}),define("dummy/instance-initializers/setup-fetch",["exports","fetch"],function(e,t){"use strict"
 Object.defineProperty(e,"__esModule",{value:!0}),e.default=void 0
 var r={name:"fetch",initialize:function(e){var r=e.lookup("service:fastboot").get("request"),o="undefined:"===r.protocol?"http:":r.protocol;(0,t.setupFastboot)(o,r.get("host"))}}

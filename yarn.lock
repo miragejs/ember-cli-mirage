@@ -6925,7 +6925,7 @@ fastboot@^2.0.1:
     simple-dom "^1.4.0"
     source-map-support "^0.5.0"
 
-favicons@^5.3.0:
+favicons@5.3.0, favicons@^5.3.0:
   version "5.3.0"
   resolved "https://registry.yarnpkg.com/favicons/-/favicons-5.3.0.tgz#ba4f826f147718ccf7e312f6f7ae23881ad1dfa6"
   integrity sha512-0uU+QToJ790J4X9ACR7AyNCxjoLsChC5mIm3P1TbVYrLlW3MQ6sv6DIxFpEyhnx7CzUP8ww7hpizWAel3Hr4Yw==

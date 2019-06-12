@@ -1077,10 +1077,10 @@
   dependencies:
     core-js "^2.5.7"
 
-"@miragejs/server@0.1.1":
-  version "0.1.1"
-  resolved "https://registry.yarnpkg.com/@miragejs/server/-/server-0.1.1.tgz#b88102e5f48bd3b28169fc04e951a5df7e099062"
-  integrity sha512-dKFRBWlojJtnq+xGyce2jBwMh+NJyvge5jhWGMzAT5N83x5zNvcAkE8qDhY9Z0ZsAj6ODGWQvkHjPLsAWdT4UA==
+"@miragejs/server@0.1.2":
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/@miragejs/server/-/server-0.1.2.tgz#ed3dc7b363ae024a16574c0e5df535acba3ca276"
+  integrity sha512-JJQErnn7cQPNsC2aDn1TK2VBqcb5+5DhIQKECBujVj/VE1nMG8pwPKUcSItnY6NTfksM1u3DiNDOzI9DigxqzA==
   dependencies:
     broccoli-file-creator "^2.1.1"
     broccoli-funnel "^2.0.1"

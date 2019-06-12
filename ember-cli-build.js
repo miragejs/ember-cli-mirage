@@ -8,8 +8,8 @@ module.exports = function(defaults) {
     'ember-cli-babel': {
       includePolyfill: true
     },
-    'ember-cli-addon-docs': {
-      packages: ['./node_modules/@miragejs/server']
+    'ember-cli-addon-docs-esdoc': {
+      packages: [ 'ember-cli-mirage', '@miragejs/server' ]
     }
   });
 

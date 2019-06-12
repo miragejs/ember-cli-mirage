@@ -59,7 +59,7 @@
     "ember-ajax": "^5.0.0",
     "ember-cli": "~3.4.4",
     "ember-cli-addon-docs": "^0.6.4",
-    "ember-cli-addon-docs-esdoc": "^0.2.1",
+    "ember-cli-addon-docs-esdoc": "ember-learn/ember-cli-addon-docs-esdoc#518e12930cdcbaed31b5d260ece3aa09cc71bb33",
     "ember-cli-app-version": "^3.2.0",
     "ember-cli-dependency-checker": "^3.0.0",
     "ember-cli-deploy": "^1.0.2",

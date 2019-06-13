@@ -4976,9 +4976,9 @@ ember-cli-addon-docs-esdoc@^0.2.1:
     walk-sync "^0.3.2"
 
 ember-cli-addon-docs@^0.6.4:
-  version "0.6.12"
-  resolved "https://registry.yarnpkg.com/ember-cli-addon-docs/-/ember-cli-addon-docs-0.6.12.tgz#5dcd5c2fd527720e90a43f6aa241c59e2e69568e"
-  integrity sha512-uBGW7b3BvvTrVyZSdHSysFQj8ONjKnN7GL09OpH2DBcpNVv9Pi8NT8M7hb/BdXzPe5tirqMtpjCKHZaRIt6DVA==
+  version "0.6.13"
+  resolved "https://registry.yarnpkg.com/ember-cli-addon-docs/-/ember-cli-addon-docs-0.6.13.tgz#84bb96ea30f63adc16f8bf3eb08f12c68fbd14f0"
+  integrity sha512-K3emQn7WWTYAktUKSG2zTT/U53aXjO5KllvGZDg2LURweCe1YQ/turRww9sx+6CQcxU1oGNujGHpUxnyEGEPTA==
   dependencies:
     "@glimmer/syntax" "^0.36.4"
     broccoli-bridge "^1.0.0"
@@ -4994,10 +4994,10 @@ ember-cli-addon-docs@^0.6.4:
     chalk "^2.4.2"
     ember-auto-import "^1.2.19"
     ember-cli-autoprefixer "^0.8.1"
-    ember-cli-babel "^6.16.0"
+    ember-cli-babel "^7.7.3"
     ember-cli-clipboard "^0.11.1"
-    ember-cli-htmlbars "^3.0.0"
-    ember-cli-htmlbars-inline-precompile "^1.0.3"
+    ember-cli-htmlbars "^3.0.1"
+    ember-cli-htmlbars-inline-precompile "^2.1.0"
     ember-cli-sass "10.0.0"
     ember-cli-string-helpers "^1.9.0"
     ember-cli-string-utils "^1.1.0"
@@ -5257,7 +5257,7 @@ ember-cli-get-component-path-option@^1.0.0:
   resolved "https://registry.yarnpkg.com/ember-cli-get-component-path-option/-/ember-cli-get-component-path-option-1.0.0.tgz#0d7b595559e2f9050abed804f1d8eff1b08bc771"
   integrity sha1-DXtZVVni+QUKvtgE8djv8bCLx3E=
 
-ember-cli-htmlbars-inline-precompile@^1.0.0, ember-cli-htmlbars-inline-precompile@^1.0.3:
+ember-cli-htmlbars-inline-precompile@^1.0.0:
   version "1.0.5"
   resolved "https://registry.yarnpkg.com/ember-cli-htmlbars-inline-precompile/-/ember-cli-htmlbars-inline-precompile-1.0.5.tgz#312e050c9e3dd301c55fb399fd706296cd0b1d6a"
   integrity sha512-/CNEqPxroIcbY6qejrt704ZaghHLCntZKYLizFfJ2esirXoJx6fuYKBY1YyJ8GOgjfbHHKjBZuK4vFFJpkGqkQ==
@@ -5289,7 +5289,7 @@ ember-cli-htmlbars@^2.0.1, ember-cli-htmlbars@^2.0.2:
     json-stable-stringify "^1.0.0"
     strip-bom "^3.0.0"
 
-ember-cli-htmlbars@^3.0.0:
+ember-cli-htmlbars@^3.0.0, ember-cli-htmlbars@^3.0.1:
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/ember-cli-htmlbars/-/ember-cli-htmlbars-3.0.1.tgz#01e21f0fd05e0a6489154f26614b1041769e3e58"
   integrity sha512-pyyB2s52vKTXDC5svU3IjU7GRLg2+5O81o9Ui0ZSiBS14US/bZl46H2dwcdSJAK+T+Za36ZkQM9eh1rNwOxfoA==

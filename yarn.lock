@@ -4960,18 +4960,19 @@ ember-auto-import@^1.2.19:
     webpack "~4.28"
 
 ember-cli-addon-docs-esdoc@^0.2.1:
-  version "0.2.1"
-  resolved "https://registry.yarnpkg.com/ember-cli-addon-docs-esdoc/-/ember-cli-addon-docs-esdoc-0.2.1.tgz#fcb2f1792f1bd4d6a5df8205f7b6e555abbcd1b9"
-  integrity sha512-iDPMhxB68whOV4veW89TAOFBPU4g2ysP9y+Jn1Ic0+37N7LqOULas/FF4KxbhB+dUr5V5pW3txULeeLVcx5kYQ==
+  version "0.2.2"
+  resolved "https://registry.yarnpkg.com/ember-cli-addon-docs-esdoc/-/ember-cli-addon-docs-esdoc-0.2.2.tgz#c430392c38b321f7cbbb8b328969b056ee318751"
+  integrity sha512-DcvyMRBPbhMYadgGFCCcifTrcO4NPj/yp3woZgd35gkD0hTTK0tvDFld90GK+8kcB6BQmx8IcCKoc0osQpTMug==
   dependencies:
     broccoli-caching-writer "^3.0.3"
     ember-cli-babel "^6.6.0"
-    esdoc pzuraq/esdoc#015a342
+    esdoc "github:pzuraq/esdoc#015a342"
     esdoc-accessor-plugin "^1.0.0"
     esdoc-ecmascript-proposal-plugin "^1.0.0"
     fs-extra "^5.0.0"
     json-api-serializer "^1.11.0"
     lodash "^4.17.5"
+    resolve "^1.11.1"
     tmp "^0.0.33"
     walk-sync "^0.3.2"
 
@@ -6257,8 +6258,9 @@ esdoc-ecmascript-proposal-plugin@^1.0.0:
   resolved "https://registry.yarnpkg.com/esdoc-ecmascript-proposal-plugin/-/esdoc-ecmascript-proposal-plugin-1.0.0.tgz#390dc5656ba8a2830e39dba3570d79138df2ffd9"
   integrity sha1-OQ3FZWuoooMOOdujVw15E43y/9k=
 
-esdoc@pzuraq/esdoc#015a342:
+"esdoc@github:pzuraq/esdoc#015a342":
   version "1.0.4"
+  uid "015a3426b2e53b2b0270a9c00133780db3f1d144"
   resolved "https://codeload.github.com/pzuraq/esdoc/tar.gz/015a3426b2e53b2b0270a9c00133780db3f1d144"
   dependencies:
     babel-generator "6.26.0"

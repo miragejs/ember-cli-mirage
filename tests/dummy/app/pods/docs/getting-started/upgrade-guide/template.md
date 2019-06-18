@@ -7,7 +7,7 @@ If you're upgrading from an existing version of Mirage, you can run the followin
 npm install -D ember-cli-mirage@X.X.X
 
 # Using yarn
-yarn install -D ember-cli-mirage@X.X.X
+yarn add -D ember-cli-mirage@X.X.X
 ```
 
 

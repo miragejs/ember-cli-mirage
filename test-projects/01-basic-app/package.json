@@ -37,15 +37,16 @@
     "ember-data": "*",
     "ember-export-application-global": "*",
     "ember-load-initializers": "*",
+    "ember-maybe-import-regenerator-for-testing": "*",
     "ember-resolver": "*",
     "ember-source": "*",
     "eslint-plugin-ember": "*",
+    "faker": "*",
     "fastboot": "*",
     "jsdom": "*",
     "loader.js": "*",
     "qunit": "*",
-    "qunit-dom": "*",
-    "faker": "*"
+    "qunit-dom": "*"
   },
   "engines": {
     "node": ">= 8.*"

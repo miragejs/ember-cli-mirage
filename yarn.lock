@@ -4966,7 +4966,7 @@ ember-cli-addon-docs-esdoc@^0.2.1:
   dependencies:
     broccoli-caching-writer "^3.0.3"
     ember-cli-babel "^6.6.0"
-    esdoc "github:pzuraq/esdoc#015a342"
+    esdoc pzuraq/esdoc#015a342
     esdoc-accessor-plugin "^1.0.0"
     esdoc-ecmascript-proposal-plugin "^1.0.0"
     fs-extra "^5.0.0"
@@ -5885,7 +5885,16 @@ ember-macro-helpers@^2.1.0:
     ember-cli-test-info "^1.0.0"
     ember-weakmap "^3.0.0"
 
-ember-maybe-import-regenerator@^0.1.5, ember-maybe-import-regenerator@^0.1.6:
+ember-maybe-import-regenerator-for-testing@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/ember-maybe-import-regenerator-for-testing/-/ember-maybe-import-regenerator-for-testing-1.0.0.tgz#894b8089c5b3067c920b492c81233603852d5c2f"
+  integrity sha512-9ZOjrXZ6iO8WnVuk5kLqUZIFEEOx2O/EA08vcedaT/XSna6LzH2knLx5OiOD9f7XiO8jNaYuZoh0Uq3wnm8/oA==
+  dependencies:
+    broccoli-funnel "^1.0.1"
+    ember-cli-babel "^6.6.0"
+    regenerator-runtime "^0.9.5"
+
+ember-maybe-import-regenerator@^0.1.5:
   version "0.1.6"
   resolved "https://registry.yarnpkg.com/ember-maybe-import-regenerator/-/ember-maybe-import-regenerator-0.1.6.tgz#35d41828afa6d6a59bc0da3ce47f34c573d776ca"
   integrity sha1-NdQYKK+m1qWbwNo85H80xXPXdso=
@@ -6285,9 +6294,8 @@ esdoc-ecmascript-proposal-plugin@^1.0.0:
   resolved "https://registry.yarnpkg.com/esdoc-ecmascript-proposal-plugin/-/esdoc-ecmascript-proposal-plugin-1.0.0.tgz#390dc5656ba8a2830e39dba3570d79138df2ffd9"
   integrity sha1-OQ3FZWuoooMOOdujVw15E43y/9k=
 
-"esdoc@github:pzuraq/esdoc#015a342":
+esdoc@pzuraq/esdoc#015a342:
   version "1.0.4"
-  uid "015a3426b2e53b2b0270a9c00133780db3f1d144"
   resolved "https://codeload.github.com/pzuraq/esdoc/tar.gz/015a3426b2e53b2b0270a9c00133780db3f1d144"
   dependencies:
     babel-generator "6.26.0"

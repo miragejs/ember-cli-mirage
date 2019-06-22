@@ -1,4 +1,1 @@
-import Base from '@miragejs/server/lib/route-handlers/shorthands/base';
-export * from '@miragejs/server/lib/route-handlers/shorthands/base';
-
-export default Base;
+export { _routeHandlersShorthandsBase as default } from '@miragejs/server';

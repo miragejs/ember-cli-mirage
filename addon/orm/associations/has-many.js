@@ -1,4 +1,1 @@
-import HasMany from '@miragejs/server/lib/orm/associations/has-many';
-export * from '@miragejs/server/lib/orm/associations/has-many';
-
-export default HasMany;
+export { _ormAssociationsHasMany as default } from '@miragejs/server';

@@ -1,9 +1,9 @@
-import Server from '@miragejs/server/lib/server';
+import { Server } from '@miragejs/server';
 import { getModels } from './ember-data';
 import { hasEmberData } from './utils/ember-data';
 import _assign from 'lodash/assign';
 
-export * from '@miragejs/server/lib/server';
+export { defaultPassthroughs } from '@miragejs/server';
 
 export default class EmberServer extends Server {
 

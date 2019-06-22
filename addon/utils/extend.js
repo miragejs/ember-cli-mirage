@@ -1,4 +1,1 @@
-import Extend from '@miragejs/server/lib/utils/extend';
-export * from '@miragejs/server/lib/utils/extend';
-
-export default Extend;
+export { _utilsExtend as default } from '@miragejs/server';

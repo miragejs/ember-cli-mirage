@@ -1,4 +1,1 @@
-import Association from '@miragejs/server/lib/orm/associations/association';
-export * from '@miragejs/server/lib/orm/associations/association';
-
-export default Association;
+export { _ormAssociationsAssociation as default } from '@miragejs/server';

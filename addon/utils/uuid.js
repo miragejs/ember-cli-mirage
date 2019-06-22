@@ -1,4 +1,1 @@
-import Uuid from '@miragejs/server/lib/utils/uuid';
-export * from '@miragejs/server/lib/utils/uuid';
-
-export default Uuid;
+export { _utilsUuid as default } from '@miragejs/server';

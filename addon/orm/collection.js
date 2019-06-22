@@ -1,4 +1,1 @@
-import Collection from '@miragejs/server/lib/orm/collection';
-export * from '@miragejs/server/lib/orm/collection';
-
-export default Collection;
+export { Collection as default } from '@miragejs/server';

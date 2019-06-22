@@ -1,4 +1,1 @@
-import Factory from '@miragejs/server/lib/factory';
-export * from '@miragejs/server/lib/factory';
-
-export default Factory;
+export { Factory as default } from '@miragejs/server';

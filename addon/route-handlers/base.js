@@ -1,4 +1,1 @@
-import Base from '@miragejs/server/lib/route-handlers/base';
-export * from '@miragejs/server/lib/route-handlers/base';
-
-export default Base;
+export { _routeHandlersBase as default } from '@miragejs/server';

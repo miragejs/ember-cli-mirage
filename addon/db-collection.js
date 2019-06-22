@@ -1,4 +1,1 @@
-import DbCollection from '@miragejs/server/lib/db-collection';
-export * from '@miragejs/server/lib/db-collection';
-
-export default DbCollection;
+export { _dbCollection as default } from '@miragejs/server';

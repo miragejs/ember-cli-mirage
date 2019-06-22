@@ -1,4 +1,2 @@
-import MirageServer from '@miragejs/server/lib';
-export * from '@miragejs/server/lib';
-
-export default MirageServer;
+export { default } from '@miragejs/server';
+export * from '@miragejs/server';

@@ -1,4 +1,1 @@
-import Post from '@miragejs/server/lib/route-handlers/shorthands/post';
-export * from '@miragejs/server/lib/route-handlers/shorthands/post';
-
-export default Post;
+export { _routeHandlersShorthandsPost as default } from '@miragejs/server';

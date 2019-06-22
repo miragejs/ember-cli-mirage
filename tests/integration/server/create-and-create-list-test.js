@@ -1,9 +1,9 @@
 import { module, test } from 'qunit';
 import { Model, Factory, hasMany, belongsTo } from 'ember-cli-mirage';
-import Inflector from 'ember-inflector';
 import Server from 'ember-cli-mirage/server';
 // import escape from 'escape-string-regexp';
 import regExpFromString from '../../helpers/reg-exp-from-string';
+import Inflector from 'ember-inflector';
 
 // eslint-disable-next-line no-console
 let originalWarn = console.warn;
@@ -41,7 +41,8 @@ module('Integration | Server | create and createList', function(hooks) {
           name: 'Yehuda'
         }),
         amazingContact: Factory
-      }
+      },
+      inflector: Inflector.inflector
     });
     this.server.timing = 0;
     this.server.logging = false;

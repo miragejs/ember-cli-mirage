@@ -37,4 +37,3 @@ module('Integration | Database', function(hooks) {
     assert.deepEqual(authors.map((a) => a.id), ['1', '2']);
   });
 });
-

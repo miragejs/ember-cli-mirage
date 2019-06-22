@@ -1,4 +1,12 @@
-import { capitalize, camelize, dasherize, underscore } from '@ember/string';
-export { singularize, pluralize } from 'ember-inflector';
+export {
+  _utilsInflectorCamelize as camelize,
+  _utilsInflectorDasherize as dasherize,
+  _utilsInflectorUnderscore as underscore,
+  _utilsInflectorCapitalize as capitalize
+} from '@miragejs/server';
 
-export { capitalize, camelize, dasherize, underscore };
+/*
+  Keeping these tests here for now to avoid accidental breakage, but they are
+  definitely an Ember Mirage thing, not a Mirage thing.
+*/
+export { singularize, pluralize } from 'ember-inflector';

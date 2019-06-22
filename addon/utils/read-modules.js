@@ -2,9 +2,9 @@
 /* eslint-env node */
 'use strict';
 
-import { assert } from '@ember/debug';
+import assert from '../assert';
 import _camelCase from 'lodash/camelCase';
-import { pluralize } from 'ember-cli-mirage/utils/inflector';
+import { pluralize } from '../utils/inflector';
 import require from 'require';
 
 /**

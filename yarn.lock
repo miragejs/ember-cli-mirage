@@ -1077,10 +1077,10 @@
   dependencies:
     core-js "^2.5.7"
 
-"@miragejs/server@0.1.4":
-  version "0.1.4"
-  resolved "https://registry.yarnpkg.com/@miragejs/server/-/server-0.1.4.tgz#6516afcf52027f0393e32a583bda4744b03c3d49"
-  integrity sha512-pbfVCKdaj5bzU7m2vH8WooQgrVRNIL35N4bQyZpNw80T6xotiH7MKYYAaTYH/YuvF3OgvvMqBWB1d0/arDusHA==
+"@miragejs/server@0.1.5":
+  version "0.1.5"
+  resolved "https://registry.yarnpkg.com/@miragejs/server/-/server-0.1.5.tgz#af1f66871fe97365859688ac7b389840a3a780dc"
+  integrity sha512-ND6wKD5134LODsbIh/mPMxoZmuiJrxWZuHE1LqTRFM8Sw5IGdigORmMY7GgPjU9orpzR+4miC45xnqc474CSow==
   dependencies:
     chalk "^2.4.2"
     eslint "^5.16.0"
@@ -1427,12 +1427,7 @@ acorn@^5.0.0, acorn@^5.2.1, acorn@^5.4.0, acorn@^5.5.3, acorn@^5.6.2:
   resolved "https://registry.yarnpkg.com/acorn/-/acorn-5.7.3.tgz#67aa231bf8812974b85235a96771eb6bd07ea279"
   integrity sha512-T/zvzYRfbVojPWahDsE5evJdHb3oJoQfFbsrKM7w5Zcs++Tr257tia3BmMP8XYVjp1S9RZXQMh7gao96BlqZOw==
 
-acorn@^6.0.1, acorn@^6.1.1:
-  version "6.1.1"
-  resolved "https://registry.yarnpkg.com/acorn/-/acorn-6.1.1.tgz#7d25ae05bb8ad1f9b699108e1094ecd7884adc1f"
-  integrity sha512-jPTiwtOxaHNaAPg/dmrJ/beuzLRnXtB0kQPQ8JpotKJgTB6rX6c8mlf315941pyjBSaPg8NHXS9fhP4u17DpGA==
-
-acorn@^6.0.7:
+acorn@^6.0.1, acorn@^6.0.7, acorn@^6.1.1:
   version "6.1.1"
   resolved "https://registry.yarnpkg.com/acorn/-/acorn-6.1.1.tgz#7d25ae05bb8ad1f9b699108e1094ecd7884adc1f"
   integrity sha512-jPTiwtOxaHNaAPg/dmrJ/beuzLRnXtB0kQPQ8JpotKJgTB6rX6c8mlf315941pyjBSaPg8NHXS9fhP4u17DpGA==

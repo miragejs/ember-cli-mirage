@@ -24,6 +24,16 @@ install:
 
 notifications:
   email: false
+  
+# Identifies `a.b.c-xxx.n` tags as pre-releases, and `a.b.c` as stable releases
+before_deploy: |
+  function npm_dist_tag() {
+    if [[ "$TRAVIS_TAG" = *"-"* ]]; then
+      echo "next"
+    else
+      echo "latest"
+    fi
+  }
 
 jobs:
   fail_fast: true
@@ -62,6 +72,7 @@ jobs:
       script: skip
       deploy:
         provider: npm
+        tag: $(npm_dist_tag)
         email: sam.selikoff@gmail.com
         api_key:
           secure: O6cP0nTiCbA+MuD6hRKdyyd6DWTFR/dc9klB10zXTnrwajjzLmenvvshPUv+F6lHCpb2SfrWW6cpFjZ61BPwKaaalF9u8encNkGlDYGtO77sWJu6LuJFeWPZnAC9rdAw4hPjz+gqTL+leeDMHzjB32VRqy2cpwFzet3e+W2eUuk=

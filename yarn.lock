@@ -6382,9 +6382,9 @@ eslint-plugin-ember-suave@^1.0.0:
     requireindex "~1.1.0"
 
 eslint-plugin-ember@^6.2.0:
-  version "6.6.0"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-ember/-/eslint-plugin-ember-6.6.0.tgz#fa64f0e9fbbe14ae44478b5fa3890fb74d720e5e"
-  integrity sha512-vqRAyGMtuohMe+cnxiPYIF73gC2Rlei0GX/TAAAIXIJH8E98TFQkOHAhzF6u/6l6W5XRVuTKOlXyPJzRY+kJwQ==
+  version "6.7.0"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-ember/-/eslint-plugin-ember-6.7.0.tgz#1c2eb60a3b5ef7d483bd6f3ecbeaff42667c98ba"
+  integrity sha512-NLrO9XY0cR0+oeMc6850A86nJJe5LkN9fs5obNfy4BE0CmDXa3PX9GQlAR/O0sXPsj9HIOnGBTp2qO5dKfgZmA==
   dependencies:
     ember-rfc176-data "^0.3.9"
     snake-case "^2.1.0"

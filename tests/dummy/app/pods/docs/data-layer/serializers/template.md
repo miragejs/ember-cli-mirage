@@ -211,11 +211,11 @@ The other serializers also have mechanisms controlling how related data can be l
 
 While most route handlers should return a Model or Collection instance, and leave the serialization logic up to the Serializer, sometimes it can be convenient to perform some final serialization logic directly in your route handler.
 
-You can use the `this.serialize` helper method to do this.
+You can use the `this.serialize` helper method to do this - make sure to use a `function` instead of a fat arrow so you have access to the correct `this`:
 
 ```js
 // mirage/config.js
-this.get('/movies', (schema, request) => {
+this.get('/movies', function(schema, request) {
   let movies = schema.movies.all();
   let json = this.serialize(movies);
 
@@ -231,7 +231,7 @@ You can also use a specific serializer if you have a special case by passing in 
 
 ```js
 // mirage/config.js
-this.get('/movies', (schema, request) => {
+this.get('/movies', function(schema, request) {
   let movies = schema.movies.all();
   let json = this.serialize(movies, 'movie-with-relationship');
 

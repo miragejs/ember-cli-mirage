@@ -1,10 +1,8 @@
 /* global requirejs */
 
-import _find from 'lodash/find';
-
 function _hasEmberData() {
   let matchRegex = /^ember-data/i;
-  return !!_find(Object.keys(requirejs.entries), (e) => !!e.match(matchRegex));
+  return !!(Object.keys(requirejs.entries).find(e => !!e.match(matchRegex)));
 }
 
 /**

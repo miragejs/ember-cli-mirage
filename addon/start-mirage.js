@@ -1,7 +1,6 @@
 import { getWithDefault } from '@ember/object';
 import readModules from './utils/read-modules';
 import Server from './server';
-import _assign from 'lodash/assign';
 import { singularize, pluralize } from 'ember-inflector';
 
 /**
@@ -33,7 +32,7 @@ export default function startMirage(owner, { env, baseConfig, testConfig } = {})
   let environment = env.environment;
   let discoverEmberDataModels = getWithDefault(env['ember-cli-mirage'] || {}, 'discoverEmberDataModels', true);
   let modules = readModules(env.modulePrefix);
-  let options = _assign(modules, {environment, baseConfig, testConfig, discoverEmberDataModels});
+  let options = Object.assign(modules, {environment, baseConfig, testConfig, discoverEmberDataModels});
   options.trackRequests = env['ember-cli-mirage'].trackRequests;
   options.inflector = { singularize, pluralize };
 

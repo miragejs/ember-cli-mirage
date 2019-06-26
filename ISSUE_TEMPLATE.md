@@ -4,14 +4,12 @@ If this is a feature request, add a 👍 reaction to it. We use these to help us
 
 # Bug or question
 
-If possible, please use the Mirage Boilerplate CodeSandbox to demonstrate your issue or bug:
+If possible, please use the Mirage Boilerplate to demonstrate your issue or bug:
 
-1. Open the Mirage Boilerplate CodeSandbox:
-
-    https://codesandbox.io/s/003o6pq34n
+1. Visit the [Ember CLI Mirage Boilerplate](https://github.com/samselikoff/ember-cli-mirage-boilerplate) repo
 
 2. Click Fork
 
-3. Reproduce your issue and save
+3. Clone your fork locally, checkout a new branch, reproduce your issue and push
 
-4. Include the URL to your Sandbox in your issue
+4. Link to your branch in your issue

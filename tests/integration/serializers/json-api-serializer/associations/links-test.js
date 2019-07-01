@@ -158,6 +158,14 @@ module('Integration | Serializers | JSON API Serializer | Associations | Links',
     let res = await fetch('/users');
     let json = await res.json();
 
-    assert.deepEqual(json, {});
+    assert.deepEqual(
+      json,
+      {
+        "data": {
+          "attributes": {},
+          "id": "1",
+          "type": "users"
+        }
+      });
   });
 });

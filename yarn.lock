@@ -1077,17 +1077,18 @@
   dependencies:
     core-js "^2.5.7"
 
-"@miragejs/server@0.1.5":
-  version "0.1.5"
-  resolved "https://registry.yarnpkg.com/@miragejs/server/-/server-0.1.5.tgz#af1f66871fe97365859688ac7b389840a3a780dc"
-  integrity sha512-ND6wKD5134LODsbIh/mPMxoZmuiJrxWZuHE1LqTRFM8Sw5IGdigORmMY7GgPjU9orpzR+4miC45xnqc474CSow==
+"@miragejs/server@0.1.7":
+  version "0.1.7"
+  resolved "https://registry.yarnpkg.com/@miragejs/server/-/server-0.1.7.tgz#92c9ba4aea0931c51625535155c2188cf66a08c5"
+  integrity sha512-AbtaYKPgSBwPaPozfgLktYMyM1kbq50i+5LhP2IsWAUgmH2hGi21xxgaqlGFDLMbIO6Z+O2NaP36n9xiahnX7A==
   dependencies:
     chalk "^2.4.2"
     eslint "^5.16.0"
     inflected "^2.0.4"
-    lodash "^4.17.11"
+    lodash-es "^4.17.11"
     pretender "3.0.1"
     prettier "^1.18.2"
+    rollup-plugin-async "^1.2.0"
 
 "@mrmlnc/readdir-enhanced@^2.2.1":
   version "2.2.1"
@@ -1791,6 +1792,15 @@ async-promise-queue@^1.0.3, async-promise-queue@^1.0.4:
     async "^2.4.1"
     debug "^2.6.8"
 
+async-to-gen@^1.2.0:
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/async-to-gen/-/async-to-gen-1.4.0.tgz#f8157f9013e0c487e1e940150a4d1a1b78b2dd6b"
+  integrity sha1-+BV/kBPgxIfh6UAVCk0aG3iy3Ws=
+  dependencies:
+    babylon "^6.14.0"
+    magic-string "^0.22.0"
+    pirates "^3.0.2"
+
 async@^1.5.2:
   version "1.5.2"
   resolved "https://registry.yarnpkg.com/async/-/async-1.5.2.tgz#ec6a61ae56480c0c3cb241c95618e20892f9672a"
@@ -2488,7 +2498,7 @@ babel6-plugin-strip-heimdall@^6.0.1:
   resolved "https://registry.yarnpkg.com/babel6-plugin-strip-heimdall/-/babel6-plugin-strip-heimdall-6.0.1.tgz#35f80eddec1f7fffdc009811dfbd46d9965072b6"
   integrity sha1-NfgO3ewff//cAJgR371G2ZZQcrY=
 
-babylon@6.18.0, babylon@^6.18.0:
+babylon@6.18.0, babylon@^6.14.0, babylon@^6.18.0:
   version "6.18.0"
   resolved "https://registry.yarnpkg.com/babylon/-/babylon-6.18.0.tgz#af2f3b88fa6f5c1e4c634d1a0f8eac4f55b395e3"
   integrity sha512-q/UEjfGJ2Cm3oKV71DJz9d25TPnq5rhBVL2Q4fA5wcC3jcrdn7+SssEybFIxwAvvP+YCsCYNKughoF33GxgycQ==
@@ -6603,6 +6613,11 @@ estraverse@^4.0.0, estraverse@^4.1.0, estraverse@^4.1.1, estraverse@^4.2.0:
   resolved "https://registry.yarnpkg.com/estraverse/-/estraverse-4.2.0.tgz#0dee3fed31fcd469618ce7342099fc1afa0bdb13"
   integrity sha1-De4/7TH81GlhjOc0IJn8GvoL2xM=
 
+estree-walker@^0.2.1:
+  version "0.2.1"
+  resolved "https://registry.yarnpkg.com/estree-walker/-/estree-walker-0.2.1.tgz#bdafe8095383d8414d5dc2ecf4c9173b6db9412e"
+  integrity sha1-va/oCVOD2EFNXcLs9MkXO225QS4=
+
 estree-walker@^0.5.0, estree-walker@^0.5.2:
   version "0.5.2"
   resolved "https://registry.yarnpkg.com/estree-walker/-/estree-walker-0.5.2.tgz#d3850be7529c9580d815600b53126515e146dd39"
@@ -9965,7 +9980,7 @@ lunr@^2.3.3:
   resolved "https://registry.yarnpkg.com/lunr/-/lunr-2.3.5.tgz#7b510bad57e948dfb99a71fdff00c1bf9171bdda"
   integrity sha512-EtnfmHsHJTr3u24sito9JctSxej5Ds0SgUD2Lm+qRHyLgM7BGesFlW14eNh1mil0fV5Muh8gf3dBBXzADlUlzQ==
 
-magic-string@^0.22.4:
+magic-string@^0.22.0, magic-string@^0.22.4:
   version "0.22.5"
   resolved "http://registry.npmjs.org/magic-string/-/magic-string-0.22.5.tgz#8e9cf5afddf44385c1da5bc2a6a0dbd10b03657e"
   integrity sha512-oreip9rJZkzvA8Qzk9HFs8fZGF/u7H/gtrE8EN6RjKJ9kh2HlC+yQ2QezifqTZfGyiuAV0dRv5a+y/8gBb1m9w==
@@ -10657,6 +10672,11 @@ node-modules-path@^1.0.1:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/node-modules-path/-/node-modules-path-1.0.2.tgz#e3acede9b7baf4bc336e3496b58e5b40d517056e"
   integrity sha512-6Gbjq+d7uhkO7epaKi5DNgUJn7H0gEyA4Jg0Mo1uQOi3Rk50G83LtmhhFyw0LxnAFhtlspkiiw52ISP13qzcBg==
+
+node-modules-regexp@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/node-modules-regexp/-/node-modules-regexp-1.0.0.tgz#8d9dbe28964a4ac5712e9131642107c71e90ec40"
+  integrity sha1-jZ2+KJZKSsVxLpExZCEHxx6Q7EA=
 
 node-notifier@^5.0.1:
   version "5.2.1"
@@ -11402,6 +11422,13 @@ pinkie@^2.0.0:
   version "2.0.4"
   resolved "https://registry.yarnpkg.com/pinkie/-/pinkie-2.0.4.tgz#72556b80cfa0d48a974e80e77248e80ed4f7f870"
   integrity sha1-clVrgM+g1IqXToDnckjoDtT3+HA=
+
+pirates@^3.0.2:
+  version "3.0.2"
+  resolved "https://registry.yarnpkg.com/pirates/-/pirates-3.0.2.tgz#7e6f85413fd9161ab4e12b539b06010d85954bb9"
+  integrity sha512-c5CgUJq6H2k6MJz72Ak1F5sN9n9wlSlJyEnwvpm9/y3WB4E3pHBDT2c6PEiS1vyJvq2bUxUAIu0EGf8Cx4Ic7Q==
+  dependencies:
+    node-modules-regexp "^1.0.0"
 
 pixelmatch@^4.0.0, pixelmatch@^4.0.2:
   version "4.0.2"
@@ -12435,6 +12462,14 @@ ripemd160@^2.0.0, ripemd160@^2.0.1:
     hash-base "^3.0.0"
     inherits "^2.0.1"
 
+rollup-plugin-async@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/rollup-plugin-async/-/rollup-plugin-async-1.2.0.tgz#f95fdd29f8b6f2332b5a89a9d64ee8087b12b249"
+  integrity sha1-+V/dKfi28jMrWomp1k7oCHsSskk=
+  dependencies:
+    async-to-gen "^1.2.0"
+    rollup-pluginutils "^1.5.1"
+
 rollup-plugin-commonjs@^8.3.0:
   version "8.4.1"
   resolved "http://registry.npmjs.org/rollup-plugin-commonjs/-/rollup-plugin-commonjs-8.4.1.tgz#5c9cea2b2c3de322f5fbccd147e07ed5e502d7a0"
@@ -12454,6 +12489,14 @@ rollup-plugin-node-resolve@^3.3.0:
     builtin-modules "^2.0.0"
     is-module "^1.0.0"
     resolve "^1.1.6"
+
+rollup-pluginutils@^1.5.1:
+  version "1.5.2"
+  resolved "https://registry.yarnpkg.com/rollup-pluginutils/-/rollup-pluginutils-1.5.2.tgz#1e156e778f94b7255bfa1b3d0178be8f5c552408"
+  integrity sha1-HhVud4+UtyVb+hs9AXi+j1xVJAg=
+  dependencies:
+    estree-walker "^0.2.1"
+    minimatch "^3.0.2"
 
 rollup-pluginutils@^2.0.1:
   version "2.3.3"

@@ -1,5 +1,5 @@
 import SerializerRegistry from 'ember-cli-mirage/serializer-registry';
-import { Model, hasMany, belongsTo, JSONAPISerializer } from 'ember-cli-mirage';
+import { Server, Model, hasMany, belongsTo, JSONAPISerializer, ActiveModelSerializer } from 'ember-cli-mirage';
 import { module, test } from 'qunit';
 import Db from 'ember-cli-mirage/db';
 import Schema from 'ember-cli-mirage/orm/schema';
@@ -128,5 +128,44 @@ module('Integration | Serializers | JSON API Serializer | Associations | Links',
         }
       }
     });
+  });
+
+  test('[regression] it works when using a named serializer, relationships, and a non-JSONAPISerializer for the base', async function(assert) {
+    let server = new Server({
+      serializers: {
+        application: ActiveModelSerializer,
+        userV2: JSONAPISerializer
+      },
+
+      models: {
+        user: Model.extend({
+          posts: hasMany()
+        }),
+        post: Model.extend()
+      },
+
+      baseConfig() {
+        this.get('/users', function(schema) {
+          let json = this.serialize(schema.users.find(1), 'userV2');
+
+          return json;
+        });
+      }
+    });
+
+    server.create('user');
+
+    let res = await fetch('/users');
+    let json = await res.json();
+
+    assert.deepEqual(
+      json,
+      {
+        "data": {
+          "attributes": {},
+          "id": "1",
+          "type": "users"
+        }
+      });
   });
 });

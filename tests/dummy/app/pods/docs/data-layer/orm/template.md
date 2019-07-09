@@ -1,4 +1,4 @@
-# The ORM
+# Why an ORM?
 
 Mirage originally shipped with just a database as its data layer. While helpful, users still had to write a lot of code to reproduce their modern, complex backends. In particular, dealing with relationships was a big pain point.
 
@@ -394,10 +394,6 @@ The ORM allows Mirage to abstract all this bookkeeping away from your code, and 
 
 ---
 
-These are some of the main problems addressed by Mirage's ORM. Generally, when Mirage knows about your application's models and their relationships, it can take on more of the responsibility of configuring your mock server.
+These are some of the main problems addressed by Mirage's ORM. Generally, when Mirage knows about your application's schema, it can take on more of the responsibility of configuring your mock server.
 
-Be sure to check out the {{docs-link 'Schema' 'docs.api.item' 'modules/ember-cli-mirage/orm/schema~Schema'}}, {{docs-link 'Model' 'docs.api.item' 'modules/ember-cli-mirage/orm/model~Model'}} and {{docs-link 'Collection' 'docs.api.item' 'modules/ember-cli-mirage/orm/collection~Collection'}} API docs to learn about all the available ORM methods, as well as the {{docs-link 'Association' 'docs.api.item' 'modules/ember-cli-mirage/orm/associations/association~Association'}} docs to see what methods are added by belongsTo and hasMany relationships.
-
-We'll also cover Serializers in these guides, where you'll learn how to customize the serialized forms of your models and collections to match your production API.
-
-Next, let's take a look at Factories, which also leverage the ORM to make it easy to create the relational data needed to put your server in a variety of states.
+Next, we'll take a look at how to actually define your models and their relationships in Mirage.

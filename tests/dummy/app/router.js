@@ -23,6 +23,8 @@ Router.map(function() {
     this.route('data-layer', function() {
       this.route('database');
       this.route('orm');
+      this.route('models');
+      this.route('relationships');
       this.route('factories');
       this.route('fixtures');
       this.route('serializers');

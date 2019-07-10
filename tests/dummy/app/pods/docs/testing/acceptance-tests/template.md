@@ -23,7 +23,7 @@ Assuming you're using Application Tests (introduced in [Ember 3.0](https://ember
   });
 ```
 
-(Pre-3.0 style tests will automatically boot Mirage via an initializer.)
+(If you are using pre-3.0 style tests, Mirage should boot automatically via an initializer. The only other difference is that Mirage is accessed via `server`, a global, whereas in 3.0-style tests Mirage is accessed via `this.server`. The rest of this guide will assume 3.0-style tests, but you can just use `server` in place of `this.server` and the rest of the documentation applies the same.)
 
 Now we can run your Ember app's test suite with `ember t -s`.
 

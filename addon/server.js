@@ -4,6 +4,9 @@ import { hasEmberData } from './utils/ember-data';
 
 export { defaultPassthroughs } from '@miragejs/server';
 
+/**
+  @hide
+*/
 export default class EmberServer extends Server {
 
   constructor(options) {

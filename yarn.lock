@@ -9601,9 +9601,9 @@ locate-path@^3.0.0:
     path-exists "^3.0.0"
 
 lodash-es@^4.17.11:
-  version "4.17.11"
-  resolved "https://registry.yarnpkg.com/lodash-es/-/lodash-es-4.17.11.tgz#145ab4a7ac5c5e52a3531fb4f310255a152b4be0"
-  integrity sha512-DHb1ub+rMjjrxqlB3H56/6MXtm1lSksDp2rA2cNWjG8mlDUYFhUj3Di2Zn5IwSU87xLv8tNIQ7sSwE/YOX/D/Q==
+  version "4.17.13"
+  resolved "https://registry.yarnpkg.com/lodash-es/-/lodash-es-4.17.13.tgz#2a2df2acde25a8eebf886167f7d2b5d86a606db0"
+  integrity sha512-ktNCRrL41QyGAkjVQHG50QKiMAqum17Krw1hHl0nCLGeif+omPn5N6vPQq8cFTAKVf35MGvpa8Fgfq9jI4nS0w==
 
 lodash._baseassign@^3.0.0:
   version "3.2.0"

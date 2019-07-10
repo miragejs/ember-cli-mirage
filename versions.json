@@ -119,5 +119,11 @@
     "name": "v1.1.0-beta.2",
     "sha": "98a1d7fda342111947c9a31dbb43e032e19fbfff",
     "tag": "v1.1.0-beta.2"
+  },
+  "v1.1.0-beta.4": {
+    "path": "versions/v1.1.0-beta.4",
+    "name": "v1.1.0-beta.4",
+    "sha": "4c8a1962666302154649fdd42730711031414663",
+    "tag": "v1.1.0-beta.4"
   }
 }

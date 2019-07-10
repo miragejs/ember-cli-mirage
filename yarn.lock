@@ -1132,10 +1132,10 @@
   dependencies:
     core-js "^2.5.7"
 
-"@miragejs/server@0.1.8":
-  version "0.1.8"
-  resolved "https://registry.yarnpkg.com/@miragejs/server/-/server-0.1.8.tgz#bb7a5627381a0430f8cc3d0903b61735ba4c162c"
-  integrity sha512-0OTVVrOBFDR9kmap9MRhcSx9gK0ZpS2aPH65d56HT1J88Dcm7YHaNyLowkuG5p9dd16qbSe9yz21INjlB9syFA==
+"@miragejs/server@0.1.9":
+  version "0.1.9"
+  resolved "https://registry.yarnpkg.com/@miragejs/server/-/server-0.1.9.tgz#98fb8efa7ed8f76e50b702df63ea950fe74b1c63"
+  integrity sha512-EEgnyeEoo38cx9sSrcleHmMlXq/4/6EOkT56wMJwviThTyxMLoJN06dUamsxaCVVEbsVZqlP0Km7hhmHhEOXEg==
   dependencies:
     chalk "^2.4.2"
     eslint "^5.16.0"

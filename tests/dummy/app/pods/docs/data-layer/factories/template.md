@@ -647,7 +647,7 @@ In this test, we start our Mirage server out with 5 movies. Then we boot up the 
 
 When we write another test, the database will start out empty so that none of Mirage's state leaks across tests.
 
-You can read more about testing with Mirage in the {{docs-link 'Testing' 'docs.testing.acceptance-testing'}} section of these guides.
+You can read more about testing with Mirage in the {{docs-link 'Testing' 'docs.testing.acceptance-tests'}} section of these guides.
 
 
 ## Factory best practices

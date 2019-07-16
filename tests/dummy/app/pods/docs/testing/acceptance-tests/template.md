@@ -75,7 +75,7 @@ test('I can view the movies', async function(assert) {
 });
 
 test("I see the movies's title on the detail route", await function(assert) {
-  let movie = this.server.create('movie',
+  let movie = this.server.create('movie', {
     title: 'Interstellar'
   });
 

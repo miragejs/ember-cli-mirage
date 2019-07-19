@@ -93,3 +93,19 @@ ENV['ember-cli-mirage'] = {
   directory: 'app/mirage'
 };
 ```
+
+## discoverEmberDataModels
+
+Tells Mirage whether to automatically infer its schema from the host application's Ember Data models and relationships.
+
+Defaults to true. If Ember Data models are present, predefines Mirage's models and relationships. If Ember Data models are not present, has no effect.
+
+You can disable by setting to `false`. You might want to do this if you run into an edge case/issue where the autodiscovery code causes issues in your app's environment (for example, if you have a complex engines setup).
+
+```js
+// config/environment.js
+...
+ENV['ember-cli-mirage'] = {
+  discoverEmberDataModels: false
+};
+```

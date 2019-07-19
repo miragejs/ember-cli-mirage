@@ -5697,9 +5697,9 @@ void 0===r&&(r={modules:[]})
 var n=null
 function i(e){var t=e.getBoundingClientRect(),r={}
 for(var n in t)r[n]=t[n]
-if(e.ownerDocument!==document){var o=e.ownerDocument.defaultView.frameElement
+try{if(e.ownerDocument!==document){var o=e.ownerDocument.defaultView.frameElement
 if(o){var a=i(o)
-r.top+=a.top,r.bottom+=a.top,r.left+=a.left,r.right+=a.left}}return r}function o(e){var t=(getComputedStyle(e)||{}).position,r=[]
+r.top+=a.top,r.bottom+=a.top,r.left+=a.left,r.right+=a.left}}}catch(s){}return r}function o(e){var t=(getComputedStyle(e)||{}).position,r=[]
 if("fixed"===t)return[e]
 for(var n=e;(n=n.parentNode)&&n&&1===n.nodeType;){var i=void 0
 try{i=getComputedStyle(n)}catch(l){}if(null==i)return r.push(n),r

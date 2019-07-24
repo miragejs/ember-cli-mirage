@@ -145,7 +145,7 @@ Create the module
 ```js
 // scenarios/shared.js
 export default function(server) {
-  server.loadFixtures('country');
+  server.loadFixtures('countries');
 
   server.createList('event', 10);
 });

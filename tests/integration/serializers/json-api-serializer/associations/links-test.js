@@ -132,6 +132,7 @@ module('Integration | Serializers | JSON API Serializer | Associations | Links',
 
   test('[regression] it works when using a named serializer, relationships, and a non-JSONAPISerializer for the base', async function(assert) {
     let server = new Server({
+      environment: 'test',
       serializers: {
         application: ActiveModelSerializer,
         userV2: JSONAPISerializer
@@ -167,5 +168,7 @@ module('Integration | Serializers | JSON API Serializer | Associations | Links',
           "type": "users"
         }
       });
+
+    server.shutdown();
   });
 });

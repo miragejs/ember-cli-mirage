@@ -57,6 +57,6 @@ test('I can create a movie', async function(assert) {
 });
 ```
 
-You can view the rest of the Database APIs in the {{docs-link 'Db' 'docs.api.item' 'modules/ember-cli-mirage/db~Db'}} and {{docs-link 'DbCollection' 'docs.api.item' 'modules/ember-cli-mirage/db-collection~DbCollection'}} API reference.
+You can view the rest of the Database APIs in the {{docs-link 'Db' 'docs.api.item' 'modules/lib/db~Db'}} and {{docs-link 'DbCollection' 'docs.api.item' 'modules/lib/db-collection~DbCollection'}} API reference.
 
 Next, we'll learn about Mirage's ORM.

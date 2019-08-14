@@ -138,7 +138,7 @@ Typically you should reserve the `scenarios/default.js` file for development, so
 
 If there's some logic you'd like to share between your development scenario and your tests, you can always make a new module under `scenarios` and import it in both places.
 
-you'd like to load your development scenario in your tests, you can always directly import that module and run your test server through it:
+If you'd like to load your development scenario in your tests, you can always directly import that module and run your test server through it:
 
 Create the module
 

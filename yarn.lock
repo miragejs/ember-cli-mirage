@@ -5971,10 +5971,10 @@ ember-responsive@^3.0.1:
   dependencies:
     ember-cli-babel "^6.6.0"
 
-ember-rfc176-data@^0.3.9:
-  version "0.3.9"
-  resolved "https://registry.yarnpkg.com/ember-rfc176-data/-/ember-rfc176-data-0.3.9.tgz#44b6e051ead6c044ea87bd551f402e2cf89a7e3d"
-  integrity sha512-EiTo5YQS0Duy0xp9gCP8ekzv9vxirNi7MnIB4zWs+thtWp/mEKgf5mkiiLU2+oo8C5DuavVHhoPQDmyxh8Io1Q==
+ember-rfc176-data@^0.3.11, ember-rfc176-data@^0.3.9:
+  version "0.3.12"
+  resolved "https://registry.yarnpkg.com/ember-rfc176-data/-/ember-rfc176-data-0.3.12.tgz#90d82878e69e2ac9a5438e8ce14d12c6031c5bd2"
+  integrity sha512-g9HeZj/gU5bfIIrGXkP7MhS2b3Vu5DfNUrYr14hy99TgIvtZETO+96QF4WOEUXGjIJdfTRjerVnQlqngPQSv1g==
 
 ember-router-generator@^1.2.3:
   version "1.2.3"
@@ -6324,13 +6324,13 @@ eslint-plugin-ember-suave@^1.0.0:
   dependencies:
     requireindex "~1.1.0"
 
-eslint-plugin-ember@^6.2.0:
-  version "6.8.2"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-ember/-/eslint-plugin-ember-6.8.2.tgz#3b512426c3d6cb29913471dedbee2c21f16fc26e"
-  integrity sha512-NXtanzQaX7p88rNK55ZlTU25MSiu8DDrdT83plgx1zQ8C8oVcX3qnnpD4SfaVfuGE1ZKmEGkelPZF8y6kU1qoA==
+eslint-plugin-ember@^7.0.0:
+  version "7.0.0"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-ember/-/eslint-plugin-ember-7.0.0.tgz#75412b62501a8489b5b6345ccb6adfb877ceb38a"
+  integrity sha512-cMdYuKs46hpF5DEPQ2cccNjgC5xy0C1GcFfP47qiHTKAAAkHUttD/6DdEH3OwlreK/uFbF4fFaHxuq84xkaOgA==
   dependencies:
     "@ember-data/rfc395-data" "^0.0.4"
-    ember-rfc176-data "^0.3.9"
+    ember-rfc176-data "^0.3.11"
     snake-case "^2.1.0"
 
 eslint-plugin-es@^1.4.0:
@@ -13277,7 +13277,7 @@ temp@0.8.3:
     os-tmpdir "^1.0.0"
     rimraf "~2.2.6"
 
-terser-webpack-plugin@^1.1.0:
+terser-webpack-plugin@1.2.1, terser-webpack-plugin@^1.1.0:
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/terser-webpack-plugin/-/terser-webpack-plugin-1.2.1.tgz#7545da9ae5f4f9ae6a0ac961eb46f5e7c845cc26"
   integrity sha512-GGSt+gbT0oKcMDmPx4SRSfJPE1XaN3kQRWG4ghxKQw9cn5G9x6aCKSsgYdvyM0na9NJ4Drv0RG6jbBByZ5CMjw==

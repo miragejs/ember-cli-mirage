@@ -29,7 +29,7 @@ export function getDsModels() {
 
   let moduleMap = requirejs.entries;
   let classicModelMatchRegex = new RegExp(`^${modulePrefix}/models/(.*)$`, 'i');
-  let podModelMatchRegex = new RegExp(`^${podModulePrefix}/(.*)/model$`, 'i');
+  let podModelMatchRegex = new RegExp(`^${podModulePrefix || modulePrefix}/(.*)/model$`, 'i');
 
   DsModels = {};
 

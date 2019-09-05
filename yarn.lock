@@ -1135,10 +1135,10 @@
   dependencies:
     core-js "^2.5.7"
 
-"@miragejs/server@0.1.21":
-  version "0.1.21"
-  resolved "https://registry.yarnpkg.com/@miragejs/server/-/server-0.1.21.tgz#28f8d1aaa65cac5d1b02e34c7c18971534237995"
-  integrity sha512-O16ISQCC2j6dTn1OF1BHglbNgg2cz/JWFlVyTwyGfwfF2AUGRPlcETd/eFqfKL46Z/YMbcWGTVyIvDVRPGtPLQ==
+"@miragejs/server@0.1.22":
+  version "0.1.22"
+  resolved "https://registry.yarnpkg.com/@miragejs/server/-/server-0.1.22.tgz#598bc9fcce9126fa481a1189bb8626d63040b014"
+  integrity sha512-+vAQPmPlFDljn7zQvuDTOr+0DFgXYYOuL2ZOT71WXTrQQpbEzPxUsSa+JG4Px4IV2dNtQblo8onS3pj+vyAiBg==
   dependencies:
     inflected "^2.0.4"
     lodash.assign "^4.2.0"
@@ -6627,7 +6627,6 @@ esdoc-ecmascript-proposal-plugin@^1.0.0:
 
 esdoc@pzuraq/esdoc#015a342:
   version "1.0.4"
-  uid "015a3426b2e53b2b0270a9c00133780db3f1d144"
   resolved "https://codeload.github.com/pzuraq/esdoc/tar.gz/015a3426b2e53b2b0270a9c00133780db3f1d144"
   dependencies:
     babel-generator "6.26.0"

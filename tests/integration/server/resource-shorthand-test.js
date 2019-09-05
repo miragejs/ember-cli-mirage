@@ -312,9 +312,8 @@ module("Integration | Server | Resource shorthand", function(hooks) {
       });
     } catch (e) {
       assert.ok(
-        e.error.message.indexOf(
-          "Mirage: Your Ember app tried to GET '/contacts/1'"
-        ) > -1,
+        e.error.message.indexOf("Mirage: Your app tried to GET '/contacts/1'") >
+          -1,
         "Should receive an error from Mirage when requesting the show action"
       );
     }
@@ -331,9 +330,8 @@ module("Integration | Server | Resource shorthand", function(hooks) {
       });
     } catch (e) {
       assert.ok(
-        e.error.message.indexOf(
-          "Mirage: Your Ember app tried to POST '/contacts'"
-        ) > -1,
+        e.error.message.indexOf("Mirage: Your app tried to POST '/contacts'") >
+          -1,
         "Should receive an error from Mirage when requesting the create action"
       );
     }
@@ -350,9 +348,8 @@ module("Integration | Server | Resource shorthand", function(hooks) {
       });
     } catch (e) {
       assert.ok(
-        e.error.message.indexOf(
-          "Mirage: Your Ember app tried to PUT '/contacts/1'"
-        ) > -1,
+        e.error.message.indexOf("Mirage: Your app tried to PUT '/contacts/1'") >
+          -1,
         "Should receive an error from Mirage when requesting the update action with PUT"
       );
     }
@@ -370,7 +367,7 @@ module("Integration | Server | Resource shorthand", function(hooks) {
     } catch (e) {
       assert.ok(
         e.error.message.indexOf(
-          "Mirage: Your Ember app tried to PATCH '/contacts/1'"
+          "Mirage: Your app tried to PATCH '/contacts/1'"
         ) > -1,
         "Should receive an error from Mirage when requesting the update action with PATCH"
       );
@@ -384,7 +381,7 @@ module("Integration | Server | Resource shorthand", function(hooks) {
     } catch (e) {
       assert.ok(
         e.error.message.indexOf(
-          "Mirage: Your Ember app tried to DELETE '/contacts/1'"
+          "Mirage: Your app tried to DELETE '/contacts/1'"
         ) > -1,
         "Should receive an error from Mirage when requesting the delet action"
       );
@@ -444,9 +441,8 @@ module("Integration | Server | Resource shorthand", function(hooks) {
       });
     } catch (e) {
       assert.ok(
-        e.error.message.indexOf(
-          "Mirage: Your Ember app tried to POST '/contacts'"
-        ) > -1,
+        e.error.message.indexOf("Mirage: Your app tried to POST '/contacts'") >
+          -1,
         "Should receive an error from Mirage when requesting the create action"
       );
     }
@@ -463,9 +459,8 @@ module("Integration | Server | Resource shorthand", function(hooks) {
       });
     } catch (e) {
       assert.ok(
-        e.error.message.indexOf(
-          "Mirage: Your Ember app tried to PUT '/contacts/1'"
-        ) > -1,
+        e.error.message.indexOf("Mirage: Your app tried to PUT '/contacts/1'") >
+          -1,
         "Should receive an error from Mirage when requesting the update action with PUT"
       );
     }
@@ -483,7 +478,7 @@ module("Integration | Server | Resource shorthand", function(hooks) {
     } catch (e) {
       assert.ok(
         e.error.message.indexOf(
-          "Mirage: Your Ember app tried to PATCH '/contacts/1'"
+          "Mirage: Your app tried to PATCH '/contacts/1'"
         ) > -1,
         "Should receive an error from Mirage when requesting the update action with PATCH"
       );
@@ -497,7 +492,7 @@ module("Integration | Server | Resource shorthand", function(hooks) {
     } catch (e) {
       assert.ok(
         e.error.message.indexOf(
-          "Mirage: Your Ember app tried to DELETE '/contacts/1'"
+          "Mirage: Your app tried to DELETE '/contacts/1'"
         ) > -1,
         "Should receive an error from Mirage when requesting the delet action"
       );

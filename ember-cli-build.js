@@ -1,14 +1,17 @@
-'use strict';
+"use strict";
 
-const EmberAddon = require('ember-cli/lib/broccoli/ember-addon');
+const EmberAddon = require("ember-cli/lib/broccoli/ember-addon");
 
 module.exports = function(defaults) {
   let app = new EmberAddon(defaults, {
-    'ember-cli-babel': {
+    "ember-cli-babel": {
       includePolyfill: true
     },
-    'ember-cli-addon-docs-esdoc': {
-      packages: [ 'ember-cli-mirage', '@miragejs/server' ]
+    "ember-cli-addon-docs-esdoc": {
+      packages: [
+        "ember-cli-mirage",
+        { name: "@miragejs/server", sourceDirectory: "lib" }
+      ]
     }
   });
 

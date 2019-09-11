@@ -1,4 +1,4 @@
-define("dummy/initializers/ajax",["exports"],function(e){"use strict"
+define("~fastboot/app-factory",["dummy/app","dummy/config/environment"],function(e,t){return e=e.default,t=t.default,{default:function(){return e.create(t.APP)}}}),define("dummy/initializers/ajax",["exports"],function(e){"use strict"
 Object.defineProperty(e,"__esModule",{value:!0}),e.default=void 0
 var t=Ember.get,r=function(e){var r=t(this,"fastboot.request.protocol")
 if(/^\/\//.test(e.url))e.url=r+e.url

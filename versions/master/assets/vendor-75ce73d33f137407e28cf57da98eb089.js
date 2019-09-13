@@ -10207,14 +10207,14 @@ Ember.defineProperty(e,n,Ember.computed("matches.[]",function(){return this.get(
 if(!this.get("_mocked")){var n=this.get("mql")(t),i=function(t){r.get("isDestroyed")||(r.set("matchers."+e,t),t.matches?r.get("matches").addObject(e):r.get("matches").removeObject(e),r._triggerEvent())}
 this.get("listeners")[e]=i,n.addListener&&n.addListener(function(e){Ember.run(null,i,e)}),i(n)}}})}),define("ember-router-scroll/index",["exports","ember-app-scheduler","ember-router-scroll/utils/scrollbar-width"],function(e,t,r){"use strict"
 Object.defineProperty(e,"__esModule",{value:!0}),e.default=void 0
-var n,i=(0,r.getScrollBarWidth)(),o=document.body,a=document.documentElement,s=0,u=100
+var n,i=document.body,o=document.documentElement,a=0,s=100,u=0
 var l=Ember.Mixin.create({service:Ember.inject.service("router-scroll"),isFastBoot:Ember.computed(function(){var e=Ember.getOwner(this).lookup("service:fastboot")
 return!!e&&e.get("isFastBoot")}),init:function(){var e=this
-this._super.apply(this,arguments),(0,t.setupRouter)(this),this.on("routeWillChange",function(){e._routeWillChange()}),this.on("routeDidChange",function(t){e._routeDidChange(t)})},destroy:function(){(0,t.reset)(),n&&window.cancelAnimationFrame(n),this._super.apply(this,arguments)},updateScrollPosition:function(e,t){var r,l,c=Ember.get(this,"currentURL"),d=c?document.getElementById(c.split("#").pop()):null
+this._super.apply(this,arguments),(0,t.setupRouter)(this),this.on("routeWillChange",function(){e._routeWillChange()}),this.on("routeDidChange",function(t){e._routeDidChange(t)}),Ember.get(this,"isFastBoot")||(u=(0,r.getScrollBarWidth)())},destroy:function(){(0,t.reset)(),n&&window.cancelAnimationFrame(n),this._super.apply(this,arguments)},updateScrollPosition:function(e,t){var r,l,c=Ember.get(this,"currentURL"),d=c?document.getElementById(c.split("#").pop()):null
 if(Ember.get(this,"service.isFirstLoad"))Ember.get(this,"service").unsetFirstLoad()
 else if(r=c&&c.indexOf("#")>-1&&d?{x:d.offsetLeft,y:d.offsetTop}:Ember.get(this,"service.position"),(l=Ember.getWithDefault(e,"router.currentRouteInfos",[]).some(function(e){return Ember.get(e,"route.controller.preserveScrollPosition")}))||(l=Ember.get(this,"service.preserveScrollPosition")),!l){var h=Ember.get(this,"service.scrollElement")
-if(Ember.get(this,"service.targetElement")||"window"===h)t?function e(t,r){n=window.requestAnimationFrame(function(){var n=Math.max(o.scrollWidth,o.offsetWidth,a.clientWidth,a.scrollWidth,a.offsetWidth),l=Math.max(o.scrollHeight,o.offsetHeight,a.clientHeight,a.scrollHeight,a.offsetHeight)
-n+i-window.innerWidth>=r.x&&l+i-window.innerHeight>=r.y||s>=u?(s=0,t.call(null,r.x,r.y)):(s++,e(t,r))})}(window.scrollTo,r):window.scrollTo(r.x,r.y)
+if(Ember.get(this,"service.targetElement")||"window"===h)t?function e(t,r){var l=Math.max(i.scrollWidth,i.offsetWidth,o.clientWidth,o.scrollWidth,o.offsetWidth),c=Math.max(i.scrollHeight,i.offsetHeight,o.clientHeight,o.scrollHeight,o.offsetHeight),d=window,h=d.innerHeight,f=d.innerWidth
+n=window.requestAnimationFrame(function(){l+u-f>=r.x&&c+u-h>=r.y||a>=s?(a=0,t.call(null,r.x,r.y)):(a++,e(t,r))})}(window.scrollTo,r):window.scrollTo(r.x,r.y)
 else if("#"===h.charAt(0)){var f=document.getElementById(h.substring(1))
 f&&(f.scrollLeft=r.x,f.scrollTop=r.y)}}},_routeWillChange:function(){Ember.get(this,"isFastBoot")||Ember.get(this,"service").update()},_routeDidChange:function(e){var r=this
 if(!Ember.get(this,"isFastBoot")){var n=Ember.get(this,"service.delayScrollTop"),i=Ember.get(this,"service.scrollWhenPainted"),o=Ember.get(this,"service.scrollWhenIdle")

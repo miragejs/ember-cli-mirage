@@ -1135,10 +1135,10 @@
   dependencies:
     core-js "^2.5.7"
 
-"@miragejs/server@0.1.23":
-  version "0.1.23"
-  resolved "https://registry.yarnpkg.com/@miragejs/server/-/server-0.1.23.tgz#10e7c1865b9fc4b1c4b8ae5f9ee58509efb37519"
-  integrity sha512-WgcuN4fjWDzqGo/f9f1G1df0JbCUS4ulOGHaWYgrhvDTMq7LDbn1g31xO30IWdZ4USxiLR79CskXg6DuqZlXAw==
+"@miragejs/server@0.1.26":
+  version "0.1.26"
+  resolved "https://registry.yarnpkg.com/@miragejs/server/-/server-0.1.26.tgz#7084a06e97a1dfa62090cb4050910a0f77c75870"
+  integrity sha512-yyknCjJ/H6Ogwqpwc3qUREs58TWfPqRz00sVnLErK96lGbS70glfPPNSAiXpo146SMIuDF3V66UPpLAxLKXbSg==
   dependencies:
     inflected "^2.0.4"
     lodash.assign "^4.2.0"

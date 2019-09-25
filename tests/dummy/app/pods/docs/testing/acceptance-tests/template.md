@@ -148,7 +148,7 @@ export default function(server) {
   server.loadFixtures('countries');
 
   server.createList('event', 10);
-});
+};
 ```
 
 ...load it in your default scenario

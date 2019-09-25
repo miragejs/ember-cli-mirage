@@ -84,7 +84,7 @@
     "ember-maybe-import-regenerator-for-testing": "^1.0.0",
     "ember-moment": "^7.8.1",
     "ember-resolver": "^5.0.1",
-    "ember-source": "~3.12.0",
+    "ember-source": "~3.13.1",
     "ember-source-channel-url": "^2.0.1",
     "ember-try": "^1.0.0",
     "escape-string-regexp": "^2.0.0",

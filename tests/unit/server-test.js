@@ -1,4 +1,4 @@
-import Server, { defaultPassthroughs } from 'ember-cli-mirage/server';
+import Server from 'ember-cli-mirage/server';
 import {module, test} from 'qunit';
 import { Model, Factory, belongsTo, hasMany, trait, association } from 'ember-cli-mirage';
 
@@ -1284,35 +1284,5 @@ module('Unit | Server #buildList', function(hooks) {
     assert.throws(() => {
       this.server.buildList('article', 'published');
     }, /second argument has to be an integer, you passed: string/);
-  });
-});
-
-module('Unit | Server #defaultPassthroughs', function() {
-  test('server configures default passthroughs when useDefaultPassthroughs is true', function(assert) {
-    let server = new Server({ useDefaultPassthroughs: true });
-
-    assert.expect(defaultPassthroughs.length);
-    defaultPassthroughs.forEach((passthroughUrl) => {
-      let passthroughRequest = { method: 'GET', url: passthroughUrl };
-      let isPassedThrough = server.pretender.checkPassthrough(passthroughRequest);
-
-      assert.ok(isPassedThrough);
-    });
-
-    server.shutdown();
-  });
-
-  test('server does not configure default passthroughs when useDefaultPassthroughs is false', function(assert) {
-    let server = new Server({ useDefaultPassthroughs: false });
-
-    assert.expect(defaultPassthroughs.length);
-    defaultPassthroughs.forEach((passthroughUrl) => {
-      let passthroughRequest = { method: 'GET', url: passthroughUrl };
-      let isPassedThrough = server.pretender.checkPassthrough(passthroughRequest);
-
-      assert.ok(!isPassedThrough);
-    });
-
-    server.shutdown();
   });
 });

@@ -82,7 +82,7 @@
     "ember-export-application-global": "^2.0.0",
     "ember-load-initializers": "^2.0.0",
     "ember-maybe-import-regenerator-for-testing": "^1.0.0",
-    "ember-moment": "^7.8.1",
+    "ember-moment": "^8.0.0",
     "ember-resolver": "^5.0.1",
     "ember-source": "~3.13.2",
     "ember-source-channel-url": "^2.0.1",

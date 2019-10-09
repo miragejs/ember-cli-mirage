@@ -16,6 +16,11 @@ export default class EmberServer extends Server {
     }
 
     super(options);
+
+
+    if (typeof location !== 'undefined' && location.search.indexOf('mirageLogging') !== -1) {
+      this.logging = true;
+    }
   }
 
 }

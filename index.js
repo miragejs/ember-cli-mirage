@@ -39,6 +39,8 @@ module.exports = {
     } else {
       this.mirageDirectory = path.join(this.app.project.root, '/mirage');
     }
+
+    this.import('vendor/add-qunit-option.js', { type: 'test' });
   },
 
   blueprintsPath() {

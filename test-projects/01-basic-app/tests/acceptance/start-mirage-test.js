@@ -5,6 +5,7 @@ import {visit, currentRouteName} from '@ember/test-helpers';
 import startMirage from 'ember-cli-mirage/start-mirage';
 import { setupMirage } from 'ember-cli-mirage/test-support';
 import ENV from 'basic-app/config/environment';
+import NestedThingModel from 'basic-app/mirage/models/nested/thing';
 
 let module;
 if (Ember.VERSION === '1.13.13') {
@@ -51,6 +52,32 @@ module('Acceptance | Starting mirage', function(hooks) {
       assert.equal(currentRouteName(), 'crud-demo');
       assert.dom('[data-test-id="user"]').exists();
     });
+
+    module('nested mirage modules', function() {
+      test('it works', async function(assert) {
+        const server = startMirage(this.owner);
+        const model = server.create('nested/thing');
+
+        assert.ok(model instanceof NestedThingModel, 'models');
+        assert.equal(model.id, 'nested identity manager works!', 'identity managers');
+        assert.equal(model.name, 'nested factory works!', 'factories');
+
+        const { attributes } = server.serializerOrRegistry.serialize(model).data;
+        assert.ok('nested_thing_name' in attributes, 'serializer');
+      });
+
+      // factories and fixtures have to be tested separately
+      test('fixtures support', async function(assert) {
+        const server = startMirage(this.owner);
+
+        server.loadFixtures('nested/things');
+        const model = server.schema.first('nested/thing');
+
+        assert.ok(model instanceof NestedThingModel, 'models');
+        assert.equal(model.id, 'nested identity manager works!', 'identity managers');
+        assert.equal(model.fixtureField, 'nested fixture works!', 'fixtures');
+      });
+    })
 
     module('setupMirage()', function(hooks) {
       setupMirage(hooks);

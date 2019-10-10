@@ -28,8 +28,9 @@ export default function(prefix) {
       return;
     }
     let moduleParts = moduleName.split('/');
-    let moduleType = camelize(moduleParts[moduleParts.length - 2]);
-    let moduleKey = moduleParts[moduleParts.length - 1];
+    let moduleTypeIndex = moduleParts.indexOf('mirage') + 1;
+    let moduleType = camelize(moduleParts[moduleTypeIndex]);
+    let moduleKey = moduleParts.slice([moduleTypeIndex + 1]).join('/');
 
     if (moduleType === 'scenario') {
       assert('Only scenario/default.js is supported at this time.',

@@ -3,8 +3,7 @@
 'use strict';
 
 import assert from '../assert';
-import { camelCase } from 'lodash-es';
-import { pluralize } from '../utils/inflector';
+import { pluralize, camelize } from '../utils/inflector';
 import require from 'require';
 
 /**
@@ -18,7 +17,7 @@ export default function(prefix) {
   let modules = ['factories', 'fixtures', 'scenarios', 'models', 'serializers', 'identity-managers'];
   let mirageModuleRegExp = new RegExp(`^${prefix}/mirage/(${modules.join('|')})`);
   let modulesMap = modules.reduce((memo, name) => {
-    memo[camelCase(name)] = {};
+    memo[camelize(name)] = {};
     return memo;
   }, {});
 
@@ -29,7 +28,7 @@ export default function(prefix) {
       return;
     }
     let moduleParts = moduleName.split('/');
-    let moduleType = camelCase(moduleParts[moduleParts.length - 2]);
+    let moduleType = camelize(moduleParts[moduleParts.length - 2]);
     let moduleKey = moduleParts[moduleParts.length - 1];
     assert(`Subdirectories under ${moduleType} are not supported`,
       moduleParts[moduleParts.length - 3] === 'mirage');
@@ -53,7 +52,7 @@ export default function(prefix) {
 
     let data = module.default;
 
-    modulesMap[moduleType][camelCase(moduleKey)] = data;
+    modulesMap[moduleType][camelize(moduleKey)] = data;
   });
 
   return modulesMap;

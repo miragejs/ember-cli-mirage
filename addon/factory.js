@@ -1,1 +1,1 @@
-export { Factory as default } from '@miragejs/server';
+export { Factory as default } from "miragejs";

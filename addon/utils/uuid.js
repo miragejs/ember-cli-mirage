@@ -1,1 +1,1 @@
-export { _utilsUuid as default } from '@miragejs/server';
+export { _utilsUuid as default } from 'miragejs';

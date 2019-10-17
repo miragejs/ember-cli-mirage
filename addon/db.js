@@ -1,1 +1,1 @@
-export { _Db as default } from '@miragejs/server';
+export { _Db as default } from 'miragejs';

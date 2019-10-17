@@ -1214,38 +1214,6 @@
   resolved "https://registry.yarnpkg.com/@miragejs/pretender-node-polyfill/-/pretender-node-polyfill-0.1.2.tgz#d26b6b7483fb70cd62189d05c95d2f67153e43f2"
   integrity sha512-M/BexG/p05C5lFfMunxo/QcgIJnMT2vDVCd00wNqK2ImZONIlEETZwWJu1QtLxtmYlSHlCFl3JNzp0tLe7OJ5g==
 
-"@miragejs/server@0.1.28":
-  version "0.1.28"
-  resolved "https://registry.yarnpkg.com/@miragejs/server/-/server-0.1.28.tgz#5f7e9780ac518feba5f5c3e81361eb376609bddc"
-  integrity sha512-Ohg7FlOyn/1E28Y5cIfda0cw1t61gKIlm6TSMv+1mAA3fFWAHEUX+BBkQTAF5dyviovwpUZwAEVANnBay4BQDg==
-  dependencies:
-    "@miragejs/pretender-node-polyfill" "^0.1.0"
-    inflected "^2.0.4"
-    lodash.assign "^4.2.0"
-    lodash.camelcase "^4.3.0"
-    lodash.clonedeep "^4.5.0"
-    lodash.compact "^3.0.1"
-    lodash.find "^4.6.0"
-    lodash.flatten "^4.4.0"
-    lodash.forin "^4.4.0"
-    lodash.get "^4.4.2"
-    lodash.has "^4.5.2"
-    lodash.invokemap "^4.6.0"
-    lodash.isempty "^4.4.0"
-    lodash.isequal "^4.5.0"
-    lodash.isfunction "^3.0.9"
-    lodash.isinteger "^4.0.4"
-    lodash.isplainobject "^4.0.6"
-    lodash.lowerfirst "^4.3.1"
-    lodash.map "^4.6.0"
-    lodash.mapvalues "^4.6.0"
-    lodash.pick "^4.4.0"
-    lodash.snakecase "^4.1.1"
-    lodash.uniq "^4.5.0"
-    lodash.uniqby "^4.7.0"
-    lodash.values "^4.3.0"
-    pretender "3.0.2"
-
 "@simple-dom/document@^1.4.0":
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/@simple-dom/document/-/document-1.4.0.tgz#af60855f957f284d436983798ef1006cca1a1678"
@@ -10705,6 +10673,38 @@ minizlib@^1.1.1:
   integrity sha512-7+4oTUOWKg7AuL3vloEWekXY2/D20cevzsrNT2kGWm+39J9hGTCBv8VI5Pm5lXZ/o3/mdR4f8rflAPhnQb8mPA==
   dependencies:
     minipass "^2.2.1"
+
+miragejs@^0.1.31:
+  version "0.1.31"
+  resolved "https://registry.yarnpkg.com/miragejs/-/miragejs-0.1.31.tgz#9251081360db8b462b28714449baf8fe5ceceb9b"
+  integrity sha512-V7JUOSQx/IrvKAFG3H+8qig0KUG03Y9tcYUQuRdT6/7rp0E1HwQ+s8liQwCTtCpO37EhVUu33WOCUvBndmKfyw==
+  dependencies:
+    "@miragejs/pretender-node-polyfill" "^0.1.0"
+    inflected "^2.0.4"
+    lodash.assign "^4.2.0"
+    lodash.camelcase "^4.3.0"
+    lodash.clonedeep "^4.5.0"
+    lodash.compact "^3.0.1"
+    lodash.find "^4.6.0"
+    lodash.flatten "^4.4.0"
+    lodash.forin "^4.4.0"
+    lodash.get "^4.4.2"
+    lodash.has "^4.5.2"
+    lodash.invokemap "^4.6.0"
+    lodash.isempty "^4.4.0"
+    lodash.isequal "^4.5.0"
+    lodash.isfunction "^3.0.9"
+    lodash.isinteger "^4.0.4"
+    lodash.isplainobject "^4.0.6"
+    lodash.lowerfirst "^4.3.1"
+    lodash.map "^4.6.0"
+    lodash.mapvalues "^4.6.0"
+    lodash.pick "^4.4.0"
+    lodash.snakecase "^4.1.1"
+    lodash.uniq "^4.5.0"
+    lodash.uniqby "^4.7.0"
+    lodash.values "^4.3.0"
+    pretender "3.0.2"
 
 mississippi@^3.0.0:
   version "3.0.0"

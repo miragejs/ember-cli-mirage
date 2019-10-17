@@ -1,2 +1,2 @@
-export { default } from '@miragejs/server';
-export * from '@miragejs/server';
+export { default } from 'miragejs';
+export * from 'miragejs';

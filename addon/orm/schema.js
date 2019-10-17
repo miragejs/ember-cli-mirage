@@ -1,1 +1,1 @@
-export { _ormSchema as default } from '@miragejs/server';
+export { _ormSchema as default } from 'miragejs';

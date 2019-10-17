@@ -1,8 +1,8 @@
-import { Server } from '@miragejs/server';
+import { Server } from 'miragejs';
 import { getModels } from './ember-data';
 import { hasEmberData } from './utils/ember-data';
 
-export { defaultPassthroughs } from '@miragejs/server';
+export { defaultPassthroughs } from 'miragejs';
 
 /**
   @hide

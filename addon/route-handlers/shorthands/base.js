@@ -1,1 +1,1 @@
-export { _routeHandlersShorthandsBase as default } from '@miragejs/server';
+export { _routeHandlersShorthandsBase as default } from 'miragejs';

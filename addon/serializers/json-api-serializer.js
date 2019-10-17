@@ -1,1 +1,1 @@
-export { JSONAPISerializer as default } from '@miragejs/server';
+export { JSONAPISerializer as default } from 'miragejs';

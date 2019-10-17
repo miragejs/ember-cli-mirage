@@ -1,1 +1,1 @@
-export { _ormAssociationsAssociation as default } from '@miragejs/server';
+export { _ormAssociationsAssociation as default } from 'miragejs';

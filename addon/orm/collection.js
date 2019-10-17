@@ -1,1 +1,1 @@
-export { Collection as default } from '@miragejs/server';
+export { Collection as default } from 'miragejs';

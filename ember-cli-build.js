@@ -10,7 +10,7 @@ module.exports = function(defaults) {
     "ember-cli-addon-docs-esdoc": {
       packages: [
         "ember-cli-mirage",
-        { name: "@miragejs/server", sourceDirectory: "lib" }
+        { name: "miragejs", sourceDirectory: "lib" }
       ]
     }
   });

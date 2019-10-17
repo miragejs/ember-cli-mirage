@@ -1,1 +1,1 @@
-export { _utilsExtend as default } from '@miragejs/server';
+export { _utilsExtend as default } from 'miragejs';

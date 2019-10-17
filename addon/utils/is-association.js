@@ -1,1 +1,1 @@
-export { _utilsIsAssociation as default } from '@miragejs/server';
+export { _utilsIsAssociation as default } from 'miragejs';

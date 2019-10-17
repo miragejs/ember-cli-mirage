@@ -1,1 +1,1 @@
-export { _SerializerRegistry as default } from '@miragejs/server';
+export { _SerializerRegistry as default } from 'miragejs';

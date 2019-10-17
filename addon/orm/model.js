@@ -1,1 +1,1 @@
-export { Model as default } from '@miragejs/server';
+export { Model as default } from 'miragejs';

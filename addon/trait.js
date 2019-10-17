@@ -1,1 +1,1 @@
-export { trait as default } from '@miragejs/server';
+export { trait as default } from 'miragejs';

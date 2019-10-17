@@ -1,1 +1,1 @@
-export { ActiveModelSerializer as default } from '@miragejs/server';
+export { ActiveModelSerializer as default } from 'miragejs';

@@ -1,1 +1,1 @@
-export { Serializer as default } from '@miragejs/server';
+export { Serializer as default } from 'miragejs';

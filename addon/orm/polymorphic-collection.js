@@ -1,1 +1,1 @@
-export { _ormPolymorphicCollection as default } from '@miragejs/server';
+export { _ormPolymorphicCollection as default } from 'miragejs';

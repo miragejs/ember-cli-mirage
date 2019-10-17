@@ -1,1 +1,1 @@
-export { _RouteHandler as default } from '@miragejs/server';
+export { _RouteHandler as default } from 'miragejs';

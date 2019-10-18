@@ -128,7 +128,7 @@ There are several helpers available when writing function route handlers.
 This helper returns the JSON for the given Model or Collection after passing it through the Serializer layer. It's useful if you want to do some final munging on the serialized JSON before returning it.
 
 ```js
-this.get('/movies', (schema) => {
+this.get('/movies', function (schema) {
   let movies = schema.movies.all();
   let json = this.serialize(movies);
 
@@ -141,7 +141,7 @@ this.get('/movies', (schema) => {
 By default this method uses the named serializer for the given Model or Collection. You can pass in a specific serializer name as the second argument:
 
 ```js
-this.get('/movies', (schema) => {
+this.get('/movies', function (schema) {
   let movies = schema.movies.all();
   let json = this.serialize(movies, 'sparse-movie');
 

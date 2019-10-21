@@ -508,7 +508,7 @@ export default Factory.extend({
   afterCreate(post, server) {
     if (!post.user) {
       post.update({
-        user: server('user')
+        user: server.create('user')
       });
     }
   }

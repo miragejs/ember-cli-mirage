@@ -1638,7 +1638,7 @@ try{regeneratorRuntime=n}catch(i){Function("r","regeneratorRuntime = r")(n)}},{}
  *            Portions Copyright 2008-2011 Apple Inc. All rights reserved.
  * @license   Licensed under MIT license
  *            See https://raw.github.com/emberjs/ember.js/master/LICENSE
- * @version   3.13.3
+ * @version   3.13.4
  */
 var e,t,r
 mainContext=this,function(){function n(e,r){var a=e,s=i[a]
@@ -1926,7 +1926,9 @@ void 0!==e&&this.set("disabled",e)
 var t=this.params
 if(t&&0!==t.length){t=t.slice(),this[ge]||this.set("linkTitle",t.shift())
 var r=t[t.length-1]
-r&&r.isQueryParams?this.set("query",t.pop().values):this.set("query",Oe),0===t.length?this.set("route",Oe):this.set("route",t.shift()),this.set("model",Oe),this.set("models",t)}else;}})).toString=function(){return"@ember/routing/link-component"},Ae.reopenClass({positionalParams:"params"})
+r&&r.isQueryParams?this.set("query",t.pop().values):this.set("query",Oe),0===t.length?this.set("route",Oe):this.set("route",t.shift()),this.set("model",Oe),this.set("models",t)}else{var n=this._models
+if(n.length>0){var i=n[n.length-1]
+"object"==typeof i&&null!==i&&i.isQueryParams&&(this.query=i.values,n.pop())}}}})).toString=function(){return"@ember/routing/link-component"},Ae.reopenClass({positionalParams:"params"})
 var De,Te=Ae
 e.LinkComponent=Te
 var Pe=De
@@ -2635,7 +2637,7 @@ if("number"!=typeof f||!(Array.isArray(a)||"objectAt"in a))break
 if(0===f){o.push(U(a,"[]"))
 break}r=-1===l?t.slice(d):t.slice(d,l)
 for(var h=0;h<f;h++){var m=We(a,h)
-o.push(U(m,r))}o.push(U(a,"[]"))
+m&&o.push(U(m,r))}o.push(U(a,"[]"))
 break}if("args"===r&&Ke.has(a.args)){d=l+1,-1===(l=t.indexOf(".",d))&&(l=u),r=t.slice(d,l)
 var v=Ke.get(a.args).get(r)
 if(o.push(v.tag),l===u)break
@@ -3711,10 +3713,10 @@ e.TemplateOnlyComponent=t})),e("@ember/controller/index",["exports","@ember/-int
 Object.defineProperty(e,"__esModule",{value:!0}),e.inject=function(){return r.inject.apply(void 0,["controller"].concat(Array.prototype.slice.call(arguments)))},e.default=void 0
 var i=t.FrameworkObject.extend(n.default);(0,t.setFrameworkClass)(i)
 var o=i
-e.default=o})),e("@ember/controller/lib/controller_mixin",["exports","@ember/-internals/metal","@ember/-internals/runtime"],(function(e,t,r){"use strict"
+e.default=o})),e("@ember/controller/lib/controller_mixin",["exports","@ember/-internals/metal","@ember/-internals/runtime","@ember/-internals/utils"],(function(e,t,r,n){"use strict"
 Object.defineProperty(e,"__esModule",{value:!0}),e.default=void 0
-var n=t.Mixin.create(r.ActionHandler,{isController:!0,target:null,store:null,model:(0,t.tracked)()})
-e.default=n})),e("@ember/debug/index",["exports","@ember/-internals/browser-environment","@ember/error","@ember/debug/lib/deprecate","@ember/debug/lib/testing","@ember/debug/lib/warn"],(function(e,t,r,n,i,o){"use strict"
+var i=(0,n.symbol)("MODEL"),o=t.Mixin.create(r.ActionHandler,{isController:!0,target:null,store:null,model:(0,t.computed)({get:function(){return this[i]},set:function(e,t){return this[i]=t}})})
+e.default=o})),e("@ember/debug/index",["exports","@ember/-internals/browser-environment","@ember/error","@ember/debug/lib/deprecate","@ember/debug/lib/testing","@ember/debug/lib/warn"],(function(e,t,r,n,i,o){"use strict"
 Object.defineProperty(e,"__esModule",{value:!0}),Object.defineProperty(e,"registerDeprecationHandler",{enumerable:!0,get:function(){return n.registerHandler}}),Object.defineProperty(e,"isTesting",{enumerable:!0,get:function(){return i.isTesting}}),Object.defineProperty(e,"setTesting",{enumerable:!0,get:function(){return i.setTesting}}),Object.defineProperty(e,"registerWarnHandler",{enumerable:!0,get:function(){return o.registerHandler}}),e._warnIfUsingStrippedFeatureFlags=e.getDebugFunction=e.setDebugFunction=e.deprecateFunc=e.runInDebug=e.debugFreeze=e.debugSeal=e.deprecate=e.debug=e.warn=e.info=e.assert=void 0
 var a=function(){},s=a
 e.assert=s
@@ -5141,7 +5143,7 @@ L.Test=z.Test,L.Test.Adapter=z.Adapter,L.Test.QUnitAdapter=z.QUnitAdapter,L.setu
 var U=L
 e.default=U,n.IS_NODE?n.module.exports=L:r.context.exports.Ember=r.context.exports.Em=L})),e("ember/version",["exports"],(function(e){"use strict"
 Object.defineProperty(e,"__esModule",{value:!0}),e.default=void 0
-e.default="3.13.3"})),e("node-module/index",["exports"],(function(e){"use strict"
+e.default="3.13.4"})),e("node-module/index",["exports"],(function(e){"use strict"
 Object.defineProperty(e,"__esModule",{value:!0}),e.require=e.module=e.IS_NODE=void 0
 var t,r,n="object"==typeof module&&"function"==typeof module.require
 e.IS_NODE=n,e.module=t,e.require=r,n?(e.module=t=module,e.require=r=module.require):(e.module=t=null,e.require=r=null)})),e("route-recognizer",["exports"],(function(e){"use strict"

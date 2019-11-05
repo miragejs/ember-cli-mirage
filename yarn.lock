@@ -6130,6 +6130,16 @@ ember-composable-helpers@^2.1.0:
     ember-cli-babel "^7.1.0"
     resolve "^1.10.0"
 
+ember-composable-helpers@^3.0.1:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/ember-composable-helpers/-/ember-composable-helpers-3.0.1.tgz#a9fbc1f5ea6346fa0b2a912e56d3d8c73ef1fc00"
+  integrity sha512-2Q2oxr7K0qclxUzUCdWBUvqWxRF9ZghcZi76Dgfh2CNjXGG+v+0Y816yDGLOYYBZmqtqAdl/Js0esVifLXZn2A==
+  dependencies:
+    "@babel/core" "^7.0.0"
+    broccoli-funnel "2.0.1"
+    ember-cli-babel "^7.1.0"
+    resolve "^1.10.0"
+
 "ember-concurrency@^0.9.0 || ^0.10.0 || ^1.0.0":
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/ember-concurrency/-/ember-concurrency-1.0.0.tgz#3b650672fdd5dc1d45007626119135829076c2b6"

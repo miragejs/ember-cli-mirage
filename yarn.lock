@@ -6131,9 +6131,9 @@ ember-composable-helpers@^2.1.0:
     resolve "^1.10.0"
 
 ember-composable-helpers@^3.0.1:
-  version "3.0.1"
-  resolved "https://registry.yarnpkg.com/ember-composable-helpers/-/ember-composable-helpers-3.0.1.tgz#a9fbc1f5ea6346fa0b2a912e56d3d8c73ef1fc00"
-  integrity sha512-2Q2oxr7K0qclxUzUCdWBUvqWxRF9ZghcZi76Dgfh2CNjXGG+v+0Y816yDGLOYYBZmqtqAdl/Js0esVifLXZn2A==
+  version "3.0.2"
+  resolved "https://registry.yarnpkg.com/ember-composable-helpers/-/ember-composable-helpers-3.0.2.tgz#7deb3cb72bd0ba14097378d4b35b6f89950a1c0f"
+  integrity sha512-XQEBjEIKi8hDV3TfjD7AGNLpzjMoWqXliBQ3A0k/OP1SAP2iW5wRwiNkKuInVtwZZjMBGJt0NUBT60M8TJwxOg==
   dependencies:
     "@babel/core" "^7.0.0"
     broccoli-funnel "2.0.1"

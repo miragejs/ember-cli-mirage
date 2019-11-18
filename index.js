@@ -48,22 +48,20 @@ module.exports = {
   },
 
   treeFor(name) {
-    let tree;
     let shouldIncludeFiles = this._shouldIncludeFiles();
+    if (shouldIncludeFiles) {
+      return this._super.treeFor.apply(this, arguments);
+    }
 
-    if (!shouldIncludeFiles && name === 'app') {
+    if (name === 'app') {
       // Include a noop initializer, even if Mirage is excluded from the build
-      tree = writeFile('initializers/ember-cli-mirage.js', `
+      return writeFile('initializers/ember-cli-mirage.js', `
         export default {
           name: 'ember-cli-mirage',
           initialize() {}
         };
       `);
-    } else if (shouldIncludeFiles) {
-      tree = this._super.treeFor.apply(this, arguments);
     }
-
-    return tree;
   },
 
   _lintMirageTree(mirageTree) {

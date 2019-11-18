@@ -49,7 +49,7 @@ module.exports = {
 
   treeFor(name) {
     let shouldIncludeFiles = this._shouldIncludeFiles();
-    if (shouldIncludeFiles) {
+    if (shouldIncludeFiles || name === 'vendor') {
       return this._super.treeFor.apply(this, arguments);
     }
 

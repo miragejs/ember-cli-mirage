@@ -28,7 +28,6 @@
     "ember-cli-eslint": "*",
     "ember-cli-fastboot": "*",
     "ember-cli-htmlbars": "*",
-    "ember-cli-htmlbars-inline-precompile": "*",
     "ember-cli-inject-live-reload": "*",
     "ember-cli-mirage": "*",
     "ember-cli-qunit": "*",

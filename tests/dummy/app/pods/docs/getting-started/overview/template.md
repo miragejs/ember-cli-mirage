@@ -360,7 +360,7 @@ With the above config, a GET to `/movies/1` would return automatically include r
 }
 ```
 
-Mirage ships with two named serializers, JSONAPISerializer and ActiveModelSerializer, to save you the trouble of writing this custom code yourself. See the [serializer guide](../api/modules/ember-cli-mirage/serializer~Serializer) to learn more.
+Mirage ships with two named serializers, JSONAPISerializer and ActiveModelSerializer, to save you the trouble of writing this custom code yourself. See the [serializer guide](../api/modules/serializer~Serializer) to learn more.
 
 ## Shorthands
 

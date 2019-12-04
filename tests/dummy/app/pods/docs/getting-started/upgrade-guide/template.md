@@ -59,7 +59,7 @@ Here are the steps you'll need to take to fix this:
   + import faker from 'faker';
   ```
 
-[There is a codemod](https://github.com/samselikoff/ember-cli-mirage-faker-codemod/tree/update-transform) that will do this for you, thanks to the gracious work of [Casey Watts](https://github.com/caseywatts).
+[There is a codemod](https://github.com/miragejs/ember-cli-mirage-faker-codemod) that will do this for you, thanks to the gracious work of [Casey Watts](https://github.com/caseywatts).
 
 Additionally, when I originally bundled Faker, I monkey-patched it with some methods that I thought would be "useful" additions. I thought this was a good idea at the time... it wasn't. 🙈
 

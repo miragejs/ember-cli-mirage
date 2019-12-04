@@ -1,6 +1,6 @@
 # Ember CLI Mirage
 
-[![Build Status](https://travis-ci.org/samselikoff/ember-cli-mirage.svg?branch=master)](https://travis-ci.org/samselikoff/ember-cli-mirage)
+[![Build Status](https://travis-ci.org/miragejs/ember-cli-mirage.svg?branch=master)](https://travis-ci.org/miragejs/ember-cli-mirage)
 [![npm version](https://badge.fury.io/js/ember-cli-mirage.svg)](http://badge.fury.io/js/ember-cli-mirage)
 [![Ember Observer Score](http://emberobserver.com/badges/ember-cli-mirage.svg)](http://emberobserver.com/addons/ember-cli-mirage)
 
@@ -20,7 +20,7 @@ ember install ember-cli-mirage
 
 Please open an issue and add a :+1: emoji reaction. We will use the number of reactions as votes to indicate community interest, which will in turn help us prioritize feature development.
 
-You can view the most-upvoted feature requests with [this link](https://github.com/samselikoff/ember-cli-mirage/issues?q=is%3Aissue+is%3Aopen+sort%3Areactions-%2B1-desc+label%3A%22Feature+%2F+Enhancement%22).
+You can view the most-upvoted feature requests with [this link](https://github.com/miragejs/ember-cli-mirage/issues?q=is%3Aissue+is%3Aopen+sort%3Areactions-%2B1-desc+label%3A%22Feature+%2F+Enhancement%22).
 
 ## Support
 
@@ -37,4 +37,4 @@ Have a look at our [Contributing guidelines](./CONTRIBUTING.md).
 
 This library is developed and maintained by [EmberMap](https://embermap.com/). We have a [Mirage tips and tricks](https://embermap.com/topics/mirage-tips-and-tricks) video series if you're looking to learn how to get the most out of Mirage.
 
-Thanks to all our amazing [contributors](https://github.com/samselikoff/ember-cli-mirage/graphs/contributors)!
+Thanks to all our amazing [contributors](https://github.com/miragejs/ember-cli-mirage/graphs/contributors)!

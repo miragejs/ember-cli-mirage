@@ -10,5 +10,5 @@ var t={name:"error-handler",initialize:function(){Ember.onerror||(Ember.onerror=
 console.error(t)})}}
 e.default=t})),define("dummy/instance-initializers/setup-fetch",["exports","fetch"],(function(e,t){"use strict"
 Object.defineProperty(e,"__esModule",{value:!0}),e.default=void 0
-var r={name:"fetch",initialize:function(e){var r=e.lookup("service:fastboot").get("request"),o="undefined:"===r.protocol?"http:":r.protocol;(0,t.setupFastboot)(o,r.get("host"))}}
+var r={name:"fetch",initialize:function(e){var r=e.lookup("service:fastboot");(0,t.setupFastboot)(r.get("request"))}}
 e.default=r}))

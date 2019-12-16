@@ -6,7 +6,7 @@ If this is a feature request, add a 👍 reaction to it. We use these to help us
 
 If possible, please use the Mirage Boilerplate to demonstrate your issue or bug:
 
-1. Visit the [Ember CLI Mirage Boilerplate](https://github.com/samselikoff/ember-cli-mirage-boilerplate) repo
+1. Visit the [Ember CLI Mirage Boilerplate](https://github.com/miragejs/ember-cli-mirage-boilerplate) repo
 
 2. Click Fork
 

@@ -25,11 +25,12 @@ There's an Ember CLI bug that exposes itself when using Prettier + Mirage. A lon
 
 You might expect Mirage to serve network requests made by your FastBoot app, but because Mirage runs only in the browser, it currently disables itself if your app is being served by FastBoot.
 
-[FastBoot support](https://github.com/samselikoff/ember-cli-mirage/issues/1411) is a highly requested feature we are working on. In the meantime, you'll need to develop your FastBoot pages against a local server.
+[FastBoot support](https://github.com/miragejs/ember-cli-mirage/issues/1411) is a highly requested feature we are working on. In the meantime, you'll need to develop your FastBoot pages against a local server.
 
 You can always bypass FastBoot page generation locally by running
 
 ```sh
 FASTBOOT_DISABLED=true ember serve
 ```
+
 Mirage will then run in the browser as expected, and you can develop your client app as normal.

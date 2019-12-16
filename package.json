@@ -11,7 +11,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/samselikoff/ember-cli-mirage.git"
+    "url": "https://github.com/miragejs/ember-cli-mirage.git"
   },
   "license": "MIT",
   "author": "Sam Selikoff",
@@ -19,9 +19,9 @@
     "doc": "doc",
     "test": "tests"
   },
-  "homepage": "https://github.com/samselikoff/ember-cli-mirage",
+  "homepage": "https://github.com/miragejs/ember-cli-mirage",
   "bugs": {
-    "url": "https://github.com/samselikoff/ember-cli-mirage/issues"
+    "url": "https://github.com/miragejs/ember-cli-mirage/issues"
   },
   "scripts": {
     "build": "ember build",

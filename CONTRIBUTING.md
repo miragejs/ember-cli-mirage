@@ -15,14 +15,13 @@ If you're just making a change to a single page in the docs, look for the "Edit 
 To make more substantial changes, you'll want to be able to develop the docs site locally. To run an AddonDocs site,
 
 ```shell
-git clone git@github.com:samselikoff/ember-cli-mirage.git
+git clone git@github.com:miragejs/ember-cli-mirage.git
 cd ember-cli-mirage
 yarn install # (or npm install)
 ember s
 ```
 
 You should be able to visit `localhost:4200` and see the docs site running locally. Now checkout a new branch, make your changes, and submit a PR!
-
 
 ## Mirage development
 

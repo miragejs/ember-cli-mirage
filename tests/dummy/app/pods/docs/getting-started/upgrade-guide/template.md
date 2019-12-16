@@ -10,12 +10,9 @@ npm install -D ember-cli-mirage@X.X.X
 yarn add -D ember-cli-mirage@X.X.X
 ```
 
-
-
 ## Full Changelog
 
-You can view all of Mirage's release notes on [our Releases page](https://github.com/samselikoff/ember-cli-mirage/releases).
-
+You can view all of Mirage's release notes on [our Releases page](https://github.com/miragejs/ember-cli-mirage/releases).
 
 ## 1.0 Upgrade guide
 
@@ -39,31 +36,31 @@ Here are the steps you'll need to take to fix this:
 
 1. Install Ember Auto Import (if it's not already installed)
 
-  ```sh
-  ember install ember-auto-import
-  ```
+```sh
+ember install ember-auto-import
+```
 
 2. Install Faker.js directly from npm:
 
-  ```sh
-  yarn add -D faker
+```sh
+yarn add -D faker
 
-  # or npm install --save-dev faker
-  ```
+# or npm install --save-dev faker
+```
 
 3. Change all imports of `faker` from the `ember-cli-packge` to import directly from `faker`:
 
-  ```diff
-  - import { Factory, faker } from 'ember-cli-mirage';
-  + import { Factory } from 'ember-cli-mirage';
-  + import faker from 'faker';
-  ```
+```diff
+- import { Factory, faker } from 'ember-cli-mirage';
++ import { Factory } from 'ember-cli-mirage';
++ import faker from 'faker';
+```
 
 [There is a codemod](https://github.com/miragejs/ember-cli-mirage-faker-codemod) that will do this for you, thanks to the gracious work of [Casey Watts](https://github.com/caseywatts).
 
 Additionally, when I originally bundled Faker, I monkey-patched it with some methods that I thought would be "useful" additions. I thought this was a good idea at the time... it wasn't. 🙈
 
-You can look at [the module from v0.4.15](https://github.com/samselikoff/ember-cli-mirage/blob/v0.4.15/addon/faker.js) to see that we added the `faker.list.random`, `faker.list.cycle` and `faker.random.number.range` methods, so if you use these methods too, you'll need to refactor them.
+You can look at [the module from v0.4.15](https://github.com/miragejs/ember-cli-mirage/blob/v0.4.15/addon/faker.js) to see that we added the `faker.list.random`, `faker.list.cycle` and `faker.random.number.range` methods, so if you use these methods too, you'll need to refactor them.
 
 Fortunately, two of them have been added to recent versions of Faker, and one can be replaced with some simple JS:
 
@@ -83,7 +80,7 @@ For `faker.list.cycle`, use the remainder (modulo) operator:
 -   return faker.list.cycle([ 'United States of America', 'Canada', 'Mexico' ]);
 
 +   let countries = [ 'United States of America', 'Canada', 'Mexico' ];
-+   
++
 +   return countries[i % countries.length];
   }
 ```
@@ -105,10 +102,10 @@ Please use the new named import for the setupMirage test helper. The old one sti
 
 ```js
 // Before
-import setupMirage from 'ember-cli-mirage/test-support/setup-mirage';
+import setupMirage from "ember-cli-mirage/test-support/setup-mirage";
 
 // After
-import { setupMirage } from 'ember-cli-mirage/test-support';
+import { setupMirage } from "ember-cli-mirage/test-support";
 ```
 
 ### 3. Remove deprecated forms of `create`, `createList` and `normalizedRequestAttrs`
@@ -119,19 +116,19 @@ This behavior was discovered during a refactor, and the non-singularized version
 
 - `server.create` and `server.createList` were coded to take a singularized model name, e.g. `server.create('user')`. It just so happens that `server.create('users')` also works. That pluralized version is now removed from Mirage.
 
-    If you're running the latest 0.x version you should see a deprecation message letting you know where to change it. Otherwise, it should be a pretty mechanic change from things like `server.create('users')` to `server.create('user')`.
+  If you're running the latest 0.x version you should see a deprecation message letting you know where to change it. Otherwise, it should be a pretty mechanic change from things like `server.create('users')` to `server.create('user')`.
 
-    Note this also applies to `server.createList` – the correct form is `server.createList('user', 3)`, and the pluralized form `server.createList('users', 3)` is now unsupported.
+  Note this also applies to `server.createList` – the correct form is `server.createList('user', 3)`, and the pluralized form `server.createList('users', 3)` is now unsupported.
 
 - `this.normalizedRequestAttrs` in a route handler optionally takes a modelName as an argument. This is if your URLs are non-standard and Mirage cannot guess the modelName from the URL path.
 
-    In this case, you can call `this.normalizedRequestAttrs('blog-post')` to tell Mirage to expect the payload to be for a `blog-post` model.
+  In this case, you can call `this.normalizedRequestAttrs('blog-post')` to tell Mirage to expect the payload to be for a `blog-post` model.
 
-    This API was intended to be used with dasherized names, because that's how compound model names are specified throughout Mirage when they are represented as strings.
+  This API was intended to be used with dasherized names, because that's how compound model names are specified throughout Mirage when they are represented as strings.
 
-    It just so happened that `this.normalizedRequestAttrs('blogPost')` also worked, by chance, until a refactor. So, that behavior was kept but now is being removed.
+  It just so happened that `this.normalizedRequestAttrs('blogPost')` also worked, by chance, until a refactor. So, that behavior was kept but now is being removed.
 
-    The correct usage is `this.normalizedRequestAttrs('blog-post')`. Using the camelized version of the model name is no longer supported.
+  The correct usage is `this.normalizedRequestAttrs('blog-post')`. Using the camelized version of the model name is no longer supported.
 
 If either of these changes cause a ton of refactoring pain, we can try to marshal some resources to help write a codemod. Please open an issue if that's the case!
 
@@ -147,7 +144,7 @@ There was a gap in the default `normalize` method for a long time, in that it di
 let payload = {
   contact: {
     id: 1,
-    name: 'Link',
+    name: "Link",
     address: 1
   }
 };
@@ -176,7 +173,6 @@ data: {
 We added this feature a while ago, and it's controlled with the `normalizeIds` property on the ActiveModelSerializer and RESTSerializer. (We did this so the feature wouldn't be a breaking change.)
 
 We're now making `true` the default, which should be the behavior everyone desires (assuming they're using shorthands). This is technically a breaking change, though it's unlikely to affect most people.
-
 
 ## 0.3.x → 0.4 Upgrade guide
 
@@ -239,7 +235,7 @@ This behavior is configurable via the `alwaysIncludeLinkageData` key on your JSO
 
 ```js
 // mirage/serializers/application.js
-import { JSONAPISerializer } from 'ember-cli-mirage';
+import { JSONAPISerializer } from "ember-cli-mirage";
 
 export default JSONAPISerializer.extend({
   alwaysIncludeLinkageData: true
@@ -247,7 +243,6 @@ export default JSONAPISerializer.extend({
 ```
 
 If you do this, I would recommend looking closely at how your real server behaves when serializing resources' relationships and whether it uses resource `links` or resource linkage `data`, and to update your Mirage code accordingly to give you the most faithful representation of your server.
-
 
 ## 0.2.x → 0.3 Upgrade guide
 
@@ -257,19 +252,15 @@ In 0.2, the following model definitions
 
 ```js
 // mirage/models/author.js
-import { Model } from 'ember-cli-mirage';
+import { Model } from "ember-cli-mirage";
 
-export default Model.extend({
-
-});
+export default Model.extend({});
 
 // mirage/models/post.js
-import { Model, belongsTo } from 'ember-cli-mirage';
+import { Model, belongsTo } from "ember-cli-mirage";
 
 export default Model.extend({
-
   author: belongsTo()
-
 });
 ```
 
@@ -277,21 +268,17 @@ would have generated a "schema" with a one-to-many relationship between authors 
 
 ```js
 // mirage/models/author.js
-import { Model, hasMany } from 'ember-cli-mirage';
+import { Model, hasMany } from "ember-cli-mirage";
 
 export default Model.extend({
-
   posts: hasMany()
-
 });
 
 // mirage/models/post.js
-import { Model, belongsTo } from 'ember-cli-mirage';
+import { Model, belongsTo } from "ember-cli-mirage";
 
 export default Model.extend({
-
   author: belongsTo()
-
 });
 ```
 
@@ -307,112 +294,110 @@ For more information on the motivation behind change, please read the [0-3 beta 
 
 If you're upgrading your Mirage server from v0.1.x to v0.2.x, here's what you need to know:
 
-  - **The default Mirage directory has changed.** The default Mirage directory has moved from `/app/mirage` to `/mirage`. When you install 0.2.0, the default blueprint will add the `/mirage` directory to your project. You can delete it and move your current Mirage files to the new location with something like
+- **The default Mirage directory has changed.** The default Mirage directory has moved from `/app/mirage` to `/mirage`. When you install 0.2.0, the default blueprint will add the `/mirage` directory to your project. You can delete it and move your current Mirage files to the new location with something like
 
-    ```sh
-    rm -rf mirage
-    mv app/mirage mirage
-    ```
+  ```sh
+  rm -rf mirage
+  mv app/mirage mirage
+  ```
 
-    from the root of your project. Mirage's directory is also [customizable](../configuration/#directory) (Although you should move it from the `/app` directory or else it will not be removed from the build in production mode).
+  from the root of your project. Mirage's directory is also [customizable](../configuration/#directory) (Although you should move it from the `/app` directory or else it will not be removed from the build in production mode).
 
-  - **All multiword filenames are dasherized.** In Mirage 0.1.x, database collection names were taken from filenames. The idea was, if your API returned snake_case collection keys (e.g. `blog_posts: []`), just name your file `fixtures/blog_posts.js`. This approach turned out to be insufficiently flexib-- what am I saying, it was just a bad idea :P.
+- **All multiword filenames are dasherized.** In Mirage 0.1.x, database collection names were taken from filenames. The idea was, if your API returned snake_case collection keys (e.g. `blog_posts: []`), just name your file `fixtures/blog_posts.js`. This approach turned out to be insufficiently flexib-- what am I saying, it was just a bad idea :P.
 
-    In Mirage 0.2.x, we follow Ember CLI's conventions of dasherized filenames. So, you'll just need to go through and change
+  In Mirage 0.2.x, we follow Ember CLI's conventions of dasherized filenames. So, you'll just need to go through and change
 
-    ```sh
-    /mirage/factories/blog_post.js
-    /mirage/fixtures/blog_post.js
-    # etc.
-    ```
+  ```sh
+  /mirage/factories/blog_post.js
+  /mirage/fixtures/blog_post.js
+  # etc.
+  ```
 
-    to
+  to
 
-    ```sh
-    /mirage/factories/blog-post.js
-    /mirage/fixtures/blog-post.js
-    ```
+  ```sh
+  /mirage/factories/blog-post.js
+  /mirage/fixtures/blog-post.js
+  ```
 
-    You will then use the [new Serializer layer](../serializers) to do things like format keys in your json payloads.
+  You will then use the [new Serializer layer](../serializers) to do things like format keys in your json payloads.
 
-  - **All JavaScript properties are camelCased.** Similar to the previous change, factory properties and database collection names followed the format of your API in Mirage 0.1.x. If you were faking an ActiveModelSerializer backend, multiword keys used snake_case throughout your Mirage code. So, your database table might be `db.blog_posts`, and your factory keys might be `first_name() {..}`. Looks pretty cool right?
+- **All JavaScript properties are camelCased.** Similar to the previous change, factory properties and database collection names followed the format of your API in Mirage 0.1.x. If you were faking an ActiveModelSerializer backend, multiword keys used snake_case throughout your Mirage code. So, your database table might be `db.blog_posts`, and your factory keys might be `first_name() {..}`. Looks pretty cool right?
 
-    Wrong. We're JavaScript developers here, people. It's time to start using camelCase. (Also, the idea of tying these keys to your serialization format was bad, as it left us without any conventions. We need to stick to a single format, so the ORM knows how to find foreign keys.)
+  Wrong. We're JavaScript developers here, people. It's time to start using camelCase. (Also, the idea of tying these keys to your serialization format was bad, as it left us without any conventions. We need to stick to a single format, so the ORM knows how to find foreign keys.)
 
-    You'll need to update your route handlers, which may look like this:
+  You'll need to update your route handlers, which may look like this:
 
-    ```js
-    let posts = db.blog_posts.filter(p => p.author_id === 1);
-    ```
+  ```js
+  let posts = db.blog_posts.filter(p => p.author_id === 1);
+  ```
 
-    to
+  to
 
-    ```js
-    let posts = db.blogPosts.filter(p => p.authorId === 1);
-    ```
+  ```js
+  let posts = db.blogPosts.filter(p => p.authorId === 1);
+  ```
 
-    Note that everything is camelCased, including foreign keys.
+  Note that everything is camelCased, including foreign keys.
 
-    Similarly, factories that look like
+  Similarly, factories that look like
 
-    ```js
-    export default Factory.extend({
-      first_name() {
-        return faker.name.firstName();
-      },
+  ```js
+  export default Factory.extend({
+    first_name() {
+      return faker.name.firstName();
+    },
 
-      last_name() {
-        return faker.name.firstName();
-      },
-    });
-    ```
+    last_name() {
+      return faker.name.firstName();
+    }
+  });
+  ```
 
-    should be changed to
+  should be changed to
 
-    ```js
-    export default Factory.extend({
-      firstName() {
-        return faker.name.firstName();
-      },
+  ```js
+  export default Factory.extend({
+    firstName() {
+      return faker.name.firstName();
+    },
 
-      lastName() {
-        return faker.name.firstName();
-      },
-    });
-    ```
+    lastName() {
+      return faker.name.firstName();
+    }
+  });
+  ```
 
-    This goes for all attrs that `server.create` takes (and returns), etc. For many this will be the most painful part of the upgrade. Please find it in your heart to forgive me.
+  This goes for all attrs that `server.create` takes (and returns), etc. For many this will be the most painful part of the upgrade. Please find it in your heart to forgive me.
 
-  - **Mirage now has its own Model layer (an ORM).** In Mirage 0.1.x, you had to define either a factory or a fixture file (or both) in order for a database collection to be created, which let you take advantage of the db in your route handlers. In 0.2, we've introduced Mirage Models, which serve as the new canonical source of truth about your database.
+- **Mirage now has its own Model layer (an ORM).** In Mirage 0.1.x, you had to define either a factory or a fixture file (or both) in order for a database collection to be created, which let you take advantage of the db in your route handlers. In 0.2, we've introduced Mirage Models, which serve as the new canonical source of truth about your database.
 
-    To create a model, use
+  To create a model, use
 
-    ```
-    ember g mirage-model blog-post
-    ```
+  ```
+  ember g mirage-model blog-post
+  ```
 
-    This will create a file like
+  This will create a file like
 
-    ```js
-    import { Model } from 'ember-cli-mirage';
+  ```js
+  import { Model } from "ember-cli-mirage";
 
-    export default Model.extend({
+  export default Model.extend({});
+  ```
 
-    });
-    ```
+  Having that file sets up the `db.blogPosts` collection, allows you to use the JSON:API serializer, and more. You can still define factories and fixtures - but only if you need them. <!-- not yet! in 0.6.0 For instance, given the model above, `server.create('blog-post')` would create a blank `blog-post` model. You could then make a factory for models that need more customization. --> Models, factories and fixtures all work together, but now you won't be making blank factory or fixture files just to set up your database. The models themselves serve as the source of truth.
 
-    Having that file sets up the `db.blogPosts` collection, allows you to use the JSON:API serializer, and more. You can still define factories and fixtures - but only if you need them. <!-- not yet! in 0.6.0 For instance, given the model above, `server.create('blog-post')` would create a blank `blog-post` model. You could then make a factory for models that need more customization. --> Models, factories and fixtures all work together, but now you won't be making blank factory or fixture files just to set up your database. The models themselves serve as the source of truth.
+  We needed to add models for [association support](../models/#associations) (which currently exists) and factory relationships (the first feature to come after the 0.2 release). Read through the [models guide](../models) and [serializers guide](../serializers) to see how having models can simplify your Mirage server.
 
-    We needed to add models for [association support](../models/#associations) (which currently exists) and factory relationships (the first feature to come after the 0.2 release). Read through the [models guide](../models) and [serializers guide](../serializers) to see how having models can simplify your Mirage server.
+  We also have a plan to make a separate addon that could ascertain your model definitions and their relationships from your Ember Data models. Adding the ORM paves the way for this important future addition.
 
-    We also have a plan to make a separate addon that could ascertain your model definitions and their relationships from your Ember Data models. Adding the ORM paves the way for this important future addition.
-
-    Currently, Mirage will still work if a factory/fixture file is defined for a particular db collection without a corresponding model. Eventually, we may require all setups to have model definitions for each collection. But for now, to make for an easier upgrade path, you can start generating models and opt-in to the ORM layer in piecemeal.
+  Currently, Mirage will still work if a factory/fixture file is defined for a particular db collection without a corresponding model. Eventually, we may require all setups to have model definitions for each collection. But for now, to make for an easier upgrade path, you can start generating models and opt-in to the ORM layer in piecemeal.
 
 - **The ORM object `schema` is now injected into route handlers.** In Mirage 0.1.x, the `db` was the first parameter injected into route handlers:
 
   ```js
-  this.get('/posts', function(db, request) {
+  this.get("/posts", function(db, request) {
     // work with db
   });
   ```
@@ -420,7 +405,7 @@ If you're upgrading your Mirage server from v0.1.x to v0.2.x, here's what you ne
   Now, the `schema` object is, so you can take advantage of the Model layer. Fortunately, the `db` hangs directly off of the `schema`, so you can leave all your old route handler code intact (with the exception of making the change to camelCase), and just use destructuring to change the function signature to
 
   ```js
-  this.get('/posts', function({ db }, request) {
+  this.get("/posts", function({ db }, request) {
     // work with db
   });
   ```
@@ -431,4 +416,4 @@ If you're upgrading your Mirage server from v0.1.x to v0.2.x, here's what you ne
 
 ---
 
-You can always view the [full changelog](https://github.com/samselikoff/ember-cli-mirage/blob/master/CHANGELOG.md) to see everything that's changed. If you think this guide missed a critical part of the upgrade path, please [open an issue](https://github.com/samselikoff/ember-cli-mirage/issues/new)!
+You can always view the [full changelog](https://github.com/miragejs/ember-cli-mirage/blob/master/CHANGELOG.md) to see everything that's changed. If you think this guide missed a critical part of the upgrade path, please [open an issue](https://github.com/miragejs/ember-cli-mirage/issues/new)!

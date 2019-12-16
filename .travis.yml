@@ -24,7 +24,7 @@ install:
 
 notifications:
   email: false
-  
+
 # Identifies `a.b.c-xxx.n` tags as pre-releases, and `a.b.c` as stable releases
 before_deploy: |
   function npm_dist_tag() {
@@ -60,12 +60,11 @@ jobs:
     - env: EMBER_TRY_SCENARIO=ember-canary
     - env: EMBER_TRY_SCENARIO=ember-default
     - env: EMBER_TRY_SCENARIO=ember-default-with-jquery
-    
+
     - stage: deploy
       if: (branch = master OR tag IS present) AND type = push
       env: NAME=deploy
       script: node_modules/.bin/ember deploy production
-
 
     - stage: npm release
       install: skip
@@ -78,7 +77,7 @@ jobs:
           secure: O6cP0nTiCbA+MuD6hRKdyyd6DWTFR/dc9klB10zXTnrwajjzLmenvvshPUv+F6lHCpb2SfrWW6cpFjZ61BPwKaaalF9u8encNkGlDYGtO77sWJu6LuJFeWPZnAC9rdAw4hPjz+gqTL+leeDMHzjB32VRqy2cpwFzet3e+W2eUuk=
         on:
           tags: true
-          repo: samselikoff/ember-cli-mirage
+          repo: miragejs/ember-cli-mirage
 
   allow_failures:
     - env: EMBER_TRY_SCENARIO=ember-beta

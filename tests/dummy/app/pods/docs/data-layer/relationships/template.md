@@ -10,7 +10,7 @@ To define a to-one relationship, import the `belongsTo` helper and define a new 
 
 ```js
 // mirage/models/blog-post.js
-import { Model, belongsTo } from 'ember-cli-mirage';
+import { Model, belongsTo } from "ember-cli-mirage";
 
 export default Model.extend({
   author: belongsTo()
@@ -24,15 +24,15 @@ The `belongsTo` helper adds several new properties and methods to your models.
 In this case, our `blog-post` model would now have an `authorId` property, as well as some methods for working with the associated `author` model:
 
 ```js
-blogPost.authorId;                // 1
-blogPost.authorId = 2;            // updates the relationship
-blogPost.author;                  // Author instance
+blogPost.authorId; // 1
+blogPost.authorId = 2; // updates the relationship
+blogPost.author; // Author instance
 blogPost.author = anotherAuthor;
-blogPost.newAuthor(attrs);        // new unsaved author
-blogPost.createAuthor(attrs);     // new saved author (updates blogPost.authorId in memory only)
+blogPost.newAuthor(attrs); // new unsaved author
+blogPost.createAuthor(attrs); // new saved author (updates blogPost.authorId in memory only)
 ```
 
-Note that when a child calls `child.createParent`, the new parent is immediately saved to the `db`, but the child's foreign key is updated *on this instance only*, and is not immediately persisted to the database.
+Note that when a child calls `child.createParent`, the new parent is immediately saved to the `db`, but the child's foreign key is updated _on this instance only_, and is not immediately persisted to the database.
 
 In other words, `blogPost.createAuthor` will create a new `author` record, insert it into the `db`, and update the `blogPost.authorId` in memory, but if you were to fetch the `blogPost` from the `db` again, the relationship would not be persisted.
 
@@ -44,7 +44,7 @@ To define a to-many relationship, use the `hasMany` helper:
 
 ```js
 // mirage/models/blog-post.js
-import { Model, hasMany } from 'ember-cli-mirage';
+import { Model, hasMany } from "ember-cli-mirage";
 
 export default Model.extend({
   comments: hasMany()
@@ -54,12 +54,12 @@ export default Model.extend({
 This helper adds a `commentIds` property to the `blogPost` model, as well as some methods for working with the associated `comments` collection:
 
 ```js
-blogPost.commentIds;                      // [1, 2, 3]
-blogPost.commentIds = [2, 3];             // updates the relationship
-blogPost.comments;                        // array of related comments
+blogPost.commentIds; // [1, 2, 3]
+blogPost.commentIds = [2, 3]; // updates the relationship
+blogPost.comments; // array of related comments
 blogPost.comments = [comment1, comment2]; // updates the relationship
-blogPost.newComment(attrs);               // new unsaved comment
-blogPost.createComment(attrs);            // new saved comment (comment.blogPostId is set)
+blogPost.newComment(attrs); // new unsaved comment
+blogPost.createComment(attrs); // new saved comment (comment.blogPostId is set)
 ```
 
 ## Association options
@@ -72,13 +72,11 @@ For example,
 
 ```js
 // mirage/models/blog-post.js
-import { Model, belongsTo, hasMany } from 'ember-cli-mirage';
+import { Model, belongsTo, hasMany } from "ember-cli-mirage";
 
 export default Model.extend({
-
-  author: belongsTo('user'),
-  comments: hasMany('annotation')
-
+  author: belongsTo("user"),
+  comments: hasMany("annotation")
 });
 ```
 
@@ -116,8 +114,8 @@ export default Model.extend({
 
 // blog-post.js
 export default Model.extend({
-  author: belongsTo('user'),
-  reviewer: belongsTo('user')
+  author: belongsTo("user"),
+  reviewer: belongsTo("user")
 });
 ```
 
@@ -131,8 +129,8 @@ export default Model.extend({
 
 // blog-post.js
 export default Model.extend({
-  author: belongsTo('user', { inverse: 'blogPosts' }),
-  reviewer: belongsTo('user', { inverse: null })
+  author: belongsTo("user", { inverse: "blogPosts" }),
+  reviewer: belongsTo("user", { inverse: null })
 });
 ```
 
@@ -168,14 +166,14 @@ Polymorphic associations have slightly different method signatures for their for
 ```js
 let comment = schema.comments.create({ text: "foo" });
 
-comment.buildCommentable('post', { title: 'Lorem Ipsum' });
-comment.createCommentable('post', { title: 'Lorem Ipsum' });
+comment.buildCommentable("post", { title: "Lorem Ipsum" });
+comment.createCommentable("post", { title: "Lorem Ipsum" });
 
 // getter
 comment.commentableId; // { id: 1, type: 'blog-post' }
 
 // setter
-comment.commentableId = { id: 2, type: 'picture' };
+comment.commentableId = { id: 2, type: "picture" };
 ```
 
 Has-many asssociations can also be polymorphic:
@@ -206,10 +204,9 @@ user.thingIds; // [ { id: 1, type: 'car' }, { id: 3, type: 'watch' }, ... ]
 user.thingIds = [ { id: 2, type: 'watch' }, ... ];
 ```
 
-
 ---
 
-Be sure to check out the {{docs-link 'Schema' 'docs.api.item' 'modules/lib/orm/schema~Schema'}}, {{docs-link 'Model' 'docs.api.item' 'modules/lib/orm/model~Model'}} and {{docs-link 'Collection' 'docs.api.item' 'modules/lib/orm/collection~Collection'}} API docs to learn about all the available ORM methods.
+Be sure to check out the {{docs-link 'Schema' 'docs.api.item' 'modules/orm/schema~Schema'}}, {{docs-link 'Model' 'docs.api.item' 'modules/orm/model~Model'}} and {{docs-link 'Collection' 'docs.api.item' 'modules/orm/collection~Collection'}} API docs to learn about all the available ORM methods.
 
 We'll also cover Serializers in these guides, where you'll learn how to customize the serialized forms of your models and collections to match your production API.
 

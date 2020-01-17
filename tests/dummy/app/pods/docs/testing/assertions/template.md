@@ -89,7 +89,7 @@ test("I can filter the table", async function(assert) {
   assert.dom('tr').exists({ count: 5 });
 
   // Also assert against the HTTP request count & query
-  let requests = server.pretender.handledRequests;
+  let requests = this.server.pretender.handledRequests;
   assert.equal(requests.length, 1);
   assert.deepEqual(requests[0].queryParams, { 'filter[genre]': 'Sci-Fi' });
 });

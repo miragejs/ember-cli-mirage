@@ -8192,7 +8192,7 @@ e.default=n})),define("ember-composable-helpers/helpers/map-by",["exports"],(fun
 function t(e,t){return function(e){if(Array.isArray(e))return e}(e)||function(e,t){if(!(Symbol.iterator in Object(e)||"[object Arguments]"===Object.prototype.toString.call(e)))return
 var r=[],n=!0,i=!1,o=void 0
 try{for(var a,s=e[Symbol.iterator]();!(n=(a=s.next()).done)&&(r.push(a.value),!t||r.length!==t);n=!0);}catch(u){i=!0,o=u}finally{try{n||null==s.return||s.return()}finally{if(i)throw o}}return r}(e,t)||function(){throw new TypeError("Invalid attempt to destructure non-iterable instance")}()}function r(e){var r=t(e,2),n=r[0],i=r[1]
-return Ember.isEmpty(n)?[]:(i||(i=[]),i.map((function(e){return e[n]})))}Object.defineProperty(e,"__esModule",{value:!0}),e.mapBy=r,e.default=void 0
+return Ember.isEmpty(n)?[]:(i||(i=[]),i.map((function(e){return Ember.get(e,n)})))}Object.defineProperty(e,"__esModule",{value:!0}),e.mapBy=r,e.default=void 0
 var n=Ember.Helper.helper(r)
 e.default=n})),define("ember-composable-helpers/helpers/map",["exports"],(function(e){"use strict"
 function t(e,t){return function(e){if(Array.isArray(e))return e}(e)||function(e,t){if(!(Symbol.iterator in Object(e)||"[object Arguments]"===Object.prototype.toString.call(e)))return

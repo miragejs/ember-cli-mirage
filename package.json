@@ -36,7 +36,7 @@
   },
   "dependencies": {
     "broccoli-file-creator": "^2.1.1",
-    "broccoli-funnel": "^2.0.1",
+    "broccoli-funnel": "^3.0.2",
     "broccoli-merge-trees": "^3.0.2",
     "ember-auto-import": "^1.2.19",
     "ember-cli-babel": "^7.5.0",

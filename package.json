@@ -83,7 +83,7 @@
     "eslint-plugin-ember": "^7.0.0",
     "eslint-plugin-node": "^11.0.0",
     "faker": "^4.1.0",
-    "fastboot": "^2.0.1",
+    "fastboot": "^3.0.2",
     "js-yaml": "^3.12.1",
     "jsdom": "^15.0.0",
     "loader.js": "^4.7.0",

@@ -110,7 +110,7 @@ this.post('/contacts', function(schema, request) {
 });
 ```
 
-For this POST shorthand to work, Mirage needs to know the format of the JSON payload your Ember app sends along with the request, so that it can insert the appropriate data into the database. See [the note on normalize](../serializers/#normalizejson) in the Serializer docs for more information.
+For this POST shorthand to work, Mirage needs to know the format of the JSON payload your Ember app sends along with the request, so that it can insert the appropriate data into the database. See [the note on normalize](/docs/api/modules/serializer~Serializer#normalize) in the Serializer docs for more information.
 
 ## PATCH/PUT Shorthands
 

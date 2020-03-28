@@ -29,7 +29,7 @@ might use inflection rules to try to look up the "advices" collection or databas
 
 [The guides](https://guides.emberjs.com/release/models/customizing-adapters/#toc_pluralization-customization) document the best way to configure these inflection rules. At the time of this writing, here's how you'd configure the inflector to treat "advice" as an uncountable word (i.e. a word with no plural form):
 
-```diff
+```js
 // app/initializers/custom-inflector-rules.js
 import Inflector from 'ember-inflector';
 
@@ -42,10 +42,12 @@ export function initialize(/* application */) {
 
 export default {
   name: 'custom-inflector-rules',
-+ before: 'ember-cli-mirage',
+  before: 'ember-cli-mirage',
   initialize
 };
 ```
+
+Make sure to use `before: "ember-cli-mirage"` so this runs before Mirage initializes itself.
 
 As long as you follow this approach, Mirage should respect your custom inflector rules.
 

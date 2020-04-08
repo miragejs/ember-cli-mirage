@@ -7436,9 +7436,9 @@ fastboot@^2.0.0, fastboot@^2.0.1:
     source-map-support "^0.5.0"
 
 fastboot@^3.0.2:
-  version "3.0.2"
-  resolved "https://registry.yarnpkg.com/fastboot/-/fastboot-3.0.2.tgz#7e1c5ecc662569c7a2a4973b8d69d02dde9d17cd"
-  integrity sha512-nDjtaTTeJ1QSDTwoE8XqXp65i1jnasrv0tK3+mk/4fsViImhZ66k1bgQSvFL9z088syC4DnawLCZgvdrCrICHQ==
+  version "3.0.3"
+  resolved "https://registry.yarnpkg.com/fastboot/-/fastboot-3.0.3.tgz#927a271b192cf9c0f51a19085a3beedcbf633a96"
+  integrity sha512-n5yhOYo2EosdzepGbgFIyvRSulisdSZFzcFmE+VnE7p6nUx/SEpQyM7aIdphDxqFwZiHx90nYyETkKcGyvM63g==
   dependencies:
     chalk "^3.0.0"
     cookie "^0.4.0"

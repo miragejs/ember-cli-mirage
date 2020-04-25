@@ -98,13 +98,12 @@ module('Integration | Component | ArticleForm', function(hooks) {
 
   test('it can edit an article', async function(assert) {
     // 🔴 Don't do this
-    let article = this.server.create('article', {
+    this.article = this.server.create('article', {
       title: 'Old title'
     });
-    this.set('article', article);
 
     await render(hbs`
-      <ArticleForm @article={{article}}>
+      <ArticleForm @article={{this.article}}>
     `);
 
     await fillIn('input', 'New title');
@@ -128,11 +127,10 @@ So, in the same way that you wouldn't create a model in your server-side framewo
 ```js
 // 🔴 Don't do this
 // `article` is a Mirage model. It should never be consumed directly by Ember code.
-let article = this.server.create('article');
-this.set('article', article);
+this.article = this.server.create('article');
 
 await render(hbs`
-  <ArticleForm @article={{article}}>
+  <ArticleForm @article={{this.article}}>
 `);
 ```
 
@@ -160,11 +158,10 @@ module('Integration | Component | ArticleForm', function(hooks) {
       title: 'Old title'
     });
     let store = this.owner.lookup('service:store');
-    let article = await store.findRecord('article', serverArticle.id);
-    this.set('article', article);
+    this.article = await store.findRecord('article', serverArticle.id);
 
     await render(hbs`
-      <ArticleForm @article={{article}}>
+      <ArticleForm @article={{this.article}}>
     `);
 
     await fillIn('input', 'New title');
@@ -231,11 +228,10 @@ module('Integration | Component | ArticleForm', function(hooks) {
     });
     pushMirageIntoStore();
     let store = this.owner.lookup('service:store');
-    let article = store.peekRecord('article', serverArticle.id);
-    this.set('article', article);
+    this.article = store.peekRecord('article', serverArticle.id);
 
     await render(hbs`
-      <ArticleForm @article={{article}}>
+      <ArticleForm @article={{this.article}}>
     `);
 
     await fillIn('input', 'New title');

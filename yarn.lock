@@ -10405,9 +10405,9 @@ minipass@^2.2.0:
     yallist "^3.0.0"
 
 miragejs@^0.1.31:
-  version "0.1.37"
-  resolved "https://registry.yarnpkg.com/miragejs/-/miragejs-0.1.37.tgz#e6b5bc3831490fe203248478c7bd160a70926bd5"
-  integrity sha512-noJV8pt3MUuSPrqvGlT+3HJbq+YYnvJG+3sjGEfKL9K5nQJBKqvn2FETvUQqc5U5hJItsMNlmi/ra4muCC5zeA==
+  version "0.1.38"
+  resolved "https://registry.yarnpkg.com/miragejs/-/miragejs-0.1.38.tgz#f2fd3f02d1470119c9aa654c9484785dcdd83e1a"
+  integrity sha512-6vw0U7QxR9aCHC+u7J+oaUeMxmxwgbUQLxglTINSzqNKfRgWSYk4XtZtgxmkOAheo2fzaNZa+XglbN1iAoRYUg==
   dependencies:
     "@miragejs/pretender-node-polyfill" "^0.1.0"
     inflected "^2.0.4"
@@ -10434,7 +10434,7 @@ miragejs@^0.1.31:
     lodash.uniq "^4.5.0"
     lodash.uniqby "^4.7.0"
     lodash.values "^4.3.0"
-    pretender "3.4.0"
+    pretender "^3.4.0"
 
 mississippi@^3.0.0:
   version "3.0.0"
@@ -11535,10 +11535,10 @@ prepend-http@^2.0.0:
   resolved "https://registry.yarnpkg.com/prepend-http/-/prepend-http-2.0.0.tgz#e92434bfa5ea8c19f41cdfd401d741a3c819d897"
   integrity sha1-6SQ0v6XqjBn0HN/UAddBo8gZ2Jc=
 
-pretender@3.4.0:
-  version "3.4.0"
-  resolved "https://registry.yarnpkg.com/pretender/-/pretender-3.4.0.tgz#0ccd943eccff48126bcbb912acaf9c33b0829785"
-  integrity sha512-BxmCnuVOchuP1am8p038XhSDDrRXX0bNqp6GRJPu/VcnWNFssy/BIHBefMcB535lHfMeelonkIP1ETtHEHjOVQ==
+pretender@^3.4.0:
+  version "3.4.1"
+  resolved "https://registry.yarnpkg.com/pretender/-/pretender-3.4.1.tgz#04345d99f0da8266f545ff377d4a9f23db9b99dd"
+  integrity sha512-qIQk0vKo739Dbx940Qq2hMZjIXHxWj9bDRQCfWSgoMWDfZTgn0bJ3lD0aJa37F5/MRzG5AtbYXf5JHzoXMsW/Q==
   dependencies:
     fake-xml-http-request "^2.1.1"
     route-recognizer "^0.3.3"

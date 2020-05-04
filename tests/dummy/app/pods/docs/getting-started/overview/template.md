@@ -182,7 +182,7 @@ In acceptance tests, `scenarios/default.js` is ignored, and instead you can use 
 ```js
 // tests/acceptance/movies-test.js
 import { setupApplicationTest } from 'ember-qunit';
-import { setupMirage } from 'ember-cli-mirage/test-support';
+import { setupMirage } from 'ember-cli-mirage/addon-test-support';
 
 module('Acceptance | Homepage test', function(hooks) {
   setupApplicationTest(hooks);

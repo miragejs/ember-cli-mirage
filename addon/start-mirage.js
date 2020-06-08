@@ -1,4 +1,3 @@
-import { getWithDefault } from '@ember/object';
 import readModules from './utils/read-modules';
 import Server from './server';
 import { singularize, pluralize } from 'ember-inflector';
@@ -30,10 +29,12 @@ export default function startMirage(owner, { env, baseConfig, testConfig } = {})
   }
 
   let environment = env.environment;
-  let discoverEmberDataModels = getWithDefault(env['ember-cli-mirage'] || {}, 'discoverEmberDataModels', true);
+  let mirageEnvironment = env['ember-cli-mirage'] || {};
+  let discoverEmberDataModels = mirageEnvironment.discoverEmberDataModels;
+  if (discoverEmberDataModels === undefined) { discoverEmberDataModels = true; }
   let modules = readModules(env.modulePrefix);
   let options = Object.assign(modules, {environment, baseConfig, testConfig, discoverEmberDataModels});
-  options.trackRequests = env['ember-cli-mirage'].trackRequests;
+  options.trackRequests = mirageEnvironment.trackRequests;
   options.inflector = { singularize, pluralize };
 
   return new Server(options);

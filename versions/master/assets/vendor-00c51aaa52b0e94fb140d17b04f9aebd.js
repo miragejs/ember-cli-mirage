@@ -8765,8 +8765,8 @@ return"Object"===r&&e.constructor&&(r=e.constructor.name),"Map"===r||"Set"===r?A
 for(var r=0,n=new Array(t);r<t;r++)n[r]=e[r]
 return n}function l(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}function c(e,t){for(var r=0;r<t.length;r++){var n=t[r]
 n.enumerable=n.enumerable||!1,n.configurable=!0,"value"in n&&(n.writable=!0),Object.defineProperty(e,n.key,n)}}function f(e,t,r){return t&&c(e.prototype,t),r&&c(e,r),e}function d(e,t,r){var n=Ember.get(t,e),i=Ember.get(r,e)
-return n.toLowerCase&&i.toLowerCase?i.localeCompare(n,void 0,{sensitivity:"base"}):n<i?1:n>i?-1:0}function h(e,t,r){var n=Ember.get(t,e),i=Ember.get(r,e)
-return n.toLowerCase&&i.toLowerCase?n.localeCompare(i,void 0,{sensitivity:"base"}):n<i?-1:n>i?1:0}Object.defineProperty(e,"__esModule",{value:!0}),e.sortBy=m,e.default=void 0
+return n&&i&&n.toLowerCase&&i.toLowerCase?i.localeCompare(n,void 0,{sensitivity:"base"}):n<i?1:n>i?-1:0}function h(e,t,r){var n=Ember.get(t,e),i=Ember.get(r,e)
+return n&&i&&n.toLowerCase&&i.toLowerCase?n.localeCompare(i,void 0,{sensitivity:"base"}):n<i?-1:n>i?1:0}Object.defineProperty(e,"__esModule",{value:!0}),e.sortBy=m,e.default=void 0
 var p=function(e){(function(e,t){if("function"!=typeof t&&null!==t)throw new TypeError("Super expression must either be null or a function")
 e.prototype=Object.create(t&&t.prototype,{constructor:{value:e,writable:!0,configurable:!0}}),t&&r(e,t)})(i,e)
 var t=n(i)

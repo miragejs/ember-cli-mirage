@@ -5505,7 +5505,7 @@ for(var ye in a("instrument",!0),ve)ve.hasOwnProperty(ye)&&pe(ye,ve[ye])}var ge=
 e.default=ge})),t("ember")}(),function(){if("undefined"==typeof FastBoot){var e=document.getElementById("fastboot-body-start")
 if(e&&"function"==typeof Ember.ViewUtils.isSerializationFirstNode&&Ember.ViewUtils.isSerializationFirstNode(e.nextSibling)){Ember.ApplicationInstance.reopen({_bootSync:function(e){return void 0===e&&(e={_renderMode:"rehydrate"}),this._super(e)}}),e.parentNode.removeChild(e)
 var t=document.getElementById("fastboot-body-end")
-t.parentNode.removeChild(t)}}}(),define("jquery",[],(function(){"use strict"
+t&&t.parentNode.removeChild(t)}}}(),define("jquery",[],(function(){"use strict"
 return{default:self.jQuery,__esModule:!0}})),Ember.Component.reopen({$:function(e){if(this.element)return e?jQuery(e,this.element):jQuery(this.element)}}),"undefined"==typeof FastBoot&&
 /*!
  * clipboard.js v2.0.6
@@ -8077,8 +8077,8 @@ e.isClipboardSupported=t
 var r=Ember.Helper.helper(t)
 e.default=r})),define("ember-cli-clipboard/templates/components/copy-button",["exports"],(function(e){"use strict"
 e.__esModule=!0,e.default=Ember.HTMLBars.template({id:"AUy1vOYA",block:'{"symbols":["&default"],"statements":[[14,1],[0,"\\n"]],"hasEval":false}',meta:{moduleName:"ember-cli-clipboard/templates/components/copy-button.hbs"}})})),define("ember-cli-fastboot/instance-initializers/clear-double-boot",["exports"],(function(e){"use strict"
-function t(){var e=document.getElementById("fastboot-body-start")
-if(e){for(var t=document.getElementById("fastboot-body-end"),r=document.querySelectorAll('[type="fastboot/shoebox"]'),n=[],i=0;i<r.length;i++)n.push(r[i])
+function t(){var e=document.getElementById("fastboot-body-start"),t=document.getElementById("fastboot-body-end")
+if(e&&t){for(var r=document.querySelectorAll('[type="fastboot/shoebox"]'),n=[],i=0;i<r.length;i++)n.push(r[i])
 var o,a=e.parentElement
 do{o=e.nextSibling,a.removeChild(e),e=o}while(o&&o!==t&&n.indexOf(o)<0)
 t.parentElement.removeChild(t)}}Object.defineProperty(e,"__esModule",{value:!0}),e.clearHtml=t,e.default=void 0
@@ -8759,36 +8759,33 @@ return function(){var r,n=o(e)
 if(t){var a=o(this).constructor
 r=Reflect.construct(n,arguments,a)}else r=n.apply(this,arguments)
 return i(this,r)}}function i(e,r){return!r||"object"!==t(r)&&"function"!=typeof r?function(e){if(void 0===e)throw new ReferenceError("this hasn't been initialised - super() hasn't been called")
-return e}(e):r}function o(e){return(o=Object.setPrototypeOf?Object.getPrototypeOf:function(e){return e.__proto__||Object.getPrototypeOf(e)})(e)}function a(e){return function(e){if(Array.isArray(e))return u(e)}(e)||function(e){if("undefined"!=typeof Symbol&&Symbol.iterator in Object(e))return Array.from(e)}(e)||s(e)||function(){throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.")}()}function s(e,t){if(e){if("string"==typeof e)return u(e,t)
+return e}(e):r}function o(e){return(o=Object.setPrototypeOf?Object.getPrototypeOf:function(e){return e.__proto__||Object.getPrototypeOf(e)})(e)}function a(e){return function(e){if(Array.isArray(e))return s(e)}(e)||function(e){if("undefined"!=typeof Symbol&&Symbol.iterator in Object(e))return Array.from(e)}(e)||function(e,t){if(!e)return
+if("string"==typeof e)return s(e,t)
 var r=Object.prototype.toString.call(e).slice(8,-1)
-return"Object"===r&&e.constructor&&(r=e.constructor.name),"Map"===r||"Set"===r?Array.from(e):"Arguments"===r||/^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(r)?u(e,t):void 0}}function u(e,t){(null==t||t>e.length)&&(t=e.length)
+"Object"===r&&e.constructor&&(r=e.constructor.name)
+if("Map"===r||"Set"===r)return Array.from(e)
+if("Arguments"===r||/^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(r))return s(e,t)}(e)||function(){throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.")}()}function s(e,t){(null==t||t>e.length)&&(t=e.length)
 for(var r=0,n=new Array(t);r<t;r++)n[r]=e[r]
-return n}function l(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}function c(e,t){for(var r=0;r<t.length;r++){var n=t[r]
-n.enumerable=n.enumerable||!1,n.configurable=!0,"value"in n&&(n.writable=!0),Object.defineProperty(e,n.key,n)}}function f(e,t,r){return t&&c(e.prototype,t),r&&c(e,r),e}function d(e,t,r){var n=Ember.get(t,e),i=Ember.get(r,e)
+return n}function u(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}function l(e,t){for(var r=0;r<t.length;r++){var n=t[r]
+n.enumerable=n.enumerable||!1,n.configurable=!0,"value"in n&&(n.writable=!0),Object.defineProperty(e,n.key,n)}}function c(e,t,r){return t&&l(e.prototype,t),r&&l(e,r),e}function f(e){return"boolean"==typeof e?e:"number"==typeof e?!(e>0):e}function d(e,t,r){var n=Ember.get(t,e),i=Ember.get(r,e)
 return n&&i&&n.toLowerCase&&i.toLowerCase?i.localeCompare(n,void 0,{sensitivity:"base"}):n<i?1:n>i?-1:0}function h(e,t,r){var n=Ember.get(t,e),i=Ember.get(r,e)
 return n&&i&&n.toLowerCase&&i.toLowerCase?n.localeCompare(i,void 0,{sensitivity:"base"}):n<i?-1:n>i?1:0}Object.defineProperty(e,"__esModule",{value:!0}),e.sortBy=m,e.default=void 0
 var p=function(e){(function(e,t){if("function"!=typeof t&&null!==t)throw new TypeError("Super expression must either be null or a function")
 e.prototype=Object.create(t&&t.prototype,{constructor:{value:e,writable:!0,configurable:!0}}),t&&r(e,t)})(i,e)
 var t=n(i)
-function i(){return l(this,i),t.apply(this,arguments)}return f(i,[{key:"perform",value:function(e){for(var t,r=!1,n=this.comparator(e),i=1;i<this.array.length;i+=1){for(var o=0;o<this.array.length-i;o+=1){if("boolean"==typeof(t=n(this.array[o+1],this.array[o]))?t:"number"==typeof t?!(t>0):t){var a=[this.array[o+1],this.array[o]]
-this.array[o]=a[0],this.array[o+1]=a[1],r=!0}}if(!r)return this.array}}}]),i}(function(){function e(){l(this,e)
+function i(){return u(this,i),t.apply(this,arguments)}return c(i,[{key:"perform",value:function(){for(var e=this,t=arguments.length>0&&void 0!==arguments[0]?arguments[0]:[],r=!1,n=t.map((function(t){return e.comparator(t)})),i=function(e,t){for(var r=0;r<n.length;r+=1){var i=n[r](e,t)
+if(0!==i)return i}return 0},o=1;o<this.array.length;o+=1){for(var a=0;a<this.array.length-o;a+=1){var s=f(i(this.array[a+1],this.array[a]))
+if(s){var u=[this.array[a+1],this.array[a]]
+this.array[a]=u[0],this.array[a+1]=u[1],r=!0}}if(!r)return this.array}}}]),i}(function(){function e(){u(this,e)
 for(var t=arguments.length,r=new Array(t),n=0;n<t;n++)r[n]=arguments[n]
 var i=r[0]
-"function"==typeof i.toArray&&(i=i.toArray()),this.array=a(i),this.callbacks=null}return f(e,[{key:"comparator",value:function(e){return this.callback?this.callback:this.defaultSort(e)}},{key:"defaultSort",value:function(e){var t=h
-return e.match(":desc")&&(t=d),function(r,n){return t(e.replace(/:desc|:asc/,""),r,n)}}},{key:"addCallback",value:function(e){this.callback=e}}]),e}())
+"function"==typeof i.toArray&&(i=i.toArray()),this.array=a(i)}return c(e,[{key:"comparator",value:function(e){return"function"==typeof e?e:this.defaultSort(e)}},{key:"defaultSort",value:function(e){var t=h
+return e.match(":desc")&&(t=d),function(r,n){return t(e.replace(/:desc|:asc/,""),r,n)}}}]),e}())
 function m(e){var t=e.slice(),r=t.pop(),n=t
 if(!r||!n||0===n.length)return[]
 1===n.length&&Array.isArray(n[0])&&(n=n[0])
 var i=new p(r)
-if("function"==typeof n[0])i.addCallback(n[0]),i.perform()
-else{var o,a=function(e,t){var r
-if("undefined"==typeof Symbol||null==e[Symbol.iterator]){if(Array.isArray(e)||(r=s(e))||t&&e&&"number"==typeof e.length){r&&(e=r)
-var n=0,i=function(){}
-return{s:i,n:function(){return n>=e.length?{done:!0}:{done:!1,value:e[n++]}},e:function(e){throw e},f:i}}throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.")}var o,a=!0,u=!1
-return{s:function(){r=e[Symbol.iterator]()},n:function(){var e=r.next()
-return a=e.done,e},e:function(e){u=!0,o=e},f:function(){try{a||null==r.return||r.return()}finally{if(u)throw o}}}}(n)
-try{for(a.s();!(o=a.n()).done;){var u=o.value
-i.perform(u)}}catch(l){a.e(l)}finally{a.f()}}return i.array}var v=Ember.Helper.helper(m)
+return i.perform(n),i.array}var v=Ember.Helper.helper(m)
 e.default=v})),define("ember-composable-helpers/helpers/take",["exports"],(function(e){"use strict"
 function t(e,t){return function(e){if(Array.isArray(e))return e}(e)||function(e,t){if("undefined"==typeof Symbol||!(Symbol.iterator in Object(e)))return
 var r=[],n=!0,i=!1,o=void 0

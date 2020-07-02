@@ -2,17 +2,20 @@
 
 const EmberAddon = require("ember-cli/lib/broccoli/ember-addon");
 
-module.exports = function(defaults) {
+module.exports = function (defaults) {
   let app = new EmberAddon(defaults, {
     "ember-cli-babel": {
-      includePolyfill: true
+      includePolyfill: true,
     },
     "ember-cli-addon-docs-esdoc": {
       packages: [
         "ember-cli-mirage",
-        { name: "miragejs", sourceDirectory: "lib" }
-      ]
-    }
+        { name: "miragejs", sourceDirectory: "lib" },
+      ],
+    },
+    addons: {
+      blacklist: ["ember-cli-fastboot"],
+    },
   });
 
   /*

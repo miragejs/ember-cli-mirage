@@ -1671,7 +1671,7 @@ try{regeneratorRuntime=n}catch(i){Function("r","regeneratorRuntime = r")(n)}},{}
  *            Portions Copyright 2008-2011 Apple Inc. All rights reserved.
  * @license   Licensed under MIT license
  *            See https://raw.github.com/emberjs/ember.js/master/LICENSE
- * @version   3.20.0
+ * @version   3.20.1
  */
 var e,t,r
 mainContext=this,function(){var n,i
@@ -4832,8 +4832,8 @@ var u=L.resume(s.env,n),l=t.resume(s,u),c=new r.LinkedList
 A(this,l.execute((function(t){t.pushUpdating(c),t.updateWith(e),t.pushUpdating(i)})).drop),this.prev=o,this.next=a},n}(rr),ir=function(){function e(e,t){this.opcode=e,this.marker=t,this.didInsert=!1,this.didDelete=!1,this.map=e.map,this.updating=e.children}var t=e.prototype
 return t.insert=function(e,t,r,n,i){var o,a=this.map,s=this.opcode,u=this.updating,l=null
 o=void 0!==(l=a.get(i))?l.bounds.firstNode():this.marker
-var c=s.vmForInsertion(o),f=null,d=c.execute((function(e){e.pushUpdating(),f=e.enterItem(n,r),a.set(t,f)}))
-u.insertBefore(f,l),A(s,d.drop),this.didInsert=!0},t.retain=function(e,t,r,n){},t.move=function(e,t,r,i,o){var a=this.map,s=this.updating,u=a.get(t)
+var c=s.vmForInsertion(o),f=null
+c.execute((function(e){e.pushUpdating(),f=e.enterItem(n,r),a.set(t,f)})),u.insertBefore(f,l),A(s,f),this.didInsert=!0},t.retain=function(e,t,r,n){},t.move=function(e,t,r,i,o){var a=this.map,s=this.updating,u=a.get(t)
 if(o===n.END)g(u,this.marker),s.remove(u),s.append(u)
 else{var l=a.get(o)
 g(u,l.firstNode()),s.remove(u),s.insertBefore(u,l)}},t.delete=function(e,t){var r=this.map,n=this.updating,i=r.get(t)
@@ -5353,7 +5353,7 @@ B.Test=U.Test,B.Test.Adapter=U.Adapter,B.Test.QUnitAdapter=U.QUnitAdapter,B.setu
 var H=B
 e.default=H,n.IS_NODE?n.module.exports=B:r.context.exports.Ember=r.context.exports.Em=B})),e("ember/version",["exports"],(function(e){"use strict"
 Object.defineProperty(e,"__esModule",{value:!0}),e.default=void 0
-e.default="3.20.0"})),e("node-module/index",["exports"],(function(e){"use strict"
+e.default="3.20.1"})),e("node-module/index",["exports"],(function(e){"use strict"
 Object.defineProperty(e,"__esModule",{value:!0}),e.require=e.module=e.IS_NODE=void 0
 var t,r,n="object"==typeof module&&"function"==typeof module.require
 e.IS_NODE=n,e.module=t,e.require=r,n?(e.module=t=module,e.require=r=module.require):(e.module=t=null,e.require=r=null)})),e("route-recognizer",["exports"],(function(e){"use strict"

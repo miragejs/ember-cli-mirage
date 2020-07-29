@@ -10866,7 +10866,7 @@ for(var t,r=e.length,n="",i=0;i<r;i++)t=e.charCodeAt(i),Math.random()>.5&&(t="x"
 return n}}])&&n(t.prototype,r),s&&n(t,s),e}()},function(e,t){function r(e,t){for(var r=0;r<t.length;r++){var n=t[r]
 n.enumerable=n.enumerable||!1,n.configurable=!0,"value"in n&&(n.writable=!0),Object.defineProperty(e,n.key,n)}}e.exports=function(){function e(){!function(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}(this,e)}var t,n
 return t=e,(n=[{key:"strong",value:function(e){return e}},{key:"em",value:function(e){return e}},{key:"codespan",value:function(e){return e}},{key:"del",value:function(e){return e}},{key:"html",value:function(e){return e}},{key:"text",value:function(e){return e}},{key:"link",value:function(e,t,r){return""+r}},{key:"image",value:function(e,t,r){return""+r}},{key:"br",value:function(){return""}}])&&r(t.prototype,n),e}()},,,function(e,t,r){var n,i,o
-function a(e){return(a="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(e){return typeof e}:function(e){return e&&"function"==typeof Symbol&&e.constructor===Symbol&&e!==Symbol.prototype?"symbol":typeof e})(e)}i=function(e){var t=[],r=Object.keys,n={},i={},o=!0,s=/^(no-?highlight|plain|text)$/i,u=/\blang(?:uage)?-([\w-]+)\b/i,l=/((^(<[^>]+>|\t|)+|(?:\n)))/gm,c="</span>",f="Could not find the language '{}', did you forget to load/include a language module?",d={classPrefix:"hljs-",tabReplace:null,useBR:!1,languages:void 0},h="of and for in not or if then".split(" ")
+function a(e){return(a="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(e){return typeof e}:function(e){return e&&"function"==typeof Symbol&&e.constructor===Symbol&&e!==Symbol.prototype?"symbol":typeof e})(e)}i=function(e){var t=[],r=Object.keys,n=Object.create(null),i=Object.create(null),o=!0,s=/^(no-?highlight|plain|text)$/i,u=/\blang(?:uage)?-([\w-]+)\b/i,l=/((^(<[^>]+>|\t|)+|(?:\n)))/gm,c="</span>",f="Could not find the language '{}', did you forget to load/include a language module?",d={classPrefix:"hljs-",tabReplace:null,useBR:!1,languages:void 0},h="of and for in not or if then".split(" ")
 function p(e){return e.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")}function m(e){return e.nodeName.toLowerCase()}function v(e){return s.test(e)}function y(e){var t,r={},n=Array.prototype.slice.call(arguments,1)
 for(t in e)r[t]=e[t]
 return n.forEach((function(e){for(t in e)r[t]=e[t]})),r}function g(e){var t=[]
@@ -10904,6 +10904,7 @@ return n+p(A.substr(t))}(),A=""}function h(e){S+=e.className?u(e.className,"",!0
 function v(e,t){var n=t&&t[0]
 if(A+=e,null==n)return l(),0
 if("begin"==m.type&&"end"==t.type&&m.index==t.index&&""===n)return A+=a.slice(t.index,t.index+1),1
+if("illegal"===m.type&&""===n)return A+=a.slice(t.index,t.index+1),1
 if(m=t,"begin"===t.type)return function(e){var t=e[0],r=e.rule
 return r&&r.endSameAsBegin&&(r.endRe=new RegExp(t.replace(/[-\/\\^$*+?.()|[\]{}]/g,"\\$&"),"m")),r.skip?A+=t:(r.excludeBegin&&(A+=t),l(),r.returnBegin||r.excludeBegin||(A=t)),h(r),r.returnBegin?0:t.length}(t)
 if("illegal"===t.type&&!r)throw new Error('Illegal lexeme "'+n+'" for mode "'+(b.className||"<unnamed>")+'"')

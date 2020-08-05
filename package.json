@@ -36,8 +36,8 @@
   },
   "dependencies": {
     "broccoli-file-creator": "^2.1.1",
-    "broccoli-funnel": "^2.0.2",
-    "broccoli-merge-trees": "^3.0.2",
+    "broccoli-funnel": "^3.0.2",
+    "broccoli-merge-trees": "^4.2.0",
     "ember-auto-import": "^1.2.19",
     "ember-cli-babel": "^7.5.0",
     "ember-get-config": "^0.2.2",
@@ -95,7 +95,7 @@
     "ember-data": "3.14.0"
   },
   "engines": {
-    "node": "6.* || 8.* || >= 10.*"
+    "node": ">= 10.*"
   },
   "ember-addon": {
     "configPath": "tests/dummy/config",

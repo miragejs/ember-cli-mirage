@@ -30,3 +30,6 @@ jekyll-tmp
 # IDE
 /.idea/
 /*.iml
+
+### macOS ###
+*.DS_Store

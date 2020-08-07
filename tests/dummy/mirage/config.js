@@ -1,4 +1,18 @@
-export default function() {
+import { createServer, discoverEmberDataModels, applyEmberDataSerializers } from 'ember-cli-mirage';
+
+export function makeServer(config) {
+  let finalConfig = {
+    ...config,
+    models: { ...discoverEmberDataModels(), ...config.models },
+    serializers: applyEmberDataSerializers(config.serializers),
+    routes,
+  };
+
+  return createServer(finalConfig)
+}
+
+
+function routes() {
   //
   // {
   //   "message": "API rate limit exceeded for 72.229.126.12. (But here's the good news: Authenticated requests get a higher rate limit. Check out the documentation for more details.)",

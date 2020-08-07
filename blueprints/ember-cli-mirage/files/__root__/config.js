@@ -1,16 +1,4 @@
-import { createServer, discoverEmberDataModels } from 'ember-cli-mirage';
-
-export function makeServer(config) {
-  let finalConfig = {
-    ...config,
-    models: { ...discoverEmberDataModels(), ...config.models },
-    routes,
-  };
-
-  return createServer(finalConfig);
-}
-
-function routes() {
+export default function() {
 
   // These comments are here to help you get started. Feel free to delete them.
 

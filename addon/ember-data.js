@@ -56,12 +56,10 @@ export function getDsModels() {
 /**
  * Get all mirage models for each of the ember-data models
  *
- * @method getModels
- * @private
- * @hide
+ * @method discoverEmberDataModels
  * @return {Object} models
  */
-export function getModels() {
+export function discoverEmberDataModels() {
   if (Models) {
     return Models;
   }
@@ -97,7 +95,7 @@ export function getModels() {
  * @hide
  */
 export function modelFor(name) {
-  let models = getModels();
+  let models = discoverEmberDataModels();
   assert(!!models[name], `Model of type '${name}' does not exist.`);
   return models[name];
 }

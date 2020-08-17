@@ -1,6 +1,6 @@
 import { module, test } from 'qunit';
 import { setupTest } from 'ember-qunit';
-import Server from 'ember-cli-mirage/server';
+import {createServer, applyEmberDataSerializers} from 'ember-cli-mirage';
 
 module('Unit | Serializer | ember data serializer discover', function(hooks) {
   setupTest(hooks);
@@ -8,10 +8,8 @@ module('Unit | Serializer | ember data serializer discover', function(hooks) {
   let server;
 
   hooks.beforeEach(function() {
-    server = new Server({
-      environment: "test",
-      discoverEmberDataModels: true,
-      discoverEmberDataSerializers: true
+    server = createServer({
+      serializers: applyEmberDataSerializers({})
     });
   });
 

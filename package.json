@@ -82,7 +82,7 @@
     "escape-string-regexp": "^4.0.0",
     "eslint-plugin-ember": "^8.1.0",
     "eslint-plugin-node": "^11.0.0",
-    "faker": "^4.1.0",
+    "faker": "^5.1.0",
     "fastboot": "^3.0.2",
     "js-yaml": "^3.12.1",
     "jsdom": "^16.2.2",

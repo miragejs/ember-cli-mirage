@@ -92,7 +92,7 @@ function routes() {
 }
 ```
 
-##Serializers
+## Serializers
 
 If you would like to have Mirage adjust or create your serializers for you from your ember data serializers adjust your 
 server configuration to have mirage perform this for you.

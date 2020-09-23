@@ -1,8 +1,8 @@
-The `EmberDataSerializer` extends the `RestSerializer` with the added functionality of  
-`primaryKey` and `attrs` (renamed `transforms` as `attrs` was already in use by Mirage) properties. 
-These properties work the same as the properties provided  
+The `EmberDataSerializer` extends the `RestSerializer` with the added functionality of`primaryKey` and `attrs` 
+(renamed `transforms` as `attrs` was already in use by Mirage) properties. 
+These properties work the same as the properties provided.
 
-##Primary Key
+## Primary Key
 This serializer provides for a property `primaryKey` that works the same as the `primaryKey` property on an ember data serializer. 
 By default this property will be `id` but if you assign a different value, that value will be used in the JSON instead of `id`. 
 This means that if you are using the `primaryKey` property on your ember data serializer, using the same property on the mirage serializer 
@@ -21,7 +21,7 @@ export default EmberDateSerialzier.extend({
 });
 ```
 
-##Transforms
+## Transforms
 
 Transforms provides the same function as `attrs` for the ember data serializers however this transformation is happening
 on the server side for Mirage. This allows your mirage models to look more like your actual server models.
@@ -40,6 +40,7 @@ export default EmberDataSerializer.extend({
 });
 ```
 
-If you would like Mirage to apply the transforms from your meber data serializers for you see {{docs-link 'Advanced Configuration of Serializers' 'docs.advanced.server-configuration~Serializers'}}
+If you would like Mirage to apply the transforms from your ember data serializers for you see 
+{{docs-link 'Advanced Configuration of Serializers' 'docs.advanced.server-configuration'}}.
 
 

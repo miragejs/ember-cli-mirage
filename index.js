@@ -7,6 +7,10 @@ const writeFile = require('broccoli-file-creator');
 module.exports = {
   name: 'ember-cli-mirage',
 
+  // isDevelopingAddon: function () {
+  //   return true;
+  // },
+
   included() {
     let app;
 

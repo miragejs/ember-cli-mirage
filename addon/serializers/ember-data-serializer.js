@@ -7,24 +7,26 @@ import {get} from "@ember/object";
 
 /**
  * This serializer does not use following mirage properties to control how things are serialized
- *     attrs - see serialize:false on the transform for the properties you do not want to serialize.
- *     embed - see serialize: records for the relations you want to emded
- *     serializeIds - see serialize: ids for the relations you want as ids
+ *
+ *     attrs - see `serialize` on the transform property
+ *     embed - see `serialize` on the transform property
+ *     serializeIds - see serialize on the transform property
  *
  * The above configuration was applied to every property on the serializer, whereas the transforms allows you
- * to specify a value for each relation.
+ * to specify a value for each property or relation.
  *
- * The following properties are supported
- *     include - This works are described in the mirage documentation for the serializer interface
- *
- * Instead it uses the Ember Data serializer format or attrs to specify the serialization under the
- * property transforms (attrs is already in use by mirageJs).
+ * This serializer uses a property `transforms` that follows the Ember Data serializer format of `attrs` to specify the
+ * serialization (`attrs` is already in use by mirageJs).
  *
  * The startMirage has been modified to also generate serializers from the Ember Data serializers supporting
  * the key and the serialize/deserialize properties with the value of (true/ids/records). If a serializer is
  * already present in the mirage directory, the transforms will be added to it. If that serializer is not
  * a serializer of this type, there will be no effect.  Ensure that your serializers and/or the application
  * serializer in the mirage directory is a type of this serializer
+ *
+ * @class EmberDataSerializer
+ * @constructor
+ * @public
  *
  */
 let EmberDataSerializer = RestSerializer.extend({

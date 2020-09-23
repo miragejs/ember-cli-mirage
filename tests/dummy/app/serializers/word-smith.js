@@ -1,4 +1,4 @@
-import RestSerializer from '@ember-data/serializer/rest';
+ import RestSerializer from '@ember-data/serializer/rest';
 
 export default RestSerializer.extend({
   attrs: {

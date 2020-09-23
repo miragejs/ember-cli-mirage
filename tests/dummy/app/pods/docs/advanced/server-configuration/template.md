@@ -2,9 +2,7 @@
 
 The MirageJS server is configured for you by ember-cli-mirage. However, if you need to customize the server you can by creating a makeServer function in the config.js.
 
-```javascript
-/*
-  The named `makeServer` function export gives you a lower-level way to hook
+The named `makeServer` function export gives you a lower-level way to hook
   into how your Ember app instantiates your Mirage JS server.
 
   Typically, the `/mirage/config.js` file contains a single default export which
@@ -55,7 +53,7 @@ The MirageJS server is configured for you by ember-cli-mirage. However, if you n
   `miragejs', and become a small wrapper library delegating the rest of the work
   to `miragejs`. This will help align the Ember Mirage users with the rest of
   the Mirage JS community. 
-*/
+```javascript
 
 // Example with inline routes
 import { createServer, discoverEmberDataModels } from "ember-cli-mirage";
@@ -81,6 +79,44 @@ export function makeServer(config) {
   let finalConfig = {
     ...config,
     models: { ...discoverEmberDataModels(), ...config.models },
+    routes,
+  };
+
+  return createServer(finalConfig);
+}
+
+function routes() {
+  // this.namespace = '/api'
+
+  // this.resource('user')
+}
+```
+
+##Serializers
+
+If you would like to have Mirage adjust or create your serializers for you from your ember data serializers adjust your 
+server configuration to have mirage perform this for you.
+
+When Mirage auto discovers your ember data models, should you also have the same model defined in mirage, it will use the mirage
+version of the model. With serializers, you may have created a mirage serializer to override some methods, but would still 
+like Mirage to apply the primaryKey and transforms. For that reason the method to apply these properties is different than
+the way you merge the models.
+
+`applyEmberDataSerializers` will apply the `primaryKey` and `attrs` from your ember data serializers to your mirage serializers.
+If you have not created a mirage serializer it will create one and extend it from your mirage application serializer.
+Ensure your application serializer extends from EmberDataSerializer as the default JSONApiSerializer will not understand 
+how to use `primaryKey` and `transforms`. If you have not created a mirage serializer named application, the created serializer 
+will extend EmberDataSerializer directly.
+
+```javascript
+// Example of having Mirage adjust/create your serializers similiar to ember data models
+import { createServer, discoverEmberDataModels, applyEmberDataSerializers } from 'ember-cli-mirage';
+
+export function makeServer(config) {
+  let finalConfig = {
+    ...config,
+    models: { ...discoverEmberDataModels(), ...config.models },
+    serializers: applyEmberDataSerializers(config.serializers),
     routes,
   };
 

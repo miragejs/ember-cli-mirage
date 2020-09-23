@@ -57,6 +57,7 @@ module('Acceptance | Starting mirage', function(hooks) {
       test('it works', async function(assert) {
         const server = startMirage(this.owner);
         const model = server.create('nested/thing');
+        dynamicAfterEach = () => server.shutdown();
 
         assert.ok(model instanceof NestedThingModel, 'models');
         assert.equal(model.id, 'nested identity manager works!', 'identity managers');
@@ -69,6 +70,7 @@ module('Acceptance | Starting mirage', function(hooks) {
       // factories and fixtures have to be tested separately
       test('fixtures support', async function(assert) {
         const server = startMirage(this.owner);
+        dynamicAfterEach = () => server.shutdown();
 
         server.loadFixtures('nested/things');
         const model = server.schema.first('nested/thing');

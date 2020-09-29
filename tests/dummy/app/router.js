@@ -27,7 +27,9 @@ Router.map(function() {
       this.route('relationships');
       this.route('factories');
       this.route('fixtures');
-      this.route('serializers');
+      this.route('serializers', function() {
+        this.route('ember-data-serializer')
+      });
     });
 
     this.route('testing', function() {

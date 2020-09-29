@@ -146,8 +146,6 @@ export function getDsSerializers() {
  * if a mirage serializer already exists, apply the ember-data transforms
  *
  * @method applyEmberDataSerializers
- * @private
- * @hide
  * @return {Object} serializers
  */
 export function applyEmberDataSerializers(mirageSerializers = {}) {

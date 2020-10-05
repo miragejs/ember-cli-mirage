@@ -75,7 +75,7 @@
     "ember-maybe-import-regenerator-for-testing": "^1.0.0",
     "ember-moment": "^8.0.0",
     "ember-qunit": "^4.6.0",
-    "ember-resolver": "^7.0.0",
+    "ember-resolver": "^8.0.2",
     "ember-source": "~3.20.0",
     "ember-source-channel-url": "^3.0.0",
     "ember-try": "^1.0.0",

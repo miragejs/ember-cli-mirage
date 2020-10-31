@@ -11323,7 +11323,9 @@ function l(e){var t=e.length
 if(t%4>0)throw new Error("Invalid string. Length must be a multiple of 4")
 var r=e.indexOf("=")
 return-1===r&&(r=t),[r,r===t?0:4-r%4]}function c(e,t,r){for(var i,o,a=[],s=t;s<r;s+=3)i=(e[s]<<16&16711680)+(e[s+1]<<8&65280)+(255&e[s+2]),a.push(n[(o=i)>>18&63]+n[o>>12&63]+n[o>>6&63]+n[63&o])
-return a.join("")}i["-".charCodeAt(0)]=62,i["_".charCodeAt(0)]=63},function(e,t){t.read=function(e,t,r,n,i){var o,a,s=8*i-n-1,u=(1<<s)-1,l=u>>1,c=-7,f=r?i-1:0,d=r?-1:1,h=e[t+f]
+return a.join("")}i["-".charCodeAt(0)]=62,i["_".charCodeAt(0)]=63},function(e,t){
+/*! ieee754. BSD-3-Clause License. Feross Aboukhadijeh <https://feross.org/opensource> */
+t.read=function(e,t,r,n,i){var o,a,s=8*i-n-1,u=(1<<s)-1,l=u>>1,c=-7,f=r?i-1:0,d=r?-1:1,h=e[t+f]
 for(f+=d,o=h&(1<<-c)-1,h>>=-c,c+=s;c>0;o=256*o+e[t+f],f+=d,c-=8);for(a=o&(1<<-c)-1,o>>=-c,c+=n;c>0;a=256*a+e[t+f],f+=d,c-=8);if(0===o)o=1-l
 else{if(o===u)return a?NaN:1/0*(h?-1:1)
 a+=Math.pow(2,n),o-=l}return(h?-1:1)*a*Math.pow(2,o-n)},t.write=function(e,t,r,n,i,o){var a,s,u,l=8*o-i-1,c=(1<<l)-1,f=c>>1,d=23===i?Math.pow(2,-24)-Math.pow(2,-77):0,h=n?0:o-1,p=n?1:-1,m=t<0||0===t&&1/t<0?1:0

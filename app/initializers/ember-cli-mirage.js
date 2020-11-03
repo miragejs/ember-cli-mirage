@@ -1,7 +1,8 @@
 import ENV from '../config/environment';
-import baseConfig, { testConfig, makeServer } from '../mirage/config';
 import getRfc232TestContext from 'ember-cli-mirage/get-rfc232-test-context';
 import startMirageImpl from 'ember-cli-mirage/start-mirage';
+import * as config from '../mirage/config';
+const { default: baseConfig, testConfig, makeServer } = config;
 
 //
 // This initializer does two things:

@@ -10930,7 +10930,7 @@ e.result+=x(o),e.position++}else C(e,"unknown escape sequence")
 r=n=e.position}else v(s)?(R(e,r,n,!0),F(e,N(e,!1,t)),r=n=e.position):e.position===e.lineStart&&I(e)?C(e,"unexpected end of the document within a double quoted scalar"):(e.position++,n=e.position)}C(e,"unexpected end of the stream within a double quoted scalar")}(e,h)?A=!0:function(e){var t,r,n
 if(42!==(n=e.input.charCodeAt(e.position)))return!1
 for(n=e.input.charCodeAt(++e.position),t=e.position;0!==n&&!g(n)&&!b(n);)n=e.input.charCodeAt(++e.position)
-return e.position===t&&C(e,"name of an alias node must contain at least one character"),r=e.input.slice(t,e.position),e.anchorMap.hasOwnProperty(r)||C(e,'unidentified alias "'+r+'"'),e.result=e.anchorMap[r],N(e,!0,-1),!0}(e)?(A=!0,null===e.tag&&null===e.anchor||C(e,"alias node should not have any properties")):function(e,t,r){var n,i,o,a,s,u,l,c,f=e.kind,d=e.result
+return e.position===t&&C(e,"name of an alias node must contain at least one character"),r=e.input.slice(t,e.position),l.call(e.anchorMap,r)||C(e,'unidentified alias "'+r+'"'),e.result=e.anchorMap[r],N(e,!0,-1),!0}(e)?(A=!0,null===e.tag&&null===e.anchor||C(e,"alias node should not have any properties")):function(e,t,r){var n,i,o,a,s,u,l,c,f=e.kind,d=e.result
 if(g(c=e.input.charCodeAt(e.position))||b(c)||35===c||38===c||42===c||33===c||124===c||62===c||39===c||34===c||37===c||64===c||96===c)return!1
 if((63===c||45===c)&&(g(n=e.input.charCodeAt(e.position+1))||r&&b(n)))return!1
 for(e.kind="scalar",e.result="",i=o=e.position,a=!1;0!==c;){if(58===c){if(g(n=e.input.charCodeAt(e.position+1))||r&&b(n))break}else if(35===c){if(g(e.input.charCodeAt(e.position-1)))break}else{if(e.position===e.lineStart&&I(e)||r&&b(c))break

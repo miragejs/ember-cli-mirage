@@ -1,0 +1,14 @@
+{
+  "version": "1.0",
+  "name": "ember-cli-mirage",
+  "description": "A client-side server to help you build, test and demo your Ember app",
+  "icons": {
+    "60": "/firefox_app_60x60.png",
+    "128": "/firefox_app_128x128.png",
+    "512": "/firefox_app_512x512.png"
+  },
+  "developer": {
+    "name": "Sam Selikoff",
+    "url": null
+  }
+}

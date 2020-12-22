@@ -106,5 +106,14 @@
     "after": [
       "ember-qunit"
     ]
+  },
+  "changelog": {
+    "labels": {
+      "Breaking": "💥 Breaking Change",
+      "Feature / Enhancement": "🚀 Enhancement",
+      "Bug": "🐛 Bug Fix",
+      "documentation": "📝 Documentation",
+      "internal": "🏠 Internal"
+    }
   }
 }

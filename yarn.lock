@@ -6912,7 +6912,7 @@ ember-fetch@^8.0.2:
     node-fetch "^2.6.0"
     whatwg-fetch "^3.4.0"
 
-ember-get-config@, ember-get-config@^0.3.0:
+ember-get-config@, "ember-get-config@^0.2.4 || ^0.3.0":
   version "0.3.0"
   resolved "https://registry.yarnpkg.com/ember-get-config/-/ember-get-config-0.3.0.tgz#a73a1a87b48d9dde4c66a0e52ed5260b8a48cfbd"
   integrity sha512-0e2pKzwW5lBZ4oJnvu9qHOht4sP1MWz/m3hyz8kpSoMdrlZVf62LDKZ6qfKgy8drcv5YhCMYE6QV7MhnqlrzEQ==

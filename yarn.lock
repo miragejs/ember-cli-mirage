@@ -6212,9 +6212,9 @@ ember-assign-polyfill@^2.5.0, ember-assign-polyfill@^2.6.0:
     ember-cli-version-checker "^2.0.0"
 
 ember-auto-import@^1.2.19, ember-auto-import@^1.5.3, ember-auto-import@^1.6.0:
-  version "1.11.0"
-  resolved "https://registry.yarnpkg.com/ember-auto-import/-/ember-auto-import-1.11.0.tgz#ab499f91de4e7155b0f96b519ec186a2852c0ce5"
-  integrity sha512-XCnj5OOWIrkepR2EWWv3LPmyjHbHW0q8ZspSuziE4Qp19tBi9ER/klTbSpkad/i/WTeMEuA22MdN8mbPlv/sCw==
+  version "1.11.2"
+  resolved "https://registry.yarnpkg.com/ember-auto-import/-/ember-auto-import-1.11.2.tgz#b6e9a0dddd88a10692830ffa4f5dfd8c137c8919"
+  integrity sha512-Sm0x9qgAQEx+XSYeh5zeKj89Uo0c7XzULZxuziFPxbhtKy/G4pywhBuQ7EgDznTj8IZVxOdfe4ufcUxnJtbSgg==
   dependencies:
     "@babel/core" "^7.1.6"
     "@babel/preset-env" "^7.10.2"

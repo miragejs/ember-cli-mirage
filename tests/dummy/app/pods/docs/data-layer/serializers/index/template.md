@@ -41,7 +41,7 @@ If you are starting a new app, it's recommended that you choose a JSON:API imple
 
 If your app does use JSON:API, Mirage ships with a `JSONAPISerializer` that will do the heavy lifting for you.
 
-Mirage also ships with two other named serializers, `ActiveModelSerializer` and `RestSerializer`, that match two other popular backend formats. `EmberDataSerializer` is also provided as a variation to the `RestSerializer` that uses the `primaryKey` and `attrs` defined in your applciations ember data serializers, similar to how models are auto discovered. See the section on {{docs-link 'Ember Data Serializer' 'docs.data-layer.serializers.ember-data-serializer'}} for more information.
+Mirage also ships with two other named serializers, `ActiveModelSerializer` and `RestSerializer`, that match two other popular backend formats. `EmberDataSerializer` is also provided as a variation to the `RestSerializer` that uses the `primaryKey` and `attrs` defined in your applications ember data serializers, similar to how models are auto discovered. See the section on {{docs-link 'Ember Data Serializer' 'docs.data-layer.serializers.ember-data-serializer'}} for more information.
 
 If your backend uses a different format, you'll need to choose the closest one and customize it to match your production format. We'll talk about that later in this guide.
 

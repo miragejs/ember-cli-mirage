@@ -1,14 +1,18 @@
-/* global requirejs */
-
-function _hasEmberData() {
-  let matchRegex = /^ember-data/i;
-  return !!(Object.keys(requirejs.entries).find(e => !!e.match(matchRegex)));
-}
+let _emberDataExists;
 
 /**
-  @hide
-*/
-export const hasEmberData = _hasEmberData();
+ @hide
+ */
+export function hasEmberData(options) {
+  if (_emberDataExists !== undefined) {
+    return _emberDataExists;
+  }
+  let matchRegex1 = /^ember-data/i;
+  let matchRegex2 = /^@ember-data/i;
+  return _emberDataExists = !!(Object.keys(options.moduleMap).find(e => {
+    return !!e.match(matchRegex2) || !!e.match(matchRegex1)
+  }));
+}
 
 /**
   @hide

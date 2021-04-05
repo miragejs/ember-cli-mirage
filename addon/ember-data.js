@@ -21,26 +21,27 @@ let DsSerializers, Serializers
  * Get all ember data models under the app's namespaces
  *
  * @method getDsModels
+ * @param  {Object} options
+ * @param  {array} options.moduleMap - The requirejs.entries map to use
  * @private
  * @hide
  * @return {Object} models
  */
-export function getDsModels() {
+export function getDsModels(options) {
   if (DsModels) {
     return DsModels;
   }
 
-  let moduleMap = requirejs.entries;
   let classicModelMatchRegex = new RegExp(`^${modulePrefix}/models/(.*)$`, 'i');
   let podModelMatchRegex = new RegExp(`^${podModulePrefix || modulePrefix}/(.*)/model$`, 'i');
 
   DsModels = {};
 
-  if (!hasEmberData) {
+  if (!hasEmberData(options)) {
     return DsModels;
   }
 
-  Object.keys(moduleMap)
+  Object.keys(options.moduleMap)
     .forEach((path) => {
       let matches = path.match(classicModelMatchRegex) || path.match(podModelMatchRegex);
       if (matches && matches[1]) {
@@ -60,14 +61,21 @@ export function getDsModels() {
  * Get all mirage models for each of the ember-data models
  *
  * @method discoverEmberDataModels
+ * @param  {Object} [options]
+ * @param  {array} [options.moduleMap] - The requirejs.entries map to use
  * @return {Object} models
  */
-export function discoverEmberDataModels() {
+export function discoverEmberDataModels(options = {}) {
   if (Models) {
     return Models;
   }
 
-  let emberDataModels = getDsModels();
+  let _options = {
+    moduleMap: requirejs.entries,
+    ...options
+  };
+
+  let emberDataModels = getDsModels(_options);
   Models = {};
 
   Object.keys(emberDataModels).forEach(modelName => {
@@ -94,11 +102,13 @@ export function discoverEmberDataModels() {
  * @method modelFor
  * @private
  * @param  {String} name
+ * @param  {Object} options
+ * @param  {array} options.moduleMap - The requirejs.entries map to use
  * @return {Model}
  * @hide
  */
-export function modelFor(name) {
-  let models = discoverEmberDataModels();
+export function modelFor(name, options = {}) {
+  let models = discoverEmberDataModels(options);
   assert(!!models[name], `Model of type '${name}' does not exist.`);
   return models[name];
 }
@@ -107,26 +117,32 @@ export function modelFor(name) {
  * Get all ember data serializers under the app's namespaces
  *
  * @method getDsSerializers
+ * @param  {Object} options
+ * @param  {array} options.moduleMap - The requirejs.entries map to use
  * @private
  * @hide
  * @return {Object} serializers
  */
-export function getDsSerializers() {
+export function getDsSerializers(options) {
   if (DsSerializers) {
     return DsSerializers;
   }
 
-  let moduleMap = requirejs.entries;
+  let _options = {
+    moduleMap: requirejs.entries,
+    ...options
+  };
+
   let classicSerializerMatchRegex = new RegExp(`^${modulePrefix}/serializers/(.*)$`, 'i');
   let podSerializerMatchRegex = new RegExp(`^${podModulePrefix || modulePrefix}/(.*)/serializer$`, 'i');
 
   DsSerializers = {}
 
-  if (!hasEmberData) {
+  if (!hasEmberData(_options)) {
     return DsSerializers;
   }
 
-  Object.keys(moduleMap)
+  Object.keys(_options.moduleMap)
     .forEach((path) => {
       let matches = path.match(classicSerializerMatchRegex) || path.match(podSerializerMatchRegex);
       if (matches && matches[1]) {
@@ -146,14 +162,22 @@ export function getDsSerializers() {
  * if a mirage serializer already exists, apply the ember-data transforms
  *
  * @method applyEmberDataSerializers
+ * @param  {Object} mirageSerializers - hash of the serializers defined in mirage
+ * @param  {Object} [options]
+ * @param  {array} [options.moduleMap] - The requirejs.entries map to use
  * @return {Object} serializers
  */
-export function applyEmberDataSerializers(mirageSerializers = {}) {
+export function applyEmberDataSerializers(mirageSerializers, options) {
   if (Serializers) {
     return Serializers;
   }
 
-  let emberDataSerializers = getDsSerializers();
+  let _options = {
+    moduleMap: requirejs.entries,
+    ...options
+  };
+
+  let emberDataSerializers = getDsSerializers(_options);
 
   // Start off with the mirage serializers,
   // so if there are any mirage serializers with no ED counterpart, they are in the list

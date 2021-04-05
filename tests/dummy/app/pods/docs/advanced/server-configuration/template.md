@@ -49,7 +49,7 @@ The named `makeServer` function export gives you a lower-level way to hook
   that this gives you the added benefit of being able to upgrade `miragejs`
   independently of `ember-cli-mirage`.
 
-  Eventually, `ember-cli-mirage` will shed its re-exports of everythign from
+  Eventually, `ember-cli-mirage` will shed its re-exports of everything from
   `miragejs', and become a small wrapper library delegating the rest of the work
   to `miragejs`. This will help align the Ember Mirage users with the rest of
   the Mirage JS community. 

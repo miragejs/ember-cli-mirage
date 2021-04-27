@@ -13,6 +13,9 @@ module.exports = function (defaults) {
         { name: "miragejs", sourceDirectory: "lib" },
       ],
     },
+    "ember-composable-helpers": {
+      only: ["sort-by"]
+    },
     addons: {
       blacklist: ["ember-cli-fastboot"],
     },

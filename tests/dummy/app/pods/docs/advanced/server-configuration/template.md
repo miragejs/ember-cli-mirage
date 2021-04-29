@@ -8,7 +8,7 @@ The named `makeServer` function export gives you a lower-level way to hook
   Typically, the `/mirage/config.js` file contains a single default export which
   is a function defining all your Mirage route handlers. Ember CLI Mirage then
   uses this function, along with all the other modules you've defined in
-  `mirage/models`, `mirage/fixtures`, mirage/factories`, and
+  `mirage/models`, `mirage/fixtures`, `mirage/factories`, and
   `mirage/serializers`, to create your Mirage JS server when your app boots up
   in development and testing.
 
@@ -49,8 +49,8 @@ The named `makeServer` function export gives you a lower-level way to hook
   that this gives you the added benefit of being able to upgrade `miragejs`
   independently of `ember-cli-mirage`.
 
-  Eventually, `ember-cli-mirage` will shed its re-exports of everythign from
-  `miragejs', and become a small wrapper library delegating the rest of the work
+  Eventually, `ember-cli-mirage` will shed its re-exports of everything from
+  `miragejs`, and become a small wrapper library delegating the rest of the work
   to `miragejs`. This will help align the Ember Mirage users with the rest of
   the Mirage JS community. 
 ```javascript

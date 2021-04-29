@@ -470,11 +470,11 @@ When combined with the `afterCreate()` hook, traits simplify the process of sett
 Here we define a `withComments` trait that creates 3 comments for a newly created post:
 
 ``` js
-// mirage/factories/user.js
+// mirage/factories/post.js
 import { Factory, trait } from 'ember-cli-mirage';
 
 export default Factory.extend({
-  name: 'Lorem ipsum',
+  title: 'Lorem ipsum',
 
   withComments: trait({
     afterCreate(post, server) {

@@ -1,6 +1,7 @@
 'use strict';
 
 const getChannelURL = require('ember-source-channel-url');
+const { embroiderSafe, embroiderOptimized } = require('@embroider/test-setup');
 
 module.exports = function() {
   return Promise.all([
@@ -61,7 +62,9 @@ module.exports = function() {
               '@ember/jquery': '^0.5.1'
             }
           }
-        }
+        },
+        embroiderSafe(),
+        embroiderOptimized(),
       ]
     };
   });

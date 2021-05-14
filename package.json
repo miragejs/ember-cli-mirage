@@ -39,7 +39,7 @@
     "broccoli-file-creator": "^2.1.1",
     "broccoli-funnel": "^3.0.3",
     "broccoli-merge-trees": "^4.2.0",
-    "ember-auto-import": "^1.2.19",
+    "ember-auto-import": "^2.0.0",
     "ember-cli-babel": "^7.5.0",
     "ember-get-config": "^0.2.4 || ^0.3.0",
     "ember-inflector": "^2.0.0 || ^3.0.0 || ^4.0.0",

@@ -17,7 +17,7 @@ import { singularize, pluralize } from 'ember-inflector';
   @hide
 */
 export default function startMirage(owner, { env, baseConfig, testConfig, makeServer } = {}) {
-  if (!env || !baseConfig) {
+  if (!env || (!baseConfig && !makeServer)) {
     if (!owner) {
       throw new Error('You must pass `owner` to startMirage()');
     }

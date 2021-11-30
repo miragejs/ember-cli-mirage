@@ -1,6 +1,7 @@
-import { createServer, discoverEmberDataModels, applyEmberDataSerializers } from 'ember-cli-mirage';
+import { discoverEmberDataModels, applyEmberDataSerializers } from 'ember-cli-mirage';
+import { createServer } from 'miragejs';
 
-export function makeServer(config) {
+export default function(config) {
   let finalConfig = {
     ...config,
     models: { ...discoverEmberDataModels(), ...config.models },

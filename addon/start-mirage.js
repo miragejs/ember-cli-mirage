@@ -1,6 +1,7 @@
 import readModules from './utils/read-modules';
 import Server from './server';
 import { singularize, pluralize } from 'ember-inflector';
+import { deprecate } from '@ember/debug';
 
 /**
   Helper to start mirage. This should not be called directly. In rfc232/rfc268
@@ -29,12 +30,45 @@ export default function startMirage(owner, { env, baseConfig, testConfig, makeSe
     makeServer = makeServer || resolveRegistration(owner, 'mirage:make-server');
   }
 
+  // Deprecate exporting makeServer as NOT the default function
+  deprecate("Do not export the makeServer function. Please make the makeServer function the default exported function",
+    makeServer === undefined,
+    {
+      id: 'ember-cli-mirage-config-makeserver-export',
+      for: 'ember-cli-mirage',
+      since: '2.3.0',
+      until: '3.0.0',
+      url: 'https://www.ember-cli-mirage.com/docs/advanced/server-configuration'
+    }
+  );
+
+  let routes;
+
+  // Are they using the routes as the default export
+  if (baseConfig && baseConfig.length === 0) {
+    routes = baseConfig;
+  }
+
+  // Is the default exported function the makeServer function
+  if (baseConfig && baseConfig.length > 0) {
+    makeServer = baseConfig;
+  }
+
   let environment = env.environment;
   let mirageEnvironment = env['ember-cli-mirage'] || {};
+
   let discoverEmberDataModels = mirageEnvironment.discoverEmberDataModels;
   if (discoverEmberDataModels === undefined) { discoverEmberDataModels = true; }
   let modules = readModules(env.modulePrefix);
-  let options = Object.assign(modules, {environment, routes: baseConfig, testConfig, discoverEmberDataModels});
+
+  let options = Object.assign(modules,
+    {
+      environment,
+      routes,
+      testConfig,
+      discoverEmberDataModels
+    }
+  );
   options.trackRequests = mirageEnvironment.trackRequests;
   options.inflector = { singularize, pluralize };
 

@@ -14,9 +14,9 @@ value of `addressId` from the JSON and use it as the `id` for the Mirage model. 
 use the value for the `id` property and assign it to the property `addressId`.
 
 ```js
-import EmberDateSerialzier from 'ember-cli-mirage/ember-data-serializer';
+import { EmberDataSerializer } from "ember-cli-mirage";
 
-export default EmberDateSerialzier.extend({
+export default EmberDataSerializer.extend({
   primaryKey: "addressId"
 });
 ```

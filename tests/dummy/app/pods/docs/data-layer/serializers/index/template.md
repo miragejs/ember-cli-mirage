@@ -52,7 +52,7 @@ Once you've selected the appropriate serializer, define your default application
 
 ```js
 // mirage/serializers/application.js
-import { JSONAPISerializer } from 'ember-cli-mirage';
+import { JSONAPISerializer } from 'miragejs';
 
 export default JSONAPISerializer.extend({
 });
@@ -100,7 +100,7 @@ For example, if your Ember app expects attribute names to be PascalCase
 you might override the Serializer's `keyForAttribute` method:
 
 ```js
-import { Serializer } from 'ember-cli-mirage';
+import { Serializer } from 'miragejs';
 import { classify } from '@ember/string';
 
 export default Serializer.extend({
@@ -130,7 +130,7 @@ out of the box. But sometimes Ember apps expect a resource payload to have all t
 There's an option on `JSONAPISerializer` that enables this:
 
 ```js
-import { JSONAPISerializer } from 'ember-cli-mirage';
+import { JSONAPISerializer } from 'miragejs';
 
 export default JSONAPISerializer.extend({
 

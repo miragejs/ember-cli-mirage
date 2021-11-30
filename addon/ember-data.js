@@ -4,7 +4,7 @@ import require from 'require';
 import config from 'ember-get-config';
 import assert from './assert';
 import { hasEmberData, isDsModel } from 'ember-cli-mirage/utils/ember-data';
-import { Model, belongsTo, hasMany } from 'ember-cli-mirage';
+import { Model, belongsTo, hasMany } from 'miragejs';
 import EmberDataSerializer from "ember-cli-mirage/serializers/ember-data-serializer";
 import { camelize } from './utils/inflector';
 

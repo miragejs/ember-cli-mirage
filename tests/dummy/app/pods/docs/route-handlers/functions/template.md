@@ -230,7 +230,7 @@ You can customize both the response code and headers by returning an instance of
 
 ```js
 // mirage/config.js
-import { Response } from 'ember-cli-mirage';
+import { Response } from 'miragejs';
 
 export default function() {
   this.post('/authors', function(schema, request) {

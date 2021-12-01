@@ -1,6 +1,6 @@
 import { module, test } from 'qunit';
 import { setupTest } from 'ember-qunit';
-import {createServer } from 'miragejs';
+import { createServer } from 'miragejs';
 import { applyEmberDataSerializers} from 'ember-cli-mirage';
 
 module('Unit | Serializer | ember data serializer discover', function(hooks) {

@@ -52,9 +52,9 @@ Say we wanted to test that when the user visits a details route for a movie titl
 
 ```js
 // mirage/factories/movie.js
-import Mirage from 'ember-cli-mirage';
+import { Factory } from 'miragejs';
 
-export default Mirage.Factory.extend({
+export default Factory.extend({
   title: 'Interstellar'
 });
 ```

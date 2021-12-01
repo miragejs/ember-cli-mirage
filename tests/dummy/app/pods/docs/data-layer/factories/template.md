@@ -16,7 +16,7 @@ Say we have a `Movie` model defined in Mirage. (Remember, if you're using Ember 
 
 ```js
 // mirage/models/movie.js
-import { Model } from 'ember-cli-mirage';
+import { Model } from 'miragejs';
 
 export default Model.extend({
 });
@@ -94,7 +94,7 @@ which creates this file:
 
 ```js
 // mirage/factories/movie.js
-import { Factory } from 'ember-cli-mirage';
+import { Factory } from 'miragejs';
 
 export default Factory.extend({
 });
@@ -104,7 +104,7 @@ Right now the Factory is empty. Let's define a property on it:
 
 ```js
 // mirage/factories/movie.js
-import { Factory } from 'ember-cli-mirage';
+import { Factory } from 'miragejs';
 
 export default Factory.extend({
 
@@ -127,7 +127,7 @@ We can also make this property a function.
 
 ```js
 // mirage/factories/movie.js
-import { Factory } from 'ember-cli-mirage';
+import { Factory } from 'miragejs';
 
 export default Factory.extend({
 
@@ -164,7 +164,7 @@ Let's add some more properties to our factory:
 
 ```js
 // mirage/factories/movie.js
-import { Factory } from 'ember-cli-mirage';
+import { Factory } from 'miragejs';
 import faker from 'faker';
 
 export default Factory.extend({
@@ -232,7 +232,7 @@ Attributes can depend on other attributes via `this` from within a function. Thi
 
 ```js
 // mirage/factories/user.js
-import { Factory } from 'ember-cli-mirage';
+import { Factory } from 'miragejs';
 import faker from 'faker';
 
 export default Factory.extend({
@@ -407,7 +407,7 @@ For example, here we define a trait named `published` on our post factory:
 
 ```js
 // mirage/factories/post.js
-import { Factory, trait } from 'ember-cli-mirage';
+import { Factory, trait } from 'miragejs';
 
 export default Factory.extend({
   title: 'Lorem ipsum',
@@ -434,7 +434,7 @@ You can also compose multiple traits together:
 
 ```js
 // mirage/factories/post.js
-import { Factory, trait } from 'ember-cli-mirage';
+import { Factory, trait } from 'miragejs';
 
 export default Factory.extend({
   title: 'Lorem ipsum',
@@ -471,7 +471,7 @@ Here we define a `withComments` trait that creates 3 comments for a newly create
 
 ``` js
 // mirage/factories/post.js
-import { Factory, trait } from 'ember-cli-mirage';
+import { Factory, trait } from 'miragejs';
 
 export default Factory.extend({
   title: 'Lorem ipsum',
@@ -501,7 +501,7 @@ As we saw earlier, given a `Post` that `belongsTo` a `User`, we were able to use
 
 ```js
 // mirage/factories/post.js
-import { Factory } from 'ember-cli-mirage';
+import { Factory } from 'miragejs';
 
 export default Factory.extend({
 
@@ -520,7 +520,7 @@ The `association()` helper effectively replaces this code:
 
 ```js
 // mirage/factories/post.js
-import { Factory, association } from 'ember-cli-mirage';
+import { Factory, association } from 'miragejs';
 
 export default Factory.extend({
 
@@ -535,7 +535,7 @@ You can also use `association()` within traits
 
 ```js
 // mirage/factories/post.js
-import { Factory, association, trait } from 'ember-cli-mirage';
+import { Factory, association, trait } from 'miragejs';
 
 export default Factory.extend({
 
@@ -550,7 +550,7 @@ and it also accepts additional traits and overrides for the related model's fact
 
 ```js
 // mirage/factories/post.js
-import { Factory, association, trait } from 'ember-cli-mirage';
+import { Factory, association, trait } from 'miragejs';
 
 export default Factory.extend({
 

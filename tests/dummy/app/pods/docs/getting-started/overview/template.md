@@ -50,7 +50,7 @@ This generates the following file:
 
 ```js
 // mirage/models/movie.js
-import { Model } from 'ember-cli-mirage';
+import { Model } from 'miragejs';
 
 export default Model.extend({
 });
@@ -95,7 +95,7 @@ We can then define some properties on our Factory. They can be simple types like
 
 ```js
 // mirage/factories/movie.js
-import { Factory } from 'ember-cli-mirage';
+import { Factory } from 'miragejs';
 
 export default Factory.extend({
 
@@ -220,14 +220,14 @@ Let's say your movie has many cast-members. You can declare this relationship in
 
 ```js
 // mirage/models/movie.js
-import { Model, hasMany } from 'ember-cli-mirage';
+import { Model, hasMany } from 'miragejs';
 
 export default Model.extend({
   castMembers: hasMany()
 });
 
 // mirage/models/cast-member.js
-import { Model, belongsTo } from 'ember-cli-mirage';
+import { Model, belongsTo } from 'miragejs';
 
 export default Model.extend({
   movie: belongsTo()
@@ -305,7 +305,7 @@ Mirage ships with a few named serializers that match popular backend formats. Yo
 
 ```js
 // mirage/serializers/application.js
-import { Serializer } from 'ember-cli-mirage';
+import { Serializer } from 'miragejs';
 
 export default Serializer.extend({
   keyForAttribute(attr) {
@@ -322,7 +322,7 @@ Mirage's serializer layer is also aware of your relationships, which helps when 
 
 ```js
 // mirage/serializers/movie.js
-import { Serializer } from 'ember-cli-mirage';
+import { Serializer } from 'miragejs';
 
 export default Serializer.extend({
   include: [ 'crewMembers' ]

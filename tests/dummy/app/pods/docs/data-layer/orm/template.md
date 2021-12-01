@@ -145,7 +145,7 @@ Let's define a `Movie` model.
 
 ```js
 // mirage/models/movie.js
-import { Model } from 'ember-cli-mirage';
+import { Model } from 'miragejs';
 
 export default Model.extend({
 });
@@ -173,7 +173,7 @@ Mirage ships with a JSONAPISerializer out of the box, so assuming it's defined a
 
 ```js
 // mirage/serializers/application.js
-import { JSONAPISerializer } from 'ember-cli-mirage';
+import { JSONAPISerializer } from 'miragejs';
 
 export default JSONAPISerializer.extend({
 });
@@ -206,7 +206,7 @@ Let's say our `Movie` has a belongs-to relationship with a `director`:
 
 ```js
 // mirage/models/movie.js
-import { Model, belongsTo } from 'ember-cli-mirage';
+import { Model, belongsTo } from 'miragejs';
 
 export default Model.extend({
 
@@ -219,7 +219,7 @@ The `director` is an instance of a `Person` model:
 
 ```js
 // mirage/models/person.js
-import { Model } from 'ember-cli-mirage';
+import { Model } from 'miragejs';
 
 export default Model.extend({
 });

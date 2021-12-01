@@ -18,7 +18,7 @@ This creates a file under `/mirage/models`:
 
 ```js
 // mirage/models/blog-post.js
-import { Model } from 'ember-cli-mirage';
+import { Model } from 'miragejs';
 
 export default Model;
 ```

@@ -51,8 +51,8 @@ yarn add -D faker
 3. Change all imports of `faker` from the `ember-cli-packge` to import directly from `faker`:
 
 ```diff
-- import { Factory, faker } from 'ember-cli-mirage';
-+ import { Factory } from 'ember-cli-mirage';
+- import { Factory, faker } from 'miragejs';
++ import { Factory } from 'miragejs';
 + import faker from 'faker';
 ```
 

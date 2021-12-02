@@ -5,14 +5,22 @@
 # compiled output
 /dist/
 /tmp/
+/test-projects/*/dist/
+/test-projects/*/tmp/
 
 # dependencies
 /bower_components/
+/node_modules/
+/test-projects/*/node_modules/
 
 # misc
 /coverage/
+!.*
+.*/
+.eslintcache
 
 # ember-try
 /.node_modules.ember-try/
 /bower.json.ember-try
 /package.json.ember-try
+/yarn.lock.ember-try

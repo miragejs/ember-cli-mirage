@@ -4,6 +4,6 @@ export default function destroyApp(application) {
   run(function() {
     application.destroy();
 
-    server.shutdown();
+    window.server.shutdown();
   });
 }

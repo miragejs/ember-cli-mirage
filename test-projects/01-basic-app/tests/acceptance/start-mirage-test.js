@@ -1,18 +1,10 @@
-import Ember from 'ember';
-import {module as qunitModule, test} from 'qunit';
-import {setupTest} from 'ember-qunit';
-import {visit, currentRouteName} from '@ember/test-helpers';
+import { module, test } from 'qunit';
+import { setupTest } from 'ember-qunit';
+import { visit, currentRouteName } from '@ember/test-helpers';
 import startMirage from 'ember-cli-mirage/start-mirage';
 import { setupMirage } from 'ember-cli-mirage/test-support';
 import ENV from 'basic-app/config/environment';
 import NestedThingModel from 'basic-app/mirage/models/nested/thing';
-
-let module;
-if (Ember.VERSION === '1.13.13') {
-  module = () => null;
-} else {
-  module = qunitModule;
-}
 
 module('Acceptance | Starting mirage', function(hooks) {
   let oldEnv, addonConfig, dynamicAfterEach;
@@ -92,7 +84,7 @@ module('Acceptance | Starting mirage', function(hooks) {
           assert.notOk(window.server, 'The global server is gone');
         };
 
-        server.create('user');
+        this.server.create('user');
         await visit('/crud-demo');
 
         assert.equal(currentRouteName(), 'crud-demo');
@@ -116,7 +108,7 @@ module('Acceptance | Starting mirage', function(hooks) {
         assert.notOk(window.server, 'The global server is gone');
       };
 
-      server.create('user');
+      this.server.create('user');
       await visit('/crud-demo');
 
       assert.equal(currentRouteName(), 'crud-demo');

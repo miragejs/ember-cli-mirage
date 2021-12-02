@@ -1,3 +1,4 @@
+/* eslint-disable ember/no-jquery */
 import { Promise } from 'rsvp';
 import $ from 'jquery';
 

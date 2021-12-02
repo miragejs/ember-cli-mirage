@@ -1,8 +1,7 @@
-import Model from 'ember-data/model';
-import { belongsTo } from 'ember-data/relationships';
+import Model, { belongsTo } from '@ember-data/model';
 
-export default Model.extend({
+export default class Book extends Model {
 
-  user: belongsTo()
+  @belongsTo() user;
 
-});
+}

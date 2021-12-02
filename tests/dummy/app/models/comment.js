@@ -1,18 +1,19 @@
-import DS from 'ember-data';
+import Model, { attr, belongsTo } from '@ember-data/model';
 import compileMarkdown from 'ember-cli-addon-docs/utils/compile-markdown';
 import { htmlSafe } from '@ember/string';
 import { computed } from '@ember/object';
 
-export default DS.Model.extend({
+export default class Comment extends Model {
 
-  user: DS.belongsTo(),
+  @belongsTo() user;
 
-  body: DS.attr(),
-  permalink: DS.attr(),
-  createdAt: DS.attr(),
+  @attr body;
+  @attr permalink;
+  @attr createdAt;
 
-  htmlBody: computed('body', function() {
+  @computed('body')
+  get htmlBody () {
     return htmlSafe(compileMarkdown(this.body));
-  })
+  }
 
-});
+}

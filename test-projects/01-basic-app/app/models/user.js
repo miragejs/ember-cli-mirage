@@ -1,13 +1,11 @@
-import attr from 'ember-data/attr';
-import Model from 'ember-data/model';
-import { hasMany } from 'ember-data/relationships';
+import Model, { attr, hasMany } from '@ember-data/model';
 
-export default Model.extend({
+export default class User extends Model {
 
-  name: attr('string'),
-  age: attr('number'),
-  email: attr('string'),
+  @attr('string') name;
+  @attr('number') age;
+  @attr('string') email;
 
-  books: hasMany()
+  @hasMany() books;
 
-});
+}

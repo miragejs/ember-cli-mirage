@@ -1,6 +1,4 @@
-/*jshint node:true*/
-
-var path = require('path');
+const path = require('path');
 
 module.exports = {
   description: 'Generates a Mirage identity manager',

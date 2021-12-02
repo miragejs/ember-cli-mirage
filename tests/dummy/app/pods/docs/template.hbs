@@ -1,6 +1,6 @@
-{{#docs-viewer as |viewer|}}
+<DocsViewer as |viewer|>
 
-  {{#viewer.nav as |nav|}}
+  <viewer.nav as |nav|>
     {{nav.section "Getting started"}}
     {{nav.item "What is Mirage?" "docs.getting-started.what-is-mirage"}}
     {{nav.item "Installation" "docs.getting-started.installation"}}
@@ -19,9 +19,9 @@
     {{nav.item "Factories" "docs.data-layer.factories"}}
     {{nav.item "Fixtures" "docs.data-layer.fixtures"}}
     {{nav.item "Serializers" "docs.data-layer.serializers"}}
-    {{#nav.subnav as |nav|}}
-    {{nav.item "Ember Data Serializer" "docs.data-layer.serializers.ember-data-serializer"}}
-    {{/nav.subnav}}
+    <nav.subnav as |nav|>
+      {{nav.item "Ember Data Serializer" "docs.data-layer.serializers.ember-data-serializer"}}
+    </nav.subnav>
 
     {{nav.section "Testing"}}
     {{nav.item "Acceptance tests" "docs.testing.acceptance-tests"}}
@@ -36,10 +36,10 @@
     {{nav.item "Customizing the inflector" "docs.advanced.customizing-the-inflector"}}
     {{nav.item "Switching between scenarios" "docs.advanced.switching-between-scenarios"}}
 
-  {{/viewer.nav}}
+  </viewer.nav>
 
-  {{#viewer.main}}
+  <viewer.main>
     {{outlet}}
-  {{/viewer.main}}
+  </viewer.main>
 
-{{/docs-viewer}}
+</DocsViewer>

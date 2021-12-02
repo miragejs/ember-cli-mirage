@@ -1,15 +1,15 @@
 <div class="blog-index">
   <h1>Blog</h1>
 
-  {{#each (sort-by "meta.publishedAt:desc" model) as |post|}}
+  {{#each (sort-by "meta.publishedAt:desc" this.model) as |post|}}
     <section>
       <time datetime={{post.meta.publishedAt}}>
         {{moment-format post.meta.publishedAt "MMMM D, YYYY"}}
       </time>
       <h2>
-        {{#link-to "blog.detail" post.slugAndId}}
+        <LinkTo @route="blog.detail" @model={{post.slugAndId}}>
           {{post.title}}
-        {{/link-to}}
+        </LinkTo>
       </h2>
     </section>
   {{/each}}

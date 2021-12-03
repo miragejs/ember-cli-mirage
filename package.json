@@ -54,6 +54,8 @@
     "@ember/jquery": "^1.1.0",
     "@ember/optional-features": "^2.0.0",
     "@ember/test-helpers": "^2.6.0",
+    "@glimmer/component": "^1.0.4",
+    "@glimmer/tracking": "^1.0.4",
     "babel-eslint": "^10.0.3",
     "broccoli-asset-rev": "^3.0.0",
     "ember-ajax": "^5.0.0",
@@ -106,15 +108,6 @@
   "engines": {
     "node": ">= 10.*"
   },
-  "ember-addon": {
-    "configPath": "tests/dummy/config",
-    "before": [
-      "ember-cli-babel"
-    ],
-    "after": [
-      "ember-qunit"
-    ]
-  },
   "changelog": {
     "labels": {
       "Breaking": "💥 Breaking Change",
@@ -123,5 +116,17 @@
       "documentation": "📝 Documentation",
       "internal": "🏠 Internal"
     }
+  },
+  "ember": {
+    "edition": "classic"
+  },
+  "ember-addon": {
+    "configPath": "tests/dummy/config",
+    "before": [
+      "ember-cli-babel"
+    ],
+    "after": [
+      "ember-qunit"
+    ]
   }
 }

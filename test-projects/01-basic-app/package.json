@@ -19,6 +19,7 @@
   },
   "devDependencies": {
     "@ember/jquery": "*",
+    "@ember/test-helpers": "*",
     "broccoli-asset-rev": "*",
     "ember-ajax": "*",
     "ember-auto-import": "*",

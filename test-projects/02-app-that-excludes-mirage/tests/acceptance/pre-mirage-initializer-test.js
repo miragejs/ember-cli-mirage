@@ -1,12 +1,13 @@
-import { test } from 'qunit';
-import moduleForAcceptance from 'basic-app/tests/helpers/module-for-acceptance';
+import { module, test } from "qunit";
+import { visit } from "@ember/test-helpers";
+import { setupApplicationTest } from "ember-qunit";
 
-moduleForAcceptance('Acceptance | noop initializer test');
+module('Acceptance | noop initializer test', function(hooks) {
+  setupApplicationTest(hooks);
 
-test('visiting /noop-initializer-test', function(assert) {
-  visit('/');
+  test('visiting /noop-initializer-test', async function (assert) {
+    await visit('/');
 
-  andThen(function() {
-    assert.equal(find('p:contains(We ran the initializer)').length, 1);
+    assert.dom('[data-test-id="wifi-connected"]').exists({ count: 1 });
   });
 });

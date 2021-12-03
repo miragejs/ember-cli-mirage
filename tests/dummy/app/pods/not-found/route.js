@@ -1,6 +1,6 @@
 import Route from '@ember/routing/route';
 
-export default Route.extend({
+export default class extends Route {
 
   beforeModel() {
     let { path } = this.paramsFor('not-found');
@@ -12,9 +12,9 @@ export default Route.extend({
         }
       });
     });
-  },
+  }
 
-  redirects: [
+  redirects = [
     {
       from: [
         'blog/2018/02/01/changing-mirages-default-linkage-data-behavior',
@@ -93,4 +93,4 @@ export default Route.extend({
       to: 'blog/thoughts-on-model-attribute-formatting-1492'
     }
   ]
-});
+}

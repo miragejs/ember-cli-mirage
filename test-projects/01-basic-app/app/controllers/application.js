@@ -1,22 +1,21 @@
 /* global requirejs */
 import Controller from '@ember/controller';
-import { computed } from '@ember/object';
 import ENV from 'basic-app/config/environment';
 
-export default Controller.extend({
+export default class extends Controller {
 
-  environment: ENV.environment,
+  environment = ENV.environment;
 
-  mirageModules: computed(function() {
+  get mirageModules () {
     return Object.keys(requirejs.entries)
       .filter(key => key.match('^ember-cli-mirage'));
-  }),
+  }
 
-  otherIncludedModules: computed(function() {
+  get otherIncludedModules () {
     return Object.keys(requirejs.entries)
       .filter(key => {
         return key.match('^pretender') || key.match('^lodash') || key.match('initializers/ember-cli-mirage');
       });
-  })
+  }
 
-});
+}

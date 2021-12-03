@@ -1,10 +1,14 @@
-import { test } from 'qunit';
-import moduleForAcceptance from '../../tests/helpers/module-for-acceptance';
+import { module, test } from "qunit";
+import { setupApplicationTest } from "ember-qunit";
+import { setupMirage } from "ember-cli-mirage/test-support";
 
-moduleForAcceptance('Acceptance | Identity manager');
+module('Acceptance | Identity manager', function(hooks) {
+  setupApplicationTest(hooks);
+  setupMirage(hooks)
 
-test('custom identity managers work', function(assert) {
-  let book = server.create('book');
+  test('custom identity managers work', function(assert) {
+    let book = this.server.create('book');
 
-  assert.equal(book.id, 'a');
+    assert.equal(book.id, 'a');
+  });
 });

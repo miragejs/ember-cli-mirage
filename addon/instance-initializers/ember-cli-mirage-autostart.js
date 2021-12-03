@@ -8,7 +8,7 @@ const MirageShutdown = EmberObject.extend({
   testContext: null,
 
   willDestroy() {
-    let testContext = this.get('testContext');
+    let testContext = this.testContext;
     testContext.server.shutdown();
     delete testContext.server;
   }

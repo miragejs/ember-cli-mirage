@@ -24,7 +24,6 @@
     "ember-cli": "*",
     "ember-cli-babel": "*",
     "ember-cli-dependency-checker": "*",
-    "ember-cli-eslint": "*",
     "ember-cli-fastboot": "*",
     "ember-cli-htmlbars": "*",
     "ember-cli-inject-live-reload": "*",
@@ -34,6 +33,7 @@
     "ember-data": "*",
     "ember-export-application-global": "*",
     "ember-load-initializers": "*",
+    "ember-maybe-import-regenerator": "*",
     "ember-qunit": "*",
     "ember-resolver": "*",
     "ember-source": "*",
@@ -46,8 +46,5 @@
   },
   "engines": {
     "node": ">= 8.*"
-  },
-  "volta": {
-    "extends": "../../package.json"
   }
 }

@@ -7,6 +7,7 @@ const nonDeprecatedImports = ['default'];
 export function initDeprecatedImports () {
   Object.entries(mirage).forEach(([name, value]) => {
     if (!nonDeprecatedImports.includes(name)) {
+      // eslint-disable-next-line no-import-assign
       Object.defineProperty(ecMirageExports, name, {
         get () {
           const message = `Importing '${name}' from 'ember-cli-mirage' is deprecated.` +

@@ -1,71 +1,52 @@
+'use strict';
+
 module.exports = {
   root: true,
+  parser: 'babel-eslint',
   parserOptions: {
     ecmaVersion: 2018,
-    sourceType: "module"
+    sourceType: 'module',
+    ecmaFeatures: {
+      legacyDecorators: true,
+    },
   },
-  plugins: ["ember"],
-  extends: ["eslint:recommended"],
+  plugins: ['ember'],
+  extends: [
+    'eslint:recommended',
+    'plugin:ember/recommended',
+  ],
   env: {
-    browser: true
+    browser: true,
   },
-  rules: {
-    camelcase: 0,
-    "object-curly-spacing": 0,
-    quotes: 0,
-    "array-bracket-spacing": 0,
-    "no-var": 0,
-    "object-shorthand": 0,
-    "arrow-parens": 0,
-    "no-unused-vars": ["error", { args: "none" }]
-  },
-  globals: {
-    server: true
-  },
+  rules: {},
   overrides: [
     // node files
     {
       files: [
-        ".template-lintrc.js",
-        "ember-cli-build.js",
-        "index.js",
-        "testem.js",
-        "blueprints/*/index.js",
-        "config/**/*.js",
-        "tests/dummy/config/**/*.js",
-        "fastboot-tests/**/*.js"
-      ],
-      excludedFiles: [
-        "addon/**",
-        "addon-test-support/**",
-        "app/**",
-        "tests/dummy/app/**"
+        './.eslintrc.js',
+        './.prettierrc.js',
+        './.template-lintrc.js',
+        './ember-cli-build.js',
+        './index.js',
+        './testem.js',
+        './blueprints/*/index.js',
+        './config/**/*.js',
+        './tests/dummy/config/**/*.js',
+        './fastboot-tests/included-files-test.js',
+        './test-projects/*/ember-cli-build.js',
+        './test-projects/*/testem.js',
+        './test-projects/*/config/**/*.js',
+        './test-projects/*/fastboot-tests/**/*.js',
       ],
       parserOptions: {
-        sourceType: "script",
-        ecmaVersion: 2018
+        sourceType: 'script',
       },
       env: {
         browser: false,
-        node: true
+        node: true,
       },
-      plugins: ["node"],
-      rules: Object.assign(
-        {},
-        require("eslint-plugin-node").configs.recommended.rules,
-        {
-          // add your custom rules and overrides for node files here
-        }
-      )
+      plugins: ['node'],
+      extends: ['plugin:node/recommended'],
     },
-
-    // test files. Can remove when we upgrade tests to new style.
-    {
-      files: ["tests/**/*.js"],
-      excludedFiles: ["tests/dummy/**/*.js"],
-      env: {
-        embertest: true
-      }
-    }
-  ]
+  ],
 };

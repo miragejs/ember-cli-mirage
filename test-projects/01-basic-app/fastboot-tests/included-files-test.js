@@ -11,7 +11,7 @@ const findTextFromHtml = (html, selector) => {
     .trim();
 };
 
-qModule('basic-app | fastboot | included files', function(hooks) {
+qModule('basic-app | fastboot | included files', function() {
 
   test('it includes all modules in development by default', async function(assert) {
     execFileSync('node', [

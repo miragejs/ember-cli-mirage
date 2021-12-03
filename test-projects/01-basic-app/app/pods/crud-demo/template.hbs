@@ -1,6 +1,6 @@
 {{#if this.error}}
 
-  <p class='error'>
+  <p data-test-id="error" class='error'>
     There was an error: <span>{{this.error}}</span>
   </p>
 
@@ -10,8 +10,14 @@
     <div data-test-id="user">
       <form aria-label="user" {{on "submit" (fn this.updateUser user)}}>
         <Input aria-label="user name" @value={{user.name}} />
-        <button type="submit">Save</button>
-        <button type="button" {{on "click" (fn this.deleteUser user)}}>Delete</button>
+        <button data-test-id="update-user" type="submit">Save</button>
+        <button
+          data-test-id="delete-user"
+          type="button"
+          {{on "click" (fn this.deleteUser user)}}
+        >
+          Delete
+        </button>
         <span>
           {{#if user.isSaving}}
             Saving...
@@ -34,7 +40,7 @@
     </div>
 
     <div>
-      <button type="submit">
+      <button type="submit" data-test-id="create-user">
         Create a new user
       </button>
     </div>

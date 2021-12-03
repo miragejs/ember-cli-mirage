@@ -1,22 +1,24 @@
-import DS from 'ember-data';
+import Model, { attr, hasMany } from '@ember-data/model';
 import { computed } from '@ember/object';
 import yaml from 'js-yaml';
 import compileMarkdown from 'ember-cli-addon-docs/utils/compile-markdown';
 import { htmlSafe } from '@ember/string';
 
-export default DS.Model.extend({
+export default class Post extends Model {
 
-  comments: DS.hasMany(),
+  @hasMany() comments;
 
-  title: DS.attr(),
-  body: DS.attr(),
-  issueUrl: DS.attr(),
+  @attr title;
+  @attr body;
+  @attr issueUrl;
 
-  htmlBody: computed('body', function() {
+  @computed('body')
+  get htmlBody () {
     return htmlSafe(compileMarkdown(this.body));
-  }),
+  }
 
-  meta: computed('body', function() {
+  @computed('body')
+  get meta () {
     let lines = this.body.split('\n').map(line => line.trim());
     let firstLine = lines[0];
 
@@ -26,11 +28,14 @@ export default DS.Model.extend({
       let meta = yaml.safeLoad(`${metaLines.join('\n')}`);
 
       return meta;
+    } else {
+      return {};
     }
-  }),
+  }
 
-  slugAndId: computed('slug', 'id', function() {
+  @computed('meta.slug', 'id')
+  get slugAndId () {
     return `${this.meta.slug}-${this.id}`;
-  })
+  }
 
-});
+}

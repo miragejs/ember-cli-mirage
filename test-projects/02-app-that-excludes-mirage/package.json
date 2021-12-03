@@ -33,6 +33,7 @@
     "ember-data": "*",
     "ember-export-application-global": "*",
     "ember-load-initializers": "*",
+    "ember-maybe-import-regenerator": "*",
     "ember-qunit": "*",
     "ember-resolver": "*",
     "ember-source": "*",

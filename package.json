@@ -76,7 +76,7 @@
     "ember-disable-prototype-extensions": "^1.1.3",
     "ember-export-application-global": "^2.0.0",
     "ember-load-initializers": "^2.0.0",
-    "ember-maybe-import-regenerator-for-testing": "^1.0.0",
+    "ember-maybe-import-regenerator": "^1.0.0",
     "ember-moment": "^8.0.0",
     "ember-qunit": "^4.6.0",
     "ember-resolver": "^8.0.2",

@@ -52,7 +52,7 @@
     "miragejs": "^0.1.31"
   },
   "devDependencies": {
-    "@ember/jquery": "^1.1.0",
+    "@ember/jquery": "^2.0.0",
     "@ember/optional-features": "^2.0.0",
     "@ember/test-helpers": "^2.6.0",
     "@glimmer/component": "^1.0.4",

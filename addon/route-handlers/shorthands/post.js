@@ -1,7 +1,11 @@
 import { _routeHandlersShorthandsPost } from 'miragejs';
 import { deprecateNestedImport } from '../../deprecate-imports';
 
-export default class DeprecatedHeadShorthandRouteHandler extends _routeHandlersShorthandsPost {
+/**
+ @class DeprecatedPostShorthandRouteHandler
+ @hide
+ */
+export default class DeprecatedPostShorthandRouteHandler extends _routeHandlersShorthandsPost {
   constructor (...args) {
     deprecateNestedImport(
       `Importing 'PostShorthandRouteHandler' from 'ember-cli-mirage/route-handlers/shorthands/post' is deprecated. ` +

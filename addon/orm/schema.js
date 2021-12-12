@@ -1,6 +1,10 @@
 import { _ormSchema } from 'miragejs';
 import { deprecateNestedImport } from '../deprecate-imports';
 
+/**
+ @class DeprecatedSchema
+ @hide
+ */
 export default class DeprecatedSchema extends _ormSchema {
   constructor (...args) {
     deprecateNestedImport(

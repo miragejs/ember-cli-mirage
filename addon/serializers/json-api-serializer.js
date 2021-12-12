@@ -1,6 +1,10 @@
 import { JSONAPISerializer } from 'miragejs';
 import { deprecateNestedImport } from '../deprecate-imports';
 
+/**
+ @class DeprecatedJSONAPISerializer
+ @hide
+ */
 export default class DeprecatedJSONAPISerializer extends JSONAPISerializer {
   constructor (...args) {
     deprecateNestedImport(

@@ -1,7 +1,11 @@
 import { _Db } from 'miragejs';
 import { deprecateNestedImport } from './deprecate-imports';
 
-export default class DeprecatedBaseRouteHandler extends _Db {
+/**
+ @class DeprecatedDB
+ @hide
+ */
+export default class DeprecatedDB extends _Db {
   constructor (...args) {
     deprecateNestedImport(
       `Importing 'Db' from 'ember-cli-mirage/db' is deprecated. ` +

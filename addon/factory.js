@@ -1,6 +1,10 @@
 import { Factory } from 'miragejs';
 import { deprecateNestedImport } from './deprecate-imports';
 
+/**
+ @class DeprecatedFactory
+ @hide
+ */
 export default class DeprecatedFactory extends Factory {
   constructor (...args) {
     deprecateNestedImport(

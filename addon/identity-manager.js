@@ -1,6 +1,10 @@
 import { IdentityManager } from 'miragejs';
 import { deprecateNestedImport } from './deprecate-imports';
 
+/**
+ @class DeprecatedIdentityManager
+ @hide
+ */
 export default class DeprecatedIdentityManager extends IdentityManager {
   constructor (...args) {
     deprecateNestedImport(

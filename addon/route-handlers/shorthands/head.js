@@ -1,6 +1,10 @@
 import { _routeHandlersShorthandsHead } from 'miragejs';
 import { deprecateNestedImport } from '../../deprecate-imports';
 
+/**
+ @class DeprecatedHeadShorthandRouteHandler
+ @hide
+ */
 export default class DeprecatedHeadShorthandRouteHandler extends _routeHandlersShorthandsHead {
   constructor (...args) {
     deprecateNestedImport(

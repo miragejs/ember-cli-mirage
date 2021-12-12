@@ -1,6 +1,10 @@
 import { _SerializerRegistry } from 'miragejs';
 import { deprecateNestedImport } from './deprecate-imports';
 
+/**
+ @class DeprecatedSerializerRegistry
+ @hide
+ */
 export default class DeprecatedSerializerRegistry extends _SerializerRegistry {
   constructor (...args) {
     deprecateNestedImport(

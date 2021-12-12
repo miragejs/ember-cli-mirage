@@ -1,6 +1,10 @@
 import { _routeHandlersShorthandsPut } from 'miragejs';
 import { deprecateNestedImport } from '../../deprecate-imports';
 
+/**
+ @class DeprecatedPutShorthandRouteHandler
+ @hide
+ */
 export default class DeprecatedPutShorthandRouteHandler extends _routeHandlersShorthandsPut {
   constructor (...args) {
     deprecateNestedImport(

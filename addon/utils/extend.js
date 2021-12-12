@@ -1,6 +1,10 @@
 import { _utilsExtend } from 'miragejs';
 import { deprecateNestedImport } from '../deprecate-imports';
 
+/**
+ @function extend
+ @hide
+ */
 export default function extend (...args) {
   const message = `Importing 'extend' from 'ember-cli-mirage/utils/extend' is deprecated. ` +
     `This wasn't intended to be a public API and you should use Factory.extend, Model.extend, ` +

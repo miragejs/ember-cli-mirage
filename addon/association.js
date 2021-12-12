@@ -1,6 +1,10 @@
 import { association } from 'miragejs';
 import { deprecateNestedImport } from './deprecate-imports';
 
+/**
+ @function association
+ @hide
+ */
 export default function (...args) {
   deprecateNestedImport(
     "Importing 'association' from 'ember-cli-mirage/association' is deprecated. " +

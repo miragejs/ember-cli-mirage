@@ -1,11 +1,15 @@
-import { ActiveModelSerializer } from 'miragejs';
+import { RestSerializer } from 'miragejs';
 import { deprecateNestedImport } from '../deprecate-imports';
 
-export default class DeprecatedActiveModelSerializer extends ActiveModelSerializer {
+/**
+ @class DeprecatedRestSerializer
+ @hide
+ */
+export default class DeprecatedRestSerializer extends RestSerializer {
   constructor (...args) {
     deprecateNestedImport(
-      "Importing 'ActiveModelSerializer' from 'ember-cli-mirage/serializers/rest-serializer' is deprecated. " +
-      "Add the `miragejs` package to devDependencies and use `import { ActiveModelSerializer } from 'miragejs';` instead."
+      "Importing 'RestSerializer' from 'ember-cli-mirage/serializers/rest-serializer' is deprecated. " +
+      "Add the `miragejs` package to devDependencies and use `import { RestSerializer } from 'miragejs';` instead."
     );
 
     super(...args);

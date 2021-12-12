@@ -1,6 +1,10 @@
 import { ActiveModelSerializer } from 'miragejs';
 import { deprecateNestedImport } from '../deprecate-imports';
 
+/**
+ @class DeprecatedActiveModelSerializer
+ @hide
+ */
 export default class DeprecatedActiveModelSerializer extends ActiveModelSerializer {
   constructor (...args) {
     deprecateNestedImport(

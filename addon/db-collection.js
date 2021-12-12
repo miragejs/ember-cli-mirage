@@ -1,6 +1,10 @@
 import { _DbCollection } from 'miragejs';
 import { deprecateNestedImport } from './deprecate-imports';
 
+/**
+ @class DeprecatedDbCollection
+ @hide
+ */
 export default class DeprecatedDbCollection extends _DbCollection {
   constructor (...args) {
     deprecateNestedImport(

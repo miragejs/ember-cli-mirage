@@ -1,6 +1,10 @@
 import { _routeHandlersObject } from 'miragejs';
 import { deprecateNestedImport } from '../deprecate-imports';
 
+/**
+ @class DeprecatedObjectRouteHandler
+ @hide
+ */
 export default class DeprecatedObjectRouteHandler extends _routeHandlersObject {
   constructor (...args) {
     deprecateNestedImport(

@@ -1,7 +1,11 @@
 import { _ormAssociationsBelongsTo } from 'miragejs';
 import { deprecateNestedImport } from '../../deprecate-imports';
 
-export default class DeprecatedAssociation extends _ormAssociationsBelongsTo {
+/**
+ @class DeprecatedBelongsTo
+ @hide
+ */
+export default class DeprecatedBelongsTo extends _ormAssociationsBelongsTo {
   constructor (...args) {
     deprecateNestedImport(
       `Importing 'BelongsTo' from 'ember-cli-mirage/orm/associations/belongs-to' is deprecated. ` +

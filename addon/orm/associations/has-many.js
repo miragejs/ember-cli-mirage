@@ -1,7 +1,11 @@
 import { _ormAssociationsHasMany } from 'miragejs';
 import { deprecateNestedImport } from '../../deprecate-imports';
 
-export default class DeprecatedAssociation extends _ormAssociationsHasMany {
+/**
+ @class DeprecatedHasMany
+ @hide
+ */
+export default class DeprecatedHasMany extends _ormAssociationsHasMany {
   constructor (...args) {
     deprecateNestedImport(
       `Importing 'HasMany' from 'ember-cli-mirage/orm/associations/has-many' is deprecated. ` +

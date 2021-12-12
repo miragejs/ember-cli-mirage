@@ -1,7 +1,11 @@
 import { _routeHandlersFunction } from 'miragejs';
 import { deprecateNestedImport } from '../deprecate-imports';
 
-export default class DeprecatedBaseRouteHandler extends _routeHandlersFunction {
+/**
+ @class DeprecatedFunctionRouteHandler
+ @hide
+ */
+export default class DeprecatedFunctionRouteHandler extends _routeHandlersFunction {
   constructor (...args) {
     deprecateNestedImport(
       `Importing 'FunctionRouteHandler' from 'ember-cli-mirage/route-handlers/function' is deprecated. ` +

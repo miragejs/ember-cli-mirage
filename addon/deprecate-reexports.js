@@ -5,6 +5,10 @@ import * as ecMirageExports from './index';
 
 const nonDeprecatedImports = ['default'];
 
+/**
+ @function initDeprecatedReExports
+ @hide
+ */
 export function initDeprecatedReExports () {
   Object.entries(mirage).forEach(([name, value]) => {
     if (!nonDeprecatedImports.includes(name)) {

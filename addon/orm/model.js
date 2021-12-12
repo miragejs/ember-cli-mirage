@@ -1,6 +1,10 @@
 import { Model } from 'miragejs';
 import { deprecateNestedImport } from '../deprecate-imports';
 
+/**
+ @class DeprecatedModel
+ @hide
+ */
 export default class DeprecatedModel extends Model {
   constructor (...args) {
     deprecateNestedImport(

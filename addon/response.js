@@ -1,6 +1,10 @@
 import { Response } from 'miragejs';
 import { deprecateNestedImport } from './deprecate-imports';
 
+/**
+ @class DeprecatedResponse
+ @hide
+ */
 export default class DeprecatedResponse extends Response {
   constructor (...args) {
     deprecateNestedImport(

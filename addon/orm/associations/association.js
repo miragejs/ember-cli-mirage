@@ -1,6 +1,10 @@
 import { _ormAssociationsAssociation } from 'miragejs';
 import { deprecateNestedImport } from '../../deprecate-imports';
 
+/**
+ @class DeprecatedAssociation
+ @hide
+ */
 export default class DeprecatedAssociation extends _ormAssociationsAssociation {
   constructor (...args) {
     deprecateNestedImport(

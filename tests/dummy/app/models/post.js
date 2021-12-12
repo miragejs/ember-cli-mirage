@@ -1,5 +1,4 @@
 import Model, { attr, hasMany } from '@ember-data/model';
-import { computed } from '@ember/object';
 import yaml from 'js-yaml';
 import compileMarkdown from 'ember-cli-addon-docs/utils/compile-markdown';
 import { htmlSafe } from '@ember/string';
@@ -12,12 +11,10 @@ export default class Post extends Model {
   @attr body;
   @attr issueUrl;
 
-  @computed('body')
   get htmlBody () {
     return htmlSafe(compileMarkdown(this.body));
   }
 
-  @computed('body')
   get meta () {
     let lines = this.body.split('\n').map(line => line.trim());
     let firstLine = lines[0];
@@ -33,7 +30,6 @@ export default class Post extends Model {
     }
   }
 
-  @computed('meta.slug', 'id')
   get slugAndId () {
     return `${this.meta.slug}-${this.id}`;
   }

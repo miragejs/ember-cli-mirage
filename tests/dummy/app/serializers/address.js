@@ -1,5 +1,5 @@
 import RestSerializer from '@ember-data/serializer/rest';
 
-export default RestSerializer.extend({
-  primaryKey: "addressId"
-});
+export default class extends RestSerializer {
+  primaryKey = "addressId";
+}

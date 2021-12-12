@@ -91,6 +91,7 @@
     "eslint": "^7.32.0",
     "eslint-plugin-ember": "^8.1.0",
     "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-qunit": "^7.1.0",
     "faker": "^5.1.0",
     "fastboot": "^3.0.2",
     "js-yaml": "^4.0.0",

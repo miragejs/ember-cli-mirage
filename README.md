@@ -1,6 +1,6 @@
 # Ember CLI Mirage
 
-[![Build Status](https://travis-ci.org/miragejs/ember-cli-mirage.svg?branch=master)](https://travis-ci.org/miragejs/ember-cli-mirage)
+[![Build Status](https://github.com/miragejs/ember-cli-mirage/actions/workflows/ci.yml/badge.svg)](https://github.com/miragejs/ember-cli-mirage/actions/workflows/ci.yml)
 [![npm version](https://badge.fury.io/js/ember-cli-mirage.svg)](http://badge.fury.io/js/ember-cli-mirage)
 [![Ember Observer Score](http://emberobserver.com/badges/ember-cli-mirage.svg)](http://emberobserver.com/addons/ember-cli-mirage)
 

@@ -8,14 +8,14 @@ import {module, test} from 'qunit';
 */
 module('Unit | Inflector', function() {
   test('can singularize', function(assert) {
-    assert.equal(singularize('tests'), 'test');
-    assert.equal(singularize('watches'), 'watch');
-    assert.equal(singularize('sheep'), 'sheep');
+    assert.strictEqual(singularize('tests'), 'test');
+    assert.strictEqual(singularize('watches'), 'watch');
+    assert.strictEqual(singularize('sheep'), 'sheep');
   });
 
   test('can pluralize', function(assert) {
-    assert.equal(pluralize('test'), 'tests');
-    assert.equal(pluralize('watch'), 'watches');
-    assert.equal(pluralize('sheep'), 'sheep');
+    assert.strictEqual(pluralize('test'), 'tests');
+    assert.strictEqual(pluralize('watch'), 'watches');
+    assert.strictEqual(pluralize('sheep'), 'sheep');
   });
 });

@@ -21,10 +21,10 @@ module('Unit | Serializer | ember data serializer discover', function(hooks) {
   test('it discovers the serializers', function(assert) {
     let serializer = server.serializerOrRegistry.serializerFor('address');
 
-    assert.ok(serializer.primaryKey === 'addressId');
+    assert.strictEqual(serializer.primaryKey, 'addressId');
 
     serializer = server.serializerOrRegistry.serializerFor('word-smith');
-    assert.ok(serializer.transforms['blogPosts'].serialize === 'records');
+    assert.strictEqual(serializer.transforms['blogPosts'].serialize, 'records');
   });
 
 });

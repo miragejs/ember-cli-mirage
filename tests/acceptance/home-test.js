@@ -11,7 +11,7 @@ module("Acceptance | home", function(hooks) {
     test("the homepage renders without error", async function(assert) {
       await visit("/");
 
-      assert.equal(currentURL(), "/", "Correct URL is shown");
+      assert.strictEqual(currentURL(), "/", "Correct URL is shown");
     });
   }
 });

@@ -1,18 +1,6 @@
-import EmberObject from '@ember/object';
+import { registerDestructor } from '@ember/destroyable';
 import getRfc232TestContext from '../get-rfc232-test-context';
 import startMirage from '../start-mirage';
-
-// An object we can register with the container to ensure that mirage is shut
-// down when the application is destroyed
-const MirageShutdown = EmberObject.extend({
-  testContext: null,
-
-  willDestroy() {
-    let testContext = this.testContext;
-    testContext.server.shutdown();
-    delete testContext.server;
-  }
-});
 
 /**
   If we are running an rfc232/rfc268 test then we want to support the
@@ -32,15 +20,13 @@ export function initialize(appInstance) {
     } = appInstance.resolveRegistration('config:environment');
 
     if (autostart) {
-      let server = startMirage(appInstance);
-      testContext.server = server;
+      testContext.server = startMirage(appInstance);
 
-      // To ensure that the server is shut down when the application is
-      // destroyed, register and create a singleton object that shuts the server
-      // down in its willDestroy() hook.
-      appInstance.register('mirage:shutdown', MirageShutdown);
-      let shutdown = appInstance.lookup('mirage:shutdown');
-      shutdown.set('testContext', testContext);
+      // Ensure that the server is shut down when the application is destroyed.
+      registerDestructor(appInstance, () => {
+        testContext.server.shutdown();
+        delete testContext.server;
+      });
     }
   }
 }

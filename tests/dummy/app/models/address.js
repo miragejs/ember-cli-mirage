@@ -1,5 +1,3 @@
 import Model from '@ember-data/model';
 
-export default Model.extend({
-
-});
+export default class extends Model {}

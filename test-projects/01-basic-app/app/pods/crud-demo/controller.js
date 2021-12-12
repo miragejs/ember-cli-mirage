@@ -1,10 +1,13 @@
 import Controller from '@ember/controller';
 import { inject as service } from '@ember/service';
 import { action } from '@ember/object';
+import { tracked } from '@glimmer/tracking';
 
 export default class extends Controller {
 
   @service store;
+
+  @tracked newName;
 
   @action createUser (event) {
     event.preventDefault();
@@ -15,7 +18,7 @@ export default class extends Controller {
       .createRecord('user', { name })
       .save()
       .then(() => {
-        this.set('newName', '');
+        this.newName = '';
       });
   }
 

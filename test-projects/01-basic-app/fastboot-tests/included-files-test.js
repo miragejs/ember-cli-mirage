@@ -23,7 +23,14 @@ qModule('basic-app | fastboot | included files', function() {
       resilient: false
     });
 
-    let page = await fastboot.visit('/module-count');
+    let page = await fastboot.visit('/module-count', {
+      request: {
+        url: '/module-count',
+        protocol: 'https:',
+        headers: {}
+      },
+      response: {}
+    });
     let html = await page.html();
 
     assert.equal(findTextFromHtml(html, '[data-test-id="environment"]'), 'development');
@@ -42,7 +49,14 @@ qModule('basic-app | fastboot | included files', function() {
       resilient: false
     });
 
-    let page = await fastboot.visit('/module-count');
+    let page = await fastboot.visit('/module-count', {
+      request: {
+        url: '/module-count',
+        protocol: 'https:',
+        headers: {}
+      },
+      response: {}
+    });
     let html = await page.html();
 
     assert.equal(findTextFromHtml(html, '[data-test-id="environment"]'), 'test');
@@ -56,7 +70,14 @@ qModule('basic-app | fastboot | included files', function() {
       distPath: 'dist',
       resilient: false
     });
-    let page = await fastboot.visit('/module-count');
+    let page = await fastboot.visit('/module-count', {
+      request: {
+        url: '/module-count',
+        protocol: 'https:',
+        headers: {}
+      },
+      response: {}
+    });
     let html = await page.html();
 
     assert.equal(findTextFromHtml(html, '[data-test-id="environment"]'), 'production');
@@ -75,7 +96,14 @@ qModule('basic-app | fastboot | included files', function() {
       distPath: 'dist',
       resilient: false
     });
-    let page = await fastboot.visit('/module-count');
+    let page = await fastboot.visit('/module-count', {
+      request: {
+        url: '/module-count',
+        protocol: 'https:',
+        headers: {}
+      },
+      response: {}
+    });
     let html = await page.html();
 
     assert.equal(findTextFromHtml(html, '[data-test-id="environment"]'), 'production');

@@ -15,9 +15,8 @@ import startMirage from '../start-mirage';
 export function initialize(appInstance) {
   let testContext = getRfc232TestContext();
   if (testContext) {
-    let {
-      'ember-cli-mirage': { autostart } = {}
-    } = appInstance.resolveRegistration('config:environment');
+    let { 'ember-cli-mirage': { autostart } = {} } =
+      appInstance.resolveRegistration('config:environment');
 
     if (autostart) {
       testContext.server = startMirage(appInstance);
@@ -32,5 +31,5 @@ export function initialize(appInstance) {
 }
 
 export default {
-  initialize
+  initialize,
 };

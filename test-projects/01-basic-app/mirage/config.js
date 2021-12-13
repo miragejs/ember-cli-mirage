@@ -1,5 +1,3 @@
-export default function() {
-
+export default function () {
   this.resource('user');
-
 }

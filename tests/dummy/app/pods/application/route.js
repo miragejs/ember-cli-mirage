@@ -1,22 +1,23 @@
 import Route from '@ember/routing/route';
 
 export default class extends Route {
-
   beforeModel() {
     let pathname = window.location.pathname;
     [
-      "v0.0.27",
-      "v0.0.28",
-      "v0.0.29",
-      "v0.1.x",
-      "v0.2.x",
-      "v0.3.x",
-      "v0.4.x"
-    ].forEach(version => {
+      'v0.0.27',
+      'v0.0.28',
+      'v0.0.29',
+      'v0.1.x',
+      'v0.2.x',
+      'v0.3.x',
+      'v0.4.x',
+    ].forEach((version) => {
       if (pathname.match(`/docs/${version}`)) {
-        window.location = pathname.replace(`/docs/${version}`, `/versions/${version}`);
+        window.location = pathname.replace(
+          `/docs/${version}`,
+          `/versions/${version}`
+        );
       }
     });
   }
-
 }

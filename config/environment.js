@@ -2,16 +2,20 @@
 var fs = require('fs');
 
 function usingProxy() {
-  var usingProxyArg = !!process.argv.filter(function(arg) {
-    return arg.indexOf('--proxy') === 0 || arg.indexOf('-pr') === 0 || arg.indexOf('-pxy') === 0;
+  var usingProxyArg = !!process.argv.filter(function (arg) {
+    return (
+      arg.indexOf('--proxy') === 0 ||
+      arg.indexOf('-pr') === 0 ||
+      arg.indexOf('-pxy') === 0
+    );
   }).length;
 
   var hasGeneratedProxies = false;
-  var proxiesDir = `${process.env.PWD  }/server/proxies`;
+  var proxiesDir = `${process.env.PWD}/server/proxies`;
   try {
     fs.lstatSync(proxiesDir);
     hasGeneratedProxies = true;
-  } catch(e) {
+  } catch (e) {
     // ignore
   }
 

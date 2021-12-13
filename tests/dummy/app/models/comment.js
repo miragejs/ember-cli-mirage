@@ -3,15 +3,13 @@ import compileMarkdown from 'ember-cli-addon-docs/utils/compile-markdown';
 import { htmlSafe } from '@ember/string';
 
 export default class Comment extends Model {
-
   @belongsTo() user;
 
   @attr body;
   @attr permalink;
   @attr createdAt;
 
-  get htmlBody () {
+  get htmlBody() {
     return htmlSafe(compileMarkdown(this.body));
   }
-
 }

@@ -1,3 +1,1 @@
-export default [
-  { fixtureField: 'nested fixture works!' }
-];
+export default [{ fixtureField: 'nested fixture works!' }];

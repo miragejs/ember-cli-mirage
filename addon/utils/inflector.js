@@ -2,7 +2,7 @@ export {
   _utilsInflectorCamelize as camelize,
   _utilsInflectorDasherize as dasherize,
   _utilsInflectorUnderscore as underscore,
-  _utilsInflectorCapitalize as capitalize
+  _utilsInflectorCapitalize as capitalize,
 } from 'miragejs';
 
 /*

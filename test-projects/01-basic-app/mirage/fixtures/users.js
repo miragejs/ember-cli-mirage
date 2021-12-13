@@ -1,5 +1,1 @@
-export default [
-
-  { id: 1, name: 'Sam' }
-
-];
+export default [{ id: 1, name: 'Sam' }];

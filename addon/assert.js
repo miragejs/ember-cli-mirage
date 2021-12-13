@@ -1,1 +1,1 @@
-export { _assert as default } from "miragejs";
+export { _assert as default } from 'miragejs';

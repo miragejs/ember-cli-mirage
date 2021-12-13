@@ -1,1 +1,1 @@
-export { Factory as default } from "miragejs";
+export { Factory as default } from 'miragejs';

@@ -1,23 +1,23 @@
-"use strict";
+'use strict';
 
-const EmberAddon = require("ember-cli/lib/broccoli/ember-addon");
+const EmberAddon = require('ember-cli/lib/broccoli/ember-addon');
 
 module.exports = function (defaults) {
   let app = new EmberAddon(defaults, {
-    "ember-cli-babel": {
+    'ember-cli-babel': {
       includePolyfill: true,
     },
-    "ember-cli-addon-docs-esdoc": {
+    'ember-cli-addon-docs-esdoc': {
       packages: [
-        "ember-cli-mirage",
-        { name: "miragejs", sourceDirectory: "lib" },
+        'ember-cli-mirage',
+        { name: 'miragejs', sourceDirectory: 'lib' },
       ],
     },
-    "ember-composable-helpers": {
-      only: ["sort-by"]
+    'ember-composable-helpers': {
+      only: ['sort-by'],
     },
     addons: {
-      blacklist: ["ember-cli-fastboot"],
+      blacklist: ['ember-cli-fastboot'],
     },
   });
 

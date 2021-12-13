@@ -4,13 +4,14 @@ import * as mirage from 'miragejs';
 
 const nonDeprecatedImports = ['default'];
 
-export function initDeprecatedImports () {
+export function initDeprecatedImports() {
   Object.entries(mirage).forEach(([name, value]) => {
     if (!nonDeprecatedImports.includes(name)) {
       // eslint-disable-next-line no-import-assign
       Object.defineProperty(ecMirageExports, name, {
-        get () {
-          const message = `Importing '${name}' from 'ember-cli-mirage' is deprecated.` +
+        get() {
+          const message =
+            `Importing '${name}' from 'ember-cli-mirage' is deprecated.` +
             ` Install the \`miragejs\` package and use ` +
             `\`import { ${name} } from 'miragejs';\` instead.`;
 
@@ -20,7 +21,7 @@ export function initDeprecatedImports () {
             for: 'ember-cli-mirage',
             since: {
               enabled: '2.3.0',
-            }
+            },
           });
 
           return value;

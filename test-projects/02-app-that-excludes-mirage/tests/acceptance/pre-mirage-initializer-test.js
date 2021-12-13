@@ -1,8 +1,8 @@
-import { module, test } from "qunit";
-import { visit } from "@ember/test-helpers";
-import { setupApplicationTest } from "ember-qunit";
+import { module, test } from 'qunit';
+import { visit } from '@ember/test-helpers';
+import { setupApplicationTest } from 'ember-qunit';
 
-module('Acceptance | noop initializer test', function(hooks) {
+module('Acceptance | noop initializer test', function (hooks) {
   setupApplicationTest(hooks);
 
   test('visiting /noop-initializer-test', async function (assert) {

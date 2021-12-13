@@ -1,7 +1,6 @@
 import Route from '@ember/routing/route';
 
 export default class extends Route {
-
   model({ post_slug_and_id }) {
     let matches = post_slug_and_id.match(/\d+$/);
     if (!matches) {
@@ -13,5 +12,4 @@ export default class extends Route {
 
     return this.store.findRecord('post', postId);
   }
-
 }

@@ -81,7 +81,7 @@
     "ember-export-application-global": "^2.0.0",
     "ember-load-initializers": "^2.0.0",
     "ember-maybe-import-regenerator": "^1.0.0",
-    "ember-moment": "^8.0.0",
+    "ember-moment": "^9.0.1",
     "ember-qunit": "^5.1.5",
     "ember-resolver": "^8.0.2",
     "ember-source": "~3.26.1",

@@ -25,7 +25,7 @@ jobs:
       - name: Lint
         run: yarn lint
       - name: Run Browser Tests
-        run: yarn test:browser
+        run: yarn test:ember
       - name: Run Node Tests
         run: yarn test:test-projects
 
@@ -43,7 +43,7 @@ jobs:
       - name: Install Dependencies
         run: yarn install --no-lockfile
       - name: Run Browser Tests
-        run: yarn test:browser
+        run: yarn test:ember
       - name: Run Node Tests
         run: yarn test:test-projects
 

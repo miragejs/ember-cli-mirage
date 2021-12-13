@@ -11,15 +11,19 @@
   },
   "repository": "",
   "scripts": {
-    "build": "ember build",
-    "lint:js": "eslint ./*.js app blueprints config lib server tests",
+    "build": "ember build --environment=production",
     "start": "ember serve",
-    "test": "ember test --test-port=0",
+    "test": "npm-run-all lint test:*",
+    "test:ember": "ember test --test-port=0",
     "test:fastboot": "qunit fastboot-tests/**/*.js"
   },
   "devDependencies": {
     "@ember/jquery": "*",
+    "@ember/optional-features": "*",
     "@ember/test-helpers": "*",
+    "@embroider/test-setup": "*",
+    "@glimmer/component": "*",
+    "@glimmer/tracking": "*",
     "broccoli-asset-rev": "*",
     "ember-auto-import": "*",
     "ember-cli": "*",
@@ -30,7 +34,7 @@
     "ember-cli-inject-live-reload": "*",
     "ember-cli-mirage": "*",
     "ember-cli-sri": "*",
-    "ember-cli-uglify": "*",
+    "ember-cli-terser": "*",
     "ember-data": "*",
     "ember-export-application-global": "*",
     "ember-fetch": "*",
@@ -39,15 +43,20 @@
     "ember-qunit": "*",
     "ember-resolver": "*",
     "ember-source": "*",
-    "eslint-plugin-ember": "*",
+    "faker": "*",
     "fastboot": "*",
     "jsdom": "*",
     "loader.js": "*",
+    "miragejs": "*",
+    "npm-run-all": "*",
     "qunit": "*",
     "qunit-dom": "*"
   },
   "engines": {
-    "node": ">= 8.*"
+    "node": ">= 10.*"
+  },
+  "ember": {
+    "edition": "octane"
   },
   "volta": {
     "extends": "../../package.json"

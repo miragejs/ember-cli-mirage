@@ -41,9 +41,6 @@ module.exports = async function () {
             'ember-auto-import': '^2.2.4',
             'webpack': '^5.64.4'
           },
-          ember: {
-            edition: 'octane',
-          },
         },
       },
       {
@@ -56,9 +53,6 @@ module.exports = async function () {
             'ember-auto-import': '^2.2.4',
             'webpack': '^5.64.4'
           },
-          ember: {
-            edition: 'octane',
-          },
         },
       },
       {
@@ -70,9 +64,6 @@ module.exports = async function () {
           dependencies: {
             'ember-auto-import': '^2.2.4',
             'webpack': '^5.64.4'
-          },
-          ember: {
-            edition: 'octane',
           },
         },
       },
@@ -100,7 +91,7 @@ module.exports = async function () {
         },
         npm: {
           devDependencies: {
-            'ember-source': '~3.24.0',
+            'ember-source': '~3.28.8',
           },
           ember: {
             edition: 'classic',

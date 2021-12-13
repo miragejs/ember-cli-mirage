@@ -5,7 +5,7 @@ const Funnel = require('broccoli-funnel');
 const writeFile = require('broccoli-file-creator');
 
 module.exports = {
-  name: 'ember-cli-mirage',
+  name: require('./package').name,
 
   // isDevelopingAddon: function () {
   //   return true;

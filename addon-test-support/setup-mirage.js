@@ -11,17 +11,19 @@ import { settled } from '@ember/test-helpers';
   @hide
 */
 export default function setupMirage(hooks = self) {
-  hooks.beforeEach(function() {
+  hooks.beforeEach(function () {
     if (!this.owner) {
-      throw new Error('You must call one of the ember-qunit setupTest(),'
-        + ' setupRenderingTest() or setupApplicationTest() methods before'
-        + ' calling setupMirage()');
+      throw new Error(
+        'You must call one of the ember-qunit setupTest(),' +
+          ' setupRenderingTest() or setupApplicationTest() methods before' +
+          ' calling setupMirage()'
+      );
     }
 
     this.server = startMirage(this.owner);
   });
 
-  hooks.afterEach(function() {
+  hooks.afterEach(function () {
     return settled().then(() => {
       if (this.server) {
         this.server.shutdown();

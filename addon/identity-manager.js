@@ -1,1 +1,1 @@
-export { IdentityManager as default } from "miragejs";
+export { IdentityManager as default } from 'miragejs';

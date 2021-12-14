@@ -1,1 +1,1 @@
-export {_ormAssociationsBelongsTo as default } from 'miragejs';
+export { _ormAssociationsBelongsTo as default } from 'miragejs';

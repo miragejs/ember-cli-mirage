@@ -28,7 +28,8 @@ module.exports = {
     }
 
     this.app = app;
-    this.addonConfig = this.app.project.config(app.env)['ember-cli-mirage'] || {};
+    this.addonConfig =
+      this.app.project.config(app.env)['ember-cli-mirage'] || {};
     this.addonBuildConfig = this.app.options['ember-cli-mirage'] || {};
 
     // Call super after initializing config so we can use _shouldIncludeFiles for the node assets
@@ -38,8 +39,14 @@ module.exports = {
       this.mirageDirectory = this.addonBuildConfig.directory;
     } else if (this.addonConfig.directory) {
       this.mirageDirectory = this.addonConfig.directory;
-    } else if (app.project.pkg['ember-addon'] && app.project.pkg['ember-addon'].configPath) {
-      this.mirageDirectory = path.resolve(app.project.root, path.join('tests', 'dummy', 'mirage'));
+    } else if (
+      app.project.pkg['ember-addon'] &&
+      app.project.pkg['ember-addon'].configPath
+    ) {
+      this.mirageDirectory = path.resolve(
+        app.project.root,
+        path.join('tests', 'dummy', 'mirage')
+      );
     } else {
       this.mirageDirectory = path.join(this.app.project.root, '/mirage');
     }
@@ -57,12 +64,15 @@ module.exports = {
 
     if (name === 'app') {
       // Include a noop initializer, even if Mirage is excluded from the build
-      return writeFile('initializers/ember-cli-mirage.js', `
+      return writeFile(
+        'initializers/ember-cli-mirage.js',
+        `
         export default {
           name: 'ember-cli-mirage',
           initialize() {}
         };
-      `);
+      `
+      );
     }
   },
 
@@ -72,29 +82,34 @@ module.exports = {
     // this conditional can be removed when we no longer support
     // versions older than 2.5.0
     if (this._eachProjectAddonInvoke) {
-      lintedMirageTrees = this._eachProjectAddonInvoke('lintTree', ['mirage', mirageTree]);
+      lintedMirageTrees = this._eachProjectAddonInvoke('lintTree', [
+        'mirage',
+        mirageTree,
+      ]);
     } else {
-      lintedMirageTrees = this.project.addons.map(function(addon) {
-        if (addon.lintTree) {
-          return addon.lintTree('mirage', mirageTree);
-        }
-      }).filter(Boolean);
+      lintedMirageTrees = this.project.addons
+        .map(function (addon) {
+          if (addon.lintTree) {
+            return addon.lintTree('mirage', mirageTree);
+          }
+        })
+        .filter(Boolean);
     }
 
     let lintedMirage = mergeTrees(lintedMirageTrees, {
       overwrite: true,
-      annotation: 'TreeMerger (mirage-lint)'
+      annotation: 'TreeMerger (mirage-lint)',
     });
 
     return new Funnel(lintedMirage, {
-      destDir: 'tests/mirage/'
+      destDir: 'tests/mirage/',
     });
   },
 
   treeForApp(appTree) {
-    let trees = [ appTree ];
+    let trees = [appTree];
     let mirageFilesTree = new Funnel(this.mirageDirectory, {
-      destDir: 'mirage'
+      destDir: 'mirage',
     });
     trees.push(mirageFilesTree);
 
@@ -111,13 +126,21 @@ module.exports = {
     }
 
     let environment = this.app.env;
-    let enabledInProd = environment === 'production' && this.addonConfig.enabled;
+    let enabledInProd =
+      environment === 'production' && this.addonConfig.enabled;
     let explicitExcludeFiles = this.addonConfig.excludeFilesFromBuild;
     if (enabledInProd && explicitExcludeFiles) {
-      throw new Error('Mirage was explicitly enabled in production, but its files were excluded '
-                      + 'from the build. Please, use only ENV[\'ember-cli-mirage\'].enabled in '
-                      + 'production environment.');
+      throw new Error(
+        'Mirage was explicitly enabled in production, but its files were excluded ' +
+          "from the build. Please, use only ENV['ember-cli-mirage'].enabled in " +
+          'production environment.'
+      );
     }
-    return enabledInProd || (environment && environment !== 'production' && explicitExcludeFiles !== true);
-  }
+    return (
+      enabledInProd ||
+      (environment &&
+        environment !== 'production' &&
+        explicitExcludeFiles !== true)
+    );
+  },
 };

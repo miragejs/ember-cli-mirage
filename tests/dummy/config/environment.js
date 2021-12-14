@@ -24,7 +24,7 @@ module.exports = function (environment) {
     },
 
     'ember-cli-addon-docs': {
-      showImportPaths: false
+      showImportPaths: false,
     },
   };
 

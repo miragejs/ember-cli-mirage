@@ -1,9 +1,10 @@
-import { RestSerializer,
+import {
+  RestSerializer,
   _utilsInflectorCamelize as camelize,
   _utilsInflectorDasherize as dasherize,
 } from 'miragejs';
-import {isFunction} from "lodash-es";
-import {get} from "@ember/object";
+import { isFunction } from 'lodash-es';
+import { get } from '@ember/object';
 
 /**
  * This serializer does not use following mirage properties to control how things are serialized
@@ -34,7 +35,7 @@ let EmberDataSerializer = RestSerializer.extend({
    * The property name for the primary key for mirage and ember data is normally `id`. This allows you
    * to specify what that property name should be in the JSON.
    */
-  primaryKey: "id",
+  primaryKey: 'id',
 
   /**
    * Transforms follow the format of ember data serializer attrs as follows
@@ -79,8 +80,8 @@ let EmberDataSerializer = RestSerializer.extend({
     if (!this._resolvedTransforms) {
       this._resolvedTransforms = {
         serialize: {},
-        normalize: {}
-      }
+        normalize: {},
+      };
     }
 
     return this._resolvedTransforms;
@@ -90,13 +91,14 @@ let EmberDataSerializer = RestSerializer.extend({
     let resolvedTransforms = this.getResolvedTransforms();
     let transforms = this.getTransforms();
 
-    if ( ! resolvedTransforms.serialize[key]) {
-      let transform = typeof transforms[key] === 'string'
-        ? {key: transforms[key]}
-        : Object.assign({}, transforms[key]);
+    if (!resolvedTransforms.serialize[key]) {
+      let transform =
+        typeof transforms[key] === 'string'
+          ? { key: transforms[key] }
+          : Object.assign({}, transforms[key]);
 
       resolvedTransforms.serialize[key] = Object.assign(
-        {key: key, serialize: 'ids', deserialize: 'ids'},
+        { key: key, serialize: 'ids', deserialize: 'ids' },
         transform
       );
     }
@@ -107,20 +109,16 @@ let EmberDataSerializer = RestSerializer.extend({
   getTransformForNormalize(key) {
     let resolvedTransforms = this.getResolvedTransforms();
 
-    if ( ! resolvedTransforms.normalize[key]) {
+    if (!resolvedTransforms.normalize[key]) {
       let transforms = this.getTransforms();
       let foundKey;
-      let foundTransform = Object.keys(transforms).find(item => {
+      let foundTransform = Object.keys(transforms).find((item) => {
         foundKey = item;
         return transforms[item].key === key;
       });
       let transform = foundTransform
-        ? Object.assign(
-          {},
-          transforms[foundKey],
-          { key: foundKey }
-        )
-        : {key: key, serialize: 'ids', deserialize: 'ids'};
+        ? Object.assign({}, transforms[foundKey], { key: foundKey })
+        : { key: key, serialize: 'ids', deserialize: 'ids' };
 
       resolvedTransforms.normalize[key] = transform;
     }
@@ -137,7 +135,6 @@ let EmberDataSerializer = RestSerializer.extend({
    * @private
    */
   _hashForModel(model, removeForeignKeys, didSerialize = {}) {
-
     let attrs = this._attrsForModel(model);
 
     let newDidSerialize = Object.assign({}, didSerialize);
@@ -152,12 +149,16 @@ let EmberDataSerializer = RestSerializer.extend({
 
         let serializeOption = transform.serialize;
 
-        if (associatedResource &&
-          get(newDidSerialize, `${associatedResource.modelName}.${associatedResource.id}`)
+        if (
+          associatedResource &&
+          get(
+            newDidSerialize,
+            `${associatedResource.modelName}.${associatedResource.id}`
+          )
         ) {
           // force it to IDS if we already have serialized it to prevent recursion
           // TODO: However is the end system wants records, we need to send records, so this really should be do records, dont resurse
-          serializeOption  ='ids';
+          serializeOption = 'ids';
         }
 
         if (serializeOption === 'records') {
@@ -167,19 +168,21 @@ let EmberDataSerializer = RestSerializer.extend({
             newDidSerialize,
             true
           );
-          let formattedKey = this._keyForProperty(key) ||
-            this.isCollection(associatedResource)
+          let formattedKey =
+            this._keyForProperty(key) || this.isCollection(associatedResource)
               ? this.keyForRelationship(key)
               : this.keyForEmbeddedRelationship(key);
           attrs[formattedKey] = associatedResourceHash;
         } else {
-          let formattedKey = this._keyForProperty(key) ||
-            this.keyForRelationshipIds(key);
+          let formattedKey =
+            this._keyForProperty(key) || this.keyForRelationshipIds(key);
 
           if (this.isCollection(associatedResource)) {
-            attrs[formattedKey] = model[`${this._container.inflector.singularize(key)}Ids`];
+            attrs[formattedKey] =
+              model[`${this._container.inflector.singularize(key)}Ids`];
           } else {
-            attrs[formattedKey] = model[`${this._container.inflector.singularize(key)}Id`];
+            attrs[formattedKey] =
+              model[`${this._container.inflector.singularize(key)}Id`];
           }
         }
       }
@@ -195,27 +198,42 @@ let EmberDataSerializer = RestSerializer.extend({
   },
 
   keyForAttribute(attr) {
-    if (attr === "id") {
+    if (attr === 'id') {
       return this.keyForId();
     }
 
-    return this._keyForProperty(attr) || RestSerializer.prototype.keyForAttribute.apply(this, arguments);
+    return (
+      this._keyForProperty(attr) ||
+      RestSerializer.prototype.keyForAttribute.apply(this, arguments)
+    );
   },
 
   keyForRelationship(type) {
-    return this._keyForProperty(type) || RestSerializer.prototype.keyForRelationship.apply(this, arguments);
+    return (
+      this._keyForProperty(type) ||
+      RestSerializer.prototype.keyForRelationship.apply(this, arguments)
+    );
   },
 
   keyForEmbeddedRelationship(attributeName) {
-    return this._keyForProperty(attributeName) || RestSerializer.prototype.keyForEmbeddedRelationship.apply(this, arguments);
+    return (
+      this._keyForProperty(attributeName) ||
+      RestSerializer.prototype.keyForEmbeddedRelationship.apply(this, arguments)
+    );
   },
 
   keyForRelationshipIds(type) {
-    return this._keyForProperty(type) || RestSerializer.prototype.keyForRelationshipIds.apply(this, arguments);
+    return (
+      this._keyForProperty(type) ||
+      RestSerializer.prototype.keyForRelationshipIds.apply(this, arguments)
+    );
   },
 
   keyForForeignKey(relationshipName) {
-    return this._keyForProperty(relationshipName) || RestSerializer.prototype.keyForForeignKey.apply(this, arguments);
+    return (
+      this._keyForProperty(relationshipName) ||
+      RestSerializer.prototype.keyForForeignKey.apply(this, arguments)
+    );
   },
 
   normalize(payload) {
@@ -247,7 +265,7 @@ let EmberDataSerializer = RestSerializer.extend({
 
     let relationships = {};
 
-    Object.keys(attrs).forEach(attrKey => {
+    Object.keys(attrs).forEach((attrKey) => {
       if (attrKey !== this.primaryKey) {
         let transform = this.getTransformForNormalize(attrKey);
         let key = transform.key || attrKey;
@@ -286,7 +304,6 @@ let EmberDataSerializer = RestSerializer.extend({
 
     return jsonApiPayload;
   },
-
 });
 
 export default EmberDataSerializer;

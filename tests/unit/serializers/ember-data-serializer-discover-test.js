@@ -1,16 +1,16 @@
 import { module, test } from 'qunit';
 import { setupTest } from 'ember-qunit';
 import { createServer } from 'miragejs';
-import { applyEmberDataSerializers} from 'ember-cli-mirage';
+import { applyEmberDataSerializers } from 'ember-cli-mirage';
 
-module('Unit | Serializer | ember data serializer discover', function(hooks) {
+module('Unit | Serializer | ember data serializer discover', function (hooks) {
   setupTest(hooks);
 
   let server;
 
-  hooks.beforeEach(function() {
+  hooks.beforeEach(function () {
     server = createServer({
-      serializers: applyEmberDataSerializers({})
+      serializers: applyEmberDataSerializers({}),
     });
   });
 
@@ -18,7 +18,7 @@ module('Unit | Serializer | ember data serializer discover', function(hooks) {
     server.shutdown();
   });
 
-  test('it discovers the serializers', function(assert) {
+  test('it discovers the serializers', function (assert) {
     let serializer = server.serializerOrRegistry.serializerFor('address');
 
     assert.strictEqual(serializer.primaryKey, 'addressId');
@@ -26,5 +26,4 @@ module('Unit | Serializer | ember data serializer discover', function(hooks) {
     serializer = server.serializerOrRegistry.serializerFor('word-smith');
     assert.strictEqual(serializer.transforms['blogPosts'].serialize, 'records');
   });
-
 });

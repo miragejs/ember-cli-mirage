@@ -15,7 +15,9 @@ export default class {
     let id;
 
     if (this._nextId >= alphabet.length) {
-      throw new Error(`IdentityManager used for testing only supports ${alphabet.length} ids.`);
+      throw new Error(
+        `IdentityManager used for testing only supports ${alphabet.length} ids.`
+      );
     }
     id = alphabet[this._nextId % alphabet.length];
     this._ids[id] = true;
@@ -52,6 +54,6 @@ export default class {
    */
   reset() {
     this._nextId = 0;
-    this._ids =  {};
+    this._ids = {};
   }
 }

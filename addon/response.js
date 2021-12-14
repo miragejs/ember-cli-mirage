@@ -1,1 +1,1 @@
-export { Response as default } from "miragejs";
+export { Response as default } from 'miragejs';

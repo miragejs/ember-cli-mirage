@@ -1,3 +1,1 @@
-export default [
-  { name: 'United State' }
-];
+export default [{ name: 'United State' }];

@@ -17,24 +17,30 @@ export default {
   name: 'ember-cli-mirage',
   initialize(application) {
     if (baseConfig) {
-      application.register('mirage:base-config', baseConfig, { instantiate: false });
+      application.register('mirage:base-config', baseConfig, {
+        instantiate: false,
+      });
     }
     if (testConfig) {
-      application.register('mirage:test-config', testConfig, { instantiate: false });
+      application.register('mirage:test-config', testConfig, {
+        instantiate: false,
+      });
     }
     if (makeServer) {
-      application.register('mirage:make-server', makeServer, { instantiate: false });
+      application.register('mirage:make-server', makeServer, {
+        instantiate: false,
+      });
     }
 
     ENV['ember-cli-mirage'] = ENV['ember-cli-mirage'] || {};
     if (_shouldUseMirage(ENV.environment, ENV['ember-cli-mirage'])) {
       startMirage(ENV);
     }
-  }
+  },
 };
 
 export function startMirage(env = ENV) {
-  return startMirageImpl(null, { env, baseConfig, testConfig, makeServer});
+  return startMirageImpl(null, { env, baseConfig, testConfig, makeServer });
 }
 
 function _shouldUseMirage(env, addonConfig) {

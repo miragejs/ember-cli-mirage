@@ -26,7 +26,7 @@ module.exports = function (environment) {
 
   if (process.env.MIRAGE_ENABLED) {
     ENV['ember-cli-mirage'] = {
-      enabled: true
+      enabled: true,
     };
   }
 

@@ -47,7 +47,7 @@ module.exports = async function () {
           },
           dependencies: {
             'ember-auto-import': '^2.2.4',
-            'webpack': '^5.64.4'
+            webpack: '^5.64.4',
           },
         },
       },
@@ -59,7 +59,7 @@ module.exports = async function () {
           },
           dependencies: {
             'ember-auto-import': '^2.2.4',
-            'webpack': '^5.64.4'
+            webpack: '^5.64.4',
           },
         },
       },
@@ -71,7 +71,7 @@ module.exports = async function () {
           },
           dependencies: {
             'ember-auto-import': '^2.2.4',
-            'webpack': '^5.64.4'
+            webpack: '^5.64.4',
           },
         },
       },

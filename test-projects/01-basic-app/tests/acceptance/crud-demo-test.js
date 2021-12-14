@@ -1,13 +1,19 @@
-import { module, test } from "qunit";
-import { visit, currentRouteName, findAll, fillIn, click } from "@ember/test-helpers";
-import { setupApplicationTest } from "ember-qunit";
-import { setupMirage } from "ember-cli-mirage/test-support";
+import { module, test } from 'qunit';
+import {
+  visit,
+  currentRouteName,
+  findAll,
+  fillIn,
+  click,
+} from '@ember/test-helpers';
+import { setupApplicationTest } from 'ember-qunit';
+import { setupMirage } from 'ember-cli-mirage/test-support';
 
-module('Acceptance | Crud demo', function(hooks) {
+module('Acceptance | Crud demo', function (hooks) {
   setupApplicationTest(hooks);
-  setupMirage(hooks)
+  setupMirage(hooks);
 
-  test('I can view the users', async function(assert) {
+  test('I can view the users', async function (assert) {
     this.server.createList('user', 3);
 
     await visit('/crud-demo');
@@ -15,7 +21,7 @@ module('Acceptance | Crud demo', function(hooks) {
     assert.equal(findAll('[data-test-id="user"]').length, 3);
   });
 
-  test('I can create a new user', async function(assert) {
+  test('I can create a new user', async function (assert) {
     this.server.create('user', 1);
 
     await visit('/crud-demo');
@@ -26,7 +32,7 @@ module('Acceptance | Crud demo', function(hooks) {
     assert.ok(this.server.db.users.length, 2);
   });
 
-  test('I can update a user', async function(assert) {
+  test('I can update a user', async function (assert) {
     let user = this.server.create('user', { name: 'Yehuda' });
 
     await visit('/crud-demo');
@@ -39,7 +45,7 @@ module('Acceptance | Crud demo', function(hooks) {
     assert.ok(user.name, 'Katz');
   });
 
-  test('I can delete a user', async function(assert) {
+  test('I can delete a user', async function (assert) {
     this.server.create('user', { name: 'Yehuda' });
 
     await visit('/crud-demo');
@@ -49,10 +55,14 @@ module('Acceptance | Crud demo', function(hooks) {
     assert.equal(this.server.db.users.length, 0);
   });
 
-  test('If the server errors on GET /users, the error template shows', async function(assert) {
-    this.server.get('/users', {
-      errors: [ 'improper auth' ]
-    }, 404);
+  test('If the server errors on GET /users, the error template shows', async function (assert) {
+    this.server.get(
+      '/users',
+      {
+        errors: ['improper auth'],
+      },
+      404
+    );
 
     await visit('/crud-demo');
 

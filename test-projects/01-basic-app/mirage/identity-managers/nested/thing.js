@@ -14,7 +14,9 @@ export default class {
     let id;
 
     if (this._nextId >= 1) {
-      throw new Error(`IdentityManager used for testing only supports single id.`);
+      throw new Error(
+        `IdentityManager used for testing only supports single id.`
+      );
     }
     id = 'nested identity manager works!';
     this._ids[id] = true;
@@ -51,6 +53,6 @@ export default class {
    */
   reset() {
     this._nextId = 0;
-    this._ids =  {};
+    this._ids = {};
   }
 }

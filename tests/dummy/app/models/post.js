@@ -4,19 +4,18 @@ import compileMarkdown from 'ember-cli-addon-docs/utils/compile-markdown';
 import { htmlSafe } from '@ember/string';
 
 export default class Post extends Model {
-
   @hasMany() comments;
 
   @attr title;
   @attr body;
   @attr issueUrl;
 
-  get htmlBody () {
+  get htmlBody() {
     return htmlSafe(compileMarkdown(this.body));
   }
 
-  get meta () {
-    let lines = this.body.split('\n').map(line => line.trim());
+  get meta() {
+    let lines = this.body.split('\n').map((line) => line.trim());
     let firstLine = lines[0];
 
     if (firstLine === '<!--') {
@@ -30,8 +29,7 @@ export default class Post extends Model {
     }
   }
 
-  get slugAndId () {
+  get slugAndId() {
     return `${this.meta.slug}-${this.id}`;
   }
-
 }

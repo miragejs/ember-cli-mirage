@@ -17,7 +17,10 @@ import { deprecate } from '@ember/debug';
 
   @hide
 */
-export default function startMirage(owner, { env, baseConfig, testConfig, makeServer } = {}) {
+export default function startMirage(
+  owner,
+  { env, baseConfig, testConfig, makeServer } = {}
+) {
   if (!env || !baseConfig) {
     if (!owner) {
       throw new Error('You must pass `owner` to startMirage()');
@@ -31,14 +34,15 @@ export default function startMirage(owner, { env, baseConfig, testConfig, makeSe
   }
 
   // Deprecate exporting makeServer as NOT the default function
-  deprecate("Do not export the makeServer function. Please make the makeServer function the default exported function",
+  deprecate(
+    'Do not export the makeServer function. Please make the makeServer function the default exported function',
     makeServer === undefined,
     {
       id: 'ember-cli-mirage-config-makeserver-export',
       for: 'ember-cli-mirage',
       since: '2.3.0',
       until: '3.0.0',
-      url: 'https://www.ember-cli-mirage.com/docs/advanced/server-configuration'
+      url: 'https://www.ember-cli-mirage.com/docs/advanced/server-configuration',
     }
   );
 
@@ -58,24 +62,27 @@ export default function startMirage(owner, { env, baseConfig, testConfig, makeSe
   let mirageEnvironment = env['ember-cli-mirage'] || {};
 
   let discoverEmberDataModels = mirageEnvironment.discoverEmberDataModels;
-  if (discoverEmberDataModels === undefined) { discoverEmberDataModels = true; }
+  if (discoverEmberDataModels === undefined) {
+    discoverEmberDataModels = true;
+  }
   let modules = readModules(env.modulePrefix);
 
-  let options = Object.assign(modules,
-    {
-      environment,
-      routes,
-      testConfig,
-      discoverEmberDataModels
-    }
-  );
+  let options = Object.assign(modules, {
+    environment,
+    routes,
+    testConfig,
+    discoverEmberDataModels,
+  });
   options.trackRequests = mirageEnvironment.trackRequests;
   options.inflector = { singularize, pluralize };
 
   let server;
   if (makeServer) {
     server = makeServer(options);
-    if (typeof location !== 'undefined' && location.search.indexOf('mirageLogging') !== -1) {
+    if (
+      typeof location !== 'undefined' &&
+      location.search.indexOf('mirageLogging') !== -1
+    ) {
       server.logging = true;
     }
   } else {

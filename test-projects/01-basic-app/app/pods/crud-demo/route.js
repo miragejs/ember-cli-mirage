@@ -7,5 +7,4 @@ export default class extends Route {
   model() {
     return this.store.findAll('user');
   }
-
 }

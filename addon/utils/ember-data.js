@@ -4,7 +4,9 @@ function _hasEmberData() {
   let matchRegex1 = /^ember-data/i;
   let matchRegex2 = /^@ember-data/i;
 
-  return !!(Object.keys(requirejs.entries).find(e => !!e.match(matchRegex2) || !!e.match(matchRegex1) ));
+  return !!Object.keys(requirejs.entries).find(
+    (e) => !!e.match(matchRegex2) || !!e.match(matchRegex1)
+  );
 }
 
 /**

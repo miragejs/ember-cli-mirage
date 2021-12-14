@@ -4,12 +4,11 @@ import { action } from '@ember/object';
 import { tracked } from '@glimmer/tracking';
 
 export default class extends Controller {
-
   @service store;
 
   @tracked newName;
 
-  @action createUser (event) {
+  @action createUser(event) {
     event.preventDefault();
 
     let name = this.newName;
@@ -22,16 +21,15 @@ export default class extends Controller {
       });
   }
 
-  @action updateUser (user, event) {
+  @action updateUser(user, event) {
     event.preventDefault();
 
     user.save();
   }
 
-  @action deleteUser (user, event) {
+  @action deleteUser(user, event) {
     event.preventDefault();
 
     user.destroyRecord();
   }
-
 }

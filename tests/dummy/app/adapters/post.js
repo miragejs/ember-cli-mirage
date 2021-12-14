@@ -4,37 +4,37 @@ import JSONAPIAdapter from '@ember-data/adapter/json-api';
 import $ from 'jquery';
 import { Promise } from 'rsvp';
 
-const BASE_URL = "https://api.github.com/repos/miragejs/ember-cli-mirage";
+const BASE_URL = 'https://api.github.com/repos/miragejs/ember-cli-mirage';
 
 export default class extends JSONAPIAdapter {
-  findRecord(store, type, id/*, snapshot*/) {
+  findRecord(store, type, id /*, snapshot*/) {
     let url = `${BASE_URL}/issues/${id}`;
 
     return new Promise((resolve, reject) => {
       $.getJSON(url).then(
-        json => {
+        (json) => {
           let jsonApiDocument = {
             data: {
               id,
-              type: "posts",
+              type: 'posts',
               attributes: {
                 title: json.title,
                 body: json.body,
-                "issue-url": json.html_url
+                'issue-url': json.html_url,
               },
               relationships: {
                 comments: {
                   links: {
-                    related: json.comments_url
-                  }
-                }
-              }
-            }
+                    related: json.comments_url,
+                  },
+                },
+              },
+            },
           };
 
           resolve(jsonApiDocument);
         },
-        jqXHR => {
+        (jqXHR) => {
           reject(jqXHR);
         }
       );
@@ -46,24 +46,24 @@ export default class extends JSONAPIAdapter {
 
     return new Promise((resolve, reject) => {
       $.getJSON(url).then(
-        json => {
+        (json) => {
           this.hasLoadedAllPosts = true;
 
           let jsonApiDocument = {
-            data: json.map(obj => ({
+            data: json.map((obj) => ({
               id: obj.number,
-              type: "posts",
+              type: 'posts',
               attributes: {
                 title: obj.title,
                 body: obj.body,
-                "issue-url": obj.html_url
-              }
-            }))
+                'issue-url': obj.html_url,
+              },
+            })),
           };
 
           resolve(jsonApiDocument);
         },
-        jqXHR => {
+        (jqXHR) => {
           reject(jqXHR);
         }
       );
@@ -74,50 +74,50 @@ export default class extends JSONAPIAdapter {
     return !this.hasLoadedAllPosts;
   }
 
-  findHasMany(store, snapshot, url/*, relationship*/) {
+  findHasMany(store, snapshot, url /*, relationship*/) {
     return new Promise((resolve, reject) => {
       $.getJSON(url).then(
-        json => {
+        (json) => {
           run(() => {
             let jsonApiDocument = { data: [], included: [] };
             let includedUserHash = {};
 
-            json.forEach(obj => {
+            json.forEach((obj) => {
               jsonApiDocument.data.push({
                 id: obj.id,
-                type: "comments",
+                type: 'comments',
                 attributes: {
                   body: obj.body,
                   permalink: obj.html_url,
-                  "created-at": obj.created_at
+                  'created-at': obj.created_at,
                 },
                 relationships: {
                   user: {
-                    data: { type: "users", id: obj.user.id }
-                  }
-                }
+                    data: { type: 'users', id: obj.user.id },
+                  },
+                },
               });
 
               includedUserHash[obj.user.id] = obj.user;
             });
 
-            Object.keys(includedUserHash).forEach(key => {
+            Object.keys(includedUserHash).forEach((key) => {
               let user = includedUserHash[key];
               jsonApiDocument.included.push({
-                type: "users",
+                type: 'users',
                 id: user.id,
                 attributes: {
-                  "avatar-url": user.avatar_url,
-                  "profile-url": user.html_url,
-                  username: user.login
-                }
+                  'avatar-url': user.avatar_url,
+                  'profile-url': user.html_url,
+                  username: user.login,
+                },
               });
             });
 
             resolve(jsonApiDocument);
           });
         },
-        jqXHR => {
+        (jqXHR) => {
           run(() => reject(jqXHR));
         }
       );

@@ -9,21 +9,24 @@
 /.bowerrc
 /.editorconfig
 /.ember-cli
+/.env*
+/.eslintcache
 /.eslintignore
 /.eslintrc.js
+/.git/
 /.gitignore
-/.watchmanconfig
+/.prettierignore
+/.prettierrc.js
+/.template-lintrc.js
 /.travis.yml
+/.watchmanconfig
 /bower.json
 /config/ember-try.js
-/dist
-/scripts
-/tmp
-**/.gitkeep
-bower.json
+/CONTRIBUTING.md
 /ember-cli-build.js
 /testem.js
 /tests/
+/yarn-error.log
 /yarn.lock
 .gitkeep
 
@@ -37,3 +40,4 @@ bower.json
 *.md
 
 /test-projects
+/scripts

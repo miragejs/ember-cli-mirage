@@ -36,8 +36,8 @@ Make use of the many generators for code, try `ember help generate` for more det
 
 ### Linting
 
-* `yarn lint:js`
-* `yarn lint:js --fix`
+* `yarn lint`
+* `yarn lint:fix`
 
 ### Building
 

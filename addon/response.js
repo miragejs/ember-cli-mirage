@@ -6,10 +6,10 @@ import { deprecateNestedImport } from './deprecate-imports';
  @hide
  */
 export default class DeprecatedResponse extends Response {
-  constructor (...args) {
+  constructor(...args) {
     deprecateNestedImport(
       `Importing 'Response' from 'ember-cli-mirage/response' is deprecated. ` +
-      `Install the \`miragejs\` package and use \`import { Response } from 'miragejs';\` instead.`
+        `Install the \`miragejs\` package and use \`import { Response } from 'miragejs';\` instead.`
     );
 
     super(...args);

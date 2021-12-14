@@ -8,7 +8,7 @@ import { deprecateNestedImport } from './deprecate-imports';
 export default function (...args) {
   deprecateNestedImport(
     "Importing 'trait' from 'ember-cli-mirage/trait' is deprecated. " +
-    "Add the `miragejs` package to devDependencies and use `import { trait } from 'miragejs';` instead."
+      "Add the `miragejs` package to devDependencies and use `import { trait } from 'miragejs';` instead."
   );
 
   return trait(...args);

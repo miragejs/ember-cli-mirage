@@ -6,10 +6,10 @@ import { deprecateNestedImport } from './deprecate-imports';
  @hide
  */
 export default class DeprecatedIdentityManager extends IdentityManager {
-  constructor (...args) {
+  constructor(...args) {
     deprecateNestedImport(
       `Importing 'IdentityManager' from 'ember-cli-mirage/identity-manager' is deprecated. ` +
-      `Install the \`miragejs\` package and use \`import { IdentityManager } from 'miragejs';\` instead.`
+        `Install the \`miragejs\` package and use \`import { IdentityManager } from 'miragejs';\` instead.`
     );
 
     super(...args);

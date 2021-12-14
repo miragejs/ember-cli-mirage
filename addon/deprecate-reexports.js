@@ -9,12 +9,12 @@ const nonDeprecatedImports = ['default'];
  @function initDeprecatedReExports
  @hide
  */
-export function initDeprecatedReExports () {
+export function initDeprecatedReExports() {
   Object.entries(mirage).forEach(([name, value]) => {
     if (!nonDeprecatedImports.includes(name)) {
       // eslint-disable-next-line no-import-assign
       Object.defineProperty(ecMirageExports, name, {
-        get () {
+        get() {
           if (isTesting() && dependencySatisfies('ember-qunit', '*')) {
             const { waitUntil, getContext } = importSync('@ember/test-helpers');
 
@@ -22,7 +22,9 @@ export function initDeprecatedReExports () {
               // Make sure deprecation message does not get "swallowed"
               // when tests run due to
               // https://github.com/emberjs/ember-test-helpers/blob/master/addon-test-support/%40ember/test-helpers/setup-context.ts#L41
-              waitUntil(() => getContext() !== undefined).then(() => _deprecate(name));
+              waitUntil(() => getContext() !== undefined).then(() =>
+                _deprecate(name)
+              );
             });
           } else {
             _deprecate(name);
@@ -37,8 +39,9 @@ export function initDeprecatedReExports () {
   });
 }
 
-function _deprecate (name) {
-  const message = `Importing '${name}' from 'ember-cli-mirage' is deprecated.` +
+function _deprecate(name) {
+  const message =
+    `Importing '${name}' from 'ember-cli-mirage' is deprecated.` +
     ` Install the \`miragejs\` package and use ` +
     `\`import { ${name} } from 'miragejs';\` instead.`;
 
@@ -48,6 +51,6 @@ function _deprecate (name) {
     for: 'ember-cli-mirage',
     since: {
       enabled: '2.3.0',
-    }
+    },
   });
 }

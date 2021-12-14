@@ -1,4 +1,7 @@
-export { discoverEmberDataModels, applyEmberDataSerializers } from './ember-data';
+export {
+  discoverEmberDataModels,
+  applyEmberDataSerializers,
+} from './ember-data';
 export { default as EmberDataSerializer } from 'ember-cli-mirage/serializers/ember-data-serializer';
 
 import { deprecateImport } from './deprecate-imports';
@@ -6,12 +9,7 @@ import { deprecateImport } from './deprecate-imports';
 import { initDeprecatedReExports } from './deprecate-reexports';
 initDeprecatedReExports();
 
-import {
-  Factory,
-  Response,
-  HasMany,
-  BelongsTo
-} from 'miragejs';
+import { Factory, Response, HasMany, BelongsTo } from 'miragejs';
 
 const DeprecatedFactory = function (...args) {
   deprecateImport('Factory');
@@ -21,27 +19,28 @@ const DeprecatedFactory = function (...args) {
 
 // Copy extend
 DeprecatedFactory.extend = Factory.extend;
-DeprecatedFactory.extractAfterCreateCallbacks = Factory.extractAfterCreateCallbacks;
+DeprecatedFactory.extractAfterCreateCallbacks =
+  Factory.extractAfterCreateCallbacks;
 DeprecatedFactory.isTrait = Factory.isTrait;
 
 // // Store a reference on the class for future subclasses
 // DeprecatedFactory.attrs = newAttrs;
 
 class DeprecatedResponse extends Response {
-  constructor (...args) {
+  constructor(...args) {
     deprecateImport('Response');
 
     super(...args);
   }
 }
 
-function hasMany (...args) {
+function hasMany(...args) {
   deprecateImport('hasMany');
 
   return new HasMany(...args);
 }
 
-function belongsTo (...args) {
+function belongsTo(...args) {
   deprecateImport('belongsTo');
 
   return new BelongsTo(...args);
@@ -51,5 +50,5 @@ export default {
   Factory: DeprecatedFactory,
   Response: DeprecatedResponse,
   hasMany,
-  belongsTo
+  belongsTo,
 };

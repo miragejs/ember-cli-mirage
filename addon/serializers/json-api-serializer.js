@@ -6,10 +6,10 @@ import { deprecateNestedImport } from '../deprecate-imports';
  @hide
  */
 export default class DeprecatedJSONAPISerializer extends JSONAPISerializer {
-  constructor (...args) {
+  constructor(...args) {
     deprecateNestedImport(
       "Importing 'JSONAPISerializer' from 'ember-cli-mirage/serializers/json-api-serializer' is deprecated. " +
-      "Add the `miragejs` package to devDependencies and use `import { JSONAPISerializer } from 'miragejs';` instead."
+        "Add the `miragejs` package to devDependencies and use `import { JSONAPISerializer } from 'miragejs';` instead."
     );
 
     super(...args);

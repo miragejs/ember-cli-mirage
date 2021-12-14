@@ -5,8 +5,9 @@ import { deprecateNestedImport } from '../deprecate-imports';
  @function uuid
  @hide
  */
-export default function uuid (...args) {
-  const message = `Importing 'uuid' from 'ember-cli-mirage/utils/reference-sort' is deprecated. ` +
+export default function uuid(...args) {
+  const message =
+    `Importing 'uuid' from 'ember-cli-mirage/utils/reference-sort' is deprecated. ` +
     `This wasn't intended to be a public API. If you absolute know what you are doing, ` +
     `install the \`miragejs\` package and use \`import { _utilsUuid } from 'miragejs';\` instead.`;
 
@@ -14,4 +15,3 @@ export default function uuid (...args) {
 
   return _utilsUuid(...args);
 }
-

@@ -6,11 +6,11 @@ import { deprecateNestedImport } from './deprecate-imports';
  @hide
  */
 export default class DeprecatedDB extends _Db {
-  constructor (...args) {
+  constructor(...args) {
     deprecateNestedImport(
       `Importing 'Db' from 'ember-cli-mirage/db' is deprecated. ` +
-      `This wasn't intended to be a public API. If you absolute know what you are doing, ` +
-      `install the \`miragejs\` package and use \`import { _Db } from 'miragejs';\` instead.`
+        `This wasn't intended to be a public API. If you absolute know what you are doing, ` +
+        `install the \`miragejs\` package and use \`import { _Db } from 'miragejs';\` instead.`
     );
 
     super(...args);

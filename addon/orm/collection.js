@@ -6,10 +6,10 @@ import { deprecateNestedImport } from '../deprecate-imports';
  @hide
  */
 export default class DeprecatedCollection extends Collection {
-  constructor (...args) {
+  constructor(...args) {
     deprecateNestedImport(
       `Importing 'Collection' from 'ember-cli-mirage/orm/collection' is deprecated. ` +
-      `Install the \`miragejs\` package and use \`import { Collection } from 'miragejs';\` instead.`
+        `Install the \`miragejs\` package and use \`import { Collection } from 'miragejs';\` instead.`
     );
 
     super(...args);

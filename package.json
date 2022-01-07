@@ -53,10 +53,14 @@
   },
   "peerDependencies": {
     "@ember/test-helpers": "*",
+    "ember-data": "*",
     "ember-qunit": "*"
   },
   "peerDependenciesMeta": {
     "@ember/test-helpers": {
+      "optional": true
+    },
+    "ember-data": {
       "optional": true
     },
     "ember-qunit": {

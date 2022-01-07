@@ -8364,7 +8364,7 @@ esdoc-typescript-plugin@^1.0.1:
   dependencies:
     typescript "^2.8.3"
 
-"esdoc@github:pzuraq/esdoc#015a342":
+esdoc@pzuraq/esdoc#015a342:
   version "1.0.4"
   resolved "https://codeload.github.com/pzuraq/esdoc/tar.gz/015a3426b2e53b2b0270a9c00133780db3f1d144"
   dependencies:

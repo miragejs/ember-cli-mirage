@@ -51,6 +51,22 @@
     "lodash-es": "^4.17.11",
     "miragejs": "^0.1.43"
   },
+  "peerDependencies": {
+    "@ember/test-helpers": "*",
+    "ember-data": "*",
+    "ember-qunit": "*"
+  },
+  "peerDependenciesMeta": {
+    "@ember/test-helpers": {
+      "optional": true
+    },
+    "ember-data": {
+      "optional": true
+    },
+    "ember-qunit": {
+      "optional": true
+    }
+  },
   "devDependencies": {
     "@ember/jquery": "^2.0.0",
     "@ember/optional-features": "^2.0.0",

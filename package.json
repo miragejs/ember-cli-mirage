@@ -122,7 +122,8 @@
     "qunit-dom": "^2.0.0"
   },
   "resolutions": {
-    "favicons": "5.3.0"
+    "favicons": "5.3.0",
+    "colors": "1.4.0"
   },
   "engines": {
     "node": ">= 10.*"

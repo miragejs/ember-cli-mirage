@@ -6,7 +6,7 @@ import assert from './assert';
 import { hasEmberData, isDsModel } from 'ember-cli-mirage/utils/ember-data';
 import { Model, belongsTo, hasMany } from 'miragejs';
 import EmberDataSerializer from 'ember-cli-mirage/serializers/ember-data-serializer';
-import { camelize } from './utils/inflector';
+import { _utilsInflectorCamelize as camelize } from 'miragejs';
 
 const { modulePrefix, podModulePrefix } = config;
 

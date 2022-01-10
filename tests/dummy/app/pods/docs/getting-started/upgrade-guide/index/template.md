@@ -14,6 +14,12 @@ yarn add -D ember-cli-mirage@X.X.X
 
 You can view all of Mirage's release notes on [our Releases page](https://github.com/miragejs/ember-cli-mirage/releases).
 
+## 2.0 Upgrade guide
+
+There were a few breaking changes made in the 1.0 release.
+
+### 1. Update import paths for miragejs imports
+
 ## 1.0 Upgrade guide
 
 There were a few breaking changes made in the 1.0 release.

@@ -3,7 +3,8 @@
 'use strict';
 
 import assert from '../assert';
-import { pluralize, camelize } from '../utils/inflector';
+import { _utilsInflectorCamelize as camelize } from 'miragejs';
+import { pluralize } from 'ember-inflector';
 import require from 'require';
 
 /**

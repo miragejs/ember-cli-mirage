@@ -127,6 +127,10 @@
   "engines": {
     "node": ">= 10.*"
   },
+  "volta": {
+    "node": "12.22.7",
+    "yarn": "1.22.17"
+  },
   "changelog": {
     "labels": {
       "Breaking": "💥 Breaking Change",
@@ -147,9 +151,5 @@
     "after": [
       "ember-qunit"
     ]
-  },
-  "volta": {
-    "node": "12.22.7",
-    "yarn": "1.22.17"
   }
 }

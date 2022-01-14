@@ -1731,7 +1731,7 @@
     resolve "^1.8.1"
     semver "^7.3.2"
 
-"@embroider/macros@^0.50.1":
+"@embroider/macros@^0.50.0", "@embroider/macros@^0.50.1":
   version "0.50.1"
   resolved "https://registry.yarnpkg.com/@embroider/macros/-/macros-0.50.1.tgz#ce60d55bbaaa515e532e8e929713bce577713be7"
   integrity sha512-UYTSUXezEJiR81R1ZERVkOtaMLZKmwkTAiPtrGL6G+uIVMAGWudACVixb5XKVCwwYPlKi1vAHl1I+s7TQi+03Q==
@@ -7927,12 +7927,21 @@ ember-fetch@^8.1.1:
     node-fetch "^2.6.1"
     whatwg-fetch "^3.6.2"
 
-ember-get-config@, "ember-get-config@0.2.4 - 0.5.0":
+ember-get-config@:
   version "0.5.0"
   resolved "https://registry.yarnpkg.com/ember-get-config/-/ember-get-config-0.5.0.tgz#8195f3e4c0ff0742182c81ae54aad78d07a24bcf"
   integrity sha512-y1osD6g8wV/BlDjuaN6OG5MT0iHY2X/yE38gUj/05uUIMIRfpcwOdWnFQHBiXIhDojvAJQTEF1VOYFIETQMkeQ==
   dependencies:
     broccoli-file-creator "^1.1.1"
+    ember-cli-babel "^7.26.6"
+    ember-cli-htmlbars "^5.7.1"
+
+"ember-get-config@0.2.4 - 0.5.0 || ^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/ember-get-config/-/ember-get-config-1.0.0.tgz#0993a13e925cb283c73eef5871fb09144e878d59"
+  integrity sha512-QqgOO8899+Ys8eusVKUrSKLTSMzcA5XkmYbMvxxbqQqJsf/3vvDWl13rtq6Rte7gL4T6ViOkAqLOaDH4nTMBGQ==
+  dependencies:
+    "@embroider/macros" "^0.50.0"
     ember-cli-babel "^7.26.6"
     ember-cli-htmlbars "^5.7.1"
 

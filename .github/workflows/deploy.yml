@@ -1,0 +1,23 @@
+name: CI Publish
+
+on:
+  workflow_dispatch: {}
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install Node
+        uses: actions/setup-node@v2
+        with:
+          node-version: 12.x
+          cache: yarn
+      - name: Install Dependencies
+        run: yarn install --frozen-lockfile
+      - name: Lint
+        run: yarn lint
+      - name: Run Browser Tests
+        run: yarn test:ember
+      - name: deploy docs
+        run: node_modules/.bin/ember deploy production

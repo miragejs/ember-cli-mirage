@@ -1,4 +1,4 @@
-name: CI Publish
+name: deploy
 
 on:
   workflow_dispatch: {}

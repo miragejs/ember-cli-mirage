@@ -1,6 +1,6 @@
 import { module, test } from 'qunit';
 import Server from 'ember-cli-mirage/server';
-import { Model } from 'ember-cli-mirage';
+import { Model } from 'miragejs';
 import { modelFor } from 'ember-cli-mirage/ember-data';
 
 const CustomTag = Model.extend();

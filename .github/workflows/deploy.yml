@@ -1,10 +1,10 @@
-name: deploy
+name: deploy docs
 
 on:
   workflow_dispatch: {}
 
 jobs:
-  publish:
+  deploy:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2

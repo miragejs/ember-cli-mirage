@@ -39,7 +39,6 @@
     "ember-export-application-global": "*",
     "ember-fetch": "*",
     "ember-load-initializers": "*",
-    "ember-maybe-import-regenerator": "*",
     "ember-qunit": "*",
     "ember-resolver": "*",
     "ember-source": "*",
@@ -50,10 +49,11 @@
     "miragejs": "*",
     "npm-run-all": "*",
     "qunit": "*",
-    "qunit-dom": "*"
+    "qunit-dom": "*",
+    "webpack": "*"
   },
   "engines": {
-    "node": ">= 10.*"
+    "node": "12.* || 14.* || >= 16"
   },
   "ember": {
     "edition": "octane"

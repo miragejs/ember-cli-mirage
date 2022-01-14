@@ -77,7 +77,7 @@
     "babel-eslint": "^10.1.0",
     "broccoli-asset-rev": "^3.0.0",
     "ember-cli": "~3.28.4",
-    "ember-cli-addon-docs": "^3.0.0",
+    "ember-cli-addon-docs": "^4.2.1",
     "ember-cli-addon-docs-esdoc": "^0.4.0",
     "ember-cli-dependency-checker": "^3.2.0",
     "ember-cli-deploy": "^1.0.2",

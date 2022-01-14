@@ -57,10 +57,6 @@ module.exports = async function () {
           devDependencies: {
             'ember-source': await getChannelURL('release'),
           },
-          dependencies: {
-            'ember-auto-import': '^2.2.4',
-            webpack: '^5.64.4',
-          },
         },
       },
       {
@@ -69,10 +65,6 @@ module.exports = async function () {
           devDependencies: {
             'ember-source': await getChannelURL('beta'),
           },
-          dependencies: {
-            'ember-auto-import': '^2.2.4',
-            webpack: '^5.64.4',
-          },
         },
       },
       {
@@ -80,23 +72,6 @@ module.exports = async function () {
         npm: {
           devDependencies: {
             'ember-source': await getChannelURL('canary'),
-          },
-          dependencies: {
-            'ember-auto-import': '^2.2.4',
-            webpack: '^5.64.4',
-          },
-        },
-      },
-      {
-        name: 'ember-default-with-jquery',
-        env: {
-          EMBER_OPTIONAL_FEATURES: JSON.stringify({
-            'jquery-integration': true,
-          }),
-        },
-        npm: {
-          devDependencies: {
-            '@ember/jquery': '^1.1.0',
           },
         },
       },

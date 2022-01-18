@@ -9,7 +9,12 @@ import { deprecateImport } from './deprecate-imports';
 import { initDeprecatedReExports } from './deprecate-reexports';
 initDeprecatedReExports();
 
-import { Factory, Response, HasMany, BelongsTo } from 'miragejs';
+import {
+  Factory,
+  Response,
+  _ormAssociationsHasMany as HasMany,
+  _ormAssociationsBelongsTo as BelongsTo,
+} from 'miragejs';
 
 const DeprecatedFactory = function (...args) {
   deprecateImport('Factory');

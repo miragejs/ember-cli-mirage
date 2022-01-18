@@ -11,10 +11,10 @@ import {
 import { deprecateNestedImport } from '../deprecate-imports';
 
 /**
- @function getMessage
+ @function getStringMessage
  @hide
  */
-function getMessage(importName) {
+function getStringMessage(importName) {
   return (
     `Importing '${importName}' from 'ember-cli-mirage/utils/inflector' is deprecated. ` +
     `Install the \`@ember/string\` package and use ` +
@@ -23,11 +23,23 @@ function getMessage(importName) {
 }
 
 /**
+ @function getInflectorMessage
+ @hide
+ */
+function getInflectorMessage(importName) {
+  return (
+    `Importing '${importName}' from 'ember-cli-mirage/utils/inflector' is deprecated. ` +
+    `Install the \`ember-inflector\` package and use ` +
+    `\`import { ${importName} } from 'ember-inflector';\` instead.`
+  );
+}
+
+/**
  @function camelize
  @hide
  */
 export function camelize(...args) {
-  deprecateNestedImport(getMessage('camelize'));
+  deprecateNestedImport(getStringMessage('camelize'));
 
   return _utilsInflectorCamelize(...args);
 }
@@ -37,7 +49,7 @@ export function camelize(...args) {
  @hide
  */
 export function dasherize(...args) {
-  deprecateNestedImport(getMessage('dasherize'));
+  deprecateNestedImport(getStringMessage('dasherize'));
 
   return _utilsInflectorDasherize(...args);
 }
@@ -47,7 +59,7 @@ export function dasherize(...args) {
  @hide
  */
 export function underscore(...args) {
-  deprecateNestedImport(getMessage('underscore'));
+  deprecateNestedImport(getStringMessage('underscore'));
 
   return _utilsInflectorUnderscore(...args);
 }
@@ -57,7 +69,7 @@ export function underscore(...args) {
  @hide
  */
 export function capitalize(...args) {
-  deprecateNestedImport(getMessage('capitalize'));
+  deprecateNestedImport(getStringMessage('capitalize'));
 
   return _utilsInflectorCapitalize(...args);
 }
@@ -67,7 +79,7 @@ export function capitalize(...args) {
  @hide
  */
 export function singularize(...args) {
-  deprecateNestedImport(getMessage('singularize'));
+  deprecateNestedImport(getInflectorMessage('singularize'));
 
   return _singularize(...args);
 }
@@ -77,7 +89,7 @@ export function singularize(...args) {
  @hide
  */
 export function pluralize(...args) {
-  deprecateNestedImport(getMessage('pluralize'));
+  deprecateNestedImport(getInflectorMessage('pluralize'));
 
   return _pluralize(...args);
 }

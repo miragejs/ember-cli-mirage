@@ -8527,13 +8527,12 @@ ember-fetch@^8.1.1:
     whatwg-fetch "^3.6.2"
 
 ember-get-config@, "ember-get-config@0.2.4 - 0.5.0 || ^1.0.0":
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/ember-get-config/-/ember-get-config-1.0.0.tgz#0993a13e925cb283c73eef5871fb09144e878d59"
-  integrity sha512-QqgOO8899+Ys8eusVKUrSKLTSMzcA5XkmYbMvxxbqQqJsf/3vvDWl13rtq6Rte7gL4T6ViOkAqLOaDH4nTMBGQ==
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/ember-get-config/-/ember-get-config-1.0.1.tgz#317b0a7e86513e98eb1c9ba4c675565cbebbde0a"
+  integrity sha512-gq/FU1nW+5sjZDSfwz4QLrEe9uC2W0CG8IvJllotFFEQr9YbjZcaMnbItKdSWQxNItljZLStDxBSESChq00e0Q==
   dependencies:
     "@embroider/macros" "^0.50.0"
     ember-cli-babel "^7.26.6"
-    ember-cli-htmlbars "^5.7.1"
 
 ember-get-config@^0.5.0:
   version "0.5.0"

@@ -58,7 +58,7 @@ export default function startMirage(
       {
         id: 'ember-cli-mirage-config-routes-only-export',
         for: 'ember-cli-mirage',
-        since: '2.3.3',
+        since: '2.4.0',
         until: '3.0.0',
         url: 'https://www.ember-cli-mirage.com/docs/advanced/server-configuration',
       }
@@ -80,7 +80,7 @@ export default function startMirage(
     {
       id: 'ember-cli-mirage-config-discover-ember-data-models',
       for: 'ember-cli-mirage',
-      since: '2.3.3',
+      since: '2.4.0',
       until: '3.0.0',
       url: 'https://www.ember-cli-mirage.com/docs/advanced/server-configuration',
     }

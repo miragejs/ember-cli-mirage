@@ -1,22 +1,13 @@
 # Server configuration
 
-The MirageJS server is configured for you by ember-cli-mirage. However, if you
-need to customize the server you can by creating a makeServer function in the
-config.js.
+The MirageJS server used to be configured for you by ember-cli-mirage. This has been
+deprecated in favor of configuring the server similar to MirageJS.
 
-Typically, the `/mirage/config.js` file contains a single default export which
-is a function defining all your Mirage route handlers. Ember CLI Mirage then
-uses this function, along with all the other modules you've defined in
-`mirage/models`, `mirage/fixtures`, `mirage/factories`, and
-`mirage/serializers`, to create your Mirage JS server when your app boots up
-in development and testing.
+Typically, the `/mirage/config.js` file contains a default export (no 
+parameters) which
+is a function defining all your Mirage route handlers. 
 
-You can now opt in to having more control over exactly how your Mirage server
-is instantiated using the same code as the mirageJS examples of creating a server 
-by changing your current default export that represents the routes to a normal function,
-then creating a new default export function that creates the mirageJS server.
-
-This new default export function receives a single argument named `config`, 
+This new default export function receives a single argument usually named `config`, 
 which contains all the factory/fixture/serializer/model modules that exist 
 in your project's `/mirage` directory. This saves you from having to import 
 each module explicitly and then pass it into your Mirage server, just like 
@@ -47,9 +38,9 @@ independently of `ember-cli-mirage`.
 
 All the objects from `miragejs` are re-exported in `ember-cli-mirage` such as 
 `Model`, `belongsTo`, `hasMany` as well as `Fixtures`, `Traits` for example. 
-These should in the future also be imported directly from `miragejs` as 
-eventually these re-exports will be removed. This will help align the 
-`ember-cli-mirage` users with the rest of the Mirage JS community.
+These have also been deprecated and you should import directly from `miragejs`.
+This will help align the `ember-cli-mirage` users with the rest of the 
+Mirage JS community.
 
 ```javascript
 // Example with inline routes

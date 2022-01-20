@@ -1771,7 +1771,7 @@
     resolve "^1.20.0"
     semver "^7.3.2"
 
-"@embroider/macros@>= 0.48.1 < 2.0.0-alpha.1", "@embroider/macros@^0.50.0", "@embroider/macros@^0.50.1":
+"@embroider/macros@>= 0.48.1 < 2.0.0-alpha.1", "@embroider/macros@^0.50.0":
   version "0.50.2"
   resolved "https://registry.yarnpkg.com/@embroider/macros/-/macros-0.50.2.tgz#9ec7d0bb1fa846410fc6c209a69b782640942b11"
   integrity sha512-nPRE8fanqbIik4+WBm/roW3sxNkMp6WnuZT/IM8wdmgkYU55uH+eyJXT7XW0UGy9IQv6YJ2QTRz46cq9N0/4qg==
@@ -1792,6 +1792,20 @@
   dependencies:
     "@embroider/shared-internals" "0.47.2"
     assert-never "^1.2.1"
+    ember-cli-babel "^7.26.6"
+    find-up "^5.0.0"
+    lodash "^4.17.21"
+    resolve "^1.20.0"
+    semver "^7.3.2"
+
+"@embroider/macros@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@embroider/macros/-/macros-1.0.0.tgz#2dfab550ba4e03cbf6e3524759949749ced98cc2"
+  integrity sha512-RutDJ27j1eFQulyv83yJm27oSypsMd/UZyy62Q0NU00TIsIgQPCXaDiGIONWcJuAAVbtBRP3X4LMvaBAeq5g+A==
+  dependencies:
+    "@embroider/shared-internals" "1.0.0"
+    assert-never "^1.2.1"
+    babel-import-util "^1.1.0"
     ember-cli-babel "^7.26.6"
     find-up "^5.0.0"
     lodash "^4.17.21"
@@ -1836,10 +1850,23 @@
     semver "^7.3.5"
     typescript-memoize "^1.0.1"
 
-"@embroider/test-setup@^0.50.1":
-  version "0.50.2"
-  resolved "https://registry.yarnpkg.com/@embroider/test-setup/-/test-setup-0.50.2.tgz#b9237db0de414649bf465616e073783967066672"
-  integrity sha512-j3H1ORmHu9xUgdRhPR0ERMc7dJb7uRcNT+c5+nxZfX9825YR0uNC8u+gjLcu9KLnrFt3wP08TrTFJmny0MB+BQ==
+"@embroider/shared-internals@1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@embroider/shared-internals/-/shared-internals-1.0.0.tgz#b081708ac79e4582f17ba0f3e3796e6612a8976c"
+  integrity sha512-Vx3dmejJxI5MG/qC7or3EUZY0AZBSBNOAR50PYotX3LxUSb4lAm5wISPnFbwEY4bbo2VhL/6XtWjMv8ZMcaP+g==
+  dependencies:
+    babel-import-util "^1.1.0"
+    ember-rfc176-data "^0.3.17"
+    fs-extra "^9.1.0"
+    lodash "^4.17.21"
+    resolve-package-path "^4.0.1"
+    semver "^7.3.5"
+    typescript-memoize "^1.0.1"
+
+"@embroider/test-setup@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@embroider/test-setup/-/test-setup-1.0.0.tgz#f0841345326bcb55eee8437be37f3a8207146b37"
+  integrity sha512-jnrzNyL0mUZ+DTY59s4Yr/V+NgECpwKxuxdKJOr0hNCxC6Kpo5Dagjz22tEyiMOkZhuDdZ4qAqmTUpeu8taLnQ==
   dependencies:
     lodash "^4.17.21"
     resolve "^1.20.0"
@@ -7017,7 +7044,7 @@ ember-auto-import@^1.10.1, ember-auto-import@^1.11.3, ember-auto-import@^1.2.19:
     walk-sync "^0.3.3"
     webpack "^4.43.0"
 
-ember-auto-import@^2.2.0, ember-auto-import@^2.2.4:
+ember-auto-import@^2.2.0, ember-auto-import@^2.2.4, ember-auto-import@^2.3.0:
   version "2.3.0"
   resolved "https://registry.yarnpkg.com/ember-auto-import/-/ember-auto-import-2.3.0.tgz#ffb05e11322ea041d73cddee7c7d804ffe130913"
   integrity sha512-38fOQ8ix3IQfFZHg99xQh/rJ1JwOhl2egauYXpCmFKdNm45rkRap3HDhkA4JtO532R7KEkaloU9Bj0oEUv520w==
@@ -7904,7 +7931,6 @@ ember-load-initializers@^2.1.2:
 
 ember-modal-dialog@yapplabs/ember-modal-dialog#76b74f1c4b791fed5b084836c3b1c8c54836ac71:
   version "4.0.0-alpha.1"
-  uid "76b74f1c4b791fed5b084836c3b1c8c54836ac71"
   resolved "https://codeload.github.com/yapplabs/ember-modal-dialog/tar.gz/76b74f1c4b791fed5b084836c3b1c8c54836ac71"
   dependencies:
     "@embroider/macros" "^0.43.5"

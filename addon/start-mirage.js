@@ -51,6 +51,18 @@ export default function startMirage(
   // Are they using the routes as the default export
   if (baseConfig && baseConfig.length === 0) {
     routes = baseConfig;
+
+    deprecate(
+      'The routes only function has been deprecated. Please use the make server version your default export in the config.',
+      false,
+      {
+        id: 'ember-cli-mirage-config-routes-only-export',
+        for: 'ember-cli-mirage',
+        since: '2.4.0',
+        until: '3.0.0',
+        url: 'https://www.ember-cli-mirage.com/docs/advanced/server-configuration',
+      }
+    );
   }
 
   // Is the default exported function the makeServer function
@@ -62,6 +74,17 @@ export default function startMirage(
   let mirageEnvironment = env['ember-cli-mirage'] || {};
 
   let discoverEmberDataModels = mirageEnvironment.discoverEmberDataModels;
+  deprecate(
+    'The discoverEmberDataModels environment variable has been deprecated. See the server configuration section on how to discover models',
+    discoverEmberDataModels === undefined,
+    {
+      id: 'ember-cli-mirage-config-discover-ember-data-models',
+      for: 'ember-cli-mirage',
+      since: '2.4.0',
+      until: '3.0.0',
+      url: 'https://www.ember-cli-mirage.com/docs/advanced/server-configuration',
+    }
+  );
   if (discoverEmberDataModels === undefined) {
     discoverEmberDataModels = true;
   }

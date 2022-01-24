@@ -1771,7 +1771,7 @@
     resolve "^1.20.0"
     semver "^7.3.2"
 
-"@embroider/macros@>= 0.48.1 < 2.0.0-alpha.1", "@embroider/macros@^1.0.0":
+"@embroider/macros@>= 0.48.1 < 2.0.0-alpha.1", "@embroider/macros@^0.50.0 || ^1.0.0", "@embroider/macros@^1.0.0":
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/@embroider/macros/-/macros-1.0.0.tgz#2dfab550ba4e03cbf6e3524759949749ced98cc2"
   integrity sha512-RutDJ27j1eFQulyv83yJm27oSypsMd/UZyy62Q0NU00TIsIgQPCXaDiGIONWcJuAAVbtBRP3X4LMvaBAeq5g+A==
@@ -1798,20 +1798,6 @@
     resolve "^1.20.0"
     semver "^7.3.2"
 
-"@embroider/macros@^0.50.0":
-  version "0.50.2"
-  resolved "https://registry.yarnpkg.com/@embroider/macros/-/macros-0.50.2.tgz#9ec7d0bb1fa846410fc6c209a69b782640942b11"
-  integrity sha512-nPRE8fanqbIik4+WBm/roW3sxNkMp6WnuZT/IM8wdmgkYU55uH+eyJXT7XW0UGy9IQv6YJ2QTRz46cq9N0/4qg==
-  dependencies:
-    "@embroider/shared-internals" "0.50.2"
-    assert-never "^1.2.1"
-    babel-import-util "^1.1.0"
-    ember-cli-babel "^7.26.6"
-    find-up "^5.0.0"
-    lodash "^4.17.21"
-    resolve "^1.20.0"
-    semver "^7.3.2"
-
 "@embroider/shared-internals@0.43.5":
   version "0.43.5"
   resolved "https://registry.yarnpkg.com/@embroider/shared-internals/-/shared-internals-0.43.5.tgz#4269208095452c23bfa4f08554fd8f7ed7b83a83"
@@ -1830,19 +1816,6 @@
   integrity sha512-SxdZYjAE0fiM5zGDz+12euWIsQZ1tsfR1k+NKmiWMyLhA5T3pNgbR2/Djvx/cVIxOtEavGGSllYbzRKBtV4xMg==
   dependencies:
     babel-import-util "^0.2.0"
-    ember-rfc176-data "^0.3.17"
-    fs-extra "^9.1.0"
-    lodash "^4.17.21"
-    resolve-package-path "^4.0.1"
-    semver "^7.3.5"
-    typescript-memoize "^1.0.1"
-
-"@embroider/shared-internals@0.50.2":
-  version "0.50.2"
-  resolved "https://registry.yarnpkg.com/@embroider/shared-internals/-/shared-internals-0.50.2.tgz#567c5451db31a1f3edc2f64376ce5a0dcaaabacb"
-  integrity sha512-l3SKn1YdxTFBjY3ylYTLHxFY0dG2XxIsjbtZt7Mm6QyZFssWBDg3oWYwBoUpkw/ysjNJf8IcI7reXhB23WXwDw==
-  dependencies:
-    babel-import-util "^1.1.0"
     ember-rfc176-data "^0.3.17"
     fs-extra "^9.1.0"
     lodash "^4.17.21"
@@ -7913,11 +7886,11 @@ ember-fetch@^8.1.1:
     whatwg-fetch "^3.6.2"
 
 ember-get-config@, "ember-get-config@0.2.4 - 0.5.0 || ^1.0.0":
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/ember-get-config/-/ember-get-config-1.0.1.tgz#317b0a7e86513e98eb1c9ba4c675565cbebbde0a"
-  integrity sha512-gq/FU1nW+5sjZDSfwz4QLrEe9uC2W0CG8IvJllotFFEQr9YbjZcaMnbItKdSWQxNItljZLStDxBSESChq00e0Q==
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/ember-get-config/-/ember-get-config-1.0.2.tgz#f8349a132763008bad37d46d53c8250a0e18d464"
+  integrity sha512-G8sPknLvHEk0o8yrfs0+1WSeIPy1zOLxMJSm+ESYXy8MTnvxOFX127JSA7CcYmBq21GrDEIe0TL1Y+4cN9tEng==
   dependencies:
-    "@embroider/macros" "^0.50.0"
+    "@embroider/macros" "^0.50.0 || ^1.0.0"
     ember-cli-babel "^7.26.6"
 
 ember-get-config@^0.5.0:

@@ -1,21 +1,21 @@
 import { module, test } from 'qunit';
-import Server from 'ember-cli-mirage/server';
+import { createServer } from 'miragejs';
 import { Model } from 'miragejs';
 import { modelFor } from 'ember-cli-mirage/ember-data';
+import { discoverEmberDataModels } from 'ember-cli-mirage';
 
 const CustomTag = Model.extend();
 CustomTag.__isCustom__ = true;
 
 module('Acceptance | Ember Data', function (hooks) {
   hooks.beforeEach(function () {
-    this.server = new Server({
-      environment: 'development',
-      discoverEmberDataModels: true,
+    this.server = createServer({
       scenarios: {
         default() {},
       },
       models: {
-        // Friend exists in dummy/app/models. We want to make sure pre-defined
+        ...discoverEmberDataModels(),
+        // Tag exists in dummy/app/models. We want to make sure pre-defined
         // models take precedence
         tag: CustomTag,
         foo: Model.extend(),

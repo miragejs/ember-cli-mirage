@@ -1,4 +1,22 @@
-export default function() {
+import {
+  discoverEmberDataModels,
+  // applyEmberDataSerializers,
+} from 'ember-cli-mirage';
+
+export default function (config) {
+  let finalConfig = {
+    ...config,
+    // Remove discoverEmberDataModels if you do not want ember-cli-mirage to auto discover the ember models
+    models: { ...discoverEmberDataModels(), ...config.models },
+    // uncomment to opt into ember-cli-mirage to auto discover ember serializers
+    // serializers: applyEmberDataSerializers(config.serializers),
+    routes,
+  };
+
+  return createServer(finalConfig);
+}
+
+function routes() {
 
   // These comments are here to help you get started. Feel free to delete them.
 
@@ -21,6 +39,6 @@ export default function() {
     this.put('/posts/:id'); // or this.patch
     this.del('/posts/:id');
 
-    https://www.ember-cli-mirage.com/docs/route-handlers/shorthands
+    https://miragejs.com/docs/getting-started/overview/
   */
 }

@@ -2,7 +2,7 @@
 import { module, test } from 'qunit';
 import { setupTest } from 'ember-qunit';
 import { Model, hasMany, belongsTo } from 'miragejs';
-import Server from 'ember-cli-mirage/server';
+import { createServer } from 'miragejs';
 import { EmberDataSerializer } from 'ember-cli-mirage';
 
 module('Unit | Serializer | ember data serializer', function (hooks) {
@@ -12,7 +12,7 @@ module('Unit | Serializer | ember data serializer', function (hooks) {
   let address, wordSmith;
 
   hooks.beforeEach(function () {
-    server = new Server({
+    server = createServer({
       environment: 'test',
       models: {
         address: Model.extend({

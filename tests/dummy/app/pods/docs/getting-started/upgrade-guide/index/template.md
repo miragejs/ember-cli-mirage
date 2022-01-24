@@ -14,6 +14,48 @@ yarn add -D ember-cli-mirage@X.X.X
 
 You can view all of Mirage's release notes on [our Releases page](https://github.com/miragejs/ember-cli-mirage/releases).
 
+## 3.0 Upgrade guide
+
+Ensure that all the imports are updated for the objects that were moved to MirageJS. 
+This is generally the imports in the files in the mirage directory.
+
+```js
+// from
+import { Model } from 'ember-cli-mirage';
+//to
+import { Model } from 'miragejs';
+```
+
+Previous the file `mirage/config.js` was a exported default function that defined only your routes.
+Since MirageJS has been extracted into its own repo, we want to follow the way a server is made in MirageJS.
+
+Change the routes function to no longer be exported as the default function and give it a name, we
+suggest `routes`. Add the below boilerplate code to the top of the `mirage/config.js`. The end
+result would look like this.
+
+```js
+import {
+  discoverEmberDataModels,
+} from 'ember-cli-mirage';
+
+export default function (config) {
+  let finalConfig = {
+    ...config,
+    models: { ...discoverEmberDataModels(), ...config.models },
+    routes,
+  };
+
+  return createServer(finalConfig);
+}
+
+// This would be your old default export function renamed
+function routes() {
+}
+```
+
+The environment variable discoverEmberDataModels is now longer used. If you wish to 
+not have `ember-cli-mirage` auto discover the models, just remove the `...discoverEmberDataModels(),`
+
 ## 2.0 Upgrade guide
 
 There were a few breaking changes made in the 1.0 release.

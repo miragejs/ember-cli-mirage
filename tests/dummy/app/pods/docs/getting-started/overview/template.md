@@ -1,12 +1,17 @@
 # Overview
 
+The file mirage/config.js contains the boilerplate code to create a mirage server.
+
+You can customize the server that is created here by following the mirage documentation
+https://miragejs.com/docs/getting-started/overview/
+
 Mirage lets you simulate API responses by writing **route handlers**.
 
 The simplest example of a route handler is a function that returns an object:
 
 ```js
 // mirage/config.js
-export default function() {
+function routes() {
   this.namespace = 'api';
 
   this.get('/movies', () => {
@@ -329,7 +334,7 @@ export default Serializer.extend({
 });
 
 // mirage/config.js
-export default function() {
+function routes() {
   this.get('/movies/:id', (schema, request) => {
     return schema.movies.find(request.params.id);
   });

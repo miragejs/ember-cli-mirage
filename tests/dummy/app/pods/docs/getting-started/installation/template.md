@@ -10,6 +10,14 @@ Ember should install the addon and add a `/mirage` directory to the root of your
 
 Check out the {{docs-link 'upgrade guide' 'docs.getting-started.upgrade-guide'}} if you're coming from a previous version of Mirage.
 
+## Note for Embroider users
+
+Embroider does not recognizes changes to Ember CLI Mirage configuration in `mirage/` folder by default. To support livereload for the Ember CLI Mirage configuration, the addon must be listed explicitly in `EMBROIDER_REBUILD_ADDONS` environment variable. If you are working on Mirage configuration, you should start the Ember development server like the following:
+
+```sh
+EMBROIDER_REBUILD_ADDONS=ember-cli-mirage ember s
+```
+
 ## Note for Prettier users
 
 There's an Ember CLI bug that exposes itself when using Prettier + Mirage. A longer-term fix is in the works, but for now, if you're using Prettier and install Mirage, you can either

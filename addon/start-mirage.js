@@ -18,12 +18,12 @@ export default function startMirage(
       throw new Error('You must pass `owner` to startMirage()');
     }
 
-    env = env || resolveRegistration(owner, 'config:environment');
+    env = env || owner.resolveRegistration('config:environment');
 
-    baseConfig = baseConfig || resolveRegistration(owner, 'mirage:base-config');
+    baseConfig = baseConfig || owner.resolveRegistration('mirage:base-config');
     // These are set from `<app>/initializers/ember-cli-mirage`
-    testConfig = testConfig || resolveRegistration(owner, 'mirage:test-config');
-    makeServer = makeServer || resolveRegistration(owner, 'mirage:make-server');
+    testConfig = testConfig || owner.resolveRegistration('mirage:test-config');
+    makeServer = makeServer || owner.resolveRegistration('mirage:make-server');
   }
 
   // baseConfig would be a routes function
@@ -60,15 +60,4 @@ export default function startMirage(
   }
 
   return server;
-}
-
-// Support Ember 1.13
-function resolveRegistration(owner, ...args) {
-  if (owner.resolveRegistration) {
-    return owner.resolveRegistration(...args);
-  } else if (owner.__container__) {
-    return owner.__container__.lookupFactory(...args);
-  } else {
-    return owner.container.lookupFactory(...args);
-  }
 }

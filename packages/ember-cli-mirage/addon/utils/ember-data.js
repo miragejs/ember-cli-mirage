@@ -3,7 +3,9 @@ import { dependencySatisfies } from '@embroider/macros';
 /**
   @hide
 */
-export const hasEmberData = dependencySatisfies('ember-data', '*');
+export const hasEmberData =
+  dependencySatisfies('@ember-data/model', '*') ||
+  dependencySatisfies('ember-data', '*');
 
 /**
   @hide

@@ -54,5 +54,12 @@ module.exports = {
       files: ['tests/**/*-test.{js,ts}'],
       extends: ['plugin:qunit/recommended'],
     },
+    {
+      // types tests
+      files: ['types-tests/**/*.ts'],
+      rules: {
+        'ember/no-test-support-import': 'off',
+      },
+    },
   ],
 };

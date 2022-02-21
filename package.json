@@ -36,6 +36,7 @@
     "test:ember": "ember test",
     "test:ember-compatibility": "ember try:each",
     "test:test-projects": "./scripts/test.sh",
+    "test:types": "tsc --project types-tests",
     "prepare": "./scripts/link.sh"
   },
   "dependencies": {
@@ -74,6 +75,7 @@
     "@embroider/test-setup": "^1.0.0",
     "@glimmer/component": "^1.0.4",
     "@glimmer/tracking": "^1.0.4",
+    "@types/qunit": "^2.11.3",
     "babel-eslint": "^10.1.0",
     "broccoli-asset-rev": "^3.0.0",
     "ember-cli": "~4.1.0",
@@ -119,6 +121,7 @@
     "prettier": "^2.5.1",
     "qunit": "^2.17.2",
     "qunit-dom": "^2.0.0",
+    "typescript": "^4.5.5",
     "webpack": "^5.66.0"
   },
   "resolutions": {

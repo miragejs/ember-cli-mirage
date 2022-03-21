@@ -33,6 +33,18 @@ export default function startMirage(
     makeServer = makeServer || resolveRegistration(owner, 'mirage:make-server');
   }
 
+  deprecate(
+    'The testConfig option passed to startMirage has been deprecated. This was never documented and will no longer be supported. Please open an issue',
+    testConfig === undefined,
+    {
+      id: 'ember-cli-mirage-test-config',
+      for: 'ember-cli-mirage',
+      since: '2.4.0',
+      until: '3.0.0',
+      url: 'https://www.ember-cli-mirage.com/docs/advanced/server-configuration',
+    }
+  );
+
   // Deprecate exporting makeServer as NOT the default function
   deprecate(
     'Do not export the makeServer function. Please make the makeServer function the default exported function',
@@ -96,6 +108,18 @@ export default function startMirage(
     testConfig,
     discoverEmberDataModels,
   });
+
+  deprecate(
+    'The trackRequests environment variable has been deprecated. The trackRequests value should on the finalConfig sent to createServer of MirageJS',
+    mirageEnvironment.trackRequests === undefined,
+    {
+      id: 'ember-cli-mirage-config-track-requests',
+      for: 'ember-cli-mirage',
+      since: '2.4.0',
+      until: '3.0.0',
+      url: 'https://www.ember-cli-mirage.com/docs/advanced/server-configuration',
+    }
+  );
   options.trackRequests = mirageEnvironment.trackRequests;
   options.inflector = { singularize, pluralize };
 

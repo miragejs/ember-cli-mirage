@@ -10,7 +10,7 @@ import { settled } from '@ember/test-helpers';
   NOTE: the `hooks = self` is for mocha support
   @hide
 */
-export default function setupMirage(hooks = self) {
+export default function setupMirage(hooks = self, options) {
   hooks.beforeEach(function () {
     if (!this.owner) {
       throw new Error(
@@ -20,7 +20,7 @@ export default function setupMirage(hooks = self) {
       );
     }
 
-    this.server = startMirage(this.owner);
+    this.server = startMirage(this.owner, options);
   });
 
   hooks.afterEach(function () {

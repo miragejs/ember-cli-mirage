@@ -35,7 +35,6 @@ export default function startMirage(
   let options = Object.assign(modules, {
     environment,
     baseConfig,
-    testConfig,
   });
   options.trackRequests = mirageEnvironment.trackRequests;
   options.inflector = { singularize, pluralize };

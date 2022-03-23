@@ -11,7 +11,7 @@ import { assert } from '@ember/debug';
 */
 export default function startMirage(
   owner,
-  { env, makeServer, baseConfig } = {}
+  { env, makeServer } = {}
 ) {
   if (!env || !makeServer) {
     if (!owner) {
@@ -20,12 +20,9 @@ export default function startMirage(
 
     env = env || owner.resolveRegistration('config:environment');
 
-    baseConfig = baseConfig || owner.resolveRegistration('mirage:base-config');
     // These are set from `<app>/initializers/ember-cli-mirage`
     makeServer = makeServer || owner.resolveRegistration('mirage:make-server');
   }
-
-  // baseConfig would be a routes function
 
   let environment = env.environment;
   let mirageEnvironment = env['ember-cli-mirage'] || {};
@@ -34,7 +31,6 @@ export default function startMirage(
 
   let options = Object.assign(modules, {
     environment,
-    baseConfig,
   });
   options.trackRequests = mirageEnvironment.trackRequests;
   options.inflector = { singularize, pluralize };

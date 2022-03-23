@@ -2,7 +2,7 @@ import ENV from '../config/environment';
 import getRfc232TestContext from 'ember-cli-mirage/get-rfc232-test-context';
 import startMirageImpl from 'ember-cli-mirage/start-mirage';
 import * as config from '../mirage/config';
-const { default: makeServer, testConfig } = config;
+const { default: makeServer } = config;
 
 //
 // This initializer does two things:
@@ -16,11 +16,6 @@ const { default: makeServer, testConfig } = config;
 export default {
   name: 'ember-cli-mirage',
   initialize(application) {
-    if (testConfig) {
-      application.register('mirage:test-config', testConfig, {
-        instantiate: false,
-      });
-    }
     if (makeServer) {
       application.register('mirage:make-server', makeServer, {
         instantiate: false,
@@ -35,7 +30,7 @@ export default {
 };
 
 export function startMirage(env = ENV) {
-  return startMirageImpl(null, { env, makeServer, testConfig });
+  return startMirageImpl(null, { env, makeServer });
 }
 
 function _shouldUseMirage(env, addonConfig) {

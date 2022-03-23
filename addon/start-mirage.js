@@ -11,7 +11,7 @@ import { assert } from '@ember/debug';
 */
 export default function startMirage(
   owner,
-  { env, makeServer, baseConfig, testConfig } = {}
+  { env, makeServer, baseConfig } = {}
 ) {
   if (!env || !makeServer) {
     if (!owner) {
@@ -22,7 +22,6 @@ export default function startMirage(
 
     baseConfig = baseConfig || owner.resolveRegistration('mirage:base-config');
     // These are set from `<app>/initializers/ember-cli-mirage`
-    testConfig = testConfig || owner.resolveRegistration('mirage:test-config');
     makeServer = makeServer || owner.resolveRegistration('mirage:make-server');
   }
 

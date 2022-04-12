@@ -217,9 +217,9 @@
     "tag": "v2.4.0"
   },
   "v3.0.0-alpha.3": {
-    "path": "versions/v3.0.0-alpha.3",
+    "path": "versions/htmlSafe-import",
     "name": "v3.0.0-alpha.3",
-    "sha": "350e126069fc20d11b126f7064b56e417415c212",
-    "tag": "v3.0.0-alpha.3"
+    "sha": "453b3e59fb692b25ef6ccd3e07b96e4134893b33",
+    "tag": null
   }
 }

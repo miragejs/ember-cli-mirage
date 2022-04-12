@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>EmberCLI Mirage</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    
+<meta name="dummy/config/environment" content="%7B%22modulePrefix%22%3A%22dummy%22%2C%22podModulePrefix%22%3A%22dummy%2Fpods%22%2C%22environment%22%3A%22production%22%2C%22rootURL%22%3A%22%2Fversions%2FhtmlSafe-import%2F%22%2C%22locationType%22%3A%22auto%22%2C%22EmberENV%22%3A%7B%22FEATURES%22%3A%7B%7D%2C%22EXTEND_PROTOTYPES%22%3A%7B%22Date%22%3Afalse%7D%2C%22_APPLICATION_TEMPLATE_WRAPPER%22%3Afalse%2C%22_DEFAULT_ASYNC_OBSERVERS%22%3Atrue%2C%22_JQUERY_INTEGRATION%22%3Afalse%2C%22_TEMPLATE_ONLY_GLIMMER_COMPONENTS%22%3Atrue%7D%2C%22APP%22%3A%7B%7D%2C%22ember-cli-addon-docs%22%3A%7B%22showImportPaths%22%3Afalse%2C%22projectName%22%3A%22ember-cli-mirage%22%2C%22projectDescription%22%3A%22A%20client-side%20server%20to%20help%20you%20build%2C%20test%20and%20demo%20your%20Ember%20app%22%2C%22projectTag%22%3A%223.0.0-alpha.3%22%2C%22projectHref%22%3A%22https%3A%2F%2Fgithub.com%2Fmiragejs%2Fember-cli-mirage%22%2C%22docsAppPathInRepo%22%3A%22tests%2Fdummy%2Fapp%22%2C%22addonPathInRepo%22%3A%22addon%22%2C%22primaryBranch%22%3A%22master%22%2C%22latestVersionName%22%3A%22-latest%22%2C%22deployVersion%22%3A%7B%22path%22%3A%22versions%2FhtmlSafe-import%22%2C%22name%22%3A%22v3.0.0-alpha.3%22%2C%22sha%22%3A%22453b3e59fb692b25ef6ccd3e07b96e4134893b33%22%2C%22tag%22%3Anull%2C%22key%22%3A%22v3.0.0-alpha.3%22%7D%2C%22searchTokenSeparator%22%3A%22%5C%5Cs%2B%22%7D%2C%22ember-modal-dialog%22%3A%7B%22hasEmberTether%22%3A%222.0.1%22%7D%2C%22ember-cli-mirage%22%3A%7B%22usingProxy%22%3Afalse%2C%22useDefaultPassthroughs%22%3Atrue%7D%2C%22exportApplicationGlobal%22%3Afalse%7D" />
+
+    <link integrity="" rel="stylesheet" href="/versions/htmlSafe-import/assets/vendor-edcd4d15b43678eee7ac2de14f15d77f.css">
+    <link integrity="" rel="stylesheet" href="/versions/htmlSafe-import/assets/dummy-b15d8e13e0199bbd6ebf4476cad30fa7.css">
+
+    <link href="https://fonts.googleapis.com/css?family=Crimson+Text:400,600" rel="stylesheet">
+  <link rel="shortcut icon" href="/versions/htmlSafe-import/favicon.ico">
+    <link rel="icon" type="image/png" sizes="16x16" href="/versions/htmlSafe-import/favicon-16x16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/versions/htmlSafe-import/favicon-32x32.png">
+    <link rel="manifest" href="/versions/htmlSafe-import/manifest.json">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="theme-color" content="#fff">
+    <meta name="application-name" content="ember-cli-mirage">
+    <link rel="apple-touch-icon" sizes="57x57" href="/versions/htmlSafe-import/apple-touch-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/versions/htmlSafe-import/apple-touch-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/versions/htmlSafe-import/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/versions/htmlSafe-import/apple-touch-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/versions/htmlSafe-import/apple-touch-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/versions/htmlSafe-import/apple-touch-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/versions/htmlSafe-import/apple-touch-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/versions/htmlSafe-import/apple-touch-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="167x167" href="/versions/htmlSafe-import/apple-touch-icon-167x167.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/versions/htmlSafe-import/apple-touch-icon-180x180.png">
+    <link rel="apple-touch-icon" sizes="1024x1024" href="/versions/htmlSafe-import/apple-touch-icon-1024x1024.png">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="ember-cli-mirage">
+    <link rel="apple-touch-startup-image" media="(device-width: 320px) and (device-height: 480px) and (-webkit-device-pixel-ratio: 1)" href="/versions/htmlSafe-import/apple-touch-startup-image-320x460.png">
+    <link rel="apple-touch-startup-image" media="(device-width: 320px) and (device-height: 480px) and (-webkit-device-pixel-ratio: 2)" href="/versions/htmlSafe-import/apple-touch-startup-image-640x920.png">
+    <link rel="apple-touch-startup-image" media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)" href="/versions/htmlSafe-import/apple-touch-startup-image-640x1096.png">
+    <link rel="apple-touch-startup-image" media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2)" href="/versions/htmlSafe-import/apple-touch-startup-image-750x1294.png">
+    <link rel="apple-touch-startup-image" media="(device-width: 414px) and (device-height: 736px) and (orientation: landscape) and (-webkit-device-pixel-ratio: 3)" href="/versions/htmlSafe-import/apple-touch-startup-image-1182x2208.png">
+    <link rel="apple-touch-startup-image" media="(device-width: 414px) and (device-height: 736px) and (orientation: portrait) and (-webkit-device-pixel-ratio: 3)" href="/versions/htmlSafe-import/apple-touch-startup-image-1242x2148.png">
+    <link rel="apple-touch-startup-image" media="(device-width: 768px) and (device-height: 1024px) and (orientation: landscape) and (-webkit-device-pixel-ratio: 1)" href="/versions/htmlSafe-import/apple-touch-startup-image-748x1024.png">
+    <link rel="apple-touch-startup-image" media="(device-width: 768px) and (device-height: 1024px) and (orientation: portrait) and (-webkit-device-pixel-ratio: 1)" href="/versions/htmlSafe-import/apple-touch-startup-image-768x1004.png">
+    <link rel="apple-touch-startup-image" media="(device-width: 768px) and (device-height: 1024px) and (orientation: landscape) and (-webkit-device-pixel-ratio: 2)" href="/versions/htmlSafe-import/apple-touch-startup-image-1496x2048.png">
+    <link rel="apple-touch-startup-image" media="(device-width: 768px) and (device-height: 1024px) and (orientation: portrait) and (-webkit-device-pixel-ratio: 2)" href="/versions/htmlSafe-import/apple-touch-startup-image-1536x2008.png">
+    <link rel="icon" type="image/png" sizes="228x228" href="/versions/htmlSafe-import/coast-228x228.png">
+    <meta name="msapplication-TileColor" content="#fff">
+    <meta name="msapplication-TileImage" content="/versions/htmlSafe-import/mstile-144x144.png">
+    <meta name="msapplication-config" content="/versions/htmlSafe-import/browserconfig.xml">
+    <link rel="yandex-tableau-widget" href="/versions/htmlSafe-import/yandex-browser-manifest.json">
+
+  </head>
+  <body class='docs-font-sans docs-text-black docs-leading-normal'>
+    <!-- Start Single Page Apps for GitHub Pages -->
+<script type="text/javascript">
+  // Single Page Apps for GitHub Pages
+  // https://github.com/rafrex/spa-github-pages
+  // Copyright (c) 2016 Rafael Pedicini, licensed under the MIT License
+  // ----------------------------------------------------------------------
+  // This script checks to see if a redirect is present in the query string
+  // and converts it back into the correct url and adds it to the
+  // browser's history using window.history.replaceState(...),
+  // which won't cause the browser to attempt to load the new url.
+  // When the single page app is loaded further down in this file,
+  // the correct url will be waiting in the browser's history for
+  // the single page app to route accordingly.
+  (function(l) {
+    if (l.search) {
+      var q = {};
+      l.search.slice(1).split('&').forEach(function(v) {
+        var a = v.split('=');
+        q[a[0]] = a.slice(1).join('=').replace(/~and~/g, '&');
+      });
+      if (q.p !== undefined) {
+        window.history.replaceState(null, null,
+          l.pathname.slice(0, -1) + (q.p || '') +
+          (q.q ? ('?' + q.q) : '') +
+          l.hash
+        );
+      }
+    }
+  }(window.location))
+</script>
+<!-- End Single Page Apps for GitHub Pages -->
+
+
+    <script src="/versions/htmlSafe-import/assets/vendor-6eae06ad0cd0204032292229f9be6ce1.js"></script>
+<script src="/versions/htmlSafe-import/assets/chunk.480.9d07a1f0dfa08b11ce4b.js"></script>
+<script src="/versions/htmlSafe-import/assets/chunk.143.1a11a34975cf72a23230.js"></script>
+    <script src="/versions/htmlSafe-import/assets/dummy-008fa46f98191421dec1828de7e077ce.js"></script>
+
+    
+  </body>
+</html>

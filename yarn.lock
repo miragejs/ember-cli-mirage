@@ -3791,12 +3791,7 @@ babel-helpers@^6.24.1:
     babel-runtime "^6.22.0"
     babel-template "^6.24.1"
 
-babel-import-util@^0.2.0:
-  version "0.2.0"
-  resolved "https://registry.yarnpkg.com/babel-import-util/-/babel-import-util-0.2.0.tgz#b468bb679919601a3570f9e317536c54f2862e23"
-  integrity sha512-CtWYYHU/MgK88rxMrLfkD356dApswtR/kWZ/c6JifG1m10e7tBBrs/366dFzWMAoqYmG5/JSh+94tUSpIwh+ag==
-
-babel-import-util@^1.1.0:
+babel-import-util@1.1.0, babel-import-util@^0.2.0, babel-import-util@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/babel-import-util/-/babel-import-util-1.1.0.tgz#4156b16ef090c4f0d3cdb869ff799202f24aeb93"
   integrity sha512-sfzgAiJsUT1es9yrHAuJZuJfBkkOE7Og6rovAIwK/gNJX6MjDfWTprbPngdJZTd5ye4F3FvpvpQmvKXObRzVYA==
@@ -7008,7 +7003,7 @@ ember-cli-addon-docs@^4.2.1:
     ember-fetch "^8.1.1"
     ember-get-config "^1.0.0"
     ember-keyboard "^7.0.0-beta.0"
-    ember-modal-dialog "github:yapplabs/ember-modal-dialog#31ffee4c657ebe96b1f80adbc39c0339b52236e2"
+    ember-modal-dialog yapplabs/ember-modal-dialog#31ffee4c657ebe96b1f80adbc39c0339b52236e2
     ember-responsive "^4.0.2"
     ember-router-generator "^2.0.0"
     ember-router-scroll "^4.1.2"
@@ -7764,7 +7759,6 @@ ember-load-initializers@^2.1.2:
 
 "ember-modal-dialog@github:yapplabs/ember-modal-dialog#31ffee4c657ebe96b1f80adbc39c0339b52236e2":
   version "4.0.0-alpha.1"
-  uid "31ffee4c657ebe96b1f80adbc39c0339b52236e2"
   resolved "https://codeload.github.com/yapplabs/ember-modal-dialog/tar.gz/31ffee4c657ebe96b1f80adbc39c0339b52236e2"
   dependencies:
     "@embroider/macros" "^0.49.0"

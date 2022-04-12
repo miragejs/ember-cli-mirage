@@ -1,7 +1,7 @@
 import Model, { attr, hasMany } from '@ember-data/model';
 import yaml from 'js-yaml';
 import compileMarkdown from 'ember-cli-addon-docs/utils/compile-markdown';
-import { htmlSafe } from '@ember/string';
+import { htmlSafe } from '@ember/template';
 
 export default class Post extends Model {
   @hasMany() comments;

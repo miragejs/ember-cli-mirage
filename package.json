@@ -72,7 +72,7 @@
     "@ember/jquery": "^2.0.0",
     "@ember/optional-features": "^2.0.0",
     "@ember/test-helpers": "^2.6.0",
-    "@embroider/test-setup": "^1.0.0",
+    "@embroider/test-setup": "^1.6.0",
     "@glimmer/component": "^1.0.4",
     "@glimmer/tracking": "^1.0.4",
     "@types/qunit": "^2.11.3",
@@ -125,16 +125,20 @@
     "webpack": "^5.66.0"
   },
   "resolutions": {
-    "favicons": "5.3.0",
+    "@embroider/core": "1.6.0",
+    "@embroider/macros": "1.6.0",
+    "@embroider/shared-internals": "1.6.0",
+    "@embroider/util": "1.6.0",
+    "babel-import-util": "1.2.2",
     "colors": "1.4.0",
-    "babel-import-util": "1.1.0"
+    "favicons": "5.3.0"
   },
   "engines": {
     "node": "12.* || 14.* || >= 16"
   },
   "volta": {
-    "node": "12.22.7",
-    "yarn": "1.22.17"
+    "node": "12.22.12",
+    "yarn": "1.22.18"
   },
   "changelog": {
     "labels": {

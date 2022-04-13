@@ -9,10 +9,7 @@ import { assert } from '@ember/debug';
 
   @hide
 */
-export default function startMirage(
-  owner,
-  { env, makeServer, baseConfig, testConfig } = {}
-) {
+export default function startMirage(owner, { env, makeServer } = {}) {
   if (!env || !makeServer) {
     if (!owner) {
       throw new Error('You must pass `owner` to startMirage()');
@@ -20,25 +17,18 @@ export default function startMirage(
 
     env = env || owner.resolveRegistration('config:environment');
 
-    baseConfig = baseConfig || owner.resolveRegistration('mirage:base-config');
     // These are set from `<app>/initializers/ember-cli-mirage`
-    testConfig = testConfig || owner.resolveRegistration('mirage:test-config');
     makeServer = makeServer || owner.resolveRegistration('mirage:make-server');
   }
 
-  // baseConfig would be a routes function
-
   let environment = env.environment;
-  let mirageEnvironment = env['ember-cli-mirage'] || {};
 
   let modules = readModules(env.modulePrefix);
 
   let options = Object.assign(modules, {
     environment,
-    baseConfig,
-    testConfig,
   });
-  options.trackRequests = mirageEnvironment.trackRequests;
+
   options.inflector = { singularize, pluralize };
 
   // MakeServer must accept at least one param

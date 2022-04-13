@@ -42,20 +42,20 @@ if (environment === 'development') {
 
 ## trackRequests
 
-Defaults to `false`.
+A boolean that controls whether [Pretender's `trackRequests` feature](https://github.com/pretenderjs/pretender#tracking-requests) is enabled. By default it is disabled to avoid memory issues during long development sessions.
 
-A boolean that controls whether [Pretender's `trackedRequests` feature](https://github.com/pretenderjs/pretender#tracking-requests) is enabled. By default it is disabled to avoid memory issues during long development sessions.
-
-To enable, set to `true`, for example in testing environments:
+This should be set in the `mirage/config.js` options. Defaults to `false`.
 
 ```js
-// config/environment.js
-module.exports = function(environment) {
-  if (environment === 'test') {
-    ENV['ember-cli-mirage'] = {
-      trackRequests: true
-    };
-  }
+export default function(config) {
+  let finalConfig = {
+    ...config,
+    trackRequests: true,
+    models: { ...discoverEmberDataModels(), ...config.models },
+    routes,
+  };
+
+  return createServer(finalConfig);
 }
 ```
 

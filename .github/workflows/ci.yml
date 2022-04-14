@@ -27,11 +27,9 @@ jobs:
       - name: Install Dependencies
         run: yarn install --frozen-lockfile
       - name: Lint
-        run: yarn lint
-      - name: Run Browser Tests
-        run: yarn test:ember
-      - name: Run Node Tests
-        run: yarn test:test-projects
+        run: yarn workspace ember-cli-mirage lint
+      - name: Run Tests
+        run: yarn workspace ember-cli-mirage test:ember
 
   floating:
     name: "Floating Dependencies"
@@ -46,10 +44,47 @@ jobs:
           cache: yarn
       - name: Install Dependencies
         run: yarn install --no-lockfile
-      - name: Run Browser Tests
+      - name: Run Tests
         run: yarn test:ember
-      - name: Run Node Tests
-        run: yarn test:test-projects
+        working-directory: packages/ember-cli-mirage
+
+  test-app-01:
+    name: "Tests - Basic App"
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install Node
+        uses: actions/setup-node@v2
+        with:
+          node-version: 14.x
+          cache: yarn
+      - name: Install Dependencies
+        run: yarn install --frozen-lockfile
+      - name: Lint
+        run: yarn workspace basic-app lint
+      - name: Run Tests
+        run: yarn workspace basic-app test
+
+  test-app-02:
+    name: "Tests - App That Excludes Mirage"
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install Node
+        uses: actions/setup-node@v2
+        with:
+          node-version: 14.x
+          cache: yarn
+      - name: Install Dependencies
+        run: yarn install --frozen-lockfile
+      - name: Lint
+        run: yarn workspace app-that-excludes-mirage lint
+      - name: Run Tests
+        run: yarn workspace app-that-excludes-mirage test
 
   try-scenarios:
     name: ${{ matrix.try-scenario }}
@@ -84,3 +119,4 @@ jobs:
         run: yarn install --frozen-lockfile
       - name: Run Tests
         run: ./node_modules/.bin/ember try:one ${{ matrix.try-scenario }}
+        working-directory: packages/ember-cli-mirage

@@ -1,13 +1,19 @@
 import Route from '@ember/routing/route';
+import { inject as service } from '@ember/service';
 
 export default class extends Route {
+  @service router;
+
   beforeModel() {
     let { path } = this.paramsFor('not-found');
 
     this.redirects.forEach((redirect) => {
       redirect.from.forEach((candidate) => {
         if (path === candidate || path === `${candidate}/`) {
-          this.transitionTo('blog.detail', redirect.to.replace('blog/', ''));
+          this.router.transitionTo(
+            'blog.detail',
+            redirect.to.replace('blog/', '')
+          );
         }
       });
     });

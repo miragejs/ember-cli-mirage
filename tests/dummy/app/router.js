@@ -33,6 +33,7 @@ Router.map(function () {
     });
 
     this.route('testing', function () {
+      this.route('setup-mirage');
       this.route('acceptance-tests');
       this.route('integration-and-unit-tests');
       this.route('assertions');

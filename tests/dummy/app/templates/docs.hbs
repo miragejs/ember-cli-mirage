@@ -1,0 +1,46 @@
+<DocsViewer as |viewer|>
+
+  <viewer.nav as |nav|>
+    <nav.section @label="Getting started" />
+    <nav.item @label="What is Mirage?" @route="docs.getting-started.what-is-mirage" />
+    <nav.item @label="Installation" @route="docs.getting-started.installation" />
+    <nav.item @label="Upgrade guide" @route="docs.getting-started.upgrade-guide" />
+    <nav.item @label="Overview" @route="docs.getting-started.overview" />
+
+    <nav.section @label="Route handlers" />
+    <nav.item @label="Functions" @route="docs.route-handlers.functions" />
+    <nav.item @label="Shorthands" @route="docs.route-handlers.shorthands" />
+
+    <nav.section @label="Data layer" />
+    <nav.item @label="The Database" @route="docs.data-layer.database" />
+    <nav.item @label="Why an ORM?" @route="docs.data-layer.orm" />
+    <nav.item @label="Models" @route="docs.data-layer.models" />
+    <nav.item @label="Relationships" @route="docs.data-layer.relationships" />
+    <nav.item @label="Factories" @route="docs.data-layer.factories" />
+    <nav.item @label="Fixtures" @route="docs.data-layer.fixtures" />
+    <nav.item @label="Serializers" @route="docs.data-layer.serializers" />
+    <nav.subnav as |nav|>
+      <nav.item @label="Ember Data Serializer" @route="docs.data-layer.serializers.ember-data-serializer" />
+    </nav.subnav>
+
+    <nav.section @label="Testing" />
+    <nav.item @label="setupMirage test helper" @route="docs.testing.setup-mirage" />
+    <nav.item @label="Acceptance tests" @route="docs.testing.acceptance-tests" />
+    <nav.item @label="Integration and unit tests" @route="docs.testing.integration-and-unit-tests" />
+    <nav.item @label="Assertions" @route="docs.testing.assertions" />
+
+    <nav.section @label="Advanced" />
+    <nav.item @label="Environment options" @route="docs.advanced.environment-options" />
+    <nav.item @label="Server Configuration" @route="docs.advanced.server-configuration" />
+    <nav.item @label="Simulating cookie responses" @route="docs.advanced.simulating-cookie-responses" />
+    <nav.item @label="Mocking GUIDs" @route="docs.advanced.mocking-guids" />
+    <nav.item @label="Customizing the inflector" @route="docs.advanced.customizing-the-inflector" />
+    <nav.item @label="Switching between scenarios" @route="docs.advanced.switching-between-scenarios" />
+
+  </viewer.nav>
+
+  <viewer.main>
+    {{outlet}}
+  </viewer.main>
+
+</DocsViewer>

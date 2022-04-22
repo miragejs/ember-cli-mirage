@@ -219,7 +219,7 @@
   "extract-docs-app": {
     "path": "versions/extract-docs-app",
     "name": "extract-docs-app",
-    "sha": "fc6fbb5ae8134bca31487f606972817d50e3c822",
+    "sha": "ab6cd1b1bf39f91cbf097a4e499c789768df6d4f",
     "tag": null
   }
 }

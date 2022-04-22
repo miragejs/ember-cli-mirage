@@ -8,8 +8,8 @@ on:
   pull_request: {}
 
 concurrency:
-   group: ci-${{ github.head_ref || github.ref }}
-   cancel-in-progress: true
+  group: ci-${{ github.head_ref || github.ref }}
+  cancel-in-progress: true
 
 jobs:
   test:
@@ -18,16 +18,19 @@ jobs:
     timeout-minutes: 60
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Install Node
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
           node-version: 14.x
           cache: yarn
+
       - name: Install Dependencies
         run: yarn install --frozen-lockfile
+
       - name: Lint
         run: yarn workspace ember-cli-mirage lint
+
       - name: Run Tests
         run: yarn workspace ember-cli-mirage test:ember
 
@@ -37,16 +40,38 @@ jobs:
     timeout-minutes: 60
 
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
         with:
           node-version: 14.x
           cache: yarn
+
       - name: Install Dependencies
         run: yarn install --no-lockfile
+
       - name: Run Tests
         run: yarn test:ember
         working-directory: packages/ember-cli-mirage
+
+  test-docs:
+    name: "Docs"
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 14.x
+          cache: yarn
+
+      - name: Install Dependencies
+        run: yarn install --no-lockfile
+
+      - name: Lint
+        run: yarn workspace ember-cli-mirage-docs lint
+
+      - name: Run Tests
+        run: yarn workspace ember-cli-mirage-docs test:ember
 
   test-app-01:
     name: "Tests - Basic App"
@@ -54,16 +79,19 @@ jobs:
     timeout-minutes: 60
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Install Node
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
           node-version: 14.x
           cache: yarn
+
       - name: Install Dependencies
         run: yarn install --frozen-lockfile
+
       - name: Lint
         run: yarn workspace basic-app lint
+
       - name: Run Tests
         run: yarn workspace basic-app test
 
@@ -73,16 +101,19 @@ jobs:
     timeout-minutes: 60
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Install Node
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
           node-version: 14.x
           cache: yarn
+
       - name: Install Dependencies
         run: yarn install --frozen-lockfile
+
       - name: Lint
         run: yarn workspace app-that-excludes-mirage lint
+
       - name: Run Tests
         run: yarn workspace app-that-excludes-mirage test
 
@@ -109,14 +140,16 @@ jobs:
 #          - embroider-optimized
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Install Node
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
           node-version: 14.x
           cache: yarn
+
       - name: Install Dependencies
         run: yarn install --frozen-lockfile
+
       - name: Run Tests
         run: ./node_modules/.bin/ember try:one ${{ matrix.try-scenario }}
         working-directory: packages/ember-cli-mirage

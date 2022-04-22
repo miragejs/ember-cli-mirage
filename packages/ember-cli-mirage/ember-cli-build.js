@@ -7,15 +7,6 @@ module.exports = function (defaults) {
     'ember-cli-babel': {
       includePolyfill: true,
     },
-    'ember-cli-addon-docs-esdoc': {
-      packages: [
-        'ember-cli-mirage',
-        { name: 'miragejs', sourceDirectory: 'lib' },
-      ],
-    },
-    'ember-composable-helpers': {
-      only: ['sort-by'],
-    },
     addons: {
       blacklist: ['ember-cli-fastboot'],
     },

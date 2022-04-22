@@ -15,13 +15,18 @@ jobs:
         with:
           node-version: 14.x
           cache: yarn
+
       - name: Install Dependencies
         run: yarn install --frozen-lockfile
+
       - name: Lint
-        run: yarn lint
-      - name: Run Browser Tests
-        run: yarn test:ember
+        run: yarn workspace ember-cli-mirage lint
+
+      - name: Run Tests
+        run: yarn workspace ember-cli-mirage test:ember
+
       - uses: JS-DevTools/npm-publish@v1
         with:
           token: ${{ secrets.NPM_TOKEN }}
           tag: next
+        working-directory: packages/ember-cli-mirage

@@ -1231,6 +1231,14 @@
     ember-cli-version-checker "^5.1.2"
     semver "^7.3.5"
 
+"@embroider/addon-shim@^0.50.2":
+  version "0.50.2"
+  resolved "https://registry.yarnpkg.com/@embroider/addon-shim/-/addon-shim-0.50.2.tgz#9be2ed8cee1086cef63c5baecf8dde8dcdacc24e"
+  integrity sha512-a+pFlXZPovcCNFo05HxXBW9ole43mPyFZnkhvZlLF0f1sHEn9j0sD1Ld2BM/NCERmHcYz9eXQnX1FPNLCDoGEA==
+  dependencies:
+    "@embroider/shared-internals" "^0.50.2"
+    semver "^7.3.5"
+
 "@embroider/addon-shim@^1.5.0":
   version "1.6.0"
   resolved "https://registry.yarnpkg.com/@embroider/addon-shim/-/addon-shim-1.6.0.tgz#d2d6d1d820605a48273a123a9adb49e163c8de1c"
@@ -1290,7 +1298,7 @@
     resolve "^1.20.0"
     semver "^7.3.2"
 
-"@embroider/shared-internals@1.6.0", "@embroider/shared-internals@^1.0.0", "@embroider/shared-internals@^1.6.0":
+"@embroider/shared-internals@1.6.0", "@embroider/shared-internals@^0.50.2", "@embroider/shared-internals@^1.0.0", "@embroider/shared-internals@^1.6.0":
   version "1.6.0"
   resolved "https://registry.yarnpkg.com/@embroider/shared-internals/-/shared-internals-1.6.0.tgz#35ade2ce1202e529107bf6d1fae4ca753f6ebe5a"
   integrity sha512-es7+pV2S9+tgX5T4losppheXfa+xWtKD6x0gq7mxqA4DIdE14mORNeSWM8/Fu9f/t0tJnPqttddbgnDYw+SvrA==
@@ -6694,7 +6702,7 @@ elliptic@^6.5.3:
     ember-compatibility-helpers "^1.2.5"
     ember-destroyable-polyfill "^2.0.2"
 
-ember-auto-import@^1.10.1, ember-auto-import@^1.11.3, ember-auto-import@^1.2.19:
+ember-auto-import@^1.11.3, ember-auto-import@^1.2.19:
   version "1.12.1"
   resolved "https://registry.yarnpkg.com/ember-auto-import/-/ember-auto-import-1.12.1.tgz#09967bd35cd56ac45f413c48deabf7cfb3a785f6"
   integrity sha512-Jm0vWKNAy/wYMrdSQIrG8sRsvarIRHZ2sS/CGhMdMqVKJR48AhGU7NgPJ5SIlO/+seL2VSO+dtv7aEOEIaT6BA==
@@ -7616,16 +7624,12 @@ ember-modifier-manager-polyfill@^1.2.0:
     ember-cli-typescript "^5.0.0"
     ember-compatibility-helpers "^1.2.5"
 
-ember-moment@^9.0.1:
-  version "9.0.1"
-  resolved "https://registry.yarnpkg.com/ember-moment/-/ember-moment-9.0.1.tgz#fcf06cb8ef07c8d0108820c1639778590d613b38"
-  integrity sha512-mwcj2g/37pIQua3uTpJWu/zpcnyvbgg9YmkKR6nhtY7FXBaGSIU3aeG95VAoPcfET9DazkPOyqxVB+Dcd5BP5g==
+ember-moment@^10.0.0:
+  version "10.0.0"
+  resolved "https://registry.yarnpkg.com/ember-moment/-/ember-moment-10.0.0.tgz#db2affde4574b7d679ad1a34e8a5675fda0b72fe"
+  integrity sha512-vpnWVn3QfVBVP0MUnOkFI8fqqjskTh2LxOxyBaaRY7Smbcymq3b8wVB9GSNRasmyaclQVGY8jZsqi5ue7O2TUw==
   dependencies:
-    ember-auto-import "^1.10.1"
-    ember-cli-babel "^7.23.0"
-    ember-cli-htmlbars "^5.3.1"
-    moment "^2.29.1"
-    moment-timezone "^0.5.33"
+    "@embroider/addon-shim" "^0.50.2"
 
 ember-page-title@^7.0.0:
   version "7.0.0"
@@ -12523,14 +12527,14 @@ mktemp@~0.4.0:
   resolved "https://registry.yarnpkg.com/mktemp/-/mktemp-0.4.0.tgz#6d0515611c8a8c84e484aa2000129b98e981ff0b"
   integrity sha1-bQUVYRyKjITkhKogABKbmOmB/ws=
 
-moment-timezone@^0.5.13, moment-timezone@^0.5.33:
+moment-timezone@^0.5.13:
   version "0.5.34"
   resolved "https://registry.yarnpkg.com/moment-timezone/-/moment-timezone-0.5.34.tgz#a75938f7476b88f155d3504a9343f7519d9a405c"
   integrity sha512-3zAEHh2hKUs3EXLESx/wsgw6IQdusOT8Bxm3D9UrHPQR7zlMmzwybC8zHEM1tQ4LJwP7fcxrWr8tuBg05fFCbg==
   dependencies:
     moment ">= 2.9.0"
 
-"moment@>= 2.9.0", moment@^2.19.3, moment@^2.29.1:
+"moment@>= 2.9.0", moment@^2.19.3:
   version "2.29.2"
   resolved "https://registry.yarnpkg.com/moment/-/moment-2.29.2.tgz#00910c60b20843bcba52d37d58c628b47b1f20e4"
   integrity sha512-UgzG4rvxYpN15jgCmVJwac49h9ly9NurikMWGPdVxm8GZD6XjkKPxDTjQQ43gtGgnV3X0cAyWDdP2Wexoquifg==

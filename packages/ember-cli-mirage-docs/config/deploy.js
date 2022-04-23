@@ -6,6 +6,7 @@ module.exports = function (deployTarget) {
     build: {},
     git: {
       repo: 'git@github.com:miragejs/ember-cli-mirage.git',
+      worktreePath: '../../../deploy-ember-cli-mirage-docs',
     },
   };
 

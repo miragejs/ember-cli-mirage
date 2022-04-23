@@ -1209,7 +1209,7 @@
   dependencies:
     ember-cli-babel "^7.26.6"
 
-"@ember/test-helpers@^2.6.0":
+"@ember/test-helpers@^2.6.0", "@ember/test-helpers@^2.7.0":
   version "2.7.0"
   resolved "https://registry.yarnpkg.com/@ember/test-helpers/-/test-helpers-2.7.0.tgz#d8e08b614cdd5eac647689d655e78e1de725f474"
   integrity sha512-eWFtw5+sbci1Fw+E+HoyaMxY126LvK7jul6i8tad48zlWoxrOalbhJhz1mKqIo4daHbqIZWuFgQhOib4QfTKCQ==
@@ -1349,7 +1349,7 @@
   resolved "https://registry.yarnpkg.com/@gar/promisify/-/promisify-1.1.3.tgz#555193ab2e3bb3b6adc3d551c9c030d9e860daf6"
   integrity sha512-k2Ty1JcVojjJFwrg/ThKi2ujJ7XNLYaFGNB/bWT9wGR+oSMJHMa5w+CUq6p/pVrKeNNgA7pCqEcjSnHVoqJQFw==
 
-"@glimmer/component@^1.0.4":
+"@glimmer/component@^1.0.4", "@glimmer/component@^1.1.2":
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/@glimmer/component/-/component-1.1.2.tgz#892ec0c9f0b6b3e41c112be502fde073cf24d17c"
   integrity sha512-XyAsEEa4kWOPy+gIdMjJ8XlzA3qrGH55ZDv6nA16ibalCR17k74BI0CztxuRds+Rm6CtbUVgheCVlcCULuqD7A==
@@ -1523,7 +1523,7 @@
     "@handlebars/parser" "~2.0.0"
     simple-html-tokenizer "^0.5.11"
 
-"@glimmer/tracking@^1.0.0", "@glimmer/tracking@^1.0.4":
+"@glimmer/tracking@^1.0.0", "@glimmer/tracking@^1.0.4", "@glimmer/tracking@^1.1.2":
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/@glimmer/tracking/-/tracking-1.1.2.tgz#74e71be07b0a7066518d24044d2665d0cf8281eb"
   integrity sha512-cyV32zsHh+CnftuRX84ALZpd2rpbDrhLhJnTXn9W//QpqdRZ5rdMsxSY9fOsj0CKEc706tmEU299oNnDc0d7tA==
@@ -1916,12 +1916,13 @@
     "@jridgewell/resolve-uri" "^3.0.3"
     "@jridgewell/sourcemap-codec" "^1.4.10"
 
-"@lint-todo/utils@^12.0.1":
-  version "12.0.1"
-  resolved "https://registry.yarnpkg.com/@lint-todo/utils/-/utils-12.0.1.tgz#d61ef329f9f6c7332adee7b1f68651f190d53a7f"
-  integrity sha512-Xiy5wN+ns95gEHepJ55TXEBAZrkZlzrF9wTjqoTgv+RYOYL3+qQ+v0RtPH2n/UwPJEFuXJ6QKiT99RnUOt1pzw==
+"@lint-todo/utils@^13.0.2":
+  version "13.0.2"
+  resolved "https://registry.yarnpkg.com/@lint-todo/utils/-/utils-13.0.2.tgz#0d2fc6cc24452564dd2ee97be01437aa92b4c1a8"
+  integrity sha512-tLZfEjU5i7KThQbWZ4u5dLUJx9+euGnytz402uAH4VRa0jMxyc2HNXw+h6qPdKxM/wGAvwEQGn7l1j2kyLI7rQ==
   dependencies:
     "@types/eslint" "^7.2.13"
+    find-up "^5.0.0"
     fs-extra "^9.1.0"
     proper-lockfile "^4.1.2"
     slash "^3.0.0"
@@ -6961,7 +6962,7 @@ ember-cli-clipboard@^0.16.0:
     ember-cli-babel "^7.26.6"
     ember-cli-htmlbars "^5.7.1"
 
-ember-cli-dependency-checker@^3.2.0:
+ember-cli-dependency-checker@^3.2.0, ember-cli-dependency-checker@^3.3.1:
   version "3.3.1"
   resolved "https://registry.yarnpkg.com/ember-cli-dependency-checker/-/ember-cli-dependency-checker-3.3.1.tgz#16b44d7a1a1e946f59859fad97f32e616d78323a"
   integrity sha512-Tg6OeijjXNKWkDm6057Tr0N9j9Vlz/ITewXWpn1A/+Wbt3EowBx5ZKfvoupqz05EznKgL1B/ecG0t+JN7Qm6MA==
@@ -7778,12 +7779,12 @@ ember-template-lint@^3.15.0:
     v8-compile-cache "^2.3.0"
     yargs "^16.2.0"
 
-ember-template-lint@^4.0.0:
-  version "4.4.0"
-  resolved "https://registry.yarnpkg.com/ember-template-lint/-/ember-template-lint-4.4.0.tgz#76f8cea3ba56e2cde56be0942d718872cfe0828e"
-  integrity sha512-4HyyNo1CrKCeSwPbpZ+XHFM1NMl4JzXJweotYWOQ//Yepbv8LWLVy4NqLMUxTeujz0KZmUhAgoGsahASv7roaw==
+ember-template-lint@^4.5.0:
+  version "4.5.0"
+  resolved "https://registry.yarnpkg.com/ember-template-lint/-/ember-template-lint-4.5.0.tgz#239dacb6be004ce78ca0cb3147fe728edf05d43e"
+  integrity sha512-cH4FWDtYG3UqBAI5cBucidUgfGhua5jEc0Ookf+Jv3aeNHJWHt3MZc8g4pH2VYzPlGbEoOBd/EUzUVkmKDZYDQ==
   dependencies:
-    "@lint-todo/utils" "^12.0.1"
+    "@lint-todo/utils" "^13.0.2"
     aria-query "^5.0.0"
     chalk "^4.1.2"
     ci-info "^3.3.0"
@@ -7794,6 +7795,7 @@ ember-template-lint@^4.0.0:
     get-stdin "^9.0.0"
     globby "^13.1.1"
     is-glob "^4.0.3"
+    language-tags "^1.0.5"
     micromatch "^4.0.5"
     resolve "^1.22.0"
     v8-compile-cache "^2.3.0"
@@ -8184,7 +8186,7 @@ eslint-config-prettier@^8.3.0:
   resolved "https://registry.yarnpkg.com/eslint-config-prettier/-/eslint-config-prettier-8.5.0.tgz#5a81680ec934beca02c7b1a61cf8ca34b66feab1"
   integrity sha512-obmWKLUNCnhtQRKc+tmnYuQl0pFU1ibYJQ5BGhTVB08bHe9wC8qUeG7c08dj9XX+AuPj1YSGSQIHl1pnDHZR0Q==
 
-eslint-plugin-ember@^10.5.8:
+eslint-plugin-ember@^10.5.8, eslint-plugin-ember@^10.6.0:
   version "10.6.0"
   resolved "https://registry.yarnpkg.com/eslint-plugin-ember/-/eslint-plugin-ember-10.6.0.tgz#cf02e651300d67ddafef01616f33c07cebb09dd7"
   integrity sha512-HrI/6jIHcqOfFHP0PRDdvvIZkJhBUxf7V+GUFizMG7EHyqXd/VR7BJSdgXbo1DwvDvCefO5Kz0YMZvh5fnNLOQ==
@@ -11160,6 +11162,18 @@ kleur@^4.0.3:
   resolved "https://registry.yarnpkg.com/kleur/-/kleur-4.1.4.tgz#8c202987d7e577766d039a8cd461934c01cda04d"
   integrity sha512-8QADVssbrFjivHWQU7KkMgptGTl6WAcSdlbBPY4uNF+mWr6DGcKrvY2w4FQJoXch7+fKMjj0dRrL75vk3k23OA==
 
+language-subtag-registry@~0.3.2:
+  version "0.3.21"
+  resolved "https://registry.yarnpkg.com/language-subtag-registry/-/language-subtag-registry-0.3.21.tgz#04ac218bea46f04cb039084602c6da9e788dd45a"
+  integrity sha512-L0IqwlIXjilBVVYKFT37X9Ih11Um5NEl9cbJIuU/SwP/zEEAbBPOnEeeuxVMf45ydWQRDQN3Nqc96OgbH1K+Pg==
+
+language-tags@^1.0.5:
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/language-tags/-/language-tags-1.0.5.tgz#d321dbc4da30ba8bf3024e040fa5c14661f9193a"
+  integrity sha1-0yHbxNowuovzAk4ED6XBRmH5GTo=
+  dependencies:
+    language-subtag-registry "~0.3.2"
+
 latest-version@^5.1.0:
   version "5.1.0"
   resolved "https://registry.yarnpkg.com/latest-version/-/latest-version-5.1.0.tgz#119dfe908fe38d15dfa43ecd13fa12ec8832face"
@@ -13791,7 +13805,7 @@ prettier-linter-helpers@^1.0.0:
   dependencies:
     fast-diff "^1.1.2"
 
-prettier@^2.5.1:
+prettier@^2.5.1, prettier@^2.6.2:
   version "2.6.2"
   resolved "https://registry.yarnpkg.com/prettier/-/prettier-2.6.2.tgz#e26d71a18a74c3d0f0597f55f01fb6c06c206032"
   integrity sha512-PkUpF+qoXTqhOeWL9fu7As8LXsIUZ1WYaJiY/a7McAQzxjk82OF0tibkFXVCDImZtWxbvojFjerkiLb0/q8mew==
@@ -14068,6 +14082,15 @@ qunit@^2.17.2:
   version "2.18.1"
   resolved "https://registry.yarnpkg.com/qunit/-/qunit-2.18.1.tgz#9e90e7798216f7275c351c88652816d491391397"
   integrity sha512-A2Adgr/DeMQOJZFVllyQi2wiGJVVXGSRRwMe39fNfuuftUYHHpGRTWUhBa8wNblunCAOUCt+1uFcg1L7NaxQTA==
+  dependencies:
+    commander "7.2.0"
+    node-watch "0.7.3"
+    tiny-glob "0.2.9"
+
+qunit@^2.18.2:
+  version "2.18.2"
+  resolved "https://registry.yarnpkg.com/qunit/-/qunit-2.18.2.tgz#87ed3c85f12feec6ea6bf8dd2f8867b059732cbc"
+  integrity sha512-Ux+x9pIU38/F+r3jOl35QzGHPPupMifUvhczCqHgzYWX76fCjPg6VqM84ox1D57fhAXHtpS4Jl91EV8gDoCHPg==
   dependencies:
     commander "7.2.0"
     node-watch "0.7.3"
@@ -16888,7 +16911,7 @@ webpack@^4.43.0:
     watchpack "^1.7.4"
     webpack-sources "^1.4.1"
 
-webpack@^5.65.0, webpack@^5.66.0:
+webpack@^5.65.0, webpack@^5.66.0, webpack@^5.72.0:
   version "5.72.0"
   resolved "https://registry.yarnpkg.com/webpack/-/webpack-5.72.0.tgz#f8bc40d9c6bb489a4b7a8a685101d6022b8b6e28"
   integrity sha512-qmSmbspI0Qo5ld49htys8GY9XhS9CGqFoHTsOVAnjBdg0Zn79y135R+k4IR4rKK6+eKaabMhJwiVB7xw0SJu5w==

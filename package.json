@@ -1,7 +1,7 @@
 {
   "name": "ember-cli-mirage",
-  "private": true,
   "version": "3.0.0-alpha.3",
+  "private": true,
   "description": "A client-side server to help you build, test and demo your Ember app",
   "homepage": "https://github.com/miragejs/ember-cli-mirage",
   "repository": {

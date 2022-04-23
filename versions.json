@@ -215,11 +215,5 @@
     "name": "v2.4.0",
     "sha": "a46034f3744d9c8a41421f9b804251f23c9a1ac6",
     "tag": "v2.4.0"
-  },
-  "extract-docs-app": {
-    "path": "versions/extract-docs-app",
-    "name": "extract-docs-app",
-    "sha": "3380c842ad86e56b3a591550f5b7feb3ded76fae",
-    "tag": null
   }
 }

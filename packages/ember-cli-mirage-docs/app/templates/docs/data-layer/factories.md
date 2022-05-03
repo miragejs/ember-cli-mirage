@@ -165,7 +165,7 @@ Let's add some more properties to our factory:
 ```js
 // mirage/factories/movie.js
 import { Factory } from 'miragejs';
-import faker from 'faker';
+import { faker } from '@faker-js/faker';
 
 export default Factory.extend({
 
@@ -233,7 +233,7 @@ Attributes can depend on other attributes via `this` from within a function. Thi
 ```js
 // mirage/factories/user.js
 import { Factory } from 'miragejs';
-import faker from 'faker';
+import { faker } from '@faker-js/faker';
 
 export default Factory.extend({
 

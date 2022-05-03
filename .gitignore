@@ -8,6 +8,10 @@
 /bower_components/
 /node_modules/
 
+# *.md copies from release
+/packages/ember-cli-mirage/README.md
+/packages/ember-cli-mirage/LICENSE.md
+
 # misc
 /.env*
 /.pnp*

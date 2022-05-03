@@ -35,6 +35,10 @@
     "registry": "https://registry.npmjs.org"
   },
   "release-it": {
+    "hooks": {
+      "before:init": "cp CHANGELOG.md LICENSE.md README.md packages/ember-cli-mirage/",
+      "after:release": "cd packages/ember-cli-mirage-docs && yarn deploy"
+    },
     "plugins": {
       "release-it-lerna-changelog": {
         "infile": "CHANGELOG.md",
@@ -48,10 +52,12 @@
         "additionalManifests": {
           "dependencyUpdates": [
             "package.json",
+            "packages/ember-cli-mirage-docs/package.json",
             "test-packages/*/package.json"
           ],
           "versionUpdates": [
-            "package.json"
+            "package.json",
+            "packages/ember-cli-mirage-docs/package.json"
           ]
         }
       }

@@ -3,7 +3,6 @@
 'use strict';
 
 var path = require('path');
-var fs = require('fs');
 
 module.exports = {
   normalizeEntityName: function () {
@@ -30,17 +29,9 @@ module.exports = {
     };
   },
 
-  insertShutdownIntoDestroyApp: function () {
-    if (fs.existsSync('tests/helpers/destroy-app.js')) {
-      var shutdownText =
-        '  if (window.server) {\n    window.server.shutdown();\n  }';
-      return this.insertIntoFile('tests/helpers/destroy-app.js', shutdownText, {
-        after: "run(application, 'destroy');\n",
-      });
-    }
-  },
-
   afterInstall: function () {
-    return this.insertShutdownIntoDestroyApp();
+      return this.addPackagesToProject([
+        { name: 'miragejs' },
+      ]);
   },
 };

@@ -30,8 +30,6 @@ module.exports = {
   },
 
   afterInstall: function () {
-      return this.addPackagesToProject([
-        { name: 'miragejs' },
-      ]);
+    return this.addPackagesToProject([{ name: 'miragejs' }]);
   },
 };

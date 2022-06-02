@@ -66,7 +66,7 @@ let EmberDataSerializer = RestSerializer.extend({
   },
 
   getKeysForIncluded() {
-    return (typeof this.include === "function")
+    return typeof this.include === 'function'
       ? this.include(this.request, this.primaryResource)
       : this.include;
   },

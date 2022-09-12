@@ -3,7 +3,11 @@
 import require from 'require';
 import config from 'ember-get-config';
 import assert from './assert';
-import { hasEmberData, isDsModel } from 'ember-cli-mirage/utils/ember-data';
+import {
+  hasEmberData,
+  isDsModel,
+  AppSymbolForEmberDataModels,
+} from 'ember-cli-mirage/utils/ember-data';
 import { Model, belongsTo, hasMany } from 'miragejs';
 import EmberDataSerializer from 'ember-cli-mirage/serializers/ember-data-serializer';
 import { _utilsInflectorCamelize as camelize } from 'miragejs';
@@ -15,7 +19,7 @@ let DsModels, Models;
 let DsSerializers, Serializers;
 
 function _getAppInstance() {
-  const application = window.__app_for_mirage;
+  const application = window[AppSymbolForEmberDataModels];
   let appInstance = application.__deprecatedInstance__;
   // If an appInstance wasn't found (such as when running the tests)
   // then instantiate one manually, so we can use it to discover the

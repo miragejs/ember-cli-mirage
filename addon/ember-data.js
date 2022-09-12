@@ -14,6 +14,19 @@ const { modulePrefix, podModulePrefix } = config;
 let DsModels, Models;
 let DsSerializers, Serializers;
 
+function _getAppInstance() {
+  const application = window.__app_for_mirage;
+  let appInstance = application.__deprecatedInstance__;
+  // If an appInstance wasn't found (such as when running the tests)
+  // then instantiate one manually, so we can use it to discover the
+  // ember-data models in a way that doesn't trigger deprecations.
+  if (!appInstance) {
+    application._buildDeprecatedInstance();
+    appInstance = application.__deprecatedInstance__;
+  }
+  return appInstance;
+}
+
 /**
  * Get all ember data models under the app's namespaces
  *
@@ -45,8 +58,19 @@ export function getDsModels() {
       path.match(classicModelMatchRegex) || path.match(podModelMatchRegex);
     if (matches && matches[1]) {
       let modelName = matches[1];
+      let model = undefined;
 
-      let model = require(path, null, null, true).default;
+      // Use the appInstance to lookup the models if provided, to avoid triggering
+      // the ember-data:deprecate-early-static deprecation in ember-data
+      const appInstance = _getAppInstance();
+      if (appInstance) {
+        const modelNameExact = path.split('/models/')[1];
+        const store = appInstance.lookup('service:store');
+        model = store.modelFor(modelNameExact);
+      } else {
+        model = require(path, null, null, true).default;
+      }
+
       if (isDsModel(model)) {
         DsModels[modelName] = model;
       }

@@ -16,6 +16,8 @@ const { default: baseConfig, testConfig, makeServer } = config;
 export default {
   name: 'ember-cli-mirage',
   initialize(application) {
+    window.__app_for_mirage = application;
+
     if (baseConfig) {
       application.register('mirage:base-config', baseConfig, {
         instantiate: false,

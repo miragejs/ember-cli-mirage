@@ -37,6 +37,7 @@ result would look like this.
 import {
   discoverEmberDataModels,
 } from 'ember-cli-mirage';
+import { createServer } from 'miragejs';
 
 export default function (config) {
   let finalConfig = {

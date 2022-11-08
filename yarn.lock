@@ -7555,10 +7555,10 @@ ember-fetch@^8.1.1:
     node-fetch "^2.6.1"
     whatwg-fetch "^3.6.2"
 
-ember-get-config@, "ember-get-config@0.2.4 - 0.5.0 || ^1.0.0":
-  version "1.0.4"
-  resolved "https://registry.yarnpkg.com/ember-get-config/-/ember-get-config-1.0.4.tgz#e8c36b0937767ead32e16d157fabd8178c542587"
-  integrity sha512-WOnf1E0ceRHWy7apnmUFbKcJm2c3KOg4rNNUKNtBFCFp770tOTwv5LAYcqV4+HootPCsQYL7oFUd/0JLiZpMeg==
+ember-get-config@, "ember-get-config@0.2.4 - 0.5.0 || ^1.0.0 || ^2.0.0":
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/ember-get-config/-/ember-get-config-2.1.1.tgz#bede76c25d95dbefab8d30064abf7aa00bc19235"
+  integrity sha512-uNmv1cPG/4qsac8oIf5txJ2FZ8p88LEpG4P3dNcjsJS98Y8hd0GPMFwVqpnzI78Lz7VYRGQWY4jnE4qm5R3j4g==
   dependencies:
     "@embroider/macros" "^0.50.0 || ^1.0.0"
     ember-cli-babel "^7.26.6"
@@ -14078,16 +14078,7 @@ qunit-dom@^2.0.0:
     ember-cli-babel "^7.23.0"
     ember-cli-version-checker "^5.1.1"
 
-qunit@^2.17.2:
-  version "2.18.1"
-  resolved "https://registry.yarnpkg.com/qunit/-/qunit-2.18.1.tgz#9e90e7798216f7275c351c88652816d491391397"
-  integrity sha512-A2Adgr/DeMQOJZFVllyQi2wiGJVVXGSRRwMe39fNfuuftUYHHpGRTWUhBa8wNblunCAOUCt+1uFcg1L7NaxQTA==
-  dependencies:
-    commander "7.2.0"
-    node-watch "0.7.3"
-    tiny-glob "0.2.9"
-
-qunit@^2.18.2:
+qunit@^2.17.2, qunit@^2.18.2:
   version "2.18.2"
   resolved "https://registry.yarnpkg.com/qunit/-/qunit-2.18.2.tgz#87ed3c85f12feec6ea6bf8dd2f8867b059732cbc"
   integrity sha512-Ux+x9pIU38/F+r3jOl35QzGHPPupMifUvhczCqHgzYWX76fCjPg6VqM84ox1D57fhAXHtpS4Jl91EV8gDoCHPg==

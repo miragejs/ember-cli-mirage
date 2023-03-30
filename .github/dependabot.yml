@@ -1,6 +1,6 @@
 version: 2
 updates:
 - package-ecosystem: npm
-  directory: "/packages/ember-cli-mirage/"
+  directory: "/"
   schedule:
     interval: daily

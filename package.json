@@ -1,5 +1,5 @@
 {
-  "name": "ember-cli-mirage",
+  "name": "ember-cli-mirage-monorepo-root",
   "version": "3.0.0-alpha.3",
   "private": true,
   "description": "A client-side server to help you build, test and demo your Ember app",

@@ -75,5 +75,8 @@
   },
   "volta": {
     "extends": "../../package.json"
+  },
+  "dependencies": {
+    "@embroider/macros": "^1.11.1"
   }
 }

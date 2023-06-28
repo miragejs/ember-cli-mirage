@@ -1,0 +1,48 @@
+{{#if this.error}}
+
+  <p data-test-id="error" class='error'>
+    There was an error: <span>{{this.error}}</span>
+  </p>
+
+{{else}}
+
+  {{#each this.model as |user|}}
+    <div data-test-id="user">
+      <form aria-label="user" {{on "submit" (fn this.updateUser user)}}>
+        <Input aria-label="user name" @value={{user.name}} />
+        <button data-test-id="update-user" type="submit">Save</button>
+        <button
+          data-test-id="delete-user"
+          type="button"
+          {{on "click" (fn this.deleteUser user)}}
+        >
+          Delete
+        </button>
+        <span>
+          {{#if user.isSaving}}
+            Saving...
+          {{else if user.id}}
+            Saved
+          {{/if}}
+        </span>
+      </form>
+    </div>
+  {{/each}}
+
+{{/if}}
+
+<hr>
+
+<div>
+  <form aria-label="new user name" {{on "submit" this.createUser}}>
+    <div>
+      <Input aria-label="new user name" @value={{this.newName}} placeholder="Name" />
+    </div>
+
+    <div>
+      <button type="submit" data-test-id="create-user">
+        Create a new user
+      </button>
+    </div>
+  </form>
+</div>

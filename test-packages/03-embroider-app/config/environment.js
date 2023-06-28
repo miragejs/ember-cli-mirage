@@ -3,6 +3,7 @@
 module.exports = function (environment) {
   let ENV = {
     modulePrefix: 'embroider-app',
+    podModulePrefix: 'embroider-app/pods',
     environment,
     rootURL: '/',
     locationType: 'history',

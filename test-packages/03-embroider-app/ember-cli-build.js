@@ -1,10 +1,18 @@
 'use strict';
 
 const EmberApp = require('ember-cli/lib/broccoli/ember-app');
+const { V1Addon } = require('@embroider/compat');
 
 module.exports = function (defaults) {
   let app = new EmberApp(defaults, {
     // Add options here
+    '@embroider/macros': {
+      setConfig: {
+        'ember-cli-mirage': {
+          enabled: true,
+        },
+      },
+    },
   });
 
   // Use `app.import` to add additional libraries to the generated
@@ -19,6 +27,10 @@ module.exports = function (defaults) {
   // modules that you would like to import into your application
   // please specify an object with the list of modules as keys
   // along with the exports of each module as its value.
+  //
+  const compatAdapters = new Map();
+
+  compatAdapters.set('ember-cli-mirage', class extends V1Addon {});
 
   const { Webpack } = require('@embroider/webpack');
   return require('@embroider/compat').compatBuild(app, Webpack, {
@@ -27,5 +39,6 @@ module.exports = function (defaults) {
         package: 'qunit',
       },
     ],
+    compatAdapters,
   });
 };

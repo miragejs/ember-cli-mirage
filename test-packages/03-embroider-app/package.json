@@ -23,14 +23,18 @@
     "test:ember": "ember test"
   },
   "dependencies": {
-    "ember-cli-mirage": "*"
+    "@ember/string": "^3.1.1",
+    "@embroider/macros": "^1.12.0",
+    "@faker-js/faker": "^8.0.2",
+    "ember-cli-mirage": "3.0.0-alpha.3",
+    "miragejs": "^0.1.47"
   },
   "devDependencies": {
     "@ember/optional-features": "^2.0.0",
     "@ember/test-helpers": "^2.6.0",
-    "@embroider/compat": "^1.0.0",
-    "@embroider/core": "^1.0.0",
-    "@embroider/webpack": "^1.0.0",
+    "@embroider/compat": "^3.0.2",
+    "@embroider/core": "^3.0.2",
+    "@embroider/webpack": "^3.0.0",
     "@glimmer/component": "^1.0.4",
     "@glimmer/tracking": "^1.0.4",
     "babel-eslint": "^10.1.0",
@@ -69,6 +73,9 @@
   },
   "engines": {
     "node": "12.* || 14.* || >= 16"
+  },
+  "volta": {
+    "extends": "../../package.json"
   },
   "ember": {
     "edition": "octane"

@@ -70,5 +70,9 @@
   },
   "volta": {
     "extends": "../../package.json"
+  },
+  "dependencies": {
+    "@embroider/macros": "^1.11.1",
+    "miragejs": "^0.1.47"
   }
 }

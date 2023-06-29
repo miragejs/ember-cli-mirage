@@ -3,6 +3,7 @@ import { createServer } from 'miragejs';
 import { Model } from 'miragejs';
 import { modelFor } from 'ember-cli-mirage/ember-data';
 import { discoverEmberDataModels } from 'ember-cli-mirage';
+import ENV from 'embroider-app/config/environment';
 
 const CustomTag = Model.extend();
 CustomTag.__isCustom__ = true;
@@ -14,7 +15,7 @@ module('Acceptance | Ember Data', function (hooks) {
         default() {},
       },
       models: {
-        ...discoverEmberDataModels(),
+        ...discoverEmberDataModels(ENV),
         // Tag exists in dummy/app/models. We want to make sure pre-defined
         // models take precedence
         tag: CustomTag,

@@ -3,12 +3,13 @@ import {
   applyEmberDataSerializers,
 } from 'ember-cli-mirage';
 import { createServer } from 'miragejs';
+import ENV from 'dummy/config/environment';
 
 export default function (config) {
   let finalConfig = {
     ...config,
-    models: { ...discoverEmberDataModels(), ...config.models },
-    serializers: applyEmberDataSerializers(config.serializers),
+    models: { ...discoverEmberDataModels(ENV), ...config.models },
+    serializers: applyEmberDataSerializers(config.serializers, ENV),
     routes,
   };
 

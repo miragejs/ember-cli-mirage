@@ -49,5 +49,10 @@ module.exports = function (defaults) {
     splitRouteClasses: true,
     implicitModulesStrategy: 'packageNames',
     compatAdapters,
+    packagerOptions: {
+      webpackConfig: {
+        devtool: 'source-map',
+      },
+    },
   });
 };

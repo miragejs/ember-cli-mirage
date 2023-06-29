@@ -49,6 +49,7 @@
     "lodash-es": "^4.17.11"
   },
   "devDependencies": {
+    "@babel/core": "^7.22.5",
     "@ember/jquery": "^2.0.0",
     "@ember/optional-features": "^2.0.0",
     "@ember/test-helpers": "^2.7.0",

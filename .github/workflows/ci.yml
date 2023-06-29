@@ -18,21 +18,13 @@ jobs:
     timeout-minutes: 60
 
     steps:
-      - uses: actions/checkout@v3
-      - name: Install Node
-        uses: actions/setup-node@v3
-        with:
-          node-version: 14.x
-          cache: yarn
-
-      - name: Install Dependencies
-        run: yarn install --frozen-lockfile
+      - uses: wyvox/action@v1
 
       - name: Lint
-        run: yarn workspace ember-cli-mirage lint
+        run: pnpm --filter "ember-cli-mirage" lint
 
       - name: Run Tests
-        run: yarn workspace ember-cli-mirage test:ember
+        run: pnpm --filter "ember-cli-mirage" test:ember
 
   floating:
     name: "Floating Dependencies"
@@ -40,17 +32,12 @@ jobs:
     timeout-minutes: 60
 
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - uses: wyvox/action@v1
         with:
-          node-version: 14.x
-          cache: yarn
-
-      - name: Install Dependencies
-        run: yarn install --no-lockfile
+          pnpm-args: "--fix-lockfile"
 
       - name: Run Tests
-        run: yarn test:ember
+        run: pnpm test:ember
         working-directory: packages/ember-cli-mirage
 
   test-docs:
@@ -58,20 +45,15 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - uses: wyvox/action@v1
         with:
-          node-version: 14.x
-          cache: yarn
-
-      - name: Install Dependencies
-        run: yarn install --no-lockfile
+          pnpm-args: "--fix-lockfile"
 
       - name: Lint
-        run: yarn workspace ember-cli-mirage-docs lint
+        run: pnpm --filter "ember-cli-mirage-docs" lint
 
       - name: Run Tests
-        run: yarn workspace ember-cli-mirage-docs test:ember
+        run: pnpm --filter "ember-cli-mirage-docs" test:ember
 
   test-app-01:
     name: "Tests - Basic App"
@@ -79,21 +61,13 @@ jobs:
     timeout-minutes: 60
 
     steps:
-      - uses: actions/checkout@v3
-      - name: Install Node
-        uses: actions/setup-node@v3
-        with:
-          node-version: 14.x
-          cache: yarn
-
-      - name: Install Dependencies
-        run: yarn install --frozen-lockfile
+      - uses: wyvox/action@v1
 
       - name: Lint
-        run: yarn workspace basic-app lint
+        run: pnpm --filter "basic-app" lint
 
       - name: Run Tests
-        run: yarn workspace basic-app test
+        run: pnpm --filter "basic-app" test
 
   test-app-02:
     name: "Tests - App That Excludes Mirage"
@@ -101,21 +75,13 @@ jobs:
     timeout-minutes: 60
 
     steps:
-      - uses: actions/checkout@v3
-      - name: Install Node
-        uses: actions/setup-node@v3
-        with:
-          node-version: 14.x
-          cache: yarn
-
-      - name: Install Dependencies
-        run: yarn install --frozen-lockfile
+      - uses: wyvox/action@v1
 
       - name: Lint
-        run: yarn workspace app-that-excludes-mirage lint
+        run: pnpm --filter "app-that-excludes-mirage" lint
 
       - name: Run Tests
-        run: yarn workspace app-that-excludes-mirage test
+        run: pnpm --filter "app-that-excludes-mirage" test
 
   test-app-03:
     name: "Tests - Embroider"
@@ -123,21 +89,13 @@ jobs:
     timeout-minutes: 60
 
     steps:
-      - uses: actions/checkout@v3
-      - name: Install Node
-        uses: actions/setup-node@v3
-        with:
-          node-version: 14.x
-          cache: yarn
-
-      - name: Install Dependencies
-        run: yarn install --frozen-lockfile
+      - uses: wyvox/action@v1
 
       - name: Lint
-        run: yarn workspace embroider-app lint
+        run: pnpm --filter "embroider-app" lint
 
       - name: Run Tests
-        run: yarn workspace embroider-app test
+        run: pnpm --filter "embroider-app" test
 
 
   try-scenarios:
@@ -159,19 +117,9 @@ jobs:
           - ember-beta
           - ember-canary
           - ember-classic
-#          - embroider-safe
-#          - embroider-optimized
 
     steps:
-      - uses: actions/checkout@v3
-      - name: Install Node
-        uses: actions/setup-node@v3
-        with:
-          node-version: 14.x
-          cache: yarn
-
-      - name: Install Dependencies
-        run: yarn install --frozen-lockfile
+      - uses: wyvox/action@v1
 
       - name: Run Tests
         run: ./node_modules/.bin/ember try:one ${{ matrix.try-scenario }}

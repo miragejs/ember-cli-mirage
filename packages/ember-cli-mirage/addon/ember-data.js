@@ -1,8 +1,9 @@
 /* global requirejs */
 
 import require from 'require';
+import { macroCondition, dependencySatisfies } from '@embroider/macros';
 import assert from './assert';
-import { hasEmberData, isDsModel } from 'ember-cli-mirage/utils/ember-data';
+import { isDsModel } from 'ember-cli-mirage/utils/ember-data';
 import { Model, belongsTo, hasMany } from 'miragejs';
 import EmberDataSerializer from 'ember-cli-mirage/serializers/ember-data-serializer';
 import { _utilsInflectorCamelize as camelize } from 'miragejs';
@@ -24,6 +25,11 @@ export function getDsModels({ podModulePrefix, modulePrefix }) {
     return DsModels;
   }
 
+  if (macroCondition(!dependencySatisfies('ember-data', '*'))) {
+    DsModels ||= {};
+    return DsModels;
+  }
+
   let moduleMap = requirejs.entries;
   let classicModelMatchRegex = new RegExp(`^${modulePrefix}/models/(.*)$`, 'i');
   let podModelMatchRegex = new RegExp(
@@ -32,10 +38,6 @@ export function getDsModels({ podModulePrefix, modulePrefix }) {
   );
 
   DsModels = {};
-
-  if (!hasEmberData) {
-    return DsModels;
-  }
 
   Object.keys(moduleMap).forEach((path) => {
     let matches =
@@ -113,6 +115,11 @@ export function getDsSerializers({ modulePrefix, podModulePrefix }) {
     return DsSerializers;
   }
 
+  if (macroCondition(!dependencySatisfies('ember-data', '*'))) {
+    DsSerializers ||= {};
+    return DsSerializers;
+  }
+
   let moduleMap = requirejs.entries;
   let classicSerializerMatchRegex = new RegExp(
     `^${modulePrefix}/serializers/(.*)$`,
@@ -124,10 +131,6 @@ export function getDsSerializers({ modulePrefix, podModulePrefix }) {
   );
 
   DsSerializers = {};
-
-  if (!hasEmberData) {
-    return DsSerializers;
-  }
 
   Object.keys(moduleMap).forEach((path) => {
     let matches =

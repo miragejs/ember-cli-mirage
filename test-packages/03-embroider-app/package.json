@@ -18,9 +18,15 @@
     "lint:hbs:fix": "ember-template-lint . --fix",
     "lint:js": "eslint . --cache",
     "lint:js:fix": "eslint . --fix",
-    "start": "ember serve",
+    "start": "concurrently 'ember serve' 'pnpm _syncPnpm --watch' --names 'tests serve,tests sync deps'",
     "test": "npm-run-all lint test:*",
-    "test:ember": "ember test"
+    "test:ember": "ember test",
+    "_syncPnpm": "DEBUG=sync-pnpm pnpm sync-dependencies-meta-injected"
+  },
+  "dependenciesMeta": {
+    "ember-cli-mirage": {
+      "injected": true
+    }
   },
   "dependencies": {
     "@ember/string": "^3.1.1",
@@ -39,6 +45,7 @@
     "@glimmer/tracking": "^1.0.4",
     "babel-eslint": "^10.1.0",
     "broccoli-asset-rev": "^3.0.0",
+    "concurrently": "^8.2.0",
     "ember-auto-import": "^2.2.4",
     "ember-cli": "~4.1.1",
     "ember-cli-app-version": "^5.0.0",
@@ -66,6 +73,7 @@
     "eslint-plugin-qunit": "^7.2.0",
     "loader.js": "^4.7.0",
     "npm-run-all": "^4.1.5",
+    "pnpm-sync-dependencies-meta-injected": "^0.0.8",
     "prettier": "^2.5.1",
     "qunit": "^2.17.2",
     "qunit-dom": "^2.0.0",

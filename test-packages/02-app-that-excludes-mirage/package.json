@@ -18,9 +18,15 @@
     "lint:hbs:fix": "ember-template-lint . --fix",
     "lint:js": "eslint . --cache",
     "lint:js:fix": "eslint . --fix",
-    "start": "ember serve",
+    "start": "concurrently 'ember serve -p 4202' 'pnpm _syncPnpm --watch' --names 'tests serve,tests sync deps'",
     "test": "npm-run-all lint test:*",
-    "test:ember": "ember test"
+    "test:ember": "ember test",
+    "_syncPnpm": "DEBUG=sync-pnpm pnpm sync-dependencies-meta-injected"
+  },
+  "dependenciesMeta": {
+    "ember-cli-mirage": {
+      "injected": true
+    }
   },
   "devDependencies": {
     "@ember/optional-features": "^2.0.0",

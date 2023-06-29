@@ -10,10 +10,6 @@
   },
   "license": "MIT",
   "author": "Sam Selikoff",
-  "workspaces": [
-    "packages/*",
-    "test-packages/*"
-  ],
   "scripts": {
     "release": "release-it",
     "test": "cd packages/ember-cli-mirage && yarn test:ember"

@@ -11,3 +11,10 @@ export const hasEmberData = dependencySatisfies('ember-data', '*');
 export function isDsModel(m) {
   return m && typeof m.eachRelationship === 'function';
 }
+
+/**
+  @hide
+*/
+export const AppSymbolForEmberDataModels = Symbol(
+  'AppSymbolForEmberDataModels'
+);

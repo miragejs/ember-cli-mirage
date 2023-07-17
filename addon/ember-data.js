@@ -3,7 +3,11 @@
 import require from 'require';
 import config from 'ember-get-config';
 import assert from './assert';
-import { hasEmberData, isDsModel } from 'ember-cli-mirage/utils/ember-data';
+import {
+  hasEmberData,
+  isDsModel,
+  AppSymbolForEmberDataModels,
+} from 'ember-cli-mirage/utils/ember-data';
 import { Model, belongsTo, hasMany } from 'miragejs';
 import EmberDataSerializer from 'ember-cli-mirage/serializers/ember-data-serializer';
 import { _utilsInflectorCamelize as camelize } from 'miragejs';
@@ -13,6 +17,19 @@ const { modulePrefix, podModulePrefix } = config;
 // Caches
 let DsModels, Models;
 let DsSerializers, Serializers;
+
+function _getAppInstance() {
+  const application = window[AppSymbolForEmberDataModels];
+  let appInstance = application.__deprecatedInstance__;
+  // If an appInstance wasn't found (such as when running the tests)
+  // then instantiate one manually, so we can use it to discover the
+  // ember-data models in a way that doesn't trigger deprecations.
+  if (!appInstance) {
+    application._buildDeprecatedInstance();
+    appInstance = application.__deprecatedInstance__;
+  }
+  return appInstance;
+}
 
 /**
  * Get all ember data models under the app's namespaces
@@ -45,8 +62,19 @@ export function getDsModels() {
       path.match(classicModelMatchRegex) || path.match(podModelMatchRegex);
     if (matches && matches[1]) {
       let modelName = matches[1];
+      let model = undefined;
 
-      let model = require(path, null, null, true).default;
+      // Use the appInstance to lookup the models if provided, to avoid triggering
+      // the ember-data:deprecate-early-static deprecation in ember-data
+      const appInstance = _getAppInstance();
+      if (appInstance) {
+        const modelNameExact = path.split('/models/')[1];
+        const store = appInstance.lookup('service:store');
+        model = store.modelFor(modelNameExact);
+      } else {
+        model = require(path, null, null, true).default;
+      }
+
       if (isDsModel(model)) {
         DsModels[modelName] = model;
       }

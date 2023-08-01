@@ -16,6 +16,8 @@ const { default: makeServer } = config;
 export default {
   name: 'ember-cli-mirage',
   initialize(application) {
+    setApplicationGlobal(application)
+
     if (makeServer) {
       application.register('mirage:make-server', makeServer, {
         instantiate: false,
@@ -55,4 +57,19 @@ function _defaultEnabled(env, addonConfig) {
   let usingInTest = env === 'test';
 
   return usingInDev || usingInTest;
+}
+
+/*
+  Attaches `Application` to the global context (e.g. window) 
+  so that ember-cli-mirage/ember-data.js can then use it to retrieve 
+  the Models from the Application's store
+ */
+function setApplicationGlobal(application) {
+  let theGlobal = window || global || self
+    
+  try {
+    theGlobal.emberCliMirageApplication = application
+  } catch(err) {
+    throw new Error('ember-cli-mirage/initializers/ember-cli-mirage | could not set application global: ', err)
+  }
 }

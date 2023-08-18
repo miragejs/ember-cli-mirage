@@ -48,13 +48,13 @@ importers:
         version: 7.26.11
       ember-destroyable-polyfill:
         specifier: ^2.0.3
-        version: 2.0.3
+        version: 2.0.3(@babel/core@7.22.10)
       ember-get-config:
         specifier: 0.2.4 - 0.5.0 || ^1.0.0
-        version: 0.2.4
+        version: 0.2.4(@babel/core@7.22.10)
       ember-inflector:
         specifier: ^2.0.0 || ^3.0.0 || ^4.0.2
-        version: 2.0.0
+        version: 2.0.0(@babel/core@7.22.10)
       lodash-es:
         specifier: ^4.17.11
         version: 4.17.11
@@ -62,6 +62,9 @@ importers:
         specifier: ^0.1.43
         version: 0.1.43
     devDependencies:
+      '@babel/core':
+        specifier: ^7.22.10
+        version: 7.22.10
       '@ember/jquery':
         specifier: ^2.0.0
         version: 2.0.0
@@ -70,7 +73,7 @@ importers:
         version: 2.0.0
       '@ember/test-helpers':
         specifier: ^2.7.0
-        version: 2.7.0
+        version: 2.7.0(@babel/core@7.22.10)
       '@embroider/test-setup':
         specifier: ^1.6.0
         version: 1.6.0
@@ -79,7 +82,7 @@ importers:
         version: 6.3.1
       '@glimmer/component':
         specifier: ^1.1.2
-        version: 1.1.2
+        version: 1.1.2(@babel/core@7.22.10)
       '@glimmer/tracking':
         specifier: ^1.1.2
         version: 1.1.2
@@ -121,7 +124,7 @@ importers:
         version: 4.0.2
       ember-data:
         specifier: ~4.1.0
-        version: 4.1.0(webpack@5.72.0)
+        version: 4.1.0(@babel/core@7.22.10)(webpack@5.72.0)
       ember-disable-prototype-extensions:
         specifier: ^1.1.3
         version: 1.1.3
@@ -133,7 +136,7 @@ importers:
         version: 8.1.1
       ember-load-initializers:
         specifier: ^2.1.2
-        version: 2.1.2
+        version: 2.1.2(@babel/core@7.22.10)
       ember-moment:
         specifier: ^9.0.1
         version: 9.0.1
@@ -142,10 +145,10 @@ importers:
         version: 5.1.5(@ember/test-helpers@2.7.0)(qunit@2.18.2)
       ember-resolver:
         specifier: ^8.0.3
-        version: 8.0.3
+        version: 8.0.3(@babel/core@7.22.10)
       ember-source:
         specifier: ~4.1.0
-        version: 4.1.0(webpack@5.72.0)
+        version: 4.1.0(@babel/core@7.22.10)(webpack@5.72.0)
       ember-source-channel-url:
         specifier: ^3.0.0
         version: 3.0.0
@@ -203,6 +206,9 @@ importers:
 
   packages/ember-cli-mirage-docs:
     devDependencies:
+      '@babel/core':
+        specifier: ^7.22.10
+        version: 7.22.10
       '@ember/jquery':
         specifier: ^2.0.0
         version: 2.0.0
@@ -211,13 +217,13 @@ importers:
         version: 2.0.0
       '@ember/test-helpers':
         specifier: ^2.7.0
-        version: 2.7.0
+        version: 2.7.0(@babel/core@7.22.10)
       '@faker-js/faker':
         specifier: ^6.3.1
         version: 6.3.1
       '@glimmer/component':
         specifier: ^1.1.2
-        version: 1.1.2
+        version: 1.1.2(@babel/core@7.22.10)
       '@glimmer/tracking':
         specifier: ^1.1.2
         version: 1.1.2
@@ -235,7 +241,7 @@ importers:
         version: 4.1.1
       ember-cli-addon-docs:
         specifier: github:ember-learn/ember-cli-addon-docs#36a989bd112e8c2ae27c375eef6f7796c8a5dc28
-        version: github.com/ember-learn/ember-cli-addon-docs/36a989bd112e8c2ae27c375eef6f7796c8a5dc28(@ember/test-helpers@2.7.0)(ember-data@4.1.0)(ember-fetch@8.1.1)(ember-source@4.1.0)(webpack@5.72.0)
+        version: github.com/ember-learn/ember-cli-addon-docs/36a989bd112e8c2ae27c375eef6f7796c8a5dc28(@babel/core@7.22.10)(@ember/test-helpers@2.7.0)(ember-data@4.1.0)(ember-fetch@8.1.1)(ember-source@4.1.0)(webpack@5.72.0)
       ember-cli-addon-docs-esdoc:
         specifier: ^0.4.0
         version: 0.4.0
@@ -253,7 +259,7 @@ importers:
         version: 2.0.0
       ember-cli-deploy-git:
         specifier: ^1.3.3
-        version: 1.3.3
+        version: 1.3.3(@babel/core@7.22.10)
       ember-cli-deploy-git-ci:
         specifier: ^1.0.1
         version: 1.0.1
@@ -283,7 +289,7 @@ importers:
         version: 5.0.0
       ember-data:
         specifier: ~4.1.0
-        version: 4.1.0(webpack@5.72.0)
+        version: 4.1.0(@babel/core@7.22.10)(webpack@5.72.0)
       ember-export-application-global:
         specifier: ^2.0.1
         version: 2.0.1
@@ -292,7 +298,7 @@ importers:
         version: 8.1.1
       ember-load-initializers:
         specifier: ^2.1.2
-        version: 2.1.2
+        version: 2.1.2(@babel/core@7.22.10)
       ember-moment:
         specifier: ^9.0.1
         version: 9.0.1
@@ -301,10 +307,10 @@ importers:
         version: 5.1.5(@ember/test-helpers@2.7.0)(qunit@2.18.2)
       ember-resolver:
         specifier: ^8.0.3
-        version: 8.0.3
+        version: 8.0.3(@babel/core@7.22.10)
       ember-source:
         specifier: ~4.1.0
-        version: 4.1.0(webpack@5.72.0)
+        version: 4.1.0(@babel/core@7.22.10)(webpack@5.72.0)
       ember-template-lint:
         specifier: ^4.5.0
         version: 4.5.0
@@ -353,18 +359,21 @@ importers:
 
   test-packages/01-basic-app:
     devDependencies:
+      '@babel/core':
+        specifier: ^7.22.10
+        version: 7.22.10
       '@ember/optional-features':
         specifier: ^2.0.0
         version: 2.0.0
       '@ember/test-helpers':
         specifier: ^2.6.0
-        version: 2.7.0
+        version: 2.7.0(@babel/core@7.22.10)
       '@faker-js/faker':
         specifier: ^6.3.1
         version: 6.3.1
       '@glimmer/component':
         specifier: ^1.0.4
-        version: 1.1.2
+        version: 1.1.2(@babel/core@7.22.10)
       '@glimmer/tracking':
         specifier: ^1.0.4
         version: 1.1.2
@@ -409,7 +418,7 @@ importers:
         version: 4.0.2
       ember-data:
         specifier: ~4.1.0
-        version: 4.1.0(webpack@5.72.0)
+        version: 4.1.0(@babel/core@7.22.10)(webpack@5.72.0)
       ember-export-application-global:
         specifier: ^2.0.1
         version: 2.0.1
@@ -418,7 +427,7 @@ importers:
         version: 8.1.1
       ember-load-initializers:
         specifier: ^2.1.2
-        version: 2.1.2
+        version: 2.1.2(@babel/core@7.22.10)
       ember-page-title:
         specifier: ^7.0.0
         version: 7.0.0
@@ -427,10 +436,10 @@ importers:
         version: 5.1.5(@ember/test-helpers@2.7.0)(qunit@2.18.2)
       ember-resolver:
         specifier: ^8.0.3
-        version: 8.0.3
+        version: 8.0.3(@babel/core@7.22.10)
       ember-source:
         specifier: ~4.1.0
-        version: 4.1.0(webpack@5.72.0)
+        version: 4.1.0(@babel/core@7.22.10)(webpack@5.72.0)
       ember-template-lint:
         specifier: ^3.15.0
         version: 3.15.0
@@ -482,15 +491,18 @@ importers:
 
   test-packages/02-app-that-excludes-mirage:
     devDependencies:
+      '@babel/core':
+        specifier: ^7.22.10
+        version: 7.22.10
       '@ember/optional-features':
         specifier: ^2.0.0
         version: 2.0.0
       '@ember/test-helpers':
         specifier: ^2.6.0
-        version: 2.7.0
+        version: 2.7.0(@babel/core@7.22.10)
       '@glimmer/component':
         specifier: ^1.0.4
-        version: 1.1.2
+        version: 1.1.2(@babel/core@7.22.10)
       '@glimmer/tracking':
         specifier: ^1.0.4
         version: 1.1.2
@@ -532,7 +544,7 @@ importers:
         version: 4.0.2
       ember-data:
         specifier: ~4.1.0
-        version: 4.1.0(webpack@5.72.0)
+        version: 4.1.0(@babel/core@7.22.10)(webpack@5.72.0)
       ember-export-application-global:
         specifier: ^2.0.1
         version: 2.0.1
@@ -541,7 +553,7 @@ importers:
         version: 8.1.1
       ember-load-initializers:
         specifier: ^2.1.2
-        version: 2.1.2
+        version: 2.1.2(@babel/core@7.22.10)
       ember-page-title:
         specifier: ^7.0.0
         version: 7.0.0
@@ -550,10 +562,10 @@ importers:
         version: 5.1.5(@ember/test-helpers@2.7.0)(qunit@2.18.2)
       ember-resolver:
         specifier: ^8.0.3
-        version: 8.0.3
+        version: 8.0.3(@babel/core@7.22.10)
       ember-source:
         specifier: ~4.1.0
-        version: 4.1.0(webpack@5.72.0)
+        version: 4.1.0(@babel/core@7.22.10)(webpack@5.72.0)
       ember-template-lint:
         specifier: ^3.15.0
         version: 3.15.0
@@ -681,23 +693,6 @@ packages:
       lru-cache: 5.1.1
       semver: 6.3.1
 
-  /@babel/helper-create-class-features-plugin@7.22.10:
-    resolution: {integrity: sha512-5IBb77txKYQPpOEdUdIhBx8VrZyDCQ+H82H0+5dX1TmuscP5vJKEE3cKurjtIw/vFwzbVH48VweE78kVDBrqjA==}
-    engines: {node: '>=6.9.0'}
-    peerDependencies:
-      '@babel/core': ^7.0.0
-    dependencies:
-      '@babel/helper-annotate-as-pure': 7.22.5
-      '@babel/helper-environment-visitor': 7.22.5
-      '@babel/helper-function-name': 7.22.5
-      '@babel/helper-member-expression-to-functions': 7.22.5
-      '@babel/helper-optimise-call-expression': 7.22.5
-      '@babel/helper-replace-supers': 7.22.9
-      '@babel/helper-skip-transparent-expression-wrappers': 7.22.5
-      '@babel/helper-split-export-declaration': 7.22.6
-      semver: 6.3.1
-    dev: true
-
   /@babel/helper-create-class-features-plugin@7.22.10(@babel/core@7.22.10):
     resolution: {integrity: sha512-5IBb77txKYQPpOEdUdIhBx8VrZyDCQ+H82H0+5dX1TmuscP5vJKEE3cKurjtIw/vFwzbVH48VweE78kVDBrqjA==}
     engines: {node: '>=6.9.0'}
@@ -803,17 +798,6 @@ packages:
       '@babel/helper-environment-visitor': 7.22.5
       '@babel/helper-wrap-function': 7.22.10
 
-  /@babel/helper-replace-supers@7.22.9:
-    resolution: {integrity: sha512-LJIKvvpgPOPUThdYqcX6IXRuIcTkcAub0IaDRGCZH0p5GPUp7PhRU9QVgFcDDd51BaPkk77ZjqFwh6DZTAEmGg==}
-    engines: {node: '>=6.9.0'}
-    peerDependencies:
-      '@babel/core': ^7.0.0
-    dependencies:
-      '@babel/helper-environment-visitor': 7.22.5
-      '@babel/helper-member-expression-to-functions': 7.22.5
-      '@babel/helper-optimise-call-expression': 7.22.5
-    dev: true
-
   /@babel/helper-replace-supers@7.22.9(@babel/core@7.22.10):
     resolution: {integrity: sha512-LJIKvvpgPOPUThdYqcX6IXRuIcTkcAub0IaDRGCZH0p5GPUp7PhRU9QVgFcDDd51BaPkk77ZjqFwh6DZTAEmGg==}
     engines: {node: '>=6.9.0'}
@@ -907,16 +891,6 @@ packages:
       '@babel/helper-plugin-utils': 7.22.5
       '@babel/helper-skip-transparent-expression-wrappers': 7.22.5
       '@babel/plugin-transform-optional-chaining': 7.22.10(@babel/core@7.22.10)
-
-  /@babel/plugin-proposal-class-properties@7.18.6:
-    resolution: {integrity: sha512-cumfXOF0+nzZrrN8Rf0t7M+tF6sZc7vhQwYQck9q1/5w2OExlD+b4v4RpMJFaV1Z7WcDRgO6FqvxqxGlwo+RHQ==}
-    engines: {node: '>=6.9.0'}
-    peerDependencies:
-      '@babel/core': ^7.0.0-0
-    dependencies:
-      '@babel/helper-create-class-features-plugin': 7.22.10
-      '@babel/helper-plugin-utils': 7.22.5
-    dev: true
 
   /@babel/plugin-proposal-class-properties@7.18.6(@babel/core@7.22.10):
     resolution: {integrity: sha512-cumfXOF0+nzZrrN8Rf0t7M+tF6sZc7vhQwYQck9q1/5w2OExlD+b4v4RpMJFaV1Z7WcDRgO6FqvxqxGlwo+RHQ==}
@@ -1121,15 +1095,6 @@ packages:
       '@babel/core': 7.22.10
       '@babel/helper-plugin-utils': 7.22.5
 
-  /@babel/plugin-syntax-typescript@7.22.5:
-    resolution: {integrity: sha512-1mS2o03i7t1c6VzH6fdQ3OA8tcEIxwG18zIPRp+UY1Ihv6W+XZzBCVxExF9upussPXJ0xE9XRHwMoNs1ep/nRQ==}
-    engines: {node: '>=6.9.0'}
-    peerDependencies:
-      '@babel/core': ^7.0.0-0
-    dependencies:
-      '@babel/helper-plugin-utils': 7.22.5
-    dev: true
-
   /@babel/plugin-syntax-typescript@7.22.5(@babel/core@7.22.10):
     resolution: {integrity: sha512-1mS2o03i7t1c6VzH6fdQ3OA8tcEIxwG18zIPRp+UY1Ihv6W+XZzBCVxExF9upussPXJ0xE9XRHwMoNs1ep/nRQ==}
     engines: {node: '>=6.9.0'}
@@ -1189,15 +1154,6 @@ packages:
     dependencies:
       '@babel/core': 7.22.10
       '@babel/helper-plugin-utils': 7.22.5
-
-  /@babel/plugin-transform-block-scoping@7.22.10:
-    resolution: {integrity: sha512-1+kVpGAOOI1Albt6Vse7c8pHzcZQdQKW+wJH+g8mCaszOdDVwRXa/slHPqIw+oJAJANTKDMuM2cBdV0Dg618Vg==}
-    engines: {node: '>=6.9.0'}
-    peerDependencies:
-      '@babel/core': ^7.0.0-0
-    dependencies:
-      '@babel/helper-plugin-utils': 7.22.5
-    dev: true
 
   /@babel/plugin-transform-block-scoping@7.22.10(@babel/core@7.22.10):
     resolution: {integrity: sha512-1+kVpGAOOI1Albt6Vse7c8pHzcZQdQKW+wJH+g8mCaszOdDVwRXa/slHPqIw+oJAJANTKDMuM2cBdV0Dg618Vg==}
@@ -1631,23 +1587,25 @@ packages:
       '@babel/helper-plugin-utils': 7.22.5
       '@babel/plugin-syntax-typescript': 7.22.5(@babel/core@7.22.10)
 
-  /@babel/plugin-transform-typescript@7.4.5:
+  /@babel/plugin-transform-typescript@7.4.5(@babel/core@7.22.10):
     resolution: {integrity: sha512-RPB/YeGr4ZrFKNwfuQRlMf2lxoCUaU01MTw39/OFE/RiL8HDjtn68BwEPft1P7JN4akyEmjGWAMNldOV7o9V2g==}
     peerDependencies:
       '@babel/core': ^7.0.0-0
     dependencies:
+      '@babel/core': 7.22.10
       '@babel/helper-plugin-utils': 7.22.5
-      '@babel/plugin-syntax-typescript': 7.22.5
+      '@babel/plugin-syntax-typescript': 7.22.5(@babel/core@7.22.10)
     dev: true
 
-  /@babel/plugin-transform-typescript@7.5.5:
+  /@babel/plugin-transform-typescript@7.5.5(@babel/core@7.22.10):
     resolution: {integrity: sha512-pehKf4m640myZu5B2ZviLaiBlxMCjSZ1qTEO459AXKX5GnPueyulJeCqZFs1nz/Ya2dDzXQ1NxZ/kKNWyD4h6w==}
     peerDependencies:
       '@babel/core': ^7.0.0-0
     dependencies:
-      '@babel/helper-create-class-features-plugin': 7.22.10
+      '@babel/core': 7.22.10
+      '@babel/helper-create-class-features-plugin': 7.22.10(@babel/core@7.22.10)
       '@babel/helper-plugin-utils': 7.22.5
-      '@babel/plugin-syntax-typescript': 7.22.5
+      '@babel/plugin-syntax-typescript': 7.22.5(@babel/core@7.22.10)
     dev: true
 
   /@babel/plugin-transform-unicode-escapes@7.22.10(@babel/core@7.22.10):
@@ -1876,12 +1834,12 @@ packages:
     engines: {node: '>=4.0.0'}
     dev: true
 
-  /@ember-data/adapter@4.1.0(webpack@5.72.0):
+  /@ember-data/adapter@4.1.0(@babel/core@7.22.10)(webpack@5.72.0):
     resolution: {integrity: sha512-Yl9lwn+ZsUbSZXzXG6a64PrBLesqmSMF1JRF59uTnpIqiMQYUTdWMbYL8GDBUsphjpxUWBP5TxHgyhWSxi2LeA==}
     engines: {node: 12.* || >= 14.*}
     dependencies:
-      '@ember-data/private-build-infra': 4.1.0
-      '@ember-data/store': 4.1.0(webpack@5.72.0)
+      '@ember-data/private-build-infra': 4.1.0(@babel/core@7.22.10)
+      '@ember-data/store': 4.1.0(@babel/core@7.22.10)(webpack@5.72.0)
       '@ember/edition-utils': 1.2.0
       '@ember/string': 3.1.1
       ember-auto-import: 2.3.0(webpack@5.72.0)
@@ -1904,11 +1862,11 @@ packages:
       - supports-color
     dev: true
 
-  /@ember-data/debug@4.1.0(webpack@5.72.0):
+  /@ember-data/debug@4.1.0(@babel/core@7.22.10)(webpack@5.72.0):
     resolution: {integrity: sha512-c8ftofepCEGzWkJ21IEo690q6Z0zE2ZrAzE+H+kbcOKXGzVHJFJS573nblzL22IRcsIC6kHIHwSZ1abkKIgnIw==}
     engines: {node: 12.* || >= 14.*}
     dependencies:
-      '@ember-data/private-build-infra': 4.1.0
+      '@ember-data/private-build-infra': 4.1.0(@babel/core@7.22.10)
       '@ember/edition-utils': 1.2.0
       '@ember/string': 3.1.1
       ember-auto-import: 2.3.0(webpack@5.72.0)
@@ -1921,22 +1879,22 @@ packages:
       - webpack
     dev: true
 
-  /@ember-data/model@4.1.0(webpack@5.72.0):
+  /@ember-data/model@4.1.0(@babel/core@7.22.10)(webpack@5.72.0):
     resolution: {integrity: sha512-Ci1sRrK7cbCUhrejrvDxDxE/oHoQeYmrmyduivtmpWSVXYbn+HbIhQRW0fMpumpeu0I9AteFrH9OJCF8qN/Cig==}
     engines: {node: 12.* || >= 14.*}
     dependencies:
       '@ember-data/canary-features': 4.1.0
-      '@ember-data/private-build-infra': 4.1.0
-      '@ember-data/store': 4.1.0(webpack@5.72.0)
+      '@ember-data/private-build-infra': 4.1.0(@babel/core@7.22.10)
+      '@ember-data/store': 4.1.0(@babel/core@7.22.10)(webpack@5.72.0)
       '@ember/edition-utils': 1.2.0
       '@ember/string': 3.1.1
       ember-auto-import: 2.3.0(webpack@5.72.0)
-      ember-cached-decorator-polyfill: 0.1.4
+      ember-cached-decorator-polyfill: 0.1.4(@babel/core@7.22.10)
       ember-cli-babel: 7.26.11
       ember-cli-string-utils: 1.1.0
       ember-cli-test-info: 1.0.0
       ember-cli-typescript: 4.2.1
-      ember-compatibility-helpers: 1.2.6
+      ember-compatibility-helpers: 1.2.6(@babel/core@7.22.10)
       inflection: 1.13.4
     transitivePeerDependencies:
       - '@babel/core'
@@ -1944,14 +1902,14 @@ packages:
       - webpack
     dev: true
 
-  /@ember-data/private-build-infra@4.1.0:
+  /@ember-data/private-build-infra@4.1.0(@babel/core@7.22.10):
     resolution: {integrity: sha512-2xunpWRlUXOWCJIOiZ4095VYXaDoWLydHIjalapVlI1+j2ONB6SZy1txXXb/fgbDfbRbH2oTLabcpcdUfBqy8g==}
     engines: {node: 12.* || >= 14.*}
     dependencies:
-      '@babel/plugin-transform-block-scoping': 7.22.10
+      '@babel/plugin-transform-block-scoping': 7.22.10(@babel/core@7.22.10)
       '@ember-data/canary-features': 4.1.0
       '@ember/edition-utils': 1.2.0
-      babel-plugin-debug-macros: 0.3.4
+      babel-plugin-debug-macros: 0.3.4(@babel/core@7.22.10)
       babel-plugin-filter-imports: 4.0.0
       babel6-plugin-strip-class-callcheck: 6.0.0
       broccoli-debug: 0.6.5
@@ -1979,13 +1937,13 @@ packages:
       - supports-color
     dev: true
 
-  /@ember-data/record-data@4.1.0(webpack@5.72.0):
+  /@ember-data/record-data@4.1.0(@babel/core@7.22.10)(webpack@5.72.0):
     resolution: {integrity: sha512-vX+QdcI1QJXpi3rTl+hr+6BPXxtnRbcfJd/TZlz78kWfkBYZ3Prxx2VVO89F8i+lTpMC0o+dCHmoQoYfQpyYWg==}
     engines: {node: 12.* || >= 14.*}
     dependencies:
       '@ember-data/canary-features': 4.1.0
-      '@ember-data/private-build-infra': 4.1.0
-      '@ember-data/store': 4.1.0(webpack@5.72.0)
+      '@ember-data/private-build-infra': 4.1.0(@babel/core@7.22.10)
+      '@ember-data/store': 4.1.0(@babel/core@7.22.10)(webpack@5.72.0)
       '@ember/edition-utils': 1.2.0
       ember-auto-import: 2.3.0(webpack@5.72.0)
       ember-cli-babel: 7.26.11
@@ -2000,12 +1958,12 @@ packages:
   /@ember-data/rfc395-data@0.0.4:
     resolution: {integrity: sha512-tGRdvgC9/QMQSuSuJV45xoyhI0Pzjm7A9o/MVVA3HakXIImJbbzx/k/6dO9CUEQXIyS2y0fW6C1XaYOG7rY0FQ==}
 
-  /@ember-data/serializer@4.1.0(webpack@5.72.0):
+  /@ember-data/serializer@4.1.0(@babel/core@7.22.10)(webpack@5.72.0):
     resolution: {integrity: sha512-ztu5YSe31wmNvAE9/F6IfyM1VfmBBilUSGQYCt4EONx+4sJLlAbSLvPBPLz2O1n/LquArI6t6XuiE2Og4BAkLA==}
     engines: {node: 12.* || >= 14.*}
     dependencies:
-      '@ember-data/private-build-infra': 4.1.0
-      '@ember-data/store': 4.1.0(webpack@5.72.0)
+      '@ember-data/private-build-infra': 4.1.0(@babel/core@7.22.10)
+      '@ember-data/store': 4.1.0(@babel/core@7.22.10)(webpack@5.72.0)
       ember-auto-import: 2.3.0(webpack@5.72.0)
       ember-cli-babel: 7.26.11
       ember-cli-test-info: 1.0.0
@@ -2016,16 +1974,16 @@ packages:
       - webpack
     dev: true
 
-  /@ember-data/store@4.1.0(webpack@5.72.0):
+  /@ember-data/store@4.1.0(@babel/core@7.22.10)(webpack@5.72.0):
     resolution: {integrity: sha512-BJ6dY54wJzN+N6HVF9xg+XPzQnOT1wRApWqnjvyhHDpWfx1LcCF1ScD0tmuubLhb1tiDrNzrI8EQSNQwqNBzKQ==}
     engines: {node: 12.* || >= 14.*}
     dependencies:
       '@ember-data/canary-features': 4.1.0
-      '@ember-data/private-build-infra': 4.1.0
+      '@ember-data/private-build-infra': 4.1.0(@babel/core@7.22.10)
       '@ember/string': 3.1.1
       '@glimmer/tracking': 1.1.2
       ember-auto-import: 2.3.0(webpack@5.72.0)
-      ember-cached-decorator-polyfill: 0.1.4
+      ember-cached-decorator-polyfill: 0.1.4(@babel/core@7.22.10)
       ember-cli-babel: 7.26.11
       ember-cli-path-utils: 1.0.0
       ember-cli-typescript: 4.2.1
@@ -2105,7 +2063,7 @@ packages:
       - supports-color
     dev: true
 
-  /@ember/render-modifiers@2.1.0(ember-source@4.1.0):
+  /@ember/render-modifiers@2.1.0(@babel/core@7.22.10)(ember-source@4.1.0):
     resolution: {integrity: sha512-LruhfoDv2itpk0fA0IC76Sxjcnq/7BC6txpQo40hOko8Dn6OxwQfxkPIbZGV0Cz7df+iX+VJrcYzNIvlc3w2EQ==}
     engines: {node: 12.* || 14.* || >= 16}
     peerDependencies:
@@ -2117,8 +2075,8 @@ packages:
     dependencies:
       '@embroider/macros': 1.6.0
       ember-cli-babel: 7.26.11
-      ember-modifier-manager-polyfill: 1.2.0
-      ember-source: 4.1.0(webpack@5.72.0)
+      ember-modifier-manager-polyfill: 1.2.0(@babel/core@7.22.10)
+      ember-source: 4.1.0(@babel/core@7.22.10)(webpack@5.72.0)
     transitivePeerDependencies:
       - '@babel/core'
       - supports-color
@@ -2133,7 +2091,7 @@ packages:
       - supports-color
     dev: true
 
-  /@ember/test-helpers@2.7.0:
+  /@ember/test-helpers@2.7.0(@babel/core@7.22.10):
     resolution: {integrity: sha512-eWFtw5+sbci1Fw+E+HoyaMxY126LvK7jul6i8tad48zlWoxrOalbhJhz1mKqIo4daHbqIZWuFgQhOib4QfTKCQ==}
     engines: {node: 10.* || 12.* || 14.* || 15.* || >= 16.*}
     dependencies:
@@ -2142,7 +2100,7 @@ packages:
       broccoli-funnel: 3.0.8
       ember-cli-babel: 7.26.11
       ember-cli-htmlbars: 5.7.2
-      ember-destroyable-polyfill: 2.0.3
+      ember-destroyable-polyfill: 2.0.3(@babel/core@7.22.10)
     transitivePeerDependencies:
       - '@babel/core'
       - supports-color
@@ -2228,7 +2186,7 @@ packages:
       '@embroider/macros': 1.6.0
       broccoli-funnel: 3.0.8
       ember-cli-babel: 7.26.11
-      ember-source: 4.1.0(webpack@5.72.0)
+      ember-source: 4.1.0(@babel/core@7.22.10)(webpack@5.72.0)
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -2266,7 +2224,7 @@ packages:
     resolution: {integrity: sha512-k2Ty1JcVojjJFwrg/ThKi2ujJ7XNLYaFGNB/bWT9wGR+oSMJHMa5w+CUq6p/pVrKeNNgA7pCqEcjSnHVoqJQFw==}
     dev: true
 
-  /@glimmer/component@1.1.2:
+  /@glimmer/component@1.1.2(@babel/core@7.22.10):
     resolution: {integrity: sha512-XyAsEEa4kWOPy+gIdMjJ8XlzA3qrGH55ZDv6nA16ibalCR17k74BI0CztxuRds+Rm6CtbUVgheCVlcCULuqD7A==}
     engines: {node: 6.* || 8.* || >= 10.*}
     dependencies:
@@ -2281,9 +2239,9 @@ packages:
       ember-cli-normalize-entity-name: 1.0.0
       ember-cli-path-utils: 1.0.0
       ember-cli-string-utils: 1.1.0
-      ember-cli-typescript: 3.0.0
+      ember-cli-typescript: 3.0.0(@babel/core@7.22.10)
       ember-cli-version-checker: 3.1.3
-      ember-compatibility-helpers: 1.2.6
+      ember-compatibility-helpers: 1.2.6(@babel/core@7.22.10)
     transitivePeerDependencies:
       - '@babel/core'
       - supports-color
@@ -2404,10 +2362,10 @@ packages:
       '@glimmer/global-context': 0.84.3
     dev: true
 
-  /@glimmer/vm-babel-plugins@0.83.1:
+  /@glimmer/vm-babel-plugins@0.83.1(@babel/core@7.22.10):
     resolution: {integrity: sha512-Cz0e/SrOo1gSNA0PXZRYI1WGmlQSAQCpiERBlXjjpwoLgiqx2kvsjfFiCUC/CfpsO6WN6wuPMeTFGJuhSSeL5A==}
     dependencies:
-      babel-plugin-debug-macros: 0.3.4
+      babel-plugin-debug-macros: 0.3.4(@babel/core@7.22.10)
     transitivePeerDependencies:
       - '@babel/core'
     dev: true
@@ -4418,22 +4376,14 @@ packages:
     dependencies:
       babel-runtime: 6.26.0
 
-  /babel-plugin-debug-macros@0.2.0:
+  /babel-plugin-debug-macros@0.2.0(@babel/core@7.22.10):
     resolution: {integrity: sha512-Wpmw4TbhR3Eq2t3W51eBAQSdKlr+uAyF0GI4GtPfMCD12Y4cIdpKC9l0RjNTH/P9isFypSqqewMPm7//fnZlNA==}
     engines: {node: '>=4'}
     peerDependencies:
       '@babel/core': ^7.0.0-beta.42
     dependencies:
+      '@babel/core': 7.22.10
       semver: 5.7.2
-
-  /babel-plugin-debug-macros@0.3.4:
-    resolution: {integrity: sha512-wfel/vb3pXfwIDZUrkoDrn5FHmlWI96PCJ3UCDv2a86poJ3EQrnArNW5KfHSVJ9IOgxHbo748cQt7sDU+0KCEw==}
-    engines: {node: '>=6'}
-    peerDependencies:
-      '@babel/core': ^7.0.0
-    dependencies:
-      semver: 5.7.2
-    dev: true
 
   /babel-plugin-debug-macros@0.3.4(@babel/core@7.22.10):
     resolution: {integrity: sha512-wfel/vb3pXfwIDZUrkoDrn5FHmlWI96PCJ3UCDv2a86poJ3EQrnArNW5KfHSVJ9IOgxHbo748cQt7sDU+0KCEw==}
@@ -7589,7 +7539,7 @@ packages:
       minimalistic-crypto-utils: 1.0.1
     dev: true
 
-  /ember-app-scheduler@7.0.1:
+  /ember-app-scheduler@7.0.1(@babel/core@7.22.10):
     resolution: {integrity: sha512-7140A/4OJuYBlncfxmreZHX5S7FxO/4KX5NswowIrvGZpaLuoeULjBHgiKBWC1OUzsdHST4jwaDufniHEROajg==}
     engines: {node: 12.* || 14.* || >= 16}
     dependencies:
@@ -7598,8 +7548,8 @@ packages:
       '@types/rsvp': 4.0.4
       ember-cli-babel: 7.26.11
       ember-cli-typescript: 4.2.1
-      ember-compatibility-helpers: 1.2.6
-      ember-destroyable-polyfill: 2.0.3
+      ember-compatibility-helpers: 1.2.6(@babel/core@7.22.10)
+      ember-destroyable-polyfill: 2.0.3(@babel/core@7.22.10)
     transitivePeerDependencies:
       - '@babel/core'
       - supports-color
@@ -7721,25 +7671,25 @@ packages:
       - webpack
     dev: true
 
-  /ember-cache-primitive-polyfill@1.0.1:
+  /ember-cache-primitive-polyfill@1.0.1(@babel/core@7.22.10):
     resolution: {integrity: sha512-hSPcvIKarA8wad2/b6jDd/eU+OtKmi6uP+iYQbzi5TQpjsqV6b4QdRqrLk7ClSRRKBAtdTuutx+m+X+WlEd2lw==}
     engines: {node: 10.* || >= 12}
     dependencies:
       ember-cli-babel: 7.26.11
       ember-cli-version-checker: 5.1.2
-      ember-compatibility-helpers: 1.2.6
+      ember-compatibility-helpers: 1.2.6(@babel/core@7.22.10)
       silent-error: 1.1.1
     transitivePeerDependencies:
       - '@babel/core'
       - supports-color
     dev: true
 
-  /ember-cached-decorator-polyfill@0.1.4:
+  /ember-cached-decorator-polyfill@0.1.4(@babel/core@7.22.10):
     resolution: {integrity: sha512-JOK7kBCWsTVCzmCefK4nr9BACDJk0owt9oIUaVt6Q0UtQ4XeAHmoK5kQ/YtDcxQF1ZevHQFdGhsTR3JLaHNJgA==}
     engines: {node: 10.* || >= 12}
     dependencies:
       '@glimmer/tracking': 1.1.2
-      ember-cache-primitive-polyfill: 1.0.1
+      ember-cache-primitive-polyfill: 1.0.1(@babel/core@7.22.10)
       ember-cli-babel: 7.26.11
       ember-cli-babel-plugin-helpers: 1.1.1
     transitivePeerDependencies:
@@ -7792,12 +7742,12 @@ packages:
     resolution: {integrity: sha512-sKvOiPNHr5F/60NLd7SFzMpYPte/nnGkq/tMIfXejfKHIhaiIkYFqX8Z9UFTKWLLn+V7NOaby6niNPZUdvKCRw==}
     engines: {node: 6.* || 8.* || >= 10.*}
 
-  /ember-cli-babel@6.18.0:
+  /ember-cli-babel@6.18.0(@babel/core@7.22.10):
     resolution: {integrity: sha512-7ceC8joNYxY2wES16iIBlbPSxwKDBhYwC8drU3ZEvuPDMwVv1KzxCNu1fvxyFEBWhwaRNTUxSCsEVoTd9nosGA==}
     engines: {node: ^4.5 || 6.* || >= 7.*}
     dependencies:
       amd-name-resolver: 1.2.0
-      babel-plugin-debug-macros: 0.2.0
+      babel-plugin-debug-macros: 0.2.0(@babel/core@7.22.10)
       babel-plugin-ember-modules-api-polyfill: 2.13.4
       babel-plugin-transform-es2015-modules-amd: 6.24.1
       babel-polyfill: 6.26.0
@@ -7850,11 +7800,11 @@ packages:
     transitivePeerDependencies:
       - supports-color
 
-  /ember-cli-clipboard@0.16.0(ember-source@4.1.0):
+  /ember-cli-clipboard@0.16.0(@babel/core@7.22.10)(ember-source@4.1.0):
     resolution: {integrity: sha512-l9iDVjcJLkbgpdbJe+bN29q2ibZmEpEV6bXstIG9q4HPvaqbXw0PbSFhaNeQWpJKNkd5dFKSNdgEfli6heJSFw==}
     engines: {node: 12.* || 14.* || >= 16}
     dependencies:
-      '@ember/render-modifiers': 2.1.0(ember-source@4.1.0)
+      '@ember/render-modifiers': 2.1.0(@babel/core@7.22.10)(ember-source@4.1.0)
       clipboard: 2.0.11
       ember-auto-import: 1.12.2
       ember-cli-babel: 7.26.11
@@ -7903,11 +7853,11 @@ packages:
       fs-extra: 4.0.3
     dev: true
 
-  /ember-cli-deploy-git@1.3.3:
+  /ember-cli-deploy-git@1.3.3(@babel/core@7.22.10):
     resolution: {integrity: sha512-skwu+ROq38SuWqcrTh0e/iTCLWOdeANMz2PcnSIiPUcOocVCZUX0FbV4YmQ9Wn6yavzg7VTKrZPxN1YA9eHwYg==}
     engines: {node: '>= 4'}
     dependencies:
-      ember-cli-babel: 6.18.0
+      ember-cli-babel: 6.18.0(@babel/core@7.22.10)
       ember-cli-deploy-plugin: 0.2.9
       fs-extra: 5.0.0
       rsvp: 4.8.5
@@ -8176,12 +8126,12 @@ packages:
       - supports-color
     dev: true
 
-  /ember-cli-typescript@2.0.2:
+  /ember-cli-typescript@2.0.2(@babel/core@7.22.10):
     resolution: {integrity: sha512-7I5azCTxOgRDN8aSSnJZIKSqr+MGnT+jLTUbBYqF8wu6ojs2DUnTePxUcQMcvNh3Q3B1ySv7Q/uZFSjdU9gSjA==}
     engines: {node: 6.* || 8.* || >= 10.*}
     dependencies:
-      '@babel/plugin-proposal-class-properties': 7.18.6
-      '@babel/plugin-transform-typescript': 7.4.5
+      '@babel/plugin-proposal-class-properties': 7.18.6(@babel/core@7.22.10)
+      '@babel/plugin-transform-typescript': 7.4.5(@babel/core@7.22.10)
       ansi-to-html: 0.6.15
       debug: 4.3.4
       ember-cli-babel-plugin-helpers: 1.1.1
@@ -8197,11 +8147,11 @@ packages:
       - supports-color
     dev: true
 
-  /ember-cli-typescript@3.0.0:
+  /ember-cli-typescript@3.0.0(@babel/core@7.22.10):
     resolution: {integrity: sha512-lo5YArbJzJi5ssvaGqTt6+FnhTALnSvYVuxM7lfyL1UCMudyNJ94ovH5C7n5il7ATd6WsNiAPRUO/v+s5Jq/aA==}
     engines: {node: 8.* || >= 10.*}
     dependencies:
-      '@babel/plugin-transform-typescript': 7.5.5
+      '@babel/plugin-transform-typescript': 7.5.5(@babel/core@7.22.10)
       ansi-to-html: 0.6.15
       debug: 4.3.4
       ember-cli-babel-plugin-helpers: 1.1.1
@@ -8441,11 +8391,11 @@ packages:
       - supports-color
     dev: true
 
-  /ember-compatibility-helpers@1.2.6:
+  /ember-compatibility-helpers@1.2.6(@babel/core@7.22.10):
     resolution: {integrity: sha512-2UBUa5SAuPg8/kRVaiOfTwlXdeVweal1zdNPibwItrhR0IvPrXpaqwJDlEZnWKEoB+h33V0JIfiWleSG6hGkkA==}
     engines: {node: 10.* || >= 12.*}
     dependencies:
-      babel-plugin-debug-macros: 0.2.0
+      babel-plugin-debug-macros: 0.2.0(@babel/core@7.22.10)
       ember-cli-version-checker: 5.1.2
       find-up: 5.0.0
       fs-extra: 9.1.0
@@ -8466,7 +8416,7 @@ packages:
       - supports-color
     dev: true
 
-  /ember-concurrency@2.3.7:
+  /ember-concurrency@2.3.7(@babel/core@7.22.10):
     resolution: {integrity: sha512-sz6sTIXN/CuLb5wdpauFa+rWXuvXXSnSHS4kuNzU5GSMDX1pLBWSuovoUk61FUe6CYRqBmT1/UushObwBGickQ==}
     engines: {node: 10.* || 12.* || 14.* || >= 16}
     dependencies:
@@ -8476,24 +8426,24 @@ packages:
       ember-cli-babel: 7.26.11
       ember-cli-babel-plugin-helpers: 1.1.1
       ember-cli-htmlbars: 5.7.2
-      ember-compatibility-helpers: 1.2.6
-      ember-destroyable-polyfill: 2.0.3
+      ember-compatibility-helpers: 1.2.6(@babel/core@7.22.10)
+      ember-destroyable-polyfill: 2.0.3(@babel/core@7.22.10)
     transitivePeerDependencies:
       - '@babel/core'
       - supports-color
     dev: true
 
-  /ember-data@4.1.0(webpack@5.72.0):
+  /ember-data@4.1.0(@babel/core@7.22.10)(webpack@5.72.0):
     resolution: {integrity: sha512-+58GkcKy7aryVPj+UTSSBVIFIywk1CdiJwcbWR1/xXBF1d4scDxsO2w5mbKYpiGBdPyKeKvK9sJVC5gZTSf8BA==}
     engines: {node: 12.* || >= 14.*}
     dependencies:
-      '@ember-data/adapter': 4.1.0(webpack@5.72.0)
-      '@ember-data/debug': 4.1.0(webpack@5.72.0)
-      '@ember-data/model': 4.1.0(webpack@5.72.0)
-      '@ember-data/private-build-infra': 4.1.0
-      '@ember-data/record-data': 4.1.0(webpack@5.72.0)
-      '@ember-data/serializer': 4.1.0(webpack@5.72.0)
-      '@ember-data/store': 4.1.0(webpack@5.72.0)
+      '@ember-data/adapter': 4.1.0(@babel/core@7.22.10)(webpack@5.72.0)
+      '@ember-data/debug': 4.1.0(@babel/core@7.22.10)(webpack@5.72.0)
+      '@ember-data/model': 4.1.0(@babel/core@7.22.10)(webpack@5.72.0)
+      '@ember-data/private-build-infra': 4.1.0(@babel/core@7.22.10)
+      '@ember-data/record-data': 4.1.0(@babel/core@7.22.10)(webpack@5.72.0)
+      '@ember-data/serializer': 4.1.0(@babel/core@7.22.10)(webpack@5.72.0)
+      '@ember-data/store': 4.1.0(@babel/core@7.22.10)(webpack@5.72.0)
       '@ember/edition-utils': 1.2.0
       '@ember/string': 3.1.1
       '@glimmer/env': 0.1.7
@@ -8519,13 +8469,13 @@ packages:
       - supports-color
     dev: true
 
-  /ember-destroyable-polyfill@2.0.3:
+  /ember-destroyable-polyfill@2.0.3(@babel/core@7.22.10):
     resolution: {integrity: sha512-TovtNqCumzyAiW0/OisSkkVK93xnVF4NRU6+FN0ubpfwEOpRrmM2RqDwXI6YAChCgSHON1cz0DfQStpA1Gjuuw==}
     engines: {node: 10.* || >= 12}
     dependencies:
       ember-cli-babel: 7.26.11
       ember-cli-version-checker: 5.1.2
-      ember-compatibility-helpers: 1.2.6
+      ember-compatibility-helpers: 1.2.6(@babel/core@7.22.10)
     transitivePeerDependencies:
       - '@babel/core'
       - supports-color
@@ -8563,12 +8513,12 @@ packages:
       - supports-color
     dev: true
 
-  /ember-get-config@0.2.4:
+  /ember-get-config@0.2.4(@babel/core@7.22.10):
     resolution: {integrity: sha512-CgkR97y80Dm+hbVTW1O5ZC5cEUIfTsGsR6UPOyuaRdv3B5SRlBSxysnHrYKjRMb68l8AUa5DRkVW6yBh/u7Icw==}
     engines: {node: ^4.5 || 6.* || >= 7.*}
     dependencies:
       broccoli-file-creator: 1.2.0
-      ember-cli-babel: 6.18.0
+      ember-cli-babel: 6.18.0(@babel/core@7.22.10)
     transitivePeerDependencies:
       - '@babel/core'
       - supports-color
@@ -8584,11 +8534,11 @@ packages:
       - supports-color
     dev: true
 
-  /ember-inflector@2.0.0:
+  /ember-inflector@2.0.0(@babel/core@7.22.10):
     resolution: {integrity: sha512-HigTqhw1xljBVQKK7EbFhOmUKSlj2fAn62pmmUSoSOFpX0KNSFpt57JZcSdhY3166VLqXTA46xGiJVJyDRreJw==}
     engines: {node: '>= 4'}
     dependencies:
-      ember-cli-babel: 6.18.0
+      ember-cli-babel: 6.18.0(@babel/core@7.22.10)
     transitivePeerDependencies:
       - '@babel/core'
       - supports-color
@@ -8603,7 +8553,7 @@ packages:
       - supports-color
     dev: true
 
-  /ember-keyboard@8.2.1(@ember/test-helpers@2.7.0)(ember-source@4.1.0):
+  /ember-keyboard@8.2.1(@babel/core@7.22.10)(@ember/test-helpers@2.7.0)(ember-source@4.1.0):
     resolution: {integrity: sha512-wT9xpt3GKsiodGZoifKU4OyeRjXWlmKV9ZHHsp6wJBwMFpl4wWPjTNdINxivk2qg/WFNIh8nUiwuG4+soWXPdw==}
     peerDependencies:
       '@ember/test-helpers': ^2.6.0 || ^3.0.0
@@ -8611,23 +8561,23 @@ packages:
       '@ember/test-helpers':
         optional: true
     dependencies:
-      '@ember/test-helpers': 2.7.0
+      '@ember/test-helpers': 2.7.0(@babel/core@7.22.10)
       '@embroider/addon-shim': 1.8.6
-      ember-destroyable-polyfill: 2.0.3
+      ember-destroyable-polyfill: 2.0.3(@babel/core@7.22.10)
       ember-modifier: 4.1.0(ember-source@4.1.0)
-      ember-modifier-manager-polyfill: 1.2.0
+      ember-modifier-manager-polyfill: 1.2.0(@babel/core@7.22.10)
     transitivePeerDependencies:
       - '@babel/core'
       - ember-source
       - supports-color
     dev: true
 
-  /ember-load-initializers@2.1.2:
+  /ember-load-initializers@2.1.2(@babel/core@7.22.10):
     resolution: {integrity: sha512-CYR+U/wRxLbrfYN3dh+0Tb6mFaxJKfdyz+wNql6cqTrA0BBi9k6J3AaKXj273TqvEpyyXegQFFkZEiuZdYtgJw==}
     engines: {node: 6.* || 8.* || >= 10.*}
     dependencies:
       ember-cli-babel: 7.26.11
-      ember-cli-typescript: 2.0.2
+      ember-cli-typescript: 2.0.2(@babel/core@7.22.10)
     transitivePeerDependencies:
       - '@babel/core'
       - supports-color
@@ -8655,13 +8605,13 @@ packages:
       - supports-color
     dev: true
 
-  /ember-modifier-manager-polyfill@1.2.0:
+  /ember-modifier-manager-polyfill@1.2.0(@babel/core@7.22.10):
     resolution: {integrity: sha512-bnaKF1LLKMkBNeDoetvIJ4vhwRPKIIumWr6dbVuW6W6p4QV8ZiO+GdF8J7mxDNlog9CeL9Z/7wam4YS86G8BYA==}
     engines: {node: 6.* || 8.* || >= 10.*}
     dependencies:
       ember-cli-babel: 7.26.11
       ember-cli-version-checker: 2.2.0
-      ember-compatibility-helpers: 1.2.6
+      ember-compatibility-helpers: 1.2.6(@babel/core@7.22.10)
     transitivePeerDependencies:
       - '@babel/core'
       - supports-color
@@ -8678,7 +8628,7 @@ packages:
       '@embroider/addon-shim': 1.8.6
       ember-cli-normalize-entity-name: 1.0.0
       ember-cli-string-utils: 1.1.0
-      ember-source: 4.1.0(webpack@5.72.0)
+      ember-source: 4.1.0(@babel/core@7.22.10)(webpack@5.72.0)
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -8714,7 +8664,7 @@ packages:
       '@ember/test-helpers': ^2.4.0
       qunit: ^2.13.0
     dependencies:
-      '@ember/test-helpers': 2.7.0
+      '@ember/test-helpers': 2.7.0(@babel/core@7.22.10)
       broccoli-funnel: 3.0.8
       broccoli-merge-trees: 3.0.2
       common-tags: 1.8.2
@@ -8731,11 +8681,11 @@ packages:
       - webpack-command
     dev: true
 
-  /ember-resolver@8.0.3:
+  /ember-resolver@8.0.3(@babel/core@7.22.10):
     resolution: {integrity: sha512-fA53fxfG821BRqNiB9mQDuzZpzSRcSAYZTYBlRQOHsJwoYdjyE7idz4YcytbSsa409G5J2kP6B+PiKOBh0odlw==}
     engines: {node: '>= 10.*'}
     dependencies:
-      babel-plugin-debug-macros: 0.3.4
+      babel-plugin-debug-macros: 0.3.4(@babel/core@7.22.10)
       broccoli-funnel: 3.0.8
       broccoli-merge-trees: 4.2.0
       ember-cli-babel: 7.26.11
@@ -8769,13 +8719,13 @@ packages:
       - supports-color
     dev: true
 
-  /ember-router-scroll@4.1.2:
+  /ember-router-scroll@4.1.2(@babel/core@7.22.10):
     resolution: {integrity: sha512-5AGRmbfhSx7kOu2U8caQkG8qOxlLnvJIoQgKRE9mc1isuYPdime6Qn061NSnnQukMMsSPlV8GAImiEk05BmfGA==}
     engines: {node: 12.* || 14.* || >= 16}
     dependencies:
-      ember-app-scheduler: 7.0.1
+      ember-app-scheduler: 7.0.1(@babel/core@7.22.10)
       ember-cli-babel: 7.26.11
-      ember-compatibility-helpers: 1.2.6
+      ember-compatibility-helpers: 1.2.6(@babel/core@7.22.10)
     transitivePeerDependencies:
       - '@babel/core'
       - supports-color
@@ -8800,15 +8750,15 @@ packages:
       - encoding
     dev: true
 
-  /ember-source@4.1.0(webpack@5.72.0):
+  /ember-source@4.1.0(@babel/core@7.22.10)(webpack@5.72.0):
     resolution: {integrity: sha512-y0gKasW2YBYYB+S8GTZjRC9r2xVNI9PySRUXkQH4+WbouXzQtcbKUqc4RVczYboFHLB4qQoz5yNZuIoogVhsLQ==}
     engines: {node: '>= 12.*'}
     dependencies:
       '@babel/helper-module-imports': 7.22.5
-      '@babel/plugin-transform-block-scoping': 7.22.10
+      '@babel/plugin-transform-block-scoping': 7.22.10(@babel/core@7.22.10)
       '@ember/edition-utils': 1.2.0
-      '@glimmer/vm-babel-plugins': 0.83.1
-      babel-plugin-debug-macros: 0.3.4
+      '@glimmer/vm-babel-plugins': 0.83.1(@babel/core@7.22.10)
+      babel-plugin-debug-macros: 0.3.4(@babel/core@7.22.10)
       babel-plugin-filter-imports: 4.0.0
       broccoli-concat: 4.2.5
       broccoli-debug: 0.6.5
@@ -17061,11 +17011,11 @@ packages:
       punycode: 2.3.0
     dev: true
 
-  /tracked-toolbox@1.3.0:
+  /tracked-toolbox@1.3.0(@babel/core@7.22.10):
     resolution: {integrity: sha512-KHfYLvNyRr0qQeXQPnmb6Z4JYZ0/47R7LjVwzUrsKc539eQi3Sz2z3mb7FJN9KgaJXVuM3GQ8zcwUFTf0hrOsQ==}
     engines: {node: 8.* || >= 10.*}
     dependencies:
-      ember-cache-primitive-polyfill: 1.0.1
+      ember-cache-primitive-polyfill: 1.0.1(@babel/core@7.22.10)
       ember-cli-babel: 7.26.11
     transitivePeerDependencies:
       - '@babel/core'
@@ -18190,7 +18140,7 @@ packages:
       - supports-color
     dev: true
 
-  github.com/ember-learn/ember-cli-addon-docs/36a989bd112e8c2ae27c375eef6f7796c8a5dc28(@ember/test-helpers@2.7.0)(ember-data@4.1.0)(ember-fetch@8.1.1)(ember-source@4.1.0)(webpack@5.72.0):
+  github.com/ember-learn/ember-cli-addon-docs/36a989bd112e8c2ae27c375eef6f7796c8a5dc28(@babel/core@7.22.10)(@ember/test-helpers@2.7.0)(ember-data@4.1.0)(ember-fetch@8.1.1)(ember-source@4.1.0)(webpack@5.72.0):
     resolution: {tarball: https://codeload.github.com/ember-learn/ember-cli-addon-docs/tar.gz/36a989bd112e8c2ae27c375eef6f7796c8a5dc28}
     id: github.com/ember-learn/ember-cli-addon-docs/36a989bd112e8c2ae27c375eef6f7796c8a5dc28
     name: ember-cli-addon-docs
@@ -18203,9 +18153,9 @@ packages:
       ember-fetch: ^8.1.1
     dependencies:
       '@csstools/postcss-sass': 5.0.1(postcss@8.4.28)
-      '@ember/render-modifiers': 2.1.0(ember-source@4.1.0)
+      '@ember/render-modifiers': 2.1.0(@babel/core@7.22.10)(ember-source@4.1.0)
       '@ember/test-waiters': 3.0.2
-      '@glimmer/component': 1.1.2
+      '@glimmer/component': 1.1.2(@babel/core@7.22.10)
       '@glimmer/syntax': 0.84.3
       '@glimmer/tracking': 1.1.2
       '@handlebars/parser': 2.1.0
@@ -18222,7 +18172,7 @@ packages:
       ember-auto-import: 2.6.3(webpack@5.72.0)
       ember-cli-autoprefixer: 2.0.0
       ember-cli-babel: 7.26.11
-      ember-cli-clipboard: 0.16.0(ember-source@4.1.0)
+      ember-cli-clipboard: 0.16.0(@babel/core@7.22.10)(ember-source@4.1.0)
       ember-cli-htmlbars: 6.0.1
       ember-cli-postcss: 8.2.0
       ember-cli-string-helpers: 6.1.0
@@ -18230,14 +18180,14 @@ packages:
       ember-cli-version-checker: 5.1.2
       ember-code-snippet: 3.0.0
       ember-composable-helpers: 5.0.0
-      ember-concurrency: 2.3.7
-      ember-data: 4.1.0(webpack@5.72.0)
+      ember-concurrency: 2.3.7(@babel/core@7.22.10)
+      ember-data: 4.1.0(@babel/core@7.22.10)(webpack@5.72.0)
       ember-fetch: 8.1.1
-      ember-keyboard: 8.2.1(@ember/test-helpers@2.7.0)(ember-source@4.1.0)
+      ember-keyboard: 8.2.1(@babel/core@7.22.10)(@ember/test-helpers@2.7.0)(ember-source@4.1.0)
       ember-modal-dialog: 4.1.2(ember-source@4.1.0)(ember-tether@2.0.1)
       ember-responsive: 4.0.2
       ember-router-generator: 2.0.0
-      ember-router-scroll: 4.1.2
+      ember-router-scroll: 4.1.2(@babel/core@7.22.10)
       ember-set-helper: 2.0.1
       ember-svg-jar: 2.4.4
       ember-tether: 2.0.1
@@ -18266,7 +18216,7 @@ packages:
       semver: 7.5.4
       striptags: 3.2.0
       tailwindcss: 1.9.6
-      tracked-toolbox: 1.3.0
+      tracked-toolbox: 1.3.0(@babel/core@7.22.10)
       walk-sync: 3.0.0
       yuidocjs: 0.10.2
     transitivePeerDependencies:

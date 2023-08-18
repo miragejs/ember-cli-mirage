@@ -19,20 +19,26 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 8
+
       - name: Install Node
         uses: actions/setup-node@v3
         with:
           node-version: 16.x
-          cache: yarn
+          cache: pnpm
 
       - name: Install Dependencies
-        run: yarn install --frozen-lockfile
+        run: pnpm install
 
       - name: Lint
-        run: yarn workspace ember-cli-mirage lint
+        run: pnpm run lint
+        working-directory: packages/ember-cli-mirage
 
       - name: Run Tests
-        run: yarn workspace ember-cli-mirage test:ember
+        run: pnpm run test:ember
+        working-directory: packages/ember-cli-mirage
 
   floating:
     name: "Floating Dependencies"
@@ -41,16 +47,21 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 8
+
+      - name: Install Node
+        uses: actions/setup-node@v3
         with:
           node-version: 16.x
-          cache: yarn
+          cache: pnpm
 
       - name: Install Dependencies
-        run: yarn install --no-lockfile
+        run: pnpm install --no-lockfile
 
       - name: Run Tests
-        run: yarn test:ember
+        run: pnpm run test:ember
         working-directory: packages/ember-cli-mirage
 
   test-docs:
@@ -59,19 +70,26 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 8
+
+      - name: Install Node
+        uses: actions/setup-node@v3
         with:
           node-version: 16.x
-          cache: yarn
+          cache: pnpm
 
       - name: Install Dependencies
-        run: yarn install --no-lockfile
+        run: pnpm install --no-lockfile
 
       - name: Lint
-        run: yarn workspace ember-cli-mirage-docs lint
+        run: pnpm run lint
+        working-directory: packages/ember-cli-mirage-docs
 
       - name: Run Tests
-        run: yarn workspace ember-cli-mirage-docs test:ember
+        run: pnpm run test:ember
+        working-directory: packages/ember-cli-mirage-docs
 
   test-app-01:
     name: "Tests - Basic App"
@@ -80,20 +98,26 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 8
+
       - name: Install Node
         uses: actions/setup-node@v3
         with:
           node-version: 16.x
-          cache: yarn
+          cache: pnpm
 
       - name: Install Dependencies
-        run: yarn install --frozen-lockfile
+        run: pnpm install
 
       - name: Lint
-        run: yarn workspace basic-app lint
+        run: pnpm run lint
+        working-directory: test-packages/basic-app
 
       - name: Run Tests
-        run: yarn workspace basic-app test
+        run: pnpm run test
+        working-directory: test-packages/basic-app
 
   test-app-02:
     name: "Tests - App That Excludes Mirage"
@@ -102,20 +126,26 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 8
+
       - name: Install Node
         uses: actions/setup-node@v3
         with:
           node-version: 16.x
-          cache: yarn
+          cache: pnpm
 
       - name: Install Dependencies
-        run: yarn install --frozen-lockfile
+        run: pnpm install
 
       - name: Lint
-        run: yarn workspace app-that-excludes-mirage lint
+        run: pnpm run lint
+        working-directory: test-packages/app-that-excludes-mirage
 
       - name: Run Tests
-        run: yarn workspace app-that-excludes-mirage test
+        run: pnpm run test
+        working-directory: test-packages/app-that-excludes-mirage
 
   try-scenarios:
     name: ${{ matrix.try-scenario }}
@@ -141,14 +171,18 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 8
+
       - name: Install Node
         uses: actions/setup-node@v3
         with:
           node-version: 16.x
-          cache: yarn
+          cache: pnpm
 
       - name: Install Dependencies
-        run: yarn install --frozen-lockfile
+        run: pnpm install
 
       - name: Run Tests
         run: ./node_modules/.bin/ember try:one ${{ matrix.try-scenario }}

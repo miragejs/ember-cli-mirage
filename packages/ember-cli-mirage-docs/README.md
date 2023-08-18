@@ -17,7 +17,7 @@ You will need the following things properly installed on your computer.
 
 * `git clone https://github.com/miragejs/ember-cli-mirage.git` this repository
 * `cd ember-cli-mirage/packages/ember-cli-mirage-docs`
-* `yarn install`
+* `pnpm install`
 
 ## Running / Development
 
@@ -36,8 +36,8 @@ Make use of the many generators for code, try `ember help generate` for more det
 
 ### Linting
 
-* `yarn lint`
-* `yarn lint:fix`
+* `pnpm run lint`
+* `pnpm run lint:fix`
 
 ### Building
 

@@ -16,7 +16,7 @@
   ],
   "scripts": {
     "release": "release-it",
-    "test": "cd packages/ember-cli-mirage && yarn test:ember"
+    "test": "cd packages/ember-cli-mirage && pnpm run test:ember"
   },
   "resolutions": {
     "@embroider/core": "1.6.0",
@@ -37,7 +37,7 @@
   "release-it": {
     "hooks": {
       "before:init": "cp CHANGELOG.md LICENSE.md README.md packages/ember-cli-mirage/",
-      "after:release": "cd packages/ember-cli-mirage-docs && yarn deploy"
+      "after:release": "cd packages/ember-cli-mirage-docs && pnpm run deploy"
     },
     "plugins": {
       "release-it-lerna-changelog": {

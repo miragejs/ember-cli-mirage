@@ -8,20 +8,26 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 8
+
       - name: Install Node
         uses: actions/setup-node@v3
         with:
           node-version: 16.x
-          cache: yarn
+          cache: pnpm
 
       - name: Install Dependencies
-        run: yarn install --frozen-lockfile
+        run: pnpm install
 
       - name: Lint
-        run: yarn workspace ember-cli-mirage lint
+        run: pnpm run lint
+        working-directory: packages/ember-cli-mirage
 
       - name: Run Browser Tests
-        run: yarn workspace ember-cli-mirage test:ember
+        run: pnpm run test:ember
+        working-directory: packages/ember-cli-mirage
 
       - name: deploy docs
         run: node_modules/.bin/ember deploy production

@@ -113,11 +113,11 @@ jobs:
 
       - name: Lint
         run: pnpm run lint
-        working-directory: test-packages/basic-app
+        working-directory: test-packages/01-basic-app
 
       - name: Run Tests
         run: pnpm run test
-        working-directory: test-packages/basic-app
+        working-directory: test-packages/01-basic-app
 
   test-app-02:
     name: "Tests - App That Excludes Mirage"
@@ -141,11 +141,11 @@ jobs:
 
       - name: Lint
         run: pnpm run lint
-        working-directory: test-packages/app-that-excludes-mirage
+        working-directory: test-packages/02-app-that-excludes-mirage
 
       - name: Run Tests
         run: pnpm run test
-        working-directory: test-packages/app-that-excludes-mirage
+        working-directory: test-packages/02-app-that-excludes-mirage
 
   try-scenarios:
     name: ${{ matrix.try-scenario }}

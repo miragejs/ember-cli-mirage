@@ -132,6 +132,9 @@ importers:
       ember-moment:
         specifier: ^9.0.1
         version: 9.0.1
+      ember-page-title:
+        specifier: ^8.0.0
+        version: 8.0.0
       ember-qunit:
         specifier: ^6.2.0
         version: 6.2.0(@ember/test-helpers@2.9.3)(ember-source@4.11.0)(qunit@2.19.4)(webpack@5.75.0)
@@ -8976,6 +8979,15 @@ packages:
     engines: {node: 12.* || 14.* || >= 16}
     dependencies:
       ember-cli-babel: 7.26.11
+    transitivePeerDependencies:
+      - supports-color
+    dev: true
+
+  /ember-page-title@8.0.0:
+    resolution: {integrity: sha512-4bu8CpoPObJZNUogwIjpntxS3jMDlZ1eoJsZUuktcCgOI7LfZocuYbu9LnLM215QjEOV0TxGDWwJck1l8cWKeg==}
+    engines: {node: 16.* || >= 18}
+    dependencies:
+      '@embroider/addon-shim': 1.8.6
     transitivePeerDependencies:
       - supports-color
     dev: true

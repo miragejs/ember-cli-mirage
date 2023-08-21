@@ -57,6 +57,9 @@ jobs:
           node-version: 16.x
           cache: pnpm
 
+      - name: Update resolution-mode
+        run: echo "resolution-mode=highest" >> .npmrc
+
       - name: Install Dependencies
         run: pnpm install --no-lockfile
 
@@ -81,7 +84,7 @@ jobs:
           cache: pnpm
 
       - name: Install Dependencies
-        run: pnpm install --no-lockfile
+        run: pnpm install
 
       - name: Lint
         run: pnpm run lint

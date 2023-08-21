@@ -15,10 +15,6 @@
     "test": "cd packages/ember-cli-mirage && pnpm run test:ember"
   },
   "overrides": {
-    "@embroider/core": "1.9.0",
-    "@embroider/macros": "1.10.0",
-    "@embroider/shared-internals": "1.8.3",
-    "@embroider/util": "1.6.0",
     "ember-cli-babel": "7.26.11",
     "colors": "1.4.0",
     "favicons": "5.3.0"
@@ -71,6 +67,5 @@
   "volta": {
     "node": "16.20.2",
     "yarn": "1.22.18"
-  },
-  "dependencies": {}
+  }
 }

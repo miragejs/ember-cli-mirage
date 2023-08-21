@@ -63,6 +63,9 @@ importers:
       '@ember/optional-features':
         specifier: ^2.0.0
         version: 2.0.0
+      '@ember/string':
+        specifier: ^3.1.1
+        version: 3.1.1
       '@ember/test-helpers':
         specifier: ^2.7.0
         version: 2.7.0(@babel/core@7.22.10)
@@ -2065,7 +2068,7 @@ packages:
       '@glint/template':
         optional: true
     dependencies:
-      '@embroider/macros': 1.6.0
+      '@embroider/macros': 1.13.1
       ember-cli-babel: 7.26.11
       ember-modifier-manager-polyfill: 1.2.0(@babel/core@7.22.10)
       ember-source: 4.1.0(@babel/core@7.22.10)(webpack@5.72.0)
@@ -7848,7 +7851,7 @@ packages:
       '@babel/plugin-proposal-class-properties': 7.18.6(@babel/core@7.22.10)
       '@babel/plugin-proposal-decorators': 7.22.10(@babel/core@7.22.10)
       '@babel/preset-env': 7.22.10(@babel/core@7.22.10)
-      '@embroider/macros': 1.6.0
+      '@embroider/macros': 1.13.1
       '@embroider/shared-internals': 2.4.0
       babel-loader: 8.3.0(@babel/core@7.22.10)(webpack@5.72.0)
       babel-plugin-ember-modules-api-polyfill: 3.5.0
@@ -7876,6 +7879,7 @@ packages:
       typescript-memoize: 1.1.1
       walk-sync: 3.0.0
     transitivePeerDependencies:
+      - '@glint/template'
       - supports-color
       - webpack
     dev: true
@@ -8780,7 +8784,7 @@ packages:
       ember-tether:
         optional: true
     dependencies:
-      '@embroider/macros': 1.6.0
+      '@embroider/macros': 1.13.1
       '@embroider/util': 1.6.0(ember-source@4.1.0)
       ember-cli-babel: 7.26.11
       ember-cli-htmlbars: 6.0.1
@@ -8789,6 +8793,7 @@ packages:
       ember-tether: 2.0.1
       ember-wormhole: 0.6.0
     transitivePeerDependencies:
+      - '@glint/template'
       - ember-source
       - supports-color
     dev: true

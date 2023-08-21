@@ -54,6 +54,7 @@
     "@babel/core": "^7.22.10",
     "@ember/jquery": "^2.0.0",
     "@ember/optional-features": "^2.0.0",
+    "@ember/string": "^3.1.1",
     "@ember/test-helpers": "^2.7.0",
     "@embroider/test-setup": "^1.6.0",
     "@faker-js/faker": "^6.3.1",

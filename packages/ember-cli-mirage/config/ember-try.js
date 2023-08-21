@@ -5,7 +5,7 @@ const getChannelURL = require('ember-source-channel-url');
 
 module.exports = async function () {
   return {
-    useYarn: true,
+    usePnpm: true,
     scenarios: [
       {
         name: 'ember-lts-3.12',
@@ -56,6 +56,7 @@ module.exports = async function () {
         npm: {
           devDependencies: {
             'ember-source': await getChannelURL('release'),
+            'ember-data': '^5.0.0',
           },
         },
       },
@@ -64,6 +65,7 @@ module.exports = async function () {
         npm: {
           devDependencies: {
             'ember-source': await getChannelURL('beta'),
+            'ember-data': '^5.0.0',
           },
         },
       },
@@ -72,6 +74,7 @@ module.exports = async function () {
         npm: {
           devDependencies: {
             'ember-source': await getChannelURL('canary'),
+            'ember-data': '^5.0.0',
           },
         },
       },

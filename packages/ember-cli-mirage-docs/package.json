@@ -1,18 +1,9 @@
 {
   "name": "ember-cli-mirage-docs",
-  "version": "3.0.0-alpha.3",
+  "version": "0.0.0",
   "private": true,
-  "description": "A client-side server to help you build, test and demo your Ember app",
-  "keywords": [],
-  "homepage": "https://github.com/miragejs/ember-cli-mirage",
-  "bugs": {
-    "url": "https://github.com/miragejs/ember-cli-mirage/issues"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/miragejs/ember-cli-mirage.git",
-    "directory": "packages/ember-cli-mirage-docs"
-  },
+  "description": "Small description for ember-cli-mirage-docs goes here",
+  "repository": "",
   "license": "MIT",
   "author": "Sam Selikoff",
   "directories": {
@@ -34,7 +25,6 @@
   },
   "devDependencies": {
     "@babel/core": "^7.22.10",
-    "@ember/jquery": "^2.0.0",
     "@ember/optional-features": "^2.0.0",
     "@ember/string": "^3.0.1",
     "@ember/test-helpers": "^2.9.3",
@@ -85,22 +75,6 @@
     "qunit-dom": "^2.0.0",
     "tracked-built-ins": "^3.1.1",
     "webpack": "^5.75.0"
-  },
-  "peerDependencies": {
-    "@ember/test-helpers": "*",
-    "ember-data": "*",
-    "ember-qunit": "*"
-  },
-  "peerDependenciesMeta": {
-    "@ember/test-helpers": {
-      "optional": true
-    },
-    "ember-data": {
-      "optional": true
-    },
-    "ember-qunit": {
-      "optional": true
-    }
   },
   "engines": {
     "node": "16.* || >= 18"

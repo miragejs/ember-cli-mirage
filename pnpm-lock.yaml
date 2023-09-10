@@ -201,9 +201,6 @@ importers:
       '@babel/core':
         specifier: ^7.22.10
         version: 7.22.10
-      '@ember/jquery':
-        specifier: ^2.0.0
-        version: 2.0.0
       '@ember/optional-features':
         specifier: ^2.0.0
         version: 2.0.0

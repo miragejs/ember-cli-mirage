@@ -1,18 +1,9 @@
 {
   "name": "ember-cli-mirage-docs",
-  "version": "3.0.0-alpha.3",
+  "version": "0.0.0",
   "private": true,
-  "description": "A client-side server to help you build, test and demo your Ember app",
-  "keywords": [],
-  "homepage": "https://github.com/miragejs/ember-cli-mirage",
-  "bugs": {
-    "url": "https://github.com/miragejs/ember-cli-mirage/issues"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/miragejs/ember-cli-mirage.git",
-    "directory": "packages/ember-cli-mirage-docs"
-  },
+  "description": "Small description for ember-cli-mirage-docs goes here",
+  "repository": "",
   "license": "MIT",
   "author": "Sam Selikoff",
   "directories": {
@@ -22,29 +13,33 @@
   "scripts": {
     "build": "ember build --environment=production",
     "deploy": "ember deploy production",
-    "lint": "npm-run-all --aggregate-output --continue-on-error --parallel \"lint:!(fix)\"",
-    "lint:fix": "npm-run-all --aggregate-output --continue-on-error --parallel lint:*:fix",
+    "lint": "concurrently \"npm:lint:*(!fix)\" --names \"lint:\"",
+    "lint:css": "stylelint \"**/*.css\"",
+    "lint:css:fix": "concurrently \"npm:lint:css -- --fix\"",
+    "lint:fix": "concurrently \"npm:lint:*:fix\" --names \"fix:\"",
     "lint:hbs": "ember-template-lint .",
     "lint:hbs:fix": "ember-template-lint . --fix",
     "lint:js": "eslint . --cache",
     "lint:js:fix": "eslint . --fix",
-    "start": "ember serve",
-    "test": "npm-run-all lint test:*",
+    "start": "ember serve --port=0",
+    "test": "concurrently \"npm:lint\" \"npm:test:*\" --names \"lint,test:\"",
     "test:ember": "ember test"
   },
   "devDependencies": {
     "@babel/core": "^7.22.10",
-    "@ember/jquery": "^2.0.0",
+    "@babel/eslint-parser": "^7.21.3",
+    "@babel/plugin-proposal-decorators": "^7.21.0",
     "@ember/optional-features": "^2.0.0",
-    "@ember/test-helpers": "^2.7.0",
+    "@ember/string": "^3.0.1",
+    "@ember/test-helpers": "^2.9.3",
     "@faker-js/faker": "^6.3.1",
     "@glimmer/component": "^1.1.2",
     "@glimmer/tracking": "^1.1.2",
-    "babel-eslint": "^10.1.0",
     "broccoli-asset-rev": "^3.0.0",
-    "ember-auto-import": "^2.3.0",
-    "ember-cli": "~4.1.0",
-    "ember-cli-addon-docs": "github:ember-learn/ember-cli-addon-docs#36a989bd112e8c2ae27c375eef6f7796c8a5dc28",
+    "concurrently": "^8.0.1",
+    "ember-auto-import": "^2.6.3",
+    "ember-cli": "~4.12.0",
+    "ember-cli-addon-docs": "^6.0.1",
     "ember-cli-addon-docs-esdoc": "^0.4.0",
     "ember-cli-babel": "^7.26.11",
     "ember-cli-dependency-checker": "^3.3.1",
@@ -53,63 +48,45 @@
     "ember-cli-deploy-git": "^1.3.3",
     "ember-cli-deploy-git-ci": "^1.0.1",
     "ember-cli-favicon": "^3.0.0",
-    "ember-cli-htmlbars": "^6.0.1",
+    "ember-cli-htmlbars": "^6.2.0",
     "ember-cli-inject-live-reload": "^2.1.0",
-    "ember-cli-mirage": "3.0.0-alpha.3",
+    "ember-cli-mirage": "workspace:*",
     "ember-cli-moment-shim": "^3.8.0",
     "ember-cli-sri": "^2.1.1",
     "ember-cli-terser": "^4.0.2",
     "ember-composable-helpers": "^5.0.0",
-    "ember-data": "~4.1.0",
-    "ember-export-application-global": "^2.0.1",
-    "ember-fetch": "^8.1.1",
+    "ember-data": "~4.11.3",
+    "ember-fetch": "^8.1.2",
     "ember-load-initializers": "^2.1.2",
+    "ember-modifier": "^4.1.0",
     "ember-moment": "^9.0.1",
-    "ember-qunit": "^5.1.5",
-    "ember-resolver": "^8.0.3",
-    "ember-source": "~4.1.0",
-    "ember-template-lint": "^4.5.0",
-    "eslint": "^7.32.0",
-    "eslint-config-prettier": "^8.3.0",
-    "eslint-plugin-ember": "^10.6.0",
-    "eslint-plugin-node": "^11.1.0",
-    "eslint-plugin-prettier": "^4.0.0",
-    "eslint-plugin-qunit": "^7.2.0",
+    "ember-qunit": "^6.2.0",
+    "ember-resolver": "^10.0.0",
+    "ember-source": "~4.12.0",
+    "ember-template-lint": "^5.11.2",
+    "eslint": "^8.37.0",
+    "eslint-config-prettier": "^8.8.0",
+    "eslint-plugin-ember": "^11.5.0",
+    "eslint-plugin-n": "^15.7.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-qunit": "^7.3.4",
     "js-yaml": "^4.0.0",
     "loader.js": "^4.7.0",
-    "miragejs": "^0.1.43",
-    "npm-run-all": "^4.1.5",
-    "prettier": "^2.6.2",
-    "qunit": "^2.18.2",
+    "miragejs": "^0.1.47",
+    "prettier": "^2.8.7",
+    "qunit": "^2.19.4",
     "qunit-dom": "^2.0.0",
-    "webpack": "^5.72.0"
-  },
-  "peerDependencies": {
-    "@ember/test-helpers": "*",
-    "ember-data": "*",
-    "ember-qunit": "*"
-  },
-  "peerDependenciesMeta": {
-    "@ember/test-helpers": {
-      "optional": true
-    },
-    "ember-data": {
-      "optional": true
-    },
-    "ember-qunit": {
-      "optional": true
-    }
+    "stylelint": "^15.10.3",
+    "stylelint-config-standard": "^34.0.0",
+    "stylelint-prettier": "^3.0.0",
+    "tracked-built-ins": "^3.1.1",
+    "webpack": "^5.78.0"
   },
   "engines": {
     "node": "16.* || >= 18"
   },
   "ember": {
     "edition": "octane"
-  },
-  "ember-addon": {
-    "paths": [
-      "../ember-cli-mirage"
-    ]
   },
   "volta": {
     "extends": "../../package.json"

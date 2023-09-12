@@ -3,7 +3,7 @@
 const EmberApp = require('ember-cli/lib/broccoli/ember-app');
 
 module.exports = function (defaults) {
-  let app = new EmberApp(defaults, {
+  const app = new EmberApp(defaults, {
     'ember-cli-babel': {
       includePolyfill: true,
     },
@@ -12,27 +12,14 @@ module.exports = function (defaults) {
     },
     'ember-cli-addon-docs-esdoc': {
       packages: [
-        'ember-cli-mirage',
-        { name: 'miragejs', sourceDirectory: 'lib' },
+        // use below instead of 'ember-cli-mirage' otherwise API modules will be 'addon' instead of 'ember-cli-mirage'
+        'ember-cli-mirage-docs',
       ],
     },
     'ember-composable-helpers': {
       only: ['sort-by'],
     },
   });
-
-  // Use `app.import` to add additional libraries to the generated
-  // output files.
-  //
-  // If you need to use different assets in different
-  // environments, specify an object as the first parameter. That
-  // object's keys should be the environment name and the values
-  // should be the asset to use in that environment.
-  //
-  // If the library that you are including contains AMD or ES6
-  // modules that you would like to import into your application
-  // please specify an object with the list of modules as keys
-  // along with the exports of each module as its value.
 
   return app.toTree();
 };

@@ -239,7 +239,7 @@ importers:
         version: 4.12.2
       ember-cli-addon-docs:
         specifier: ^6.0.1
-        version: 6.0.1(@babel/core@7.22.10)(@ember/test-helpers@2.9.3)(ember-data@4.11.3)(ember-fetch@8.1.2)(ember-source@4.12.3)(webpack@5.88.2)
+        version: 6.0.1(@babel/core@7.22.10)(@ember/test-helpers@2.9.3)(ember-data@4.11.3)(ember-fetch@8.1.2)(ember-source@4.12.3)(ember-tether@3.0.0)(webpack@5.88.2)
       ember-cli-addon-docs-esdoc:
         specifier: ^0.4.0
         version: 0.4.0
@@ -312,6 +312,9 @@ importers:
       ember-template-lint:
         specifier: ^5.11.2
         version: 5.11.2
+      ember-tether:
+        specifier: ^3.0.0
+        version: 3.0.0(@babel/core@7.22.10)(ember-source@4.12.3)(webpack@5.88.2)
       eslint:
         specifier: ^8.37.0
         version: 8.49.0
@@ -8472,7 +8475,7 @@ packages:
       - supports-color
     dev: true
 
-  /ember-cli-addon-docs@6.0.1(@babel/core@7.22.10)(@ember/test-helpers@2.9.3)(ember-data@4.11.3)(ember-fetch@8.1.2)(ember-source@4.12.3)(webpack@5.88.2):
+  /ember-cli-addon-docs@6.0.1(@babel/core@7.22.10)(@ember/test-helpers@2.9.3)(ember-data@4.11.3)(ember-fetch@8.1.2)(ember-source@4.12.3)(ember-tether@3.0.0)(webpack@5.88.2):
     resolution: {integrity: sha512-LgsvAqn9xqKy49GeB5dC6FWLBYJ55YuO8p4dTuCzgID35QtgwdNQ2+4vQvxwbtdqjGo4s9MxLSw3H7GeHAcAEA==}
     engines: {node: 16.* || >= 18}
     peerDependencies:
@@ -8512,7 +8515,7 @@ packages:
       ember-data: 4.11.3(@babel/core@7.22.10)(@ember/string@3.1.1)(@glimmer/tracking@1.1.2)(ember-source@4.12.3)(webpack@5.88.2)
       ember-fetch: 8.1.2
       ember-keyboard: 8.2.1(@babel/core@7.22.10)(@ember/test-helpers@2.9.3)(ember-source@4.12.3)
-      ember-modal-dialog: 4.1.2(ember-source@4.12.3)
+      ember-modal-dialog: 4.1.2(ember-source@4.12.3)(ember-tether@3.0.0)
       ember-responsive: 5.0.0
       ember-router-generator: 2.0.0
       ember-router-scroll: 4.1.2(@babel/core@7.22.10)
@@ -9692,7 +9695,7 @@ packages:
       - supports-color
     dev: true
 
-  /ember-modal-dialog@4.1.2(ember-source@4.12.3):
+  /ember-modal-dialog@4.1.2(ember-source@4.12.3)(ember-tether@3.0.0):
     resolution: {integrity: sha512-Wl5jPE74ciSmwbmmhqRNAri7YHbiY1gVjteHPmsgKpUqlW2Yoghp7qoCvVN6v3Nnx1sqv+FXWFPwEcJknWkvaA==}
     engines: {node: 12.* || 14.* || >= 16}
     peerDependencies:
@@ -9707,6 +9710,7 @@ packages:
       ember-cli-htmlbars: 6.3.0
       ember-cli-version-checker: 2.2.0
       ember-decorators: 6.1.1
+      ember-tether: 3.0.0(@babel/core@7.22.10)(ember-source@4.12.3)(webpack@5.88.2)
       ember-wormhole: 0.6.0
     transitivePeerDependencies:
       - '@glint/environment-ember-loose'
@@ -10099,6 +10103,25 @@ packages:
       workerpool: 6.4.1
     transitivePeerDependencies:
       - supports-color
+    dev: true
+
+  /ember-tether@3.0.0(@babel/core@7.22.10)(ember-source@4.12.3)(webpack@5.88.2):
+    resolution: {integrity: sha512-2hrwbxGUuMtX4wnBJ2fYH0nx1utBM5r+g4zd7uvaqlPS3oTmTt96BKB7Xwq4R6jj6Vyxs9E48Fjv+pEAKEObnw==}
+    engines: {node: 14.* || 16.* || >= 18}
+    peerDependencies:
+      ember-source: ^4.0.0
+    dependencies:
+      '@ember/render-modifiers': 2.1.0(@babel/core@7.22.10)(ember-source@4.12.3)
+      ember-auto-import: 2.6.3(webpack@5.88.2)
+      ember-cli-babel: 7.26.11
+      ember-cli-htmlbars: 6.3.0
+      ember-source: 4.12.3(@babel/core@7.22.10)(@glimmer/component@1.1.2)(webpack@5.88.2)
+      tether: 2.0.0
+    transitivePeerDependencies:
+      - '@babel/core'
+      - '@glint/template'
+      - supports-color
+      - webpack
     dev: true
 
   /ember-tracked-storage-polyfill@1.0.0:
@@ -18628,6 +18651,10 @@ packages:
       - velocityjs
       - walrus
       - whiskers
+    dev: true
+
+  /tether@2.0.0:
+    resolution: {integrity: sha512-iAkyBhwILpLIvkwzO5w5WUBtpYwxvzLRTO+sbzF3Uy7X4zznsy73v2b4sOQHXE3CQHeSNtB/YMU2Nn9tocbeBQ==}
     dev: true
 
   /text-table@0.2.0:

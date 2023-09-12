@@ -1,7 +1,7 @@
 {
-  "name": "ember-cli-mirage",
-  "short_name": "ember-cli-mirage",
-  "description": "A client-side server to help you build, test and demo your Ember app",
+  "name": "ember-cli-mirage-docs",
+  "short_name": "ember-cli-mirage-docs",
+  "description": "Small description for ember-cli-mirage-docs goes here",
   "dir": "auto",
   "lang": "en-US",
   "display": "standalone",

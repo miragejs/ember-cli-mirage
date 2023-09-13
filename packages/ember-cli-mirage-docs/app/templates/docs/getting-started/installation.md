@@ -6,7 +6,8 @@ To install Mirage, run
 ember install ember-cli-mirage
 ```
 
-Ember should install the addon and add a `/mirage` directory to the root of your project.
+Ember should install the addon and add a `/mirage` directory to the root of your project. 
+Ember-cli-mirage depends on [MirageJS](https://miragejs.com/) as a peer dependency and will add it to your applications `package.json`.  
 
 Check out the {{docs-link 'upgrade guide' 'docs.getting-started.upgrade-guide'}} if you're coming from a previous version of Mirage.
 

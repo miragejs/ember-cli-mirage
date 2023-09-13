@@ -16,8 +16,9 @@ To make more substantial changes, you'll want to be able to develop the docs sit
 
 ```shell
 git clone git@github.com:miragejs/ember-cli-mirage.git
-cd ember-cli-mirage/packages/ember-cli-mirage
-yarn install
+cd ember-cli-mirage
+pnpm install
+cd packages/ember-cli-mirage
 ember s
 ```
 
@@ -29,17 +30,18 @@ To help out with Mirage development, first pull down the project locally and ver
 
 ```
 git clone git@github.com:[your-name]/ember-cli-mirage.git
-cd ember-cli-mirage/packages/ember-cli-mirage
-yarn install
-ember test
+cd ember-cli-mirage
+pnpm install
+cd packages/ember-cli-mirage
+pnpm run test:ember
 ```
 
 If all tests pass, you should be all set. Checkout a new branch to start developing, then submit a PR when you're ready!
 
 ## Linting
 
-* `yarn lint`
-* `yarn lint:fix`
+* `pnpm run lint`
+* `pnpm run lint:fix`
 
 ## Running tests
 
@@ -52,4 +54,4 @@ If all tests pass, you should be all set. Checkout a new branch to start develop
 * `ember serve`
 * Visit the dummy application at [http://localhost:4200](http://localhost:4200).
 
-For more information on using ember-cli, visit [https://ember-cli.com/](https://ember-cli.com/).
+For more information on using ember-cli, visit [https://cli.emberjs.com/release/](https://cli.emberjs.com/release/).

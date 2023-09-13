@@ -20,7 +20,7 @@
     "favicons": "5.3.0"
   },
   "devDependencies": {
-    "release-it": "^14.14.2",
+    "release-it": "^14.14.3",
     "release-it-lerna-changelog": "^4.0.1",
     "release-it-yarn-workspaces": "^2.0.1"
   },

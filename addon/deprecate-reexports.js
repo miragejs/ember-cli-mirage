@@ -1,5 +1,5 @@
 import { deprecate } from '@ember/debug';
-import { importSync, isTesting, dependencySatisfies } from '@embroider/macros';
+import require from 'require';
 import * as mirage from 'miragejs';
 import * as ecMirageExports from './index';
 
@@ -15,8 +15,8 @@ export function initDeprecatedReExports() {
       // eslint-disable-next-line no-import-assign
       Object.defineProperty(ecMirageExports, name, {
         get() {
-          if (isTesting() && dependencySatisfies('ember-qunit', '*')) {
-            const { waitUntil, getContext } = importSync('@ember/test-helpers');
+          if (require.has('ember-qunit')) {
+            const { waitUntil, getContext } = require('@ember/test-helpers');
 
             window.QUnit.begin(function () {
               // Make sure deprecation message does not get "swallowed"

@@ -41,18 +41,7 @@
         "publish": false,
         "workspaces": [
           "packages/ember-cli-mirage"
-        ],
-        "additionalManifests": {
-          "dependencyUpdates": [
-            "package.json",
-            "packages/ember-cli-mirage-docs/package.json",
-            "test-packages/*/package.json"
-          ],
-          "versionUpdates": [
-            "package.json",
-            "packages/ember-cli-mirage-docs/package.json"
-          ]
-        }
+        ]
       }
     },
     "git": {

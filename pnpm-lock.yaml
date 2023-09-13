@@ -47,9 +47,6 @@ importers:
       ember-inflector:
         specifier: ^2.0.0 || ^3.0.0 || ^4.0.2
         version: 4.0.2
-      lodash-es:
-        specifier: ^4.17.11
-        version: 4.17.11
       miragejs:
         specifier: ^0.1.47
         version: 0.1.47
@@ -13887,10 +13884,6 @@ packages:
     dependencies:
       p-locate: 6.0.0
     dev: true
-
-  /lodash-es@4.17.11:
-    resolution: {integrity: sha512-DHb1ub+rMjjrxqlB3H56/6MXtm1lSksDp2rA2cNWjG8mlDUYFhUj3Di2Zn5IwSU87xLv8tNIQ7sSwE/YOX/D/Q==}
-    dev: false
 
   /lodash._baseassign@3.2.0:
     resolution: {integrity: sha512-t3N26QR2IdSN+gqSy9Ds9pBu/J1EAFEshKlUHpJG3rvyJOYgcELIxcIeKKfZk7sjOz11cFfzJRsyFry/JyabJQ==}

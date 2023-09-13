@@ -6710,7 +6710,7 @@ let o=this.args.model
 var c,d,h,p,f,m
 e.default=u,(0,t.setComponentTemplate)(l,u)})),define("ember-cli-addon-docs/components/docs-viewer/x-nav-list/index",["exports","@ember/component","@ember/component/template-only","@ember/template-factory"],(function(e,t,r,n){"use strict"
 Object.defineProperty(e,"__esModule",{value:!0}),e.default=void 0
-const i=(0,n.createTemplateFactory)({id:"Bjfn/ei7",block:'[[[11,"ul"],[17,1],[12],[1,"\\n  "],[18,2,[[28,[37,1],null,[["item"],[[50,"docs-viewer/x-nav-item",0,null,null]]]]]],[1,"\\n"],[13]],["&attrs","&default"],false,["yield","hash","component"]]',moduleName:"ember-cli-addon-docs/components/docs-viewer/x-nav-list/index.hbs",isStrictMode:!1})
+const i=(0,n.createTemplateFactory)({id:"0oWkQpa2",block:'[[[11,"ul"],[16,0,[30,1]],[17,2],[12],[1,"\\n  "],[18,3,[[28,[37,1],null,[["item"],[[50,"docs-viewer/x-nav-item",0,null,null]]]]]],[1,"\\n"],[13]],["@class","&attrs","&default"],false,["yield","hash","component"]]',moduleName:"ember-cli-addon-docs/components/docs-viewer/x-nav-list/index.hbs",isStrictMode:!1})
 var o=(0,t.setComponentTemplate)(i,(0,r.default)())
 e.default=o})),define("ember-cli-addon-docs/components/docs-viewer/x-nav/index",["exports","@ember/component","@ember/service","@glimmer/component","@glimmer/tracking","tracked-toolbox","@ember/string","ember-cli-addon-docs/utils/computed","ember-cli-addon-docs/-private/config","@ember/template-factory"],(function(e,t,r,n,i,o,s,a,l,u){"use strict"
 var c,d,h,p,f,m,b

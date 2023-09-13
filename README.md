@@ -22,6 +22,8 @@ A client-side server to develop, test and prototype your Ember CLI app.
 ember install ember-cli-mirage
 ```
 
+Has a peer dependency on [MirageJS](https://miragejs.com/) which is added to your projects `package.json` during installation.
+
 ## Feature requests
 
 Please open an issue and add a :+1: emoji reaction. We will use the number of reactions as votes to indicate community interest, which will in turn help us prioritize feature development.

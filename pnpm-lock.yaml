@@ -38,9 +38,6 @@ importers:
       ember-cli-babel:
         specifier: ^7.26.11
         version: 7.26.11
-      ember-destroyable-polyfill:
-        specifier: ^2.0.3
-        version: 2.0.3(@babel/core@7.22.10)
       ember-get-config:
         specifier: 0.2.4 - 0.5.0 || ^1.0.0 || ^2.1.1
         version: 2.1.1
@@ -4981,6 +4978,7 @@ packages:
     dependencies:
       '@babel/core': 7.22.10
       semver: 5.7.2
+    dev: true
 
   /babel-plugin-debug-macros@0.3.4(@babel/core@7.22.10):
     resolution: {integrity: sha512-wfel/vb3pXfwIDZUrkoDrn5FHmlWI96PCJ3UCDv2a86poJ3EQrnArNW5KfHSVJ9IOgxHbo748cQt7sDU+0KCEw==}
@@ -9161,6 +9159,7 @@ packages:
       silent-error: 1.1.1
     transitivePeerDependencies:
       - supports-color
+    dev: true
 
   /ember-cli@4.11.0:
     resolution: {integrity: sha512-X0Ep67O/r2nCViILV8wEvI0xiRlLRS8GgeDklQ3SvDXQp2d3xbI8ARW76pcb1du39HPgIi0G6F/OpJ1uOr4ZQQ==}
@@ -9505,6 +9504,7 @@ packages:
     transitivePeerDependencies:
       - '@babel/core'
       - supports-color
+    dev: true
 
   /ember-composable-helpers@5.0.0:
     resolution: {integrity: sha512-gyUrjiSju4QwNrsCLbBpP0FL6VDFZaELNW7Kbcp60xXhjvNjncYgzm4zzYXhT+i1lLA6WEgRZ3lOGgyBORYD0w==}
@@ -9620,6 +9620,7 @@ packages:
     transitivePeerDependencies:
       - '@babel/core'
       - supports-color
+    dev: true
 
   /ember-fetch@8.1.2:
     resolution: {integrity: sha512-TVx24/jrvDIuPL296DV0hBwp7BWLcSMf0I8464KGz01sPytAB+ZAePbc9ooBTJDkKZEGFgatJa4nj3yF1S9Bpw==}

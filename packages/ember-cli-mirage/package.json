@@ -53,6 +53,7 @@
     "@ember/optional-features": "^2.0.0",
     "@ember/string": "^3.1.1",
     "@ember/test-helpers": "^2.9.3",
+    "@ember-data/model": "~4.11.3",
     "@embroider/test-setup": "^2.1.1",
     "@faker-js/faker": "^6.3.1",
     "@glimmer/component": "^1.1.2",
@@ -99,6 +100,7 @@
   },
   "peerDependencies": {
     "@ember/test-helpers": "*",
+    "@ember-data/model": "*",
     "ember-data": "*",
     "ember-qunit": "*",
     "ember-source": "^3.28.0 || ^4.0.0 || ^5.0.0",
@@ -106,6 +108,9 @@
   },
   "peerDependenciesMeta": {
     "@ember/test-helpers": {
+      "optional": true
+    },
+    "@ember-data/model": {
       "optional": true
     },
     "ember-data": {

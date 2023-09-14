@@ -53,7 +53,7 @@
     "@ember/optional-features": "^2.0.0",
     "@ember/string": "^3.1.1",
     "@ember/test-helpers": "^2.9.3",
-    "@ember-data/model": "~4.11.3",
+    "@ember-data/model": "~5.2.0",
     "@ember-data/store": "~4.11.3",
     "@ember-data/tracking": "~4.11.3",
     "@embroider/test-setup": "^2.1.1",

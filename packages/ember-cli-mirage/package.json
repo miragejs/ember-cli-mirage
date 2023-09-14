@@ -48,7 +48,7 @@
     "ember-inflector": "^2.0.0 || ^3.0.0 || ^4.0.2"
   },
   "devDependencies": {
-    "@babel/core": "^7.22.10",
+    "@babel/core": "^7.22.17",
     "@ember/jquery": "^2.0.0",
     "@ember/optional-features": "^2.0.0",
     "@ember/string": "^3.1.1",

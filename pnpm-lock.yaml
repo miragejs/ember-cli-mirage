@@ -100,8 +100,8 @@ importers:
         specifier: ^3.3.2
         version: 3.3.2(ember-cli@4.11.0)
       ember-cli-fastboot:
-        specifier: ^4.1.0
-        version: 4.1.0
+        specifier: ^4.1.1
+        version: 4.1.1
       ember-cli-favicon:
         specifier: ^3.0.0
         version: 3.0.0
@@ -418,8 +418,8 @@ importers:
         specifier: ^3.3.2
         version: 3.3.2(ember-cli@4.11.0)
       ember-cli-fastboot:
-        specifier: ^3.3.0
-        version: 3.3.0
+        specifier: ^4.1.1
+        version: 4.1.1
       ember-cli-htmlbars:
         specifier: ^6.2.0
         version: 6.2.0
@@ -8910,37 +8910,8 @@ packages:
       - supports-color
     dev: true
 
-  /ember-cli-fastboot@3.3.0:
-    resolution: {integrity: sha512-PgTAFWI47sLIJCl4yN7/v5PhzawSXb5ih/YPQQR6K0CX+5i17XYxKjhKE4Mp0Jtu/huURv7uACFKytmKVkcEZg==}
-    engines: {node: 12.* || 14.* || >=16}
-    dependencies:
-      broccoli-concat: 4.2.5
-      broccoli-file-creator: 2.1.1
-      broccoli-funnel: 3.0.8
-      broccoli-merge-trees: 4.2.0
-      broccoli-plugin: 4.0.7
-      chalk: 4.1.2
-      ember-cli-babel: 7.26.11
-      ember-cli-lodash-subset: 2.0.1
-      ember-cli-preprocess-registry: 3.3.0
-      ember-cli-version-checker: 5.1.2
-      fastboot: 3.3.0
-      fastboot-express-middleware: 3.3.0
-      fastboot-transform: 0.1.3
-      fs-extra: 10.1.0
-      json-stable-stringify: 1.0.2
-      md5-hex: 3.0.1
-      recast: 0.19.1
-      silent-error: 1.1.1
-    transitivePeerDependencies:
-      - bufferutil
-      - canvas
-      - supports-color
-      - utf-8-validate
-    dev: true
-
-  /ember-cli-fastboot@4.1.0:
-    resolution: {integrity: sha512-OQ1+eEVK8OBh0M0KY6Rrxu2JqdAByQlY4SWzR/06cTftcDSKpUL44DTrWPs7Te4bEgQfjbic2g8AUOVw+2YvUA==}
+  /ember-cli-fastboot@4.1.1:
+    resolution: {integrity: sha512-9B/qJUfDVqRmZlXxP23V2AZ3hiez99DKT2cPJ0MWkjwRom/kmVJHvv5X4fxvT7MCokjOVFvzas79D5toV4GLIA==}
     engines: {node: 14.* || 16.* || >=18}
     dependencies:
       broccoli-concat: 4.2.5
@@ -8953,8 +8924,8 @@ packages:
       ember-cli-lodash-subset: 2.0.1
       ember-cli-preprocess-registry: 3.3.0
       ember-cli-version-checker: 5.1.2
-      fastboot: 4.1.0
-      fastboot-express-middleware: 4.1.0
+      fastboot: 4.1.1
+      fastboot-express-middleware: 4.1.1
       fastboot-transform: 0.1.3
       fs-extra: 10.1.0
       json-stable-stringify: 1.0.2
@@ -11316,25 +11287,12 @@ packages:
       - supports-color
     dev: true
 
-  /fastboot-express-middleware@3.3.0:
-    resolution: {integrity: sha512-iLr4ncGi0gb+40O0D9VOmJ0MI/ROESuolsfNyasDHCdnz7eT+gloT9KG3h6efscCuCQ1IviuE1ynuAVTp9vX8Q==}
+  /fastboot-express-middleware@4.1.1:
+    resolution: {integrity: sha512-RzobJdJXtFLOp+QtQlRSEm4RjepprLDITyYxPzd7M8LTH9jo2COhG0NFz2LFcv9Jtqlp8IzKh/0w2+hOt7JZow==}
     engines: {node: 12.* || 14.* || >=16}
     dependencies:
       chalk: 4.1.2
-      fastboot: 3.3.0
-    transitivePeerDependencies:
-      - bufferutil
-      - canvas
-      - supports-color
-      - utf-8-validate
-    dev: true
-
-  /fastboot-express-middleware@4.1.0:
-    resolution: {integrity: sha512-RH/YnAn8S/CuzVsK0SLH5cVDP50R3MedqPFhf69T3z6h7LSFm12VAU2TKkqtW/N7qDs00CK1Clus2CwuzXVtWA==}
-    engines: {node: 12.* || 14.* || >=16}
-    dependencies:
-      chalk: 4.1.2
-      fastboot: 4.1.0
+      fastboot: 4.1.1
     transitivePeerDependencies:
       - bufferutil
       - canvas
@@ -11369,8 +11327,8 @@ packages:
       - utf-8-validate
     dev: true
 
-  /fastboot@4.1.0:
-    resolution: {integrity: sha512-NoUUiWhLS4JfrYiHmbRjqqWmzttO+6hVyt+CawsZCg79ljTGAIhPThy8cxg11yiDNiaM9EY3kocWZrCMUM7o4g==}
+  /fastboot@4.1.1:
+    resolution: {integrity: sha512-XG7YprsAuAGZrUDhmJ0NFuEP0gpWg9LZwGWSS1I5+f0ETHKPWqb4x59sN2rU1nvCEETBK70z68tLsWsl9daomg==}
     engines: {node: 12.* || 14.* || >=16}
     dependencies:
       chalk: 4.1.2

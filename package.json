@@ -20,9 +20,9 @@
     "favicons": "5.3.0"
   },
   "devDependencies": {
-    "release-it": "^14.14.3",
-    "release-it-lerna-changelog": "^4.0.1",
-    "release-it-yarn-workspaces": "^2.0.1"
+    "release-it": "^16.1.5",
+    "@release-it-plugins/lerna-changelog": "^6.0.0",
+    "@release-it-plugins/workspaces": "^4.0.0"
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org"
@@ -33,11 +33,11 @@
       "after:release": "cd packages/ember-cli-mirage-docs && pnpm run deploy"
     },
     "plugins": {
-      "release-it-lerna-changelog": {
+      "@release-it-plugins/lerna-changelog": {
         "infile": "CHANGELOG.md",
-        "launchEditor": false
+        "launchEditor": true
       },
-      "release-it-yarn-workspaces": {
+      "@release-it-plugins/workspaces": {
         "publish": false,
         "workspaces": [
           "packages/ember-cli-mirage"

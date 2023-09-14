@@ -41,7 +41,7 @@
     "ember-cli": "~4.12.0",
     "ember-cli-addon-docs": "^6.0.2",
     "ember-cli-addon-docs-esdoc": "^0.4.0",
-    "ember-cli-babel": "^7.26.11",
+    "ember-cli-babel": "^8.0.0",
     "ember-cli-dependency-checker": "^3.3.2",
     "ember-cli-deploy": "^2.0.0",
     "ember-cli-deploy-build": "^3.0.0",

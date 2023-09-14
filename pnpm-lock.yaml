@@ -97,8 +97,8 @@ importers:
         specifier: ~4.11.0
         version: 4.11.0
       ember-cli-dependency-checker:
-        specifier: ^3.3.1
-        version: 3.3.1(ember-cli@4.11.0)
+        specifier: ^3.3.2
+        version: 3.3.2(ember-cli@4.11.0)
       ember-cli-fastboot:
         specifier: ^4.1.0
         version: 4.1.0
@@ -250,8 +250,8 @@ importers:
         specifier: ^7.26.11
         version: 7.26.11
       ember-cli-dependency-checker:
-        specifier: ^3.3.1
-        version: 3.3.1(ember-cli@4.12.2)
+        specifier: ^3.3.2
+        version: 3.3.2(ember-cli@4.12.2)
       ember-cli-deploy:
         specifier: ^1.0.2
         version: 1.0.2
@@ -415,8 +415,8 @@ importers:
         specifier: ^7.26.11
         version: 7.26.11
       ember-cli-dependency-checker:
-        specifier: ^3.3.1
-        version: 3.3.1(ember-cli@4.11.0)
+        specifier: ^3.3.2
+        version: 3.3.2(ember-cli@4.11.0)
       ember-cli-fastboot:
         specifier: ^3.3.0
         version: 3.3.0
@@ -553,8 +553,8 @@ importers:
         specifier: ^7.26.11
         version: 7.26.11
       ember-cli-dependency-checker:
-        specifier: ^3.3.1
-        version: 3.3.1(ember-cli@4.11.0)
+        specifier: ^3.3.2
+        version: 3.3.2(ember-cli@4.11.0)
       ember-cli-htmlbars:
         specifier: ^6.2.0
         version: 6.2.0
@@ -8763,11 +8763,11 @@ packages:
       - webpack
     dev: true
 
-  /ember-cli-dependency-checker@3.3.1(ember-cli@4.11.0):
-    resolution: {integrity: sha512-Tg6OeijjXNKWkDm6057Tr0N9j9Vlz/ITewXWpn1A/+Wbt3EowBx5ZKfvoupqz05EznKgL1B/ecG0t+JN7Qm6MA==}
+  /ember-cli-dependency-checker@3.3.2(ember-cli@4.11.0):
+    resolution: {integrity: sha512-PwkrW5oYsdPWwt+0Tojufmv/hxVETTjkrEdK7ANQB2VSnqpA5UcYubwpQM9ONuR2J8wyNDMwEHlqIrk/FYtBsQ==}
     engines: {node: '>= 6'}
     peerDependencies:
-      ember-cli: ^3.2.0 || ^4.0.0
+      ember-cli: ^3.2.0 || >=4.0.0
     dependencies:
       chalk: 2.4.2
       ember-cli: 4.11.0
@@ -8779,11 +8779,11 @@ packages:
       - supports-color
     dev: true
 
-  /ember-cli-dependency-checker@3.3.1(ember-cli@4.12.2):
-    resolution: {integrity: sha512-Tg6OeijjXNKWkDm6057Tr0N9j9Vlz/ITewXWpn1A/+Wbt3EowBx5ZKfvoupqz05EznKgL1B/ecG0t+JN7Qm6MA==}
+  /ember-cli-dependency-checker@3.3.2(ember-cli@4.12.2):
+    resolution: {integrity: sha512-PwkrW5oYsdPWwt+0Tojufmv/hxVETTjkrEdK7ANQB2VSnqpA5UcYubwpQM9ONuR2J8wyNDMwEHlqIrk/FYtBsQ==}
     engines: {node: '>= 6'}
     peerDependencies:
-      ember-cli: ^3.2.0 || ^4.0.0
+      ember-cli: ^3.2.0 || >=4.0.0
     dependencies:
       chalk: 2.4.2
       ember-cli: 4.12.2

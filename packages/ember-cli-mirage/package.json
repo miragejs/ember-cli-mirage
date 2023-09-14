@@ -90,7 +90,7 @@
     "eslint-plugin-n": "^15.7.0",
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-qunit": "^7.3.4",
-    "fastboot": "^3.3.0",
+    "fastboot": "^4.1.1",
     "js-yaml": "^4.0.0",
     "loader.js": "^4.7.0",
     "miragejs": "^0.1.47",

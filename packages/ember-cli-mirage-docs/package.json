@@ -38,7 +38,7 @@
     "broccoli-asset-rev": "^3.0.0",
     "concurrently": "^8.2.1",
     "ember-auto-import": "^2.6.3",
-    "ember-cli": "~4.12.0",
+    "ember-cli": "~5.2.1",
     "ember-cli-addon-docs": "^6.0.2",
     "ember-cli-addon-docs-esdoc": "^0.4.0",
     "ember-cli-babel": "^8.0.0",

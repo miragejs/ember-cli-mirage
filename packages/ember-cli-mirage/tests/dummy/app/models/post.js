@@ -1,7 +1,5 @@
 import Model, { attr, hasMany } from '@ember-data/model';
 import yaml from 'js-yaml';
-import compileMarkdown from 'ember-cli-addon-docs/utils/compile-markdown';
-import { htmlSafe } from '@ember/template';
 
 export default class Post extends Model {
   @hasMany() comments;
@@ -9,10 +7,6 @@ export default class Post extends Model {
   @attr title;
   @attr body;
   @attr issueUrl;
-
-  get htmlBody() {
-    return htmlSafe(compileMarkdown(this.body));
-  }
 
   get meta() {
     let lines = this.body.split('\n').map((line) => line.trim());

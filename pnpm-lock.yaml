@@ -463,8 +463,8 @@ importers:
         specifier: ^5.11.2
         version: 5.11.2
       ember-welcome-page:
-        specifier: ^6.0.0
-        version: 6.0.0(webpack@5.75.0)
+        specifier: ^7.0.2
+        version: 7.0.2
       eslint:
         specifier: ^7.32.0
         version: 7.32.0
@@ -598,8 +598,8 @@ importers:
         specifier: ^5.11.2
         version: 5.11.2
       ember-welcome-page:
-        specifier: ^6.0.0
-        version: 6.0.0(webpack@5.75.0)
+        specifier: ^7.0.2
+        version: 7.0.2
       eslint:
         specifier: ^7.32.0
         version: 7.32.0
@@ -2634,19 +2634,6 @@ packages:
       - supports-color
     dev: true
 
-  /@embroider/addon-shim@0.46.2(webpack@5.75.0):
-    resolution: {integrity: sha512-yGgvUqhGkl9UGBiwGP8c7RcdsAqKafaUk/A5mZmpVYwjjDnBJEcpIcDvgQBSgeCX/zY9dFI5CVffHkDkdaJ6ZA==}
-    engines: {node: 12.* || 14.* || >= 16}
-    dependencies:
-      '@embroider/shared-internals': 0.46.2
-      ember-auto-import: 2.6.3(webpack@5.75.0)
-      semver: 7.5.4
-    transitivePeerDependencies:
-      - '@glint/template'
-      - supports-color
-      - webpack
-    dev: true
-
   /@embroider/addon-shim@1.8.6:
     resolution: {integrity: sha512-siC9kP78uucEbpDcVyxjkwa76pcs5rVzDVpWO4PDc9EAXRX+pzmUuSTLAK3GztUwx7/PWhz1BenAivqdSvSgfg==}
     engines: {node: 12.* || 14.* || >= 16}
@@ -2677,19 +2664,6 @@ packages:
       semver: 7.5.4
     transitivePeerDependencies:
       - supports-color
-
-  /@embroider/shared-internals@0.46.2:
-    resolution: {integrity: sha512-wNGy/R4h3SC316HqX64tMlm8XKxOS2yeL8Y4J9OFwjWRSK5p7ESc4gcQm3T/dijFT+F2iWA0pEjHjR4Hax56Bw==}
-    engines: {node: 12.* || 14.* || >= 16}
-    dependencies:
-      babel-import-util: 0.2.0
-      ember-rfc176-data: 0.3.18
-      fs-extra: 9.1.0
-      lodash: 4.17.21
-      resolve-package-path: 4.0.3
-      semver: 7.5.4
-      typescript-memoize: 1.1.1
-    dev: true
 
   /@embroider/shared-internals@1.6.0:
     resolution: {integrity: sha512-es7+pV2S9+tgX5T4losppheXfa+xWtKD6x0gq7mxqA4DIdE14mORNeSWM8/Fu9f/t0tJnPqttddbgnDYw+SvrA==}
@@ -10716,15 +10690,13 @@ packages:
       - supports-color
     dev: true
 
-  /ember-welcome-page@6.0.0(webpack@5.75.0):
-    resolution: {integrity: sha512-DK+gdE5262K2+JvFp8xo3WQySFYb6HJtk/gvV/vhGnmdZnqUZfgoccNylznTSGyq2SUdoSLvvYE7QmiNNsTqZw==}
-    engines: {node: 12.* || 14.* || >= 16}
+  /ember-welcome-page@7.0.2:
+    resolution: {integrity: sha512-TyaKxFIRXhODW5BTbqD/by0Gu8Z9B9AA1ki3Bzzm6fOj2b30Qlprtt+XUG52kS0zVNmxYj/WWoT0TsKiU61VOw==}
+    engines: {node: 14.* || 16.* || >= 18}
     dependencies:
-      '@embroider/addon-shim': 0.46.2(webpack@5.75.0)
+      '@embroider/addon-shim': 1.8.6
     transitivePeerDependencies:
-      - '@glint/template'
       - supports-color
-      - webpack
     dev: true
 
   /ember-wormhole@0.6.0:

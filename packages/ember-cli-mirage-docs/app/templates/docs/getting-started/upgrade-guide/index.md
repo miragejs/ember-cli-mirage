@@ -54,7 +54,7 @@ function routes() {
 }
 ```
 
-The environment variable discoverEmberDataModels is now longer used. If you wish to 
+The environment variable discoverEmberDataModels is no longer used. If you wish to 
 not have `ember-cli-mirage` auto discover the models, just remove the `...discoverEmberDataModels(),`
 
 ## 2.0 Upgrade guide

@@ -19,13 +19,14 @@ module('Unit | Model | ember data model discover', function (hooks) {
     server.shutdown();
   });
 
-  (dependencySatisfies('ember-data', '>=5.0.0')
-    ? test.todo
-    : test)('it discovers the models', function (assert) {
-    assert.ok(server.schema.modelFor('address'));
-    assert.ok(server.schema.modelFor('comment'));
-    assert.ok(server.schema.modelFor('post'));
-    assert.ok(server.schema.modelFor('user'));
-    assert.ok(server.schema.modelFor('wordSmith'));
-  });
+  (dependencySatisfies('ember-data', '>=5.0.0') ? test.todo : test)(
+    'it discovers the models',
+    function (assert) {
+      assert.ok(server.schema.modelFor('address'));
+      assert.ok(server.schema.modelFor('comment'));
+      assert.ok(server.schema.modelFor('post'));
+      assert.ok(server.schema.modelFor('user'));
+      assert.ok(server.schema.modelFor('wordSmith'));
+    },
+  );
 });

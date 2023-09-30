@@ -34,11 +34,11 @@ export default function startMirage(owner, { env, makeServer } = {}) {
   // MakeServer must accept at least one param
   assert(
     'There is no makeServer function passed or registered as mirage:make-server',
-    makeServer
+    makeServer,
   );
   assert(
     'Mirage config default exported function must at least one parameter',
-    makeServer.length > 0
+    makeServer.length > 0,
   );
 
   let server = makeServer(options);

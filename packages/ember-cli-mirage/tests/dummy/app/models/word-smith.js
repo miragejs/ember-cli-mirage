@@ -4,5 +4,5 @@ export default class extends Model {
   @attr name;
   @attr age;
   @hasMany('comments') comments;
-  @belongsTo('address') address;
+  @belongsTo('address', { async: false, inverse: null }) address;
 }

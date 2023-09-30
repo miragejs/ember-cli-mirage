@@ -3,7 +3,7 @@ import compileMarkdown from 'ember-cli-addon-docs/utils/compile-markdown';
 import { htmlSafe } from '@ember/template';
 
 export default class Comment extends Model {
-  @belongsTo('user', { async: false }) user;
+  @belongsTo('user', { async: false, inverse: null }) user;
 
   @attr body;
   @attr permalink;

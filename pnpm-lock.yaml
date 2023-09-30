@@ -200,7 +200,7 @@ importers:
         version: 2.0.0
       stylelint:
         specifier: ^15.10.3
-        version: 15.10.3(typescript@4.5.5)
+        version: 15.10.3(typescript@4.9.5)
       stylelint-config-standard:
         specifier: ^34.0.0
         version: 34.0.0(stylelint@15.10.3)
@@ -208,8 +208,8 @@ importers:
         specifier: ^4.0.2
         version: 4.0.2(prettier@3.0.3)(stylelint@15.10.3)
       typescript:
-        specifier: ^4.5.5
-        version: 4.5.5
+        specifier: ^4.9.5
+        version: 4.9.5
       webpack:
         specifier: ^5.88.2
         version: 5.88.2
@@ -9602,7 +9602,7 @@ packages:
       path-type: 4.0.0
     dev: true
 
-  /cosmiconfig@8.3.5(typescript@4.5.5):
+  /cosmiconfig@8.3.5(typescript@4.9.5):
     resolution: {integrity: sha512-A5Xry3xfS96wy2qbiLkQLAg4JUrR2wvfybxj6yqLmrUfMAvhS3MZxIP2oQn0grgYIvJqzpeTEWu4vK0t+12NNw==}
     engines: {node: '>=14'}
     peerDependencies:
@@ -9615,7 +9615,7 @@ packages:
       js-yaml: 4.1.0
       parse-json: 5.2.0
       path-type: 4.0.0
-      typescript: 4.5.5
+      typescript: 4.9.5
     dev: true
 
   /create-ecdh@4.0.4:
@@ -21241,7 +21241,7 @@ packages:
     peerDependencies:
       stylelint: ^15.10.0
     dependencies:
-      stylelint: 15.10.3(typescript@4.5.5)
+      stylelint: 15.10.3(typescript@4.9.5)
     dev: true
 
   /stylelint-config-standard@34.0.0(stylelint@15.10.3):
@@ -21250,7 +21250,7 @@ packages:
     peerDependencies:
       stylelint: ^15.10.0
     dependencies:
-      stylelint: 15.10.3(typescript@4.5.5)
+      stylelint: 15.10.3(typescript@4.9.5)
       stylelint-config-recommended: 13.0.0(stylelint@15.10.3)
     dev: true
 
@@ -21275,7 +21275,7 @@ packages:
     dependencies:
       prettier: 3.0.3
       prettier-linter-helpers: 1.0.0
-      stylelint: 15.10.3(typescript@4.5.5)
+      stylelint: 15.10.3(typescript@4.9.5)
     dev: true
 
   /stylelint@15.10.3:
@@ -21328,7 +21328,7 @@ packages:
       - typescript
     dev: true
 
-  /stylelint@15.10.3(typescript@4.5.5):
+  /stylelint@15.10.3(typescript@4.9.5):
     resolution: {integrity: sha512-aBQMMxYvFzJJwkmg+BUUg3YfPyeuCuKo2f+LOw7yYbU8AZMblibwzp9OV4srHVeQldxvSFdz0/Xu8blq2AesiA==}
     engines: {node: ^14.13.1 || >=16.0.0}
     hasBin: true
@@ -21339,7 +21339,7 @@ packages:
       '@csstools/selector-specificity': 3.0.0(postcss-selector-parser@6.0.13)
       balanced-match: 2.0.0
       colord: 2.9.3
-      cosmiconfig: 8.3.5(typescript@4.5.5)
+      cosmiconfig: 8.3.5(typescript@4.9.5)
       css-functions-list: 3.2.0
       css-tree: 2.3.1
       debug: 4.3.4
@@ -22200,8 +22200,8 @@ packages:
     hasBin: true
     dev: true
 
-  /typescript@4.5.5:
-    resolution: {integrity: sha512-TCTIul70LyWe6IJWT8QSYeA54WQe8EjQFU4wY52Fasj5UKx88LNYKCgBEHcOMOrFF1rKGbD8v/xcNWVUq9SymA==}
+  /typescript@4.9.5:
+    resolution: {integrity: sha512-1FXk9E2Hm+QzZQ7z+McJiHL4NW1F2EzMu9Nq9i3zAaGqibafqYwCVU6WyWAuyQRRzOlxou8xZSyXLEN8oKj24g==}
     engines: {node: '>=4.2.0'}
     hasBin: true
     dev: true

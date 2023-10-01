@@ -10,7 +10,7 @@ export default class extends Controller {
 
   get mirageModules() {
     return Object.keys(requirejs.entries).filter((key) =>
-      key.match('^ember-cli-mirage')
+      key.match('^ember-cli-mirage'),
     );
   }
 

@@ -31,7 +31,7 @@ export function getDsModels() {
   let classicModelMatchRegex = new RegExp(`^${modulePrefix}/models/(.*)$`, 'i');
   let podModelMatchRegex = new RegExp(
     `^${podModulePrefix || modulePrefix}/(.*)/model$`,
-    'i'
+    'i',
   );
 
   DsModels = {};
@@ -119,11 +119,11 @@ export function getDsSerializers() {
   let moduleMap = requirejs.entries;
   let classicSerializerMatchRegex = new RegExp(
     `^${modulePrefix}/serializers/(.*)$`,
-    'i'
+    'i',
   );
   let podSerializerMatchRegex = new RegExp(
     `^${podModulePrefix || modulePrefix}/(.*)/serializer$`,
-    'i'
+    'i',
   );
 
   DsSerializers = {};
@@ -214,7 +214,7 @@ export function applyEmberDataSerializers(mirageSerializers = {}) {
 
           transforms[key] = Object.assign(
             resolvedTransform,
-            serializerTransform
+            serializerTransform,
           );
         });
       }

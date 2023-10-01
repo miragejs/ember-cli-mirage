@@ -16,7 +16,7 @@ export default class {
 
     if (this._nextId >= alphabet.length) {
       throw new Error(
-        `IdentityManager used for testing only supports ${alphabet.length} ids.`
+        `IdentityManager used for testing only supports ${alphabet.length} ids.`,
       );
     }
     id = alphabet[this._nextId % alphabet.length];

@@ -35,7 +35,7 @@ module('Acceptance | Starting mirage', function (hooks) {
       assert.strictEqual(
         window.server,
         undefined,
-        'There is no global server at first'
+        'There is no global server at first',
       );
       let server = startMirage(this.owner);
       assert.ok(server, 'There is a server after starting');
@@ -59,7 +59,7 @@ module('Acceptance | Starting mirage', function (hooks) {
         assert.strictEqual(
           model.id,
           'nested identity manager works!',
-          'identity managers'
+          'identity managers',
         );
         assert.strictEqual(model.name, 'nested factory works!', 'factories');
 
@@ -80,12 +80,12 @@ module('Acceptance | Starting mirage', function (hooks) {
         assert.strictEqual(
           model.id,
           'nested identity manager works!',
-          'identity managers'
+          'identity managers',
         );
         assert.strictEqual(
           model.fixtureField,
           'nested fixture works!',
-          'fixtures'
+          'fixtures',
         );
       });
     });
@@ -98,6 +98,7 @@ module('Acceptance | Starting mirage', function (hooks) {
 
         assert.ok(this.server, 'There is a server');
         assert.ok(window.server, 'There is a global server');
+
         dynamicAfterEach = () => {
           assert.notOk(this.server, 'The server was shut down');
           assert.notOk(window.server, 'The global server is gone');

@@ -36,8 +36,8 @@ Make use of the many generators for code, try `ember help generate` for more det
 
 ### Linting
 
-* `pnpm run lint`
-* `pnpm run lint:fix`
+* `pnpm lint`
+* `pnpm lint:fix`
 
 ### Building
 

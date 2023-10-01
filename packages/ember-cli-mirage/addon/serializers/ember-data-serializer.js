@@ -98,7 +98,7 @@ let EmberDataSerializer = RestSerializer.extend({
 
       resolvedTransforms.serialize[key] = Object.assign(
         { key: key, serialize: 'ids', deserialize: 'ids' },
-        transform
+        transform,
       );
     }
 
@@ -152,7 +152,7 @@ let EmberDataSerializer = RestSerializer.extend({
           associatedResource &&
           get(
             newDidSerialize,
-            `${associatedResource.modelName}.${associatedResource.id}`
+            `${associatedResource.modelName}.${associatedResource.id}`,
           )
         ) {
           // force it to IDS if we already have serialized it to prevent recursion
@@ -165,7 +165,7 @@ let EmberDataSerializer = RestSerializer.extend({
             associatedResource,
             false,
             newDidSerialize,
-            true
+            true,
           );
           let formattedKey =
             this._keyForProperty(key) || this.isCollection(associatedResource)

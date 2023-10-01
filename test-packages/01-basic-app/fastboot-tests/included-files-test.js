@@ -29,13 +29,13 @@ qModule('basic-app | fastboot | included files', function () {
 
     assert.equal(
       findTextFromHtml(html, '[data-test-id="environment"]'),
-      'development'
+      'development',
     );
     assert.ok(
-      +findTextFromHtml(html, '[data-test-id="mirage-module-count"]') > 1
+      +findTextFromHtml(html, '[data-test-id="mirage-module-count"]') > 1,
     );
     assert.ok(
-      +findTextFromHtml(html, '[data-test-id="other-module-count"]') > 1
+      +findTextFromHtml(html, '[data-test-id="other-module-count"]') > 1,
     );
   });
 
@@ -62,13 +62,13 @@ qModule('basic-app | fastboot | included files', function () {
 
     assert.equal(
       findTextFromHtml(html, '[data-test-id="environment"]'),
-      'test'
+      'test',
     );
     assert.ok(
-      +findTextFromHtml(html, '[data-test-id="mirage-module-count"]') > 1
+      +findTextFromHtml(html, '[data-test-id="mirage-module-count"]') > 1,
     );
     assert.ok(
-      +findTextFromHtml(html, '[data-test-id="other-module-count"]') > 1
+      +findTextFromHtml(html, '[data-test-id="other-module-count"]') > 1,
     );
   });
 
@@ -94,15 +94,15 @@ qModule('basic-app | fastboot | included files', function () {
 
     assert.equal(
       findTextFromHtml(html, '[data-test-id="environment"]'),
-      'production'
+      'production',
     );
     assert.equal(
       findTextFromHtml(html, '[data-test-id="mirage-module-count"]'),
-      '0'
+      '0',
     );
     assert.equal(
       findTextFromHtml(html, '[data-test-id="other-module-count"]'),
-      '1'
+      '1',
     );
   });
 
@@ -129,13 +129,13 @@ qModule('basic-app | fastboot | included files', function () {
 
     assert.equal(
       findTextFromHtml(html, '[data-test-id="environment"]'),
-      'production'
+      'production',
     );
     assert.ok(
-      +findTextFromHtml(html, '[data-test-id="mirage-module-count"]') > 1
+      +findTextFromHtml(html, '[data-test-id="mirage-module-count"]') > 1,
     );
     assert.ok(
-      +findTextFromHtml(html, '[data-test-id="other-module-count"]') > 1
+      +findTextFromHtml(html, '[data-test-id="other-module-count"]') > 1,
     );
   });
 });

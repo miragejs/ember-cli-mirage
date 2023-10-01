@@ -4,7 +4,7 @@ export default ApplicationSerizlizer.extend({
   keyForAttribute(attr) {
     const key = ApplicationSerizlizer.prototype.keyForAttribute.call(
       this,
-      attr
+      attr,
     );
 
     return `nested_thing_${key}`;

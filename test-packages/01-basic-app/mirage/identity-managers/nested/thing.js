@@ -15,7 +15,7 @@ export default class {
 
     if (this._nextId >= 1) {
       throw new Error(
-        `IdentityManager used for testing only supports single id.`
+        `IdentityManager used for testing only supports single id.`,
       );
     }
     id = 'nested identity manager works!';

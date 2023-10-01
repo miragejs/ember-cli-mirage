@@ -24,7 +24,7 @@ export default function (prefix) {
     'identity-managers',
   ];
   let mirageModuleRegExp = new RegExp(
-    `^${prefix}/mirage/(${modules.join('|')})`
+    `^${prefix}/mirage/(${modules.join('|')})`,
   );
   let modulesMap = modules.reduce((memo, name) => {
     memo[camelize(name)] = {};
@@ -48,7 +48,7 @@ export default function (prefix) {
       if (moduleType === 'scenario') {
         assert(
           'Only scenario/default.js is supported at this time.',
-          moduleKey !== 'default'
+          moduleKey !== 'default',
         );
       }
 

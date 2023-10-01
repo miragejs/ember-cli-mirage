@@ -36,7 +36,7 @@ export default class extends JSONAPIAdapter {
         },
         (jqXHR) => {
           reject(jqXHR);
-        }
+        },
       );
     });
   }
@@ -65,7 +65,7 @@ export default class extends JSONAPIAdapter {
         },
         (jqXHR) => {
           reject(jqXHR);
-        }
+        },
       );
     });
   }
@@ -119,7 +119,7 @@ export default class extends JSONAPIAdapter {
         },
         (jqXHR) => {
           run(() => reject(jqXHR));
-        }
+        },
       );
     });
   }

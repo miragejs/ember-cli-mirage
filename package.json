@@ -29,7 +29,7 @@
   },
   "release-it": {
     "hooks": {
-      "before:init": "cp CHANGELOG.md LICENSE.md README.md packages/ember-cli-mirage/",
+      "after:bump": "cp CHANGELOG.md LICENSE.md README.md packages/ember-cli-mirage/",
       "after:release": "cd packages/ember-cli-mirage-docs && pnpm run deploy"
     },
     "plugins": {

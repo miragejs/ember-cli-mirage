@@ -55,7 +55,7 @@ module('Acceptance | Crud demo', function (hooks) {
       {
         errors: ['improper auth'],
       },
-      404
+      404,
     );
 
     await visit('/crud-demo');

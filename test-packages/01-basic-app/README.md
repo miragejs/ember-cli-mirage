@@ -9,7 +9,7 @@ You will need the following things properly installed on your computer.
 
 * [Git](https://git-scm.com/)
 * [Node.js](https://nodejs.org/)
-* [Yarn](https://yarnpkg.com/)
+* [pnpm](https://pnpm.io/)
 * [Ember CLI](https://cli.emberjs.com/release/)
 * [Google Chrome](https://google.com/chrome/)
 
@@ -36,8 +36,8 @@ Make use of the many generators for code, try `ember help generate` for more det
 
 ### Linting
 
-* `pnpm run lint`
-* `pnpm run lint:fix`
+* `pnpm lint`
+* `pnpm lint:fix`
 
 ### Building
 

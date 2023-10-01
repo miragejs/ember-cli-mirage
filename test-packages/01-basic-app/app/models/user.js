@@ -5,5 +5,5 @@ export default class User extends Model {
   @attr('number') age;
   @attr('string') email;
 
-  @hasMany() books;
+  @hasMany('book', { async: false, inverse: 'user' }) books;
 }

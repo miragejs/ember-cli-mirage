@@ -15,7 +15,7 @@ export default class extends Route {
       if (pathname.match(`/docs/${version}`)) {
         window.location = pathname.replace(
           `/docs/${version}`,
-          `/versions/${version}`
+          `/versions/${version}`,
         );
       }
     });

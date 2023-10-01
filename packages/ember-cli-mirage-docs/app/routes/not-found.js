@@ -12,7 +12,7 @@ export default class extends Route {
         if (path === candidate || path === `${candidate}/`) {
           this.router.transitionTo(
             'blog.detail',
-            redirect.to.replace('blog/', '')
+            redirect.to.replace('blog/', ''),
           );
         }
       });

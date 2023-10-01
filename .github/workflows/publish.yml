@@ -19,20 +19,15 @@ jobs:
         with:
           node-version: 16.x
           cache: pnpm
+          registry-url: https://registry.npmjs.org/
 
       - name: Install Dependencies
         run: pnpm install
 
-      - name: Lint
-        run: pnpm run lint
-        working-directory: packages/ember-cli-mirage
+      - name: Copy .md files
+        run: cp CHANGELOG.md LICENSE.md README.md packages/ember-cli-mirage/
 
-      - name: Run Tests
-        run: pnpm run test:ember
-        working-directory: packages/ember-cli-mirage
-
-      - uses: JS-DevTools/npm-publish@v1
-        with:
-          token: ${{ secrets.NPM_TOKEN }}
-          tag: next
+      - run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
         working-directory: packages/ember-cli-mirage

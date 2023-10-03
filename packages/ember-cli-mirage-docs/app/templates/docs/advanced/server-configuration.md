@@ -59,7 +59,10 @@ import { createServer } from 'miragejs';
 export default function(config) {
   let finalConfig = {
     ...config,
-    models: { ...discoverEmberDataModels(), ...config.models },
+    models: {
+      ...discoverEmberDataModels(config.store),
+      ...config.models
+    },
     routes() {
       // this.namespace = '/api'
 
@@ -77,7 +80,10 @@ import { createServer } from 'miragejs';
 export default function(config) {
   let finalConfig = {
     ...config,
-    models: { ...discoverEmberDataModels(), ...config.models },
+    models: {
+      ...discoverEmberDataModels(config.store),
+      ...config.models
+    },
     routes,
   };
 
@@ -116,7 +122,10 @@ import { createServer } from 'miragejs';
 export default function(config) {
   let finalConfig = {
     ...config,
-    models: { ...discoverEmberDataModels(), ...config.models },
+    models: {
+      ...discoverEmberDataModels(config.store),
+      ...config.models
+    },
     serializers: applyEmberDataSerializers(config.serializers),
     routes,
   };

@@ -1,4 +1,5 @@
 import { module, test } from 'qunit';
+import { setupTest } from 'ember-qunit';
 import { createServer } from 'miragejs';
 import { Model } from 'miragejs';
 import { modelFor } from 'ember-cli-mirage/ember-data';
@@ -8,13 +9,16 @@ const CustomTag = Model.extend();
 CustomTag.__isCustom__ = true;
 
 module('Acceptance | Ember Data', function (hooks) {
+  setupTest(hooks);
+
   hooks.beforeEach(function () {
+    const store = this.owner.lookup('service:store');
     this.server = createServer({
       scenarios: {
         default() {},
       },
       models: {
-        ...discoverEmberDataModels(),
+        ...discoverEmberDataModels(store),
         // Tag exists in dummy/app/models. We want to make sure pre-defined
         // models take precedence
         tag: CustomTag,

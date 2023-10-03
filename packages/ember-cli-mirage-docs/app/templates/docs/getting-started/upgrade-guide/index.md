@@ -42,7 +42,10 @@ import { createServer } from 'miragejs';
 export default function (config) {
   let finalConfig = {
     ...config,
-    models: { ...discoverEmberDataModels(), ...config.models },
+    models: {
+      ...discoverEmberDataModels(config.store),
+      ...config.models
+    },
     routes,
   };
 
@@ -55,7 +58,7 @@ function routes() {
 ```
 
 The environment variable discoverEmberDataModels is no longer used. If you wish to 
-not have `ember-cli-mirage` auto discover the models, just remove the `...discoverEmberDataModels(),`
+not have `ember-cli-mirage` auto discover the models, just remove the `...discoverEmberDataModels(config.store),`
 
 ## 2.0 Upgrade guide
 

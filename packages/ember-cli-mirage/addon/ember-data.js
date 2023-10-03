@@ -20,9 +20,10 @@ let DsSerializers, Serializers;
  * @method getDsModels
  * @private
  * @hide
+ * @param {StoreService} store
  * @return {Object} models
  */
-export function getDsModels() {
+export function getDsModels(store) {
   if (DsModels) {
     return DsModels;
   }
@@ -46,7 +47,7 @@ export function getDsModels() {
     if (matches && matches[1]) {
       let modelName = matches[1];
 
-      let model = require(path, null, null, true).default;
+      let model = store.modelFor(modelName);
       if (isDsModel(model)) {
         DsModels[modelName] = model;
       }
@@ -60,14 +61,15 @@ export function getDsModels() {
  * Get all mirage models for each of the ember-data models
  *
  * @method discoverEmberDataModels
+ * @param {StoreService} store
  * @return {Object} models
  */
-export function discoverEmberDataModels() {
-  if (Models) {
+export function discoverEmberDataModels(store) {
+  if (Models || !store) {
     return Models;
   }
 
-  let emberDataModels = getDsModels();
+  let emberDataModels = getDsModels(store);
   Models = {};
 
   Object.keys(emberDataModels).forEach((modelName) => {

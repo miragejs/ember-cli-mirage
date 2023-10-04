@@ -16,17 +16,19 @@ You can view all of Mirage's release notes on [our Releases page](https://github
 
 ## 3.0 Upgrade guide
 
+### 1. Update import paths
+
 Ensure that all the imports are updated for the objects that were moved to MirageJS. 
 This is generally the imports in the files in the mirage directory.
 
-```js
-// from
-import { Model } from 'ember-cli-mirage';
-//to
-import { Model } from 'miragejs';
+```diff
+- import { Model } from 'ember-cli-mirage';
++ import { Model } from 'miragejs';
 ```
 
-Previous the file `mirage/config.js` was a exported default function that defined only your routes.
+### 2. Update default export in `mirage/config.js`
+
+Previously, the file `mirage/config.js` was exporting default function that defined only your routes.
 Since MirageJS has been extracted into its own repo, we want to follow the way a server is made in MirageJS.
 
 Change the routes function to no longer be exported as the default function and give it a name, we
@@ -57,12 +59,57 @@ function routes() {
 }
 ```
 
-The environment variable discoverEmberDataModels is no longer used. If you wish to 
-not have `ember-cli-mirage` auto discover the models, just remove the `...discoverEmberDataModels(config.store),`
+### 3. Remove `testConfig` function
+
+Exporting `testConfig` function from `mirage/config.js` is not supported.
+If you need to separate development routes from testing, you can now use
+[`@embroider/macros`](https://www.npmjs.com/package/@embroider/macros) package:
+
+```diff
+- export function testConfig () {
+- }
++ function routes() {
++   if (macroCondition(isTesting())) {
++     testRoutes.call(this);
++   } else {
++     devRoutes.call(this);
++   }
++ }
+```
+
+### 4. Remove `discoverEmberDataModels` env variable
+
+The environment variable `discoverEmberDataModels` is no longer used. If you wish to
+not have `ember-cli-mirage` auto discover the models, just remove the `discoverEmberDataModels(config.store)`.
+
+You should remove `discoverEmberDataModels` from `config/environment.js` file if it was set to `ENV['ember-cli-mirage']` before.
+
+### 5. Remove `trackRequests` env variable
+
+The environment variable `trackRequests` is no longer used.
+If you want enabled [Pretender's `trackRequests` feature](https://github.com/pretenderjs/pretender#tracking-requests), this can be set in the `mirage/config.js` options:
+
+```js
+export default function(config) {
+  let finalConfig = {
+    ...config,
+    trackRequests: true,
+    models: {
+      ...discoverEmberDataModels(config.store),
+      ...config.models
+    },
+    routes,
+  };
+
+  return createServer(finalConfig);
+}
+```
+
+You should remove `trackRequests` from `config/environment.js` file if it was set to `ENV['ember-cli-mirage']` before.
 
 ## 2.0 Upgrade guide
 
-There were a few breaking changes made in the 1.0 release.
+The only breaking change made in the 2.0 release is dropped support for Node.js 
 
 ### 1. Update import paths for miragejs imports
 

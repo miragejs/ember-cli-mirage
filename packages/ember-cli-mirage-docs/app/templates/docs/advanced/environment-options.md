@@ -40,31 +40,6 @@ if (environment === 'development') {
 }
 ```
 
-## trackRequests
-
-A boolean that controls whether [Pretender's `trackRequests` feature](https://github.com/pretenderjs/pretender#tracking-requests) is enabled. By default it is disabled to avoid memory issues during long development sessions.
-
-This should be set in the `mirage/config.js` options. Defaults to `false`.
-
-```js
-export default function(config) {
-  let finalConfig = {
-    ...config,
-    trackRequests: true,
-    models: {
-      ...discoverEmberDataModels(config.store),
-      ...config.models
-    },
-    routes,
-  };
-
-  return createServer(finalConfig);
-}
-```
-
-This feature is useful for asserting against HTTP requests and responses during tests. See the "Asserting against handled requests and responses" section of the {{docs-link 'Assertions guide' 'docs.testing.assertions'}} to learn more.
-
-
 ## excludeFilesFromBuild
 
 Defaults to `false`.
@@ -94,21 +69,5 @@ For example, to have your server definition under `/app/mirage`,
 ...
 ENV['ember-cli-mirage'] = {
   directory: 'app/mirage'
-};
-```
-
-## discoverEmberDataModels
-
-Tells Mirage whether to automatically infer its schema from the host application's Ember Data models and relationships.
-
-Defaults to true. If Ember Data models are present, predefines Mirage's models and relationships. If Ember Data models are not present, has no effect.
-
-You can disable by setting to `false`. You might want to do this if you run into an edge case/issue where the autodiscovery code causes issues in your app's environment (for example, if you have a complex engines setup).
-
-```js
-// config/environment.js
-...
-ENV['ember-cli-mirage'] = {
-  discoverEmberDataModels: false
 };
 ```

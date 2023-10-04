@@ -60,16 +60,21 @@ Asserting against models is basically another way to verify Mirage's database da
 
 You can also assert against the actual HTTP requests and responses that are made during your test.
 
-To do this, first enable [Pretender's `trackedRequests` feature](https://github.com/pretenderjs/pretender#tracking-requests) by enabling the `trackRequests` environment option:
+To do this, first enable [Pretender's `trackedRequests` feature](https://github.com/pretenderjs/pretender#tracking-requests) by enabling the `trackRequests` option:
 
 ```js
-// config/environment.js
-module.exports = function(environment) {
-  if (environment === 'test') {
-    ENV['ember-cli-mirage'] = {
-      trackRequests: true
-    };
-  }
+// mirage/config.js
+export default function(config) {
+  let finalConfig = {
+    ...config,
+    trackRequests: true,
+    models: {
+      ...config.models
+    },
+    routes,
+  };
+
+  return createServer(finalConfig);
 }
 ```
 
@@ -95,7 +100,7 @@ test("I can filter the table", async function(assert) {
 });
 ```
 
-In general we recommend asserting against Mirage's database and your UI, as the specifics of your app's HTTP requests should be considered implementation details of the behavior you're actually interested in verifying. But there's certainly valid reasons to drop down and assert against HTTP data.
+In general, we recommend asserting against Mirage's database and your UI, as the specifics of your app's HTTP requests should be considered implementation details of the behavior you're actually interested in verifying. But there's certainly valid reasons to drop down and assert against HTTP data.
 
 
 

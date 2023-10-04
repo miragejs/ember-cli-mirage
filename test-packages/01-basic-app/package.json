@@ -66,7 +66,7 @@
     "eslint-plugin-prettier": "^5.0.0",
     "eslint-plugin-qunit": "^8.0.0",
     "fastboot": "^4.1.1",
-    "jsdom": "^19.0.0",
+    "jsdom": "^22.1.0",
     "loader.js": "^4.7.0",
     "miragejs": "^0.1.47",
     "prettier": "^3.0.3",

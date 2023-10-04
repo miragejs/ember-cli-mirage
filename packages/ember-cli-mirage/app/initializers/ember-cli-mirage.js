@@ -24,13 +24,13 @@ export default {
 
     ENV['ember-cli-mirage'] = ENV['ember-cli-mirage'] || {};
     if (_shouldUseMirage(ENV.environment, ENV['ember-cli-mirage'])) {
-      startMirage(ENV);
+      startMirage(application.__container__, ENV);
     }
   },
 };
 
-export function startMirage(env = ENV) {
-  return startMirageImpl(null, { env, makeServer });
+function startMirage(owner, env = ENV) {
+  return startMirageImpl(owner, { env, makeServer });
 }
 
 function _shouldUseMirage(env, addonConfig) {

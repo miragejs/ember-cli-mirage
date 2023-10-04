@@ -4,7 +4,7 @@ import compileMarkdown from 'ember-cli-addon-docs/utils/compile-markdown';
 import { htmlSafe } from '@ember/template';
 
 export default class Post extends Model {
-  @hasMany() comments;
+  @hasMany('comment', { inverse: null, async: false }) comments;
 
   @attr title;
   @attr body;

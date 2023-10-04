@@ -206,7 +206,7 @@ user.thingIds = [ { id: 2, type: 'watch' }, ... ];
 
 ---
 
-Be sure to check out the {{docs-link 'Schema' 'docs.api.item' 'modules/orm/schema~Schema'}}, {{docs-link 'Model' 'docs.api.item' 'modules/orm/model~Model'}} and {{docs-link 'Collection' 'docs.api.item' 'modules/orm/collection~Collection'}} API docs to learn about all the available ORM methods.
+Be sure to check out the <a href="https://miragejs.com/api/classes/schema/">Schema</a>, <a href="https://miragejs.com/api/classes/model/">Model</a> and <a href="https://miragejs.com/api/classes/collection/">Collection</a> API docs to learn about all the available ORM methods.
 
 We'll also cover Serializers in these guides, where you'll learn how to customize the serialized forms of your models and collections to match your production API.
 

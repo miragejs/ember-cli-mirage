@@ -88,8 +88,8 @@ importers:
         specifier: ^1.1.2
         version: 1.1.2
       '@types/qunit':
-        specifier: ^2.19.4
-        version: 2.19.4
+        specifier: ^2.19.6
+        version: 2.19.6
       broccoli-asset-rev:
         specifier: ^3.0.0
         version: 3.0.0
@@ -143,7 +143,7 @@ importers:
         version: 8.0.0
       ember-qunit:
         specifier: ^8.0.1
-        version: 8.0.1(@ember/test-helpers@3.2.0)(ember-source@5.3.0)(qunit@2.19.4)
+        version: 8.0.1(@ember/test-helpers@3.2.0)(ember-source@5.3.0)(qunit@2.20.0)
       ember-resolver:
         specifier: ^11.0.1
         version: 11.0.1(ember-source@5.3.0)
@@ -193,8 +193,8 @@ importers:
         specifier: ^3.0.3
         version: 3.0.3
       qunit:
-        specifier: ^2.19.4
-        version: 2.19.4
+        specifier: ^2.20.0
+        version: 2.20.0
       qunit-dom:
         specifier: ^2.0.0
         version: 2.0.0
@@ -323,7 +323,7 @@ importers:
         version: 9.0.1
       ember-qunit:
         specifier: ^8.0.1
-        version: 8.0.1(@ember/test-helpers@3.2.0)(ember-source@4.12.3)(qunit@2.19.4)
+        version: 8.0.1(@ember/test-helpers@3.2.0)(ember-source@4.12.3)(qunit@2.20.0)
       ember-resolver:
         specifier: ^11.0.1
         version: 11.0.1(ember-source@4.12.3)
@@ -367,8 +367,8 @@ importers:
         specifier: ^3.0.3
         version: 3.0.3
       qunit:
-        specifier: ^2.19.4
-        version: 2.19.4
+        specifier: ^2.20.0
+        version: 2.20.0
       qunit-dom:
         specifier: ^2.0.0
         version: 2.0.0
@@ -476,7 +476,7 @@ importers:
         version: 8.0.0
       ember-qunit:
         specifier: ^8.0.1
-        version: 8.0.1(@ember/test-helpers@3.2.0)(ember-source@5.3.0)(qunit@2.19.4)
+        version: 8.0.1(@ember/test-helpers@3.2.0)(ember-source@5.3.0)(qunit@2.20.0)
       ember-resolver:
         specifier: ^11.0.1
         version: 11.0.1(ember-source@5.3.0)
@@ -523,8 +523,8 @@ importers:
         specifier: ^3.0.3
         version: 3.0.3
       qunit:
-        specifier: ^2.19.4
-        version: 2.19.4
+        specifier: ^2.20.0
+        version: 2.20.0
       qunit-dom:
         specifier: ^2.0.0
         version: 2.0.0
@@ -626,7 +626,7 @@ importers:
         version: 8.0.0
       ember-qunit:
         specifier: ^8.0.1
-        version: 8.0.1(@ember/test-helpers@3.2.0)(ember-source@5.3.0)(qunit@2.19.4)
+        version: 8.0.1(@ember/test-helpers@3.2.0)(ember-source@5.3.0)(qunit@2.20.0)
       ember-resolver:
         specifier: ^11.0.1
         version: 11.0.1(ember-source@5.3.0)
@@ -667,8 +667,8 @@ importers:
         specifier: ^3.0.3
         version: 3.0.3
       qunit:
-        specifier: ^2.19.4
-        version: 2.19.4
+        specifier: ^2.20.0
+        version: 2.20.0
       qunit-dom:
         specifier: ^2.0.0
         version: 2.0.0
@@ -4342,8 +4342,8 @@ packages:
     resolution: {integrity: sha512-FGa1F62FT09qcrueBA6qYTrJPVDzah9a+493+o2PCXsesWHIn27G98TsSMs3WPNbZIEj4+VJf6saSFpvD+3Zsw==}
     dev: true
 
-  /@types/qunit@2.19.4:
-    resolution: {integrity: sha512-EocRiD2JRWrOaA0dnyyLX083DIo1p3OSBBiGODcHaMzOFhteXtvRRp0kKsiYYqynnBSMqnqRI92iE32axdoXZw==}
+  /@types/qunit@2.19.6:
+    resolution: {integrity: sha512-bz9STa6EHurtpSfn5cNiScBladlw43bM+7luQA985Kd9YlF4dZaLmKt3c5/oSyN1AWAl50YBpqTq0BxCP64nGg==}
     dev: true
 
   /@types/range-parser@1.2.4:
@@ -10253,7 +10253,7 @@ packages:
       - supports-color
     dev: true
 
-  /ember-qunit@8.0.1(@ember/test-helpers@3.2.0)(ember-source@4.12.3)(qunit@2.19.4):
+  /ember-qunit@8.0.1(@ember/test-helpers@3.2.0)(ember-source@4.12.3)(qunit@2.20.0):
     resolution: {integrity: sha512-13PtywHNPTQKkDW4o8QRkJvcdsZr8hRyvh6xh/YLAX8+HaRLd3nPL8mBF4O/Kur/DAj3QWLvjzktZ2uRNGSh3A==}
     peerDependencies:
       '@ember/test-helpers': '>=3.0.3'
@@ -10265,13 +10265,13 @@ packages:
       '@embroider/macros': 1.13.1
       ember-cli-test-loader: 3.1.0
       ember-source: 4.12.3(@babel/core@7.23.0)(@glimmer/component@1.1.2)(webpack@5.88.2)
-      qunit: 2.19.4
+      qunit: 2.20.0
     transitivePeerDependencies:
       - '@glint/template'
       - supports-color
     dev: true
 
-  /ember-qunit@8.0.1(@ember/test-helpers@3.2.0)(ember-source@5.3.0)(qunit@2.19.4):
+  /ember-qunit@8.0.1(@ember/test-helpers@3.2.0)(ember-source@5.3.0)(qunit@2.20.0):
     resolution: {integrity: sha512-13PtywHNPTQKkDW4o8QRkJvcdsZr8hRyvh6xh/YLAX8+HaRLd3nPL8mBF4O/Kur/DAj3QWLvjzktZ2uRNGSh3A==}
     peerDependencies:
       '@ember/test-helpers': '>=3.0.3'
@@ -10283,7 +10283,7 @@ packages:
       '@embroider/macros': 1.13.1
       ember-cli-test-loader: 3.1.0
       ember-source: 5.3.0(@babel/core@7.23.0)(@glimmer/component@1.1.2)(webpack@5.88.2)
-      qunit: 2.19.4
+      qunit: 2.20.0
     transitivePeerDependencies:
       - '@glint/template'
       - supports-color
@@ -12722,7 +12722,7 @@ packages:
     dev: true
 
   /hawk@1.1.1:
-    resolution: {integrity: sha512-am8sVA2bCJIw8fuuVcKvmmNnGFUGW8spTkVtj2fXTEZVkfN42bwFZFtDem57eFi+NSxurJB8EQ7Jd3uCHLn8Vw==}
+    resolution: {integrity: sha1-h81JH5tG5OKurKM1QWdmiF0tHtk=}
     engines: {node: '>=0.8.0'}
     deprecated: This module moved to @hapi/hawk. Please make sure to switch over as this distribution is no longer supported and may contain bugs and critical security issues.
     requiresBuild: true
@@ -17114,8 +17114,8 @@ packages:
       - supports-color
     dev: true
 
-  /qunit@2.19.4:
-    resolution: {integrity: sha512-aqUzzUeCqlleWYKlpgfdHHw9C6KxkB9H3wNfiBg5yHqQMzy0xw/pbCRHYFkjl8MsP/t8qkTQE+JTYL71azgiew==}
+  /qunit@2.20.0:
+    resolution: {integrity: sha512-N8Fp1J55waE+QG1KwX2LOyqulZUToRrrPBqDOfYfuAMkEglFL15uwvmH1P4Tq/omQ/mGbBI8PEB3PhIfvUb+jg==}
     engines: {node: '>=10'}
     hasBin: true
     dependencies:
@@ -20082,7 +20082,7 @@ packages:
     dev: true
 
   /verror@1.10.0:
-    resolution: {integrity: sha512-ZZKSmDAEFOijERBLkmYfJ+vmk3w+7hOLYDNkRCuRuMJGEmqYNCNLyBBFwWKVMhfwaEF3WOd0Zlw86U/WC/+nYw==}
+    resolution: {integrity: sha1-OhBcoXBTr1XW4nDB+CiGguGNpAA=}
     engines: {'0': node >=0.6.0}
     requiresBuild: true
     dependencies:
@@ -20711,7 +20711,7 @@ packages:
     dev: true
 
   github.com/pzuraq/esdoc/015a342:
-    resolution: { tarball: https://codeload.github.com/pzuraq/esdoc/tar.gz/015a342 }
+    resolution: {tarball: https://codeload.github.com/pzuraq/esdoc/tar.gz/015a342}
     name: esdoc
     version: 1.0.4
     engines: {node: '>= 6.0.0'}

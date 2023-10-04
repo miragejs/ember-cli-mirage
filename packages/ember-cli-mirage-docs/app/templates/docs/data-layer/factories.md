@@ -261,7 +261,7 @@ Calling `server.createList('user', 3)` with this factory would generate this dat
 
 ### Relationships
 
-In the same way that you use the ORM to create relational data, as this example from the _Creating and editing related data_ section of the {{docs-link 'ORM guide' 'docs.data-layer.orm'}} illustrates
+In the same way that you use the ORM to create relational data, as this example from the _Creating and editing related data_ section of the <DocsLink @route="docs.data-layer.orm">ORM guide</DocsLink> illustrates
 
 ```js
 let nolan = schema.people.create({ name: 'Christopher Nolan' });
@@ -647,7 +647,7 @@ In this test, we start our Mirage server out with 5 movies. Then we boot up the 
 
 When we write another test, the database will start out empty so that none of Mirage's state leaks across tests.
 
-You can read more about testing with Mirage in the {{docs-link 'Testing' 'docs.testing.acceptance-tests'}} section of these guides.
+You can read more about testing with Mirage in the <DocsLink @route="docs.testing.acceptance-tests">Testing</DocsLink> section of these guides.
 
 
 ## Factory best practices

@@ -79,7 +79,7 @@ schema.blogPosts.where({ isPublished: true });
 schema.blogPosts.findBy({ title: 'Introduction' });
 ```
 
-Check out the {{docs-link 'Schema API docs' 'docs.api.item' 'modules/orm/schema~Schema'}} to see all available query methods.
+Check out the <a href="https://miragejs.com/api/classes/schema/">Schema API docs</a> to see all available query methods.
 
 
 ## Updating and deleting models
@@ -102,7 +102,7 @@ let post = schema.blogPosts.find(2);
 post.destroy();
 ```
 
-View the {{docs-link 'Model API docs' 'docs.api.item' 'modules/orm/model~Model'}} to see all the available fields and methods for model instances.
+View the <a href="https://miragejs.com/api/classes/model/">Model API docs</a> to see all the available fields and methods for model instances.
 
 ---
 

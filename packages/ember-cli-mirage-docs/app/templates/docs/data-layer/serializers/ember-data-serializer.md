@@ -41,6 +41,6 @@ export default EmberDataSerializer.extend({
 ```
 
 If you would like Mirage to apply the transforms from your ember data serializers for you see 
-{{docs-link 'Advanced Configuration of Serializers' 'docs.advanced.server-configuration'}}.
+<DocsLink @route="docs.advanced.server-configuration">Advanced Configuration of Serializers</DocsLink>.
 
 

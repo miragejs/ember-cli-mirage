@@ -27,6 +27,7 @@ export default function startMirage(owner, { env, makeServer } = {}) {
 
   let options = Object.assign(modules, {
     environment,
+    store: owner.lookup('service:store'),
   });
 
   options.inflector = { singularize, pluralize };

@@ -10,8 +10,9 @@ module('Unit | Model | ember data model discover', function (hooks) {
   let server;
 
   hooks.beforeEach(function () {
+    const store = this.owner.lookup('service:store');
     server = createServer({
-      models: discoverEmberDataModels({}),
+      models: discoverEmberDataModels(store),
     });
   });
 

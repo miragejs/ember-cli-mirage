@@ -51,7 +51,10 @@ export default function(config) {
   let finalConfig = {
     ...config,
     trackRequests: true,
-    models: { ...discoverEmberDataModels(), ...config.models },
+    models: {
+      ...discoverEmberDataModels(config.store),
+      ...config.models
+    },
     routes,
   };
 

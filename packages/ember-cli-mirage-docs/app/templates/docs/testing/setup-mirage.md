@@ -42,7 +42,10 @@ If it is not desirable to use the default config from the mirage directory you c
   const makeServer = function(config) {
     let finalConfig = {
       ...config,
-      models: { ...discoverEmberDataModels(), ...config.models },
+      models: {
+       ...discoverEmberDataModels(config.store),
+        ...config.models
+      },
       routes() {
         this.namespace = "api"
         this.timing = 2000

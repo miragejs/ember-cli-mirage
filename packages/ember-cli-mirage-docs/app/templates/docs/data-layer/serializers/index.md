@@ -250,6 +250,6 @@ In general, you should not need to write much code dealing with Mirage serialize
 
 The more conventional your backend API is, the less code you'll need to write – not only in Mirage, but also in other parts of your Ember application!
 
-Be sure to check out the <a href="https://miragejs.com/api/classes/serializer/#key-for-attribute">Serializer</a> and <a href="https://miragejs.com/api/classes/jsonapi-serializer/">JSONAPISerializer</a> docs to learn about all the hooks available to customize your serializer layer.
+Be sure to check out the [Serializer](https://miragejs.com/api/classes/serializer/#key-for-attribute) and [JSONAPISerializer](https://miragejs.com/api/classes/jsonapi-serializer/) docs to learn about all the hooks available to customize your serializer layer.
 
 Now that we've covered the ins and outs of Mirage's data layer, we're ready to see how we can use Mirage to effectively test our Ember application.

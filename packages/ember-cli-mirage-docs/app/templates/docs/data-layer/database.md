@@ -57,6 +57,6 @@ test('I can create a movie', async function(assert) {
 });
 ```
 
-You can view the rest of the Database APIs in the <a href="https://miragejs.com/api/classes/db/">Db</a> and <a href="https://miragejs.com/api/classes/db-collection/">DbCollection</a> API reference.
+You can view the rest of the Database APIs in the [Db](https://miragejs.com/api/classes/db/) and [DbCollection](https://miragejs.com/api/classes/db-collection/) API reference.
 
 Next, we'll learn about Mirage's ORM.

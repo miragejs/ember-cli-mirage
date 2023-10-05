@@ -82,8 +82,8 @@ importers:
         specifier: ^3.2.0
         version: 3.2.0(ember-source@5.3.0)(webpack@5.88.2)
       '@embroider/test-setup':
-        specifier: ^3.0.1
-        version: 3.0.1
+        specifier: ^3.0.2
+        version: 3.0.2
       '@faker-js/faker':
         specifier: ^6.3.1
         version: 6.3.1
@@ -2697,13 +2697,13 @@ packages:
     transitivePeerDependencies:
       - supports-color
 
-  /@embroider/test-setup@3.0.1:
-    resolution: {integrity: sha512-t7R2f10iZDSNw3ovWAPM63GRQTu63uihpVh6CvHev5XkLt8B7tdxcxGyO6RbdF5Hu+pbsUu8sD0kAlR1gopmxg==}
+  /@embroider/test-setup@3.0.2:
+    resolution: {integrity: sha512-cq/xp06CAB8rAGnObeJux7qALnAX2MatMVLjWyGDr3ogS5lHTNXZVCv4ltTM3pJ8EsZWpPM32dtUZqSJFkGibQ==}
     engines: {node: 12.* || 14.* || >= 16}
     peerDependencies:
-      '@embroider/compat': ^3.0.0
-      '@embroider/core': ^3.0.0
-      '@embroider/webpack': ^3.0.0
+      '@embroider/compat': ^3.2.2
+      '@embroider/core': ^3.3.0
+      '@embroider/webpack': ^3.2.0
     peerDependenciesMeta:
       '@embroider/compat':
         optional: true
@@ -8903,7 +8903,7 @@ packages:
       broccoli-caching-writer: 3.0.3
       ember-cli-babel: 7.26.11
       ember-cli-htmlbars: 5.7.2
-      esdoc: github.com/pzuraq/esdoc/015a342
+      esdoc: git@github.com+pzuraq/esdoc/015a342
       esdoc-accessor-plugin: 1.0.0
       esdoc-ecmascript-proposal-plugin: 1.0.0
       esdoc-typescript-plugin: 1.0.1
@@ -12532,7 +12532,7 @@ packages:
     dev: true
 
   /hawk@1.1.1:
-    resolution: {integrity: sha1-h81JH5tG5OKurKM1QWdmiF0tHtk=}
+    resolution: {integrity: sha512-am8sVA2bCJIw8fuuVcKvmmNnGFUGW8spTkVtj2fXTEZVkfN42bwFZFtDem57eFi+NSxurJB8EQ7Jd3uCHLn8Vw==}
     engines: {node: '>=0.8.0'}
     deprecated: This module moved to @hapi/hawk. Please make sure to switch over as this distribution is no longer supported and may contain bugs and critical security issues.
     requiresBuild: true
@@ -19943,7 +19943,7 @@ packages:
     dev: true
 
   /verror@1.10.0:
-    resolution: {integrity: sha1-OhBcoXBTr1XW4nDB+CiGguGNpAA=}
+    resolution: {integrity: sha512-ZZKSmDAEFOijERBLkmYfJ+vmk3w+7hOLYDNkRCuRuMJGEmqYNCNLyBBFwWKVMhfwaEF3WOd0Zlw86U/WC/+nYw==}
     engines: {'0': node >=0.6.0}
     requiresBuild: true
     dependencies:
@@ -20579,8 +20579,8 @@ packages:
       - supports-color
     dev: true
 
-  github.com/pzuraq/esdoc/015a342:
-    resolution: {tarball: https://codeload.github.com/pzuraq/esdoc/tar.gz/015a342}
+  git@github.com+pzuraq/esdoc/015a342:
+    resolution: {commit: 015a342, repo: git@github.com:pzuraq/esdoc.git, type: git}
     name: esdoc
     version: 1.0.4
     engines: {node: '>= 6.0.0'}

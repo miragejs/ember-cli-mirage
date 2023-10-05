@@ -82,6 +82,8 @@ function routes() {
 }
 ```
 
+See [MirageJS documentation](https://miragejs.com/api/classes/server/) for other options.
+
 ## Serializers
 
 If you would like to have Mirage adjust or create your serializers for you from your ember data serializers adjust your 

@@ -1,4 +1,14 @@
 
+
+## v3.0.0 (2023-10-05)
+
+#### :memo: Documentation
+* `ember-cli-mirage-docs`
+  * [#2546](https://github.com/miragejs/ember-cli-mirage/pull/2546) Update v3 upgrade guide ([@SergeAstapov](https://github.com/SergeAstapov))
+
+#### Committers: 1
+- Sergey Astapov ([@SergeAstapov](https://github.com/SergeAstapov))
+
 ## v3.0.0-alpha.5 (2023-10-01)
 
 This is re-release ov v3.0.0-alpha.5

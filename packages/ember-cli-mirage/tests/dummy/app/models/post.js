@@ -2,7 +2,7 @@ import Model, { attr, hasMany } from '@ember-data/model';
 import yaml from 'js-yaml';
 
 export default class Post extends Model {
-  @hasMany() comments;
+  @hasMany('comment', { async: false, inverse: null }) comments;
 
   @attr title;
   @attr body;

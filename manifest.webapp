@@ -1,7 +1,7 @@
 {
   "version": "1.0",
-  "name": "ember-cli-mirage",
-  "description": "A client-side server to help you build, test and demo your Ember app",
+  "name": "ember-cli-mirage-docs",
+  "description": "Small description for ember-cli-mirage-docs goes here",
   "icons": {
     "60": "ADDON_DOCS_ROOT_URL/firefox_app_60x60.png",
     "128": "ADDON_DOCS_ROOT_URL/firefox_app_128x128.png",

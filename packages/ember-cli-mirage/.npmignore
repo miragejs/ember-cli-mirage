@@ -23,9 +23,11 @@
 /ember-cli-build.js
 /testem.js
 /tests/
+/types-tests/
 /yarn-error.log
 /yarn.lock
 .gitkeep
+tsconfig.declarations.json
 
 # ember-try
 /.node_modules.ember-try/

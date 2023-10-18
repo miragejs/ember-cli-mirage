@@ -1,4 +1,14 @@
 
+## v3.0.2 (2023-10-18)
+
+#### :bug: Bug Fix
+* `ember-cli-mirage`
+  * [#2562](https://github.com/miragejs/ember-cli-mirage/pull/2562) Fix usingProxy() on Windows ([@ijlee2](https://github.com/ijlee2))
+
+#### Committers: 1
+- Isaac Lee ([@ijlee2](https://github.com/ijlee2))
+
+
 ## v3.0.1 (2023-10-13)
 
 #### :bug: Bug Fix

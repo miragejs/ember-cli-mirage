@@ -1,6 +1,6 @@
 {
   "name": "ember-cli-mirage",
-  "version": "3.0.1",
+  "version": "3.0.2",
   "description": "A client-side server to help you build, test and demo your Ember app",
   "keywords": [
     "ember-addon",

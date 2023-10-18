@@ -1,0 +1,14 @@
+{
+  "version": "1.0",
+  "name": "ember-cli-mirage-docs",
+  "description": "Small description for ember-cli-mirage-docs goes here",
+  "icons": {
+    "60": "ADDON_DOCS_ROOT_URL/firefox_app_60x60.png",
+    "128": "ADDON_DOCS_ROOT_URL/firefox_app_128x128.png",
+    "512": "ADDON_DOCS_ROOT_URL/firefox_app_512x512.png"
+  },
+  "developer": {
+    "name": "Sam Selikoff",
+    "url": null
+  }
+}

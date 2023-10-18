@@ -1,6 +1,7 @@
 'use strict';
 
 const fs = require('fs');
+const path = require('path');
 
 function usingProxy() {
   const usingProxyArg = !!process.argv.filter(function (arg) {
@@ -12,7 +13,7 @@ function usingProxy() {
   }).length;
 
   let hasGeneratedProxies = false;
-  const proxiesDir = `${process.env.PWD}/server/proxies`;
+  const proxiesDir = path.join(process.env.PWD, 'server', 'proxies');
 
   try {
     fs.lstatSync(proxiesDir);

@@ -13,7 +13,7 @@ function usingProxy() {
   }).length;
 
   let hasGeneratedProxies = false;
-  const proxiesDir = path.join(process.env.PWD, 'server', 'proxies');
+  const proxiesDir = path.join(process.cwd(), 'server', 'proxies');
 
   try {
     fs.lstatSync(proxiesDir);

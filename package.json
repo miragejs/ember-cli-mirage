@@ -52,10 +52,6 @@
     },
     "npm": false
   },
-  "volta": {
-    "node": "16.20.2",
-    "yarn": "1.22.18"
-  },
   "changelog": {
     "labels": {
       "breaking": ":boom: Breaking Change",

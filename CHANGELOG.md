@@ -1,4 +1,18 @@
 
+## v3.0.3 (2024-02-26)
+
+#### :bug: Bug Fix
+* `ember-cli-mirage`
+  * [#2569](https://github.com/miragejs/ember-cli-mirage/pull/2569) Filter out `ShimModelClass` instances when running `discoverEmberDataModels` ([@gilest](https://github.com/gilest))
+
+#### :house: Internal
+* [#2575](https://github.com/miragejs/ember-cli-mirage/pull/2575) use pnpm node version selection instead of volta ([@mansona](https://github.com/mansona))
+
+#### Committers: 2
+- Chris Manson ([@mansona](https://github.com/mansona))
+- Giles Thompson ([@gilest](https://github.com/gilest))
+
+
 ## v3.0.2 (2023-10-18)
 
 #### :bug: Bug Fix

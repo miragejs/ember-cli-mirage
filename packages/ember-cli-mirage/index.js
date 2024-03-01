@@ -106,8 +106,8 @@ module.exports = {
     });
   },
 
-  treeForApp(appTree) {
-    let trees = [appTree];
+  treeForAddon(addonTree) {
+    let trees = [addonTree];
     let mirageFilesTree = new Funnel(this.mirageDirectory, {
       destDir: 'mirage',
     });
@@ -117,7 +117,7 @@ module.exports = {
       trees.push(this._lintMirageTree(mirageFilesTree));
     }
 
-    return mergeTrees(trees);
+    return this._super(mergeTrees(trees));
   },
 
   _shouldIncludeFiles() {

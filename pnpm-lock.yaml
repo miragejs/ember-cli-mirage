@@ -30,8 +30,8 @@ importers:
         specifier: ^2.1.1
         version: 2.1.1
       broccoli-funnel:
-        specifier: ^3.0.3
-        version: 3.0.3
+        specifier: ^3.0.8
+        version: 3.0.8
       broccoli-merge-trees:
         specifier: ^4.2.0
         version: 4.2.0
@@ -6305,23 +6305,6 @@ packages:
     transitivePeerDependencies:
       - supports-color
 
-  /broccoli-funnel@3.0.3:
-    resolution: {integrity: sha512-LPzZ91BwStoHZXdXHQAJeYORl189OrRKM5NdIi86SDU9wZ4s/3lV1PRFOiobDT/jKM10voM7CDzfvicHbCYxAQ==}
-    engines: {node: 10.* || >= 12.*}
-    dependencies:
-      array-equal: 1.0.0
-      blank-object: 1.0.2
-      broccoli-plugin: 4.0.7
-      debug: 4.3.4
-      fast-ordered-set: 1.0.3
-      fs-tree-diff: 2.0.1
-      heimdalljs: 0.2.6
-      minimatch: 3.1.2
-      path-posix: 1.0.0
-      walk-sync: 2.2.0
-    transitivePeerDependencies:
-      - supports-color
-
   /broccoli-funnel@3.0.8:
     resolution: {integrity: sha512-ng4eIhPYiXqMw6SyGoxPHR3YAwEd2lr9FgBI1CyTbspl4txZovOsmzFkMkGAlu88xyvYXJqHiM2crfLa65T1BQ==}
     engines: {node: 10.* || >= 12.*}
@@ -7572,7 +7555,7 @@ packages:
     dev: true
 
   /concat-map@0.0.1:
-    resolution: {integrity: sha1-2Klr13/Wjfd5OnMDajug1UBdR3s=}
+    resolution: {integrity: sha512-/Srv4dswyQNBfohGpz9o6Yb3Gz3SrUDqBH5rTuhGR7ahtlbYKnVxw2bCFMRljaA7EXHaXZ8wsHdodFvbkhKmqg==}
 
   /concat-stream@1.6.2:
     resolution: {integrity: sha512-27HBghJxjiZtIk3Ycvn/4kbJk/1uZuJFfuPEns6LaEvpvG1f0hTea8lilrouyo9mVc2GWdcEZ8OLoGmSADlrCw==}
@@ -8903,7 +8886,7 @@ packages:
       broccoli-caching-writer: 3.0.3
       ember-cli-babel: 7.26.11
       ember-cli-htmlbars: 5.7.2
-      esdoc: github.com/pzuraq/esdoc/015a342
+      esdoc: git@github.com+pzuraq/esdoc/015a342
       esdoc-accessor-plugin: 1.0.0
       esdoc-ecmascript-proposal-plugin: 1.0.0
       esdoc-typescript-plugin: 1.0.1
@@ -12532,7 +12515,7 @@ packages:
     dev: true
 
   /hawk@1.1.1:
-    resolution: {integrity: sha1-h81JH5tG5OKurKM1QWdmiF0tHtk=}
+    resolution: {integrity: sha512-am8sVA2bCJIw8fuuVcKvmmNnGFUGW8spTkVtj2fXTEZVkfN42bwFZFtDem57eFi+NSxurJB8EQ7Jd3uCHLn8Vw==}
     engines: {node: '>=0.8.0'}
     deprecated: This module moved to @hapi/hawk. Please make sure to switch over as this distribution is no longer supported and may contain bugs and critical security issues.
     requiresBuild: true
@@ -16963,7 +16946,7 @@ packages:
     resolution: {integrity: sha512-mElzLN99wYPOGekahqRA+mq7NcThXY9c+/tDkgJmT7W5LeZAFNyITr2rFKNnCbWLIhuLdFw88kCBMrJSfyBYpA==}
     engines: {node: 12.* || 14.* || >= 16.*}
     dependencies:
-      broccoli-funnel: 3.0.3
+      broccoli-funnel: 3.0.8
       broccoli-merge-trees: 4.2.0
       ember-cli-babel: 7.26.11
       ember-cli-version-checker: 5.1.2
@@ -19943,7 +19926,7 @@ packages:
     dev: true
 
   /verror@1.10.0:
-    resolution: {integrity: sha1-OhBcoXBTr1XW4nDB+CiGguGNpAA=}
+    resolution: {integrity: sha512-ZZKSmDAEFOijERBLkmYfJ+vmk3w+7hOLYDNkRCuRuMJGEmqYNCNLyBBFwWKVMhfwaEF3WOd0Zlw86U/WC/+nYw==}
     engines: {'0': node >=0.6.0}
     requiresBuild: true
     dependencies:
@@ -20579,8 +20562,8 @@ packages:
       - supports-color
     dev: true
 
-  github.com/pzuraq/esdoc/015a342:
-    resolution: {tarball: https://codeload.github.com/pzuraq/esdoc/tar.gz/015a342}
+  git@github.com+pzuraq/esdoc/015a342:
+    resolution: {commit: 015a342, repo: git@github.com:pzuraq/esdoc.git, type: git}
     name: esdoc
     version: 1.0.4
     engines: {node: '>= 6.0.0'}

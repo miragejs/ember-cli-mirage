@@ -15,9 +15,9 @@
     "test": "cd packages/ember-cli-mirage && pnpm run test:ember"
   },
   "devDependencies": {
-    "@release-it-plugins/lerna-changelog": "^6.0.0",
-    "@release-it-plugins/workspaces": "^4.0.0",
-    "release-it": "^16.2.1"
+    "@release-it-plugins/lerna-changelog": "^7.0.0",
+    "@release-it-plugins/workspaces": "^4.2.0",
+    "release-it": "^17.6.0"
   },
   "packageManager": "pnpm@9.9.0",
   "volta": {

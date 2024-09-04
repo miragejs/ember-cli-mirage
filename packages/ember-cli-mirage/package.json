@@ -43,7 +43,7 @@
     "@babel/core": "^7.22.20",
     "@embroider/macros": "^1.13.2",
     "broccoli-file-creator": "^2.1.1",
-    "broccoli-funnel": "^3.0.3",
+    "broccoli-funnel": "^3.0.8",
     "broccoli-merge-trees": "^4.2.0",
     "ember-auto-import": "^2.6.3",
     "ember-cli-babel": "^8.0.0",

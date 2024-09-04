@@ -2,12 +2,16 @@ name: CI Publish
 
 on:
   push:
+    branches:
+      - main
+      - master
     tags:
       - '*'
 
 jobs:
   publish:
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
@@ -17,15 +21,16 @@ jobs:
         with:
           node-version: 18.x
           cache: pnpm
-          registry-url: https://registry.npmjs.org/
+          # This creates an .npmrc that reads the NODE_AUTH_TOKEN environment variable
+          registry-url: 'https://registry.npmjs.org'
 
       - name: Install Dependencies
-        run: pnpm install
+        run: pnpm install --frozen-lockfile
 
       - name: Copy .md files
         run: cp CHANGELOG.md LICENSE.md README.md packages/ember-cli-mirage/
 
-      - run: npm publish
+      - name: pnpm publish
+        run: pnpm publish --tag=latest --no-git-checks --filter ember-cli-mirage
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-        working-directory: packages/ember-cli-mirage

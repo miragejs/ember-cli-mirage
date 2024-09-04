@@ -1,4 +1,21 @@
 
+
+## v3.0.4 (2024-09-04)
+
+#### :rocket: Enhancement
+* `ember-cli-mirage`
+  * [#2578](https://github.com/miragejs/ember-cli-mirage/pull/2578) add v5.x to the list of ember-inflector versions ([@poulet42](https://github.com/poulet42))
+
+#### :house: Internal
+* `ember-cli-mirage`
+  * [#2583](https://github.com/miragejs/ember-cli-mirage/pull/2583) Add v5.4 LTS to CI matrix ([@SergeAstapov](https://github.com/SergeAstapov))
+* `ember-cli-mirage-docs`, `ember-cli-mirage`
+  * [#2582](https://github.com/miragejs/ember-cli-mirage/pull/2582) Bump pnpm to v9 ([@SergeAstapov](https://github.com/SergeAstapov))
+
+#### Committers: 2
+- Corentin ([@poulet42](https://github.com/poulet42))
+- Sergey Astapov ([@SergeAstapov](https://github.com/SergeAstapov))
+
 ## v3.0.3 (2024-02-26)
 
 #### :bug: Bug Fix

@@ -78,16 +78,16 @@
     "tracked-built-ins": "^3.3.0",
     "webpack": "^5.88.2"
   },
-  "fastbootDependencies": [
-    "crypto"
-  ],
   "engines": {
     "node": "16.* || >= 18"
+  },
+  "volta": {
+    "extends": "../../package.json"
   },
   "ember": {
     "edition": "octane"
   },
-  "volta": {
-    "extends": "../../package.json"
-  }
+  "fastbootDependencies": [
+    "crypto"
+  ]
 }

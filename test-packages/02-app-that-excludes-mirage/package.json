@@ -76,10 +76,10 @@
   "engines": {
     "node": "16.* || >= 18"
   },
-  "ember": {
-    "edition": "octane"
-  },
   "volta": {
     "extends": "../../package.json"
+  },
+  "ember": {
+    "edition": "octane"
   }
 }

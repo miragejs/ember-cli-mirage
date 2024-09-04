@@ -118,10 +118,10 @@
     "miragejs": "^0.1.43"
   },
   "peerDependenciesMeta": {
-    "@ember/test-helpers": {
+    "@ember-data/model": {
       "optional": true
     },
-    "@ember-data/model": {
+    "@ember/test-helpers": {
       "optional": true
     },
     "ember-data": {
@@ -134,6 +134,9 @@
   "engines": {
     "node": "16.* || >= 18"
   },
+  "volta": {
+    "extends": "../../package.json"
+  },
   "ember": {
     "edition": "octane"
   },
@@ -145,8 +148,5 @@
     "after": [
       "ember-qunit"
     ]
-  },
-  "volta": {
-    "extends": "../../package.json"
   }
 }

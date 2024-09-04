@@ -14,18 +14,32 @@
     "release": "release-it",
     "test": "cd packages/ember-cli-mirage && pnpm run test:ember"
   },
+  "devDependencies": {
+    "@release-it-plugins/lerna-changelog": "^6.0.0",
+    "@release-it-plugins/workspaces": "^4.0.0",
+    "release-it": "^16.2.1"
+  },
+  "packageManager": "pnpm@9.9.0",
+  "volta": {
+    "node": "18.20.4",
+    "pnpm": "9.9.0"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org"
+  },
+  "changelog": {
+    "labels": {
+      "breaking": ":boom: Breaking Change",
+      "Feature / Enhancement": ":rocket: Enhancement",
+      "bug": ":bug: Bug Fix",
+      "documentation": ":memo: Documentation",
+      "internal": ":house: Internal"
+    }
+  },
   "overrides": {
     "ember-cli-babel": "8.0.0",
     "colors": "1.4.0",
     "favicons": "5.3.0"
-  },
-  "devDependencies": {
-    "release-it": "^16.2.1",
-    "@release-it-plugins/lerna-changelog": "^6.0.0",
-    "@release-it-plugins/workspaces": "^4.0.0"
-  },
-  "publishConfig": {
-    "registry": "https://registry.npmjs.org"
   },
   "release-it": {
     "hooks": {
@@ -51,14 +65,5 @@
       "tokenRef": "GITHUB_AUTH"
     },
     "npm": false
-  },
-  "changelog": {
-    "labels": {
-      "breaking": ":boom: Breaking Change",
-      "Feature / Enhancement": ":rocket: Enhancement",
-      "bug": ":bug: Bug Fix",
-      "documentation": ":memo: Documentation",
-      "internal": ":house: Internal"
-    }
   }
 }

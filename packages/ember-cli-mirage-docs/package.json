@@ -63,7 +63,7 @@
     "ember-moment": "^9.0.1",
     "ember-qunit": "^8.0.1",
     "ember-resolver": "^11.0.1",
-    "ember-source": "~4.12.3",
+    "ember-source": "~5.11.1",
     "ember-template-lint": "^5.11.2",
     "ember-tether": "^3.0.0",
     "eslint": "^8.49.0",

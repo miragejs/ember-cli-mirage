@@ -5,7 +5,7 @@ When using Ember Data, you'll sometimes find yourself needing to customize the i
 For example, say you had an `Advice` model. By default, Ember's inflector pluralizes this as "advices"
 
 ```js
-import { pluralize } from 'ember-inflector';
+import { pluralize } from '@ember/string';
 
 pluralize("advice"); // advices
 ```
@@ -31,13 +31,11 @@ might use inflection rules to try to look up the "advices" collection or databas
 
 ```js
 // app/initializers/custom-inflector-rules.js
-import Inflector from 'ember-inflector';
+import { uncountable } from '@ember-data/request-utils/string';
 
 export function initialize(/* application */) {
-  const inflector = Inflector.inflector;
-
   // Tell the inflector that the plural of "advice" is "advice"
-  inflector.uncountable('advice');
+  uncountable('advice');
 }
 
 export default {

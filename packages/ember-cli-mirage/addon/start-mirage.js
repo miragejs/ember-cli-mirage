@@ -1,5 +1,5 @@
 import readModules from './utils/read-modules';
-import { singularize, pluralize } from 'ember-inflector';
+import { singularize, pluralize } from '@ember-data/request-utils/string';
 import { assert } from '@ember/debug';
 
 /**

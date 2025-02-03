@@ -4,7 +4,7 @@
 
 import assert from '../assert';
 import { _utilsInflectorCamelize as camelize } from 'miragejs';
-import { pluralize } from 'ember-inflector';
+import { pluralize } from '@ember-data/request-utils/string';
 import require from 'require';
 
 /**

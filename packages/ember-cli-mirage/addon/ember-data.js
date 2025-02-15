@@ -8,7 +8,7 @@ import { Model, belongsTo, hasMany } from 'miragejs';
 import EmberDataSerializer from 'ember-cli-mirage/serializers/ember-data-serializer';
 import { _utilsInflectorCamelize as camelize } from 'miragejs';
 
-const { modulePrefix, podModulePrefix } = config;
+const { modulePrefix, podModulePrefix } = config || {};
 
 // Caches
 let DsModels, Models;
